@@ -1,0 +1,174 @@
+{%- comment -%}
+  Midsummer Milano — press logo marquee.
+  One "logo" block per publication. The track is duplicated for a seamless loop.
+{%- endcomment -%}
+
+{%- liquid
+  assign items = section.blocks | where: 'type', 'logo'
+-%}
+
+<div class="ms-marquee" id="ms-marquee-{{ section.id }}">
+  {%- if section.settings.heading != blank -%}
+    <div class="ms-marquee__heading">
+      <span class="ms-marquee__rule" aria-hidden="true"></span>
+      <span>{{ section.settings.heading }}</span>
+      <span class="ms-marquee__rule" aria-hidden="true"></span>
+    </div>
+  {%- endif -%}
+
+  {%- if items.size > 0 -%}
+    <div class="ms-marquee__viewport">
+      <div class="ms-marquee__track">
+        {%- for pass in (1..2) -%}
+          <ul class="ms-marquee__row" {% if pass == 2 %}aria-hidden="true"{% endif %}>
+            {%- for item in items -%}
+              <li class="ms-marquee__item" {{ item.shopify_attributes }}>
+                {%- if item.settings.link != blank -%}
+                  <a href="{{ item.settings.link }}" {% if pass == 2 %}tabindex="-1"{% endif %}>
+                {%- endif -%}
+                {%- if item.settings.image != blank -%}
+                  {{ item.settings.image | image_url: width: 480 | image_tag:
+                     loading: 'lazy', alt: item.settings.name, class: 'ms-marquee__img' }}
+                {%- else -%}
+                  <span class="ms-marquee__name">{{ item.settings.name }}</span>
+                {%- endif -%}
+                {%- if item.settings.link != blank -%}</a>{%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .ms-marquee__heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    font-size: 9.5px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ms-mq-muted);
+  }
+  .ms-marquee__rule {
+    display: block;
+    width: clamp(28px, 6vw, 72px);
+    height: 1px;
+    background: var(--ms-mq-rule);
+  }
+  .ms-marquee__viewport {
+    margin-top: clamp(28px, 4vw, 52px);
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  }
+  .ms-marquee__track {
+    display: flex;
+    width: max-content;
+    animation: ms-marquee-scroll var(--ms-mq-duration) linear infinite;
+  }
+  .ms-marquee__viewport:hover .ms-marquee__track { animation-play-state: paused; }
+  .ms-marquee__row {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .ms-marquee__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-inline: var(--ms-mq-gap);
+    border-right: 1px solid var(--ms-mq-rule);
+  }
+  .ms-marquee__item a { display: block; }
+  .ms-marquee__img {
+    display: block;
+    width: auto;
+    height: var(--ms-mq-height);
+    max-width: 200px;
+    object-fit: contain;
+    filter: grayscale(1);
+    opacity: var(--ms-mq-opacity);
+    transition: opacity 0.3s ease;
+  }
+  .ms-marquee__item a:hover .ms-marquee__img { opacity: 1; }
+  .ms-marquee__name {
+    font-family: var(--font-heading--family);
+    font-size: clamp(14px, 1.4vw, 19px);
+    white-space: nowrap;
+    color: var(--ms-mq-muted);
+  }
+  @keyframes ms-marquee-scroll {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-50%, 0, 0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ms-marquee__track { animation: none; }
+    .ms-marquee__viewport { overflow-x: auto; }
+  }
+{% endstylesheet %}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.padding-block-start }}px;
+    padding-bottom: {{ section.settings.padding-block-end }}px;
+  }
+  #ms-marquee-{{ section.id }} {
+    --ms-mq-muted: {{ section.settings.muted_color }};
+    --ms-mq-rule: {{ section.settings.rule_color }};
+    --ms-mq-height: {{ section.settings.logo_height }}px;
+    --ms-mq-gap: {{ section.settings.gap | divided_by: 2.0 }}px;
+    --ms-mq-opacity: {{ section.settings.logo_opacity | divided_by: 100.0 }};
+    --ms-mq-duration: {{ section.settings.duration }}s;
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Logo marquee",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "As featured in" },
+    { "type": "range", "id": "logo_height", "label": "Logo height", "min": 16, "max": 80, "step": 2, "unit": "px", "default": 34 },
+    { "type": "range", "id": "gap", "label": "Gap between logos", "min": 20, "max": 160, "step": 4, "unit": "px", "default": 72 },
+    { "type": "range", "id": "logo_opacity", "label": "Logo opacity", "min": 20, "max": 100, "step": 5, "unit": "%", "default": 55 },
+    { "type": "range", "id": "duration", "label": "Loop duration", "min": 20, "max": 160, "step": 5, "unit": "s", "default": 70 },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#FBF9F5" },
+    { "type": "color", "id": "muted_color", "label": "Heading", "default": "#6E675C" },
+    { "type": "color", "id": "rule_color", "label": "Rules", "default": "#DDD6C9" },
+    { "type": "header", "content": "Padding" },
+    { "type": "range", "id": "padding-block-start", "label": "Top", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 72 },
+    { "type": "range", "id": "padding-block-end", "label": "Bottom", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 72 }
+  ],
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Logo",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Logo" },
+        { "type": "text", "id": "name", "label": "Publication", "default": "Publication" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Logo marquee",
+      "blocks": [
+        { "type": "logo" },
+        { "type": "logo" },
+        { "type": "logo" },
+        { "type": "logo" }
+      ]
+    }
+  ]
+}
+{% endschema %}

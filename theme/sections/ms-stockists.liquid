@@ -1,0 +1,620 @@
+{%- comment -%}
+  Midsummer Milano — stockists and partners, on a real world map.
+  Geometry is Natural Earth (public domain) via world-atlas, rendered with
+  d3-geo. Both ship as theme assets: ms-atlas-vendor.js, ms-world-110m.json.
+  One "market" block per city; the atelier block is styled in ink.
+{%- endcomment -%}
+
+{%- liquid
+  assign markets = section.blocks | where: 'type', 'market'
+-%}
+
+{%- comment -%}
+  d3 (selection, zoom, geo) and topojson-client, bundled into one theme asset so
+  the map is served from the Shopify CDN rather than third-party CDNs.
+{%- endcomment -%}
+<script src="{{ 'ms-atlas-vendor.js' | asset_url }}" defer="defer"></script>
+
+<div class="ms-atlas" id="ms-atlas-{{ section.id }}" data-ms-atlas>
+  <div class="ms-atlas__map">
+    <div class="ms-atlas__mapwrap">
+      <div class="ms-atlas__zoom">
+        <button type="button" data-ms-zoom="in" aria-label="{{ 'accessibility.zoom_in' | t }}">+</button>
+        <button type="button" data-ms-zoom="out" aria-label="{{ 'accessibility.zoom_out' | t }}">−</button>
+        <button type="button" data-ms-zoom="reset" aria-label="{{ 'accessibility.reset' | t }}">○</button>
+      </div>
+      <svg data-ms-map viewBox="0 0 960 560" role="img" aria-label="{{ section.settings.map_label | escape }}"></svg>
+      <div class="ms-atlas__legend">
+        <span><i class="ms-atlas__dot ms-atlas__dot--ink"></i>{{ section.settings.legend_atelier }}</span>
+        <span><i class="ms-atlas__dot"></i>{{ section.settings.legend_partner }}</span>
+        <span class="ms-atlas__hint">{{ section.settings.legend_hint }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ms-atlas__side">
+    {%- if section.settings.show_filters -%}
+      <div class="ms-atlas__filters" data-ms-filters></div>
+    {%- endif -%}
+    <div class="ms-atlas__list" data-ms-list></div>
+    <div class="ms-atlas__detail" data-ms-detail hidden></div>
+  </div>
+
+  <script type="application/json" data-ms-markets>
+    [
+      {%- for block in markets -%}
+        {
+          "id": {{ block.id | json }},
+          "city": {{ block.settings.city | json }},
+          "country": {{ block.settings.country | json }},
+          "region": {{ block.settings.region | json }},
+          {%- comment -%} Accepts "45.4642" or "45,4642"; anything unreadable becomes 0 rather than breaking the JSON. {%- endcomment -%}
+          "lat": {{ block.settings.latitude | default: '0' | replace: ',', '.' | strip | times: 1.0 }},
+          "lon": {{ block.settings.longitude | default: '0' | replace: ',', '.' | strip | times: 1.0 }},
+          "atelier": {{ block.settings.is_atelier | json }},
+          "type": {{ block.settings.place_type | default: 'Agent' | json }},
+          "note": {{ block.settings.note | json }},
+          "link": {{ block.settings.link | json }},
+          "linkLabel": {{ block.settings.link_label | json }}
+        }{%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    ]
+  </script>
+
+  <script type="application/json" data-ms-config>
+    {
+      "regions": {{ section.settings.regions | json }},
+      "allLabel": {{ section.settings.all_label | json }},
+      "atelierLabel": {{ section.settings.legend_atelier | json }},
+      "partnerLabel": {{ section.settings.partner_label | json }}
+    }
+  </script>
+</div>
+
+<script>
+  (function () {
+    var root = document.querySelector('#ms-atlas-{{ section.id }}');
+    if (!root || root.dataset.msReady) return;
+    root.dataset.msReady = '1';
+
+    function json(sel) {
+      var el = root.querySelector(sel);
+      if (!el) return null;
+      try { return JSON.parse(el.textContent); } catch (e) { return null; }
+    }
+
+    var MARKETS = json('[data-ms-markets]') || [];
+    var CONFIG = json('[data-ms-config]') || {};
+    var REGIONS = (CONFIG.regions || '').split(',').map(function (r) { return r.trim(); }).filter(Boolean);
+    var ALL = CONFIG.allLabel || 'All markets';
+    var filter = ALL;
+    var active = null;
+
+    var svgEl = root.querySelector('[data-ms-map]');
+    var listEl = root.querySelector('[data-ms-list]');
+    var detailEl = root.querySelector('[data-ms-detail]');
+    var filtersEl = root.querySelector('[data-ms-filters]');
+
+    function start() {
+      if (!window.d3 || !window.topojson) { window.setTimeout(start, 120); return; }
+
+      var W = 960, H = 560;
+      var svg = d3.select(svgEl);
+      var projection = d3.geoNaturalEarth1().scale(205).translate([W / 2, H / 2 + 6]);
+      var path = d3.geoPath(projection);
+
+      // one transformed group holds everything, so zoom and pan move as a unit
+      var view = svg.append('g');
+      view.style('transform-origin', '0 0');
+      view.append('path').attr('class', 'ms-atlas__graticule').attr('d', path(d3.geoGraticule10()));
+      var landLayer = view.append('g');
+      var pinLayer = view.append('g');
+
+      // Flights are applied in one step and smoothed by CSS rather than a JS
+      // tween, because a throttled frame loop stalls requestAnimationFrame.
+      var EASE = 'transform .62s cubic-bezier(.22,1,.36,1)';
+
+      var zoom = d3.zoom()
+        .scaleExtent([1, 9])
+        .on('start', function (e) { if (e.sourceEvent) view.style('transition', 'none'); })
+        .on('zoom', function (e) {
+          var t = e.transform;
+          view.style('transform', 'translate(' + t.x + 'px,' + t.y + 'px) scale(' + t.k + ')');
+          var ease = e.sourceEvent ? 'none' : EASE;
+          pinLayer.selectAll('g')
+            .style('transition', ease)
+            .style('transform-origin', '0 0')
+            .style('transform', function (d) {
+              var q = projection([d.lon, d.lat]);
+              return 'translate(' + q[0] + 'px,' + q[1] + 'px) scale(' + (1 / t.k) + ')';
+            });
+          view.selectAll('.ms-atlas__land').style('stroke-width', 0.6 / t.k);
+          view.select('.ms-atlas__graticule').style('stroke-width', 0.35 / t.k);
+        });
+
+      svg.call(zoom);
+
+      function glide(to) {
+        view.style('transition', EASE);
+        svg.call(zoom.transform, to);
+      }
+      window.__msAtlasFly = function (d, k) {
+        var scale = k || 3.4;
+        var q = projection([d.lon, d.lat]);
+        glide(d3.zoomIdentity.translate(W / 2 - q[0] * scale, H / 2 - q[1] * scale).scale(scale));
+      };
+      window.__msAtlasHome = function () { glide(d3.zoomIdentity); };
+
+      root.querySelectorAll('[data-ms-zoom]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var how = b.dataset.msZoom;
+          if (how === 'reset') { window.__msAtlasHome(); return; }
+          var cur = d3.zoomTransform(svg.node());
+          var k = Math.max(1, Math.min(9, cur.k * (how === 'in' ? 1.7 : 1 / 1.7)));
+          var cx = (W / 2 - cur.x) / cur.k, cy = (H / 2 - cur.y) / cur.k;
+          glide(d3.zoomIdentity.translate(W / 2 - cx * k, H / 2 - cy * k).scale(k));
+        });
+      });
+
+      d3.json({{ 'ms-world-110m.json' | asset_url | json }})
+        .then(function (topology) {
+          var countries = topojson.feature(topology, topology.objects.countries);
+          landLayer.selectAll('path').data(countries.features).join('path')
+            .attr('class', 'ms-atlas__land').attr('d', path);
+        })
+        .catch(function () { /* markers still render without the land wash */ })
+        .finally(function () { pins(); });
+
+      function pins() {
+        var g = pinLayer.selectAll('g').data(MARKETS, function (d) { return d.id; }).join('g')
+          .attr('transform', function (d) {
+            var p = projection([d.lon, d.lat]);
+            return 'translate(' + p[0] + ',' + p[1] + ')';
+          });
+
+        g.append('circle').attr('class', 'ms-atlas__halo').attr('r', 14);
+        g.append('circle')
+          .attr('class', function (d) { return 'ms-atlas__pin is-' + String(d.type || 'agent').toLowerCase(); })
+          .attr('r', function (d) { return d.type === 'Showroom' ? 7 : 5.6; })
+          .on('click', function (e, d) { e.stopPropagation(); select(d.id); })
+          .on('mouseenter', function () {
+            d3.select(this.parentNode).select('.ms-atlas__pinlabel').classed('is-shown', true);
+          })
+          .on('mouseleave', function (e, d) {
+            if (active !== d.id) d3.select(this.parentNode).select('.ms-atlas__pinlabel').classed('is-shown', false);
+          })
+          .append('title').text(function (d) { return d.city + ' — ' + d.country; });
+        g.append('text').attr('class', 'ms-atlas__pinlabel').attr('x', 13).attr('y', 4)
+          .text(function (d) { return d.city; });
+
+        window.__msAtlasPaint = function () {
+          pinLayer.selectAll('g').each(function (d) {
+            var node = d3.select(this);
+            var dim = !shown(d);
+            node.select('.ms-atlas__pin').classed('is-dim', dim).classed('is-active', active === d.id);
+            node.select('.ms-atlas__halo').style('opacity', active === d.id ? 0.3 : (dim ? 0.04 : 0.16));
+            node.select('.ms-atlas__pinlabel').classed('is-shown', active === d.id);
+          });
+        };
+        paint();
+      }
+    }
+
+    function shown(d) { return filter === ALL || d.region === filter; }
+
+    function paint() {
+      if (window.__msAtlasPaint) window.__msAtlasPaint();
+
+      var byRegion = {}, order = [];
+      MARKETS.filter(shown).forEach(function (d) {
+        if (!byRegion[d.region]) { byRegion[d.region] = []; order.push(d.region); }
+        byRegion[d.region].push(d);
+      });
+      var sorted = REGIONS.filter(function (r) { return byRegion[r]; })
+        .concat(order.filter(function (r) { return REGIONS.indexOf(r) === -1; }));
+
+      listEl.innerHTML = '';
+      sorted.forEach(function (r) {
+        var h = document.createElement('div');
+        h.className = 'ms-atlas__region';
+        h.textContent = r;
+        listEl.appendChild(h);
+        byRegion[r].forEach(function (d) {
+          var row = document.createElement('button');
+          row.type = 'button';
+          row.className = 'ms-atlas__row';
+          row.setAttribute('aria-pressed', active === d.id ? 'true' : 'false');
+          var city = document.createElement('span');
+          city.className = 'ms-atlas__city';
+          city.textContent = d.city;
+          var kind = document.createElement('span');
+          kind.className = 'ms-atlas__kind';
+          kind.textContent = d.type || (d.atelier ? CONFIG.atelierLabel : d.country);
+          row.appendChild(city);
+          row.appendChild(kind);
+          row.addEventListener('click', function () { select(d.id, true); });
+          listEl.appendChild(row);
+        });
+      });
+
+      var entry = MARKETS.filter(function (d) { return d.id === active; })[0];
+      if (!entry) { detailEl.hidden = true; detailEl.innerHTML = ''; return; }
+      detailEl.hidden = false;
+      detailEl.innerHTML = '';
+
+      var kind = document.createElement('span');
+      kind.className = 'ms-atlas__kind ms-atlas__kind--accent';
+      kind.textContent = (entry.type || CONFIG.partnerLabel) + (entry.atelier ? ' — the atelier' : '');
+      detailEl.appendChild(kind);
+
+      var h3 = document.createElement('h3');
+      h3.textContent = entry.city + (entry.country ? ', ' + entry.country : '');
+      detailEl.appendChild(h3);
+
+      if (entry.note) {
+        var p = document.createElement('p');
+        p.textContent = entry.note;
+        detailEl.appendChild(p);
+      }
+      if (entry.link) {
+        var a = document.createElement('a');
+        a.className = 'ms-atlas__cta';
+        a.href = entry.link;
+        a.textContent = entry.linkLabel || 'Request an introduction';
+        detailEl.appendChild(a);
+      }
+    }
+
+    // selecting flies the map to the place; deselecting returns to the world
+    function select(id, fromList) {
+      active = active === id ? null : id;
+      paint();
+      if (!active) { if (window.__msAtlasHome) window.__msAtlasHome(); return; }
+      var d = MARKETS.filter(function (x) { return x.id === active; })[0];
+      if (d && window.__msAtlasFly) window.__msAtlasFly(d);
+      if (!fromList) {
+        var row = [].slice.call(listEl.querySelectorAll('.ms-atlas__row')).filter(function (r) {
+          var c = r.querySelector('.ms-atlas__city');
+          return c && d && c.textContent === d.city;
+        })[0];
+        if (row) listEl.scrollTop = row.offsetTop - listEl.clientHeight / 2 + row.clientHeight / 2;
+      }
+    }
+
+    if (filtersEl) {
+      [ALL].concat(REGIONS).forEach(function (r) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.textContent = r;
+        b.setAttribute('aria-pressed', filter === r ? 'true' : 'false');
+        b.addEventListener('click', function () {
+          filter = r;
+          var cur = MARKETS.filter(function (d) { return d.id === active; })[0];
+          if (cur && !shown(cur)) active = null;
+          [].forEach.call(filtersEl.children, function (c) {
+            c.setAttribute('aria-pressed', c.textContent === filter ? 'true' : 'false');
+          });
+          paint();
+        });
+        filtersEl.appendChild(b);
+      });
+    }
+
+    paint();
+    start();
+  })();
+</script>
+
+{% stylesheet %}
+  .ms-atlas {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, var(--ms-atlas-side));
+    gap: clamp(28px, 4vw, 72px);
+    align-items: start;
+  }
+  @media screen and (max-width: 1080px) {
+    .ms-atlas {
+      grid-template-columns: minmax(0, 1fr);
+      gap: clamp(22px, 3vw, 36px);
+    }
+    .ms-atlas__mapwrap { height: clamp(320px, 44vh, 460px); }
+  }
+  @media screen and (max-width: 700px) {
+    .ms-atlas__mapwrap { height: 320px; }
+  }
+  .ms-atlas__mapwrap {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--ms-atlas-wash);
+    border: 1px solid var(--ms-atlas-rule);
+    height: var(--ms-atlas-panel-h);
+  }
+  .ms-atlas__mapwrap svg {
+    display: block;
+    flex: 1;
+    width: 100%;
+    min-height: 0;
+    cursor: grab;
+    touch-action: none;
+  }
+  .ms-atlas__mapwrap svg:active { cursor: grabbing; }
+  .ms-atlas__zoom {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+  }
+  .ms-atlas__zoom button {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--ms-atlas-bg);
+    color: var(--ms-atlas-ink);
+    border: 1px solid var(--ms-atlas-rule);
+    border-bottom: 0;
+    border-radius: 0;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 1;
+  }
+  .ms-atlas__zoom button:last-child { border-bottom: 1px solid var(--ms-atlas-rule); }
+  .ms-atlas__land { fill: var(--ms-atlas-land); stroke: var(--ms-atlas-bg); stroke-width: 0.5; }
+  .ms-atlas__graticule { fill: none; stroke: var(--ms-atlas-grat); stroke-width: 0.35; }
+  .ms-atlas__halo { fill: var(--ms-atlas-accent); opacity: 0.16; }
+  .ms-atlas__pin {
+    fill: var(--ms-atlas-accent);
+    stroke: var(--ms-atlas-bg);
+    stroke-width: 1;
+    cursor: pointer;
+    transition: r 0.2s ease;
+  }
+  .ms-atlas__pin.is-showroom { fill: var(--ms-atlas-ink); }
+  .ms-atlas__pin.is-boutique { fill: var(--ms-atlas-accent); }
+  .ms-atlas__pin.is-agent { fill: none; stroke: var(--ms-atlas-accent); stroke-width: 1.6; }
+  .ms-atlas__pin.is-active { r: 8.5; }
+  .ms-atlas__pin.is-dim { opacity: 0.22; }
+  .ms-atlas__pinlabel {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    fill: var(--ms-atlas-ink);
+    pointer-events: none;
+    opacity: 0;
+  }
+  .ms-atlas__pinlabel.is-shown { opacity: 1; }
+  .ms-atlas__legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px 28px;
+    align-items: center;
+    padding: 16px clamp(14px, 2vw, 22px);
+    border-top: 1px solid var(--ms-atlas-rule);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--ms-atlas-muted);
+  }
+  .ms-atlas__legend span { display: flex; align-items: center; gap: 9px; }
+  .ms-atlas__dot {
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--ms-atlas-accent); flex: 0 0 auto;
+  }
+  .ms-atlas__dot--ink { background: var(--ms-atlas-ink); }
+  .ms-atlas__filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 26px; }
+  .ms-atlas__filters button {
+    background: transparent;
+    border: 1px solid var(--ms-atlas-rule);
+    border-radius: 0;
+    padding: 10px 17px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 9.5px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ms-atlas-muted);
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  .ms-atlas__filters button[aria-pressed='true'] {
+    border-color: var(--ms-atlas-ink);
+    color: var(--ms-atlas-ink);
+  }
+  .ms-atlas__list {
+    /* offsetTop of a row must be measured from the list */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    max-height: var(--ms-atlas-panel-h);
+    min-height: 280px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-right: 6px;
+    mask-image: linear-gradient(to bottom, #000 calc(100% - 28px), transparent);
+    -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 28px), transparent);
+  }
+  .ms-atlas__list::-webkit-scrollbar { width: 3px; }
+  .ms-atlas__list::-webkit-scrollbar-thumb { background: var(--ms-atlas-rule); }
+  @media screen and (max-width: 700px) {
+    .ms-atlas__list {
+      max-height: none;
+      overflow: visible;
+      mask-image: none;
+      -webkit-mask-image: none;
+    }
+  }
+  .ms-atlas__region {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: var(--ms-atlas-bg);
+    font-size: 9.5px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--ms-atlas-muted);
+    padding: 16px 0 8px;
+  }
+  .ms-atlas__region:first-child { padding-top: 0; }
+  .ms-atlas__row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 18px;
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    border: 0;
+    border-top: 1px solid var(--ms-atlas-rule);
+    padding: 11px 0;
+    cursor: pointer;
+    font-family: inherit;
+    color: inherit;
+  }
+  .ms-atlas__row:last-child { border-bottom: 1px solid var(--ms-atlas-rule); }
+  .ms-atlas__row:hover .ms-atlas__city,
+  .ms-atlas__row[aria-pressed='true'] .ms-atlas__city { color: var(--ms-atlas-accent); }
+  .ms-atlas__city {
+    font-family: var(--font-heading--family);
+    font-size: clamp(16px, 1.6vw, 19px);
+    line-height: 1.25;
+  }
+  .ms-atlas__kind {
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ms-atlas-muted);
+    white-space: nowrap;
+  }
+  .ms-atlas__kind--accent { color: var(--ms-atlas-accent); white-space: normal; }
+  .ms-atlas__detail {
+    border: 1px solid var(--ms-atlas-ink);
+    padding: clamp(20px, 2.6vw, 30px);
+    margin-top: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .ms-atlas__detail h3 {
+    margin: 0;
+    font-family: var(--font-heading--family);
+    font-weight: 200;
+    font-size: clamp(21px, 2.3vw, 27px);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+  .ms-atlas__detail p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.9;
+    color: var(--ms-atlas-body);
+  }
+  .ms-atlas__cta {
+    margin-top: 6px;
+    width: fit-content;
+    font-size: 9.5px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 5px;
+  }
+{% endstylesheet %}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.padding-block-start }}px;
+    padding-bottom: {{ section.settings.padding-block-end }}px;
+  }
+  #ms-atlas-{{ section.id }} {
+    --ms-atlas-bg: {{ section.settings.background_color }};
+    --ms-atlas-ink: {{ section.settings.ink_color }};
+    --ms-atlas-body: {{ section.settings.body_color }};
+    --ms-atlas-muted: {{ section.settings.muted_color }};
+    --ms-atlas-accent: {{ section.settings.accent_color }};
+    --ms-atlas-rule: {{ section.settings.rule_color }};
+    --ms-atlas-wash: {{ section.settings.wash_color }};
+    --ms-atlas-land: {{ section.settings.land_color }};
+    --ms-atlas-grat: {{ section.settings.graticule_color }};
+    --ms-atlas-side: {{ section.settings.side_width }}px;
+    --ms-atlas-panel-h: clamp(440px, {{ section.settings.list_height }}vh, 680px);
+    max-width: {{ section.settings.max_width }}px;
+    margin-inline: auto;
+    padding-inline: clamp(18px, 5vw, 80px);
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Agents & resellers map",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    { "type": "paragraph", "content": "Geometry is Natural Earth, public domain. Add one market per city and give each a latitude and longitude." },
+    { "type": "text", "id": "map_label", "label": "Map accessible label", "default": "World map of Midsummer Milano markets" },
+    { "type": "text", "id": "regions", "label": "Regions", "info": "Comma separated, in the order they should appear.", "default": "Europe, Middle East, Americas, Asia Pacific" },
+    { "type": "checkbox", "id": "show_filters", "label": "Show the region filter", "default": true },
+    { "type": "text", "id": "all_label", "label": "All-markets label", "default": "All markets" },
+    { "type": "header", "content": "Legend" },
+    { "type": "text", "id": "legend_atelier", "label": "Atelier label", "default": "The atelier, Milano" },
+    { "type": "text", "id": "legend_partner", "label": "Partner label", "default": "Partner representation" },
+    { "type": "text", "id": "partner_label", "label": "Partner label in the detail panel", "default": "Partner representation" },
+    { "type": "text", "id": "legend_hint", "label": "Hint", "default": "Select a marker for details" },
+    { "type": "header", "content": "Layout" },
+    { "type": "range", "id": "max_width", "label": "Maximum width", "min": 960, "max": 1800, "step": 20, "unit": "px", "default": 1560 },
+    { "type": "range", "id": "side_width", "label": "List column width", "min": 280, "max": 520, "step": 10, "unit": "px", "default": 400 },
+    { "type": "range", "id": "list_height", "label": "Panel height", "info": "The map and the list are both this tall, and the list scrolls inside it.", "min": 34, "max": 90, "step": 2, "unit": "vh", "default": 62 },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#FBF9F5" },
+    { "type": "color", "id": "ink_color", "label": "Ink", "default": "#17140F" },
+    { "type": "color", "id": "body_color", "label": "Body text", "default": "#4A443B" },
+    { "type": "color", "id": "muted_color", "label": "Muted text", "default": "#6E675C" },
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#7E623B" },
+    { "type": "color", "id": "rule_color", "label": "Rules", "default": "#DDD6C9" },
+    { "type": "color", "id": "wash_color", "label": "Map background", "default": "#F4F0E8" },
+    { "type": "color", "id": "land_color", "label": "Land", "default": "#E2D9C8" },
+    { "type": "color", "id": "graticule_color", "label": "Graticule", "default": "#E4DCCD" },
+    { "type": "header", "content": "Padding" },
+    { "type": "range", "id": "padding-block-start", "label": "Top", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "padding-block-end", "label": "Bottom", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 120 }
+  ],
+  "blocks": [
+    {
+      "type": "market",
+      "name": "Market",
+      "settings": [
+        { "type": "text", "id": "city", "label": "City", "default": "Milano" },
+        { "type": "text", "id": "country", "label": "Country", "default": "Italy" },
+        { "type": "text", "id": "region", "label": "Region", "info": "Must match one of the section's regions.", "default": "Europe" },
+        { "type": "text", "id": "latitude", "label": "Latitude", "default": "45.4642" },
+        { "type": "text", "id": "longitude", "label": "Longitude", "default": "9.1900" },
+        { "type": "select", "id": "place_type", "label": "Type",
+          "options": [
+            { "value": "Showroom", "label": "Showroom" },
+            { "value": "Boutique", "label": "Boutique" },
+            { "value": "Agent", "label": "Agent" }
+          ],
+          "default": "Agent" },
+        { "type": "checkbox", "id": "is_atelier", "label": "This is the atelier", "info": "Milano only — states the address in full.", "default": false },
+        { "type": "textarea", "id": "note", "label": "Note" },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "text", "id": "link_label", "label": "Link label", "default": "Request an introduction" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Agents & resellers map",
+      "blocks": [
+        { "type": "market" },
+        { "type": "market" },
+        { "type": "market" }
+      ]
+    }
+  ]
+}
+{% endschema %}

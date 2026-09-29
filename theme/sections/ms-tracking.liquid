@@ -1,0 +1,129 @@
+{%- comment -%}
+  Midsummer Milano — conversion tracking for the new calls to action.
+
+  Closes the measurement gap the Digital Performance Audit flagged: every CTA
+  introduced by this theme fires a named dataLayer event carrying its audience
+  segment, so GA4 and Ads can be configured without anyone editing markup again.
+
+  Put this in the footer group once. It binds by delegation, so it also covers
+  CTAs added later in the theme editor.
+
+  Segments: private · architect-designer · hospitality · dealer · press
+  Events:   ms_enquiry_open · ms_enquiry_submit · ms_cta_click · ms_quiz_complete
+{%- endcomment -%}
+
+{%- if section.settings.enabled -%}
+<script>
+  (function () {
+    if (window.__msTrackReady) return;
+    window.__msTrackReady = true;
+
+    window.dataLayer = window.dataLayer || [];
+    var DEBUG = {{ section.settings.debug | json }};
+
+    function push(event, payload) {
+      var data = Object.assign({ event: event }, payload || {});
+      window.dataLayer.push(data);
+      if (DEBUG && window.console) console.log('[ms-track]', data);
+    }
+
+    // Segment is read from the page first, then the clicked element, then falls
+    // back to private — so a CTA on the Hospitality page is attributed to
+    // hospitality without anyone tagging the button.
+    var PAGE_SEGMENT = {{ section.settings.page_segments | json }};
+
+    function pageSegment() {
+      var path = window.location.pathname;
+      var pairs = PAGE_SEGMENT.split(',');
+      for (var i = 0; i < pairs.length; i++) {
+        var bits = pairs[i].split('=');
+        if (bits.length === 2 && path.indexOf(bits[0].trim()) > -1) return bits[1].trim();
+      }
+      return 'private';
+    }
+
+    function segmentFor(el) {
+      var tagged = el && el.closest ? el.closest('[data-ms-segment]') : null;
+      if (tagged) return tagged.getAttribute('data-ms-segment');
+      return pageSegment();
+    }
+
+    function labelFor(el) {
+      return (el.getAttribute('data-ms-cta')
+        || (el.textContent || '').trim().slice(0, 60)
+        || el.getAttribute('aria-label')
+        || 'unnamed').replace(/\s+/g, ' ');
+    }
+
+    var CTA_SELECTOR = [
+      '[data-ms-enquiry]',
+      '[data-ms-cta]',
+      'a[href*="/pages/contact"]',
+      'a[href*="/pages/agents-and-resellers"]',
+      'a[href*="#enquiry"]'
+    ].join(',');
+
+    document.addEventListener('click', function (e) {
+      var el = e.target.closest ? e.target.closest(CTA_SELECTOR) : null;
+      if (!el) return;
+      push('ms_cta_click', {
+        cta_label: labelFor(el),
+        audience_segment: segmentFor(el),
+        page_template: {{ template.name | json }},
+        page_path: window.location.pathname
+      });
+    }, true);
+
+    // The enquiry panel announces every open a visitor triggers, whether from a
+    // [data-ms-enquiry] button, the edge tab, or a link to the enquiry page.
+    document.addEventListener('ms:enquiry-open', function (e) {
+      var el = e.detail && e.detail.source;
+      push('ms_enquiry_open', {
+        cta_label: el ? labelFor(el) : '',
+        audience_segment: segmentFor(el),
+        page_template: {{ template.name | json }},
+        page_path: window.location.pathname
+      });
+    });
+
+    // Enquiry submissions, including the side panel's tabbed form.
+    document.addEventListener('submit', function (e) {
+      var form = e.target;
+      if (!form || !form.matches) return;
+      if (!form.matches('form[action*="/contact"], .ms-enq__form')) return;
+      var mode = form.querySelector('[data-ms-enq-mode-field]');
+      var type = form.querySelector('[name="contact[Enquiry type]"]');
+      push('ms_enquiry_submit', {
+        enquiry_mode: mode ? mode.value : 'page form',
+        enquiry_type: type ? type.value : '',
+        audience_segment: segmentFor(form),
+        page_template: {{ template.name | json }},
+        page_path: window.location.pathname
+      });
+    }, true);
+
+    // The quiz announces its result on this event; see ms-find-your-midsummer.
+    document.addEventListener('ms:quiz-complete', function (e) {
+      push('ms_quiz_complete', {
+        recommendation: (e.detail && e.detail.product) || '',
+        sleeper_profile: (e.detail && e.detail.profile) || '',
+        audience_segment: 'private'
+      });
+    });
+
+    push('ms_track_ready', { page_template: {{ template.name | json }} });
+  })();
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Conversion tracking",
+  "settings": [
+    { "type": "paragraph", "content": "Pushes named events to window.dataLayer for every CTA this theme introduces, each carrying its audience segment. Add it to the footer group once. No app required; GTM or GA4 picks the events up." },
+    { "type": "checkbox", "id": "enabled", "label": "Enabled", "default": true },
+    { "type": "checkbox", "id": "debug", "label": "Log events to the browser console", "info": "Turn on while configuring GA4, then off.", "default": false },
+    { "type": "textarea", "id": "page_segments", "label": "Path to segment map", "info": "Comma separated path=segment pairs. First match wins; anything unmatched is private.", "default": "/pages/professionals=architect-designer, /pages/hospitality=hospitality, /pages/agents-and-resellers=dealer, /blogs/press=press" }
+  ]
+}
+{% endschema %}

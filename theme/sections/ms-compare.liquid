@@ -1,0 +1,202 @@
+{%- comment -%}
+  Midsummer Milano — collection comparison table.
+  Rows are editable blocks; column headings are section settings.
+{%- endcomment -%}
+
+<div class="ms-compare" id="ms-compare-{{ section.id }}">
+  {%- if section.settings.heading != blank -%}
+    <div class="ms-compare__head">
+      <h2>{{ section.settings.heading }}</h2>
+      {%- if section.settings.link_label != blank -%}
+        <a href="{{ section.settings.link_url }}">{{ section.settings.link_label }}</a>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <table>
+    <thead>
+      <tr>
+        <th class="ms-compare__corner"><span class="visually-hidden">{{ 'accessibility.attribute' | t }}</span></th>
+        <th>
+          <span>{{ section.settings.mark_1 }}</span>
+          <div>{{ section.settings.name_1 }}</div>
+        </th>
+        <th>
+          <span>{{ section.settings.mark_2 }}</span>
+          <div>{{ section.settings.name_2 }}</div>
+        </th>
+        <th>
+          <span>{{ section.settings.mark_3 }}</span>
+          <div>{{ section.settings.name_3 }}</div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'row' -%}
+          <tr {{ block.shopify_attributes }}>
+            <th>{{ block.settings.label }}</th>
+            <td data-tier="{{ section.settings.name_1 }}">{{ block.settings.value_1 }}</td>
+            <td data-tier="{{ section.settings.name_2 }}">{{ block.settings.value_2 }}</td>
+            <td data-tier="{{ section.settings.name_3 }}">{{ block.settings.value_3 }}</td>
+          </tr>
+        {%- endif -%}
+      {%- endfor -%}
+    </tbody>
+  </table>
+</div>
+
+{% stylesheet %}
+  .ms-compare { width: 100%; }
+  .ms-compare__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+    border-top: 1px solid var(--ms-rule);
+    padding-top: 26px;
+  }
+  .ms-compare__head h2 {
+    margin: 0;
+    font-family: var(--font-heading--family);
+    font-size: clamp(28px, 3.6vw, 50px);
+    font-weight: 200;
+    line-height: 1.06;
+    letter-spacing: -0.02em;
+  }
+  .ms-compare__head a {
+    font-size: 10px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--ms-muted);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .ms-compare table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    margin-top: clamp(36px, 5vw, 72px);
+  }
+  .ms-compare thead th {
+    padding: 0 24px 20px 0;
+    vertical-align: bottom;
+    font-weight: 400;
+  }
+  .ms-compare thead th.ms-compare__corner { width: 22%; }
+  .ms-compare thead span {
+    font-family: var(--font-heading--family);
+    font-size: 13px;
+    color: var(--ms-accent);
+  }
+  .ms-compare thead div {
+    font-family: var(--font-heading--family);
+    font-size: clamp(20px, 2.2vw, 28px);
+    font-weight: 200;
+    margin-top: 6px;
+  }
+  .ms-compare tbody th {
+    border-top: 1px solid var(--ms-rule);
+    padding: 20px 24px 20px 0;
+    font-size: 9.5px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--ms-muted);
+    font-weight: 400;
+    vertical-align: top;
+  }
+  .ms-compare tbody td {
+    border-top: 1px solid var(--ms-rule);
+    padding: 20px 24px 20px 0;
+    font-size: 14px;
+    line-height: 1.8;
+    vertical-align: top;
+  }
+  .ms-compare tbody tr th:last-child,
+  .ms-compare tbody tr td:last-child { padding-right: 0; }
+
+  @media screen and (max-width: 749px) {
+    .ms-compare table,
+    .ms-compare tbody,
+    .ms-compare tr,
+    .ms-compare th,
+    .ms-compare td { display: block; }
+    .ms-compare thead { display: none; }
+    .ms-compare tbody tr {
+      border-top: 1px solid var(--ms-rule);
+      padding: 20px 0;
+    }
+    .ms-compare tbody th { border: 0; padding: 0 0 12px; }
+    .ms-compare tbody td { border: 0; padding: 0 0 10px; }
+    .ms-compare tbody td::before {
+      content: attr(data-tier);
+      display: block;
+      font-size: 9.5px;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--ms-accent);
+      margin-bottom: 4px;
+    }
+  }
+{% endstylesheet %}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.padding-block-start }}px;
+    padding-bottom: {{ section.settings.padding-block-end }}px;
+  }
+  #ms-compare-{{ section.id }} {
+    --ms-rule: {{ section.settings.rule_color }};
+    --ms-muted: {{ section.settings.label_color }};
+    --ms-accent: {{ section.settings.accent_color }};
+    color: {{ section.settings.text_color }};
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Comparison table",
+  "class": "section-wrapper",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Compare the collections" },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "All twenty-four" },
+    { "type": "url", "id": "link_url", "label": "Link" },
+    { "type": "header", "content": "Columns" },
+    { "type": "text", "id": "mark_1", "label": "Column 1 mark", "default": "I" },
+    { "type": "text", "id": "name_1", "label": "Column 1 name", "default": "Essentials" },
+    { "type": "text", "id": "mark_2", "label": "Column 2 mark", "default": "II" },
+    { "type": "text", "id": "name_2", "label": "Column 2 name", "default": "Signature" },
+    { "type": "text", "id": "mark_3", "label": "Column 3 mark", "default": "III" },
+    { "type": "text", "id": "name_3", "label": "Column 3 name", "default": "Icons" },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#F1ECE3" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#4A443B" },
+    { "type": "color", "id": "label_color", "label": "Row label", "default": "#6E675C" },
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#7E623B" },
+    { "type": "color", "id": "rule_color", "label": "Rules", "default": "#DDD6C9" },
+    { "type": "header", "content": "Padding" },
+    { "type": "range", "id": "padding-block-start", "label": "Top", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 120 },
+    { "type": "range", "id": "padding-block-end", "label": "Bottom", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 120 }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Row",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Row label", "default": "Construction" },
+        { "type": "text", "id": "value_1", "label": "Column 1" },
+        { "type": "text", "id": "value_2", "label": "Column 2" },
+        { "type": "text", "id": "value_3", "label": "Column 3" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Comparison table",
+      "blocks": [{ "type": "row" }]
+    }
+  ]
+}
+{% endschema %}
