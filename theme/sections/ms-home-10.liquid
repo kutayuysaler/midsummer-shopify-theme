@@ -1,0 +1,46 @@
+<section data-dc-tpl="320" style="position: relative; overflow: hidden;">
+<img alt="" data-ms="band" src="{% if section.settings.img1 != blank %}{{ section.settings.img1 | image_url: width: 2000 }}{% else %}{{ 'ms-graded-horse.jpg' | asset_url }}{% endif %}" style="width: 100%; height: min(72vh, 680px); object-fit: cover;"/>
+<div style="position: absolute; inset: 0px; background: rgba(10, 8, 6, 0.58);"></div>
+<div style="position: absolute; inset: 0px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 22px; padding: clamp(26px, 5vw, 80px); color: rgb(251, 249, 245);">
+<div style="font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.8;">{{ section.settings.t1 }}</div>
+<h2 style="font-family: Newsreader, Georgia, serif; font-size: clamp(30px, 4.6vw, 64px); line-height: 1.04; letter-spacing: -0.025em; max-width: 16ch;">{{ section.settings.t2 }}</h2>
+<p style="font-size: 15px; line-height: 1.9; opacity: 0.9; max-width: 52ch;">{{ section.settings.t3 }}</p>
+<a data-ms="cta" href="/pages/find-your-midsummer" style="color: rgb(251, 249, 245); font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; border-bottom: 1px solid rgba(251, 249, 245, 0.5); padding-bottom: 8px;">{{ section.settings.t4 }}</a>
+</div>
+</section>
+{% schema %}
+{
+  "name": "Home 10 · Five questions ",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "img1",
+      "label": "Image 1"
+    },
+    {
+      "type": "text",
+      "id": "t1",
+      "label": "Five questions",
+      "default": "Five questions"
+    },
+    {
+      "type": "text",
+      "id": "t2",
+      "label": "Find your Midsummer.",
+      "default": "Find your Midsummer."
+    },
+    {
+      "type": "textarea",
+      "id": "t3",
+      "label": "Tell us how you sleep, where you s…",
+      "default": "Tell us how you sleep, where you sleep and what the room asks for. We will name the system we would build for you."
+    },
+    {
+      "type": "text",
+      "id": "t4",
+      "label": "Begin",
+      "default": "Begin"
+    }
+  ]
+}
+{% endschema %}

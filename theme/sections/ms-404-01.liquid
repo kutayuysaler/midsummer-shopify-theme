@@ -1,0 +1,46 @@
+<section data-dc-tpl="1212" style="padding: clamp(90px, 16vw, 220px) clamp(18px, 5vw, 80px); display: flex; flex-direction: column; align-items: center; text-align: center; gap: 18px;">
+<div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgb(126, 98, 59);">{{ section.settings.t1 }}</div>
+<h1 style="font-family: Newsreader, Georgia, serif; font-size: clamp(30px, 4.6vw, 58px); line-height: 1.04; letter-spacing: -0.025em;">{{ section.settings.t2 }}</h1>
+<p style="font-size: 15px; line-height: 1.95; color: rgb(74, 68, 59); max-width: 46ch;">{{ section.settings.t3 }}</p>
+<div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-top: 14px;">
+<a href="/collections" style="display: inline-block; background: rgb(23, 20, 15); color: rgb(251, 249, 245); border: 0px; padding: 19px 40px; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; cursor: pointer;">{{ section.settings.t4 }}</a>
+<a data-ms-enquire="" href="/pages/contact" style="display: inline-block; background: transparent; color: rgb(23, 20, 15); border: 1px solid rgb(23, 20, 15); padding: 19px 38px; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; cursor: pointer;">{{ section.settings.t5 }}</a>
+</div>
+</section>
+{% schema %}
+{
+  "name": "404 01 · 404 This page is",
+  "settings": [
+    {
+      "type": "text",
+      "id": "t1",
+      "label": "404",
+      "default": "404"
+    },
+    {
+      "type": "text",
+      "id": "t2",
+      "label": "This page is no longer here.",
+      "default": "This page is no longer here."
+    },
+    {
+      "type": "textarea",
+      "id": "t3",
+      "label": "The link may be incorrect, or the …",
+      "default": "The link may be incorrect, or the page has been moved. The collections and the atelier are where you left them."
+    },
+    {
+      "type": "text",
+      "id": "t4",
+      "label": "Our Beds",
+      "default": "Our Beds"
+    },
+    {
+      "type": "text",
+      "id": "t5",
+      "label": "Book a private appointment",
+      "default": "Book a private appointment"
+    }
+  ]
+}
+{% endschema %}

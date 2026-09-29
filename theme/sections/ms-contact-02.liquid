@@ -1,0 +1,205 @@
+<section data-dc-tpl="1072" style="padding: 0px clamp(18px, 5vw, 80px) clamp(60px, 9vw, 150px); max-width: 1560px; margin: 0px auto;">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(32px, 6vw, 110px); border-top: 1px solid rgb(221, 214, 201); padding-top: clamp(28px, 4vw, 56px);">
+<div>{%- form 'contact', id: 'ms-contact-form' -%}<div data-ms-enq="Book appointment"><input data-ms-enq-mode-field="" name="contact[Enquiry mode]" type="hidden" value="Book appointment"/>{%- if form.posted_successfully? -%}<p role="status" style="font-family: Newsreader, Georgia, serif; font-size: 20px; line-height: 1.5; border-top: 1px solid #DDD6C9; border-bottom: 1px solid #DDD6C9; padding: 18px 0; margin-bottom: 30px;">Thank you. The atelier will reply within one working day.</p>{%- endif -%}{%- if form.errors -%}<div role="alert" style="font-size: 13px; line-height: 1.8; color: #8B3A2B; margin-bottom: 24px;">{{ form.errors | default_errors }}</div>{%- endif -%}
+<div style="display: flex; flex-wrap: wrap; gap: 8px;">
+<button aria-pressed="false" data-ms-chip="" data-ms-tab="Request brochure" style="padding: 14px 20px; font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; cursor: pointer; background: transparent; color: rgb(74, 68, 59); border: 1px solid rgb(221, 214, 201);" type="button">{{ section.settings.t1 }}</button>
+<button aria-pressed="true" data-ms-chip="" data-ms-tab="Book appointment" style="padding: 14px 20px; font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; cursor: pointer; background: rgb(23, 20, 15); color: rgb(251, 249, 245); border: 1px solid rgb(23, 20, 15);" type="button">{{ section.settings.t2 }}</button>
+<button aria-pressed="false" data-ms-chip="" data-ms-tab="Request callback" style="padding: 14px 20px; font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; cursor: pointer; background: transparent; color: rgb(74, 68, 59); border: 1px solid rgb(221, 214, 201);" type="button">{{ section.settings.t3 }}</button>
+<button aria-pressed="false" data-ms-chip="" data-ms-tab="Leave a message" style="padding: 14px 20px; font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; cursor: pointer; background: transparent; color: rgb(74, 68, 59); border: 1px solid rgb(221, 214, 201);" type="button">{{ section.settings.t4 }}</button>
+</div>
+<p data-ms-copy="note" style="font-family: Newsreader, Georgia, serif; font-size: 18px; font-style: italic; line-height: 1.6; color: rgb(110, 103, 92); margin-top: 26px;">{{ section.settings.t5 }}</p>
+<div data-ms="fieldgrid" style="display: grid; grid-template-columns: repeat(2, minmax(0px, 1fr)); gap: 26px 24px; margin-top: 36px; align-items: end;">
+<label style="display: flex; flex-direction: column; gap: 9px;"><span style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92); min-height: 24px; display: flex; align-items: flex-end;">{{ section.settings.t6 }}</span><select class="ms-field" name="contact[Title]" required="" style="border-bottom: 1px solid rgb(221, 214, 201); padding: 10px 0px; font-size: 14px;"><option value=""><span>{{ section.settings.t7 }}</span></option><option><span>{{ section.settings.t8 }}</span></option><option><span>{{ section.settings.t9 }}</span></option><option><span>{{ section.settings.t10 }}</span></option><option><span>{{ section.settings.t11 }}</span></option><option><span>{{ section.settings.t12 }}</span></option></select></label>
+<label style="display: flex; flex-direction: column; gap: 9px;"><span style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92); min-height: 24px; display: flex; align-items: flex-end;">{{ section.settings.t13 }}</span><input autocomplete="given-name" class="ms-field" name="contact[First name]" required="" style="border-bottom: 1px solid rgb(221, 214, 201); padding: 10px 0px; font-size: 14px;" type="text"/></label>
+<label style="display: flex; flex-direction: column; gap: 9px;"><span style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92); min-height: 24px; display: flex; align-items: flex-end;">{{ section.settings.t14 }}</span><input autocomplete="family-name" class="ms-field" name="contact[Last name]" required="" style="border-bottom: 1px solid rgb(221, 214, 201); padding: 10px 0px; font-size: 14px;" type="text"/></label>
+<label style="display: flex; flex-direction: column; gap: 9px;"><span style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92); min-height: 24px; display: flex; align-items: flex-end;">{{ section.settings.t15 }}</span><input autocomplete="email" class="ms-field" name="contact[email]" required="" style="border-bottom: 1px solid rgb(221, 214, 201); padding: 10px 0px; font-size: 14px;" type="email"/></label>
+<label style="display: flex; flex-direction: column; gap: 9px;"><span data-ms-copy="five" style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92); min-height: 24px; display: flex; align-items: flex-end;">{{ section.settings.t16 }}</span><input class="ms-field" data-ms-field="five" name="contact[Phone]" style="border-bottom: 1px solid rgb(221, 214, 201); padding: 10px 0px; font-size: 14px;" type="tel"/></label>
+<label style="display: flex; flex-direction: column; gap: 9px;"><span data-ms-copy="six" style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92); min-height: 24px; display: flex; align-items: flex-end;">{{ section.settings.t17 }}</span><input class="ms-field" data-ms-copy="sixHint" data-ms-field="six" name="contact[Preferred date]" placeholder="Monday to Friday" style="border-bottom: 1px solid rgb(221, 214, 201); padding: 10px 0px; font-size: 14px;" type="text"/></label>
+</div>
+<label style="display: flex; flex-direction: column; gap: 9px; margin-top: 26px;"><span data-ms-copy="notes" style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92); min-height: 24px; display: flex; align-items: flex-end;">{{ section.settings.t18 }}</span><textarea class="ms-field" data-ms-field="notes" name="contact[Notes]" rows="1" style="border-bottom: 1px solid rgb(221, 214, 201); padding: 10px 0px 40px; font-size: 14px;"></textarea></label>
+<p style="font-size: 12px; line-height: 1.85; color: rgb(110, 103, 92); margin-top: 26px; max-width: 52ch;">{{ section.settings.t19 }}</p>
+<button style="margin-top: 24px; background: rgb(23, 20, 15); color: rgb(251, 249, 245); border: 0px; padding: 21px 48px; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; cursor: pointer;" type="submit">{{ section.settings.t20 }}</button>
+</div>{%- endform -%}</div>
+<div style="display: flex; flex-direction: column; gap: clamp(24px, 3vw, 40px);">
+<img alt="" src="{% if section.settings.img1 != blank %}{{ section.settings.img1 | image_url: width: 2000 }}{% else %}https://midsummer-milano.com/cdn/shop/files/Paisleydettaglio.jpg?v=1788246821&amp;width=1200{% endif %}" style="width: 100%; aspect-ratio: 4 / 5; object-fit: cover;"/>
+<div>
+<div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgb(110, 103, 92);">{{ section.settings.t21 }}</div>
+<p style="font-family: Newsreader, Georgia, serif; font-size: clamp(22px, 2.4vw, 30px); line-height: 1.4; margin-top: 14px;">{{ section.settings.t22 }}</p>
+<p style="font-size: 14px; line-height: 1.95; color: rgb(74, 68, 59); margin-top: 18px; max-width: 44ch;">{{ section.settings.t23 }}</p>
+<div data-ms="contactlinks" style="display: flex; flex-wrap: wrap; gap: 26px; margin-top: 24px; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase;">
+<a href="https://www.google.com/maps/dir/?api=1&amp;destination=Via+Andegari%2C+4%2C+20121+Milano%2C+Italy" rel="noopener" style="border-bottom: 1px solid rgb(23, 20, 15); padding-bottom: 6px;" target="_blank">{{ section.settings.t24 }}</a>
+<a href="https://wa.me/message/CAC4ZAEYHOTHN1" rel="noopener" style="border-bottom: 1px solid rgb(23, 20, 15); padding-bottom: 6px;" target="_blank">{{ section.settings.t25 }}</a>
+</div>
+<p style="font-family: Newsreader, Georgia, serif; font-size: 18px; font-style: italic; color: rgb(110, 103, 92); margin-top: 26px;">{{ section.settings.t26 }}</p>
+</div>
+</div>
+</div>
+</section>
+{% schema %}
+{
+  "name": "Contact 02 · Request broc",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "img1",
+      "label": "Image 1"
+    },
+    {
+      "type": "text",
+      "id": "t1",
+      "label": "Request brochure",
+      "default": "Request brochure"
+    },
+    {
+      "type": "text",
+      "id": "t2",
+      "label": "Book appointment",
+      "default": "Book appointment"
+    },
+    {
+      "type": "text",
+      "id": "t3",
+      "label": "Request callback",
+      "default": "Request callback"
+    },
+    {
+      "type": "text",
+      "id": "t4",
+      "label": "Leave a message",
+      "default": "Leave a message"
+    },
+    {
+      "type": "text",
+      "id": "t5",
+      "label": "Visit the atelier on Via Andegari,…",
+      "default": "Visit the atelier on Via Andegari, or meet us by video. We confirm within one working day."
+    },
+    {
+      "type": "text",
+      "id": "t6",
+      "label": "Title*",
+      "default": "Title*"
+    },
+    {
+      "type": "text",
+      "id": "t7",
+      "label": "Select",
+      "default": "Select"
+    },
+    {
+      "type": "text",
+      "id": "t8",
+      "label": "Mr",
+      "default": "Mr"
+    },
+    {
+      "type": "text",
+      "id": "t9",
+      "label": "Mrs",
+      "default": "Mrs"
+    },
+    {
+      "type": "text",
+      "id": "t10",
+      "label": "Ms",
+      "default": "Ms"
+    },
+    {
+      "type": "text",
+      "id": "t11",
+      "label": "Dr",
+      "default": "Dr"
+    },
+    {
+      "type": "text",
+      "id": "t12",
+      "label": "Arch.",
+      "default": "Arch."
+    },
+    {
+      "type": "text",
+      "id": "t13",
+      "label": "First name*",
+      "default": "First name*"
+    },
+    {
+      "type": "text",
+      "id": "t14",
+      "label": "Last name*",
+      "default": "Last name*"
+    },
+    {
+      "type": "text",
+      "id": "t15",
+      "label": "Email*",
+      "default": "Email*"
+    },
+    {
+      "type": "text",
+      "id": "t16",
+      "label": "Phone*",
+      "default": "Phone*"
+    },
+    {
+      "type": "text",
+      "id": "t17",
+      "label": "Preferred date*",
+      "default": "Preferred date*"
+    },
+    {
+      "type": "text",
+      "id": "t18",
+      "label": "Notes",
+      "default": "Notes"
+    },
+    {
+      "type": "text",
+      "id": "t19",
+      "label": "By clicking submit you agree to ou…",
+      "default": "By clicking submit you agree to our terms and conditions and privacy policy."
+    },
+    {
+      "type": "text",
+      "id": "t20",
+      "label": "Submit",
+      "default": "Submit"
+    },
+    {
+      "type": "text",
+      "id": "t21",
+      "label": "Atelier and showroom",
+      "default": "Atelier and showroom"
+    },
+    {
+      "type": "html",
+      "id": "t22",
+      "label": "Via Andegari 420121 Milano",
+      "default": "Via Andegari 4<br/>20121 Milano"
+    },
+    {
+      "type": "text",
+      "id": "t23",
+      "label": "Monday to Friday, 09:00–12:00 and …",
+      "default": "Monday to Friday, 09:00–12:00 and 13:00–18:00, Milan time. We confirm every appointment by email."
+    },
+    {
+      "type": "text",
+      "id": "t24",
+      "label": "Directions",
+      "default": "Directions"
+    },
+    {
+      "type": "text",
+      "id": "t25",
+      "label": "WhatsApp",
+      "default": "WhatsApp"
+    },
+    {
+      "type": "text",
+      "id": "t26",
+      "label": "info@midsummer-milano.com",
+      "default": "info@midsummer-milano.com"
+    }
+  ]
+}
+{% endschema %}

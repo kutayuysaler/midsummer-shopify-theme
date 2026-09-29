@@ -1,0 +1,41 @@
+<section data-dc-tpl="976" style="padding: clamp(60px, 9vw, 150px) clamp(18px, 5vw, 80px); max-width: 1560px; margin: 0px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(32px, 6vw, 110px);">
+<div>
+<div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgb(110, 103, 92);">{{ section.settings.t1 }}</div>
+<h2 style="font-family: Newsreader, Georgia, serif; font-size: clamp(28px, 3.8vw, 52px); line-height: 1.06; letter-spacing: -0.02em; margin-top: 18px;">{{ section.settings.t2 }}</h2>
+</div>
+<div style="font-size: 15px; line-height: 1.95; color: rgb(74, 68, 59); display: flex; flex-direction: column; gap: 22px; max-width: 56ch;">
+<p>{{ section.settings.t3 }}</p>
+<p>{{ section.settings.t4 }}</p>
+</div>
+</section>
+{% schema %}
+{
+  "name": "15 + 15 02 · The promise ",
+  "settings": [
+    {
+      "type": "text",
+      "id": "t1",
+      "label": "The promise",
+      "default": "The promise"
+    },
+    {
+      "type": "text",
+      "id": "t2",
+      "label": "A mattress that comes home.",
+      "default": "A mattress that comes home."
+    },
+    {
+      "type": "textarea",
+      "id": "t3",
+      "label": "Most industrial mattresses end up …",
+      "default": "Most industrial mattresses end up in landfill after eight or ten years. In Europe alone, more than thirty million mattresses become waste each year. A Midsummer mattress is built differently. By hand, in Italy, with pocket springs, wool from small Italian farms, horsehair and noble natural fibres."
+    },
+    {
+      "type": "textarea",
+      "id": "t4",
+      "label": "Fifteen years on, it returns to ou…",
+      "default": "Fifteen years on, it returns to our artisans for one of the simplest and quietest services in luxury bedding: a regeneration that, more often than not, removes almost nothing. Not a marketing programme. A method."
+    }
+  ]
+}
+{% endschema %}

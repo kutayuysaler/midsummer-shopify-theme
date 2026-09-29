@@ -1,0 +1,40 @@
+<section data-dc-tpl="290" style="background: rgb(23, 20, 15); color: rgb(251, 249, 245); padding: clamp(56px, 8vw, 130px) clamp(18px, 5vw, 80px);">
+<div style="max-width: 1560px; margin: 0px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(28px, 5vw, 88px); align-items: center;">
+<img alt="" src="{% if section.settings.img1 != blank %}{{ section.settings.img1 | image_url: width: 2000 }}{% else %}{{ 'ms-graded-dune.jpg' | asset_url }}{% endif %}" style="width: 100%; aspect-ratio: 4 / 5; object-fit: cover;"/>
+<figure style="margin: 0px; display: flex; flex-direction: column; gap: clamp(20px, 2.4vw, 30px);">
+<div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(251, 249, 245, 0.55);">{{ section.settings.t1 }}</div>
+<blockquote style="margin: 0px; font-family: Newsreader, Georgia, serif; font-weight: 200; font-size: clamp(26px, 3.4vw, 46px); line-height: 1.22; letter-spacing: -0.025em; max-width: 24ch; text-wrap: pretty;">{{ section.settings.t2 }}</blockquote>
+<figcaption style="display: flex; flex-direction: column; gap: 7px; padding-top: clamp(14px, 1.8vw, 22px); border-top: 1px solid rgba(251, 249, 245, 0.35); width: fit-content; min-width: min(240px, 100%);">{{ section.settings.t3 }}</figcaption>
+</figure>
+</div>
+</section>
+{% schema %}
+{
+  "name": "Home 08 · Recognition The",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "img1",
+      "label": "Image 1"
+    },
+    {
+      "type": "text",
+      "id": "t1",
+      "label": "Recognition",
+      "default": "Recognition"
+    },
+    {
+      "type": "textarea",
+      "id": "t2",
+      "label": "The Top System was awarded the Gre…",
+      "default": "The Top System was awarded the Green Product Award 2025, in Berlin, for its plant-based materials and seasonal construction."
+    },
+    {
+      "type": "html",
+      "id": "t3",
+      "label": "Green Product Award Berlin, 2025",
+      "default": "<span style=\"font-size: 13px; letter-spacing: 0.06em;\">Green Product Award</span>\n<span style=\"font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(251, 249, 245, 0.62);\">Berlin, 2025</span>"
+    }
+  ]
+}
+{% endschema %}

@@ -98,91 +98,6 @@
     },
     "ms_show_prices": false,
     "sections": {
-      "ms-enquiry-drawer": {
-        "type": "ms-enquiry-drawer",
-        "blocks": {
-          "tab_brochure": {
-            "type": "mode",
-            "settings": {
-              "mode_id": "brochure",
-              "label": "Request brochure",
-              "note": "The full catalogue of systems, fibres and Loro Piana Interiors fabrics, as a PDF.",
-              "notes_label": "How did you hear about us?"
-            }
-          },
-          "tab_appointment": {
-            "type": "mode",
-            "settings": {
-              "mode_id": "appointment",
-              "label": "Book appointment",
-              "note": "Visit the atelier on Via Andegari, or meet us by video. We confirm within one working day.",
-              "notes_label": "Notes"
-            }
-          },
-          "tab_callback": {
-            "type": "mode",
-            "settings": {
-              "mode_id": "callback",
-              "label": "Request callback",
-              "note": "Tell us when suits and one of the atelier team will call you.",
-              "notes_label": "Please tell us about your enquiry"
-            }
-          },
-          "tab_message": {
-            "type": "mode",
-            "settings": {
-              "mode_id": "message",
-              "label": "Leave a message",
-              "note": "Anything else — regeneration, care, press or partnership.",
-              "notes_label": "Message"
-            }
-          }
-        },
-        "block_order": [
-          "tab_brochure",
-          "tab_appointment",
-          "tab_callback",
-          "tab_message"
-        ],
-        "settings": {
-          "heading": "Please proceed with your enquiry.",
-          "enquiry_page": "/pages/contact",
-          "panel_width": 620,
-          "show_edge_trigger": true,
-          "edge_label": "Enquire",
-          "label_title": "Title",
-          "title_options": "Mr, Mrs, Ms, Mx, Dr, Arch., Prof.",
-          "label_first_name": "First name",
-          "label_last_name": "Last name",
-          "label_email": "Email",
-          "label_city": "City",
-          "label_phone": "Phone",
-          "label_subject": "Subject",
-          "label_date": "Preferred date",
-          "date_hint": "Monday to Friday",
-          "label_time": "Preferred time",
-          "time_options": "09:00–10:30, 10:30–12:00, 13:00–15:00, 15:00–16:30, 16:30–18:00",
-          "label_enquiry_type": "Enquiry type",
-          "enquiry_type_placeholder": "Choose your enquiry type",
-          "enquiry_type_options": "Private client, Architect or interior designer, Hospitality or contract, Dealer or distributor, Press",
-          "select_placeholder": "Select",
-          "submit_label": "Submit",
-          "show_consent": true,
-          "consent_text": "<p>By clicking submit you agree to our <a href=\"/policies/terms-of-service\">terms and conditions</a> and <a href=\"/policies/privacy-policy\">privacy policy</a>.</p>",
-          "fallback_label": "Open the full enquiry page",
-          "close_label": "Close",
-          "success_heading": "Thank you. Your enquiry is with the atelier.",
-          "success_body": "We reply to every enquiry by email within one working day. If it is urgent, call us on the number in the footer.",
-          "background_color": "#FBF9F5",
-          "text_color": "#17140F",
-          "muted_color": "#6E675C",
-          "accent_color": "#7E623B",
-          "rule_color": "#DDD6C9",
-          "scrim_color": "#0A0806A6",
-          "button_background": "#17140F",
-          "button_text": "#FBF9F5"
-        }
-      },
       "ms-seo": {
         "type": "ms-seo",
         "settings": {
@@ -221,17 +136,6 @@
           "customisation_label": "Customisation",
           "customisation_value": "Dimensions, heights, fibres, fabric and comfort level made to measure",
           "home_label": "Midsummer Milano"
-        }
-      },
-      "ms-grade": {
-        "type": "ms-grade",
-        "settings": {
-          "enabled": true,
-          "warmth": 10,
-          "saturation": 96,
-          "contrast": 90,
-          "brightness": 98,
-          "include_video": true
         }
       },
       "ms-tracking": {

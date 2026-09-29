@@ -1,0 +1,26 @@
+<section style="padding: clamp(60px, 9vw, 140px) clamp(18px, 5vw, 80px) clamp(32px, 4vw, 56px); max-width: 1000px;">
+{%- if section.settings.eyebrow != blank -%}<div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgb(110, 103, 92);">{{ section.settings.eyebrow }}</div>{%- endif -%}
+<h1 style="font-family: Newsreader, Georgia, serif; font-size: clamp(36px, 5.4vw, 74px); line-height: 1; letter-spacing: -0.035em; margin-top: 20px;">{{ page.title }}</h1>
+</section>
+<section class="ms-article-body" style="padding: clamp(24px, 3vw, 40px) clamp(18px, 5vw, 80px) clamp(60px, 9vw, 140px); max-width: 820px; display: flex; flex-direction: column; gap: 24px; font-size: 16px; line-height: 1.95; color: rgb(74, 68, 59);">
+{{ page.content }}
+</section>
+<style>
+  .ms-article-body > * { margin: 0; }
+  .ms-article-body h2, .ms-article-body h3 { font-family: Newsreader, Georgia, serif; font-weight: 200; color: #17140F; line-height: 1.2; letter-spacing: -0.02em; }
+  .ms-article-body h2 { font-size: clamp(24px, 2.8vw, 34px); margin-top: 18px; }
+  .ms-article-body h3 { font-size: clamp(20px, 2.2vw, 26px); margin-top: 12px; }
+  .ms-article-body a { border-bottom: 1px solid currentColor; }
+  .ms-article-body img { max-width: 100%; height: auto; }
+  .ms-article-body ul, .ms-article-body ol { padding-left: 1.2em; }
+  .ms-article-body table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  .ms-article-body td, .ms-article-body th { border-top: 1px solid #DDD6C9; padding: 10px 12px 10px 0; text-align: left; vertical-align: top; }
+</style>
+{% schema %}
+{
+  "name": "Page",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Label", "default": "Midsummer Milano" }
+  ]
+}
+{% endschema %}

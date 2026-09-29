@@ -1,0 +1,41 @@
+{%- assign kicker = article.tags | first | default: blog.title -%}
+{%- assign words = article.content | strip_html | split: ' ' | size -%}
+{%- assign minutes = words | divided_by: 200 | at_least: 1 -%}
+<section style="padding: clamp(60px, 9vw, 140px) clamp(18px, 5vw, 80px) 0px; max-width: 820px; margin: 0px auto;">
+<div style="display: flex; align-items: center; gap: 11px; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgb(110, 103, 92);"><svg aria-hidden="true" height="22" style="display: block; flex: 0 0 auto;" viewbox="0 0 24 24" width="22"><path d="M4 20 C4 11 11 4 20 4 C20 13 13 20 4 20 Z" fill="none" stroke="#9A7B4F" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"></path><path d="M4 20 L16 8" fill="none" stroke="#9A7B4F" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"></path></svg><span>{{ kicker }}</span></div>
+<h1 style="font-family: Newsreader, Georgia, serif; font-size: clamp(32px, 5vw, 66px); line-height: 1.02; letter-spacing: -0.03em; margin-top: 18px;">{{ article.title }}</h1>
+<div style="font-size: 12.5px; letter-spacing: 0.1em; color: rgb(110, 103, 92); margin-top: 20px;">{{ article.published_at | date: '%-d %B %Y' }} · {{ minutes }} {{ section.settings.minutes }}</div>
+</section>
+{%- if article.image -%}
+<section style="padding: clamp(36px, 5vw, 64px) clamp(18px, 5vw, 80px) 0px; max-width: 1120px; margin: 0px auto;">
+<img alt="{{ article.image.alt | escape }}" src="{{ article.image | image_url: width: 2200 }}" srcset="{{ article.image | image_url: width: 1100 }} 1100w, {{ article.image | image_url: width: 2200 }} 2200w" sizes="(max-width: 1120px) 100vw, 1120px" width="2200" height="1238" style="width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover;">
+</section>
+{%- endif -%}
+<section class="ms-article-body" style="padding: clamp(40px, 6vw, 72px) clamp(18px, 5vw, 80px) clamp(60px, 9vw, 140px); max-width: 820px; margin: 0px auto; display: flex; flex-direction: column; gap: 24px; font-size: 16px; line-height: 1.95; color: rgb(74, 68, 59);">
+{{ article.content }}
+<div style="border-top: 1px solid rgb(221, 214, 201); padding-top: 24px; margin-top: 12px; display: flex; flex-wrap: wrap; gap: 24px; align-items: center;">
+<a data-ms="cta" href="{{ blog.url }}" style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92);">{{ section.settings.all }}</a>
+<a data-ms="cta" data-ms-enquire href="/pages/contact" style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; border-bottom: 1px solid rgb(23, 20, 15); padding-bottom: 7px;">{{ section.settings.cta }}</a>
+</div>
+</section>
+<style>
+  .ms-article-body > * { margin: 0; }
+  .ms-article-body > p:first-child { font-family: Newsreader, Georgia, serif; font-size: clamp(19px, 2.2vw, 26px); line-height: 1.5; color: rgb(23, 20, 15); }
+  .ms-article-body h2, .ms-article-body h3 { font-family: Newsreader, Georgia, serif; font-weight: 200; color: #17140F; line-height: 1.2; letter-spacing: -0.02em; }
+  .ms-article-body h2 { font-size: clamp(24px, 2.8vw, 34px); margin-top: 18px; }
+  .ms-article-body h3 { font-size: clamp(20px, 2.2vw, 26px); margin-top: 12px; }
+  .ms-article-body a { border-bottom: 1px solid currentColor; }
+  .ms-article-body img { max-width: 100%; height: auto; }
+  .ms-article-body ul, .ms-article-body ol { padding-left: 1.2em; }
+  .ms-article-body blockquote { font-family: Newsreader, Georgia, serif; font-style: italic; font-size: clamp(19px, 2.2vw, 24px); line-height: 1.5; color: #17140F; border-left: 1px solid #9A7B4F; padding-left: 24px; }
+</style>
+{% schema %}
+{
+  "name": "Journal note",
+  "settings": [
+    { "type": "text", "id": "minutes", "label": "Reading time label", "default": "minute read" },
+    { "type": "text", "id": "all", "label": "Back link", "default": "All notes" },
+    { "type": "text", "id": "cta", "label": "Appointment link", "default": "Book a private appointment" }
+  ]
+}
+{% endschema %}

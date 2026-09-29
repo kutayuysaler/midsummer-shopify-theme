@@ -1,0 +1,64 @@
+<section style="padding: clamp(60px, 9vw, 140px) clamp(18px, 5vw, 80px) clamp(40px, 5vw, 72px); display: flex; flex-direction: column; align-items: center; text-align: center;">
+<div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgb(110, 103, 92);">{{ section.settings.label }}</div>
+<h1 style="font-family: Newsreader, Georgia, serif; font-size: clamp(30px, 4.4vw, 56px); line-height: 1.04; letter-spacing: -0.025em; margin-top: 18px;">{{ section.settings.heading }}</h1>
+<form action="{{ routes.search_url }}" method="get" role="search" style="width: min(560px, 100%); display: flex; align-items: baseline; gap: 18px; border-bottom: 1px solid rgb(23, 20, 15); padding-bottom: 12px; margin-top: 36px; text-align: left;">
+<input type="search" name="q" value="{{ search.terms | escape }}" aria-label="{{ section.settings.label }}" placeholder="{{ section.settings.placeholder }}" style="flex: 1 1 0%; font-family: Newsreader, Georgia, serif; font-size: 19px; font-style: italic; color: rgb(110, 103, 92); background: transparent; border: 0; padding: 0; outline: none; min-width: 0; color: #17140F;">
+<input type="hidden" name="options[prefix]" value="last">
+<button type="submit" style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; background: none; border: 0; padding: 0; cursor: pointer; color: inherit;">{{ section.settings.button }}</button>
+</form>
+{%- if search.performed -%}<div style="font-size: 12.5px; color: rgb(110, 103, 92); margin-top: 18px;">{{ search.results_count }} {% if search.results_count == 1 %}{{ section.settings.one }}{% else %}{{ section.settings.many }}{% endif %}</div>{%- endif -%}
+</section>
+{%- if search.performed -%}
+<section style="padding: 0px clamp(18px, 5vw, 80px) clamp(70px, 10vw, 150px); max-width: 1560px; margin: 0px auto;">
+{%- paginate search.results by 24 -%}
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: clamp(24px, 4vw, 48px);">
+{%- for item in search.results -%}
+{%- liquid
+  assign pic = nil
+  assign sub = ''
+  case item.object_type
+    when 'product'
+      assign pic = item.featured_media
+      for c in item.collections
+        if c.handle == 'essentials' or c.handle == 'signature' or c.handle == 'icons'
+          assign sub = c.title
+          break
+        endif
+      endfor
+      if sub == blank
+        assign sub = item.type
+      endif
+    when 'article'
+      assign pic = item.image
+      assign sub = item.blog.title
+    when 'page'
+      assign sub = section.settings.page_label
+  endcase
+-%}
+<a href="{{ item.url }}" style="display: block;">{%- if pic -%}<img alt="{{ item.title | escape }}" src="{{ pic | image_url: width: 900 }}" loading="lazy" width="900" height="1200" style="width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover;">{%- else -%}<span style="display: block; width: 100%; aspect-ratio: 3 / 4; background: rgb(241, 236, 227);"></span>{%- endif -%}<h2 style="font-family: Newsreader, Georgia, serif; font-size: clamp(19px, 2vw, 24px); margin-top: 18px;">{{ item.title }}</h2><div style="font-size: 12.5px; color: rgb(110, 103, 92); margin-top: 6px;">{{ sub }}</div></a>
+{%- endfor -%}
+</div>
+{%- if paginate.pages > 1 -%}
+<nav style="display: flex; gap: 22px; justify-content: center; margin-top: clamp(40px, 5vw, 72px); font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase;">
+{%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">← Previous</a>{%- endif -%}
+<span style="color: rgb(110, 103, 92);">{{ paginate.current_page }} / {{ paginate.pages }}</span>
+{%- if paginate.next -%}<a href="{{ paginate.next.url }}">Next →</a>{%- endif -%}
+</nav>
+{%- endif -%}
+{%- endpaginate -%}
+</section>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Search",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Label", "default": "Search" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "What are you looking for?" },
+    { "type": "text", "id": "placeholder", "label": "Placeholder", "default": "Paisley" },
+    { "type": "text", "id": "button", "label": "Button", "default": "Search" },
+    { "type": "text", "id": "one", "label": "One result", "default": "system" },
+    { "type": "text", "id": "many", "label": "Several results", "default": "systems" },
+    { "type": "text", "id": "page_label", "label": "Page result label", "default": "Page" }
+  ]
+}
+{% endschema %}

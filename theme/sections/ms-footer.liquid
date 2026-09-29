@@ -1,214 +1,217 @@
-{%- comment -%}
-  Midsummer Milano — footer, as in the approved design. Columns are blocks, so the
-  footer does not depend on menus in admin.
-{%- endcomment -%}
-
-{%- assign cta_href = section.settings.cta_link | default: '/pages/contact' -%}
-<div class="ms-footer" id="ms-footer">
-  <div class="ms-footer__inner">
-    <div class="ms-footer__grid">
-      <div class="ms-footer__brand">
-        {%- if section.settings.logo != blank -%}
-          {{ section.settings.logo | image_url: height: 120 | image_tag: loading: 'lazy', alt: shop.name, class: 'ms-footer__logo' }}
-        {%- else -%}
-          <span class="ms-footer__wordmark"><span>{{ section.settings.wordmark }}</span>{%- if section.settings.wordmark_sub != blank -%}<small>{{ section.settings.wordmark_sub }}</small>{%- endif -%}</span>
-        {%- endif -%}
-        {%- if section.settings.address != blank -%}
-          <p class="ms-footer__address">{{ section.settings.address | escape | newline_to_br }}</p>
-        {%- endif -%}
-      </div>
-
-      {%- for block in section.blocks -%}
-        {%- assign lines = block.settings.links | newline_to_br | split: '<br />' -%}
-        <div class="ms-footer__col" {{ block.shopify_attributes }}>
-          {%- if block.settings.heading != blank -%}<p class="ms-footer__heading">{{ block.settings.heading }}</p>{%- endif -%}
-          {%- for line in lines -%}
-            {%- assign l = line | strip -%}
-            {%- if l == blank -%}{%- continue -%}{%- endif -%}
-            {%- assign parts = l | split: '|' -%}
-            <a href="{{ parts[1] | strip | default: '#' }}">{{ parts[0] | strip }}</a>
-          {%- endfor -%}
-        </div>
-      {%- endfor -%}
-
-      <div class="ms-footer__col ms-footer__cta">
-        {%- if section.settings.cta_eyebrow != blank -%}<p class="ms-footer__heading">{{ section.settings.cta_eyebrow }}</p>{%- endif -%}
-        {%- if section.settings.cta_label != blank -%}
-          <a class="ms-footer__enquire" href="{{ cta_href }}" {% if section.settings.cta_panel %}data-ms-enquiry{% endif %}>{{ section.settings.cta_label }}</a>
-        {%- endif -%}
-        <div class="ms-footer__social">
-          {%- if section.settings.instagram != blank -%}<a href="{{ section.settings.instagram }}" target="_blank" rel="noopener">Instagram</a>{%- endif -%}
-          {%- if section.settings.linkedin != blank -%}<a href="{{ section.settings.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>{%- endif -%}
-          {%- if section.settings.pinterest != blank -%}<a href="{{ section.settings.pinterest }}" target="_blank" rel="noopener">Pinterest</a>{%- endif -%}
-        </div>
-      </div>
-    </div>
-
-    <div class="ms-footer__bottom">
-      <span>{{ section.settings.legal_line }}</span>
-      <div class="ms-footer__legal">
-        {%- assign lines = section.settings.legal_links | newline_to_br | split: '<br />' -%}
-        {%- for line in lines -%}
-          {%- assign l = line | strip -%}
-          {%- if l == blank -%}{%- continue -%}{%- endif -%}
-          {%- assign parts = l | split: '|' -%}
-          <a href="{{ parts[1] | strip | default: '#' }}">{{ parts[0] | strip }}</a>
-        {%- endfor -%}
-      </div>
-    </div>
-  </div>
+<footer data-dc-tpl="1287" data-ms-footer="" style="border-top: 1px solid rgb(221, 214, 201); padding: clamp(52px, 7vw, 110px) clamp(18px, 5vw, 80px) clamp(28px, 3vw, 48px);">
+<div style="max-width: 1560px; margin: 0px auto;">
+<div data-ms="footgrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: clamp(28px, 4vw, 72px);">
+<div>
+<img alt="Midsummer Milano" src="{% if section.settings.img1 != blank %}{{ section.settings.img1 | image_url: width: 2000 }}{% else %}{{ 'midsummer-logotype.svg' | asset_url }}{% endif %}" style="display: block; height: 30px; width: auto;"/>
+<p style="font-family: Newsreader, Georgia, serif; font-size: 16px; line-height: 1.85; color: rgb(110, 103, 92); margin-top: 22px;">{{ section.settings.t1 }}</p>
 </div>
-
-{% stylesheet %}
-  .ms-footer {
-    background: #FBF9F5;
-    color: #17140F;
-    border-top: 1px solid #DDD6C9;
-    padding: clamp(52px, 7vw, 110px) clamp(18px, 5vw, 80px) clamp(28px, 3vw, 48px);
-    font-family: var(--font-body--family);
-  }
-  .ms-footer__inner { max-width: 1560px; margin: 0 auto; }
-  .ms-footer__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: clamp(28px, 4vw, 72px); }
-  .ms-footer__logo { display: block; height: 30px; width: auto; max-width: 240px; object-fit: contain; }
-  .ms-footer__wordmark { display: inline-flex; flex-direction: column; align-items: center; line-height: 1; font-family: var(--font-heading--family); text-transform: uppercase; }
-  .ms-footer__wordmark span { font-size: 21px; letter-spacing: 0.24em; font-weight: 300; }
-  .ms-footer__wordmark small { font-family: var(--font-body--family); font-size: 8.5px; letter-spacing: 0.62em; margin-top: 6px; padding-left: 0.62em; }
-  .ms-footer__address { font-family: var(--font-heading--family); font-size: 16px; line-height: 1.85; color: #6E675C; margin: 22px 0 0; }
-  .ms-footer__col { display: flex; flex-direction: column; gap: 12px; font-size: 13.5px; }
-  .ms-footer__col a { color: #4A443B; text-decoration: none; line-height: 1.5; }
-  .ms-footer__col a:hover { color: #17140F; text-decoration: underline; text-underline-offset: 4px; }
-  .ms-footer__heading { margin: 0 0 6px; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: #6E675C; }
-  .ms-footer__cta { gap: 18px; }
-  .ms-footer .ms-footer__enquire { font-family: var(--font-heading--family); font-size: 26px; font-style: italic; color: #17140F; }
-  .ms-footer__social { display: flex; gap: 18px; font-size: 12.5px; }
-  .ms-footer__social a { color: #6E675C; }
-  .ms-footer__bottom {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 22px;
-    justify-content: space-between;
-    border-top: 1px solid #DDD6C9;
-    margin-top: clamp(36px, 5vw, 80px);
-    padding-top: 24px;
-    font-size: 11px;
-    letter-spacing: 0.04em;
-    color: #6E675C;
-  }
-  .ms-footer__legal { display: flex; flex-wrap: wrap; gap: 22px; }
-  .ms-footer__legal a { color: #6E675C; text-decoration: none; min-height: 24px; }
-  .ms-footer__legal a:hover { color: #17140F; }
-{% endstylesheet %}
-
+<div data-ms="footcol" style="display: flex; flex-direction: column; gap: 12px; font-size: 13.5px; color: rgb(74, 68, 59);">
+<span style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92); margin-bottom: 6px;">{{ section.settings.t2 }}</span>
+<a href="/collections/essentials">{{ section.settings.t3 }}</a><a href="/collections/signature">{{ section.settings.t4 }}</a><a href="/collections/icons">{{ section.settings.t5 }}</a><a href="/collections">{{ section.settings.t6 }}</a><a href="/pages/find-your-midsummer">{{ section.settings.t7 }}</a>
+</div>
+<div data-ms="footcol" style="display: flex; flex-direction: column; gap: 12px; font-size: 13.5px; color: rgb(74, 68, 59);">
+<span style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92); margin-bottom: 6px;">{{ section.settings.t8 }}</span>
+<a href="/pages/about-midsummer-milano">{{ section.settings.t9 }}</a><a href="/pages/handmade-in-italy">{{ section.settings.t10 }}</a><a href="/pages/natural-luxury-materials">{{ section.settings.t11 }}</a><a href="/pages/midsummer-milanos-regeneration-service">{{ section.settings.t12 }}</a><a href="/pages/find-your-midsummer">{{ section.settings.t13 }}</a>
+</div>
+<div data-ms="footcol" style="display: flex; flex-direction: column; gap: 12px; font-size: 13.5px; color: rgb(74, 68, 59);">
+<span style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92); margin-bottom: 6px;">{{ section.settings.t14 }}</span>
+<a href="/pages/professionals">{{ section.settings.t15 }}</a><a href="/pages/hospitality">{{ section.settings.t16 }}</a><a href="/pages/agents-and-resellers">{{ section.settings.t17 }}</a><a href="/blogs/news">{{ section.settings.t18 }}</a><a href="/pages/sleep-wise-faq">{{ section.settings.t19 }}</a>
+</div>
+<div data-ms="footcta" style="display: flex; flex-direction: column; gap: 18px;">
+<span style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92); min-height: 24px; display: flex; align-items: flex-end;">{{ section.settings.t20 }}</span>
+<a data-ms-enquire="" href="/pages/contact" style="font-family: Newsreader, Georgia, serif; font-size: 26px; font-style: italic;">{{ section.settings.t21 }}</a>
+<div data-ms="footsocial" style="display: flex; gap: 18px; font-size: 12.5px; color: rgb(110, 103, 92);"><a href="https://www.instagram.com/midsummermilano/" rel="noopener" style="color: rgb(110, 103, 92);" target="_blank">{{ section.settings.t22 }}</a><a href="https://www.linkedin.com/company/midsummer-milano/" rel="noopener" style="color: rgb(110, 103, 92);" target="_blank">{{ section.settings.t23 }}</a><a href="https://it.pinterest.com/midsummermilanosocial/" rel="noopener" style="color: rgb(110, 103, 92);" target="_blank">{{ section.settings.t24 }}</a></div>
+</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 22px; justify-content: space-between; border-top: 1px solid rgb(221, 214, 201); margin-top: clamp(36px, 5vw, 80px); padding-top: 24px; font-size: 11px; letter-spacing: 0.04em; color: rgb(110, 103, 92);">
+<span>{{ section.settings.t25 }}</span>
+<div data-ms="footlegal" style="display: flex; flex-wrap: wrap; gap: 22px;"><a href="/pages/terms-and-conditions" style="color: rgb(110, 103, 92);">{{ section.settings.t26 }}</a><a href="/pages/privacy-and-legal" style="color: rgb(110, 103, 92);">{{ section.settings.t27 }}</a><a href="/pages/privacy-and-legal" style="color: rgb(110, 103, 92);">{{ section.settings.t28 }}</a><span>{{ section.settings.t29 }}</span></div>
+</div>
+</div></footer>
 {% schema %}
 {
   "name": "MS · Footer",
-  "tag": "footer",
-  "class": "ms-footer-section",
   "settings": [
     {
       "type": "image_picker",
-      "id": "logo",
-      "label": "Logo"
+      "id": "img1",
+      "label": "Image: Midsummer Milano"
+    },
+    {
+      "type": "html",
+      "id": "t1",
+      "label": "Via Andegari 420121 Milano, Italy",
+      "default": "Via Andegari 4<br/>20121 Milano, Italy"
     },
     {
       "type": "text",
-      "id": "wordmark",
-      "label": "Wordmark",
-      "info": "Shown when no logo image is chosen.",
-      "default": "Midsummer"
+      "id": "t2",
+      "label": "Our Beds",
+      "default": "Our Beds"
     },
     {
       "type": "text",
-      "id": "wordmark_sub",
-      "label": "Wordmark second line",
-      "default": "Milano"
-    },
-    {
-      "type": "textarea",
-      "id": "address",
-      "label": "Address",
-      "default": "Via Andegari 4\n20121 Milano, Italy"
-    },
-    {
-      "type": "header",
-      "content": "Enquiry column"
+      "id": "t3",
+      "label": "Essentials",
+      "default": "Essentials"
     },
     {
       "type": "text",
-      "id": "cta_eyebrow",
-      "label": "Heading",
+      "id": "t4",
+      "label": "Signature",
+      "default": "Signature"
+    },
+    {
+      "type": "text",
+      "id": "t5",
+      "label": "Icons",
+      "default": "Icons"
+    },
+    {
+      "type": "text",
+      "id": "t6",
+      "label": "Compare beds",
+      "default": "Compare beds"
+    },
+    {
+      "type": "text",
+      "id": "t7",
+      "label": "Find your Midsummer",
+      "default": "Find your Midsummer"
+    },
+    {
+      "type": "text",
+      "id": "t8",
+      "label": "Heritage & Craft",
+      "default": "Heritage & Craft"
+    },
+    {
+      "type": "text",
+      "id": "t9",
+      "label": "Our story",
+      "default": "Our story"
+    },
+    {
+      "type": "text",
+      "id": "t10",
+      "label": "Handmade in Italy",
+      "default": "Handmade in Italy"
+    },
+    {
+      "type": "text",
+      "id": "t11",
+      "label": "Natural materials",
+      "default": "Natural materials"
+    },
+    {
+      "type": "text",
+      "id": "t12",
+      "label": "15 + 15 refurbishment",
+      "default": "15 + 15 refurbishment"
+    },
+    {
+      "type": "text",
+      "id": "t13",
+      "label": "Sleep Culture",
+      "default": "Sleep Culture"
+    },
+    {
+      "type": "text",
+      "id": "t14",
+      "label": "Professionals",
+      "default": "Professionals"
+    },
+    {
+      "type": "text",
+      "id": "t15",
+      "label": "Architects & interior designers",
+      "default": "Architects & interior designers"
+    },
+    {
+      "type": "text",
+      "id": "t16",
+      "label": "Hospitality",
+      "default": "Hospitality"
+    },
+    {
+      "type": "text",
+      "id": "t17",
+      "label": "Agents & resellers",
+      "default": "Agents & resellers"
+    },
+    {
+      "type": "text",
+      "id": "t18",
+      "label": "Journal",
+      "default": "Journal"
+    },
+    {
+      "type": "text",
+      "id": "t19",
+      "label": "Care and maintenance",
+      "default": "Care and maintenance"
+    },
+    {
+      "type": "text",
+      "id": "t20",
+      "label": "Speak to the atelier",
       "default": "Speak to the atelier"
     },
     {
       "type": "text",
-      "id": "cta_label",
-      "label": "Link",
+      "id": "t21",
+      "label": "Enquire →",
       "default": "Enquire →"
     },
     {
-      "type": "url",
-      "id": "cta_link",
-      "label": "Link URL"
-    },
-    {
-      "type": "checkbox",
-      "id": "cta_panel",
-      "label": "Link opens the enquiry panel",
-      "default": true
-    },
-    {
-      "type": "url",
-      "id": "instagram",
-      "label": "Instagram"
-    },
-    {
-      "type": "url",
-      "id": "linkedin",
-      "label": "LinkedIn"
-    },
-    {
-      "type": "url",
-      "id": "pinterest",
-      "label": "Pinterest"
-    },
-    {
-      "type": "header",
-      "content": "Bottom row"
+      "type": "text",
+      "id": "t22",
+      "label": "Instagram",
+      "default": "Instagram"
     },
     {
       "type": "text",
-      "id": "legal_line",
-      "label": "Legal line",
+      "id": "t23",
+      "label": "LinkedIn",
+      "default": "LinkedIn"
+    },
+    {
+      "type": "text",
+      "id": "t24",
+      "label": "Pinterest",
+      "default": "Pinterest"
+    },
+    {
+      "type": "text",
+      "id": "t25",
+      "label": "© 2026 Midsummer Milano — VAT 0228…",
       "default": "© 2026 Midsummer Milano — VAT 02282810999"
     },
     {
-      "type": "textarea",
-      "id": "legal_links",
-      "label": "Legal links",
-      "info": "One per line as Label | /url.",
-      "default": "Terms | /pages/terms-and-conditions\nPrivacy | /pages/privacy-and-legal\nCookies | /pages/cookie-policy"
-    }
-  ],
-  "blocks": [
+      "type": "text",
+      "id": "t26",
+      "label": "Terms",
+      "default": "Terms"
+    },
     {
-      "type": "column",
-      "name": "Link column",
-      "settings": [
-        {
-          "type": "text",
-          "id": "heading",
-          "label": "Heading",
-          "default": "Our Beds"
-        },
-        {
-          "type": "textarea",
-          "id": "links",
-          "label": "Links",
-          "info": "One per line as Label | /url."
-        }
-      ]
+      "type": "text",
+      "id": "t27",
+      "label": "Privacy",
+      "default": "Privacy"
+    },
+    {
+      "type": "text",
+      "id": "t28",
+      "label": "Cookies",
+      "default": "Cookies"
+    },
+    {
+      "type": "text",
+      "id": "t29",
+      "label": "English",
+      "default": "English"
     }
   ],
-  "max_blocks": 5
+  "tag": "div"
 }
 {% endschema %}

@@ -253,48 +253,237 @@
 {
   "name": "Structured data",
   "settings": [
-    { "type": "paragraph", "content": "Emits JSON-LD on every page: organisation and shop-front details, site search, breadcrumbs and product data. Switch any graph off if an app already outputs it." },
-    { "type": "checkbox", "id": "enable_organization", "label": "Organisation and shop front", "default": true },
-    { "type": "checkbox", "id": "enable_website", "label": "Website and site search", "default": true },
-    { "type": "checkbox", "id": "enable_breadcrumbs", "label": "Breadcrumbs", "default": true },
-    { "type": "checkbox", "id": "enable_product", "label": "Product", "default": true },
-    { "type": "header", "content": "Identity" },
-    { "type": "text", "id": "legal_name", "label": "Name", "default": "Midsummer Milano" },
-    { "type": "text", "id": "alternate_name", "label": "Alternate name", "default": "Midsummer" },
-    { "type": "image_picker", "id": "logo", "label": "Logo" },
-    { "type": "textarea", "id": "description", "label": "Description", "default": "Handmade luxury beds, mattresses and toppers, built one by one by two artisans in Italy from natural fibres and Loro Piana Interiors fabrics." },
-    { "type": "text", "id": "slogan", "label": "Slogan", "default": "We design dreams." },
-    { "type": "text", "id": "knows_about", "label": "Topics", "info": "Comma separated. Helps AI search understand what the house is authoritative about.", "default": "handmade mattresses, natural fibre bedding, vicuña, baby alpaca, cashmere, horsehair, mohair, yak hair, Cheviot wool, Loro Piana Interiors fabrics, boxsprings, made-to-measure beds, mattress regeneration, Italian furniture craftsmanship, sleep systems" },
-    { "type": "header", "content": "Atelier" },
-    { "type": "text", "id": "street", "label": "Street", "default": "Via Andegari 4" },
-    { "type": "text", "id": "city", "label": "City", "default": "Milano" },
-    { "type": "text", "id": "postal_code", "label": "Postal code", "default": "20121" },
-    { "type": "text", "id": "country_code", "label": "Country code", "default": "IT" },
-    { "type": "text", "id": "latitude", "label": "Latitude", "default": "45.4700" },
-    { "type": "text", "id": "longitude", "label": "Longitude", "default": "9.1877" },
-    { "type": "text", "id": "email", "label": "Email", "default": "info@midsummer-milano.com" },
-    { "type": "text", "id": "telephone", "label": "Telephone" },
-    { "type": "text", "id": "price_range", "label": "Price range", "default": "On request" },
-    { "type": "text", "id": "currencies", "label": "Currencies accepted", "default": "EUR" },
-    { "type": "text", "id": "area_served", "label": "Area served", "default": "Worldwide" },
-    { "type": "text", "id": "opens_morning", "label": "Opens (morning)", "default": "09:00" },
-    { "type": "text", "id": "closes_morning", "label": "Closes (morning)", "default": "12:00" },
-    { "type": "text", "id": "opens_afternoon", "label": "Opens (afternoon)", "default": "13:00" },
-    { "type": "text", "id": "closes_afternoon", "label": "Closes (afternoon)", "default": "18:00" },
-    { "type": "text", "id": "same_as", "label": "Social profiles", "info": "Comma separated URLs." },
-    { "type": "header", "content": "Service" },
-    { "type": "text", "id": "service_name", "label": "Service name", "default": "Bespoke sleep system consultation" },
-    { "type": "textarea", "id": "service_description", "label": "Service description", "default": "A consultation at the atelier on Via Andegari, or by video, after which dimensions, heights, fibres, fabric and comfort level are specified and the system is built by hand." },
-    { "type": "header", "content": "Product defaults" },
-    { "type": "checkbox", "id": "price_on_request", "label": "Describe price as on request", "default": true },
-    { "type": "text", "id": "price_request_text", "label": "Price on request text", "default": "Price on request. Each system is made to order and quoted after specification." },
-    { "type": "text", "id": "country_of_origin", "label": "Country of origin", "default": "Italy" },
-    { "type": "text", "id": "made_label", "label": "Property 1 name", "default": "Made by" },
-    { "type": "text", "id": "made_value", "label": "Property 1 value", "default": "Two artisans, by hand, start to finish, in Italy" },
-    { "type": "text", "id": "customisation_label", "label": "Property 2 name", "default": "Customisation" },
-    { "type": "text", "id": "customisation_value", "label": "Property 2 value", "default": "Dimensions, heights, fibres, fabric and comfort level made to measure" },
-    { "type": "header", "content": "Breadcrumbs" },
-    { "type": "text", "id": "home_label", "label": "Home label", "default": "Midsummer Milano" }
+    {
+      "type": "checkbox",
+      "id": "enable_organization",
+      "label": "Organisation and shop front",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_website",
+      "label": "Website and site search",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_breadcrumbs",
+      "label": "Breadcrumbs",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_product",
+      "label": "Product",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Identity"
+    },
+    {
+      "type": "text",
+      "id": "legal_name",
+      "label": "Name",
+      "default": "Midsummer Milano"
+    },
+    {
+      "type": "text",
+      "id": "alternate_name",
+      "label": "Alternate name",
+      "default": "Midsummer"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Handmade luxury beds, mattresses and toppers, built one by one by two artisans in Italy from natural fibres and Loro Piana Interiors fabrics."
+    },
+    {
+      "type": "text",
+      "id": "slogan",
+      "label": "Slogan",
+      "default": "We design dreams."
+    },
+    {
+      "type": "text",
+      "id": "knows_about",
+      "label": "Topics",
+      "info": "Comma separated. Helps AI search understand what the house is authoritative about.",
+      "default": "handmade mattresses, natural fibre bedding, vicuña, baby alpaca, cashmere, horsehair, mohair, yak hair, Cheviot wool, Loro Piana Interiors fabrics, boxsprings, made-to-measure beds, mattress regeneration, Italian furniture craftsmanship, sleep systems"
+    },
+    {
+      "type": "header",
+      "content": "Atelier"
+    },
+    {
+      "type": "text",
+      "id": "street",
+      "label": "Street",
+      "default": "Via Andegari 4"
+    },
+    {
+      "type": "text",
+      "id": "city",
+      "label": "City",
+      "default": "Milano"
+    },
+    {
+      "type": "text",
+      "id": "postal_code",
+      "label": "Postal code",
+      "default": "20121"
+    },
+    {
+      "type": "text",
+      "id": "country_code",
+      "label": "Country code",
+      "default": "IT"
+    },
+    {
+      "type": "text",
+      "id": "latitude",
+      "label": "Latitude",
+      "default": "45.4700"
+    },
+    {
+      "type": "text",
+      "id": "longitude",
+      "label": "Longitude",
+      "default": "9.1877"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email",
+      "default": "info@midsummer-milano.com"
+    },
+    {
+      "type": "text",
+      "id": "telephone",
+      "label": "Telephone"
+    },
+    {
+      "type": "text",
+      "id": "price_range",
+      "label": "Price range",
+      "default": "On request"
+    },
+    {
+      "type": "text",
+      "id": "currencies",
+      "label": "Currencies accepted",
+      "default": "EUR"
+    },
+    {
+      "type": "text",
+      "id": "area_served",
+      "label": "Area served",
+      "default": "Worldwide"
+    },
+    {
+      "type": "text",
+      "id": "opens_morning",
+      "label": "Opens (morning)",
+      "default": "09:00"
+    },
+    {
+      "type": "text",
+      "id": "closes_morning",
+      "label": "Closes (morning)",
+      "default": "12:00"
+    },
+    {
+      "type": "text",
+      "id": "opens_afternoon",
+      "label": "Opens (afternoon)",
+      "default": "13:00"
+    },
+    {
+      "type": "text",
+      "id": "closes_afternoon",
+      "label": "Closes (afternoon)",
+      "default": "18:00"
+    },
+    {
+      "type": "text",
+      "id": "same_as",
+      "label": "Social profiles",
+      "info": "Comma separated URLs."
+    },
+    {
+      "type": "header",
+      "content": "Service"
+    },
+    {
+      "type": "text",
+      "id": "service_name",
+      "label": "Service name",
+      "default": "Bespoke sleep system consultation"
+    },
+    {
+      "type": "textarea",
+      "id": "service_description",
+      "label": "Service description",
+      "default": "A consultation at the atelier on Via Andegari, or by video, after which dimensions, heights, fibres, fabric and comfort level are specified and the system is built by hand."
+    },
+    {
+      "type": "header",
+      "content": "Product defaults"
+    },
+    {
+      "type": "checkbox",
+      "id": "price_on_request",
+      "label": "Describe price as on request",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "price_request_text",
+      "label": "Price on request text",
+      "default": "Price on request. Each system is made to order and quoted after specification."
+    },
+    {
+      "type": "text",
+      "id": "country_of_origin",
+      "label": "Country of origin",
+      "default": "Italy"
+    },
+    {
+      "type": "text",
+      "id": "made_label",
+      "label": "Property 1 name",
+      "default": "Made by"
+    },
+    {
+      "type": "text",
+      "id": "made_value",
+      "label": "Property 1 value",
+      "default": "Two artisans, by hand, start to finish, in Italy"
+    },
+    {
+      "type": "text",
+      "id": "customisation_label",
+      "label": "Property 2 name",
+      "default": "Customisation"
+    },
+    {
+      "type": "text",
+      "id": "customisation_value",
+      "label": "Property 2 value",
+      "default": "Dimensions, heights, fibres, fabric and comfort level made to measure"
+    },
+    {
+      "type": "text",
+      "id": "home_label",
+      "label": "Home label",
+      "default": "Midsummer Milano"
+    }
   ]
 }
 {% endschema %}

@@ -1,898 +1,228 @@
-{%- comment -%}
-  Midsummer Milano — side enquiry panel.
-  Lives in the header group, so it is available on every page.
-  Opens from: any element with [data-ms-enquiry], any link to the enquiry page,
-  and any link to #enquiry. The dedicated page keeps working on its own.
-{%- endcomment -%}
-
-{%- liquid
-  assign modes = section.blocks | where: 'type', 'mode'
-  assign enquiry_path = section.settings.enquiry_page | default: '/pages/contact'
-  assign is_enquiry_page = false
-  if request.path == enquiry_path
-    assign is_enquiry_page = true
-  endif
--%}
-
-{%- if modes.size > 0 -%}
-<div
-  class="ms-enq"
-  id="ms-enq-{{ section.id }}"
-  data-ms-enq
-  data-enquiry-path="{{ enquiry_path }}"
-  data-on-enquiry-page="{% if is_enquiry_page %}true{% else %}false{% endif %}"
-  hidden
->
-  <div class="ms-enq__scrim" data-ms-enq-close></div>
-
-  <aside class="ms-enq__panel" role="dialog" aria-modal="true" aria-labelledby="ms-enq-title-{{ section.id }}">
-    <div class="ms-enq__grip" data-ms-enq-grip aria-hidden="true"><span></span></div>
-    <header class="ms-enq__head">
-      <h2 class="ms-enq__title" id="ms-enq-title-{{ section.id }}">{{ section.settings.heading }}</h2>
-      <button class="ms-enq__close" type="button" data-ms-enq-close aria-label="{{ section.settings.close_label }}">
-        <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false">
-          <path d="M1 1 L15 15 M15 1 L1 15" fill="none" stroke="currentColor" stroke-width="1.2"></path>
-        </svg>
-      </button>
-    </header>
-
-    <div class="ms-enq__body">
-      {%- if request.query_string contains 'contact_posted=true' -%}
-        <div class="ms-enq__thanks">
-          <p class="ms-enq__thanks-title">{{ section.settings.success_heading }}</p>
-          <p class="ms-enq__thanks-body">{{ section.settings.success_body }}</p>
-          <button class="ms-enq__ghost" type="button" data-ms-enq-close>{{ section.settings.close_label }}</button>
-        </div>
-      {%- else -%}
-
-        <nav class="ms-enq__tabs" role="tablist">
-          {%- for mode in modes -%}
-            <button
-              class="ms-enq__tab"
-              type="button"
-              role="tab"
-              data-ms-enq-tab="{{ mode.settings.mode_id }}"
-              aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
-            >{{ mode.settings.label }}</button>
-          {%- endfor -%}
-        </nav>
-
-        {%- for mode in modes -%}
-          <p class="ms-enq__note" data-ms-enq-note="{{ mode.settings.mode_id }}" {% unless forloop.first %}hidden{% endunless %}>
-            {{ mode.settings.note }}
-          </p>
-        {%- endfor -%}
-
-        {%- form 'contact', id: 'ms-enquiry-form', class: 'ms-enq__form' -%}
-          {%- if form.errors -%}
-            <div class="ms-enq__errors" role="alert">
-              {{ form.errors | default_errors }}
-            </div>
-          {%- endif -%}
-
-          <input type="hidden" name="contact[Enquiry mode]" value="{{ modes.first.settings.label }}" data-ms-enq-mode-field>
-          <input type="hidden" name="contact[Sent from]" value="{{ request.origin }}{{ request.path }}">
-          {%- if template.name == 'product' and product != blank -%}
-            <input type="hidden" name="contact[Regarding]" value="{{ product.title }}">
-          {%- endif -%}
-
-          <div class="ms-enq__grid">
-            <label class="ms-enq__field">
-              <span>{{ section.settings.label_title }}*</span>
-              <select name="contact[Title]" required>
-                <option value="">{{ section.settings.select_placeholder }}</option>
-                {%- assign titles = section.settings.title_options | split: ',' -%}
-                {%- for t in titles -%}
-                  <option value="{{ t | strip }}">{{ t | strip }}</option>
-                {%- endfor -%}
-              </select>
-            </label>
-
-            <label class="ms-enq__field">
-              <span>{{ section.settings.label_first_name }}*</span>
-              <input type="text" name="contact[First name]" autocomplete="given-name" required>
-            </label>
-
-            <label class="ms-enq__field">
-              <span>{{ section.settings.label_last_name }}*</span>
-              <input type="text" name="contact[Last name]" autocomplete="family-name" required>
-            </label>
-
-            <label class="ms-enq__field">
-              <span>{{ section.settings.label_email }}*</span>
-              <input type="email" name="contact[email]" autocomplete="email" required>
-            </label>
-
-            <label class="ms-enq__field" data-ms-modes="brochure" data-ms-required="">
-              <span>{{ section.settings.label_city }}</span>
-              <input type="text" name="contact[City]" autocomplete="address-level2">
-            </label>
-
-            <label class="ms-enq__field" data-ms-modes="brochure" data-ms-required="brochure">
-              <span data-ms-req-star>{{ section.settings.label_enquiry_type }}*</span>
-              <select name="contact[Enquiry type]">
-                <option value="">{{ section.settings.enquiry_type_placeholder }}</option>
-                {%- assign types = section.settings.enquiry_type_options | split: ',' -%}
-                {%- for t in types -%}
-                  <option value="{{ t | strip }}">{{ t | strip }}</option>
-                {%- endfor -%}
-              </select>
-            </label>
-
-            <label class="ms-enq__field" data-ms-modes="appointment callback message" data-ms-required="appointment callback">
-              <span data-ms-req-star>{{ section.settings.label_phone }}</span>
-              <input type="tel" name="contact[Phone]" autocomplete="tel">
-            </label>
-
-            <label class="ms-enq__field" data-ms-modes="appointment" data-ms-required="appointment">
-              <span data-ms-req-star>{{ section.settings.label_date }}</span>
-              <input type="date" name="contact[Preferred date]">
-              <small>{{ section.settings.date_hint }}</small>
-            </label>
-
-            <label class="ms-enq__field" data-ms-modes="callback" data-ms-required="callback">
-              <span data-ms-req-star>{{ section.settings.label_time }}</span>
-              <select name="contact[Preferred time]">
-                <option value="">{{ section.settings.select_placeholder }}</option>
-                {%- assign slots = section.settings.time_options | split: ',' -%}
-                {%- for t in slots -%}
-                  <option value="{{ t | strip }}">{{ t | strip }}</option>
-                {%- endfor -%}
-              </select>
-            </label>
-
-            <label class="ms-enq__field" data-ms-modes="message" data-ms-required="">
-              <span>{{ section.settings.label_subject }}</span>
-              <input type="text" name="contact[Subject]">
-            </label>
-
-            <label class="ms-enq__field ms-enq__field--wide" data-ms-modes="brochure appointment callback message" data-ms-required="callback message">
-              <span data-ms-enq-notes-label>{{ modes.first.settings.notes_label }}</span>
-              <textarea name="contact[body]" rows="4"></textarea>
-            </label>
-          </div>
-
-          {%- if section.settings.show_consent -%}
-            <label class="ms-enq__consent">
-              <input type="checkbox" name="contact[Consent]" value="Agreed" required>
-              <span>{{ section.settings.consent_text }}</span>
-            </label>
-          {%- endif -%}
-
-          <button class="ms-enq__submit" type="submit">{{ section.settings.submit_label }}</button>
-
-          <p class="ms-enq__fallback">
-            <a href="{{ enquiry_path }}">{{ section.settings.fallback_label }}</a>
-          </p>
-        {%- endform -%}
-
-        <script type="application/json" data-ms-enq-modes>
-          [
-            {%- for mode in modes -%}
-              {
-                "id": {{ mode.settings.mode_id | json }},
-                "label": {{ mode.settings.label | json }},
-                "notes": {{ mode.settings.notes_label | json }}
-              }{%- unless forloop.last -%},{%- endunless -%}
-            {%- endfor -%}
-          ]
-        </script>
-      {%- endif -%}
-    </div>
-  </aside>
+{%- comment -%} The enquiry sheet: any link to /pages/contact, or anything marked data-ms-enquire, opens it. {%- endcomment -%}
+<div aria-label="Enquiry" aria-modal="true" data-dc-tpl="1335" data-ms-drawer="" hidden="" role="dialog" style="position: fixed; inset: 0px; z-index: 90;">
+<div data-ms-drawer-close="" style="position: absolute; inset: 0px; background: rgba(10, 8, 6, 0.65);"></div>
+<aside data-ms="sheet" style="position: absolute; top: 0px; bottom: 0px; right: 0px; width: min(560px, 100%); background: rgb(251, 249, 245); color: rgb(23, 20, 15); display: flex; flex-direction: column; animation: 0.45s cubic-bezier(0.4, 0, 0.2, 1) 0s 1 normal both running msSlide; box-shadow: rgba(10, 8, 6, 0.2) -30px 0px 90px;">
+<div data-ms="grip" style="display: none; align-items: center; justify-content: center; padding: 14px 0px 4px; cursor: grab; touch-action: none;">
+<span style="display: block; width: 46px; height: 3px; background: rgb(221, 214, 201);"></span>
 </div>
-
-{%- if section.settings.show_edge_trigger -%}
-  <button class="ms-enq__edge" type="button" data-ms-enquiry>{{ section.settings.edge_label }}</button>
-{%- endif -%}
-
-<script>
-  (function () {
-    var root = document.querySelector('[data-ms-enq]');
-    if (!root || root.dataset.msReady) return;
-    root.dataset.msReady = '1';
-
-    var panel = root.querySelector('.ms-enq__panel');
-    var modeField = root.querySelector('[data-ms-enq-mode-field]');
-    var notesLabel = root.querySelector('[data-ms-enq-notes-label]');
-    var holder = root.querySelector('[data-ms-enq-modes]');
-    var modes = [];
-    if (holder) { try { modes = JSON.parse(holder.textContent); } catch (e) { modes = []; } }
-
-    var lastFocus = null;
-
-    // `source` is the element that opened the panel; ms-tracking listens for
-    // ms:enquiry-open. Automatic reopening after a submission passes nothing.
-    function open(source) {
-      lastFocus = document.activeElement;
-      if (source) {
-        document.dispatchEvent(new CustomEvent('ms:enquiry-open', { detail: { source: source } }));
-      }
-      root.hidden = false;
-      document.documentElement.style.overflow = 'hidden';
-      requestAnimationFrame(function () {
-        root.classList.add('is-open');
-        var first = panel.querySelector('input, select, textarea, button');
-        if (first) first.focus();
-      });
-    }
-
-    function close() {
-      root.classList.remove('is-open');
-      document.documentElement.style.overflow = '';
-      window.setTimeout(function () { root.hidden = true; }, 320);
-      if (lastFocus && lastFocus.focus) lastFocus.focus();
-    }
-
-    function setMode(id) {
-      var mode = null;
-      for (var i = 0; i < modes.length; i++) { if (modes[i].id === id) mode = modes[i]; }
-      if (!mode) return;
-
-      root.querySelectorAll('[data-ms-enq-tab]').forEach(function (tab) {
-        tab.setAttribute('aria-selected', tab.dataset.msEnqTab === id ? 'true' : 'false');
-      });
-      root.querySelectorAll('[data-ms-enq-note]').forEach(function (note) {
-        note.hidden = note.dataset.msEnqNote !== id;
-      });
-
-      root.querySelectorAll('[data-ms-modes]').forEach(function (field) {
-        var shown = field.dataset.msModes.split(' ').indexOf(id) > -1;
-        var req = (field.dataset.msRequired || '').split(' ').indexOf(id) > -1;
-        field.hidden = !shown;
-        var input = field.querySelector('input, select, textarea');
-        if (input) {
-          if (shown && req) { input.setAttribute('required', 'required'); }
-          else { input.removeAttribute('required'); }
-        }
-        var star = field.querySelector('[data-ms-req-star]');
-        if (star) {
-          var base = star.textContent.replace(/\*$/, '');
-          star.textContent = req ? base + '*' : base;
-        }
-      });
-
-      if (modeField) modeField.value = mode.label;
-      if (notesLabel) notesLabel.textContent = mode.notes;
-    }
-
-    root.querySelectorAll('[data-ms-enq-tab]').forEach(function (tab) {
-      tab.addEventListener('click', function () { setMode(tab.dataset.msEnqTab); });
-    });
-    root.querySelectorAll('[data-ms-enq-close]').forEach(function (btn) {
-      btn.addEventListener('click', close);
-    });
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && !root.hidden) close();
-    });
-
-    // drag the grip down to dismiss the sheet
-    var grip = root.querySelector('[data-ms-enq-grip]');
-    if (grip) {
-      grip.addEventListener('pointerdown', function (e) {
-        var y0 = e.clientY;
-        panel.style.transition = 'none';
-        var move = function (ev) {
-          var dy = Math.max(0, ev.clientY - y0);
-          panel.style.transform = 'translateY(' + dy + 'px)';
-        };
-        var up = function (ev) {
-          window.removeEventListener('pointermove', move);
-          window.removeEventListener('pointerup', up);
-          panel.style.transition = '';
-          var dy = Math.max(0, ev.clientY - y0);
-          if (dy > 110) { panel.style.transform = ''; close(); return; }
-          panel.style.transform = '';
-        };
-        window.addEventListener('pointermove', move);
-        window.addEventListener('pointerup', up);
-      });
-    }
-
-    var path = root.dataset.enquiryPath;
-    var onPage = root.dataset.onEnquiryPage === 'true';
-
-    document.addEventListener('click', function (e) {
-      var trigger = e.target.closest('[data-ms-enquiry]');
-      if (trigger) {
-        e.preventDefault();
-        open(trigger);
-        if (trigger.dataset.msEnquiryMode) setMode(trigger.dataset.msEnquiryMode);
-        return;
-      }
-      var link = e.target.closest('a[href]');
-      if (!link) return;
-      var href = link.getAttribute('href') || '';
-      if (href.indexOf('#enquiry') > -1 || (!onPage && path && href.split('?')[0].replace(/\/$/, '') === path.replace(/\/$/, ''))) {
-        e.preventDefault();
-        open(link);
-      }
-    });
-
-    if (modes.length) setMode(modes[0].id);
-
-    // Reopen after a submission (thanks or errors). The panel's form redirects
-    // back with #ms-enquiry-form; on the enquiry page itself the page's own form
-    // shows its result, so the panel only opens for its own submissions there.
-    var returned = /contact_posted=true|[?&]contact%5Bemail%5D|form_type=contact/.test(window.location.search);
-    var fromPanel = window.location.hash === '#ms-enquiry-form';
-    if (window.location.hash === '#enquiry' || (returned && (fromPanel || !onPage))) open();
-  })();
-</script>
-
-{% stylesheet %}
-  .ms-enq { position: fixed; inset: 0; z-index: 60; }
-  .ms-enq[hidden] { display: none; }
-  .ms-enq__scrim {
-    position: absolute;
-    inset: 0;
-    background: var(--ms-enq-scrim);
-    opacity: 0;
-    transition: opacity 0.32s ease;
-  }
-  .ms-enq.is-open .ms-enq__scrim { opacity: 1; }
-  .ms-enq__panel {
-    position: absolute;
-    inset-block: 0;
-    inset-inline-end: 0;
-    width: min(var(--ms-enq-width), 100%);
-    display: flex;
-    flex-direction: column;
-    background: var(--ms-enq-bg);
-    color: var(--ms-enq-text);
-    transform: translateX(100%);
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    overflow: hidden;
-  }
-  .ms-enq.is-open .ms-enq__panel { transform: translateX(0); }
-  .ms-enq__head {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 24px;
-    padding: clamp(24px, 3vw, 40px) clamp(20px, 3vw, 44px);
-    border-bottom: 1px solid var(--ms-enq-rule);
-  }
-  .ms-enq__title {
-    margin: 0;
-    font-family: var(--font-heading--family);
-    font-size: clamp(22px, 2.4vw, 32px);
-    font-weight: 200;
-    line-height: 1.15;
-    letter-spacing: -0.015em;
-  }
-  .ms-enq__close {
-    flex: 0 0 auto;
-    background: none;
-    border: 0;
-    padding: 6px;
-    cursor: pointer;
-    color: inherit;
-  }
-  .ms-enq__body {
-    flex: 1;
-    overflow-y: auto;
-    padding: clamp(22px, 3vw, 36px) clamp(20px, 3vw, 44px) clamp(40px, 5vw, 64px);
-  }
-  .ms-enq__tabs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 22px;
-    border-bottom: 1px solid var(--ms-enq-rule);
-    padding-bottom: 2px;
-  }
-  .ms-enq__tab {
-    background: none;
-    border: 0;
-    border-bottom: 1px solid transparent;
-    padding: 0 0 12px;
-    cursor: pointer;
-    font-size: 10px;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    color: var(--ms-enq-muted);
-    white-space: nowrap;
-  }
-  .ms-enq__tab[aria-selected='true'] {
-    color: var(--ms-enq-text);
-    border-bottom-color: var(--ms-enq-accent);
-  }
-  .ms-enq__note {
-    margin: 22px 0 0;
-    font-size: 14px;
-    line-height: 1.85;
-    color: var(--ms-enq-muted);
-    max-width: 52ch;
-  }
-  .ms-enq__errors {
-    margin: 22px 0 0;
-    padding: 14px 16px;
-    border: 1px solid var(--ms-enq-accent);
-    font-size: 13.5px;
-    line-height: 1.7;
-  }
-  .ms-enq__errors ul { margin: 0; padding-inline-start: 18px; }
-  .ms-enq__grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 22px 24px;
-    margin-top: 30px;
-  }
-  .ms-enq__field { display: flex; flex-direction: column; gap: 8px; }
-  .ms-enq__field[hidden] { display: none; }
-  .ms-enq__field--wide { grid-column: 1 / -1; }
-  .ms-enq__field > span {
-    font-size: 9.5px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--ms-enq-muted);
-  }
-  .ms-enq__field small {
-    font-size: 12px;
-    color: var(--ms-enq-muted);
-  }
-  .ms-enq__field input,
-  .ms-enq__field select,
-  .ms-enq__field textarea {
-    width: 100%;
-    background: transparent;
-    border: 0;
-    border-bottom: 1px solid var(--ms-enq-rule);
-    border-radius: 0;
-    padding: 8px 0;
-    font-family: inherit;
-    font-size: 15px;
-    color: inherit;
-    appearance: none;
-  }
-  .ms-enq__field textarea { resize: vertical; }
-  .ms-enq__field input:focus,
-  .ms-enq__field select:focus,
-  .ms-enq__field textarea:focus {
-    outline: none;
-    border-bottom-color: var(--ms-enq-text);
-  }
-  .ms-enq__field select {
-    background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%);
-    background-position: right 6px center, right 1px center;
-    background-size: 5px 5px, 5px 5px;
-    background-repeat: no-repeat;
-    padding-right: 20px;
-  }
-  .ms-enq__consent {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    margin-top: 28px;
-    font-size: 12.5px;
-    line-height: 1.75;
-    color: var(--ms-enq-muted);
-  }
-  .ms-enq__consent input { margin-top: 3px; accent-color: var(--ms-enq-text); }
-  .ms-enq__consent a { color: inherit; }
-  .ms-enq__submit {
-    margin-top: 30px;
-    background: var(--ms-enq-button-bg);
-    color: var(--ms-enq-button-text);
-    border: 0;
-    border-radius: 0;
-    padding: 19px 40px;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 9.5px;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-  }
-  .ms-enq__fallback {
-    margin: 22px 0 0;
-    font-size: 12px;
-    color: var(--ms-enq-muted);
-  }
-  .ms-enq__thanks { padding-block: 12px; max-width: 48ch; }
-  .ms-enq__thanks-title {
-    margin: 0;
-    font-family: var(--font-heading--family);
-    font-size: clamp(22px, 2.4vw, 30px);
-    font-weight: 200;
-    line-height: 1.2;
-  }
-  .ms-enq__thanks-body {
-    margin: 18px 0 0;
-    font-size: 15px;
-    line-height: 1.9;
-    color: var(--ms-enq-muted);
-  }
-  .ms-enq__ghost {
-    margin-top: 28px;
-    background: none;
-    border: 1px solid var(--ms-enq-text);
-    border-radius: 0;
-    padding: 17px 34px;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 9.5px;
-    letter-spacing: 0.26em;
-    text-transform: uppercase;
-    color: inherit;
-  }
-  .ms-enq__edge {
-    position: fixed;
-    inset-inline-end: 0;
-    inset-block-start: 50%;
-    z-index: 50;
-    transform: translateY(-50%) rotate(180deg);
-    writing-mode: vertical-rl;
-    background: var(--ms-enq-edge-bg, #17140F);
-    color: var(--ms-enq-edge-text, #FBF9F5);
-    border: 0;
-    border-radius: 0;
-    padding: 20px 13px;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 9.5px;
-    letter-spacing: 0.26em;
-    text-transform: uppercase;
-  }
-  .ms-enq__grip { display: none; }
-
-  /* Atelier's own mobile menu, taken full-screen. Its width is driven by two
-     custom properties, so this needs no change to any Atelier file. */
-  @media screen and (max-width: 749px) {
-    .menu-drawer {
-      --drawer-width: 100vw;
-      --drawer-max-width: 100vw;
-      border-right: 0;
-    }
-  }
-
-  @media screen and (max-width: 749px) {
-    .ms-enq__grid { grid-template-columns: minmax(0, 1fr); }
-    .ms-enq__edge { display: none; }
-
-    /* a sheet rising from the bottom is the pattern a phone expects */
-    .ms-enq__panel {
-      inset-block: auto 0;
-      inset-inline: 0;
-      width: 100%;
-      max-height: 92%;
-      transform: translateY(100%);
-      transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
-      box-shadow: 0 -24px 70px rgba(10, 8, 6, 0.24);
-    }
-    .ms-enq.is-open .ms-enq__panel { transform: translateY(0); }
-    .ms-enq__grip {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex: 0 0 auto;
-      padding: 14px 0 4px;
-      cursor: grab;
-      touch-action: none;
-    }
-    .ms-enq__grip span {
-      display: block;
-      width: 46px;
-      height: 3px;
-      background: var(--ms-enq-rule);
-    }
-    .ms-enq__head { padding-top: 10px; }
-  }
-{% endstylesheet %}
-
-{%- style -%}
-  .ms-enq,
-  .ms-enq__edge {
-    --ms-enq-bg: {{ section.settings.background_color }};
-    --ms-enq-text: {{ section.settings.text_color }};
-    --ms-enq-muted: {{ section.settings.muted_color }};
-    --ms-enq-accent: {{ section.settings.accent_color }};
-    --ms-enq-rule: {{ section.settings.rule_color }};
-    --ms-enq-scrim: {{ section.settings.scrim_color }};
-    --ms-enq-button-bg: {{ section.settings.button_background }};
-    --ms-enq-button-text: {{ section.settings.button_text }};
-    --ms-enq-edge-bg: {{ section.settings.button_background }};
-    --ms-enq-edge-text: {{ section.settings.button_text }};
-    --ms-enq-width: {{ section.settings.panel_width }}px;
-  }
-{%- endstyle -%}
-{%- endif -%}
-
+<header style="display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: clamp(20px, 2.4vw, 28px) clamp(22px, 3.4vw, 48px); border-bottom: 1px solid rgb(221, 214, 201);">
+<span style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92);">{{ section.settings.t1 }}</span>
+<button aria-label="Close" data-ms-drawer-close="" style="background: none; border: 0px; padding: 4px; cursor: pointer; color: rgb(23, 20, 15);" type="button">
+<svg aria-hidden="true" height="14" style="display: block;" viewbox="0 0 16 16" width="14"><path d="M1 1 L15 15 M15 1 L1 15" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg>
+</button>
+</header>
+<div style="flex: 1 1 0%; overflow-y: auto; padding: clamp(34px, 4.4vw, 58px) clamp(22px, 3.4vw, 48px) clamp(40px, 5vw, 64px);">{%- form 'contact', id: 'ms-drawer-form' -%}<div data-ms-enq="Book appointment"><input data-ms-enq-mode-field="" name="contact[Enquiry mode]" type="hidden" value="Book appointment"/>{%- if form.posted_successfully? -%}<p role="status" style="font-family: Newsreader, Georgia, serif; font-size: 20px; line-height: 1.5; border-top: 1px solid #DDD6C9; border-bottom: 1px solid #DDD6C9; padding: 18px 0; margin-bottom: 30px;">Thank you. The atelier will reply within one working day.</p>{%- endif -%}{%- if form.errors -%}<div role="alert" style="font-size: 13px; line-height: 1.8; color: #8B3A2B; margin-bottom: 24px;">{{ form.errors | default_errors }}</div>{%- endif -%}
+<h2 style="font-family: Newsreader, Georgia, serif; font-size: clamp(26px, 3.2vw, 40px); font-weight: 200; line-height: 1.1; letter-spacing: -0.02em; max-width: 22ch;">{{ section.settings.t2 }}</h2>
+<p data-ms-copy="note" style="margin-top: 20px; font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); max-width: 48ch;">{{ section.settings.t3 }}</p>
+<div style="margin-top: clamp(30px, 3.6vw, 46px);">
+<div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92); margin-bottom: 6px;">{{ section.settings.t4 }}</div>
+<button aria-pressed="false" data-ms-tab="Request brochure" style="display: flex; align-items: center; gap: 14px; width: 100%; text-align: left; background: transparent; border-width: 1px 0px 0px; border-top-style: solid; border-right-style: initial; border-bottom-style: initial; border-left-style: initial; border-top-color: rgb(221, 214, 201); border-right-color: initial; border-bottom-color: initial; border-left-color: initial; border-image: initial; padding: 16px 0px; cursor: pointer; font-family: inherit; color: inherit;" type="button">{{ section.settings.t5 }}</button>
+<button aria-pressed="true" data-ms-tab="Book appointment" style="display: flex; align-items: center; gap: 14px; width: 100%; text-align: left; background: transparent; border-width: 1px 0px 0px; border-top-style: solid; border-right-style: initial; border-bottom-style: initial; border-left-style: initial; border-top-color: rgb(221, 214, 201); border-right-color: initial; border-bottom-color: initial; border-left-color: initial; border-image: initial; padding: 16px 0px; cursor: pointer; font-family: inherit; color: inherit;" type="button">{{ section.settings.t6 }}</button>
+<button aria-pressed="false" data-ms-tab="Request callback" style="display: flex; align-items: center; gap: 14px; width: 100%; text-align: left; background: transparent; border-width: 1px 0px 0px; border-top-style: solid; border-right-style: initial; border-bottom-style: initial; border-left-style: initial; border-top-color: rgb(221, 214, 201); border-right-color: initial; border-bottom-color: initial; border-left-color: initial; border-image: initial; padding: 16px 0px; cursor: pointer; font-family: inherit; color: inherit;" type="button">{{ section.settings.t7 }}</button>
+<button aria-pressed="false" data-ms-tab="Leave a message" style="display: flex; align-items: center; gap: 14px; width: 100%; text-align: left; background: transparent; border-width: 1px 0px; border-top-style: solid; border-right-style: initial; border-bottom-style: solid; border-left-style: initial; border-top-color: rgb(221, 214, 201); border-right-color: initial; border-bottom-color: rgb(221, 214, 201); border-left-color: initial; border-image: initial; padding: 16px 0px; cursor: pointer; font-family: inherit; color: inherit;" type="button">{{ section.settings.t8 }}</button>
+</div>
+<div data-ms="fieldgrid" style="display: grid; grid-template-columns: repeat(2, minmax(0px, 1fr)); gap: 26px; margin-top: clamp(32px, 3.8vw, 48px); align-items: end;">
+<label style="display: flex; flex-direction: column; gap: 9px;">
+<span style="font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(110, 103, 92); min-height: 26px; display: flex; align-items: flex-end;">{{ section.settings.t9 }}</span>
+<select class="ms-field" name="contact[Title]" required="" style="border-bottom: 1px solid rgb(221, 214, 201); padding: 9px 0px; font-size: 15px;"><option value=""><span>{{ section.settings.t10 }}</span></option><option><span>{{ section.settings.t11 }}</span></option><option><span>{{ section.settings.t12 }}</span></option><option><span>{{ section.settings.t13 }}</span></option><option><span>{{ section.settings.t14 }}</span></option><option><span>{{ section.settings.t15 }}</span></option></select>
+</label>
+<label style="display: flex; flex-direction: column; gap: 9px;">
+<span style="font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(110, 103, 92); min-height: 26px; display: flex; align-items: flex-end;">{{ section.settings.t16 }}</span>
+<input autocomplete="given-name" class="ms-field" name="contact[First name]" required="" style="border-bottom: 1px solid rgb(221, 214, 201); padding: 9px 0px; font-size: 15px;" type="text"/>
+</label>
+<label style="display: flex; flex-direction: column; gap: 9px;">
+<span style="font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(110, 103, 92); min-height: 26px; display: flex; align-items: flex-end;">{{ section.settings.t17 }}</span>
+<input autocomplete="family-name" class="ms-field" name="contact[Last name]" required="" style="border-bottom: 1px solid rgb(221, 214, 201); padding: 9px 0px; font-size: 15px;" type="text"/>
+</label>
+<label style="display: flex; flex-direction: column; gap: 9px;">
+<span style="font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(110, 103, 92); min-height: 26px; display: flex; align-items: flex-end;">{{ section.settings.t18 }}</span>
+<input autocomplete="email" class="ms-field" name="contact[email]" required="" style="border-bottom: 1px solid rgb(221, 214, 201); padding: 9px 0px; font-size: 15px;" type="email"/>
+</label>
+<label style="display: flex; flex-direction: column; gap: 9px;">
+<span data-ms-copy="five" style="font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(110, 103, 92); min-height: 26px; display: flex; align-items: flex-end;">{{ section.settings.t19 }}</span>
+<input class="ms-field" data-ms-field="five" name="contact[Phone]" style="border-bottom: 1px solid rgb(221, 214, 201); padding: 9px 0px; font-size: 15px;" type="tel"/>
+</label>
+<label style="display: flex; flex-direction: column; gap: 9px;">
+<span data-ms-copy="six" style="font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(110, 103, 92); min-height: 26px; display: flex; align-items: flex-end;">{{ section.settings.t20 }}</span>
+<input class="ms-field" data-ms-copy="sixHint" data-ms-field="six" name="contact[Preferred date]" placeholder="Monday to Friday" style="border-bottom: 1px solid rgb(221, 214, 201); padding: 9px 0px; font-size: 15px;" type="text"/>
+</label>
+<label style="display: flex; flex-direction: column; gap: 9px; grid-column: 1 / -1;">
+<span data-ms-copy="notes" style="font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(110, 103, 92); min-height: 26px; display: flex; align-items: flex-end;">{{ section.settings.t21 }}</span>
+<textarea class="ms-field" data-ms-field="notes" name="contact[Notes]" rows="1" style="border-bottom: 1px solid rgb(221, 214, 201); padding: 9px 0px 46px; font-size: 15px;"></textarea>
+</label>
+</div>
+<label style="display: flex; align-items: flex-start; gap: 12px; margin-top: 30px; font-size: 12.5px; line-height: 1.8; color: rgb(110, 103, 92);">
+<input class="ms-check" name="contact[Consent]" required="" type="checkbox" value="yes"/>
+<span>{{ section.settings.t22 }}</span>
+</label>
+<div style="display: flex; flex-direction: column; gap: 20px; align-items: flex-start; margin-top: 32px;">
+<button style="background: rgb(23, 20, 15); color: rgb(251, 249, 245); border: 0px; padding: 20px 44px; cursor: pointer; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;" type="submit">{{ section.settings.t23 }}</button>
+<a data-ms="cta" href="/pages/contact" style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92);">{{ section.settings.t24 }}</a>
+</div>
+</div>{%- endform -%}</div>
+<footer style="flex: 0 0 auto; border-top: 1px solid rgb(221, 214, 201); background: rgb(241, 236, 227); padding: clamp(22px, 2.6vw, 32px) clamp(22px, 3.4vw, 48px); display: flex; flex-wrap: wrap; gap: 22px 44px;">
+<div style="display: flex; flex-direction: column; gap: 7px;">{{ section.settings.t25 }}</div>
+<div style="display: flex; flex-direction: column; gap: 7px;">{{ section.settings.t26 }}</div>
+</footer></aside></div>
 {% schema %}
 {
-  "name": "Enquiry panel",
+  "name": "Enquiry sheet",
   "settings": [
     {
-      "type": "paragraph",
-      "content": "Opens from any element with a data-ms-enquiry attribute, any link to the enquiry page, and any link to #enquiry. The dedicated page keeps working for direct visits and without JavaScript."
+      "type": "text",
+      "id": "t1",
+      "label": "Enquiry",
+      "default": "Enquiry"
     },
     {
       "type": "text",
-      "id": "heading",
-      "label": "Heading",
+      "id": "t2",
+      "label": "Please proceed with your enquiry.",
       "default": "Please proceed with your enquiry."
     },
     {
-      "type": "url",
-      "id": "enquiry_page",
-      "label": "Dedicated enquiry page",
-      "info": "Links to this page open the panel instead."
-    },
-    {
-      "type": "range",
-      "id": "panel_width",
-      "label": "Panel width",
-      "min": 380,
-      "max": 900,
-      "step": 10,
-      "unit": "px",
-      "default": 620
-    },
-    {
-      "type": "checkbox",
-      "id": "show_edge_trigger",
-      "label": "Show the fixed edge trigger",
-      "default": true
+      "type": "text",
+      "id": "t3",
+      "label": "Visit the atelier on Via Andegari,…",
+      "default": "Visit the atelier on Via Andegari, or meet us by video. We confirm within one working day."
     },
     {
       "type": "text",
-      "id": "edge_label",
-      "label": "Edge trigger label",
-      "default": "Enquire"
+      "id": "t4",
+      "label": "I would like to",
+      "default": "I would like to"
     },
     {
-      "type": "header",
-      "content": "Field labels"
+      "type": "html",
+      "id": "t5",
+      "label": "Request brochure",
+      "default": "<span data-ms-dot=\"\" style=\"flex: 0 0 auto; width: 7px; height: 7px; border-radius: 50%; background: transparent; box-shadow: rgb(221, 214, 201) 0px 0px 0px 1px inset;\"></span>\n<span data-ms-tablabel=\"\" style=\"font-family: Newsreader, Georgia, serif; font-size: clamp(17px, 1.8vw, 21px); line-height: 1.3; color: rgb(110, 103, 92);\">Request brochure</span>"
     },
     {
-      "type": "text",
-      "id": "label_title",
-      "label": "Title",
-      "default": "Title"
+      "type": "html",
+      "id": "t6",
+      "label": "Book appointment",
+      "default": "<span data-ms-dot=\"\" style=\"flex: 0 0 auto; width: 7px; height: 7px; border-radius: 50%; background: rgb(154, 123, 79); box-shadow: rgb(154, 123, 79) 0px 0px 0px 1px inset;\"></span>\n<span data-ms-tablabel=\"\" style=\"font-family: Newsreader, Georgia, serif; font-size: clamp(17px, 1.8vw, 21px); line-height: 1.3; color: rgb(23, 20, 15);\">Book appointment</span>"
     },
     {
-      "type": "text",
-      "id": "title_options",
-      "label": "Title options",
-      "info": "Comma separated.",
-      "default": "Mr, Mrs, Ms, Mx, Dr, Arch., Prof."
+      "type": "html",
+      "id": "t7",
+      "label": "Request callback",
+      "default": "<span data-ms-dot=\"\" style=\"flex: 0 0 auto; width: 7px; height: 7px; border-radius: 50%; background: transparent; box-shadow: rgb(221, 214, 201) 0px 0px 0px 1px inset;\"></span>\n<span data-ms-tablabel=\"\" style=\"font-family: Newsreader, Georgia, serif; font-size: clamp(17px, 1.8vw, 21px); line-height: 1.3; color: rgb(110, 103, 92);\">Request callback</span>"
     },
     {
-      "type": "text",
-      "id": "label_first_name",
-      "label": "First name",
-      "default": "First name"
-    },
-    {
-      "type": "text",
-      "id": "label_last_name",
-      "label": "Last name",
-      "default": "Last name"
+      "type": "html",
+      "id": "t8",
+      "label": "Leave a message",
+      "default": "<span data-ms-dot=\"\" style=\"flex: 0 0 auto; width: 7px; height: 7px; border-radius: 50%; background: transparent; box-shadow: rgb(221, 214, 201) 0px 0px 0px 1px inset;\"></span>\n<span data-ms-tablabel=\"\" style=\"font-family: Newsreader, Georgia, serif; font-size: clamp(17px, 1.8vw, 21px); line-height: 1.3; color: rgb(110, 103, 92);\">Leave a message</span>"
     },
     {
       "type": "text",
-      "id": "label_email",
-      "label": "Email",
-      "default": "Email"
+      "id": "t9",
+      "label": "Title*",
+      "default": "Title*"
     },
     {
       "type": "text",
-      "id": "label_city",
-      "label": "City",
-      "default": "City"
-    },
-    {
-      "type": "text",
-      "id": "label_phone",
-      "label": "Phone",
-      "default": "Phone"
-    },
-    {
-      "type": "text",
-      "id": "label_subject",
-      "label": "Subject",
-      "default": "Subject"
-    },
-    {
-      "type": "text",
-      "id": "label_date",
-      "label": "Preferred date",
-      "default": "Preferred date"
-    },
-    {
-      "type": "text",
-      "id": "date_hint",
-      "label": "Date hint",
-      "default": "Monday to Friday"
-    },
-    {
-      "type": "text",
-      "id": "label_time",
-      "label": "Preferred time",
-      "default": "Preferred time"
-    },
-    {
-      "type": "text",
-      "id": "time_options",
-      "label": "Time options",
-      "info": "Comma separated.",
-      "default": "09:00–10:30, 10:30–12:00, 13:00–15:00, 15:00–16:30, 16:30–18:00"
-    },
-    {
-      "type": "text",
-      "id": "label_enquiry_type",
-      "label": "Enquiry type",
-      "default": "Enquiry type"
-    },
-    {
-      "type": "text",
-      "id": "enquiry_type_placeholder",
-      "label": "Enquiry type placeholder",
-      "default": "Choose your enquiry type"
-    },
-    {
-      "type": "text",
-      "id": "enquiry_type_options",
-      "label": "Enquiry type options",
-      "info": "Comma separated. These are the segments used for conversion tracking.",
-      "default": "Private client, Architect or interior designer, Hospitality or contract, Dealer or distributor, Press"
-    },
-    {
-      "type": "text",
-      "id": "select_placeholder",
-      "label": "Select placeholder",
+      "id": "t10",
+      "label": "Select",
       "default": "Select"
     },
     {
-      "type": "header",
-      "content": "Submit and consent"
+      "type": "text",
+      "id": "t11",
+      "label": "Mr",
+      "default": "Mr"
     },
     {
       "type": "text",
-      "id": "submit_label",
-      "label": "Submit label",
+      "id": "t12",
+      "label": "Mrs",
+      "default": "Mrs"
+    },
+    {
+      "type": "text",
+      "id": "t13",
+      "label": "Ms",
+      "default": "Ms"
+    },
+    {
+      "type": "text",
+      "id": "t14",
+      "label": "Dr",
+      "default": "Dr"
+    },
+    {
+      "type": "text",
+      "id": "t15",
+      "label": "Arch.",
+      "default": "Arch."
+    },
+    {
+      "type": "text",
+      "id": "t16",
+      "label": "First name*",
+      "default": "First name*"
+    },
+    {
+      "type": "text",
+      "id": "t17",
+      "label": "Last name*",
+      "default": "Last name*"
+    },
+    {
+      "type": "text",
+      "id": "t18",
+      "label": "Email*",
+      "default": "Email*"
+    },
+    {
+      "type": "text",
+      "id": "t19",
+      "label": "Phone*",
+      "default": "Phone*"
+    },
+    {
+      "type": "text",
+      "id": "t20",
+      "label": "Preferred date*",
+      "default": "Preferred date*"
+    },
+    {
+      "type": "text",
+      "id": "t21",
+      "label": "Notes",
+      "default": "Notes"
+    },
+    {
+      "type": "text",
+      "id": "t22",
+      "label": "By clicking submit you agree to ou…",
+      "default": "By clicking submit you agree to our terms and conditions and privacy policy."
+    },
+    {
+      "type": "text",
+      "id": "t23",
+      "label": "Submit",
       "default": "Submit"
     },
     {
-      "type": "checkbox",
-      "id": "show_consent",
-      "label": "Show consent checkbox",
-      "default": true
-    },
-    {
-      "type": "richtext",
-      "id": "consent_text",
-      "label": "Consent text",
-      "default": "<p>By clicking submit you agree to our terms and conditions and privacy policy.</p>"
-    },
-    {
       "type": "text",
-      "id": "fallback_label",
-      "label": "Full page link label",
-      "default": "Open the full enquiry page"
+      "id": "t24",
+      "label": "Open the full enquiry page →",
+      "default": "Open the full enquiry page →"
     },
     {
-      "type": "text",
-      "id": "close_label",
-      "label": "Close label",
-      "default": "Close"
+      "type": "html",
+      "id": "t25",
+      "label": "The atelier Via Andegari 4, Milano",
+      "default": "<span style=\"font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92);\">The atelier</span>\n<span style=\"font-family: Newsreader, Georgia, serif; font-size: 17px; line-height: 1.4;\">Via Andegari 4, Milano</span>"
     },
     {
-      "type": "header",
-      "content": "After sending"
-    },
-    {
-      "type": "text",
-      "id": "success_heading",
-      "label": "Success heading",
-      "default": "Thank you. Your enquiry is with the atelier."
-    },
-    {
-      "type": "textarea",
-      "id": "success_body",
-      "label": "Success body",
-      "default": "We reply to every enquiry by email within one working day. If it is urgent, call us on the number in the footer."
-    },
-    {
-      "type": "header",
-      "content": "Colors"
-    },
-    {
-      "type": "color",
-      "id": "background_color",
-      "label": "Panel background",
-      "default": "#FBF9F5"
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Text",
-      "default": "#17140F"
-    },
-    {
-      "type": "color",
-      "id": "muted_color",
-      "label": "Muted text",
-      "default": "#6E675C"
-    },
-    {
-      "type": "color",
-      "id": "accent_color",
-      "label": "Accent",
-      "default": "#7E623B"
-    },
-    {
-      "type": "color",
-      "id": "rule_color",
-      "label": "Rules",
-      "default": "#DDD6C9"
-    },
-    {
-      "type": "color",
-      "id": "scrim_color",
-      "label": "Scrim",
-      "default": "#0A0806A6"
-    },
-    {
-      "type": "color",
-      "id": "button_background",
-      "label": "Button background",
-      "default": "#17140F"
-    },
-    {
-      "type": "color",
-      "id": "button_text",
-      "label": "Button text",
-      "default": "#FBF9F5"
-    }
-  ],
-  "blocks": [
-    {
-      "type": "mode",
-      "name": "Tab",
-      "settings": [
-        {
-          "type": "select",
-          "id": "mode_id",
-          "label": "Fields",
-          "info": "Which set of fields this tab shows.",
-          "options": [
-            {
-              "value": "brochure",
-              "label": "City + enquiry type"
-            },
-            {
-              "value": "appointment",
-              "label": "Phone + preferred date"
-            },
-            {
-              "value": "callback",
-              "label": "Phone + preferred time"
-            },
-            {
-              "value": "message",
-              "label": "Phone + subject"
-            }
-          ],
-          "default": "brochure"
-        },
-        {
-          "type": "text",
-          "id": "label",
-          "label": "Tab label",
-          "default": "Request brochure"
-        },
-        {
-          "type": "textarea",
-          "id": "note",
-          "label": "Note under the tabs"
-        },
-        {
-          "type": "text",
-          "id": "notes_label",
-          "label": "Message field label",
-          "default": "How did you hear about us?"
-        }
-      ]
+      "type": "html",
+      "id": "t26",
+      "label": "Or speak to us Mon–Fri, 09:00–18:00",
+      "default": "<span style=\"font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92);\">Or speak to us</span>\n<span style=\"font-family: Newsreader, Georgia, serif; font-size: 17px; line-height: 1.4;\">Mon–Fri, 09:00–18:00</span>"
     }
   ]
 }

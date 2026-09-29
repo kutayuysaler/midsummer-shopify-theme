@@ -1,0 +1,39 @@
+<section data-dc-tpl="960" style="position: relative; overflow: hidden;">
+<img alt="" data-ms="band" src="{% if section.settings.img1 != blank %}{{ section.settings.img1 | image_url: width: 2000 }}{% else %}{{ 'ms-graded-horse.jpg' | asset_url }}{% endif %}" style="width: 100%; height: min(64vh, 600px); object-fit: cover;"/>
+<div style="position: absolute; inset: 0px; background: rgba(10, 8, 6, 0.42);"></div>
+<div style="position: absolute; inset: 0px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 22px; padding: clamp(26px, 5vw, 80px); color: rgb(251, 249, 245);">
+<h2 style="font-family: Newsreader, Georgia, serif; font-size: clamp(28px, 4vw, 56px); line-height: 1.06; letter-spacing: -0.025em; max-width: 20ch;">{{ section.settings.t1 }}</h2>
+<p style="font-size: 15px; line-height: 1.9; opacity: 0.9; max-width: 50ch;">{{ section.settings.t2 }}</p>
+<a data-ms="cta" href="/pages/find-your-midsummer" style="color: rgb(251, 249, 245); font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; border-bottom: 1px solid rgba(251, 249, 245, 0.5); padding-bottom: 8px;">{{ section.settings.t3 }}</a>
+</div>
+</section>
+{% schema %}
+{
+  "name": "Materials 04 · Not sure w",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "img1",
+      "label": "Image 1"
+    },
+    {
+      "type": "text",
+      "id": "t1",
+      "label": "Not sure which fibre suits you?",
+      "default": "Not sure which fibre suits you?"
+    },
+    {
+      "type": "text",
+      "id": "t2",
+      "label": "Five questions on how and where yo…",
+      "default": "Five questions on how and where you sleep, and we will tell you which fibres we would build with."
+    },
+    {
+      "type": "text",
+      "id": "t3",
+      "label": "Find your Midsummer",
+      "default": "Find your Midsummer"
+    }
+  ]
+}
+{% endschema %}

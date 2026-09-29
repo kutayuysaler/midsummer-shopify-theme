@@ -1,0 +1,23 @@
+<section data-dc-tpl="906" style="padding: clamp(60px, 9vw, 150px) clamp(18px, 5vw, 80px); max-width: 980px;">
+<p style="font-family: Newsreader, Georgia, serif; font-size: clamp(24px, 3.4vw, 44px); line-height: 1.28; letter-spacing: -0.015em;">{{ section.settings.t1 }}</p>
+<p style="font-size: 15px; line-height: 1.95; color: rgb(74, 68, 59); margin-top: 28px; max-width: 58ch;">{{ section.settings.t2 }}</p>
+</section>
+{% schema %}
+{
+  "name": "Hospitality 02 · A guest ",
+  "settings": [
+    {
+      "type": "text",
+      "id": "t1",
+      "label": "A guest remembers the bed. It is t…",
+      "default": "A guest remembers the bed. It is the one piece of furniture they spend eight hours inside."
+    },
+    {
+      "type": "textarea",
+      "id": "t2",
+      "label": "Midsummer supplies hotels, branded…",
+      "default": "Midsummer supplies hotels, branded residences and yachts with the same hand-built natural-fibre systems we make for private clients — specified for contract life, delivered in phases, and regenerated rather than replaced."
+    }
+  ]
+}
+{% endschema %}

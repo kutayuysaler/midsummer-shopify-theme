@@ -1,0 +1,30 @@
+<section data-dc-tpl="1132" style="padding: clamp(60px, 9vw, 140px) clamp(18px, 5vw, 80px) clamp(32px, 4vw, 56px); max-width: 1120px;">
+<div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgb(110, 103, 92);">{{ section.settings.t1 }}</div>
+<h1 style="font-family: Newsreader, Georgia, serif; font-size: clamp(36px, 5.6vw, 80px); line-height: 1; letter-spacing: -0.035em; margin-top: 22px;">{{ section.settings.t2 }}</h1>
+<p style="font-size: 16px; line-height: 1.95; color: rgb(74, 68, 59); margin-top: 26px; max-width: 56ch;">{{ section.settings.t3 }}</p>
+</section>
+{% schema %}
+{
+  "name": "Questions 01 · Questions ",
+  "settings": [
+    {
+      "type": "text",
+      "id": "t1",
+      "label": "Questions",
+      "default": "Questions"
+    },
+    {
+      "type": "text",
+      "id": "t2",
+      "label": "What people ask before they commit.",
+      "default": "What people ask before they commit."
+    },
+    {
+      "type": "textarea",
+      "id": "t3",
+      "label": "Eleven answers on how the beds are…",
+      "default": "Eleven answers on how the beds are made, how they are specified and how they are looked after. Each one answers in its first sentence, which is the part search engines and AI assistants quote."
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,33 @@
+<section data-dc-tpl="861" style="padding: clamp(40px, 6vw, 96px) clamp(18px, 5vw, 80px) clamp(28px, 4vw, 56px); max-width: 1560px; margin: 0px auto;">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(34px, 6vw, 104px); align-items: end;">
+<img alt="A Midsummer bed in an upholstered interior" src="{% if section.settings.img1 != blank %}{{ section.settings.img1 | image_url: width: 2000 }}{% else %}{{ 'ms-graded-ochre-room.jpg' | asset_url }}{% endif %}" style="display: block; width: 100%; height: auto; aspect-ratio: 1122 / 1402; object-fit: contain; background: rgb(244, 239, 229);"/>
+<div style="padding-bottom: clamp(8px, 2vw, 32px);">
+<div style="font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: rgb(110, 103, 92);">{{ section.settings.t1 }}</div>
+<h1 style="font-family: Newsreader, Georgia, serif; font-size: clamp(34px, 5.6vw, 78px); line-height: 1; letter-spacing: -0.03em; font-weight: 200; margin-top: 16px; max-width: 16ch;">{{ section.settings.t2 }}</h1>
+</div>
+</div>
+</section>
+{% schema %}
+{
+  "name": "Professionals 01 · Trade ",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "img1",
+      "label": "Image: A Midsummer bed in an uphols"
+    },
+    {
+      "type": "text",
+      "id": "t1",
+      "label": "Trade",
+      "default": "Trade"
+    },
+    {
+      "type": "text",
+      "id": "t2",
+      "label": "Architects & Interior Designers",
+      "default": "Architects & Interior Designers"
+    }
+  ]
+}
+{% endschema %}

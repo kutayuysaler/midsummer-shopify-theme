@@ -102,7 +102,7 @@
       });
     }, true);
 
-    // The quiz announces its result on this event; see ms-find-your-midsummer.
+    // The quiz announces its result on this event; see ms-quiz.
     document.addEventListener('ms:quiz-complete', function (e) {
       push('ms_quiz_complete', {
         recommendation: (e.detail && e.detail.product) || '',

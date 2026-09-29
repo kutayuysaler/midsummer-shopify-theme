@@ -1,0 +1,126 @@
+/* Midsummer Milano: the site-wide rules of the approved preview.
+   Every section carries its own inline styles, exactly as the preview does;
+   this file holds only what the preview declared globally. */
+
+html { scroll-behavior: smooth; }
+body.ms-site { margin: 0; background: #FBF9F5; color: #17140F; font-family: "Red Hat Text", system-ui, sans-serif; font-weight: 300; -webkit-font-smoothing: antialiased; }
+.ms-site * { box-sizing: border-box; }
+.ms-site img { display: block; }
+.ms-site p { margin: 0; }
+.ms-site h1, .ms-site h2, .ms-site h3, .ms-site h4 { margin: 0; font-weight: 200; text-wrap: balance; }
+.ms-site p { text-wrap: pretty; }
+.ms-site a img { transition: transform 1.1s cubic-bezier(.2,.7,.2,1); }
+.ms-site a:hover img { transform: scale(1.022); }
+.ms-site a { color: #17140F; text-decoration: none; }
+.ms-site a:hover { color: #8C8579; }
+.ms-site button { font-family: inherit; }
+.ms-site input, .ms-site select, .ms-site textarea { font-family: inherit; }
+.ms-site .shopify-section { display: block; }
+
+@keyframes msMarq { from { transform: translate3d(0,0,0); } to { transform: translate3d(-50%,0,0); } }
+@keyframes msSlide { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@keyframes msRise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes msVeil { from { opacity: 1; } to { opacity: 0; } }
+
+/* The house grade, matched to the photographs graded by hand: warm, matte,
+   blacks lifted, highlights held. Files with "graded" in the name carry it already. */
+.ms-site { --ms-grade: sepia(.1) saturate(.96) contrast(.9) brightness(.98); }
+.ms-site img:not([src*="graded"]):not([src*="logo"]), .ms-site video { filter: var(--ms-grade); }
+
+/* hover states the preview set on individual buttons */
+.ms-site .scp0:hover { background: #2A251E !important; color: #FBF9F5 !important; }
+.ms-site .scp1:hover { background: #FFFFFF !important; color: #17140F !important; }
+
+.ms-visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ── Header: sticky, and clear over the opening photograph on Home and Collection ── */
+#ms-header-wrap { position: sticky; top: 0; z-index: 80; transition: transform .5s cubic-bezier(.2,.7,.2,1); }
+#ms-header-wrap.is-hidden { transform: translateY(-100%); }
+body.ms-overlay #ms-header-wrap { margin-bottom: -85px; }
+[data-ms-header] { transition: background .35s ease, color .35s ease, border-color .35s ease; background: #FBF9F5; color: #17140F; border-bottom: 1px solid #DDD6C9; }
+body.ms-overlay:not(.ms-scrolled):not(.ms-mega-open) [data-ms-header] { background: transparent; color: #FBF9F5; border-bottom-color: rgba(251,249,245,.28); }
+[data-ms-logo] { transition: filter .35s ease; }
+body.ms-overlay:not(.ms-scrolled):not(.ms-mega-open) [data-ms-logo] { filter: brightness(0) invert(1) !important; }
+.ms-site [hidden], [data-ms-headerroot] [hidden], [data-ms-drawer][hidden], [data-ms-drawer] [hidden] { display: none !important; }
+[data-ms-panel] { animation: msRise .3s ease both; }
+[data-ms="nav"]::-webkit-scrollbar { display: none; }
+body.ms-lock { overflow: hidden; }
+
+/* form fields drawn as the preview draws them: a hairline, no box */
+.ms-field { width: 100%; background: transparent; border: 0; border-bottom: 1px solid #DDD6C9; border-radius: 0; padding: 9px 0; font-size: 15px; min-height: 40px; color: #17140F; outline: none; font-weight: 300; }
+.ms-field:focus { border-bottom-color: #17140F; }
+.ms-field::placeholder { color: #6E675C; }
+select.ms-field { appearance: none; -webkit-appearance: none; cursor: pointer; color: #6E675C; }
+select.ms-field.is-set { color: #17140F; }
+textarea.ms-field { resize: vertical; min-height: 0; line-height: 1.4; }
+.ms-check { appearance: none; -webkit-appearance: none; flex: 0 0 auto; width: 13px; height: 13px; border: 1px solid #8C8579; margin: 3px 0 0; border-radius: 0; background: transparent; cursor: pointer; }
+.ms-check:checked { background: #17140F; border-color: #17140F; }
+
+/* ── Mobile: the preview's container rules, against the viewport ── */
+@media (max-width: 760px) {
+  .ms-site a, .ms-site button { -webkit-tap-highlight-color: transparent; }
+  .ms-site a:active, .ms-site button:active { opacity: .66; transition: opacity .08s ease; }
+  [data-ms="menubtn"] { min-width: 44px; min-height: 44px; align-items: center; justify-content: center; }
+  [data-ms="logo"] { display: flex !important; align-items: center; min-height: 44px; }
+  [data-ms="cta"] { display: inline-flex !important; align-items: flex-end; min-height: 44px; }
+  [data-ms="footgrid"] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 34px 18px !important; }
+  [data-ms="footgrid"] > :first-child { grid-column: 1 / -1; }
+  [data-ms="footcol"] { gap: 0 !important; }
+  [data-ms="footcol"] > a { display: flex; align-items: center; min-height: 44px; }
+  [data-ms="prodgrid"] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 34px 14px !important; }
+  [data-ms="band"] { height: clamp(460px, 120vw, 600px) !important; }
+  [data-ms="headrow"] { gap: 14px !important; padding-inline: 18px !important; min-height: 64px !important; }
+  [data-ms="nav"], [data-ms="headaction"] { display: none !important; }
+  [data-ms="menubtn"] { display: flex !important; }
+  [data-ms-panel] { display: none !important; }
+  [data-ms="buildstack"] { --band-w: 100%; }
+  [data-ms="layerlabel"] { display: none !important; }
+  [data-ms="fieldgrid"] { grid-template-columns: minmax(0, 1fr) !important; }
+  [data-ms="sheet"] {
+    top: auto !important; right: 0 !important; left: 0 !important; bottom: 0 !important;
+    width: 100% !important; max-height: 92% !important;
+    box-shadow: 0 -24px 70px rgba(10,8,6,.24) !important;
+    animation: none !important; transform: none !important;
+  }
+  [data-ms="grip"] { display: flex !important; }
+  [data-ms="rail"] {
+    display: grid !important; grid-auto-flow: column !important; grid-template-columns: none !important;
+    grid-auto-columns: 78% !important; gap: 14px !important; overflow-x: auto !important;
+    overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: max(18px, 5vw);
+    margin-inline: calc(-1 * max(18px, 5vw)) !important; padding-inline: max(18px, 5vw) !important;
+    padding-bottom: 4px !important; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  }
+  [data-ms="rail"]::-webkit-scrollbar { display: none; }
+  [data-ms="rail"] > * { scroll-snap-align: start; min-width: 0; }
+  [data-ms="figs"] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 34px 18px !important; }
+  [data-ms="logo"] img { height: 22px !important; }
+  [data-ms="sizes"] > button, [data-ms="contactlinks"] > a { position: relative; }
+  [data-ms="sizes"] > button::after, [data-ms="contactlinks"] > a::after { content: ""; position: absolute; inset: -4px -6px; }
+  [data-ms="contactlinks"] > a::after { inset: -14px -10px; }
+  [data-ms="footsocial"], [data-ms="footlegal"] { flex-wrap: wrap !important; gap: 0 18px !important; }
+  [data-ms="footsocial"] > a, [data-ms="footlegal"] > a, [data-ms="footcta"] > a { display: inline-flex; align-items: center; min-height: 44px; }
+  [data-ms="footcta"] { gap: 6px !important; }
+  [data-ms="pressrow"]:nth-of-type(2) { display: none !important; }
+  [data-ms="comparetable"], [data-ms="comparetable"] tbody, [data-ms="comparetable"] tr, [data-ms="comparetable"] td { display: block !important; }
+  [data-ms="comparetable"] { width: 100% !important; }
+  [data-ms="comparetable"] thead { display: none !important; }
+  [data-ms="comparetable"] tbody tr { border-top: 1px solid #DDD6C9; padding: 16px 0 6px !important; }
+  [data-ms="comparetable"] tbody td { border: 0 !important; padding: 0 0 10px !important; }
+  [data-ms="comparetable"] tbody td[data-tier]::before {
+    content: attr(data-tier); display: block; font-size: 10.5px; letter-spacing: .26em;
+    text-transform: uppercase; color: #9A7B4F; margin-bottom: 5px;
+  }
+}
+@media (min-width: 761px) {
+  [data-ms="menubtn"], [data-ms="grip"] { display: none !important; }
+  [data-ms-menu] { display: none !important; }
+}
+@media (min-width: 900px) and (max-width: 1120px) {
+  [data-ms="nav"] { gap: 14px !important; margin-inline-start: 14px !important; }
+  [data-ms="nav"] > * { letter-spacing: .12em !important; }
+  [data-ms="headrow"] { gap: 12px !important; padding-inline: 24px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  [data-ms-panel], [data-ms="sheet"] { animation: none !important; }
+}

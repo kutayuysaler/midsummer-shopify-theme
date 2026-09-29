@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+    {%- render 'meta-tags' -%}
+    <link rel="preload" href="{{ 'ms-newsreader-4.woff2' | asset_url }}" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{{ 'ms-red-hat-text-6.woff2' | asset_url }}" as="font" type="font/woff2" crossorigin>
+    {%- render 'ms-fonts' -%}
+    {{ 'ms-site.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'ms-site.js' | asset_url }}" defer="defer"></script>
+    {{ content_for_header }}
+  </head>
+  {%- liquid
+    assign ms_overlay = false
+    if template.name == 'index' or template.name == 'collection'
+      assign ms_overlay = true
+    endif
+  -%}
+  <body class="ms-site{% if ms_overlay %} ms-overlay{% endif %}" data-template="{{ template.name }}">
+    <a class="ms-visually-hidden" href="#MainContent">Skip to content</a>
+    <div id="ms-header-wrap">
+      {% sections 'header-group' %}
+    </div>
+    <main id="MainContent" role="main">
+      <div aria-hidden="true" data-ms-sentinel style="width: 100%; height: 1px;"></div>
+      {{ content_for_layout }}
+    </main>
+    {% sections 'footer-group' %}
+    {% section 'ms-enquiry-drawer' %}
+    {% section 'ms-seo' %}
+    {% section 'ms-tracking' %}
+  </body>
+</html>

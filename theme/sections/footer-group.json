@@ -1,54 +1,13 @@
 /*
- * ------------------------------------------------------------
- * Midsummer Milano — customised for the Atelier theme.
- * Generated from the approved UX preview. Safe to replace the
- * matching file in the theme export before upload.
- * ------------------------------------------------------------
+ * Midsummer Milano: the header and footer of the approved preview.
  */
 {
   "type": "footer",
-  "name": "t:names.footer",
+  "name": "Footer group",
   "sections": {
     "ms_footer": {
       "type": "ms-footer",
-      "settings": {
-        "logo": "shopify://shop_images/midsummer-logotype.png",
-        "address": "Via Andegari 4\n20121 Milano, Italy",
-        "cta_eyebrow": "Speak to the atelier",
-        "cta_label": "Enquire →",
-        "cta_link": "/pages/contact",
-        "cta_panel": true,
-        "legal_line": "© 2026 Midsummer Milano — VAT 02282810999",
-        "legal_links": "Terms | /pages/terms-and-conditions\nPrivacy | /pages/privacy-and-legal\nCookies | /pages/cookie-policy"
-      },
-      "blocks": {
-        "beds": {
-          "type": "column",
-          "settings": {
-            "heading": "Our Beds",
-            "links": "Essentials | /collections/essentials\nSignature | /collections/signature\nIcons | /collections/icons\nCompare beds | /collections\nFind your Midsummer | /pages/find-your-midsummer"
-          }
-        },
-        "heritage": {
-          "type": "column",
-          "settings": {
-            "heading": "Heritage & Craft",
-            "links": "Our story | /pages/about-midsummer-milano\nHandmade in Italy | /pages/handmade-in-italy\nNatural materials | /pages/natural-luxury-materials\n15 + 15 refurbishment | /pages/midsummer-milanos-regeneration-service\nSleep Culture | /pages/sleep-culture"
-          }
-        },
-        "pro": {
-          "type": "column",
-          "settings": {
-            "heading": "Professionals",
-            "links": "Architects & interior designers | /pages/professionals\nHospitality | /pages/hospitality\nAgents & resellers | /pages/agents-and-resellers\nJournal | /blogs/news\nCare and maintenance | /pages/product-maintenance-and-care"
-          }
-        }
-      },
-      "block_order": [
-        "beds",
-        "heritage",
-        "pro"
-      ]
+      "settings": {}
     }
   },
   "order": [

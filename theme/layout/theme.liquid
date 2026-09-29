@@ -31,8 +31,10 @@
 
     {{ content_for_header }}
 
-    {%- comment -%} Midsummer Milano: scroll reveal. Delete this line to switch it off. {%- endcomment -%}
-    <script src="{{ 'ms-motion.js' | asset_url }}" defer="defer"></script>
+    {%- comment -%} Midsummer Milano: the preview's header, footer and enquiry sheet also serve the stock pages (cart). {%- endcomment -%}
+    {%- render 'ms-fonts' -%}
+    {{ 'ms-site.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'ms-site.js' | asset_url }}" defer="defer"></script>
 
   </head>
 
@@ -42,7 +44,7 @@
     {% render 'chat-drawer' %}
 
     <div class="page-wrapper">
-      <div id="header-group">
+      <div id="ms-header-wrap">
         {% sections 'header-group' %}
       </div>
 
@@ -178,14 +180,8 @@
       {% render 'quick-add-modal' %}
     {% endif %}
 
-    {%- comment -%}
-      Midsummer Milano: site-wide sections, rendered statically (as the live theme does
-      with its enquire panel) rather than inside the header and footer groups, so the
-      header and footer never depend on custom code. Edit them in the theme editor.
-    {%- endcomment -%}
     {% section 'ms-enquiry-drawer' %}
     {% section 'ms-seo' %}
-    {% section 'ms-grade' %}
     {% section 'ms-tracking' %}
 
   </body>

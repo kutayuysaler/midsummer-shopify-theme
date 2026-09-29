@@ -1,0 +1,40 @@
+{%- liquid
+  assign tier = collection.handle
+  case tier
+    when 'essentials'
+      assign numeral = 'I'
+      assign fallback = 'https://midsummer-milano.com/cdn/shop/files/PANTHER_POND_CAPRI_1.jpg?v=1625145029&width=1400'
+    when 'signature'
+      assign numeral = 'II'
+      assign fallback = 'https://midsummer-milano.com/cdn/shop/files/dreamy_spiaggia.jpg?v=1627027099&width=1400'
+    when 'icons'
+      assign numeral = 'III'
+      assign fallback = 'https://midsummer-milano.com/cdn/shop/files/Top_deserto_mobile5.jpg?v=1683628697&width=1400'
+    else
+      assign numeral = ''
+      assign fallback = 'https://midsummer-milano.com/cdn/shop/files/Top_deserto_mobile5.jpg?v=1683628697&width=1400'
+  endcase
+-%}
+<section style="position: relative; overflow: hidden; background: rgb(23, 20, 15);">
+{%- if section.settings.image != blank -%}
+<img alt="{{ collection.title | escape }}" width="2400" height="1100" src="{{ section.settings.image | image_url: width: 2400 }}" style="width: 100%; height: min(66vh, 640px); object-fit: cover; display: block;">
+{%- elsif collection.image != blank -%}
+<img alt="{{ collection.title | escape }}" width="2400" height="1100" src="{{ collection.image | image_url: width: 2400 }}" style="width: 100%; height: min(66vh, 640px); object-fit: cover; display: block;">
+{%- else -%}
+<img alt="{{ collection.title | escape }}" width="1400" height="640" src="{{ fallback }}" style="width: 100%; height: min(66vh, 640px); object-fit: cover; display: block;">
+{%- endif -%}
+<div style="position: absolute; inset: 0px; background: linear-gradient(rgba(10, 8, 6, 0.3), rgba(10, 8, 6, 0.55));"></div>
+<div style="position: absolute; inset: 0px; display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(26px, 5vw, 88px); color: rgb(251, 249, 245);">
+<div style="font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.8;">{{ section.settings.eyebrow }}{% if numeral != blank %} {{ numeral }}{% endif %}</div>
+<h1 style="font-family: Newsreader, Georgia, serif; font-size: clamp(40px, 7vw, 96px); line-height: 1; letter-spacing: -0.035em; margin-top: 16px;">{{ collection.title }}</h1>
+</div>
+</section>
+{% schema %}
+{
+  "name": "Collection · Opening",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Label", "default": "Collection" },
+    { "type": "image_picker", "id": "image", "label": "Photograph", "info": "Otherwise the collection image, then the preview's photograph." }
+  ]
+}
+{% endschema %}

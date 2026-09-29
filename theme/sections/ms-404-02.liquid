@@ -1,0 +1,43 @@
+<section data-dc-tpl="1219" style="background: rgb(23, 20, 15); color: rgb(251, 249, 245); padding: clamp(60px, 9vw, 140px) clamp(18px, 5vw, 80px);">
+<div style="max-width: 1560px; margin: 0px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: clamp(32px, 6vw, 96px); align-items: end;">
+<div>
+<div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(251, 249, 245, 0.55);">{{ section.settings.t1 }}</div>
+<h2 style="font-family: Newsreader, Georgia, serif; font-size: clamp(28px, 4vw, 54px); line-height: 1.04; letter-spacing: -0.025em; margin-top: 20px;">{{ section.settings.t2 }}</h2>
+</div>
+<div style="display: flex; flex-direction: column; gap: 22px;">
+<p style="font-size: 15px; line-height: 1.95; color: rgba(251, 249, 245, 0.78); max-width: 46ch;">{{ section.settings.t3 }}</p>
+<a data-ms="cta" data-ms-enquire="" href="/pages/contact" style="color: rgb(251, 249, 245); font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; border-bottom: 1px solid rgba(251, 249, 245, 0.55); padding-bottom: 8px; width: fit-content;">{{ section.settings.t4 }}</a>
+</div>
+</div>
+</section>
+{% schema %}
+{
+  "name": "404 02 · The atelier Via ",
+  "settings": [
+    {
+      "type": "text",
+      "id": "t1",
+      "label": "The atelier",
+      "default": "The atelier"
+    },
+    {
+      "type": "html",
+      "id": "t2",
+      "label": "Via Andegari 4,Milano.",
+      "default": "Via Andegari 4,<br/>Milano."
+    },
+    {
+      "type": "textarea",
+      "id": "t3",
+      "label": "Come and lie down. Appointments Mo…",
+      "default": "Come and lie down. Appointments Monday to Friday, 09:00–12:00 and 13:00–18:00, confirmed by email within one working day."
+    },
+    {
+      "type": "text",
+      "id": "t4",
+      "label": "Book a private appointment",
+      "default": "Book a private appointment"
+    }
+  ]
+}
+{% endschema %}

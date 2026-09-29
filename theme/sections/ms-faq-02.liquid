@@ -1,0 +1,85 @@
+<section style="padding: 0px clamp(18px, 5vw, 80px) clamp(70px, 10vw, 150px); max-width: 1560px; margin: 0px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(28px, 5vw, 88px); align-items: start;">
+<div data-dc-tpl="1137" style="max-width: 40ch;">
+<div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgb(110, 103, 92);">{{ section.settings.t1 }}</div>
+<p style="font-size: 15px; line-height: 1.95; color: rgb(74, 68, 59); margin-top: 16px;">{{ section.settings.t2 }}</p>
+<a data-ms="cta" data-ms-enquire="" href="/pages/contact" style="display: inline-block; margin-top: 20px; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; border-bottom: 1px solid rgb(23, 20, 15); padding-bottom: 7px;">{{ section.settings.t3 }}</a>
+</div>
+<div>
+{%- for block in section.blocks -%}
+<details {{ block.shopify_attributes }}{% if forloop.first %} open{% endif %} style="border-top: 1px solid rgb(221, 214, 201);{% if forloop.last %} border-bottom: 1px solid rgb(221, 214, 201);{% endif %}">
+<summary style="display: flex; align-items: baseline; justify-content: space-between; gap: 24px; padding: 24px 0px; cursor: pointer; list-style: none;">
+<span style="font-family: Newsreader, Georgia, serif; font-size: clamp(18px, 1.9vw, 23px); line-height: 1.3;">{{ block.settings.question }}</span>
+<span aria-hidden="true" data-ms-sign style="flex: 0 0 auto; font-size: 15px; color: rgb(126, 98, 59); margin-top: 4px;"></span>
+</summary>
+<div style="font-size: 15px; line-height: 1.95; color: rgb(74, 68, 59); padding: 0px 0px 26px; max-width: 62ch;">{{ block.settings.answer }}</div>
+</details>
+{%- endfor -%}
+</div>
+</section>
+<style>
+  #shopify-section-{{ section.id }} summary::-webkit-details-marker { display: none; }
+  #shopify-section-{{ section.id }} details [data-ms-sign]::after { content: '+'; }
+  #shopify-section-{{ section.id }} details[open] [data-ms-sign]::after { content: '−'; }
+  #shopify-section-{{ section.id }} details > div p { margin: 0; }
+</style>
+{%- if section.settings.schema -%}
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+{%- for block in section.blocks -%}
+{"@type": "Question", "name": {{ block.settings.question | json }}, "acceptedAnswer": {"@type": "Answer", "text": {{ block.settings.answer | strip_html | json }}}}{% unless forloop.last %},{% endunless %}
+{%- endfor -%}
+]}
+</script>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Questions 02 · Not here? ",
+  "settings": [
+    {
+      "type": "text",
+      "id": "t1",
+      "label": "Not here?",
+      "default": "Not here?"
+    },
+    {
+      "type": "text",
+      "id": "t2",
+      "label": "Write to the atelier and a person …",
+      "default": "Write to the atelier and a person will reply within one working day."
+    },
+    {
+      "type": "text",
+      "id": "t3",
+      "label": "Ask us directly",
+      "default": "Ask us directly"
+    },
+    {
+      "type": "checkbox",
+      "id": "schema",
+      "label": "FAQ structured data",
+      "default": true
+    }
+  ],
+  "max_blocks": 30,
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Question"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Answer</p>"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

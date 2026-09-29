@@ -1,0 +1,43 @@
+<section data-dc-tpl="1271" style="background: rgb(23, 20, 15); color: rgb(251, 249, 245); padding: clamp(60px, 9vw, 140px) clamp(18px, 5vw, 80px);">
+<div style="max-width: 1560px; margin: 0px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: clamp(32px, 6vw, 96px); align-items: end;">
+<div>
+<div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(251, 249, 245, 0.55);">{{ section.settings.t1 }}</div>
+<h2 style="font-family: Newsreader, Georgia, serif; font-size: clamp(28px, 4vw, 54px); line-height: 1.04; letter-spacing: -0.025em; margin-top: 20px; max-width: 22ch;">{{ section.settings.t2 }}</h2>
+</div>
+<div style="display: flex; flex-direction: column; gap: 22px;">
+<p style="font-size: 15px; line-height: 1.95; color: rgba(251, 249, 245, 0.78); max-width: 48ch;">{{ section.settings.t3 }}</p>
+<a data-ms="cta" href="/pages/midsummer-milanos-regeneration-service" style="color: rgb(251, 249, 245); font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; border-bottom: 1px solid rgba(251, 249, 245, 0.55); padding-bottom: 8px; width: fit-content;">{{ section.settings.t4 }}</a>
+</div>
+</div>
+</section>
+{% schema %}
+{
+  "name": "Sustainability 03 · What ",
+  "settings": [
+    {
+      "type": "text",
+      "id": "t1",
+      "label": "What we do not say",
+      "default": "What we do not say"
+    },
+    {
+      "type": "text",
+      "id": "t2",
+      "label": "No offsets, no certifications we d…",
+      "default": "No offsets, no certifications we did not earn."
+    },
+    {
+      "type": "textarea",
+      "id": "t3",
+      "label": "We do not buy carbon credits, and …",
+      "default": "We do not buy carbon credits, and we do not print a badge we cannot explain. What we can account for is the fibre, the hands, the repair and the thirty years. The Top System took the 2025 Green Product Award in Berlin on that basis — plant-based materials, Orange Fiber, and seasonal construction."
+    },
+    {
+      "type": "text",
+      "id": "t4",
+      "label": "The 15 + 15 service",
+      "default": "The 15 + 15 service"
+    }
+  ]
+}
+{% endschema %}

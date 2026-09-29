@@ -1,0 +1,30 @@
+<section data-dc-tpl="1238" style="padding: clamp(60px, 9vw, 140px) clamp(18px, 5vw, 80px) clamp(36px, 5vw, 64px); max-width: 1560px; margin: 0px auto;">
+<div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgb(110, 103, 92);">{{ section.settings.t1 }}</div>
+<h1 style="font-family: Newsreader, Georgia, serif; font-size: clamp(38px, 6vw, 92px); line-height: 0.98; letter-spacing: -0.035em; margin-top: 22px;">{{ section.settings.t2 }}</h1>
+<p style="font-family: Newsreader, Georgia, serif; font-size: clamp(19px, 2.2vw, 28px); line-height: 1.5; color: rgb(74, 68, 59); margin-top: 28px; max-width: 44ch; text-wrap: pretty;">{{ section.settings.t3 }}</p>
+</section>
+{% schema %}
+{
+  "name": "Sustainability 01 · Susta",
+  "settings": [
+    {
+      "type": "text",
+      "id": "t1",
+      "label": "Sustainability",
+      "default": "Sustainability"
+    },
+    {
+      "type": "text",
+      "id": "t2",
+      "label": "Luxury without waste.",
+      "default": "Luxury without waste."
+    },
+    {
+      "type": "textarea",
+      "id": "t3",
+      "label": "A bed that lasts thirty years is n…",
+      "default": "A bed that lasts thirty years is not a green claim, it is arithmetic. Everything below is a description of how these beds are made, not a policy."
+    }
+  ]
+}
+{% endschema %}

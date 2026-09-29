@@ -1,0 +1,30 @@
+<section data-dc-tpl="943" style="padding: clamp(60px, 9vw, 150px) clamp(18px, 5vw, 80px) clamp(32px, 4vw, 60px); max-width: 1120px;">
+<div style="display: flex; align-items: center; gap: 11px; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgb(110, 103, 92);"><svg aria-hidden="true" height="22" style="display: block; flex: 0 0 auto;" viewbox="0 0 24 24" width="22"><path d="M4 20 C4 11 11 4 20 4 C20 13 13 20 4 20 Z" fill="none" stroke="#9A7B4F" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"></path><path d="M4 20 L16 8" fill="none" stroke="#9A7B4F" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"></path></svg><span>{{ section.settings.t1 }}</span></div>
+<h1 style="font-family: Newsreader, Georgia, serif; font-size: clamp(38px, 6vw, 84px); line-height: 1; letter-spacing: -0.035em; margin-top: 22px;">{{ section.settings.t2 }}</h1>
+<p style="font-size: 16px; line-height: 1.95; color: rgb(74, 68, 59); margin-top: 28px; max-width: 58ch;">{{ section.settings.t3 }}</p>
+</section>
+{% schema %}
+{
+  "name": "Materials 01 · Materials ",
+  "settings": [
+    {
+      "type": "text",
+      "id": "t1",
+      "label": "Materials",
+      "default": "Materials"
+    },
+    {
+      "type": "text",
+      "id": "t2",
+      "label": "Chosen for what they do to your sl…",
+      "default": "Chosen for what they do to your sleep."
+    },
+    {
+      "type": "textarea",
+      "id": "t3",
+      "label": "Our mattresses and bed bases are c…",
+      "default": "Our mattresses and bed bases are crafted exclusively with natural materials selected for their quality, durability, and comfort. Read them by the benefit you are after."
+    }
+  ]
+}
+{% endschema %}
