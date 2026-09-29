@@ -1,163 +1,235 @@
 /*
- * Midsummer Milano — built on the live Dawn theme.
- * Design sections: ms-hero, ms-split, ms-cards and the ms-* specialist sections.
+ * ------------------------------------------------------------
+ * Midsummer Milano — customised for the Atelier theme.
+ * Generated from the approved UX preview. Safe to replace the
+ * matching file in the theme export before upload.
+ * ------------------------------------------------------------
  */
 {
   "sections": {
-    "main": {
-      "type": "main-article",
+    "section": {
+      "type": "main-blog-post",
       "blocks": {
-        "title": {
-          "type": "title",
+        "blog-post-eyebrow": {
+          "type": "text",
+          "name": "Category",
           "settings": {
-            "blog_show_date": false,
-            "blog_show_author": false
-          }
+            "text": "<p>{{ article.tags.first }}</p>",
+            "width": "100%",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "h6",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "uppercase",
+            "wrap": "pretty",
+            "text_color": "{{ settings.color_palette.color1 }}",
+            "background": false,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
         },
-        "share": {
-          "type": "share",
+        "blog-post-title": {
+          "type": "text",
+          "name": "t:names.title",
           "settings": {
-            "share_label": "Share"
-          }
+            "text": "<h1>{{ article.title }}</h1>",
+            "width": "100%",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "h1",
+            "line_height": "tight",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "background": false,
+            "padding-block-start": 16,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
         },
-        "featured_image": {
-          "type": "featured_image",
+        "blog-post-details": {
+          "type": "_blog-post-info-text",
+          "name": "t:names.details",
           "settings": {
-            "image_height": "large"
-          }
+            "show_date": true,
+            "show_author": false,
+            "alignment": "left",
+            "show_alignment": true,
+            "padding-block-start": 18,
+            "padding-block-end": 0
+          },
+          "blocks": {}
         },
-        "content": {
-          "type": "content",
-          "settings": {}
+        "blog-post-image": {
+          "type": "image",
+          "name": "t:names.featured_image",
+          "settings": {
+            "image": "{{ article.image }}",
+            "image_ratio": "adapt",
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 48,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "blog-post-content": {
+          "type": "_blog-post-content",
+          "settings": {},
+          "blocks": {}
         }
       },
       "block_order": [
-        "title",
-        "share",
-        "featured_image",
-        "content"
+        "blog-post-eyebrow",
+        "blog-post-title",
+        "blog-post-details",
+        "blog-post-image",
+        "blog-post-content"
       ],
-      "settings": {}
-    },
-    "sleep_assessment_quiz_MNFWpj": {
-      "type": "sleep-assessment-quiz",
-      "name": "Sleep Assessment Quiz",
       "settings": {
-        "heading": "You’re not looking for a mattress. You’re looking for better sleep.",
-        "subheading": "Answer a few questions and discover how your rest could improve.",
-        "q1_title": "1. How do you feel when you wake up?",
-        "q1_opt_a": "A. Feel stiff or notice areas of tension",
-        "q1_opt_b": "B. Feel rested but need time to “loosen up”",
-        "q1_opt_c": "C. Get up without any particular physical sensations",
-        "q2_title": "2. For you, sleep is…",
-        "q2_opt_a": "A. Deep but interrupted by frequent awakenings",
-        "q2_opt_b": "B. Continuous but light",
-        "q2_opt_c": "C. Generally stable and regular",
-        "q3_title": "3. At night, you more often…",
-        "q3_opt_a": "A. Feel too warm or too cold even when the room is temperate",
-        "q3_opt_b": "B. Sleep well only in certain seasons",
-        "q3_opt_c": "C. Hardly ever notice the temperature",
-        "q4_title": "4. During the night…",
-        "q4_opt_a": "A. You change position frequently",
-        "q4_opt_b": "B. You move mainly in the first hours",
-        "q4_opt_c": "C. You remain almost always in the same position",
-        "q5_title": "5. Your mattress is…",
-        "q5_opt_a": "A. Welcoming and adaptive, that follows the body",
-        "q5_opt_b": "B. Balanced, neither too soft nor too firm",
-        "q5_opt_c": "C. More sustained and stable",
-        "q6_title": "6. For you, the bed is mainly…",
-        "q6_opt_a": "A. A sensory refuge",
-        "q6_opt_b": "B. A space for physical recovery",
-        "q6_opt_c": "C. A functional support",
-        "button_label": "Talk to a Midsummer expert",
-        "result_heading": "How to read your answers",
-        "result_a_title": "Mostly A = Sensitive / Perceptive sleeper",
-        "result_a_p1": "Your body picks up every detail: temperature, pressure, micro-movements. Sleep for you is a matter of listening and subtle balance.",
-        "result_a_p2": "What disturbs you is often not simply “too soft” or “too firm”, but whatever fails to adapt to change — seasons, body, daily rhythms.",
-        "result_a_p3": "What truly helps: natural, breathable materials that accompany the body without imposing.",
-        "result_b_title": "Mostly B = Balanced / Adaptive sleeper",
-        "result_b_p1": "Your body seeks harmony and continuity. You sleep best when nothing dominates: neither rigidity nor excess softness.",
-        "result_b_p2": "Comfort, for you, is something that builds over time, night after night.",
-        "result_b_p3": "What truly helps: well-balanced systems that support without stiffening and welcome without collapsing.",
-        "result_c_title": "Mostly C = Structured / Stable sleeper",
-        "result_c_p1": "Your body values stability and clear support. You need to feel held, contained, guided by a defined structure.",
-        "result_c_p2": "Sleep, for you, is recovery, regeneration, order.",
-        "result_c_p3": "What truly helps: reliable supports and materials that maintain their qualities over time.",
-        "validation_message": "Please answer all the questions to see your sleep profile.",
-        "result_hybrid_note": "Your sleep profile is a beginning, not a box. Now you know whether your body tends to sleep in a more Sensitive, Balanced or Structured way – and which sensations matter most to your comfort. This is the starting point for designing a mattress and bed system that truly follows your way of resting.",
-        "result_primary_label": "Explore our mattresses",
-        "result_cta_label": "Next step",
-        "contact_intro": "Would you like to turn this profile into a real bed system? Leave your name and email and a Midsummer expert will get back to you with a tailored suggestion.",
-        "contact_name_placeholder": "Name",
-        "contact_email_placeholder": "Email",
-        "contact_button_label": "Send me my tailored suggestion",
-        "contact_success_message": "Thank you. A Midsummer expert will contact you shortly.",
-        "contact_error_message": "There was a problem with your submission. Please check your details and try again."
-      }
-    },
-    "featured_blog_h9RTUb": {
-      "type": "featured-blog",
-      "settings": {
-        "heading": "More on Sleep Blog",
-        "heading_size": "h2",
-        "blog": "news",
-        "post_limit": 4,
-        "columns_desktop": 4,
-        "color_scheme": "",
-        "show_image": true,
-        "show_date": false,
-        "show_author": false,
-        "show_view_all": true,
-        "padding_top": 36,
-        "padding_bottom": 36
+        "content_direction": "column",
+        "gap": 32,
+        "background_color": "{{ settings.color_palette.background }}",
+        "padding-block-start": 96,
+        "padding-block-end": 96
       }
     },
     "ms_back": {
-      "type": "ms-split",
+      "type": "section",
       "name": "Journal footer",
-      "settings": {
-        "tone": "ivory",
-        "text_align": "left",
-        "first_width": 50,
-        "image_position": "right",
-        "image_ratio": "natural",
-        "image_caption": "",
-        "image_link": "",
-        "padding_top": 0,
-        "padding_bottom": 96
-      },
       "blocks": {
-        "a_0": {
-          "type": "rule",
+        "rule": {
+          "type": "_divider",
+          "name": "t:names.divider",
           "settings": {
-            "column": "first"
-          }
+            "thickness": 1,
+            "divider_color": "{{ settings.color_palette.color2 }}",
+            "corner_radius": "square",
+            "width_percent": 100,
+            "padding-block-start": 0,
+            "padding-block-end": 26
+          },
+          "blocks": {}
         },
-        "ag_btn1": {
-          "type": "buttons",
+        "row": {
+          "type": "group",
           "settings": {
-            "column": "first",
-            "label_1": "All notes",
-            "link_1": "/blogs/news",
-            "style_1": "link",
-            "panel_1": false,
-            "label_2": "Book a private appointment",
-            "link_2": "/pages/contact",
-            "style_2": "secondary",
-            "panel_2": true
-          }
+            "content_direction": "row",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "space-between",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "flex-start",
+            "gap": 24,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "open_in_new_tab": false,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "back": {
+              "type": "button",
+              "settings": {
+                "label": "All notes",
+                "link": "/blogs/news",
+                "open_in_new_tab": false,
+                "style_class": "button-unstyled",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
+            },
+            "enquire": {
+              "type": "button",
+              "settings": {
+                "label": "Book a private appointment",
+                "link": "/pages/contact",
+                "open_in_new_tab": false,
+                "style_class": "button-secondary",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "back",
+            "enquire"
+          ]
         }
       },
       "block_order": [
-        "a_0",
-        "ag_btn1"
-      ]
+        "rule",
+        "row"
+      ],
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "flex-start",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "flex-start",
+        "gap": 0,
+        "section_width": "page-width",
+        "section_height_custom": 50,
+        "background_media": "none",
+        "background_color": "{{ settings.color_palette.background }}",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 0,
+        "padding-block-end": 96
+      }
     }
   },
   "order": [
-    "main",
-    "sleep_assessment_quiz_MNFWpj",
-    "featured_blog_h9RTUb",
+    "section",
     "ms_back"
   ]
 }

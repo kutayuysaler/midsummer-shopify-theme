@@ -1,0 +1,576 @@
+{%- comment -%}
+  Midsummer Milano — header, as in the approved design: wordmark, five entries
+  with their panels, and the ruled "Book an appointment" action. The links live in
+  this section's blocks, so the header does not depend on a menu in admin.
+{%- endcomment -%}
+
+{%- liquid
+  assign transparent = false
+  if section.settings.transparent_home and template.name == 'index'
+    assign transparent = true
+  endif
+  assign cta_href = section.settings.cta_link | default: '/pages/contact'
+-%}
+
+<div
+  class="ms-header{% if transparent %} ms-header--transparent{% endif %}"
+  id="ms-header"
+  data-ms-header
+>
+  <div class="ms-header__bar">
+    <a class="ms-header__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
+      {%- if section.settings.logo != blank -%}
+        {{
+          section.settings.logo
+          | image_url: height: 160
+          | image_tag: class: 'ms-header__logo-img', alt: shop.name, loading: 'eager', style: 'height: var(--ms-logo-h); width: auto;'
+        }}
+      {%- else -%}
+        <span class="ms-header__wordmark">
+          <span>{{ section.settings.wordmark }}</span>
+          {%- if section.settings.wordmark_sub != blank -%}<small>{{ section.settings.wordmark_sub }}</small>{%- endif -%}
+        </span>
+      {%- endif -%}
+    </a>
+
+    <nav class="ms-header__nav" aria-label="Main">
+      <ul role="list">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign has_panel = false
+            if block.settings.groups != blank or block.settings.f1_title != blank or block.settings.f1_image != blank
+              assign has_panel = true
+            endif
+          -%}
+          <li class="ms-header__item" {{ block.shopify_attributes }}>
+            {%- if has_panel -%}
+              <button type="button" class="ms-header__top" aria-expanded="false" aria-controls="ms-panel-{{ block.id }}" data-ms-panel-toggle>{{ block.settings.label }}</button>
+            {%- else -%}
+              <a class="ms-header__top" href="{{ block.settings.link | default: '#' }}">{{ block.settings.label }}</a>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+
+    <div class="ms-header__actions">
+      {%- if section.settings.show_search -%}
+        <a class="ms-header__icon" href="{{ routes.search_url }}" aria-label="Search">
+          <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M12.6 12.6 17 17" stroke-linecap="round"/></svg>
+        </a>
+      {%- endif -%}
+      {%- if section.settings.cta_label != blank -%}
+        <a class="ms-header__cta" href="{{ cta_href }}" {% if section.settings.cta_panel %}data-ms-enquiry{% endif %}>{{ section.settings.cta_label }}</a>
+      {%- endif -%}
+      <button type="button" class="ms-header__menubtn" aria-label="Menu" aria-expanded="false" aria-controls="ms-mobile-menu" data-ms-menu-toggle>
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  {%- for block in section.blocks -%}
+    {%- liquid
+      assign features = 0
+      for n in (1..3)
+        assign ik = 'f' | append: n | append: '_image'
+        assign tk = 'f' | append: n | append: '_title'
+        assign nk = 'f' | append: n | append: '_note'
+        if block.settings[ik] != blank or block.settings[tk] != blank or block.settings[nk] != blank
+          assign features = features | plus: 1
+        endif
+      endfor
+      assign lines = block.settings.groups | newline_to_br | split: '<br />'
+    -%}
+    {%- if block.settings.groups != blank or features > 0 -%}
+      <div class="ms-panel ms-panel--f{{ features }}" id="ms-panel-{{ block.id }}" hidden data-ms-panel>
+        <div class="ms-panel__inner">
+          {%- capture feature_html -%}
+            {%- for n in (1..3) -%}
+              {%- liquid
+                assign ik = 'f' | append: n | append: '_image'
+                assign mk = 'f' | append: n | append: '_numeral'
+                assign tk = 'f' | append: n | append: '_title'
+                assign nk = 'f' | append: n | append: '_note'
+                assign lk = 'f' | append: n | append: '_link'
+                assign f_link = block.settings[lk] | default: block.settings.link
+              -%}
+              {%- if block.settings[ik] != blank or block.settings[tk] != blank or block.settings[nk] != blank -%}
+                <a class="ms-panel__feature" href="{{ f_link | default: '#' }}">
+                  {%- if block.settings[ik] != blank -%}
+                    <span class="ms-panel__img">{{ block.settings[ik] | image_url: width: 900 | image_tag: loading: 'lazy', alt: '', sizes: '(min-width: 990px) 22vw, 50vw', widths: '360, 540, 720, 900' }}</span>
+                  {%- else -%}
+                    <span class="ms-panel__img ms-panel__img--empty"></span>
+                  {%- endif -%}
+                  {%- if block.settings[tk] != blank -%}
+                    <span class="ms-panel__ftitle">
+                      {%- if block.settings[mk] != blank -%}<span class="ms-panel__num">{{ block.settings[mk] }}</span>{%- endif -%}
+                      {{ block.settings[tk] }}
+                    </span>
+                  {%- endif -%}
+                  {%- if block.settings[nk] != blank -%}<span class="ms-panel__note">{{ block.settings[nk] }}</span>{%- endif -%}
+                </a>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endcapture -%}
+
+          {%- capture groups_html -%}
+            {%- if block.settings.groups != blank -%}
+              <div class="ms-panel__groups">
+                <div class="ms-panel__group">
+                {%- for line in lines -%}
+                  {%- assign l = line | strip -%}
+                  {%- if l == blank -%}{%- continue -%}{%- endif -%}
+                  {%- if l contains '##' -%}
+                    {%- unless forloop.first -%}</div><div class="ms-panel__group">{%- endunless -%}
+                    {%- assign heading = l | remove_first: '##' | strip -%}
+                    {%- if heading != blank -%}<p class="ms-panel__heading">{{ heading }}</p>{%- endif -%}
+                  {%- else -%}
+                    {%- assign parts = l | split: '|' -%}
+                    {%- assign label = parts[0] | strip -%}
+                    {%- assign url = parts[1] | strip | default: '#' -%}
+                    <a class="ms-panel__link" href="{{ url }}">{{ label }}</a>
+                  {%- endif -%}
+                {%- endfor -%}
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endcapture -%}
+
+          {%- if features > 1 -%}
+            <div class="ms-panel__features">{{ feature_html }}</div>
+            {{ groups_html }}
+          {%- else -%}
+            {{ groups_html }}
+            {%- if features == 1 -%}<div class="ms-panel__aside">{{ feature_html }}</div>{%- endif -%}
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
+  {%- endfor -%}
+
+  <div class="ms-mobile" id="ms-mobile-menu" hidden data-ms-mobile>
+    <div class="ms-mobile__inner">
+      <ol class="ms-mobile__list" role="list">
+        {%- for block in section.blocks -%}
+          {%- assign lines = block.settings.groups | newline_to_br | split: '<br />' -%}
+          <li class="ms-mobile__item">
+            <a class="ms-mobile__top" href="{{ block.settings.link | default: '#' }}">
+              <span class="ms-mobile__index">{{ forloop.index | prepend: '0' }}</span>{{ block.settings.label }}
+            </a>
+            {%- if block.settings.groups != blank -%}
+              <div class="ms-mobile__children">
+                {%- for line in lines -%}
+                  {%- assign l = line | strip -%}
+                  {%- if l == blank or l contains '##' -%}{%- continue -%}{%- endif -%}
+                  {%- assign parts = l | split: '|' -%}
+                  <a href="{{ parts[1] | strip | default: '#' }}">{{ parts[0] | strip }}</a>
+                {%- endfor -%}
+              </div>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ol>
+      {%- if section.settings.cta_label != blank -%}
+        <a class="ms-mobile__cta" href="{{ cta_href }}" {% if section.settings.cta_panel %}data-ms-enquiry{% endif %}>{{ section.settings.cta_label }}</a>
+      {%- endif -%}
+      {%- if section.settings.mobile_note != blank -%}<p class="ms-mobile__note">{{ section.settings.mobile_note }}</p>{%- endif -%}
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var root = document.getElementById('ms-header');
+    if (!root || root.dataset.ready) return;
+    root.dataset.ready = '1';
+    var toggles = root.querySelectorAll('[data-ms-panel-toggle]');
+    var open = null;
+    function close() {
+      if (!open) return;
+      open.btn.setAttribute('aria-expanded', 'false');
+      open.panel.hidden = true;
+      root.classList.remove('is-panel-open');
+      open = null;
+    }
+    function show(btn) {
+      var panel = document.getElementById(btn.getAttribute('aria-controls'));
+      if (!panel) return;
+      if (open && open.btn === btn) {
+        // On hover devices the panel is already open from mouseenter; a click keeps it.
+        if (!window.matchMedia('(hover: hover)').matches) close();
+        return;
+      }
+      close();
+      btn.setAttribute('aria-expanded', 'true');
+      panel.hidden = false;
+      root.classList.add('is-panel-open');
+      open = { btn: btn, panel: panel };
+    }
+    toggles.forEach(function (btn) {
+      btn.addEventListener('click', function () { show(btn); });
+      btn.addEventListener('mouseenter', function () { if (window.matchMedia('(hover: hover)').matches) { if (!open || open.btn !== btn) show(btn); } });
+    });
+    root.addEventListener('mouseleave', function () { if (window.matchMedia('(hover: hover)').matches) close(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { close(); closeMobile(); } });
+    document.addEventListener('click', function (e) { if (open && !root.contains(e.target)) close(); });
+
+    var menuBtn = root.querySelector('[data-ms-menu-toggle]');
+    var mobile = root.querySelector('[data-ms-mobile]');
+    function closeMobile() {
+      if (!mobile || mobile.hidden) return;
+      mobile.hidden = true; menuBtn.setAttribute('aria-expanded', 'false');
+      root.classList.remove('is-menu-open'); document.documentElement.style.overflow = '';
+    }
+    if (menuBtn && mobile) {
+      menuBtn.addEventListener('click', function () {
+        if (mobile.hidden) {
+          mobile.hidden = false; menuBtn.setAttribute('aria-expanded', 'true');
+          root.classList.add('is-menu-open'); document.documentElement.style.overflow = 'hidden';
+        } else { closeMobile(); }
+      });
+      mobile.addEventListener('click', function (e) { if (e.target.closest('a')) closeMobile(); });
+    }
+
+    function onScroll() { root.classList.toggle('is-scrolled', window.scrollY > 40); }
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  })();
+</script>
+
+{% style %}
+  #ms-header { --ms-logo-h: {{ section.settings.logo_height }}px; }
+  @media screen and (max-width: 749px) {
+    #ms-header { --ms-logo-h: {{ section.settings.logo_height | times: 0.8 | round }}px; }
+  }
+{% endstyle %}
+
+{% stylesheet %}
+  #header-group:has(.ms-header) { position: sticky; top: 0; z-index: 50; }
+  #header-group:has(.ms-header--transparent) { position: fixed; left: 0; right: 0; top: 0; }
+  .ms-header {
+    --ms-h-bg: #FBF9F5;
+    --ms-h-fg: #17140F;
+    --ms-h-rule: #DDD6C9;
+    position: relative;
+    background: var(--ms-h-bg);
+    color: var(--ms-h-fg);
+    border-bottom: 1px solid var(--ms-h-rule);
+    font-family: var(--font-body--family);
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+  .ms-header--transparent:not(.is-scrolled):not(.is-panel-open):not(.is-menu-open) {
+    --ms-h-bg: transparent;
+    --ms-h-fg: #FBF9F5;
+    --ms-h-rule: transparent;
+  }
+  .ms-header--transparent:not(.is-scrolled):not(.is-panel-open):not(.is-menu-open) .ms-header__logo-img { filter: brightness(0) invert(1); }
+  .ms-header__bar {
+    display: flex;
+    align-items: center;
+    gap: clamp(12px, 2.2vw, 36px);
+    min-height: 84px;
+    padding: clamp(14px, 2vw, 20px) clamp(16px, 4.6vw, 80px);
+  }
+  .ms-header__logo { flex: 0 0 auto; display: block; color: inherit; text-decoration: none; }
+  .ms-header__logo-img { display: block; height: var(--ms-logo-h); width: auto; max-width: 260px; object-fit: contain; }
+  .ms-header__wordmark { display: flex; flex-direction: column; align-items: center; line-height: 1; font-family: var(--font-heading--family); text-transform: uppercase; }
+  .ms-header__wordmark span { font-size: 21px; letter-spacing: 0.24em; font-weight: 300; }
+  .ms-header__wordmark small { font-family: var(--font-body--family); font-size: 8.5px; letter-spacing: 0.62em; margin-top: 6px; padding-left: 0.62em; }
+  .ms-header__nav { flex: 1 1 auto; min-width: 0; margin-inline-start: clamp(12px, 3.2vw, 56px); }
+  .ms-header__nav ul { display: flex; gap: clamp(10px, 1.9vw, 36px); margin: 0; padding: 0; list-style: none; }
+  .ms-header__top {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    font-size: 11px;
+    letter-spacing: 0.19em;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .ms-header__top[aria-expanded='true'] { text-decoration: underline; text-underline-offset: 8px; text-decoration-thickness: 1px; }
+  .ms-header__actions { display: flex; align-items: center; gap: clamp(14px, 2vw, 28px); flex: 0 0 auto; margin-inline-start: auto; }
+  .ms-header__icon { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; color: inherit; }
+  .ms-header__cta {
+    display: inline-flex;
+    align-items: center;
+    min-height: 42px;
+    padding: 0 18px;
+    border: 1px solid currentColor;
+    color: inherit;
+    font-size: 11px;
+    letter-spacing: 0.19em;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .ms-header__cta:hover { background: var(--ms-h-fg); color: var(--ms-h-bg); }
+  .ms-header--transparent:not(.is-scrolled) .ms-header__cta:hover { background: #FBF9F5; color: #17140F; }
+  .ms-header__menubtn {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    width: 44px;
+    height: 44px;
+    padding: 0 11px;
+    border: 0;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+  }
+  .ms-header__menubtn span { display: block; height: 1px; background: currentColor; }
+
+  .ms-panel {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    background: #FBF9F5;
+    color: #17140F;
+    border-bottom: 1px solid #DDD6C9;
+    padding: clamp(28px, 3vw, 48px) clamp(16px, 4.6vw, 80px) clamp(36px, 4vw, 60px);
+    box-shadow: 0 30px 60px -40px rgba(23, 20, 15, 0.35);
+  }
+  .ms-panel__inner { display: grid; gap: clamp(24px, 3vw, 56px); max-width: 1560px; margin: 0 auto; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); align-items: start; }
+  .ms-panel--f0 .ms-panel__inner { grid-template-columns: minmax(0, 1fr); }
+  .ms-panel--f2 .ms-panel__inner, .ms-panel--f3 .ms-panel__inner { grid-template-columns: minmax(0, 3fr) minmax(0, 1fr); }
+  .ms-panel__features { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 2.4vw, 44px); }
+  .ms-panel__groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: clamp(24px, 3vw, 52px); }
+  .ms-panel--f2 .ms-panel__groups, .ms-panel--f3 .ms-panel__groups { grid-template-columns: 1fr; border-left: 1px solid #DDD6C9; padding-left: clamp(20px, 3vw, 44px); }
+  .ms-panel__group { display: flex; flex-direction: column; gap: 11px; }
+  .ms-panel__group + .ms-panel__group { }
+  .ms-panel--f2 .ms-panel__group + .ms-panel__group, .ms-panel--f3 .ms-panel__group + .ms-panel__group { padding-top: 22px; border-top: 1px solid #DDD6C9; }
+  .ms-panel__heading { margin: 0 0 5px; font-size: 10.5px; letter-spacing: 0.26em; text-transform: uppercase; color: #6E675C; }
+  .ms-panel__link { font-size: 13.5px; line-height: 1.5; color: #4A443B; text-decoration: none; }
+  .ms-panel__link:hover { color: #17140F; text-decoration: underline; text-underline-offset: 4px; }
+  .ms-panel__feature { display: block; color: inherit; text-decoration: none; }
+  .ms-panel__img { display: block; overflow: hidden; background: #F1ECE3; aspect-ratio: 5 / 6; }
+  .ms-panel__aside .ms-panel__img { aspect-ratio: 4 / 3; }
+  .ms-panel__img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease; }
+  .ms-panel__feature:hover .ms-panel__img img { transform: scale(1.03); }
+  .ms-panel__ftitle { display: flex; align-items: baseline; gap: 10px; margin-top: 16px; font-family: var(--font-heading--family); font-size: 22px; font-weight: 300; }
+  .ms-panel__num { font-size: 12px; color: #7E623B; }
+  .ms-panel__note { display: block; margin-top: 6px; font-size: 13px; line-height: 1.75; color: #6E675C; }
+  .ms-panel__aside .ms-panel__note { font-family: var(--font-heading--family); font-style: italic; font-size: 15px; margin-top: 12px; }
+
+  .ms-mobile {
+    position: fixed;
+    inset: 0;
+    top: var(--ms-mobile-top, 84px);
+    background: #FBF9F5;
+    color: #17140F;
+    overflow-y: auto;
+    z-index: 49;
+  }
+  .ms-mobile__inner { padding: 24px 20px 48px; display: flex; flex-direction: column; gap: 28px; }
+  .ms-mobile__list { list-style: none; margin: 0; padding: 0; }
+  .ms-mobile__item { border-top: 1px solid #DDD6C9; padding: 18px 0; }
+  .ms-mobile__top { display: flex; align-items: baseline; gap: 14px; font-family: var(--font-heading--family); font-weight: 200; font-size: clamp(27px, 8vw, 38px); line-height: 1.1; color: inherit; text-decoration: none; }
+  .ms-mobile__index { font-family: var(--font-body--family); font-size: 11px; color: #7E623B; }
+  .ms-mobile__children { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 10px; padding-left: 30px; }
+  .ms-mobile__children a { font-size: 13px; line-height: 2.2; color: #4A443B; text-decoration: none; }
+  .ms-mobile__cta { align-self: flex-start; display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; border: 1px solid #17140F; font-size: 11px; letter-spacing: 0.19em; text-transform: uppercase; color: #17140F; text-decoration: none; }
+  .ms-mobile__note { margin: 0; font-size: 13px; line-height: 1.8; color: #6E675C; }
+
+  @media screen and (max-width: 989px) {
+    .ms-header__nav, .ms-header__cta { display: none; }
+    .ms-header__menubtn { display: inline-flex; }
+    .ms-header__bar { min-height: 68px; }
+    .ms-mobile { --ms-mobile-top: 68px; }
+    .ms-panel { display: none; }
+  }
+  @media screen and (min-width: 990px) { .ms-mobile { display: none; } }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "MS · Header",
+  "tag": "header",
+  "class": "ms-header-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "label": "Logo height",
+      "min": 16,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "text",
+      "id": "wordmark",
+      "label": "Wordmark",
+      "info": "Shown when no logo image is chosen.",
+      "default": "Midsummer"
+    },
+    {
+      "type": "text",
+      "id": "wordmark_sub",
+      "label": "Wordmark second line",
+      "default": "Milano"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Right-hand action",
+      "default": "Book an appointment"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Right-hand action link"
+    },
+    {
+      "type": "checkbox",
+      "id": "cta_panel",
+      "label": "Action opens the enquiry panel",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Show search",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "transparent_home",
+      "label": "Transparent over the homepage film",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "mobile_note",
+      "label": "Note at the foot of the phone menu",
+      "default": "Via Andegari 4, Milano · Monday to Friday, 09:00–12:00 and 13:00–18:00"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Menu item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Our Beds"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "textarea",
+          "id": "groups",
+          "label": "Links in the panel",
+          "info": "One link per line as Label | /url. Start a new column with a line beginning ## followed by its heading."
+        },
+        {
+          "type": "header",
+          "content": "Feature 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "f1_image",
+          "label": "Photograph"
+        },
+        {
+          "type": "text",
+          "id": "f1_numeral",
+          "label": "Numeral"
+        },
+        {
+          "type": "text",
+          "id": "f1_title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "f1_note",
+          "label": "Note"
+        },
+        {
+          "type": "url",
+          "id": "f1_link",
+          "label": "Link"
+        },
+        {
+          "type": "header",
+          "content": "Feature 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "f2_image",
+          "label": "Photograph"
+        },
+        {
+          "type": "text",
+          "id": "f2_numeral",
+          "label": "Numeral"
+        },
+        {
+          "type": "text",
+          "id": "f2_title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "f2_note",
+          "label": "Note"
+        },
+        {
+          "type": "url",
+          "id": "f2_link",
+          "label": "Link"
+        },
+        {
+          "type": "header",
+          "content": "Feature 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "f3_image",
+          "label": "Photograph"
+        },
+        {
+          "type": "text",
+          "id": "f3_numeral",
+          "label": "Numeral"
+        },
+        {
+          "type": "text",
+          "id": "f3_title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "f3_note",
+          "label": "Note"
+        },
+        {
+          "type": "url",
+          "id": "f3_link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8
+}
+{% endschema %}

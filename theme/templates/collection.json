@@ -1,153 +1,498 @@
 /*
- * Midsummer Milano — built on the live Dawn theme.
- * Design sections: ms-hero, ms-split, ms-cards and the ms-* specialist sections.
+ * ------------------------------------------------------------
+ * Midsummer Milano — customised for the Atelier theme.
+ * Generated from the approved UX preview. Safe to replace the
+ * matching file in the theme export before upload.
+ * ------------------------------------------------------------
  */
 {
   "sections": {
-    "banner": {
-      "type": "main-collection-banner",
-      "settings": {
-        "show_collection_description": true,
-        "show_collection_image": true,
-        "color_scheme": "scheme-2"
-      }
-    },
-    "product-grid": {
-      "type": "main-collection-product-grid",
-      "settings": {
-        "products_per_page": 16,
-        "columns_desktop": 4,
-        "color_scheme": "scheme-1",
-        "image_ratio": "portrait",
-        "image_shape": "default",
-        "show_secondary_image": false,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "enable_filtering": false,
-        "filter_type": "horizontal",
-        "enable_sorting": false,
-        "columns_mobile": "2",
-        "padding_top": 36,
-        "padding_bottom": 0
-      }
-    },
-    "17536973023a3b020e": {
-      "type": "apps",
+    "ms_head": {
+      "type": "section",
+      "name": "t:names.heading",
       "blocks": {
-        "avada_seo_suite_avada_after_collection_block_NH3Umq": {
-          "type": "shopify://apps/avada-seo-suite/blocks/avada-after-collection-block/15507c6e-1aa3-45d3-b698-7e175e033440",
-          "settings": {}
+        "eyebrow": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Collection</p>",
+            "width": "100%",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "h6",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "uppercase",
+            "wrap": "pretty",
+            "text_color": "{{ settings.color_palette.color1 }}",
+            "background": false,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "title": {
+          "type": "text",
+          "settings": {
+            "text": "<h1>{{ closest.collection.title }}</h1>",
+            "width": "100%",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "h1",
+            "line_height": "tight",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "background": false,
+            "padding-block-start": 20,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "intro": {
+          "type": "text",
+          "settings": {
+            "text": "{{ closest.collection.description }}",
+            "width": "100%",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "paragraph",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "background": false,
+            "padding-block-start": 26,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "rule": {
+          "type": "_divider",
+          "name": "t:names.divider",
+          "settings": {
+            "thickness": 1,
+            "divider_color": "{{ settings.color_palette.color2 }}",
+            "corner_radius": "square",
+            "width_percent": 100,
+            "padding-block-start": 56,
+            "padding-block-end": 0
+          },
+          "blocks": {}
         }
       },
       "block_order": [
-        "avada_seo_suite_avada_after_collection_block_NH3Umq"
+        "eyebrow",
+        "title",
+        "intro",
+        "rule"
       ],
       "settings": {
-        "include_margins": true
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "flex-start",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "flex-start",
+        "gap": 0,
+        "section_width": "page-width",
+        "section_height_custom": 50,
+        "background_media": "none",
+        "background_color": "{{ settings.color_palette.background }}",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 88,
+        "padding-block-end": 0
       }
     },
-    "1753697266812afe4f": {
-      "type": "apps",
+    "main": {
+      "type": "main-collection",
       "blocks": {
-        "avada_seo_suite_avada_faqs_aRtPhd": {
-          "type": "shopify://apps/avada-seo-suite/blocks/avada-faqs/15507c6e-1aa3-45d3-b698-7e175e033440",
-          "settings": {}
+        "product-card": {
+          "type": "_product-card",
+          "static": true,
+          "settings": {
+            "product_card_gap": 18,
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "gallery": {
+              "type": "_product-card-gallery",
+              "settings": {
+                "image_ratio": "portrait",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "title": {
+              "type": "product-title",
+              "name": "t:names.product_title",
+              "settings": {
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h4",
+                "font": "var(--font-heading--family)",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "background": false,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "swatches": {
+              "type": "swatches",
+              "settings": {
+                "product_swatches_alignment": "flex-start",
+                "product_swatches_alignment_mobile": "flex-start",
+                "hide_padding": false,
+                "product_swatches_padding_top": 4,
+                "product_swatches_padding_bottom": 0,
+                "product_swatches_padding_left": 0,
+                "product_swatches_padding_right": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "gallery",
+            "title",
+            "swatches"
+          ]
         }
       },
-      "block_order": [
-        "avada_seo_suite_avada_faqs_aRtPhd"
-      ],
       "settings": {
-        "include_margins": true
-      }
-    },
-    "ms_image": {
-      "type": "ms-hero",
-      "name": "Photography",
-      "settings": {
-        "image": "shopify://shop_images/ms-graded-horse.jpg",
-        "height": "medium",
-        "align": "left",
-        "position": "bottom",
-        "veil": 70,
-        "loading": "lazy",
-        "fetchpriority": "auto",
-        "eyebrow": "The atelier",
-        "heading": "Every system begins as fibre, spring and a drawing.",
-        "heading_size": "h3",
-        "text": "",
-        "button_label": "",
-        "button_link": "",
-        "button_style": "primary",
-        "button_panel": false,
-        "note": ""
+        "layout_type": "grid",
+        "product_card_size": "large",
+        "mobile_product_card_size": "small",
+        "product_grid_width": "centered",
+        "full_width_on_mobile": true,
+        "columns_gap_horizontal": 48,
+        "columns_gap_vertical": 50,
+        "padding-inline-start": 0,
+        "padding-inline-end": 0,
+        "background_color": "{{ settings.color_palette.background }}",
+        "padding-block-start": 56,
+        "padding-block-end": 120
       }
     },
     "ms_atelier": {
-      "type": "ms-split",
+      "type": "section",
       "name": "Book an appointment",
-      "settings": {
-        "tone": "dark",
-        "text_align": "left",
-        "first_width": 50,
-        "image_position": "right",
-        "image_ratio": "natural",
-        "image_caption": "",
-        "image_link": "",
-        "padding_top": 120,
-        "padding_bottom": 120
-      },
       "blocks": {
-        "a_0": {
-          "type": "eyebrow",
+        "left": {
+          "type": "group",
           "settings": {
-            "text": "The atelier",
-            "rule": false,
-            "column": "first"
-          }
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "flex-start",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "flex-start",
+            "gap": 0,
+            "width": "custom",
+            "custom_width": 48,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "open_in_new_tab": false,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "eyebrow": {
+              "type": "text",
+              "settings": {
+                "text": "<p>The atelier</p>",
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h6",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "uppercase",
+                "wrap": "pretty",
+                "text_color": "{{ settings.color_palette.background }}",
+                "background": false,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "head": {
+              "type": "text",
+              "settings": {
+                "text": "<h2>Try it before you choose it.</h2>",
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h2",
+                "line_height": "tight",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "text_color": "{{ settings.color_palette.background }}",
+                "background": false,
+                "padding-block-start": 18,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "eyebrow",
+            "head"
+          ]
         },
-        "a_1": {
-          "type": "heading",
+        "right": {
+          "type": "group",
           "settings": {
-            "text": "Try it before you choose it.",
-            "size": "h2",
-            "column": "first"
-          }
-        },
-        "b_2": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Every system in this collection can be lain on at Via Andegari 4. Appointments Monday to Friday, confirmed by email within one working day.</p>",
-            "style": "body",
-            "column": "second"
-          }
-        },
-        "b_btn3": {
-          "type": "buttons",
-          "settings": {
-            "column": "second",
-            "label_1": "Book a private appointment",
-            "link_1": "/pages/contact",
-            "style_1": "primary",
-            "panel_1": true,
-            "label_2": ""
-          }
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "flex-start",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "flex-end",
+            "gap": 26,
+            "width": "custom",
+            "custom_width": 44,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "open_in_new_tab": false,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "body": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Every system in this collection can be lain on at Via Andegari 4. Appointments Monday to Friday, confirmed by email within one working day.</p>",
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "paragraph",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "text_color": "{{ settings.color_palette.background }}",
+                "background": false,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "cta": {
+              "type": "button",
+              "settings": {
+                "label": "Book a private appointment",
+                "link": "/pages/contact",
+                "open_in_new_tab": false,
+                "style_class": "button-custom",
+                "custom_button_background": "rgba(0,0,0,0)",
+                "custom_button_text": "{{ settings.color_palette.background }}",
+                "custom_button_border": "{{ settings.color_palette.background }}",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "body",
+            "cta"
+          ]
         }
       },
       "block_order": [
-        "a_0",
-        "a_1",
-        "b_2",
-        "b_btn3"
-      ]
+        "left",
+        "right"
+      ],
+      "settings": {
+        "content_direction": "row",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "space-between",
+        "vertical_alignment": "flex-end",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "flex-start",
+        "gap": 64,
+        "section_width": "page-width",
+        "section_height_custom": 50,
+        "background_media": "none",
+        "background_color": "{{ settings.color_palette.foreground }}",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 120,
+        "padding-block-end": 120
+      }
+    },
+    "ms_image": {
+      "type": "hero",
+      "name": "Photography",
+      "blocks": {
+        "eyebrow": {
+          "type": "text",
+          "settings": {
+            "text": "<p>The atelier</p>",
+            "width": "100%",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "h6",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "uppercase",
+            "wrap": "pretty",
+            "text_color": "{{ settings.color_palette.background }}",
+            "background": false,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "heading": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>Every system begins as fibre, spring and a drawing.</h2>",
+            "width": "100%",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "h3",
+            "line_height": "tight",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "text_color": "{{ settings.color_palette.background }}",
+            "background": false,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "eyebrow",
+        "heading"
+      ],
+      "settings": {
+        "media_type_1": "image",
+        "image_1": "shopify://shop_images/ms-graded-horse.jpg",
+        "media_type_2": "image",
+        "stack_media_on_mobile": false,
+        "custom_mobile_media": false,
+        "media_type_1_mobile": "image",
+        "media_type_2_mobile": "image",
+        "open_in_new_tab": false,
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "flex-end",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "flex-end",
+        "gap": 14,
+        "section_width": "full-width",
+        "section_height": "medium",
+        "section_height_custom": 60,
+        "background_color": "{{ settings.color_palette.foreground }}",
+        "toggle_overlay": true,
+        "overlay_color": "#0A080680",
+        "overlay_style": "gradient",
+        "gradient_direction": "to top",
+        "blurred_reflection": false,
+        "reflection_opacity": 75,
+        "padding-block-start": 0,
+        "padding-block-end": 64
+      }
     }
   },
   "order": [
-    "banner",
-    "product-grid",
-    "17536973023a3b020e",
-    "1753697266812afe4f",
+    "ms_head",
+    "main",
     "ms_image",
     "ms_atelier"
   ]

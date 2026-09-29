@@ -1,158 +1,226 @@
+/*
+ * ------------------------------------------------------------
+ * Midsummer Milano — customised for the Atelier theme.
+ * Generated from the approved UX preview. Safe to replace the
+ * matching file in the theme export before upload.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
-    "logo": "shopify://shop_images/logo-midsummer-milano-450x200.png",
-    "logo_width": 230,
-    "favicon": "shopify://shop_images/logo-symbol_56f15f57-e0d0-433b-a5da-c955bac14d2e.png",
-    "type_header_font": "newsreader_n2",
-    "heading_scale": 100,
+    "logo": "shopify://shop_images/midsummer-logotype.png",
+    "logo_inverse": "shopify://shop_images/midsummer-logotype-ivory.png",
+    "logo_height": 26,
+    "logo_height_mobile": 20,
+    "page_background_color": "{{ settings.color_palette.background }}",
+    "page_text_color": "{{ settings.color_palette.foreground }}",
     "type_body_font": "red_hat_text_n4",
-    "body_scale": 100,
-    "page_width": 1600,
-    "spacing_sections": 16,
-    "spacing_grid_horizontal": 8,
-    "spacing_grid_vertical": 8,
-    "animations_reveal_on_scroll": true,
-    "animations_hover_elements": "default",
-    "buttons_border_thickness": 1,
-    "buttons_border_opacity": 100,
-    "buttons_radius": 0,
-    "buttons_shadow_opacity": 0,
-    "buttons_shadow_horizontal_offset": 0,
-    "buttons_shadow_vertical_offset": 4,
-    "buttons_shadow_blur": 5,
-    "variant_pills_border_thickness": 1,
-    "variant_pills_border_opacity": 35,
-    "variant_pills_radius": 0,
-    "variant_pills_shadow_opacity": 10,
-    "variant_pills_shadow_horizontal_offset": 0,
-    "variant_pills_shadow_vertical_offset": 0,
-    "variant_pills_shadow_blur": 5,
-    "inputs_border_thickness": 1,
-    "inputs_border_opacity": 55,
-    "inputs_radius": 0,
-    "inputs_shadow_opacity": 0,
-    "inputs_shadow_horizontal_offset": 0,
-    "inputs_shadow_vertical_offset": 0,
-    "inputs_shadow_blur": 5,
-    "card_style": "standard",
-    "card_image_padding": 0,
-    "card_text_alignment": "left",
-    "card_color_scheme": "scheme-2",
-    "card_border_thickness": 0,
-    "card_border_opacity": 10,
+    "type_subheading_font": "newsreader_n2",
+    "type_heading_font": "newsreader_n2",
+    "type_accent_font": "red_hat_text_n4",
+    "type_size_paragraph": "15",
+    "type_line_height_paragraph": "body-loose",
+    "type_font_h1": "heading",
+    "type_size_h1": "96",
+    "type_line_height_h1": "display-tight",
+    "type_font_h2": "heading",
+    "type_size_h2": "56",
+    "type_font_h3": "heading",
+    "type_size_h3": "38",
+    "type_font_h4": "subheading",
+    "type_size_h4": "22",
+    "type_case_h4": "none",
+    "type_font_h5": "body",
+    "type_size_h5": "11",
+    "type_line_height_h5": "display-loose",
+    "type_case_h5": "uppercase",
+    "type_font_h6": "body",
+    "type_size_h6": "11",
+    "type_line_height_h6": "display-loose",
+    "type_letter_spacing_h6": "heading-loose",
+    "type_case_h6": "uppercase",
+    "badge_corner_radius": 0,
+    "badge_sale_background_color": "{{ settings.color_palette.color1 }}",
+    "badge_sale_text_color": "{{ settings.color_palette.background }}",
+    "badge_sold_out_background_color": "{{ settings.color_palette.foreground }}",
+    "badge_sold_out_text_color": "{{ settings.color_palette.background }}",
+    "badge_text_transform": "uppercase",
+    "palette_primary_button_background": "{{ settings.color_palette.foreground }}",
+    "palette_primary_button_text": "{{ settings.color_palette.background }}",
+    "palette_primary_button_border": "{{ settings.color_palette.foreground }}",
+    "primary_button_border_width": 0,
+    "button_border_radius_primary": 0,
+    "button_text_case_primary": "uppercase",
+    "palette_secondary_button_background": "rgba(0,0,0,0)",
+    "palette_secondary_button_text": "{{ settings.color_palette.foreground }}",
+    "palette_secondary_button_border": "{{ settings.color_palette.foreground }}",
+    "secondary_button_border_width": 1,
+    "button_border_radius_secondary": 0,
+    "button_text_case_secondary": "uppercase",
+    "cart_type": "page",
+    "cart_price_font": "body",
+    "show_add_discount_code": false,
+    "drawer_background_color": "{{ settings.color_palette.background }}",
+    "drawer_text_color": "{{ settings.color_palette.foreground }}",
+    "drawer_border_color": "{{ settings.color_palette.color2 }}",
+    "icon_stroke": "thin",
+    "palette_input_background": "rgba(0,0,0,0)",
+    "palette_input_text": "{{ settings.color_palette.foreground }}",
+    "palette_input_border": "{{ settings.color_palette.color2 }}",
+    "input_border_width": 1,
+    "inputs_border_radius": 0,
+    "popover_background_color": "{{ settings.color_palette.background }}",
+    "popover_text_color": "{{ settings.color_palette.foreground }}",
+    "popover_border_radius": 0,
+    "currency_code_enabled_product_pages": false,
+    "currency_code_enabled_product_cards": false,
+    "quick_add_background": "rgba(0,0,0,0)",
+    "quick_add_text": "{{ settings.color_palette.foreground }}",
+    "mobile_quick_add": false,
+    "product_corner_radius": 0,
     "card_corner_radius": 0,
-    "card_shadow_opacity": 0,
-    "card_shadow_horizontal_offset": 0,
-    "card_shadow_vertical_offset": 4,
-    "card_shadow_blur": 5,
-    "collection_card_style": "standard",
-    "collection_card_image_padding": 0,
-    "collection_card_text_alignment": "left",
-    "collection_card_color_scheme": "scheme-2",
-    "collection_card_border_thickness": 0,
-    "collection_card_border_opacity": 10,
-    "collection_card_corner_radius": 0,
-    "collection_card_shadow_opacity": 0,
-    "collection_card_shadow_horizontal_offset": 0,
-    "collection_card_shadow_vertical_offset": 4,
-    "collection_card_shadow_blur": 5,
-    "blog_card_style": "standard",
-    "blog_card_image_padding": 0,
-    "blog_card_text_alignment": "left",
-    "blog_card_color_scheme": "scheme-1",
-    "blog_card_border_thickness": 0,
-    "blog_card_border_opacity": 10,
-    "blog_card_corner_radius": 0,
-    "blog_card_shadow_opacity": 0,
-    "blog_card_shadow_horizontal_offset": 0,
-    "blog_card_shadow_vertical_offset": 4,
-    "blog_card_shadow_blur": 5,
-    "text_boxes_border_thickness": 0,
-    "text_boxes_border_opacity": 10,
-    "text_boxes_radius": 0,
-    "text_boxes_shadow_opacity": 0,
-    "text_boxes_shadow_horizontal_offset": 0,
-    "text_boxes_shadow_vertical_offset": 4,
-    "text_boxes_shadow_blur": 5,
-    "media_border_thickness": 1,
-    "media_border_opacity": 5,
-    "media_radius": 0,
-    "media_shadow_opacity": 0,
-    "media_shadow_horizontal_offset": 0,
-    "media_shadow_vertical_offset": 4,
-    "media_shadow_blur": 5,
-    "popup_border_thickness": 1,
-    "popup_border_opacity": 10,
-    "popup_corner_radius": 0,
-    "popup_shadow_opacity": 5,
-    "popup_shadow_horizontal_offset": 0,
-    "popup_shadow_vertical_offset": 4,
-    "popup_shadow_blur": 5,
-    "drawer_border_thickness": 1,
-    "drawer_border_opacity": 10,
-    "drawer_shadow_opacity": 0,
-    "drawer_shadow_horizontal_offset": 0,
-    "drawer_shadow_vertical_offset": 4,
-    "drawer_shadow_blur": 5,
-    "badge_position": "bottom left",
-    "badge_corner_radius": 40,
-    "sale_badge_color_scheme": "scheme-4",
-    "sold_out_badge_color_scheme": "scheme-3",
-    "brand_headline": "Midsummer-Milano",
-    "brand_description": "<h5><a href=\"mailto:info@midsummer-milano.com\" target=\"_blank\" title=\"info@midsummer-milano.com\">info@midsummer-milano.com</a><br/>Via Andegari, 4<br/>20121 Milano, Italy<br/>VAT Number 02282810999</h5><h6></h6>",
-    "brand_image_width": 100,
-    "social_facebook_link": "",
-    "social_instagram_link": "https://www.instagram.com/midsummermilano/",
-    "social_youtube_link": "",
-    "social_tiktok_link": "",
-    "social_twitter_link": "",
-    "social_snapchat_link": "",
-    "social_pinterest_link": "https://it.pinterest.com/midsummermilanosocial/",
-    "social_tumblr_link": "",
-    "social_vimeo_link": "",
-    "social_linkedin_link": "https://www.linkedin.com/company/midsummer-milano/",
-    "social_whatsapp_link": "https://wa.me/message/CAC4ZAEYHOTHN1",
-    "social_telegram_link": "https://t.me/midsummermilano",
-    "social_vk_link": "https://vk.com/midsummermilano",
-    "predictive_search_enabled": true,
-    "predictive_search_show_vendor": true,
-    "predictive_search_show_price": false,
-    "currency_code_enabled": false,
-    "cart_type": "notification",
-    "show_vendor": false,
-    "show_cart_note": false,
-    "cart_drawer_collection": "",
-    "cart_color_scheme": "scheme-1",
+    "card_title_case": "default",
+    "variant_swatch_width": 36,
+    "variant_swatch_height": 36,
+    "variant_swatch_radius": 50,
+    "palette_variant_background": "rgba(0,0,0,0)",
+    "palette_variant_text": "{{ settings.color_palette.foreground }}",
+    "palette_variant_border": "{{ settings.color_palette.color2 }}",
+    "palette_selected_variant_background": "rgba(0,0,0,0)",
+    "palette_selected_variant_text": "{{ settings.color_palette.foreground }}",
+    "palette_selected_variant_border": "{{ settings.color_palette.foreground }}",
+    "variant_button_radius": 0,
+    "variant_button_width": "default-width-buttons",
+    "color_palette": {
+      "background": "#FBF9F5",
+      "foreground": "#17140F",
+      "color1": "#9A7B4F",
+      "color2": "#F1ECE3"
+    },
+    "ms_show_prices": false,
     "sections": {
-      "main-password-header": {
-        "type": "main-password-header",
+      "ms-enquiry-drawer": {
+        "type": "ms-enquiry-drawer",
+        "blocks": {
+          "tab_brochure": {
+            "type": "mode",
+            "settings": {
+              "mode_id": "brochure",
+              "label": "Request brochure",
+              "note": "The full catalogue of systems, fibres and Loro Piana Interiors fabrics, as a PDF.",
+              "notes_label": "How did you hear about us?"
+            }
+          },
+          "tab_appointment": {
+            "type": "mode",
+            "settings": {
+              "mode_id": "appointment",
+              "label": "Book appointment",
+              "note": "Visit the atelier on Via Andegari, or meet us by video. We confirm within one working day.",
+              "notes_label": "Notes"
+            }
+          },
+          "tab_callback": {
+            "type": "mode",
+            "settings": {
+              "mode_id": "callback",
+              "label": "Request callback",
+              "note": "Tell us when suits and one of the atelier team will call you.",
+              "notes_label": "Please tell us about your enquiry"
+            }
+          },
+          "tab_message": {
+            "type": "mode",
+            "settings": {
+              "mode_id": "message",
+              "label": "Leave a message",
+              "note": "Anything else — regeneration, care, press or partnership.",
+              "notes_label": "Message"
+            }
+          }
+        },
+        "block_order": [
+          "tab_brochure",
+          "tab_appointment",
+          "tab_callback",
+          "tab_message"
+        ],
         "settings": {
-          "color_scheme": "scheme-1"
-        }
-      },
-      "main-password-footer": {
-        "type": "main-password-footer",
-        "settings": {
-          "color_scheme": "scheme-1"
-        }
-      },
-      "enquire-panel": {
-        "type": "enquire-panel",
-        "settings": {
-          "drawer_heading": "Please proceed with your enquiry.",
-          "label_brochure": "Request brochure",
-          "label_appointment": "Book appointment",
-          "label_callback": "Request callback",
-          "label_message": "Leave a message",
-          "title_options": "Mr.,Mrs.,Ms.,Dr.,Prof.,Other",
-          "brochure_url": "https://cdn.shopify.com/s/files/1/0697/8829/files/Midsummer-Milano_Brochure.pdf?v=1733221759",
-          "terms_url": "shopify://pages/terms-and-conditions",
-          "privacy_url": "shopify://pages/privacy-and-legal",
+          "heading": "Please proceed with your enquiry.",
+          "enquiry_page": "/pages/contact",
+          "panel_width": 620,
+          "show_edge_trigger": true,
+          "edge_label": "Enquire",
+          "label_title": "Title",
+          "title_options": "Mr, Mrs, Ms, Mx, Dr, Arch., Prof.",
+          "label_first_name": "First name",
+          "label_last_name": "Last name",
+          "label_email": "Email",
+          "label_city": "City",
+          "label_phone": "Phone",
+          "label_subject": "Subject",
+          "label_date": "Preferred date",
+          "date_hint": "Monday to Friday",
+          "label_time": "Preferred time",
+          "time_options": "09:00–10:30, 10:30–12:00, 13:00–15:00, 15:00–16:30, 16:30–18:00",
+          "label_enquiry_type": "Enquiry type",
+          "enquiry_type_placeholder": "Choose your enquiry type",
+          "enquiry_type_options": "Private client, Architect or interior designer, Hospitality or contract, Dealer or distributor, Press",
+          "select_placeholder": "Select",
           "submit_label": "Submit",
-          "showroom_address": "Via Andegari, 4, 20121 Milano, Italy",
-          "showroom_lat": "45.468492",
-          "showroom_lng": "9.189679",
-          "panel_bg": "#faf3ec"
+          "show_consent": true,
+          "consent_text": "<p>By clicking submit you agree to our <a href=\"/policies/terms-of-service\">terms and conditions</a> and <a href=\"/policies/privacy-policy\">privacy policy</a>.</p>",
+          "fallback_label": "Open the full enquiry page",
+          "close_label": "Close",
+          "success_heading": "Thank you. Your enquiry is with the atelier.",
+          "success_body": "We reply to every enquiry by email within one working day. If it is urgent, call us on the number in the footer.",
+          "background_color": "#FBF9F5",
+          "text_color": "#17140F",
+          "muted_color": "#6E675C",
+          "accent_color": "#7E623B",
+          "rule_color": "#DDD6C9",
+          "scrim_color": "#0A0806A6",
+          "button_background": "#17140F",
+          "button_text": "#FBF9F5"
+        }
+      },
+      "ms-seo": {
+        "type": "ms-seo",
+        "settings": {
+          "enable_organization": true,
+          "enable_website": true,
+          "enable_breadcrumbs": true,
+          "enable_product": true,
+          "legal_name": "Midsummer Milano",
+          "alternate_name": "Midsummer",
+          "description": "Handmade luxury beds, mattresses and toppers, built one by one by two artisans in Italy from natural fibres and Loro Piana Interiors fabrics.",
+          "slogan": "We design dreams.",
+          "knows_about": "handmade mattresses, natural fibre bedding, vicuña, baby alpaca, cashmere, horsehair, mohair, yak hair, Cheviot wool, Loro Piana Interiors fabrics, boxsprings, made-to-measure beds, mattress regeneration, Italian furniture craftsmanship, sleep systems",
+          "street": "Via Andegari 4",
+          "city": "Milano",
+          "postal_code": "20121",
+          "country_code": "IT",
+          "latitude": "45.4700",
+          "longitude": "9.1877",
+          "email": "info@midsummer-milano.com",
+          "telephone": "",
+          "price_range": "On request",
+          "currencies": "EUR",
+          "area_served": "Worldwide",
+          "opens_morning": "09:00",
+          "closes_morning": "12:00",
+          "opens_afternoon": "13:00",
+          "closes_afternoon": "18:00",
+          "same_as": "",
+          "service_name": "Bespoke sleep system consultation",
+          "service_description": "A consultation at the atelier on Via Andegari, or by video, after which dimensions, heights, fibres, fabric and comfort level are specified and the system is built by hand.",
+          "price_on_request": true,
+          "price_request_text": "Price on request. Each system is made to order and quoted after specification.",
+          "country_of_origin": "Italy",
+          "made_label": "Made by",
+          "made_value": "Two artisans, by hand, start to finish, in Italy",
+          "customisation_label": "Customisation",
+          "customisation_value": "Dimensions, heights, fibres, fabric and comfort level made to measure",
+          "home_label": "Midsummer Milano"
         }
       },
       "ms-grade": {
@@ -175,379 +243,95 @@
         },
         "blocks": {}
       }
-    },
-    "content_for_index": [],
-    "blocks": {
-      "4015264832934714879": {
-        "type": "shopify://apps/ecomsend-popups/blocks/app/a5670cf8-5705-4b01-ad9e-447033feae26",
-        "disabled": false,
-        "settings": {}
-      },
-      "7114111886234834742": {
-        "type": "shopify://apps/ga-store-locator-map/blocks/app-embeded/d03d8f57-c980-45ee-96e7-4c1571ca06ef",
-        "disabled": false,
-        "settings": {}
-      },
-      "9664103760669878543": {
-        "type": "shopify://apps/seoon-blog/blocks/avada-seoon-setting/a45c3e67-be9f-4255-a194-b255a24f37c9",
-        "disabled": false,
-        "settings": {}
-      },
-      "1793219247286972479": {
-        "type": "shopify://apps/searchpie-seo-speed/blocks/sb-snippets/29f6c508-9bb9-4e93-9f98-b637b62f3552",
-        "disabled": true,
-        "settings": {}
-      },
-      "1935445597218932304": {
-        "type": "shopify://apps/avada-seo-suite/blocks/avada-seo/15507c6e-1aa3-45d3-b698-7e175e033440",
-        "disabled": false,
-        "settings": {}
-      },
-      "3787308784794087151": {
-        "type": "shopify://apps/tipo-appointment/blocks/app-embed/efe4d483-fa62-4509-a0a7-3f363fbc9920",
-        "disabled": false,
-        "settings": {}
-      },
-      "9278379683843197553": {
-        "type": "shopify://apps/appointment-booking-appointo/blocks/app-embed/8e9086b8-9c22-4cd3-b1d1-0967727a5d97",
-        "disabled": false,
-        "settings": {}
-      },
-      "14818028230436078177": {
-        "type": "shopify://apps/langify/blocks/langify/b50c2edb-8c63-4e36-9e7c-a7fdd62ddb8f",
-        "disabled": true,
-        "settings": {
-          "theme_id": "171279745360",
-          "block_lib_css": false,
-          "rtl_css": "body {\n  direction: rtl;\n}"
-        }
-      },
-      "11136173269683339241": {
-        "type": "shopify://apps/cmp-insert-code/blocks/cmp-insert-code/78eb98c3-3331-4186-baf2-1c07c0f8c0d1",
-        "disabled": true,
-        "settings": {}
-      },
-      "14710238943034738919": {
-        "type": "shopify://apps/air-product-reviews/blocks/app-embed/c4e1e9ca-4d46-4e76-bc39-7e42417cb327",
-        "disabled": false,
-        "settings": {
-          "air_reviews_json_ld_v2": "{\n\"@context\": \"http://schema.org\",\n\"@type\": \"Product\",\n\"name\": {{ product.title | json }},\n\"description\": {{ product.description | escape | truncate: 150 | json }},\n\"image\": {{ product.featured_image | json }},\n\"aggregateRating\": {\n  \"@type\": \"AggregateRating\",\n  \"ratingValue\": {{ product.metafields.reviews.rating.value.rating | default: product.metafields.air_reviews_product.review_avg | json }},\n  \"bestRating\": {{ product.metafields.reviews.rating.value.scale_max | json }},\n  \"reviewCount\": {{ product.metafields.air_reviews_product.review_count | json }}\n }{% if shop.metafields.air_reviews_has_ugc_content.data.value == true %}, \n  \"review\":[{% assign reviewsData = product.metafields.air_reviews_product.data.value.reviews %}\n  {% for review in reviewsData limit: 10 %}\n    {\n      \"@type\": \"Review\",\n      \"author\": {\n        \"@type\": \"Person\",\n        \"name\": {{ review.firstName | json }}\n      },\n      \"reviewRating\": {\n          \"@type\": \"Rating\",\n          \"bestRating\": {{ product.metafields.reviews.rating.value.scale_max | json }},\n          \"ratingValue\": {{ review.rate | json }},\n          \"worstRating\": {{ product.metafields.reviews.rating.value.scale_min | json }}\n      },\n      \"reviewBody\": {{ review.content | json }},\n      \"datePublished\": {{ review.createdAt | date: \"%Y-%m-%d %H:%M:%S\" | json }}\n    }{% unless forloop.last %},{% endunless %} \n  {% endfor %}]{% endif %}\n}"
-        }
-      },
-      "18131037017812181619": {
-        "type": "shopify://apps/mailchimp-email-sms/blocks/mailchimp_for_shopify_script/e3b67dce-fd41-4b61-b3cf-961c12344cde",
-        "disabled": false,
-        "settings": {}
-      }
-    },
-    "color_schemes": {
-      "scheme-1": {
-        "settings": {
-          "background": "#FBF9F5",
-          "background_gradient": "",
-          "text": "#17140F",
-          "button": "#17140F",
-          "button_label": "#FBF9F5",
-          "secondary_button_label": "#17140F",
-          "shadow": "#17140F"
-        }
-      },
-      "scheme-2": {
-        "settings": {
-          "background": "#faf3ec",
-          "background_gradient": "linear-gradient(180deg, rgba(250, 243, 236, 1), rgba(232, 199, 183, 1) 71%, rgba(214, 179, 179, 1) 100%)",
-          "text": "#121212",
-          "button": "#121212",
-          "button_label": "#f3f3f3",
-          "secondary_button_label": "#121212",
-          "shadow": "#121212"
-        }
-      },
-      "scheme-3": {
-        "settings": {
-          "background": "#ffffff",
-          "background_gradient": "linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.7) 25%)",
-          "text": "#000000",
-          "button": "#ffffff",
-          "button_label": "#000000",
-          "secondary_button_label": "#ffffff",
-          "shadow": "#121212"
-        }
-      },
-      "scheme-4": {
-        "settings": {
-          "background": "#ffffff",
-          "background_gradient": "",
-          "text": "#ffffff",
-          "button": "#e8c7b7",
-          "button_label": "#ffffff",
-          "secondary_button_label": "#faf3ec",
-          "shadow": "#faf3ec"
-        }
-      },
-      "scheme-5": {
-        "settings": {
-          "background": "#334fb4",
-          "background_gradient": "",
-          "text": "#ffffff",
-          "button": "#ffffff",
-          "button_label": "#334fb4",
-          "secondary_button_label": "#ffffff",
-          "shadow": "#121212"
-        }
-      },
-      "scheme-7448d1cc-b887-482a-bf2f-dab75dd7a34f": {
-        "settings": {
-          "background": "#ffffff",
-          "background_gradient": "",
-          "text": "#121212",
-          "button": "#121212",
-          "button_label": "#ffffff",
-          "secondary_button_label": "#121212",
-          "shadow": "#121212"
-        }
-      },
-      "scheme-b1dd02c6-6cde-49b2-9c5f-5d90f72627b2": {
-        "settings": {
-          "background": "#ffffff",
-          "background_gradient": "",
-          "text": "#121212",
-          "button": "#121212",
-          "button_label": "#ffffff",
-          "secondary_button_label": "#121212",
-          "shadow": "#121212"
-        }
-      },
-      "scheme-1511c38d-bc79-4065-93dc-fada39a06474": {
-        "settings": {
-          "background": "#ffffff",
-          "background_gradient": "",
-          "text": "#121212",
-          "button": "#121212",
-          "button_label": "#ffffff",
-          "secondary_button_label": "#121212",
-          "shadow": "#121212"
-        }
-      },
-      "scheme-ad9bfa50-96fc-457c-8f69-acd709048bda": {
-        "settings": {
-          "background": "#ffffff",
-          "background_gradient": "linear-gradient(228deg, rgba(255, 255, 255, 1), rgba(51, 79, 180, 1) 53%)",
-          "text": "#121212",
-          "button": "#121212",
-          "button_label": "#ffffff",
-          "secondary_button_label": "#121212",
-          "shadow": "#121212"
-        }
-      },
-      "scheme-26c7d85e-f899-4b40-b020-0cea1c28e3ce": {
-        "settings": {
-          "background": "#f7f2ea",
-          "background_gradient": "",
-          "text": "#121212",
-          "button": "#e8c7b7",
-          "button_label": "#ffffff",
-          "secondary_button_label": "#e8c7b7",
-          "shadow": "#121212"
-        }
-      }
     }
   },
   "presets": {
-    "Default": {
-      "logo_width": 90,
-      "color_schemes": {
-        "scheme-1": {
-          "settings": {
-            "background": "#FFFFFF",
-            "background_gradient": "",
-            "text": "#121212",
-            "button": "#121212",
-            "button_label": "#FFFFFF",
-            "secondary_button_label": "#121212",
-            "shadow": "#121212"
-          }
-        },
-        "scheme-2": {
-          "settings": {
-            "background": "#F3F3F3",
-            "background_gradient": "",
-            "text": "#121212",
-            "button": "#121212",
-            "button_label": "#F3F3F3",
-            "secondary_button_label": "#121212",
-            "shadow": "#121212"
-          }
-        },
-        "scheme-3": {
-          "settings": {
-            "background": "#242833",
-            "background_gradient": "",
-            "text": "#FFFFFF",
-            "button": "#FFFFFF",
-            "button_label": "#000000",
-            "secondary_button_label": "#FFFFFF",
-            "shadow": "#121212"
-          }
-        },
-        "scheme-4": {
-          "settings": {
-            "background": "#121212",
-            "background_gradient": "",
-            "text": "#FFFFFF",
-            "button": "#FFFFFF",
-            "button_label": "#121212",
-            "secondary_button_label": "#FFFFFF",
-            "shadow": "#121212"
-          }
-        },
-        "scheme-5": {
-          "settings": {
-            "background": "#334FB4",
-            "background_gradient": "",
-            "text": "#FFFFFF",
-            "button": "#FFFFFF",
-            "button_label": "#334FB4",
-            "secondary_button_label": "#FFFFFF",
-            "shadow": "#121212"
-          }
-        }
-      },
-      "type_header_font": "assistant_n4",
-      "heading_scale": 100,
-      "type_body_font": "assistant_n4",
-      "body_scale": 100,
-      "page_width": 1200,
-      "spacing_sections": 0,
-      "spacing_grid_horizontal": 8,
-      "spacing_grid_vertical": 8,
-      "animations_reveal_on_scroll": true,
-      "animations_hover_elements": "none",
-      "buttons_border_thickness": 1,
-      "buttons_border_opacity": 100,
-      "buttons_radius": 0,
-      "buttons_shadow_opacity": 0,
-      "buttons_shadow_horizontal_offset": 0,
-      "buttons_shadow_vertical_offset": 4,
-      "buttons_shadow_blur": 5,
-      "variant_pills_border_thickness": 1,
-      "variant_pills_border_opacity": 55,
-      "variant_pills_radius": 40,
-      "variant_pills_shadow_opacity": 0,
-      "variant_pills_shadow_horizontal_offset": 0,
-      "variant_pills_shadow_vertical_offset": 4,
-      "variant_pills_shadow_blur": 5,
-      "inputs_border_thickness": 1,
-      "inputs_border_opacity": 55,
-      "inputs_radius": 0,
-      "inputs_shadow_opacity": 0,
-      "inputs_shadow_horizontal_offset": 0,
-      "inputs_shadow_vertical_offset": 4,
-      "inputs_shadow_blur": 5,
-      "card_style": "standard",
-      "card_image_padding": 0,
-      "card_text_alignment": "left",
-      "card_color_scheme": "scheme-2",
-      "card_border_thickness": 0,
-      "card_border_opacity": 10,
+    "Atelier": {
+      "page_background_color": "{{ settings.color_palette.background }}",
+      "page_text_color": "{{ settings.color_palette.foreground }}",
+      "type_body_font": "red_hat_text_n4",
+      "type_subheading_font": "newsreader_n2",
+      "type_heading_font": "newsreader_n2",
+      "type_accent_font": "red_hat_text_n4",
+      "type_size_paragraph": "12",
+      "type_line_height_paragraph": "body-loose",
+      "type_font_h1": "heading",
+      "type_size_h1": "120",
+      "type_line_height_h1": "display-tight",
+      "type_font_h2": "heading",
+      "type_size_h2": "72",
+      "type_font_h3": "heading",
+      "type_size_h3": "48",
+      "type_font_h4": "subheading",
+      "type_size_h4": "24",
+      "type_case_h4": "none",
+      "type_font_h5": "body",
+      "type_size_h5": "12",
+      "type_line_height_h5": "display-loose",
+      "type_case_h5": "uppercase",
+      "type_font_h6": "body",
+      "type_size_h6": "12",
+      "type_line_height_h6": "display-loose",
+      "type_letter_spacing_h6": "heading-normal",
+      "type_case_h6": "uppercase",
+      "badge_corner_radius": 0,
+      "badge_sale_background_color": "{{ settings.color_palette.color1 }}",
+      "badge_sale_text_color": "{{ settings.color_palette.background }}",
+      "badge_sold_out_background_color": "{{ settings.color_palette.foreground }}",
+      "badge_sold_out_text_color": "{{ settings.color_palette.background }}",
+      "badge_text_transform": "uppercase",
+      "palette_primary_button_background": "{{ settings.color_palette.foreground }}",
+      "palette_primary_button_text": "{{ settings.color_palette.background }}",
+      "palette_primary_button_border": "{{ settings.color_palette.foreground }}",
+      "primary_button_border_width": 0,
+      "button_border_radius_primary": 0,
+      "button_text_case_primary": "uppercase",
+      "palette_secondary_button_background": "{{ settings.color_palette.background }}",
+      "palette_secondary_button_text": "{{ settings.color_palette.foreground }}",
+      "palette_secondary_button_border": "{{ settings.color_palette.background }}",
+      "secondary_button_border_width": 1,
+      "button_border_radius_secondary": 0,
+      "button_text_case_secondary": "uppercase",
+      "cart_type": "drawer",
+      "cart_price_font": "body",
+      "show_add_discount_code": false,
+      "drawer_background_color": "{{ settings.color_palette.background }}",
+      "drawer_text_color": "{{ settings.color_palette.foreground }}",
+      "drawer_border_color": "{{ settings.color_palette.color2 }}",
+      "icon_stroke": "thin",
+      "palette_input_background": "{{ settings.color_palette.background }}",
+      "palette_input_text": "{{ settings.color_palette.foreground }}",
+      "palette_input_border": "{{ settings.color_palette.color2 }}",
+      "input_border_width": 1,
+      "inputs_border_radius": 0,
+      "popover_background_color": "{{ settings.color_palette.background }}",
+      "popover_text_color": "{{ settings.color_palette.foreground }}",
+      "popover_border_radius": 0,
+      "currency_code_enabled_product_pages": false,
+      "currency_code_enabled_product_cards": false,
+      "quick_add_background": "{{ settings.color_palette.background }}",
+      "quick_add_text": "{{ settings.color_palette.foreground }}",
+      "mobile_quick_add": true,
+      "product_corner_radius": 0,
       "card_corner_radius": 0,
-      "card_shadow_opacity": 0,
-      "card_shadow_horizontal_offset": 0,
-      "card_shadow_vertical_offset": 4,
-      "card_shadow_blur": 5,
-      "collection_card_style": "standard",
-      "collection_card_image_padding": 0,
-      "collection_card_text_alignment": "left",
-      "collection_card_color_scheme": "scheme-2",
-      "collection_card_border_thickness": 0,
-      "collection_card_border_opacity": 10,
-      "collection_card_corner_radius": 0,
-      "collection_card_shadow_opacity": 0,
-      "collection_card_shadow_horizontal_offset": 0,
-      "collection_card_shadow_vertical_offset": 4,
-      "collection_card_shadow_blur": 5,
-      "blog_card_style": "standard",
-      "blog_card_image_padding": 0,
-      "blog_card_text_alignment": "left",
-      "blog_card_color_scheme": "scheme-2",
-      "blog_card_border_thickness": 0,
-      "blog_card_border_opacity": 10,
-      "blog_card_corner_radius": 0,
-      "blog_card_shadow_opacity": 0,
-      "blog_card_shadow_horizontal_offset": 0,
-      "blog_card_shadow_vertical_offset": 4,
-      "blog_card_shadow_blur": 5,
-      "text_boxes_border_thickness": 0,
-      "text_boxes_border_opacity": 10,
-      "text_boxes_radius": 0,
-      "text_boxes_shadow_opacity": 0,
-      "text_boxes_shadow_horizontal_offset": 0,
-      "text_boxes_shadow_vertical_offset": 4,
-      "text_boxes_shadow_blur": 5,
-      "media_border_thickness": 1,
-      "media_border_opacity": 5,
-      "media_radius": 0,
-      "media_shadow_opacity": 0,
-      "media_shadow_horizontal_offset": 0,
-      "media_shadow_vertical_offset": 4,
-      "media_shadow_blur": 5,
-      "popup_border_thickness": 1,
-      "popup_border_opacity": 10,
-      "popup_corner_radius": 0,
-      "popup_shadow_opacity": 5,
-      "popup_shadow_horizontal_offset": 0,
-      "popup_shadow_vertical_offset": 4,
-      "popup_shadow_blur": 5,
-      "drawer_border_thickness": 1,
-      "drawer_border_opacity": 10,
-      "drawer_shadow_opacity": 0,
-      "drawer_shadow_horizontal_offset": 0,
-      "drawer_shadow_vertical_offset": 4,
-      "drawer_shadow_blur": 5,
-      "badge_position": "bottom left",
-      "badge_corner_radius": 40,
-      "sale_badge_color_scheme": "scheme-4",
-      "sold_out_badge_color_scheme": "scheme-3",
-      "brand_headline": "",
-      "brand_description": "<p></p>",
-      "brand_image_width": 100,
-      "social_twitter_link": "",
-      "social_facebook_link": "",
-      "social_pinterest_link": "",
-      "social_instagram_link": "",
-      "social_tiktok_link": "",
-      "social_tumblr_link": "",
-      "social_snapchat_link": "",
-      "social_youtube_link": "",
-      "social_vimeo_link": "",
-      "predictive_search_enabled": true,
-      "predictive_search_show_vendor": false,
-      "predictive_search_show_price": false,
-      "currency_code_enabled": true,
-      "cart_type": "notification",
-      "show_vendor": false,
-      "show_cart_note": false,
-      "cart_drawer_collection": "",
-      "cart_color_scheme": "scheme-1",
-      "sections": {
-        "main-password-header": {
-          "type": "main-password-header",
-          "settings": {
-            "color_scheme": "scheme-1"
-          }
-        },
-        "main-password-footer": {
-          "type": "main-password-footer",
-          "settings": {
-            "color_scheme": "scheme-1"
-          }
-        }
+      "card_title_case": "uppercase",
+      "variant_swatch_width": 18,
+      "variant_swatch_height": 18,
+      "variant_swatch_radius": 0,
+      "palette_variant_background": "{{ settings.color_palette.background }}",
+      "palette_variant_text": "{{ settings.color_palette.foreground }}",
+      "palette_variant_border": "{{ settings.color_palette.color2 }}",
+      "palette_selected_variant_background": "{{ settings.color_palette.foreground }}",
+      "palette_selected_variant_text": "{{ settings.color_palette.background }}",
+      "palette_selected_variant_border": "{{ settings.color_palette.foreground }}",
+      "variant_button_radius": 0,
+      "variant_button_width": "default-width-buttons",
+      "color_palette": {
+        "background": "#ffffff",
+        "foreground": "#000000",
+        "color1": "#383838",
+        "color2": "#F2F2F2"
       }
     }
-  },
-  "platform_customizations": {
-    "custom_css": [
-      "/* Hide cart icon everywhere */.header__icon--cart {display: none !important;}"
-    ]
   }
 }

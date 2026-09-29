@@ -1,1 +1,104 @@
-{"name":"t:sections.header.name","type":"header","sections":{"announcement-bar":{"type":"announcement-bar","blocks":{"announcement_qBJtp7":{"type":"announcement","disabled":true,"settings":{"text":"Experience Midsummer at Salone del Mobile  — Learn More","link":"shopify:\/\/blogs\/press\/midsummer-milano-at-salone-del-mobile-2025-a-journey-through-design-nature-and-well-being"}},"announcement_CfhqHL":{"type":"announcement","disabled":true,"settings":{"text":"Vote for Midsummer in Green Product Awards","link":"https:\/\/www.gp-award.com\/en\/produkte\/top-bed-system"}}},"block_order":["announcement_qBJtp7","announcement_CfhqHL"],"settings":{"color_scheme":"scheme-1","show_line_separator":true,"show_social":true,"auto_rotate":false,"change_slides_speed":5,"enable_country_selector":false,"enable_language_selector":true}},"header":{"type":"header","custom_css":[],"settings":{"logo_position":"top-center","menu":"main-menu","menu_type_desktop":"mega","sticky_header_type":"reduce-logo-size","show_line_separator":true,"color_scheme":"scheme-1","menu_color_scheme":"scheme-1","enable_country_selector":false,"enable_language_selector":false,"enable_customer_avatar":false,"mobile_logo_position":"center","margin_bottom":0,"padding_top":12,"padding_bottom":12}}},"order":["announcement-bar","header"]}
+/*
+ * ------------------------------------------------------------
+ * Midsummer Milano — customised for the Atelier theme.
+ * Generated from the approved UX preview. Safe to replace the
+ * matching file in the theme export before upload.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "header",
+  "name": "t:names.header",
+  "sections": {
+    "ms_header": {
+      "type": "ms-header",
+      "settings": {
+        "logo": "shopify://shop_images/midsummer-logotype.png",
+        "logo_height": 28,
+        "wordmark": "Midsummer",
+        "wordmark_sub": "Milano",
+        "cta_label": "Book an appointment",
+        "cta_link": "/pages/contact",
+        "cta_panel": true,
+        "show_search": true,
+        "transparent_home": true,
+        "mobile_note": "Via Andegari 4, Milano · Monday to Friday, 09:00–12:00 and 13:00–18:00"
+      },
+      "blocks": {
+        "beds": {
+          "type": "item",
+          "settings": {
+            "label": "Our Beds",
+            "link": "/collections",
+            "groups": "## By type\nMattresses | /collections/mattresses\nToppers | /collections/toppers\nBases | /collections/bases\nHeadboards | /collections/headboards\nBedding | /collections/bedding\nBespoke | /pages/contact\n##\nCompare beds | /collections\nFind Your Midsummer | /pages/find-your-midsummer",
+            "f1_image": "shopify://shop_images/ms-graded-bougainvillea.jpg",
+            "f1_numeral": "I",
+            "f1_title": "Essentials",
+            "f1_note": "Five systems",
+            "f1_link": "/collections/essentials",
+            "f2_image": "shopify://shop_images/ms-graded-ochre-room.jpg",
+            "f2_numeral": "II",
+            "f2_title": "Signature",
+            "f2_note": "Seven systems",
+            "f2_link": "/collections/signature",
+            "f3_image": "shopify://shop_images/ms-graded-arches.jpg",
+            "f3_numeral": "III",
+            "f3_title": "Icons",
+            "f3_note": "Twelve systems",
+            "f3_link": "/collections/icons"
+          }
+        },
+        "heritage": {
+          "type": "item",
+          "settings": {
+            "label": "Heritage & Craft",
+            "link": "/pages/about-midsummer-milano",
+            "groups": "## The house\nOur Story | /pages/about-midsummer-milano\nHandmade in Italy | /pages/handmade-in-italy\nSleep Culture | /pages/sleep-culture\n## Materials & service\nNatural Materials | /pages/natural-luxury-materials\nSustainability | /pages/our-eco-friendly-approach\n15 + 15 Refurbishment | /pages/midsummer-milanos-regeneration-service\nFind Your Midsummer | /pages/find-your-midsummer",
+            "f1_image": "shopify://shop_images/giotto_SANGALGANO.jpg",
+            "f1_note": "Two artisans, one bed, start to finish.",
+            "f1_link": "/pages/handmade-in-italy"
+          }
+        },
+        "professionals": {
+          "type": "item",
+          "settings": {
+            "label": "Professionals",
+            "link": "/pages/professionals",
+            "groups": "## Specify with us\nArchitects & Interior Designers | /pages/professionals\nHospitality & Contract | /pages/hospitality\n## Trade\nAgents & Resellers | /pages/agents-and-resellers\nBecome a partner | /pages/contact\nTrade enquiry | /pages/contact",
+            "f1_image": "shopify://shop_images/Untitled_Project_5_b49a7740-07fa-45f1-8b4f-464d951b0772.jpg",
+            "f1_note": "Drawings, sections and material schedules for your set.",
+            "f1_link": "/pages/professionals"
+          }
+        },
+        "journal": {
+          "type": "item",
+          "settings": {
+            "label": "Journal",
+            "link": "/blogs/news",
+            "groups": "## Subjects\nSleep | /blogs/news/tagged/sleep\nMaterials | /blogs/news/tagged/materials\nDesign | /blogs/news/tagged/design\n## Also\nAll notes | /blogs/news\nQuestions | /pages/sleep-wise-faq",
+            "f1_image": "shopify://shop_images/Vicuna-mattress.jpg",
+            "f1_note": "Vicuña, and why it is called the fibre of the gods.",
+            "f1_link": "/blogs/news"
+          }
+        },
+        "contact": {
+          "type": "item",
+          "settings": {
+            "label": "Contact",
+            "link": "/pages/contact",
+            "groups": "## Speak to us\nBook an appointment | /pages/contact\nDirect contact | /pages/contact\nTrade enquiry | /pages/contact\n## Find us\nAgents & Resellers | /pages/agents-and-resellers\nThe Milano atelier | /pages/contact\nQuestions | /pages/sleep-wise-faq"
+          }
+        }
+      },
+      "block_order": [
+        "beds",
+        "heritage",
+        "professionals",
+        "journal",
+        "contact"
+      ]
+    }
+  },
+  "order": [
+    "ms_header"
+  ]
+}

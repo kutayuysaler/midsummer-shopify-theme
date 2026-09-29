@@ -1,12 +1,10 @@
 # Midsummer Milano — Shopify theme
 
-The live Midsummer Milano theme (Dawn 15.2) with the new Midsummer design built into it.
+The store's Atelier theme (4.1.5) with the Midsummer design from Claude Design applied.
 
-- `midsummer-milano-theme.zip`: upload as-is (Online Store → Themes → Add theme → Upload zip file).
+- `midsummer-milano-atelier.zip`: upload as-is (Online Store → Themes → Add theme → Upload zip file).
 - `theme/`: the same theme as source files.
-- `INSTALL.md`: what's new, the pages to create, and how to edit the design.
+- `INSTALL.md`: the Files uploads, pages and editor steps.
 
-The design's own sections are the files starting `ms-` in `theme/sections`, plus
-`ms-base.css`, `ms-button`, `ms-split-block` and `ms-icon`. Everything else is the
-live theme, unchanged apart from the templates it redesigns, the colour scheme and
-fonts in `settings_data.json`, and three lines in `layout/theme.liquid`.
+The design lives in the `ms-*` sections and blocks, the templates, the section groups,
+`config/settings_data.json` and the static sections rendered from `layout/theme.liquid`.

@@ -1,0 +1,133 @@
+{%- comment -%}
+  Midsummer Milano — precious material row for the product page.
+  One "_ms-material" block per fibre: icon, name, optional link.
+{%- endcomment -%}
+
+<div class="ms-materials" id="ms-materials-{{ block.id }}" {{ block.shopify_attributes }}>
+  {%- if block.settings.heading != blank -%}
+    <p class="ms-materials__heading">{{ block.settings.heading }}</p>
+  {%- endif -%}
+  <ul class="ms-materials__list">
+    {%- content_for 'blocks' -%}
+  </ul>
+</div>
+
+{% stylesheet %}
+  .ms-materials { width: 100%; }
+  .ms-materials__heading {
+    margin: 0 0 20px;
+    font-size: 9.5px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--ms-mat-muted);
+  }
+  .ms-materials__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: var(--ms-mat-align);
+    gap: var(--ms-mat-row-gap) var(--ms-mat-gap);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .ms-materials__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+  }
+  .ms-materials__item a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: inherit;
+  }
+  .ms-materials__icon {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: var(--ms-mat-size);
+  }
+  .ms-materials__img {
+    display: block;
+    width: auto;
+    height: var(--ms-mat-size);
+    max-width: calc(var(--ms-mat-size) * 1.6);
+    object-fit: contain;
+  }
+  .ms-materials__placeholder {
+    display: block;
+    width: var(--ms-mat-size);
+    height: var(--ms-mat-size);
+    border: 1px solid var(--ms-mat-rule);
+  }
+  .ms-materials__label {
+    font-family: var(--font-heading--family);
+    font-size: var(--ms-mat-label-size);
+    line-height: 1.2;
+  }
+{% endstylesheet %}
+
+{%- style -%}
+  #ms-materials-{{ block.id }} {
+    --ms-mat-size: {{ block.settings.icon_size }}px;
+    --ms-mat-gap: {{ block.settings.gap }}px;
+    --ms-mat-row-gap: {{ block.settings.row_gap }}px;
+    --ms-mat-align: {{ block.settings.alignment }};
+    --ms-mat-label-size: {{ block.settings.label_size }};
+    --ms-mat-muted: {{ block.settings.muted_color }};
+    --ms-mat-rule: {{ block.settings.rule_color }};
+    padding-top: {{ block.settings.padding-block-start }}px;
+    padding-bottom: {{ block.settings.padding-block-end }}px;
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Precious materials",
+  "tag": null,
+  "blocks": [
+    {
+      "type": "_ms-material"
+    }
+  ],
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "info": "Leave blank to hide." },
+    { "type": "select", "id": "alignment", "label": "Alignment",
+      "options": [
+        { "value": "flex-start", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "space-between", "label": "Justified" }
+      ],
+      "default": "center" },
+    { "type": "range", "id": "icon_size", "label": "Icon height", "min": 24, "max": 96, "step": 2, "unit": "px", "default": 44 },
+    { "type": "select", "id": "label_size", "label": "Label size",
+      "options": [
+        { "value": "0.75rem", "label": "12px" },
+        { "value": "0.875rem", "label": "14px" },
+        { "value": "1rem", "label": "16px" },
+        { "value": "1.125rem", "label": "18px" }
+      ],
+      "default": "1rem" },
+    { "type": "range", "id": "gap", "label": "Gap", "min": 8, "max": 80, "step": 2, "unit": "px", "default": 44 },
+    { "type": "range", "id": "row_gap", "label": "Row gap", "min": 8, "max": 80, "step": 2, "unit": "px", "default": 28 },
+    { "type": "color", "id": "muted_color", "label": "Heading color", "default": "#6E675C" },
+    { "type": "color", "id": "rule_color", "label": "Placeholder rule", "default": "#DDD6C9" },
+    { "type": "range", "id": "padding-block-start", "label": "Top padding", "min": 0, "max": 100, "step": 2, "unit": "px", "default": 0 },
+    { "type": "range", "id": "padding-block-end", "label": "Bottom padding", "min": 0, "max": 100, "step": 2, "unit": "px", "default": 0 }
+  ],
+  "presets": [
+    {
+      "name": "Precious materials",
+      "blocks": [
+        { "type": "_ms-material" },
+        { "type": "_ms-material" },
+        { "type": "_ms-material" }
+      ]
+    }
+  ]
+}
+{% endschema %}
