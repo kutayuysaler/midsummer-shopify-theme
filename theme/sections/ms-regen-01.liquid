@@ -1,3 +1,15 @@
+{%- liquid
+  assign ms_show = true
+  if template.suffix == blank
+    capture ms_here
+      render 'ms-link', to: 'regen'
+    endcapture
+    if ms_here != page.url
+      assign ms_show = false
+    endif
+  endif
+-%}
+{%- if ms_show -%}
 <section data-dc-tpl="969" style="position: relative; height: min(78vh, 760px); min-height: 360px; overflow: hidden;">
 <img alt="" src="{% if section.settings.img1 != blank %}{{ section.settings.img1 | image_url: width: 2000 }}{% else %}https://cdn.shopify.com/s/files/1/0697/8829/files/Untitled_Project_4_copia.jpg?v=1775117113&amp;width=2400{% endif %}" style="position: absolute; inset: 0px; width: 100%; height: 100%; object-fit: cover;"/>
 <div style="position: absolute; inset: 0px; background: linear-gradient(rgba(10, 8, 6, 0.25), rgba(10, 8, 6, 0.55));"></div>
@@ -7,6 +19,7 @@
 <p style="font-family: Newsreader, Georgia, serif; font-size: clamp(17px, 2vw, 24px); font-style: italic; margin-top: 18px; opacity: 0.9;">{{ section.settings.t3 }}</p>
 </div>
 </section>
+{%- endif -%}
 {% schema %}
 {
   "name": "15 + 15 01 · Midsummer Mi",

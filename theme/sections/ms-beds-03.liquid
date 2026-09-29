@@ -1,12 +1,12 @@
 <section data-dc-tpl="697" style="border-top: 1px solid rgb(221, 214, 201); padding: clamp(48px, 7vw, 110px) clamp(18px, 5vw, 80px) clamp(60px, 9vw, 150px);">
 <div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgb(110, 103, 92);">{{ section.settings.t1 }}</div>
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(20px, 3vw, 48px); margin-top: 32px;">
-<a href="/collections" style="display: block;">
+<a href="{% render 'ms-link', to: 'headboards' %}" style="display: block;">
 <img alt="Beds with Headboards" src="{% if section.settings.img1 != blank %}{{ section.settings.img1 | image_url: width: 2000 }}{% else %}https://midsummer-milano.com/cdn/shop/collections/AMB_01_LETTO_JUNGLE_DREAM_DEFINITIVO.webp?v=1787563874&amp;width=1400{% endif %}" style="width: 100%; aspect-ratio: 16 / 10; object-fit: cover;"/>
 <h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(22px, 2.4vw, 30px); margin-top: 20px;">{{ section.settings.t2 }}</h3>
 <p style="font-size: 14px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 10px; max-width: 46ch;">{{ section.settings.t3 }}</p>
 </a>
-<a href="/collections" style="display: block;">
+<a href="{% render 'ms-link', to: 'collections' %}" style="display: block;">
 <img alt="Outdoor" loading="lazy" src="{% if section.settings.img2 != blank %}{{ section.settings.img2 | image_url: width: 2000 }}{% else %}https://midsummer-milano.com/cdn/shop/collections/tangram_img_8409_9f44c6e9-3eb4-4f30-9a51-eabf378ca581.jpg?v=1748611550&amp;width=1400{% endif %}" style="width: 100%; aspect-ratio: 16 / 10; object-fit: cover;"/>
 <h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(22px, 2.4vw, 30px); margin-top: 20px;">{{ section.settings.t4 }}</h3>
 <p style="font-size: 14px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 10px; max-width: 46ch;">{{ section.settings.t5 }}</p>

@@ -1,0 +1,28 @@
+{%- comment -%}
+  Find your Midsummer, as an overlay. It appears only while the store has no quiz page,
+  so every "Find your Midsummer" link still opens the five questions.
+{%- endcomment -%}
+{%- capture ms_quiz_url -%}{% render 'ms-link', to: 'quiz' %}{%- endcapture -%}
+{%- if ms_quiz_url contains '#' -%}
+<div class="ms-quizdlg" data-ms-quiz-dialog hidden role="dialog" aria-modal="true" aria-label="{{ section.settings.label | escape }}">
+  <button type="button" class="ms-quizdlg__close" data-ms-quiz-close aria-label="Close">
+    Close<svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M2 2l12 12M14 2 2 14" fill="none" stroke="currentColor" stroke-width="1.1"/></svg>
+  </button>
+  {%- render 'ms-quiz', label: section.settings.label, result_label: section.settings.result_label -%}
+</div>
+<style>
+  .ms-quizdlg { position: fixed; inset: 0; z-index: 94; background: #FBF9F5; overflow-y: auto; animation: msRise .35s ease both; }
+  .ms-quizdlg .ms-quiz { min-height: 100vh !important; }
+  .ms-quizdlg__close { position: fixed; top: 18px; right: clamp(18px, 3vw, 40px); z-index: 2; display: flex; align-items: center; gap: 10px; min-height: 44px; background: rgba(251, 249, 245, .92); border: 0; padding: 0 12px; cursor: pointer; color: #17140F; font-size: 11px; letter-spacing: .26em; text-transform: uppercase; }
+</style>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Quiz overlay",
+  "settings": [
+    { "type": "paragraph", "content": "Shown only when no Find your Midsummer page exists." },
+    { "type": "text", "id": "label", "label": "Label", "default": "Find your Midsummer" },
+    { "type": "text", "id": "result_label", "label": "Result label", "default": "We would build you the" }
+  ]
+}
+{% endschema %}

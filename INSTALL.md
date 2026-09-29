@@ -1,75 +1,62 @@
 # Midsummer Milano: installing the theme
 
-`midsummer-milano-atelier.zip` is built page by page from the approved preview
-(`Midsummer Atelier - Preview.html`). Every band of every screen is its own section,
-with the preview's exact markup, type, colour and spacing. The fonts and the graded
-photographs ship inside the theme, so nothing needs uploading to Files first.
-
-## What changed from the last upload
-
-- **The homepage no longer shows the 404.** The earlier homepage used about 20 stock
-  Atelier sections with 175 blocks, and one invalid value was enough for Shopify to drop
-  the whole file. The new templates list only Midsummer sections, with no stock settings
-  to get wrong.
-- **The pages render in their own layout, `layout/ms.liquid`,** so Atelier's styles can't
-  change the design. The cart and other stock pages keep Atelier's layout, with the
-  Midsummer header and footer.
-- **Nothing loads from outside the store.** The fonts, the logotype, the graded
-  photographs, the map library and the world map are theme assets. The other
-  photographs are the store's own files on its CDN, exactly as the preview uses them.
+`midsummer-milano-atelier.zip` is the approved preview built as a Shopify theme. Every
+band of every screen is its own section. The fonts, the logotype, the graded
+photographs, the press logos and the map ship inside the theme.
 
 ## 1. Upload
 
 **Online Store → Themes → Add theme → Upload zip file** → `midsummer-milano-atelier.zip`,
-then **Preview**. If Shopify lists errors against the theme after the upload, send me
-that list.
+then **Preview**.
 
-## 2. Pages and their templates
+## 2. What happens on its own
 
-In each page, set **Theme template**. Create the pages that don't exist yet.
+- **Every link finds its page.** Header, footer and page links look up the store's real
+  pages, collections and blog by handle (for example `about-midsummer-milano` or
+  `about-us`, `sleep-wise-faq` or `faq`, and `news` or `journal`). A missing destination
+  falls back to a sensible page instead of a 404.
+- **Existing pages take their design without a template.** The default page template
+  carries each designed page and shows it only on its own page. That covers Questions,
+  Natural Materials, 15 + 15, Sustainability, Professionals, Hospitality and Find your
+  Midsummer. Every other page (About Us, Terms and so on) gets a centred editorial
+  layout.
+- **The quiz.** Your live page that uses the `sleep-assesment` template shows the new
+  Find your Midsummer quiz. If the store has no quiz page at all, every "Find your
+  Midsummer" link opens the quiz as an overlay, on any page.
+- **Agents & Resellers** keeps its template (`page.agents-resellers`) and shows the
+  stockists from your current store locator: the Milano atelier, COSE & COSE (San Marino),
+  bredaquaranta (Milan), Maison Territo (Montreal), In Made (Hong Kong) and Villa
+  Arredamenti (Monza and Brianza). Each has its address, telephone, email and website.
+  Edit them in the editor; each stockist is a block.
+- **Contact** keeps its template (`page.contact`).
 
-| Page | Handle | Template |
-| --- | --- | --- |
-| Architects & Interior Designers | `professionals` | `page.professionals` |
-| Hospitality | `hospitality` | `page.hospitality` |
-| Find Your Midsummer | `find-your-midsummer` | `page.find-your-midsummer` |
-| Natural Materials | `natural-luxury-materials` | `page.natural-materials` |
-| 15 + 15 | `midsummer-milanos-regeneration-service` | `page.regeneration` |
-| Questions | `sleep-wise-faq` | `page.faq` |
-| Agents & Resellers | `agents-and-resellers` | `page.agents-resellers` |
-| Sustainability | `our-eco-friendly-approach` | `page.sustainability` |
-| Contact | `contact` | `page.contact` |
-| Our Story, Handmade in Italy, Sleep Culture, Terms, Privacy | as they are | `page` (the default) |
+## 3. Pages to create
 
-Home, Our Beds (`/collections`), each collection, each product, the Journal
-(`/blogs/news`), each journal note, search and 404 need nothing: those templates are
-the defaults.
+These have no page in the store yet, so their links fall back until you create them.
+Create each page in **Online Store → Pages** with exactly this handle; the design
+appears on its own:
 
-## 3. Data the design reads
+| Page | Handle |
+| --- | --- |
+| Architects & Interior Designers | `professionals` |
+| Hospitality | `hospitality` |
+| Handmade in Italy (optional) | `handmade-in-italy` |
+| Sleep Culture (optional) | `sleep-culture` |
 
-- **Collections** `essentials`, `signature` and `icons`. Their opening photograph,
-  numeral and introduction come from the preview until you give a collection an image
-  and a description.
-- **Products** show their first photograph, their collection, their title and the line
-  under it. That line is the metafield `custom.subtitle`; until it exists, the
-  preview's line for that system is used. The second and third photographs fill the
-  two plates further down the page.
-- **Journal**: the first article is the large feature. Each article's first tag is its
-  label ("Materials", "Craft"). The subject links read the tags Sleep, Materials and Design.
-- **The enquiry sheet** opens from every "Book an appointment" or "Request a proposal"
-  link. It submits through Shopify's contact form, so enquiries arrive at the store's
-  email, with the chosen intention ("Book appointment", "Request brochure" and so on)
-  in the message.
+The collections `essentials`, `signature` and `icons` are used by the Our Beds panel and
+the collection pages. If one doesn't exist, its links go to `/collections`.
 
-## 4. Editing
+## 4. Product pages
 
-Every word, photograph and link in a section is a setting in the theme editor. Some
-sections carry more text than fits in 40 settings, so their later lines are fixed in the
-code. That applies to the header's panels and the phone menu. The FAQ
-answers, the press strip and the map markets are blocks, so you can add, remove and
-reorder them.
+All of a product's photographs sit together on the left, and a click opens them full
+screen. The name, the line under it, price on request and the two enquiry buttons stay
+on the right. **The build, in section** follows as a dark band: the seven layers drawn to
+depth with the texture of each material. Then come dimensions and fabric, and the other
+systems in the collection. The line under the name is the metafield `custom.subtitle`;
+without it, the preview's line for that system is used.
 
-**Before publishing, check two things:**
-- The 22 markets on the Agents & Resellers map are the preview's structure, not a
-  confirmed partner list.
-- The press strip shows each publication's name until you pick its logo.
+## 5. Pages the old theme built from sections
+
+`Loro Piana Interiors`, `Download the dream` and `Salone 2026` were built from Dawn
+sections in the old theme. In this theme they show their page text in the editorial
+layout. Tell me if they should get a design of their own.

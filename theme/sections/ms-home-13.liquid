@@ -1,12 +1,12 @@
 <section data-dc-tpl="387" style="padding: clamp(80px, 12vw, 180px) clamp(18px, 5vw, 80px); max-width: 1560px; margin: 0px auto;">
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(28px, 5vw, 96px);">
-<a href="/pages/professionals" style="display: block; border-top: 1px solid rgb(221, 214, 201); padding-top: 26px;">
+<a href="{% render 'ms-link', to: 'professionals' %}" style="display: block; border-top: 1px solid rgb(221, 214, 201); padding-top: 26px;">
 <div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgb(110, 103, 92);">{{ section.settings.t1 }}</div>
 <h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(24px, 3vw, 38px); line-height: 1.14; margin-top: 16px;">{{ section.settings.t2 }}</h3>
 <p style="font-size: 14px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 14px; max-width: 44ch;">{{ section.settings.t3 }}</p>
 <div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; margin-top: 22px;">{{ section.settings.t4 }}</div>
 </a>
-<a href="/pages/hospitality" style="display: block; border-top: 1px solid rgb(221, 214, 201); padding-top: 26px;">
+<a href="{% render 'ms-link', to: 'hospitality' %}" style="display: block; border-top: 1px solid rgb(221, 214, 201); padding-top: 26px;">
 <div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgb(110, 103, 92);">{{ section.settings.t5 }}</div>
 <h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(24px, 3vw, 38px); line-height: 1.14; margin-top: 16px;">{{ section.settings.t6 }}</h3>
 <p style="font-size: 14px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 14px; max-width: 44ch;">{{ section.settings.t7 }}</p>

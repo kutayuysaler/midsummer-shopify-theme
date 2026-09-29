@@ -15,261 +15,95 @@
             "country": "Italy",
             "region": "Europe",
             "type": "Showroom",
-            "lat": "45.4642",
-            "lon": "9.1900",
-            "note": "Via Andegari, 4, 20121 Milano. The systems are made here and can be lain on here. By appointment only, Monday to Friday."
+            "lat": "45.468492",
+            "lon": "9.189679",
+            "note": "The atelier. The systems are made here and can be lain on here. By appointment only, Monday to Friday.",
+            "name": "Midsummer Milano — the atelier",
+            "address": "Via Andegari, 4, 20121 Milano, Italy",
+            "email": "info@midsummer-milano.com"
           }
         },
         "market_02": {
           "type": "market",
           "settings": {
-            "city": "Roma",
-            "country": "Italy",
+            "city": "Dogana",
+            "country": "San Marino",
             "region": "Europe",
             "type": "Agent",
-            "lat": "41.9028",
-            "lon": "12.4964",
-            "note": "Served by an agent and by the atelier team travelling from Milano."
+            "lat": "43.975425",
+            "lon": "12.487031",
+            "name": "COSE & COSE",
+            "contact": "Antonella Romagnoli",
+            "address": "Via Oreste Brizi, 8, 47891",
+            "phone": "+378 0549 908132",
+            "email": "info@cosesrl.sm",
+            "website": "https://www.cosesrl.sm"
           }
         },
         "market_03": {
           "type": "market",
           "settings": {
-            "city": "London",
-            "country": "United Kingdom",
+            "city": "Milan",
+            "country": "Italy",
             "region": "Europe",
-            "type": "Boutique",
-            "lat": "51.5074",
-            "lon": "-0.1278",
-            "note": "Boutique representation. Private appointments, and installation by our own team."
+            "type": "Showroom",
+            "lat": "45.473113",
+            "lon": "9.189725",
+            "name": "bredaquaranta",
+            "contact": "Ms. Liupin Shen",
+            "address": "Via Fatebenefratelli, 10, 20121 Milano MI, Italy",
+            "phone": "+39 02 3655 7430",
+            "email": "info@bredaquaranta.com",
+            "website": "https://www.bredaquaranta.it"
           }
         },
         "market_04": {
           "type": "market",
           "settings": {
-            "city": "Paris",
-            "country": "France",
-            "region": "Europe",
-            "type": "Boutique",
-            "lat": "48.8566",
-            "lon": "2.3522",
-            "note": "Boutique representation, with the full Loro Piana Interiors palette available to order."
+            "city": "Montreal",
+            "country": "Canada",
+            "region": "Americas",
+            "type": "Showroom",
+            "lat": "45.499107",
+            "lon": "-73.666560",
+            "name": "Maison Territo",
+            "address": "5050 Chem. de la Côte-de-Liesse,\nSuite 1050, Mont-Royal\nQC H4P 0C9",
+            "phone": "+1 (514) 800-0101",
+            "email": "servicedesigner@maisonterrito.ca",
+            "website": "https://www.maisonterrito.ca"
           }
         },
         "market_05": {
           "type": "market",
           "settings": {
-            "city": "Monaco",
-            "country": "Monaco",
-            "region": "Europe",
+            "city": "Central",
+            "country": "Hong Kong",
+            "region": "Asia Pacific",
             "type": "Agent",
-            "lat": "43.7384",
-            "lon": "7.4246",
-            "note": "Agent representation, including yacht and branded-residence projects."
+            "lat": "22.281849",
+            "lon": "114.154879",
+            "name": "In Made Ltd, a Desidery Company",
+            "contact": "Ms. Sarah Fung",
+            "address": "1301 Winsome House\n73 Wyndham Street",
+            "phone": "+852-2778 1616",
+            "email": "sarah@inmade.hk",
+            "website": "https://www.inmade.hk/"
           }
         },
         "market_06": {
           "type": "market",
           "settings": {
-            "city": "Zürich",
-            "country": "Switzerland",
+            "city": "Province of Monza and Brianza",
+            "country": "Italy",
             "region": "Europe",
-            "type": "Boutique",
-            "lat": "47.3769",
-            "lon": "8.5417",
-            "note": "Boutique serving Switzerland and Liechtenstein."
-          }
-        },
-        "market_07": {
-          "type": "market",
-          "settings": {
-            "city": "München",
-            "country": "Germany",
-            "region": "Europe",
-            "type": "Boutique",
-            "lat": "48.1351",
-            "lon": "11.5820",
-            "note": "Boutique serving southern Germany and Austria."
-          }
-        },
-        "market_08": {
-          "type": "market",
-          "settings": {
-            "city": "Wien",
-            "country": "Austria",
-            "region": "Europe",
-            "type": "Agent",
-            "lat": "48.2082",
-            "lon": "16.3738",
-            "note": "Agent for Austria and Central Europe."
-          }
-        },
-        "market_09": {
-          "type": "market",
-          "settings": {
-            "city": "Amsterdam",
-            "country": "Netherlands",
-            "region": "Europe",
-            "type": "Boutique",
-            "lat": "52.3676",
-            "lon": "4.9041",
-            "note": "Boutique serving the Benelux."
-          }
-        },
-        "market_10": {
-          "type": "market",
-          "settings": {
-            "city": "Praha",
-            "country": "Czech Republic",
-            "region": "Europe",
-            "type": "Agent",
-            "lat": "50.0755",
-            "lon": "14.4378",
-            "note": "Agent for the Czech Republic and Slovakia."
-          }
-        },
-        "market_11": {
-          "type": "market",
-          "settings": {
-            "city": "Dubai",
-            "country": "United Arab Emirates",
-            "region": "Middle East",
             "type": "Showroom",
-            "lat": "25.2048",
-            "lon": "55.2708",
-            "note": "Showroom serving the UAE, with contract and hospitality projects handled from Milano."
-          }
-        },
-        "market_12": {
-          "type": "market",
-          "settings": {
-            "city": "Doha",
-            "country": "Qatar",
-            "region": "Middle East",
-            "type": "Agent",
-            "lat": "25.2854",
-            "lon": "51.5310",
-            "note": "Agent for Qatar, including residence and palace projects."
-          }
-        },
-        "market_13": {
-          "type": "market",
-          "settings": {
-            "city": "Riyadh",
-            "country": "Saudi Arabia",
-            "region": "Middle East",
-            "type": "Agent",
-            "lat": "24.7136",
-            "lon": "46.6753",
-            "note": "Agent for Saudi Arabia."
-          }
-        },
-        "market_14": {
-          "type": "market",
-          "settings": {
-            "city": "New York",
-            "country": "United States",
-            "region": "Americas",
-            "type": "Showroom",
-            "lat": "40.7128",
-            "lon": "-74.0060",
-            "note": "Showroom serving the Northeast, with white-glove installation."
-          }
-        },
-        "market_15": {
-          "type": "market",
-          "settings": {
-            "city": "Miami",
-            "country": "United States",
-            "region": "Americas",
-            "type": "Boutique",
-            "lat": "25.7617",
-            "lon": "-80.1918",
-            "note": "Boutique serving Florida, the Caribbean and yacht projects."
-          }
-        },
-        "market_16": {
-          "type": "market",
-          "settings": {
-            "city": "Los Angeles",
-            "country": "United States",
-            "region": "Americas",
-            "type": "Agent",
-            "lat": "34.0522",
-            "lon": "-118.2437",
-            "note": "Agent for the West Coast."
-          }
-        },
-        "market_17": {
-          "type": "market",
-          "settings": {
-            "city": "Toronto",
-            "country": "Canada",
-            "region": "Americas",
-            "type": "Agent",
-            "lat": "43.6532",
-            "lon": "-79.3832",
-            "note": "Agent for Canada."
-          }
-        },
-        "market_18": {
-          "type": "market",
-          "settings": {
-            "city": "Hong Kong",
-            "country": "Hong Kong SAR",
-            "region": "Asia Pacific",
-            "type": "Boutique",
-            "lat": "22.3193",
-            "lon": "114.1694",
-            "note": "Boutique serving Hong Kong and southern China."
-          }
-        },
-        "market_19": {
-          "type": "market",
-          "settings": {
-            "city": "Singapore",
-            "country": "Singapore",
-            "region": "Asia Pacific",
-            "type": "Boutique",
-            "lat": "1.3521",
-            "lon": "103.8198",
-            "note": "Boutique serving Southeast Asia."
-          }
-        },
-        "market_20": {
-          "type": "market",
-          "settings": {
-            "city": "Shanghai",
-            "country": "China",
-            "region": "Asia Pacific",
-            "type": "Agent",
-            "lat": "31.2304",
-            "lon": "121.4737",
-            "note": "Agent for mainland China."
-          }
-        },
-        "market_21": {
-          "type": "market",
-          "settings": {
-            "city": "Tokyo",
-            "country": "Japan",
-            "region": "Asia Pacific",
-            "type": "Boutique",
-            "lat": "35.6762",
-            "lon": "139.6503",
-            "note": "Boutique serving Japan."
-          }
-        },
-        "market_22": {
-          "type": "market",
-          "settings": {
-            "city": "Sydney",
-            "country": "Australia",
-            "region": "Asia Pacific",
-            "type": "Agent",
-            "lat": "-33.8688",
-            "lon": "151.2093",
-            "note": "Agent for Australia and New Zealand."
+            "lat": "45.637759",
+            "lon": "9.470799",
+            "name": "Villa Arredamenti Interior Solutions",
+            "address": "Via Manzoni, 47, Colnago 20872",
+            "phone": "+39 039695287",
+            "email": "info@villaarredamenti.it",
+            "website": "https://www.villaarredamenti.it"
           }
         }
       },
@@ -279,23 +113,7 @@
         "market_03",
         "market_04",
         "market_05",
-        "market_06",
-        "market_07",
-        "market_08",
-        "market_09",
-        "market_10",
-        "market_11",
-        "market_12",
-        "market_13",
-        "market_14",
-        "market_15",
-        "market_16",
-        "market_17",
-        "market_18",
-        "market_19",
-        "market_20",
-        "market_21",
-        "market_22"
+        "market_06"
       ]
     }
   },

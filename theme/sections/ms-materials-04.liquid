@@ -1,12 +1,25 @@
+{%- liquid
+  assign ms_show = true
+  if template.suffix == blank
+    capture ms_here
+      render 'ms-link', to: 'materials'
+    endcapture
+    if ms_here != page.url
+      assign ms_show = false
+    endif
+  endif
+-%}
+{%- if ms_show -%}
 <section data-dc-tpl="960" style="position: relative; overflow: hidden;">
 <img alt="" data-ms="band" src="{% if section.settings.img1 != blank %}{{ section.settings.img1 | image_url: width: 2000 }}{% else %}{{ 'ms-graded-horse.jpg' | asset_url }}{% endif %}" style="width: 100%; height: min(64vh, 600px); object-fit: cover;"/>
 <div style="position: absolute; inset: 0px; background: rgba(10, 8, 6, 0.42);"></div>
 <div style="position: absolute; inset: 0px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 22px; padding: clamp(26px, 5vw, 80px); color: rgb(251, 249, 245);">
 <h2 style="font-family: Newsreader, Georgia, serif; font-size: clamp(28px, 4vw, 56px); line-height: 1.06; letter-spacing: -0.025em; max-width: 20ch;">{{ section.settings.t1 }}</h2>
 <p style="font-size: 15px; line-height: 1.9; opacity: 0.9; max-width: 50ch;">{{ section.settings.t2 }}</p>
-<a data-ms="cta" href="/pages/find-your-midsummer" style="color: rgb(251, 249, 245); font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; border-bottom: 1px solid rgba(251, 249, 245, 0.5); padding-bottom: 8px;">{{ section.settings.t3 }}</a>
+<a data-ms="cta" data-ms-quiz-link="" href="{% render 'ms-link', to: 'quiz' %}" style="color: rgb(251, 249, 245); font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; border-bottom: 1px solid rgba(251, 249, 245, 0.5); padding-bottom: 8px;">{{ section.settings.t3 }}</a>
 </div>
 </section>
+{%- endif -%}
 {% schema %}
 {
   "name": "Materials 04 · Not sure w",

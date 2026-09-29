@@ -1,0 +1,26 @@
+/*
+ * Midsummer Milano: built from the approved Atelier preview, one section per band.
+ * Rendered with layout/ms.liquid, the preview's own type, colour and spacing.
+ */
+{
+  "layout": "ms",
+  "sections": {
+    "s01": {
+      "type": "ms-beds-01",
+      "settings": {}
+    },
+    "s02": {
+      "type": "ms-beds-02",
+      "settings": {}
+    },
+    "s03": {
+      "type": "ms-beds-03",
+      "settings": {}
+    }
+  },
+  "order": [
+    "s01",
+    "s02",
+    "s03"
+  ]
+}

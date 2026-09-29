@@ -148,8 +148,20 @@
     window.addEventListener('pointermove', move); window.addEventListener('pointerup', up);
   });
 
+  /* ── Find your Midsummer as an overlay, where the store has no quiz page ── */
+  var quizDlg = document.querySelector('[data-ms-quiz-dialog]');
+  function openQuiz() { if (!quizDlg) return false; closeMega(); closeMenu(); closeDrawer(); quizDlg.hidden = false; body.classList.add('ms-lock'); var c = quizDlg.querySelector('[data-ms-quiz-close]'); if (c) c.focus({ preventScroll: true }); return true; }
+  function closeQuiz() { if (!quizDlg || quizDlg.hidden) return; quizDlg.hidden = true; body.classList.remove('ms-lock'); if (location.hash === '#find-your-midsummer') history.replaceState(null, '', location.pathname + location.search); }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href$="#find-your-midsummer"]');
+    if (a && quizDlg) { e.preventDefault(); openQuiz(); return; }
+    if (e.target.closest('[data-ms-quiz-close]')) { e.preventDefault(); closeQuiz(); }
+  });
+  if (location.hash === '#find-your-midsummer') openQuiz();
+
   document.addEventListener('keydown', function (e) {
     if (e.key !== 'Escape') return;
+    if (quizDlg && !quizDlg.hidden) { closeQuiz(); return; }
     if (drawer && !drawer.hidden) closeDrawer();
     else if (menu && !menu.hidden) closeMenu();
     else closeMega();

@@ -1,0 +1,93 @@
+{%- comment -%}
+  The address of a place on the site, resolved against what the store really has.
+  Each destination lists the handles it has been published under; the first page,
+  collection or blog that exists wins, so a link never lands on a 404.
+  Usage: href="{% render 'ms-link', to: 'materials' %}"
+{%- endcomment -%}
+{%- liquid
+  assign p = ''
+  assign c = ''
+  assign b = ''
+  assign fb = '/pages/contact'
+  case to
+    when 'story'
+      assign p = 'about-midsummer-milano,our-story,about-us,about,chi-siamo'
+      assign fb = '/'
+    when 'handmade'
+      assign p = 'handmade-in-italy,about-midsummer-milano,our-story,about-us,about'
+      assign fb = '/'
+    when 'sleep-culture'
+      assign p = 'sleep-culture'
+      assign b = 'news,journal'
+      assign fb = '/'
+    when 'materials'
+      assign p = 'natural-luxury-materials,natural-materials,materials'
+      assign fb = '/'
+    when 'regen'
+      assign p = 'midsummer-milanos-regeneration-service,15-15-refurbishment,regeneration-service,regeneration,15-15'
+      assign fb = '/'
+    when 'sustain'
+      assign p = 'our-eco-friendly-approach,sustainability,eco-friendly-approach'
+      assign fb = '/'
+    when 'quiz'
+      assign p = 'find-your-midsummer,sleep-assessment,sleep-assesment,sleep-style-quiz,sleep-quiz,quiz'
+      assign fb = '#find-your-midsummer'
+    when 'professionals'
+      assign p = 'professionals,architects-and-interior-designers,architects-interior-designers,trade'
+    when 'hospitality'
+      assign p = 'hospitality,hospitality-and-contract,contract'
+    when 'agents'
+      assign p = 'agents-and-resellers,agents-resellers,store-locator,stockists,where-to-find-us'
+    when 'faq'
+      assign p = 'sleep-wise-faq,faq,questions,frequently-asked-questions'
+    when 'contact'
+      assign p = 'contact'
+    when 'terms'
+      assign p = 'terms-and-conditions,terms'
+      assign fb = '/policies/terms-of-service'
+    when 'privacy'
+      assign p = 'privacy-and-legal,privacy'
+      assign fb = '/policies/privacy-policy'
+    when 'journal'
+      assign b = 'news,journal'
+      assign fb = '/blogs/news'
+    when 'collections'
+      assign fb = routes.collections_url
+    when 'essentials', 'signature', 'icons', 'mattresses', 'toppers', 'bases', 'headboards', 'bedding'
+      assign c = to
+      assign fb = routes.collections_url
+    when 'home'
+      assign fb = routes.root_url
+    when 'search'
+      assign fb = routes.search_url
+  endcase
+
+  assign out = ''
+  if p != ''
+    assign list = p | split: ','
+    for h in list
+      if pages[h].url != blank
+        assign out = pages[h].url
+        break
+      endif
+    endfor
+  endif
+  if out == '' and c != ''
+    if collections[c].url != blank and collections[c].products_count > 0
+      assign out = collections[c].url
+    endif
+  endif
+  if out == '' and b != ''
+    assign list = b | split: ','
+    for h in list
+      if blogs[h].url != blank
+        assign out = blogs[h].url
+        break
+      endif
+    endfor
+  endif
+  if out == ''
+    assign out = fb
+  endif
+  echo out
+-%}

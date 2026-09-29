@@ -1,0 +1,218 @@
+{%- comment -%}
+  The product, in one view: every photograph together on the left, the system on the
+  right, held in place while the pictures scroll. Price on request, and the two ways
+  to ask for one, sit directly under the name.
+{%- endcomment -%}
+{%- liquid
+  assign tier = nil
+  for c in product.collections
+    if c.handle == 'essentials' or c.handle == 'signature' or c.handle == 'icons'
+      assign tier = c
+      break
+    endif
+  endfor
+  case tier.handle
+    when 'essentials'
+      assign numeral = 'I'
+    when 'signature'
+      assign numeral = 'II'
+    when 'icons'
+      assign numeral = 'III'
+    else
+      assign numeral = ''
+  endcase
+  capture note
+    render 'ms-product-note', title: product.title
+  endcapture
+  if product.handle contains 'paisley'
+    assign note = 'Loro Piana Interiors, over six layers of springs. The fabric leads; the springwork does the rest.'
+  endif
+  assign tagline = product.metafields.custom.subtitle.value | default: note
+  if tagline == blank
+    assign tagline = product.description | strip_html | truncatewords: 22
+  endif
+  assign images = product.media | where: 'media_type', 'image'
+  assign n_images = images | size
+-%}
+<section class="ms-pm" data-ms-pm>
+  <div class="ms-pm__grid">
+    <div class="ms-pm__media{% if n_images == 1 %} is-single{% endif %}" data-ms-pm-media aria-label="{{ product.title | escape }}: photographs">
+      {%- for media in images -%}
+        <button type="button" class="ms-pm__shot{% if forloop.first %} is-lead{% endif %}" data-ms-pm-open="{{ forloop.index0 }}" aria-label="Enlarge photograph {{ forloop.index }} of {{ n_images }}">
+          <img
+            src="{{ media | image_url: width: 1600 }}"
+            srcset="{{ media | image_url: width: 700 }} 700w, {{ media | image_url: width: 1100 }} 1100w, {{ media | image_url: width: 1600 }} 1600w, {{ media | image_url: width: 2200 }} 2200w"
+            sizes="{% if forloop.first %}(max-width: 900px) 88vw, 58vw{% else %}(max-width: 900px) 88vw, 29vw{% endif %}"
+            width="{{ media.width }}" height="{{ media.height }}"
+            alt="{{ media.alt | default: product.title | escape }}"
+            {% if forloop.index > 2 %}loading="lazy"{% else %}fetchpriority="high"{% endif %}
+            data-full="{{ media | image_url: width: 2400 }}"
+          >
+        </button>
+      {%- else -%}
+        <span class="ms-pm__shot is-lead" style="aspect-ratio: 4 / 5; background: #F4EFE5;"></span>
+      {%- endfor -%}
+    </div>
+
+    <div class="ms-pm__info">
+      <div class="ms-pm__sticky">
+        <div class="ms-pm__eyebrow">
+          {%- if tier -%}<a href="{{ tier.url }}">{{ tier.title }}</a> · {{ numeral }}{%- else -%}{{ product.type | default: section.settings.eyebrow }}{%- endif -%}
+        </div>
+        <h1 class="ms-pm__title">{{ product.title }}</h1>
+        {%- if tagline != blank -%}<p class="ms-pm__tagline">{{ tagline }}</p>{%- endif -%}
+
+        <div class="ms-pm__price">
+          <div class="ms-pm__label">{{ section.settings.price_label }}</div>
+          {%- if settings.ms_show_prices -%}
+            <p class="ms-pm__price-text">{{ product.price | money }}</p>
+          {%- else -%}
+            <p class="ms-pm__price-text">{{ section.settings.price_text }}</p>
+          {%- endif -%}
+        </div>
+
+        <div class="ms-pm__actions">
+          <a href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-cta="product-proposal" class="ms-pm__primary">{{ section.settings.cta_primary }}</a>
+          <a href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-cta="product-appointment" class="ms-pm__secondary">{{ section.settings.cta_secondary }}</a>
+        </div>
+
+        <dl class="ms-pm__facts">
+          <div><dt>{{ section.settings.f1_label }}</dt><dd>{{ section.settings.f1_value }}</dd></div>
+          <div><dt>{{ section.settings.f2_label }}</dt><dd>{{ section.settings.f2_value }}</dd></div>
+          <div><dt>{{ section.settings.f3_label }}</dt><dd>{{ section.settings.f3_value }}</dd></div>
+        </dl>
+
+        {%- if product.description != blank and section.settings.show_description -%}
+          <details class="ms-pm__more">
+            <summary>{{ section.settings.description_label }}</summary>
+            <div class="ms-pm__desc">{{ product.description }}</div>
+          </details>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  <div class="ms-pm__viewer" data-ms-pm-viewer hidden role="dialog" aria-modal="true" aria-label="{{ product.title | escape }}">
+    <button type="button" class="ms-pm__vclose" data-ms-pm-close aria-label="Close">
+      <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M1 1 L15 15 M15 1 L1 15" fill="none" stroke="currentColor" stroke-width="1.1"/></svg>
+    </button>
+    <button type="button" class="ms-pm__vnav is-prev" data-ms-pm-step="-1" aria-label="Previous photograph">
+      <svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.1"/></svg>
+    </button>
+    <img data-ms-pm-full alt="">
+    <button type="button" class="ms-pm__vnav is-next" data-ms-pm-step="1" aria-label="Next photograph">
+      <svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"/></svg>
+    </button>
+    <div class="ms-pm__vcount" data-ms-pm-count></div>
+  </div>
+</section>
+
+<style>
+  .ms-pm { padding: clamp(28px, 4vw, 64px) clamp(18px, 5vw, 80px) clamp(56px, 8vw, 120px); max-width: 1560px; margin: 0 auto; }
+  .ms-pm__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(320px, 5fr); gap: clamp(32px, 5vw, 96px); align-items: start; }
+  .ms-pm__media { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(8px, 1vw, 14px); }
+  .ms-pm__shot { display: block; padding: 0; border: 0; background: #F4EFE5; cursor: zoom-in; overflow: hidden; }
+  .ms-pm__shot img { display: block; width: 100%; height: 100%; aspect-ratio: 4 / 5; object-fit: cover; transition: transform 1.1s cubic-bezier(.2,.7,.2,1); }
+  .ms-pm__shot:hover img { transform: scale(1.022); }
+  .ms-pm__shot.is-lead { grid-column: 1 / -1; }
+  .ms-pm__shot.is-lead img { aspect-ratio: auto; height: auto; max-height: 88vh; object-fit: contain; }
+  .ms-pm__media.is-single .ms-pm__shot img { max-height: none; }
+  .ms-pm__sticky { position: sticky; top: 118px; }
+  .ms-pm__eyebrow { font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: #6E675C; }
+  .ms-pm__eyebrow a { color: inherit; }
+  .ms-pm__title { font-family: Newsreader, Georgia, serif; font-size: clamp(46px, 5.6vw, 96px); line-height: 0.92; letter-spacing: -0.045em; font-weight: 200; margin-top: clamp(18px, 2vw, 30px); }
+  .ms-pm__tagline { font-family: Newsreader, Georgia, serif; font-size: clamp(19px, 1.9vw, 25px); line-height: 1.45; letter-spacing: -0.015em; font-weight: 200; color: #4A443B; margin-top: clamp(18px, 2.2vw, 30px); max-width: 30ch; }
+  .ms-pm__price { border-top: 1px solid #DDD6C9; margin-top: clamp(28px, 3.4vw, 44px); padding-top: 22px; }
+  .ms-pm__label { font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: #6E675C; }
+  .ms-pm__price-text { font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2vw, 28px); line-height: 1.25; letter-spacing: -0.02em; font-weight: 200; margin-top: 10px; }
+  .ms-pm__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 22px 28px; margin-top: 26px; }
+  .ms-site .ms-pm__primary { display: inline-flex; align-items: center; min-height: 58px; padding: 0 40px; background: #17140F; color: #FBF9F5; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; transition: background .25s ease; }
+  .ms-site .ms-pm__primary:hover { background: #2A251E; color: #FBF9F5; }
+  .ms-pm__secondary { font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; border-bottom: 1px solid #17140F; padding-bottom: 7px; }
+  .ms-pm__facts { margin: clamp(30px, 3.4vw, 44px) 0 0; display: grid; gap: 0; }
+  .ms-pm__facts > div { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 18px; padding: 14px 0; border-top: 1px solid #DDD6C9; }
+  .ms-pm__facts > div:last-child { border-bottom: 1px solid #DDD6C9; }
+  .ms-pm__facts dt { font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: #6E675C; padding-top: 3px; }
+  .ms-pm__facts dd { margin: 0; font-size: 14px; line-height: 1.7; color: #4A443B; }
+  .ms-pm__more { margin-top: 22px; }
+  .ms-pm__more summary { cursor: pointer; list-style: none; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: #6E675C; }
+  .ms-pm__more summary::-webkit-details-marker { display: none; }
+  .ms-pm__more summary::after { content: ' +'; }
+  .ms-pm__more[open] summary::after { content: ' −'; }
+  .ms-pm__desc { font-size: 14.5px; line-height: 1.9; color: #4A443B; margin-top: 14px; }
+  .ms-pm__desc p + p { margin-top: 12px; }
+
+  .ms-pm__viewer { position: fixed; inset: 0; z-index: 96; background: rgba(251, 249, 245, .98); display: flex; align-items: center; justify-content: center; }
+  .ms-pm__viewer img { max-width: min(92vw, 1600px); max-height: 88vh; width: auto; height: auto; object-fit: contain; filter: none; }
+  .ms-pm__vclose, .ms-pm__vnav { position: absolute; background: none; border: 0; cursor: pointer; color: #17140F; padding: 14px; }
+  .ms-pm__vclose { top: 14px; right: 14px; }
+  .ms-pm__vnav.is-prev { left: 10px; top: 50%; transform: translateY(-50%); }
+  .ms-pm__vnav.is-next { right: 10px; top: 50%; transform: translateY(-50%); }
+  .ms-pm__vcount { position: absolute; bottom: 22px; left: 0; right: 0; text-align: center; font-size: 11px; letter-spacing: 0.26em; color: #6E675C; }
+
+  @media (max-width: 900px) {
+    .ms-pm__grid { grid-template-columns: minmax(0, 1fr); }
+    .ms-pm__media { display: grid; grid-auto-flow: column; grid-template-columns: none; grid-auto-columns: 86%; overflow-x: auto; scroll-snap-type: x mandatory; margin-inline: calc(-1 * clamp(18px, 5vw, 80px)); padding-inline: clamp(18px, 5vw, 80px); scroll-padding-inline: clamp(18px, 5vw, 80px); scrollbar-width: none; }
+    .ms-pm__media::-webkit-scrollbar { display: none; }
+    .ms-pm__media.is-single { grid-auto-columns: 100%; }
+    .ms-pm__shot { scroll-snap-align: start; }
+    .ms-pm__shot.is-lead { grid-column: auto; }
+    .ms-pm__shot img, .ms-pm__shot.is-lead img { aspect-ratio: 4 / 5; height: 100%; max-height: none; object-fit: cover; }
+    .ms-pm__sticky { position: static; }
+  }
+</style>
+
+<script>
+  (function () {
+    var root = document.currentScript.parentElement.querySelector('[data-ms-pm]') || document.querySelector('[data-ms-pm]');
+    if (!root) return;
+    var shots = Array.prototype.slice.call(root.querySelectorAll('[data-ms-pm-open] img'));
+    var viewer = root.querySelector('[data-ms-pm-viewer]');
+    var full = root.querySelector('[data-ms-pm-full]');
+    var count = root.querySelector('[data-ms-pm-count]');
+    var at = 0, last = null;
+    function show(i) {
+      at = (i + shots.length) % shots.length;
+      full.src = shots[at].getAttribute('data-full');
+      full.alt = shots[at].alt;
+      count.textContent = (at + 1) + ' / ' + shots.length;
+    }
+    function open(i) { last = document.activeElement; show(i); viewer.hidden = false; document.body.classList.add('ms-lock'); viewer.querySelector('[data-ms-pm-close]').focus(); }
+    function close() { viewer.hidden = true; document.body.classList.remove('ms-lock'); if (last) last.focus(); }
+    root.addEventListener('click', function (e) {
+      var o = e.target.closest('[data-ms-pm-open]');
+      if (o) { open(+o.getAttribute('data-ms-pm-open')); return; }
+      if (e.target.closest('[data-ms-pm-close]') || e.target === viewer) { close(); return; }
+      var s = e.target.closest('[data-ms-pm-step]');
+      if (s) show(at + +s.getAttribute('data-ms-pm-step'));
+    });
+    document.addEventListener('keydown', function (e) {
+      if (viewer.hidden) return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowRight') show(at + 1);
+      if (e.key === 'ArrowLeft') show(at - 1);
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Product · The system",
+  "settings": [
+    { "type": "paragraph", "content": "Every product photograph, then the name, the line under it (metafield custom.subtitle) and the enquiry." },
+    { "type": "text", "id": "eyebrow", "label": "Label when not in a collection", "default": "Midsummer Milano" },
+    { "type": "text", "id": "price_label", "label": "Price label", "default": "Price" },
+    { "type": "text", "id": "price_text", "label": "Price statement", "default": "On request. The specification sets it." },
+    { "type": "text", "id": "cta_primary", "label": "First button", "default": "Request a proposal" },
+    { "type": "text", "id": "cta_secondary", "label": "Second link", "default": "Book a private appointment" },
+    { "type": "text", "id": "f1_label", "label": "Fact 1 label", "default": "Made" },
+    { "type": "text", "id": "f1_value", "label": "Fact 1", "default": "By hand in Italy, by two artisans, start to finish" },
+    { "type": "text", "id": "f2_label", "label": "Fact 2 label", "default": "Dimensions" },
+    { "type": "text", "id": "f2_value", "label": "Fact 2", "default": "Any size, including round, with no tooling charge" },
+    { "type": "text", "id": "f3_label", "label": "Fact 3 label", "default": "Service" },
+    { "type": "text", "id": "f3_value", "label": "Fact 3", "default": "Regenerated at fifteen years, for fifteen more" },
+    { "type": "checkbox", "id": "show_description", "label": "Show the product description", "default": true },
+    { "type": "text", "id": "description_label", "label": "Description label", "default": "About this system" }
+  ]
+}
+{% endschema %}

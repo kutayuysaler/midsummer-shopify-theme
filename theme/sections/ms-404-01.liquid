@@ -3,8 +3,8 @@
 <h1 style="font-family: Newsreader, Georgia, serif; font-size: clamp(30px, 4.6vw, 58px); line-height: 1.04; letter-spacing: -0.025em;">{{ section.settings.t2 }}</h1>
 <p style="font-size: 15px; line-height: 1.95; color: rgb(74, 68, 59); max-width: 46ch;">{{ section.settings.t3 }}</p>
 <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-top: 14px;">
-<a href="/collections" style="display: inline-block; background: rgb(23, 20, 15); color: rgb(251, 249, 245); border: 0px; padding: 19px 40px; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; cursor: pointer;">{{ section.settings.t4 }}</a>
-<a data-ms-enquire="" href="/pages/contact" style="display: inline-block; background: transparent; color: rgb(23, 20, 15); border: 1px solid rgb(23, 20, 15); padding: 19px 38px; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; cursor: pointer;">{{ section.settings.t5 }}</a>
+<a href="{% render 'ms-link', to: 'collections' %}" style="display: inline-block; background: rgb(23, 20, 15); color: rgb(251, 249, 245); border: 0px; padding: 19px 40px; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; cursor: pointer;">{{ section.settings.t4 }}</a>
+<a data-ms-enquire="" href="{% render 'ms-link', to: 'contact' %}" style="display: inline-block; background: transparent; color: rgb(23, 20, 15); border: 1px solid rgb(23, 20, 15); padding: 19px 38px; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; cursor: pointer;">{{ section.settings.t5 }}</a>
 </div>
 </section>
 {% schema %}

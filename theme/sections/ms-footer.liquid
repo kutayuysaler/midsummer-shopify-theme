@@ -7,25 +7,25 @@
 </div>
 <div data-ms="footcol" style="display: flex; flex-direction: column; gap: 12px; font-size: 13.5px; color: rgb(74, 68, 59);">
 <span style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92); margin-bottom: 6px;">{{ section.settings.t2 }}</span>
-<a href="/collections/essentials">{{ section.settings.t3 }}</a><a href="/collections/signature">{{ section.settings.t4 }}</a><a href="/collections/icons">{{ section.settings.t5 }}</a><a href="/collections">{{ section.settings.t6 }}</a><a href="/pages/find-your-midsummer">{{ section.settings.t7 }}</a>
+<a href="{% render 'ms-link', to: 'essentials' %}">{{ section.settings.t3 }}</a><a href="{% render 'ms-link', to: 'signature' %}">{{ section.settings.t4 }}</a><a href="{% render 'ms-link', to: 'icons' %}">{{ section.settings.t5 }}</a><a href="{% render 'ms-link', to: 'collections' %}">{{ section.settings.t6 }}</a><a data-ms-quiz-link="" href="{% render 'ms-link', to: 'quiz' %}">{{ section.settings.t7 }}</a>
 </div>
 <div data-ms="footcol" style="display: flex; flex-direction: column; gap: 12px; font-size: 13.5px; color: rgb(74, 68, 59);">
 <span style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92); margin-bottom: 6px;">{{ section.settings.t8 }}</span>
-<a href="/pages/about-midsummer-milano">{{ section.settings.t9 }}</a><a href="/pages/handmade-in-italy">{{ section.settings.t10 }}</a><a href="/pages/natural-luxury-materials">{{ section.settings.t11 }}</a><a href="/pages/midsummer-milanos-regeneration-service">{{ section.settings.t12 }}</a><a href="/pages/find-your-midsummer">{{ section.settings.t13 }}</a>
+<a href="{% render 'ms-link', to: 'story' %}">{{ section.settings.t9 }}</a><a href="{% render 'ms-link', to: 'handmade' %}">{{ section.settings.t10 }}</a><a href="{% render 'ms-link', to: 'materials' %}">{{ section.settings.t11 }}</a><a href="{% render 'ms-link', to: 'regen' %}">{{ section.settings.t12 }}</a><a data-ms-quiz-link="" href="{% render 'ms-link', to: 'quiz' %}">{{ section.settings.t13 }}</a>
 </div>
 <div data-ms="footcol" style="display: flex; flex-direction: column; gap: 12px; font-size: 13.5px; color: rgb(74, 68, 59);">
 <span style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92); margin-bottom: 6px;">{{ section.settings.t14 }}</span>
-<a href="/pages/professionals">{{ section.settings.t15 }}</a><a href="/pages/hospitality">{{ section.settings.t16 }}</a><a href="/pages/agents-and-resellers">{{ section.settings.t17 }}</a><a href="/blogs/news">{{ section.settings.t18 }}</a><a href="/pages/sleep-wise-faq">{{ section.settings.t19 }}</a>
+<a href="{% render 'ms-link', to: 'professionals' %}">{{ section.settings.t15 }}</a><a href="{% render 'ms-link', to: 'hospitality' %}">{{ section.settings.t16 }}</a><a href="{% render 'ms-link', to: 'agents' %}">{{ section.settings.t17 }}</a><a href="{% render 'ms-link', to: 'journal' %}">{{ section.settings.t18 }}</a><a href="{% render 'ms-link', to: 'faq' %}">{{ section.settings.t19 }}</a>
 </div>
 <div data-ms="footcta" style="display: flex; flex-direction: column; gap: 18px;">
 <span style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92); min-height: 24px; display: flex; align-items: flex-end;">{{ section.settings.t20 }}</span>
-<a data-ms-enquire="" href="/pages/contact" style="font-family: Newsreader, Georgia, serif; font-size: 26px; font-style: italic;">{{ section.settings.t21 }}</a>
+<a data-ms-enquire="" href="{% render 'ms-link', to: 'contact' %}" style="font-family: Newsreader, Georgia, serif; font-size: 26px; font-style: italic;">{{ section.settings.t21 }}</a>
 <div data-ms="footsocial" style="display: flex; gap: 18px; font-size: 12.5px; color: rgb(110, 103, 92);"><a href="https://www.instagram.com/midsummermilano/" rel="noopener" style="color: rgb(110, 103, 92);" target="_blank">{{ section.settings.t22 }}</a><a href="https://www.linkedin.com/company/midsummer-milano/" rel="noopener" style="color: rgb(110, 103, 92);" target="_blank">{{ section.settings.t23 }}</a><a href="https://it.pinterest.com/midsummermilanosocial/" rel="noopener" style="color: rgb(110, 103, 92);" target="_blank">{{ section.settings.t24 }}</a></div>
 </div>
 </div>
 <div style="display: flex; flex-wrap: wrap; gap: 22px; justify-content: space-between; border-top: 1px solid rgb(221, 214, 201); margin-top: clamp(36px, 5vw, 80px); padding-top: 24px; font-size: 11px; letter-spacing: 0.04em; color: rgb(110, 103, 92);">
 <span>{{ section.settings.t25 }}</span>
-<div data-ms="footlegal" style="display: flex; flex-wrap: wrap; gap: 22px;"><a href="/pages/terms-and-conditions" style="color: rgb(110, 103, 92);">{{ section.settings.t26 }}</a><a href="/pages/privacy-and-legal" style="color: rgb(110, 103, 92);">{{ section.settings.t27 }}</a><a href="/pages/privacy-and-legal" style="color: rgb(110, 103, 92);">{{ section.settings.t28 }}</a><span>{{ section.settings.t29 }}</span></div>
+<div data-ms="footlegal" style="display: flex; flex-wrap: wrap; gap: 22px;"><a href="{% render 'ms-link', to: 'terms' %}" style="color: rgb(110, 103, 92);">{{ section.settings.t26 }}</a><a href="{% render 'ms-link', to: 'privacy' %}" style="color: rgb(110, 103, 92);">{{ section.settings.t27 }}</a><a href="{% render 'ms-link', to: 'privacy' %}" style="color: rgb(110, 103, 92);">{{ section.settings.t28 }}</a><span>{{ section.settings.t29 }}</span></div>
 </div>
 </div></footer>
 {% schema %}

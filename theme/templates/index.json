@@ -70,7 +70,8 @@
           "settings": {
             "name": "Elle Decor",
             "row": "1",
-            "link": "https://midsummer-milano.com/blogs/press-elle-decor"
+            "link": "https://midsummer-milano.com/blogs/press-elle-decor",
+            "logo_file": "ms-press-elle-decor.svg"
           }
         },
         "publication_02": {
@@ -78,7 +79,8 @@
           "settings": {
             "name": "Architectural Digest",
             "row": "1",
-            "link": "https://midsummer-milano.com/blogs/press-architectural-digest"
+            "link": "https://midsummer-milano.com/blogs/press-architectural-digest",
+            "logo_file": "ms-press-architectural-digest.svg"
           }
         },
         "publication_03": {
@@ -86,7 +88,8 @@
           "settings": {
             "name": "Vanity Fair",
             "row": "1",
-            "link": "https://midsummer-milano.com/blogs/press-vanity-fair"
+            "link": "https://midsummer-milano.com/blogs/press-vanity-fair",
+            "logo_file": "ms-press-vanity-fair.svg"
           }
         },
         "publication_04": {
@@ -94,7 +97,8 @@
           "settings": {
             "name": "Marie Claire Maison",
             "row": "1",
-            "link": "https://midsummer-milano.com/blogs/press-marie-claire-maison"
+            "link": "https://midsummer-milano.com/blogs/press-marie-claire-maison",
+            "logo_file": "ms-press-marie-claire-maison.svg"
           }
         },
         "publication_05": {
@@ -102,7 +106,8 @@
           "settings": {
             "name": "Robb Report",
             "row": "1",
-            "link": "https://midsummer-milano.com/blogs/press-robb-report"
+            "link": "https://midsummer-milano.com/blogs/press-robb-report",
+            "logo_file": "ms-press-robb-report.svg"
           }
         },
         "publication_06": {
@@ -110,15 +115,17 @@
           "settings": {
             "name": "AD Magazine",
             "row": "1",
-            "link": "https://midsummer-milano.com/blogs/press-ad-magazine"
+            "link": "https://midsummer-milano.com/blogs/press-ad-magazine",
+            "logo_file": "ms-press-ad-magazine.svg"
           }
         },
         "publication_07": {
           "type": "publication",
           "settings": {
-            "name": "L’Officiel",
+            "name": "L Officiel",
             "row": "1",
-            "link": "https://midsummer-milano.com/blogs/press-lofficiel"
+            "link": "https://midsummer-milano.com/blogs/press-lofficiel",
+            "logo_file": "ms-press-l-officiel.svg"
           }
         },
         "publication_08": {
@@ -126,7 +133,8 @@
           "settings": {
             "name": "Il Sole 24 Ore",
             "row": "1",
-            "link": "https://midsummer-milano.com/blogs/press-il-sole-24-ore"
+            "link": "https://midsummer-milano.com/blogs/press-il-sole-24-ore",
+            "logo_file": "ms-press-il-sole-24-ore.svg"
           }
         },
         "publication_09": {
@@ -134,7 +142,8 @@
           "settings": {
             "name": "Villegiardini",
             "row": "1",
-            "link": "https://midsummer-milano.com/blogs/press-villegiardini"
+            "link": "https://midsummer-milano.com/blogs/press-villegiardini",
+            "logo_file": "ms-press-villegiardini.svg"
           }
         },
         "publication_10": {
@@ -142,7 +151,8 @@
           "settings": {
             "name": "Salone del Mobile",
             "row": "1",
-            "link": "https://midsummer-milano.com/blogs/press-salone-del-mobile"
+            "link": "https://midsummer-milano.com/blogs/press-salone-del-mobile",
+            "logo_file": "ms-press-salone-del-mobile.svg"
           }
         },
         "publication_11": {
@@ -150,7 +160,8 @@
           "settings": {
             "name": "Green Product Award",
             "row": "1",
-            "link": "https://midsummer-milano.com/blogs/press-green-product-award"
+            "link": "https://midsummer-milano.com/blogs/press-green-product-award",
+            "logo_file": "ms-press-green-product-award.svg"
           }
         },
         "publication_12": {
@@ -158,7 +169,8 @@
           "settings": {
             "name": "Interior Design",
             "row": "1",
-            "link": "https://midsummer-milano.com/blogs/press-interior-design"
+            "link": "https://midsummer-milano.com/blogs/press-interior-design",
+            "logo_file": "ms-press-interior-design.svg"
           }
         },
         "publication_13": {
@@ -166,7 +178,8 @@
           "settings": {
             "name": "Hospitality Design",
             "row": "1",
-            "link": "https://midsummer-milano.com/blogs/press-hospitality-design"
+            "link": "https://midsummer-milano.com/blogs/press-hospitality-design",
+            "logo_file": "ms-press-hospitality-design.png"
           }
         },
         "publication_14": {
@@ -174,7 +187,8 @@
           "settings": {
             "name": "Interiors Monthly",
             "row": "1",
-            "link": "https://midsummer-milano.com/blogs/press-interiors-monthly"
+            "link": "https://midsummer-milano.com/blogs/press-interiors-monthly",
+            "logo_file": "ms-press-interiors-monthly.png"
           }
         },
         "publication_15": {
@@ -182,7 +196,8 @@
           "settings": {
             "name": "Gaaf Goed",
             "row": "2",
-            "link": "https://midsummer-milano.com/blogs/press-gaaf-goed"
+            "link": "https://midsummer-milano.com/blogs/press-gaaf-goed",
+            "logo_file": "ms-press-gaaf-goed.png"
           }
         },
         "publication_16": {
@@ -190,7 +205,8 @@
           "settings": {
             "name": "Glam Deko",
             "row": "2",
-            "link": "https://midsummer-milano.com/blogs/press-glam-deko"
+            "link": "https://midsummer-milano.com/blogs/press-glam-deko",
+            "logo_file": "ms-press-glam-deko.png"
           }
         },
         "publication_17": {
@@ -198,7 +214,8 @@
           "settings": {
             "name": "Pekne Bydleni",
             "row": "2",
-            "link": "https://midsummer-milano.com/blogs/press-pekne-bydleni"
+            "link": "https://midsummer-milano.com/blogs/press-pekne-bydleni",
+            "logo_file": "ms-press-pekne-bydleni.png"
           }
         },
         "publication_18": {
@@ -206,7 +223,8 @@
           "settings": {
             "name": "Lust und Leben",
             "row": "2",
-            "link": "https://midsummer-milano.com/blogs/press-lust-leben"
+            "link": "https://midsummer-milano.com/blogs/press-lust-leben",
+            "logo_file": "ms-press-lust-und-leben.png"
           }
         },
         "publication_19": {
@@ -214,7 +232,8 @@
           "settings": {
             "name": "Bella",
             "row": "2",
-            "link": "https://midsummer-milano.com/blogs/press-bella"
+            "link": "https://midsummer-milano.com/blogs/press-bella",
+            "logo_file": "ms-press-bella.png"
           }
         },
         "publication_20": {
@@ -222,7 +241,8 @@
           "settings": {
             "name": "RBC Style",
             "row": "2",
-            "link": "https://midsummer-milano.com/blogs/press-rbc-style"
+            "link": "https://midsummer-milano.com/blogs/press-rbc-style",
+            "logo_file": "ms-press-rbc-style.png"
           }
         },
         "publication_21": {
@@ -230,7 +250,8 @@
           "settings": {
             "name": "Kommersant",
             "row": "2",
-            "link": "https://midsummer-milano.com/blogs/press-kommersant"
+            "link": "https://midsummer-milano.com/blogs/press-kommersant",
+            "logo_file": "ms-press-kommersant.svg"
           }
         },
         "publication_22": {
@@ -238,7 +259,8 @@
           "settings": {
             "name": "The Symbol",
             "row": "2",
-            "link": "https://midsummer-milano.com/blogs/press-the-symbol"
+            "link": "https://midsummer-milano.com/blogs/press-the-symbol",
+            "logo_file": "ms-press-the-symbol.svg"
           }
         },
         "publication_23": {
@@ -246,7 +268,8 @@
           "settings": {
             "name": "Chi E Chi",
             "row": "2",
-            "link": "https://midsummer-milano.com/blogs/press-chi-echi"
+            "link": "https://midsummer-milano.com/blogs/press-chi-echi",
+            "logo_file": "ms-press-chi-e-chi.svg"
           }
         },
         "publication_24": {
@@ -254,7 +277,8 @@
           "settings": {
             "name": "Festival dell Etica",
             "row": "2",
-            "link": "https://midsummer-milano.com/blogs/press-festival-delletica"
+            "link": "https://midsummer-milano.com/blogs/press-festival-delletica",
+            "logo_file": "ms-press-festival-dell-etica.svg"
           }
         },
         "publication_25": {
@@ -262,7 +286,8 @@
           "settings": {
             "name": "Home",
             "row": "2",
-            "link": "https://midsummer-milano.com/blogs/press-home"
+            "link": "https://midsummer-milano.com/blogs/press-home",
+            "logo_file": "ms-press-home.png"
           }
         },
         "publication_26": {
@@ -270,7 +295,8 @@
           "settings": {
             "name": "You Trade",
             "row": "2",
-            "link": "https://midsummer-milano.com/blogs/press-you-trade"
+            "link": "https://midsummer-milano.com/blogs/press-you-trade",
+            "logo_file": "ms-press-you-trade.png"
           }
         },
         "publication_27": {
@@ -278,7 +304,8 @@
           "settings": {
             "name": "Rent",
             "row": "2",
-            "link": "https://midsummer-milano.com/blogs/press-rent"
+            "link": "https://midsummer-milano.com/blogs/press-rent",
+            "logo_file": "ms-press-rent.png"
           }
         }
       },

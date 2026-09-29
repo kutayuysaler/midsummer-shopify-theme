@@ -4,7 +4,7 @@
 <div style="font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.8;">{{ section.settings.t1 }}</div>
 <h2 style="font-family: Newsreader, Georgia, serif; font-size: clamp(30px, 4.6vw, 64px); line-height: 1.04; letter-spacing: -0.025em;">{{ section.settings.t2 }}</h2>
 <p style="font-size: 15px; line-height: 1.9; opacity: 0.9; max-width: 46ch;">{{ section.settings.t3 }}</p>
-<a data-ms="cta" href="{{ all_products['paisley'].url | default: '/collections/icons' }}" style="color: rgb(251, 249, 245); font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; border-bottom: 1px solid rgba(251, 249, 245, 0.5); padding-bottom: 8px; width: fit-content;">{{ section.settings.t4 }}</a>
+<a data-ms="cta" href="{{ all_products['paisley'].url | default: routes.collections_url }}" style="color: rgb(251, 249, 245); font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; border-bottom: 1px solid rgba(251, 249, 245, 0.5); padding-bottom: 8px; width: fit-content;">{{ section.settings.t4 }}</a>
 </div>
 </section>
 {% schema %}

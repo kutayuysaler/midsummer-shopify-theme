@@ -6,7 +6,7 @@
   "layout": "ms",
   "sections": {
     "s01": {
-      "type": "ms-product-hero",
+      "type": "ms-product-main",
       "settings": {}
     },
     "s02": {
@@ -18,14 +18,6 @@
       "settings": {}
     },
     "s04": {
-      "type": "ms-product-price",
-      "settings": {}
-    },
-    "s05": {
-      "type": "ms-product-plates",
-      "settings": {}
-    },
-    "s06": {
       "type": "ms-product-related",
       "settings": {}
     }
@@ -34,8 +26,6 @@
     "s01",
     "s02",
     "s03",
-    "s04",
-    "s05",
-    "s06"
+    "s04"
   ]
 }

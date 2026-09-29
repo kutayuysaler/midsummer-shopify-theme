@@ -11,7 +11,8 @@
 <div style="display: flex; align-items: center;"{% if i == 2 %} aria-hidden="true"{% endif %}>
 {%- for block in section.blocks -%}{%- if block.settings.row == '1' -%}
 <a href="{{ block.settings.link | default: '#' }}" style="flex: 0 0 auto; display: flex; align-items: center; justify-content: center; width: 150px; height: 52px; padding: 0px clamp(16px, 2.2vw, 30px); border-right: 1px solid rgb(221, 214, 201);"{% if i == 1 %} {{ block.shopify_attributes }}{% else %} tabindex="-1"{% endif %}>
-{%- if block.settings.logo != blank -%}{{ block.settings.logo | image_url: width: 300 | image_tag: alt: block.settings.name, loading: 'lazy', style: 'display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain;' }}
+{%- if block.settings.logo != blank -%}<img class="ms-press-logo" src="{{ block.settings.logo | image_url: width: 300 }}" alt="{{ block.settings.name | escape }}" loading="lazy" width="150" height="40">
+{%- elsif block.settings.logo_file != blank -%}<img class="ms-press-logo" src="{{ block.settings.logo_file | asset_url }}" alt="{{ block.settings.name | escape }}" loading="lazy" width="150" height="40">
 {%- else -%}<span style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; border: 1px dashed rgb(227, 220, 206); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(184, 175, 158); text-align: center; line-height: 1.3;">{{ block.settings.name }}</span>{%- endif -%}
 </a>
 {%- endif -%}{%- endfor -%}
@@ -25,7 +26,8 @@
 <div style="display: flex; align-items: center;"{% if i == 2 %} aria-hidden="true"{% endif %}>
 {%- for block in section.blocks -%}{%- if block.settings.row == '2' -%}
 <a href="{{ block.settings.link | default: '#' }}" style="flex: 0 0 auto; display: flex; align-items: center; justify-content: center; width: 150px; height: 52px; padding: 0px clamp(16px, 2.2vw, 30px); border-right: 1px solid rgb(221, 214, 201);"{% if i == 1 %} {{ block.shopify_attributes }}{% else %} tabindex="-1"{% endif %}>
-{%- if block.settings.logo != blank -%}{{ block.settings.logo | image_url: width: 300 | image_tag: alt: block.settings.name, loading: 'lazy', style: 'display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain;' }}
+{%- if block.settings.logo != blank -%}<img class="ms-press-logo" src="{{ block.settings.logo | image_url: width: 300 }}" alt="{{ block.settings.name | escape }}" loading="lazy" width="150" height="40">
+{%- elsif block.settings.logo_file != blank -%}<img class="ms-press-logo" src="{{ block.settings.logo_file | asset_url }}" alt="{{ block.settings.name | escape }}" loading="lazy" width="150" height="40">
 {%- else -%}<span style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; border: 1px dashed rgb(227, 220, 206); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(184, 175, 158); text-align: center; line-height: 1.3;">{{ block.settings.name }}</span>{%- endif -%}
 </a>
 {%- endif -%}{%- endfor -%}
@@ -35,6 +37,7 @@
 </div>
 </div>
 </section>
+<style>.ms-site img.ms-press-logo { display: block; height: 30px; width: auto; max-width: 118px; object-fit: contain; filter: grayscale(100%) opacity(.52) brightness(.82) !important; transition: filter .4s ease, transform .4s ease; } .ms-site a:hover img.ms-press-logo { filter: none !important; transform: scale(1.05); } @media (max-width: 760px) { .ms-site img.ms-press-logo { height: 24px; max-width: 90px; } }</style>
 {% schema %}
 {
   "name": "Home 15 · As featured in ",
@@ -62,6 +65,11 @@
           "type": "image_picker",
           "id": "logo",
           "label": "Logo"
+        },
+        {
+          "type": "text",
+          "id": "logo_file",
+          "label": "Logo file in the theme"
         },
         {
           "type": "url",

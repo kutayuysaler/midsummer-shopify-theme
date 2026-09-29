@@ -1,3 +1,15 @@
+{%- liquid
+  assign ms_show = true
+  if template.suffix == blank
+    capture ms_here
+      render 'ms-link', to: 'regen'
+    endcapture
+    if ms_here != page.url
+      assign ms_show = false
+    endif
+  endif
+-%}
+{%- if ms_show -%}
 <section data-dc-tpl="1000" style="padding: clamp(60px, 9vw, 150px) clamp(18px, 5vw, 80px); max-width: 1560px; margin: 0px auto;">
 <div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgb(110, 103, 92);">{{ section.settings.t1 }}</div>
 <h2 style="font-family: Newsreader, Georgia, serif; font-size: clamp(28px, 4.2vw, 58px); line-height: 1.04; letter-spacing: -0.025em; margin-top: 18px; max-width: 22ch;">{{ section.settings.t2 }}</h2>
@@ -20,6 +32,7 @@
 </div>
 <p style="font-family: Newsreader, Georgia, serif; font-size: clamp(22px, 3vw, 38px); line-height: 1.42; margin-top: clamp(56px, 7vw, 120px); max-width: 32ch; font-style: italic; color: rgb(74, 68, 59);">{{ section.settings.t12 }}</p>
 </section>
+{%- endif -%}
 {% schema %}
 {
   "name": "15 + 15 04 · The 15 + 15 ",

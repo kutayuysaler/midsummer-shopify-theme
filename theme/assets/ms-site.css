@@ -42,7 +42,11 @@ body.ms-overlay:not(.ms-scrolled):not(.ms-mega-open) [data-ms-header] { backgrou
 [data-ms-logo] { transition: filter .35s ease; }
 body.ms-overlay:not(.ms-scrolled):not(.ms-mega-open) [data-ms-logo] { filter: brightness(0) invert(1) !important; }
 .ms-site [hidden], [data-ms-headerroot] [hidden], [data-ms-drawer][hidden], [data-ms-drawer] [hidden] { display: none !important; }
-[data-ms-panel] { animation: msRise .3s ease both; }
+/* the panels open over the page, so nothing beneath them moves */
+[data-ms-header] { position: relative; }
+[data-ms-panel] { position: absolute; left: 0; right: 0; top: 100%; max-height: calc(100vh - 90px); overflow-y: auto; box-shadow: 0 34px 60px -30px rgba(10, 8, 6, .28); animation: msRise .3s ease both; }
+/* on wide screens the bar keeps to the same frame as the page */
+[data-ms="headrow"] { max-width: 1720px; margin-inline: auto; }
 [data-ms="nav"]::-webkit-scrollbar { display: none; }
 body.ms-lock { overflow: hidden; }
 

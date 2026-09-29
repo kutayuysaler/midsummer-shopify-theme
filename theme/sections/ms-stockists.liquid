@@ -196,6 +196,17 @@
     border-top: 1px solid var(--rule);
     font-size: 12.5px; line-height: 1.9; color: var(--muted);
   }
+.ms-stk .atlas { align-items: stretch; }
+.ms-stk .atlas > div:last-child { display: flex; flex-direction: column; min-height: var(--panel-h); }
+.ms-stk .atlas .list { flex: 1 1 0; max-height: none; min-height: 150px; }
+.ms-stk .atlas .detail { flex: 0 0 auto; margin-top: 18px; }
+.ms-stk .detail .who { color: #17140F; font-family: 'Newsreader', Georgia, serif; font-size: 17px; line-height: 1.4; }
+.ms-stk .detail .who span { font-family: 'Red Hat Text', sans-serif; font-size: 13px; color: #8C8579; }
+.ms-stk .detail .reach { display: flex; flex-direction: column; gap: 4px; font-size: 13.5px; }
+.ms-stk .detail .reach a { color: #4A443B; }
+.ms-stk .detail .reach a:hover { color: #9A7B4F; }
+@media (max-width: 1080px) { .ms-stk .atlas > div:last-child { height: auto; } .ms-stk .atlas .list { max-height: 420px; } }
+@media (max-width: 700px) { .ms-stk .atlas .list { max-height: none; } }
 .ms-stk [hidden] { display: none !important; }
 </style>
 <div class="ms-stk"><section class="intro" style="padding-top: clamp(36px, 5vw, 72px);">
@@ -272,15 +283,15 @@
   if (!window.d3 || !window.topojson) return;
   var PLACES = [
   {%- for block in section.blocks -%}
-    {%- assign lat = block.settings.lat | replace: ',', '.' | times: 1.0 -%}
-    {%- assign lon = block.settings.lon | replace: ',', '.' | times: 1.0 -%}
-    { city: {{ block.settings.city | json }}, country: {{ block.settings.country | json }}, region: {{ block.settings.region | json }}, type: {{ block.settings.type | json }}, lat: {{ lat | json }}, lon: {{ lon | json }}, note: {{ block.settings.note | json }} }{% unless forloop.last %},{% endunless %}
+    {%- assign lat = block.settings.lat | replace: ',', '.' | strip -%}
+    {%- assign lon = block.settings.lon | replace: ',', '.' | strip -%}
+    { city: {{ block.settings.city | json }}, country: {{ block.settings.country | json }}, region: {{ block.settings.region | json }}, type: {{ block.settings.type | json }}, lat: {{ lat | json }}, lon: {{ lon | json }}, note: {{ block.settings.note | json }}, name: {{ block.settings.name | json }}, contact: {{ block.settings.contact | json }}, address: {{ block.settings.address | json }}, phone: {{ block.settings.phone | json }}, email: {{ block.settings.email | json }}, website: {{ block.settings.website | json }} }{% unless forloop.last %},{% endunless %}
   {%- endfor -%}
-  ];
+  ].map(function (p) { p.lat = parseFloat(p.lat); p.lon = parseFloat(p.lon); return p; }).filter(function (p) { return isFinite(p.lat) && isFinite(p.lon); });
 
 
-  var TYPES = ['All types', 'Showroom', 'Boutique', 'Agent'];
-  var REGIONS = ['All regions', 'Europe', 'Middle East', 'Americas', 'Asia Pacific'];
+  var TYPES = ['All types'].concat(['Showroom', 'Boutique', 'Agent'].filter(function (t) { return PLACES.some(function (p) { return p.type === t; }); }));
+  var REGIONS = ['All regions'].concat(['Europe', 'Middle East', 'Americas', 'Asia Pacific'].filter(function (r) { return PLACES.some(function (p) { return p.region === r; }); }));
   var fType = 'All types';
   var fRegion = 'All regions';
   var active = null;
@@ -449,12 +460,21 @@
     var entry = visible.filter(function (d) { return d.city === active; })[0];
     if (!entry) { detail.hidden = true; detail.innerHTML = ''; return; }
     detail.hidden = false;
+    var esc = function (t) { return String(t || '').replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); };
+    var lines = '';
+    if (entry.name) lines += '<p class="who">' + esc(entry.name) + (entry.contact ? '<br><span>' + esc(entry.contact) + '</span>' : '') + '</p>';
+    if (entry.address) lines += '<p>' + esc(entry.address).replace(/\n/g, '<br>') + '</p>';
+    if (entry.note) lines += '<p>' + esc(entry.note) + '</p>';
+    var links = '';
+    if (entry.phone) links += '<a href="tel:' + esc(entry.phone.replace(/[^+\d]/g, '')) + '">' + esc(entry.phone) + '</a>';
+    if (entry.email) links += '<a href="mailto:' + esc(entry.email) + '">' + esc(entry.email) + '</a>';
+    if (entry.website) links += '<a href="' + esc(entry.website) + '" target="_blank" rel="noopener">' + esc(entry.website.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')) + '</a>';
     detail.innerHTML =
-      '<span class="kind">' + entry.type + (entry.city === {{ section.settings.atelier_city | json }} ? ' — the atelier' : '') + '</span>' +
-      '<h3>' + entry.city + ', ' + entry.country + '</h3>' +
-      '<p>' + entry.note + '</p>' +
+      '<span class="kind">' + esc(entry.type) + (entry.city === {{ section.settings.atelier_city | json }} ? ' — the atelier' : '') + '</span>' +
+      '<h3>' + esc(entry.city) + ', ' + esc(entry.country) + '</h3>' + lines +
+      (links ? '<div class="reach">' + links + '</div>' : '') +
       '<a class="ruled" style="width:fit-content;margin-top:6px" href="/pages/contact" data-ms-enquire>' +
-      (entry.type === 'Showroom' && entry.city === {{ section.settings.atelier_city | json }} ? {{ section.settings.book_label | json }} : {{ section.settings.intro_label | json }}) + '</a>';
+      (entry.city === {{ section.settings.atelier_city | json }} ? {{ section.settings.book_label | json }} : {{ section.settings.intro_label | json }}) + '</a>';
   }
 
   // selecting a place flies the map to it; deselecting returns to the world,
@@ -580,8 +600,8 @@
     {
       "type": "html",
       "id": "t13",
-      "label": "Showroom Boutique Agent Select a m…",
-      "default": "<span><i class=\"dot ink\"></i> Showroom</span>\n<span><i class=\"dot\"></i> Boutique</span>\n<span><i class=\"dot hollow\"></i> Agent</span>\n<span>Select a marker for details</span>"
+      "label": "Showroom Agent Select a marker for…",
+      "default": "<span><i class=\"dot ink\"></i> Showroom</span>\n\n<span><i class=\"dot hollow\"></i> Agent</span>\n<span>Select a marker for details</span>"
     },
     {
       "type": "text",
@@ -725,10 +745,39 @@
           "default": "9.19"
         },
         {
+          "type": "text",
+          "id": "name",
+          "label": "Name"
+        },
+        {
+          "type": "text",
+          "id": "contact",
+          "label": "Contact person"
+        },
+        {
+          "type": "textarea",
+          "id": "address",
+          "label": "Address"
+        },
+        {
+          "type": "text",
+          "id": "phone",
+          "label": "Telephone"
+        },
+        {
+          "type": "text",
+          "id": "email",
+          "label": "Email"
+        },
+        {
+          "type": "text",
+          "id": "website",
+          "label": "Website"
+        },
+        {
           "type": "textarea",
           "id": "note",
-          "label": "Note",
-          "default": "Served by an agent."
+          "label": "Note"
         }
       ]
     }
