@@ -1,0 +1,871 @@
+{% comment %}
+  Sleep Style Quiz – A/B/C profile
+  All texts are pulled from section.settings so they can be translated
+  via Translate & Adapt / theme content.
+{% endcomment %}
+
+<section id="sleep-style-quiz" class="sleep-quiz sleep-quiz--wrapper">
+  <div class="sleep-quiz__inner page-width">
+
+    <div class="sleep-quiz__intro">
+      {% if section.settings.heading != blank %}
+        <h2 class="sleep-quiz__heading">
+          {{ section.settings.heading }}
+        </h2>
+      {% endif %}
+
+      {% if section.settings.subheading != blank %}
+        <p class="sleep-quiz__subheading">
+          {{ section.settings.subheading }}
+        </p>
+      {% endif %}
+    </div>
+
+    <div class="sleep-quiz__form-wrap">
+      <form id="SleepStyleQuiz" class="sleep-quiz__fields">
+        <div class="sleep-quiz__grid">
+          <fieldset class="sleep-quiz__question">
+            <div class="sleep-quiz__question-header">{{ section.settings.q1_title }}</div>
+            <div class="sleep-quiz__options">
+              <label class="sleep-quiz__option"><input type="radio" name="q1" data-letter="A"><span>{{ section.settings.q1_opt_a }}</span></label>
+              <label class="sleep-quiz__option"><input type="radio" name="q1" data-letter="B"><span>{{ section.settings.q1_opt_b }}</span></label>
+              <label class="sleep-quiz__option"><input type="radio" name="q1" data-letter="C"><span>{{ section.settings.q1_opt_c }}</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="sleep-quiz__question">
+            <div class="sleep-quiz__question-header">{{ section.settings.q2_title }}</div>
+            <div class="sleep-quiz__options">
+              <label class="sleep-quiz__option"><input type="radio" name="q2" data-letter="A"><span>{{ section.settings.q2_opt_a }}</span></label>
+              <label class="sleep-quiz__option"><input type="radio" name="q2" data-letter="B"><span>{{ section.settings.q2_opt_b }}</span></label>
+              <label class="sleep-quiz__option"><input type="radio" name="q2" data-letter="C"><span>{{ section.settings.q2_opt_c }}</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="sleep-quiz__question">
+            <div class="sleep-quiz__question-header">{{ section.settings.q3_title }}</div>
+            <div class="sleep-quiz__options">
+              <label class="sleep-quiz__option"><input type="radio" name="q3" data-letter="A"><span>{{ section.settings.q3_opt_a }}</span></label>
+              <label class="sleep-quiz__option"><input type="radio" name="q3" data-letter="B"><span>{{ section.settings.q3_opt_b }}</span></label>
+              <label class="sleep-quiz__option"><input type="radio" name="q3" data-letter="C"><span>{{ section.settings.q3_opt_c }}</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="sleep-quiz__question">
+            <div class="sleep-quiz__question-header">{{ section.settings.q4_title }}</div>
+            <div class="sleep-quiz__options">
+              <label class="sleep-quiz__option"><input type="radio" name="q4" data-letter="A"><span>{{ section.settings.q4_opt_a }}</span></label>
+              <label class="sleep-quiz__option"><input type="radio" name="q4" data-letter="B"><span>{{ section.settings.q4_opt_b }}</span></label>
+              <label class="sleep-quiz__option"><input type="radio" name="q4" data-letter="C"><span>{{ section.settings.q4_opt_c }}</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="sleep-quiz__question">
+            <div class="sleep-quiz__question-header">{{ section.settings.q5_title }}</div>
+            <div class="sleep-quiz__options">
+              <label class="sleep-quiz__option"><input type="radio" name="q5" data-letter="A"><span>{{ section.settings.q5_opt_a }}</span></label>
+              <label class="sleep-quiz__option"><input type="radio" name="q5" data-letter="B"><span>{{ section.settings.q5_opt_b }}</span></label>
+              <label class="sleep-quiz__option"><input type="radio" name="q5" data-letter="C"><span>{{ section.settings.q5_opt_c }}</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="sleep-quiz__question">
+            <div class="sleep-quiz__question-header">{{ section.settings.q6_title }}</div>
+            <div class="sleep-quiz__options">
+              <label class="sleep-quiz__option"><input type="radio" name="q6" data-letter="A"><span>{{ section.settings.q6_opt_a }}</span></label>
+              <label class="sleep-quiz__option"><input type="radio" name="q6" data-letter="B"><span>{{ section.settings.q6_opt_b }}</span></label>
+              <label class="sleep-quiz__option"><input type="radio" name="q6" data-letter="C"><span>{{ section.settings.q6_opt_c }}</span></label>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="sleep-quiz__actions">
+          <button type="submit" class="sleep-quiz__button">
+            {{ section.settings.button_label }}
+          </button>
+        </div>
+      </form>
+
+      <div id="sleep-style-result" class="sleep-quiz__result" style="display:none;">
+        <div class="sleep-quiz__result-shell">
+          <div class="sleep-quiz__result-main">
+            <p class="sleep-quiz__result-kicker">{{ section.settings.result_heading }}</p>
+
+            <div class="sleep-quiz__result-profile" data-result-type="A">
+              <h3 class="sleep-quiz__profile-title">{{ section.settings.result_a_title }}</h3>
+              <p>{{ section.settings.result_a_p1 }}</p>
+              <p>{{ section.settings.result_a_p2 }}</p>
+              <p class="sleep-quiz__profile-emphasis"><em>{{ section.settings.result_a_p3 }}</em></p>
+            </div>
+
+            <div class="sleep-quiz__result-profile" data-result-type="B">
+              <h3 class="sleep-quiz__profile-title">{{ section.settings.result_b_title }}</h3>
+              <p>{{ section.settings.result_b_p1 }}</p>
+              <p>{{ section.settings.result_b_p2 }}</p>
+              <p class="sleep-quiz__profile-emphasis"><em>{{ section.settings.result_b_p3 }}</em></p>
+            </div>
+
+            <div class="sleep-quiz__result-profile" data-result-type="C">
+              <h3 class="sleep-quiz__profile-title">{{ section.settings.result_c_title }}</h3>
+              <p>{{ section.settings.result_c_p1 }}</p>
+              <p>{{ section.settings.result_c_p2 }}</p>
+              <p class="sleep-quiz__profile-emphasis"><em>{{ section.settings.result_c_p3 }}</em></p>
+            </div>
+
+            <div class="sleep-quiz__result-note-wrap">
+              <p class="sleep-quiz__result-note">{{ section.settings.result_hybrid_note }}</p>
+            </div>
+          </div>
+
+          <aside class="sleep-quiz__result-side">
+            <div class="sleep-quiz__cta-card">
+              <p class="sleep-quiz__cta-label">{{ section.settings.result_cta_label | default: 'Next step' }}</p>
+
+              <div class="sleep-quiz__result-ctas">
+                <a
+                  href="{{ collections.mattresses.url | default: section.settings.result_primary_link }}"
+                  class="sleep-quiz__cta sleep-quiz__cta--primary"
+                >
+                  {{ section.settings.result_primary_label | default: 'Explore our mattresses' }}
+                </a>
+
+                {% if section.settings.result_secondary_label != blank and section.settings.result_secondary_link != blank %}
+                  <a
+                    href="{{ section.settings.result_secondary_link }}"
+                    class="sleep-quiz__cta sleep-quiz__cta--secondary"
+                  >
+                    {{ section.settings.result_secondary_label }}
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+
+            <div id="sleep-style-contact" class="sleep-quiz__contact">
+              <p class="sleep-quiz__contact-intro">
+                {{ section.settings.contact_intro }}
+              </p>
+
+              {% form 'contact', id: 'SleepStyleContact' %}
+                {% if form.posted_successfully? %}
+                  <p class="sleep-quiz__contact-message sleep-quiz__contact-message--success">
+                    {{ section.settings.contact_success_message }}
+                  </p>
+                {% elsif form.errors %}
+                  <p class="sleep-quiz__contact-message sleep-quiz__contact-message--error">
+                    {{ section.settings.contact_error_message }}
+                  </p>
+                {% endif %}
+
+                <div class="sleep-quiz__contact-fields">
+                  <input
+                    type="text"
+                    name="contact[name]"
+                    class="sleep-quiz__contact-input"
+                    placeholder="{{ section.settings.contact_name_placeholder }}"
+                    required
+                  >
+                  <input
+                    type="email"
+                    name="contact[email]"
+                    class="sleep-quiz__contact-input"
+                    placeholder="{{ section.settings.contact_email_placeholder }}"
+                    required
+                  >
+                </div>
+
+                <input type="hidden" id="SleepStyleProfileInput" name="contact[Sleep profile]" value="">
+                <input type="hidden" id="SleepStyleQ1Input" name="contact[Q1 answer]" value="">
+                <input type="hidden" id="SleepStyleQ2Input" name="contact[Q2 answer]" value="">
+                <input type="hidden" id="SleepStyleQ3Input" name="contact[Q3 answer]" value="">
+                <input type="hidden" id="SleepStyleQ4Input" name="contact[Q4 answer]" value="">
+                <input type="hidden" id="SleepStyleQ5Input" name="contact[Q5 answer]" value="">
+                <input type="hidden" id="SleepStyleQ6Input" name="contact[Q6 answer]" value="">
+
+                <button type="submit" class="sleep-quiz__contact-button">
+                  {{ section.settings.contact_button_label }}
+                </button>
+              {% endform %}
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var form = document.getElementById('SleepStyleQuiz');
+      var result = document.getElementById('sleep-style-result');
+
+      if (!form || !result) return;
+
+      var profiles = result.querySelectorAll('.sleep-quiz__result-profile');
+
+      var profileInput = document.getElementById('SleepStyleProfileInput');
+      var q1Input = document.getElementById('SleepStyleQ1Input');
+      var q2Input = document.getElementById('SleepStyleQ2Input');
+      var q3Input = document.getElementById('SleepStyleQ3Input');
+      var q4Input = document.getElementById('SleepStyleQ4Input');
+      var q5Input = document.getElementById('SleepStyleQ5Input');
+      var q6Input = document.getElementById('SleepStyleQ6Input');
+
+      function scrollToResultWithOffset() {
+        var target = result.querySelector('.sleep-quiz__result-shell') || result;
+        var header = document.querySelector('.site-header, .header-wrapper, header[role="banner"]');
+        var headerHeight = header ? header.offsetHeight : 0;
+        var extraOffset = 18;
+
+        var rect = target.getBoundingClientRect();
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        var targetY = rect.top + scrollTop - headerHeight - extraOffset;
+
+        window.scrollTo({
+          top: targetY,
+          behavior: 'smooth'
+        });
+      }
+
+      function getCheckedInput(name) {
+        return form.querySelector('input[name="' + name + '"]:checked');
+      }
+
+      function getCheckedAnswerText(name) {
+        var checked = getCheckedInput(name);
+        if (!checked) return '';
+        var label = checked.closest('label');
+        var span = label ? label.querySelector('span') : null;
+        return span ? span.textContent.trim() : '';
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        var letters = [];
+        for (var i = 1; i <= 6; i++) {
+          var checked = getCheckedInput('q' + i);
+          if (checked) letters.push(checked.getAttribute('data-letter'));
+        }
+
+        if (letters.length < 6) {
+          alert('{{ section.settings.validation_message }}');
+          return;
+        }
+
+        var counts = { A: 0, B: 0, C: 0 };
+        letters.forEach(function (l) {
+          if (counts[l] !== undefined) counts[l]++;
+        });
+
+        var winner = 'A';
+        if (counts.B >= counts.A && counts.B >= counts.C) winner = 'B';
+        if (counts.C >= counts.A && counts.C >= counts.B) winner = 'C';
+
+        profiles.forEach(function (block) {
+          block.style.display =
+            block.getAttribute('data-result-type') === winner ? 'block' : 'none';
+        });
+
+        if (profileInput) {
+          var titleMap = {
+            'A': '{{ section.settings.result_a_title | escape }}',
+            'B': '{{ section.settings.result_b_title | escape }}',
+            'C': '{{ section.settings.result_c_title | escape }}'
+          };
+          profileInput.value = titleMap[winner] || winner;
+        }
+
+        if (q1Input) q1Input.value = getCheckedAnswerText('q1');
+        if (q2Input) q2Input.value = getCheckedAnswerText('q2');
+        if (q3Input) q3Input.value = getCheckedAnswerText('q3');
+        if (q4Input) q4Input.value = getCheckedAnswerText('q4');
+        if (q5Input) q5Input.value = getCheckedAnswerText('q5');
+        if (q6Input) q6Input.value = getCheckedAnswerText('q6');
+
+        result.style.display = 'block';
+        setTimeout(scrollToResultWithOffset, 60);
+      });
+    });
+  </script>
+</section>
+
+<style>
+  .sleep-quiz {
+    font-size: 1.12rem;
+    line-height: 1.7;
+  }
+
+  .sleep-quiz--wrapper {
+    padding: 5rem 0 6rem;
+    background: transparent;
+  }
+
+  .sleep-quiz__inner {
+    margin: 0 auto;
+  }
+
+  .sleep-quiz__intro {
+    text-align: left;
+    margin-bottom: 2.2rem;
+  }
+
+  .sleep-quiz__heading {
+    font-size: clamp(1.9rem, 2.2vw, 2.4rem);
+    line-height: 1.18;
+    margin: 0 0 0.55rem;
+  }
+
+  .sleep-quiz__subheading {
+    line-height: 1.5;
+    font-size: 0.86em;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    opacity: 0.8;
+  }
+
+  .sleep-quiz__form-wrap {
+    background: #ffffff;
+    border-radius: 28px;
+    padding: 3rem 2.6rem 3.4rem;
+    box-shadow: 0 26px 68px rgba(0,0,0,0.08);
+    margin-top: 0.8rem;
+  }
+
+  .sleep-quiz__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.6rem;
+  }
+
+  @media (min-width: 900px) {
+    .sleep-quiz__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .sleep-quiz__question {
+    margin: 0;
+    border-radius: 22px;
+    border: 1px solid #eee1d2;
+    padding: 1.5rem 1.5rem 1.2rem;
+    background: #fcf7f1;
+    min-height: 100%;
+  }
+
+  .sleep-quiz__question-header {
+    font-size: 1.08em;
+    font-weight: 600;
+    margin: 0 0 0.9rem;
+  }
+
+  .sleep-quiz__options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.62rem;
+  }
+
+  .sleep-quiz__option {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    cursor: pointer;
+  }
+
+  .sleep-quiz__option input[type="radio"] {
+    accent-color: #c0a889;
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    min-height: 18px;
+    cursor: pointer;
+  }
+
+  .sleep-quiz__option span {
+    line-height: 1.5;
+    font-size: 0.98em;
+  }
+
+  .sleep-quiz__actions {
+    margin-top: 1.7rem;
+  }
+
+  .sleep-quiz__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.05rem 2.4rem;
+    border-radius: 999px;
+    border: none;
+    background: #111111;
+    color: #ffffff;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease;
+    font-size: 0.76em;
+  }
+
+  .sleep-quiz__button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.22);
+    background: #222222;
+  }
+
+  .sleep-quiz__result {
+    margin-top: 2.6rem;
+  }
+
+  .sleep-quiz__result-shell {
+    display: grid;
+    grid-template-columns: 1.4fr 0.9fr;
+    gap: 2rem;
+    padding: 2rem;
+    background: #f4efe7;
+    border: 1px solid #decfb8;
+    border-radius: 26px;
+    box-shadow: 0 18px 50px rgba(0,0,0,0.06);
+  }
+
+  .sleep-quiz__result-main {
+    min-width: 0;
+  }
+
+  .sleep-quiz__result-kicker {
+    margin: 0 0 0.7rem;
+    font-size: 0.78em;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    opacity: 0.72;
+  }
+
+  .sleep-quiz__result-profile {
+    display: none;
+  }
+
+  .sleep-quiz__profile-title {
+    margin: 0 0 0.85rem;
+    font-size: 1.45em;
+    line-height: 1.2;
+    font-weight: 500;
+  }
+
+  .sleep-quiz__result-profile p {
+    margin: 0 0 0.8rem;
+    font-size: 1.02em;
+    line-height: 1.75;
+  }
+
+  .sleep-quiz__profile-emphasis {
+    margin-top: 1rem;
+  }
+
+  .sleep-quiz__result-note-wrap {
+    margin-top: 1.3rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid rgba(17,17,17,0.12);
+  }
+
+  .sleep-quiz__result-note {
+    margin: 0;
+    font-size: 0.96em;
+    line-height: 1.75;
+    opacity: 0.9;
+  }
+
+  .sleep-quiz__result-side {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .sleep-quiz__cta-card,
+  .sleep-quiz__contact {
+    background: rgba(255,255,255,0.45);
+    border: 1px solid rgba(17,17,17,0.08);
+    border-radius: 20px;
+    padding: 1.2rem;
+  }
+
+  .sleep-quiz__cta-label {
+    margin: 0 0 0.9rem;
+    font-size: 0.78em;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    opacity: 0.72;
+  }
+
+  .sleep-quiz__result-ctas {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .sleep-quiz__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    min-width: 0;
+    max-width: 100%;
+    padding: 0.95rem 1.3rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 0.76em;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-align: center;
+    white-space: normal;
+    line-height: 1.35;
+  }
+
+  .sleep-quiz__cta--primary {
+    background: #111111;
+    color: #ffffff;
+  }
+
+  .sleep-quiz__cta--secondary {
+    background: transparent;
+    color: #111111;
+    border: 1px solid #111111;
+  }
+
+  .sleep-quiz__cta--primary:hover {
+    background: #222222;
+  }
+
+  .sleep-quiz__cta--secondary:hover {
+    background: #111111;
+    color: #ffffff;
+  }
+
+  .sleep-quiz__contact-intro {
+    margin: 0 0 1rem;
+    font-size: 0.9em;
+    line-height: 1.7;
+  }
+
+  .sleep-quiz__contact-message {
+    margin: 0 0 0.8rem;
+    font-size: 0.88em;
+  }
+
+  .sleep-quiz__contact-message--success {
+    color: #1b6e3c;
+  }
+
+  .sleep-quiz__contact-message--error {
+    color: #b32222;
+  }
+
+  .sleep-quiz__contact-fields {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .sleep-quiz__contact-input {
+    width: 100%;
+    padding: 0.8rem 0.95rem;
+    border-radius: 999px;
+    border: 1px solid #c8b9a1;
+    background: #ffffff;
+    font-size: 0.9em;
+  }
+
+  .sleep-quiz__contact-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    max-width: 100%;
+    padding: 0.95rem 1.4rem;
+    border-radius: 999px;
+    border: none;
+    background: #111111;
+    color: #ffffff;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-size: 0.74em;
+    line-height: 1.35;
+    transition: background 150ms ease, box-shadow 150ms ease, transform 150ms ease;
+  }
+
+  .sleep-quiz__contact-button:hover {
+    background: #222222;
+    transform: translateY(-1px);
+    box-shadow: 0 14px 36px rgba(0,0,0,0.16);
+  }
+
+  @media (max-width: 989px) {
+    .sleep-quiz__result-shell {
+      grid-template-columns: 1fr;
+      gap: 1.2rem;
+    }
+
+    .sleep-quiz__result-ctas {
+      align-items: stretch;
+    }
+
+    .sleep-quiz__cta,
+    .sleep-quiz__contact-button {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 749px) {
+    .sleep-quiz {
+      font-size: 1.05rem;
+    }
+
+    .sleep-quiz--wrapper {
+      padding: 3.8rem 0 4.2rem;
+    }
+
+    .sleep-quiz__form-wrap {
+      padding: 2.2rem 1.3rem 2.5rem;
+    }
+
+    .sleep-quiz__heading {
+      font-size: 1.75rem;
+    }
+
+    .sleep-quiz__question {
+      padding: 1.25rem 1.1rem 1.05rem;
+    }
+
+    .sleep-quiz__result-shell {
+      padding: 1.3rem;
+    }
+
+    .sleep-quiz__profile-title {
+      font-size: 1.28em;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Sleep style quiz",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Do you sleep on the right mattress?"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subtitle",
+      "default": "6 questions · 90 seconds · Discover your sleep profile"
+    },
+
+    { "type": "text", "id": "q1_title", "label": "Q1 title", "default": "1. During the night, you more often…" },
+    { "type": "textarea", "id": "q1_opt_a", "label": "Q1 option A", "default": "A. Feel too warm or too cold even when the room is temperate" },
+    { "type": "textarea", "id": "q1_opt_b", "label": "Q1 option B", "default": "B. Sleep well only in certain seasons" },
+    { "type": "textarea", "id": "q1_opt_c", "label": "Q1 option C", "default": "C. Hardly ever notice the temperature" },
+
+    { "type": "text", "id": "q2_title", "label": "Q2 title", "default": "2. Your sleep is…" },
+    { "type": "textarea", "id": "q2_opt_a", "label": "Q2 option A", "default": "A. Deep but interrupted by frequent awakenings" },
+    { "type": "textarea", "id": "q2_opt_b", "label": "Q2 option B", "default": "B. Continuous but light" },
+    { "type": "textarea", "id": "q2_opt_c", "label": "Q2 option C", "default": "C. Generally stable and regular" },
+
+    { "type": "text", "id": "q3_title", "label": "Q3 title", "default": "3. In the morning you…" },
+    { "type": "textarea", "id": "q3_opt_a", "label": "Q3 option A", "default": "A. Feel stiff or notice areas of tension" },
+    { "type": "textarea", "id": "q3_opt_b", "label": "Q3 option B", "default": "B. Feel rested but need time to “loosen up”" },
+    { "type": "textarea", "id": "q3_opt_c", "label": "Q3 option C", "default": "C. Get up without any particular physical sensations" },
+
+    { "type": "text", "id": "q4_title", "label": "Q4 title", "default": "4. During the night…" },
+    { "type": "textarea", "id": "q4_opt_a", "label": "Q4 option A", "default": "A. You change position frequently" },
+    { "type": "textarea", "id": "q4_opt_b", "label": "Q4 option B", "default": "B. You move mainly in the first hours" },
+    { "type": "textarea", "id": "q4_opt_c", "label": "Q4 option C", "default": "C. You remain almost always in the same position" },
+
+    { "type": "text", "id": "q5_title", "label": "Q5 title", "default": "5. When you imagine ideal comfort, you think of a surface that is…" },
+    { "type": "textarea", "id": "q5_opt_a", "label": "Q5 option A", "default": "A. Welcoming and adaptive, that follows the body" },
+    { "type": "textarea", "id": "q5_opt_b", "label": "Q5 option B", "default": "B. Balanced, neither too soft nor too firm" },
+    { "type": "textarea", "id": "q5_opt_c", "label": "Q5 option C", "default": "C. More sustained and stable" },
+
+    { "type": "text", "id": "q6_title", "label": "Q6 title", "default": "6. For you, the bed is mainly…" },
+    { "type": "textarea", "id": "q6_opt_a", "label": "Q6 option A", "default": "A. A sensory refuge" },
+    { "type": "textarea", "id": "q6_opt_b", "label": "Q6 option B", "default": "B. A space for physical recovery" },
+    { "type": "textarea", "id": "q6_opt_c", "label": "Q6 option C", "default": "C. A functional support" },
+
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "View your sleep profile"
+    },
+
+    {
+      "type": "text",
+      "id": "result_heading",
+      "label": "Result heading",
+      "default": "How to read your answers"
+    },
+
+    {
+      "type": "textarea",
+      "id": "result_a_title",
+      "label": "Result A title",
+      "default": "Mostly A = Sensitive / Perceptive sleeper"
+    },
+    {
+      "type": "textarea",
+      "id": "result_a_p1",
+      "label": "Result A paragraph 1",
+      "default": "Your body picks up every detail: temperature, pressure, micro-movements. Sleep for you is a matter of listening and subtle balance."
+    },
+    {
+      "type": "textarea",
+      "id": "result_a_p2",
+      "label": "Result A paragraph 2",
+      "default": "What disturbs you is often not simply “too soft” or “too firm”, but whatever fails to adapt to change — seasons, body, daily rhythms."
+    },
+    {
+      "type": "textarea",
+      "id": "result_a_p3",
+      "label": "Result A paragraph 3 (italic)",
+      "default": "What truly helps: natural, breathable materials that accompany the body without imposing."
+    },
+
+    {
+      "type": "textarea",
+      "id": "result_b_title",
+      "label": "Result B title",
+      "default": "Mostly B = Balanced / Adaptive sleeper"
+    },
+    {
+      "type": "textarea",
+      "id": "result_b_p1",
+      "label": "Result B paragraph 1",
+      "default": "Your body seeks harmony and continuity. You sleep best when nothing dominates: neither rigidity nor excess softness."
+    },
+    {
+      "type": "textarea",
+      "id": "result_b_p2",
+      "label": "Result B paragraph 2",
+      "default": "Comfort, for you, is something that builds over time, night after night."
+    },
+    {
+      "type": "textarea",
+      "id": "result_b_p3",
+      "label": "Result B paragraph 3 (italic)",
+      "default": "What truly helps: well-balanced systems that support without stiffening and welcome without collapsing."
+    },
+
+    {
+      "type": "textarea",
+      "id": "result_c_title",
+      "label": "Result C title",
+      "default": "Mostly C = Structured / Stable sleeper"
+    },
+    {
+      "type": "textarea",
+      "id": "result_c_p1",
+      "label": "Result C paragraph 1",
+      "default": "Your body values stability and clear support. You need to feel held, contained, guided by a defined structure."
+    },
+    {
+      "type": "textarea",
+      "id": "result_c_p2",
+      "label": "Result C paragraph 2",
+      "default": "Sleep, for you, is recovery, regeneration, order."
+    },
+    {
+      "type": "textarea",
+      "id": "result_c_p3",
+      "label": "Result C paragraph 3 (italic)",
+      "default": "What truly helps: reliable supports and materials that maintain their qualities over time."
+    },
+
+    {
+      "type": "textarea",
+      "id": "result_hybrid_note",
+      "label": "Hybrid profiles note",
+      "default": "Your sleep profile is a beginning, not a box. Now you know whether your body tends to sleep in a more Sensitive, Balanced or Structured way – and which sensations matter most to your comfort. This is the starting point for designing a mattress and bed system that truly follows your way of resting."
+    },
+
+    {
+      "type": "text",
+      "id": "result_primary_label",
+      "label": "Primary CTA label",
+      "default": "Explore our mattresses"
+    },
+    {
+      "type": "text",
+      "id": "result_cta_label",
+      "label": "CTA card label",
+      "default": "Next step"
+    },
+    {
+      "type": "text",
+      "id": "result_primary_link",
+      "label": "Primary CTA link",
+      "default": "/collections/mattresses"
+    },
+    {
+      "type": "text",
+      "id": "result_secondary_label",
+      "label": "Secondary CTA label",
+      "default": "Talk to a Sleep Concierge"
+    },
+    {
+      "type": "url",
+      "id": "result_secondary_link",
+      "label": "Secondary CTA link"
+    },
+
+    {
+      "type": "textarea",
+      "id": "contact_intro",
+      "label": "Contact block intro",
+      "default": "Would you like to turn this profile into a real bed system? Leave your name and email and a Midsummer expert will get back to you with a tailored suggestion."
+    },
+    {
+      "type": "text",
+      "id": "contact_name_placeholder",
+      "label": "Contact name placeholder",
+      "default": "Name"
+    },
+    {
+      "type": "text",
+      "id": "contact_email_placeholder",
+      "label": "Contact email placeholder",
+      "default": "Email"
+    },
+    {
+      "type": "text",
+      "id": "contact_button_label",
+      "label": "Contact submit button label",
+      "default": "Send me my tailored suggestion"
+    },
+    {
+      "type": "text",
+      "id": "contact_success_message",
+      "label": "Contact success message",
+      "default": "Thank you. A Midsummer expert will contact you shortly."
+    },
+    {
+      "type": "text",
+      "id": "contact_error_message",
+      "label": "Contact error message",
+      "default": "There was a problem with your submission. Please check your details and try again."
+    },
+
+    {
+      "type": "text",
+      "id": "validation_message",
+      "label": "Validation message (all questions required)",
+      "default": "Please answer all the questions to see your sleep profile."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sleep style quiz"
+    }
+  ]
+}
+{% endschema %}"

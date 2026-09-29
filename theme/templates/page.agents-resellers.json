@@ -1,838 +1,226 @@
 /*
- * ------------------------------------------------------------
- * Midsummer Milano — customised for the Atelier theme.
- * Generated from the approved UX preview. Safe to replace the
- * matching file in the theme export before upload.
- * ------------------------------------------------------------
+ * Midsummer Milano — built on the live Dawn theme.
+ * Design sections: ms-hero, ms-split, ms-cards and the ms-* specialist sections.
  */
 {
   "sections": {
-    "ms_head": {
-      "type": "section",
-      "name": "t:names.heading",
+    "store_locator_map_87qx4Q": {
+      "type": "store-locator-map",
       "blocks": {
-        "eyebrow": {
-          "type": "text",
+        "store_8GpWR6": {
+          "type": "store",
           "settings": {
-            "text": "<p>Showrooms, Agents &amp; Resellers</p>",
-            "width": "100%",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h6",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "uppercase",
-            "wrap": "pretty",
-            "text_color": "{{ settings.color_palette.color1 }}",
-            "background": false,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "title": "COSE & COSE",
+            "contact": "Antonella Romagnoli",
+            "category": "agent",
+            "country": "San Marino",
+            "city": "Dogana",
+            "address": "Via Oreste Brizi, 8, 47891",
+            "phone": "+378 0549 908132",
+            "email": "info@cosesrl.sm",
+            "website": "https://www.cosesrl.sm",
+            "lat": "43.975425",
+            "lng": "12.487031"
+          }
         },
-        "title": {
-          "type": "text",
+        "store_EBkhiB": {
+          "type": "store",
           "settings": {
-            "text": "<h1>Where to find us.</h1>",
-            "width": "100%",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h1",
-            "line_height": "tight",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "background": false,
-            "padding-block-start": 20,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "intro": {
-          "type": "text",
-          "settings": {
-            "text": "<p>The beds are made in Milano and can be lain on there. Elsewhere, an agent or a reseller will receive you — by appointment, in a room, not a warehouse.</p>",
-            "width": "100%",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "paragraph",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "background": false,
-            "padding-block-start": 26,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "eyebrow",
-        "title",
-        "intro"
-      ],
-      "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "flex-start",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "flex-start",
-        "gap": 0,
-        "section_width": "page-width",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "background_color": "{{ settings.color_palette.background }}",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "padding-block-start": 120,
-        "padding-block-end": 56
-      }
-    },
-    "ms_map": {
-      "type": "ms-stockists",
-      "name": "Agents & resellers map",
-      "blocks": {
-        "market_01": {
-          "type": "market",
-          "settings": {
-            "city": "Milano",
+            "title": "bredaquaranta",
+            "contact": "Ms. Liupin Shen",
+            "category": "showroom",
             "country": "Italy",
-            "region": "Europe",
-            "latitude": "45.4642",
-            "longitude": "9.1900",
-            "is_atelier": true,
-            "note": "Via Andegari 4, 20121 Milano. The systems are made here and can be lain on here. Appointments Monday to Friday, 09:00–12:00 and 13:00–18:00.",
-            "link": "/pages/contact",
-            "link_label": "Book an appointment",
-            "place_type": "Showroom"
+            "city": "Milan",
+            "address": "Via Fatebenefratelli, 10, 20121 Milano MI, Italy",
+            "phone": "+39 02 3655 7430",
+            "email": "info@bredaquaranta.com",
+            "website": "https://www.bredaquaranta.it",
+            "lat": "45.473113",
+            "lng": "9.189725"
           }
         },
-        "market_02": {
-          "type": "market",
+        "store_HLA7YM": {
+          "type": "store",
           "settings": {
-            "city": "Roma",
-            "country": "Italy",
-            "region": "Europe",
-            "latitude": "41.9028",
-            "longitude": "12.4964",
-            "is_atelier": false,
-            "note": "Served by a partner showroom and by the atelier team travelling from Milano.",
-            "link": "/pages/contact",
-            "link_label": "Request an introduction",
-            "place_type": "Agent"
-          }
-        },
-        "market_03": {
-          "type": "market",
-          "settings": {
-            "city": "London",
-            "country": "United Kingdom",
-            "region": "Europe",
-            "latitude": "51.5074",
-            "longitude": "-0.1278",
-            "is_atelier": false,
-            "note": "Partner showroom. Private appointments, and installation by our own team.",
-            "link": "/pages/contact",
-            "link_label": "Request an introduction",
-            "place_type": "Boutique"
-          }
-        },
-        "market_04": {
-          "type": "market",
-          "settings": {
-            "city": "Paris",
-            "country": "France",
-            "region": "Europe",
-            "latitude": "48.8566",
-            "longitude": "2.3522",
-            "is_atelier": false,
-            "note": "Partner showroom, with the full Loro Piana Interiors palette available to order.",
-            "link": "/pages/contact",
-            "link_label": "Request an introduction",
-            "place_type": "Boutique"
-          }
-        },
-        "market_05": {
-          "type": "market",
-          "settings": {
-            "city": "Monaco",
-            "country": "Monaco",
-            "region": "Europe",
-            "latitude": "43.7384",
-            "longitude": "7.4246",
-            "is_atelier": false,
-            "note": "Partner representation, including yacht and branded-residence projects.",
-            "link": "/pages/contact",
-            "link_label": "Request an introduction",
-            "place_type": "Agent"
-          }
-        },
-        "market_06": {
-          "type": "market",
-          "settings": {
-            "city": "Zürich",
-            "country": "Switzerland",
-            "region": "Europe",
-            "latitude": "47.3769",
-            "longitude": "8.5417",
-            "is_atelier": false,
-            "note": "Partner showroom serving Switzerland and Liechtenstein.",
-            "link": "/pages/contact",
-            "link_label": "Request an introduction",
-            "place_type": "Boutique"
-          }
-        },
-        "market_07": {
-          "type": "market",
-          "settings": {
-            "city": "München",
-            "country": "Germany",
-            "region": "Europe",
-            "latitude": "48.1351",
-            "longitude": "11.5820",
-            "is_atelier": false,
-            "note": "Partner showroom serving southern Germany and Austria.",
-            "link": "/pages/contact",
-            "link_label": "Request an introduction",
-            "place_type": "Boutique"
-          }
-        },
-        "market_08": {
-          "type": "market",
-          "settings": {
-            "city": "Wien",
-            "country": "Austria",
-            "region": "Europe",
-            "latitude": "48.2082",
-            "longitude": "16.3738",
-            "is_atelier": false,
-            "note": "Partner representation for Austria and Central Europe.",
-            "link": "/pages/contact",
-            "link_label": "Request an introduction",
-            "place_type": "Agent"
-          }
-        },
-        "market_09": {
-          "type": "market",
-          "settings": {
-            "city": "Amsterdam",
-            "country": "Netherlands",
-            "region": "Europe",
-            "latitude": "52.3676",
-            "longitude": "4.9041",
-            "is_atelier": false,
-            "note": "Partner showroom serving the Benelux.",
-            "link": "/pages/contact",
-            "link_label": "Request an introduction",
-            "place_type": "Boutique"
-          }
-        },
-        "market_10": {
-          "type": "market",
-          "settings": {
-            "city": "Praha",
-            "country": "Czech Republic",
-            "region": "Europe",
-            "latitude": "50.0755",
-            "longitude": "14.4378",
-            "is_atelier": false,
-            "note": "Partner representation for the Czech Republic and Slovakia.",
-            "link": "/pages/contact",
-            "link_label": "Request an introduction",
-            "place_type": "Agent"
-          }
-        },
-        "market_11": {
-          "type": "market",
-          "settings": {
-            "city": "Dubai",
-            "country": "United Arab Emirates",
-            "region": "Middle East",
-            "latitude": "25.2048",
-            "longitude": "55.2708",
-            "is_atelier": false,
-            "note": "Partner showroom serving the UAE, with contract and hospitality projects handled from Milano.",
-            "link": "/pages/contact",
-            "link_label": "Request an introduction",
-            "place_type": "Showroom"
-          }
-        },
-        "market_12": {
-          "type": "market",
-          "settings": {
-            "city": "Doha",
-            "country": "Qatar",
-            "region": "Middle East",
-            "latitude": "25.2854",
-            "longitude": "51.5310",
-            "is_atelier": false,
-            "note": "Partner representation for Qatar, including residence and palace projects.",
-            "link": "/pages/contact",
-            "link_label": "Request an introduction",
-            "place_type": "Agent"
-          }
-        },
-        "market_13": {
-          "type": "market",
-          "settings": {
-            "city": "Riyadh",
-            "country": "Saudi Arabia",
-            "region": "Middle East",
-            "latitude": "24.7136",
-            "longitude": "46.6753",
-            "is_atelier": false,
-            "note": "Partner representation for Saudi Arabia.",
-            "link": "/pages/contact",
-            "link_label": "Request an introduction",
-            "place_type": "Agent"
-          }
-        },
-        "market_14": {
-          "type": "market",
-          "settings": {
-            "city": "New York",
-            "country": "United States",
-            "region": "Americas",
-            "latitude": "40.7128",
-            "longitude": "-74.0060",
-            "is_atelier": false,
-            "note": "Partner showroom serving the Northeast, with white-glove installation.",
-            "link": "/pages/contact",
-            "link_label": "Request an introduction",
-            "place_type": "Showroom"
-          }
-        },
-        "market_15": {
-          "type": "market",
-          "settings": {
-            "city": "Miami",
-            "country": "United States",
-            "region": "Americas",
-            "latitude": "25.7617",
-            "longitude": "-80.1918",
-            "is_atelier": false,
-            "note": "Partner showroom serving Florida, the Caribbean and yacht projects.",
-            "link": "/pages/contact",
-            "link_label": "Request an introduction",
-            "place_type": "Boutique"
-          }
-        },
-        "market_16": {
-          "type": "market",
-          "settings": {
-            "city": "Los Angeles",
-            "country": "United States",
-            "region": "Americas",
-            "latitude": "34.0522",
-            "longitude": "-118.2437",
-            "is_atelier": false,
-            "note": "Partner representation for the West Coast.",
-            "link": "/pages/contact",
-            "link_label": "Request an introduction",
-            "place_type": "Agent"
-          }
-        },
-        "market_17": {
-          "type": "market",
-          "settings": {
-            "city": "Toronto",
+            "title": "Maison Territo",
+            "contact": "",
+            "category": "showroom",
             "country": "Canada",
-            "region": "Americas",
-            "latitude": "43.6532",
-            "longitude": "-79.3832",
-            "is_atelier": false,
-            "note": "Partner representation for Canada.",
-            "link": "/pages/contact",
-            "link_label": "Request an introduction",
-            "place_type": "Agent"
+            "city": "Montreal",
+            "address": "5050 Chem. de la Côte-de-Liesse,\nSuite 1050, Mont-Royal\nQC H4P 0C9",
+            "phone": "+1 (514) 800-0101",
+            "email": "servicedesigner@maisonterrito.ca",
+            "website": "https://www.maisonterrito.ca",
+            "lat": "45.499107",
+            "lng": "-73.666560"
           }
         },
-        "market_18": {
-          "type": "market",
+        "store_btj6a6": {
+          "type": "store",
           "settings": {
-            "city": "Hong Kong",
-            "country": "Hong Kong SAR",
-            "region": "Asia Pacific",
-            "latitude": "22.3193",
-            "longitude": "114.1694",
-            "is_atelier": false,
-            "note": "Partner showroom serving Hong Kong and southern China.",
-            "link": "/pages/contact",
-            "link_label": "Request an introduction",
-            "place_type": "Boutique"
+            "title": "In Made Ltd, a Desidery Company",
+            "contact": "Ms. Sarah Fung",
+            "category": "agent",
+            "country": "Hong Kong",
+            "city": "Central",
+            "address": "1301 Winsome House\n73 Wyndham Street",
+            "phone": "+852-2778 1616",
+            "email": "sarah@inmade.hk",
+            "website": "https://www.inmade.hk/",
+            "lat": "22.281849",
+            "lng": "114.154879"
           }
         },
-        "market_19": {
-          "type": "market",
+        "store_76ex4D": {
+          "type": "store",
           "settings": {
-            "city": "Singapore",
-            "country": "Singapore",
-            "region": "Asia Pacific",
-            "latitude": "1.3521",
-            "longitude": "103.8198",
-            "is_atelier": false,
-            "note": "Partner showroom serving Southeast Asia.",
-            "link": "/pages/contact",
-            "link_label": "Request an introduction",
-            "place_type": "Boutique"
-          }
-        },
-        "market_20": {
-          "type": "market",
-          "settings": {
-            "city": "Shanghai",
-            "country": "China",
-            "region": "Asia Pacific",
-            "latitude": "31.2304",
-            "longitude": "121.4737",
-            "is_atelier": false,
-            "note": "Partner representation for mainland China.",
-            "link": "/pages/contact",
-            "link_label": "Request an introduction",
-            "place_type": "Agent"
-          }
-        },
-        "market_21": {
-          "type": "market",
-          "settings": {
-            "city": "Tokyo",
-            "country": "Japan",
-            "region": "Asia Pacific",
-            "latitude": "35.6762",
-            "longitude": "139.6503",
-            "is_atelier": false,
-            "note": "Partner showroom serving Japan.",
-            "link": "/pages/contact",
-            "link_label": "Request an introduction",
-            "place_type": "Boutique"
-          }
-        },
-        "market_22": {
-          "type": "market",
-          "settings": {
-            "city": "Sydney",
-            "country": "Australia",
-            "region": "Asia Pacific",
-            "latitude": "-33.8688",
-            "longitude": "151.2093",
-            "is_atelier": false,
-            "note": "Partner representation for Australia and New Zealand.",
-            "link": "/pages/contact",
-            "link_label": "Request an introduction",
-            "place_type": "Agent"
+            "title": "Villa Arredamenti Interior Solutions",
+            "contact": "",
+            "category": "showroom",
+            "country": "Italy",
+            "city": "Province of Monza and Brianza",
+            "address": "Via Manzoni, 47, Colnago 20872",
+            "phone": "+39 039695287",
+            "email": "info@villaarredamenti.it",
+            "website": "https://www.villaarredamenti.it",
+            "lat": "45.637759",
+            "lng": "9.470799"
           }
         }
       },
       "block_order": [
-        "market_01",
-        "market_02",
-        "market_03",
-        "market_04",
-        "market_05",
-        "market_06",
-        "market_07",
-        "market_08",
-        "market_09",
-        "market_10",
-        "market_11",
-        "market_12",
-        "market_13",
-        "market_14",
-        "market_15",
-        "market_16",
-        "market_17",
-        "market_18",
-        "market_19",
-        "market_20",
-        "market_21",
-        "market_22"
+        "store_8GpWR6",
+        "store_EBkhiB",
+        "store_HLA7YM",
+        "store_btj6a6",
+        "store_76ex4D"
       ],
+      "name": "Store locator (map)",
       "settings": {
-        "map_label": "World map of Midsummer-Milano showrooms, agents and resellers",
-        "regions": "Europe, Middle East, Americas, Asia Pacific",
-        "show_filters": true,
-        "all_label": "All markets",
-        "legend_atelier": "Showroom",
-        "legend_partner": "Boutique",
-        "partner_label": "Agent",
-        "legend_hint": "Select a marker for details",
-        "max_width": 1560,
-        "side_width": 400,
-        "background_color": "{{ settings.color_palette.background }}",
-        "ink_color": "{{ settings.color_palette.foreground }}",
-        "body_color": "#4A443B",
-        "muted_color": "#6E675C",
-        "accent_color": "#7E623B",
-        "rule_color": "{{ settings.color_palette.color2 }}",
-        "wash_color": "#F4F0E8",
-        "land_color": "#E2D9C8",
-        "graticule_color": "#E4DCCD",
-        "padding-block-start": 0,
-        "padding-block-end": 120,
-        "list_height": 62
+        "heading": "Where to find us",
+        "heading_size": "h1",
+        "basemap": "esri_gray",
+        "sort_order": "name",
+        "color_scheme": ""
       }
     },
-    "ms_atelier": {
-      "type": "section",
-      "name": "Book an appointment",
-      "blocks": {
-        "left": {
-          "type": "group",
-          "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "flex-start",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "flex-start",
-            "gap": 0,
-            "width": "custom",
-            "custom_width": 48,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "open_in_new_tab": false,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "eyebrow": {
-              "type": "text",
-              "settings": {
-                "text": "<p>Not on the map</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h6",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "uppercase",
-                "wrap": "pretty",
-                "text_color": "{{ settings.color_palette.background }}",
-                "background": false,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "head": {
-              "type": "text",
-              "settings": {
-                "text": "<h2>Then we come to you.</h2>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h2",
-                "line_height": "tight",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "text_color": "{{ settings.color_palette.background }}",
-                "background": false,
-                "padding-block-start": 18,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "eyebrow",
-            "head"
-          ]
-        },
-        "right": {
-          "type": "group",
-          "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "flex-start",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "flex-end",
-            "gap": 26,
-            "width": "custom",
-            "custom_width": 44,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "open_in_new_tab": false,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "body": {
-              "type": "text",
-              "settings": {
-                "text": "<p>Where there is no agent yet, the atelier handles the enquiry directly — specification by video, fabric samples by post, and white-glove delivery by our own team.</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "paragraph",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "text_color": "{{ settings.color_palette.background }}",
-                "background": false,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "cta": {
-              "type": "button",
-              "settings": {
-                "label": "Book a private appointment",
-                "link": "/pages/contact",
-                "open_in_new_tab": false,
-                "style_class": "button-custom",
-                "custom_button_background": "rgba(0,0,0,0)",
-                "custom_button_text": "{{ settings.color_palette.background }}",
-                "custom_button_border": "{{ settings.color_palette.background }}",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "body",
-            "cta"
-          ]
-        }
-      },
-      "block_order": [
-        "left",
-        "right"
-      ],
+    "main": {
+      "type": "main-page",
+      "disabled": true,
       "settings": {
-        "content_direction": "row",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "space-between",
-        "vertical_alignment": "flex-end",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "flex-start",
-        "gap": 64,
-        "section_width": "page-width",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "background_color": "{{ settings.color_palette.foreground }}",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "padding-block-start": 120,
-        "padding-block-end": 120
+        "padding_top": 28,
+        "padding_bottom": 0
       }
     },
-    "ms_note": {
-      "type": "section",
-      "name": "Note",
-      "blocks": {
-        "note": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Agent and reseller names are released on enquiry, so that each introduction is made by a person rather than a directory. To represent Midsummer-Milano in your market, write to us through the trade enquiry.</p>",
-            "width": "100%",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "custom",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "text_color": "#6E675C",
-            "background": false,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0,
-            "font": "var(--font-body--family)",
-            "font_size": "0.875rem"
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "note"
-      ],
+    "enquire_tabs_zpybEp": {
+      "type": "enquire-tabs",
+      "name": "Enquire – in-page tabs",
       "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "flex-start",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "flex-start",
-        "gap": 0,
-        "section_width": "page-width",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "background_color": "{{ settings.color_palette.background }}",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "padding-block-start": 40,
-        "padding-block-end": 64
+        "heading": "Please proceed with your enquiry.",
+        "heading_size": "h1",
+        "color_scheme": "",
+        "label_brochure": "Request brochure",
+        "label_appointment": "Book appointment",
+        "label_callback": "Request callback",
+        "label_message": "Leave a message",
+        "title_options": "Mr.,Mrs.,Ms.,Mx.,Dr.,Prof.,Other",
+        "brochure_url": "",
+        "terms_url": "",
+        "privacy_url": "",
+        "submit_label": "Submit",
+        "showroom_address": "Via Andegari, 4, 20121 Milano, Italy",
+        "showroom_lat": "45.468492",
+        "showroom_lng": "9.189679",
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     },
     "ms_image": {
-      "type": "hero",
+      "type": "ms-hero",
       "name": "Photography",
+      "settings": {
+        "image": "shopify://shop_images/giotto_SANGALGANO.jpg",
+        "height": "medium",
+        "align": "left",
+        "position": "bottom",
+        "veil": 70,
+        "loading": "lazy",
+        "fetchpriority": "auto",
+        "eyebrow": "Made in Italy",
+        "heading": "Two artisans, one bed, start to finish.",
+        "heading_size": "h3",
+        "text": "",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "primary",
+        "button_panel": false,
+        "note": ""
+      }
+    },
+    "ms_atelier": {
+      "type": "ms-split",
+      "name": "Book an appointment",
+      "settings": {
+        "tone": "dark",
+        "text_align": "left",
+        "first_width": 50,
+        "image_position": "right",
+        "image_ratio": "natural",
+        "image_caption": "",
+        "image_link": "",
+        "padding_top": 120,
+        "padding_bottom": 120
+      },
       "blocks": {
-        "eyebrow": {
-          "type": "text",
+        "a_0": {
+          "type": "eyebrow",
           "settings": {
-            "text": "<p>Made in Italy</p>",
-            "width": "100%",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h6",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "uppercase",
-            "wrap": "pretty",
-            "text_color": "{{ settings.color_palette.background }}",
-            "background": false,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "text": "Not on the map",
+            "rule": false,
+            "column": "first"
+          }
         },
-        "heading": {
+        "a_1": {
+          "type": "heading",
+          "settings": {
+            "text": "Then we come to you.",
+            "size": "h2",
+            "column": "first"
+          }
+        },
+        "b_2": {
           "type": "text",
           "settings": {
-            "text": "<h2>Two artisans, one bed, start to finish.</h2>",
-            "width": "100%",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h3",
-            "line_height": "tight",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "text_color": "{{ settings.color_palette.background }}",
-            "background": false,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "text": "<p>Where there is no agent yet, the atelier handles the enquiry directly — specification by video, fabric samples by post, and white-glove delivery by our own team.</p>",
+            "style": "body",
+            "column": "second"
+          }
+        },
+        "b_btn3": {
+          "type": "buttons",
+          "settings": {
+            "column": "second",
+            "label_1": "Book a private appointment",
+            "link_1": "/pages/contact",
+            "style_1": "primary",
+            "panel_1": true,
+            "label_2": ""
+          }
         }
       },
       "block_order": [
-        "eyebrow",
-        "heading"
-      ],
-      "settings": {
-        "media_type_1": "image",
-        "image_1": "shopify://shop_images/giotto_SANGALGANO.jpg",
-        "media_type_2": "image",
-        "stack_media_on_mobile": false,
-        "custom_mobile_media": false,
-        "media_type_1_mobile": "image",
-        "media_type_2_mobile": "image",
-        "open_in_new_tab": false,
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "flex-end",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "flex-end",
-        "gap": 14,
-        "section_width": "full-width",
-        "section_height": "medium",
-        "section_height_custom": 60,
-        "background_color": "{{ settings.color_palette.foreground }}",
-        "toggle_overlay": true,
-        "overlay_color": "#0A080680",
-        "overlay_style": "gradient",
-        "gradient_direction": "to top",
-        "blurred_reflection": false,
-        "reflection_opacity": 75,
-        "padding-block-start": 0,
-        "padding-block-end": 64
-      }
+        "a_0",
+        "a_1",
+        "b_2",
+        "b_btn3"
+      ]
     }
   },
   "order": [
-    "ms_head",
-    "ms_map",
+    "store_locator_map_87qx4Q",
+    "main",
+    "enquire_tabs_zpybEp",
     "ms_image",
-    "ms_atelier",
-    "ms_note"
+    "ms_atelier"
   ]
 }

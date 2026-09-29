@@ -132,7 +132,7 @@
       <span class="ms-dim__rule" aria-hidden="true"></span>
       <div class="ms-dim__footnote">{{ section.settings.footnote }}</div>
       {%- if section.settings.link != blank and section.settings.link_label != blank -%}
-        <a class="ms-dim__cta" href="{{ section.settings.link }}" {% if section.settings.open_panel %}data-ms-enquiry{% endif %}>
+        <a class="ms-dim__cta" href="{{ section.settings.link }}" {% if section.settings.open_panel %}data-enquire-open{% endif %}>
           {{ section.settings.link_label }}
         </a>
       {%- endif -%}
@@ -214,7 +214,7 @@
     border-radius: 0;
     padding: 0 0 4px;
     cursor: pointer;
-    font-family: var(--font-heading--family);
+    font-family: var(--font-heading-family);
     font-size: clamp(14px, 1.4vw, 17px);
     line-height: 1.3;
     white-space: nowrap;
@@ -274,7 +274,7 @@
     border-color: var(--ms-dim-ink);
   }
   .ms-dim__plan-name {
-    font-family: var(--font-heading--family);
+    font-family: var(--font-heading-family);
     font-size: clamp(14px, 1.4vw, 17px);
     line-height: 1.25;
     color: var(--ms-dim-muted);
@@ -293,7 +293,7 @@
   .ms-dim__readout { text-align: right; }
   .ms-dim__readout-name {
     display: block;
-    font-family: var(--font-heading--family);
+    font-family: var(--font-heading-family);
     font-size: clamp(19px, 2.2vw, 27px);
     line-height: 1.2;
   }
@@ -327,7 +327,7 @@
   }
   .ms-dim__title {
     margin: 18px 0 0;
-    font-family: var(--font-heading--family);
+    font-family: var(--font-heading-family);
     font-weight: 200;
     font-size: clamp(26px, 3.2vw, 44px);
     line-height: 1.08;
@@ -365,7 +365,7 @@
     color: var(--ms-dim-muted);
   }
   .ms-dim__name {
-    font-family: var(--font-heading--family);
+    font-family: var(--font-heading-family);
     font-size: clamp(16px, 1.6vw, 20px);
     line-height: 1.3;
     color: var(--ms-dim-ink);
@@ -374,7 +374,7 @@
     display: flex;
     align-items: baseline;
     gap: 2px;
-    font-family: var(--font-heading--family);
+    font-family: var(--font-heading-family);
     font-size: clamp(16px, 1.6vw, 20px);
     line-height: 1.3;
     color: var(--ms-dim-ink);

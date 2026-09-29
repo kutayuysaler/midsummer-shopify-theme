@@ -1,806 +1,176 @@
 /*
- * ------------------------------------------------------------
- * Midsummer Milano — customised for the Atelier theme.
- * Generated from the approved UX preview. Safe to replace the
- * matching file in the theme export before upload.
- * ------------------------------------------------------------
+ * Midsummer Milano — built on the live Dawn theme.
+ * Design sections: ms-hero, ms-split, ms-cards and the ms-* specialist sections.
  */
 {
   "sections": {
-    "ms_head": {
-      "type": "section",
-      "name": "t:names.heading",
-      "blocks": {
-        "eyebrow": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Contact</p>",
-            "width": "100%",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h6",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "uppercase",
-            "wrap": "pretty",
-            "text_color": "{{ settings.color_palette.color1 }}",
-            "background": false,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "title": {
-          "type": "text",
-          "settings": {
-            "text": "<h1>Please proceed with your enquiry.</h1>",
-            "width": "100%",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h1",
-            "line_height": "tight",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "background": false,
-            "padding-block-start": 20,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "intro": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Tell us how you sleep and what the room asks for. We reply to every enquiry from the atelier, by email, within one working day.</p>",
-            "width": "100%",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "paragraph",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "background": false,
-            "padding-block-start": 26,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "eyebrow",
-        "title",
-        "intro"
-      ],
+    "main": {
+      "type": "main-page",
       "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "flex-start",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "flex-start",
-        "gap": 0,
-        "section_width": "page-width",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "background_color": "{{ settings.color_palette.background }}",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "padding-block-start": 120,
-        "padding-block-end": 64
+        "padding_top": 36,
+        "padding_bottom": 0
       }
     },
-    "ms_form": {
-      "type": "section",
-      "name": "Enquiry form",
-      "blocks": {
-        "form": {
-          "type": "contact-form",
-          "name": "t:names.contact_form",
-          "settings": {
-            "width": "custom",
-            "custom_width": 54,
-            "width_mobile": "custom",
-            "custom_width_mobile": 100,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "submit-button": {
-              "type": "contact-form-submit-button",
-              "static": true,
-              "settings": {
-                "label": "Send enquiry",
-                "style_class": "button",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": []
-        },
-        "details": {
-          "type": "group",
-          "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "flex-start",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "flex-start",
-            "gap": 0,
-            "width": "custom",
-            "custom_width": 36,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "open_in_new_tab": false,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "rule": {
-              "type": "_divider",
-              "name": "t:names.divider",
-              "settings": {
-                "thickness": 1,
-                "divider_color": "{{ settings.color_palette.color2 }}",
-                "corner_radius": "square",
-                "width_percent": 100,
-                "padding-block-start": 0,
-                "padding-block-end": 26
-              },
-              "blocks": {}
-            },
-            "addrLabel": {
-              "type": "text",
-              "settings": {
-                "text": "<p>The atelier</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h6",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "uppercase",
-                "wrap": "pretty",
-                "text_color": "{{ settings.color_palette.color1 }}",
-                "background": false,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "addr": {
-              "type": "text",
-              "settings": {
-                "text": "<p>Via Andegari 4<br/>20121 Milano, Italia</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "paragraph",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "padding-block-start": 10,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "hoursLabel": {
-              "type": "text",
-              "settings": {
-                "text": "<p>Appointments</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h6",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "uppercase",
-                "wrap": "pretty",
-                "text_color": "{{ settings.color_palette.color1 }}",
-                "background": false,
-                "padding-block-start": 30,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "hours": {
-              "type": "text",
-              "settings": {
-                "text": "<p>Monday to Friday<br/>09:00–12:00 and 13:00–18:00<br/>Or by video, on request.</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "paragraph",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "padding-block-start": 10,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "reachLabel": {
-              "type": "text",
-              "settings": {
-                "text": "<p>Direct</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h6",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "uppercase",
-                "wrap": "pretty",
-                "text_color": "{{ settings.color_palette.color1 }}",
-                "background": false,
-                "padding-block-start": 30,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "reach": {
-              "type": "text",
-              "settings": {
-                "text": "<p>info@midsummer-milano.com</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "paragraph",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "padding-block-start": 10,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "tradeLabel": {
-              "type": "text",
-              "settings": {
-                "text": "<p>Professionals</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h6",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "uppercase",
-                "wrap": "pretty",
-                "text_color": "{{ settings.color_palette.color1 }}",
-                "background": false,
-                "padding-block-start": 30,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "trade": {
-              "type": "text",
-              "settings": {
-                "text": "<p>Architects, interior designers and contract enquiries are handled by the project desk. Please say so in your message and we will route it there.</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "paragraph",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "padding-block-start": 10,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "rule",
-            "addrLabel",
-            "addr",
-            "hoursLabel",
-            "hours",
-            "reachLabel",
-            "reach",
-            "tradeLabel",
-            "trade"
-          ]
-        }
-      },
-      "block_order": [
-        "form",
-        "details"
-      ],
+    "enquire_tabs_8KmLA6": {
+      "type": "enquire-tabs",
+      "name": "Enquire – in-page tabs",
       "settings": {
-        "content_direction": "row",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "space-between",
-        "vertical_alignment": "flex-start",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "flex-start",
-        "gap": 88,
-        "section_width": "page-width",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "background_color": "{{ settings.color_palette.background }}",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "padding-block-start": 0,
-        "padding-block-end": 120
+        "heading": "For your enquiries, please proceed below.",
+        "heading_size": "h2",
+        "color_scheme": "",
+        "label_brochure": "Request brochure",
+        "label_appointment": "Book appointment",
+        "label_callback": "Request callback",
+        "label_message": "Leave a message",
+        "title_options": "Mr.,Mrs.,Ms.,Mx.,Dr.,Prof.,Other",
+        "brochure_url": "https://cdn.shopify.com/s/files/1/0697/8829/files/Midsummer-Milano_Brochure.pdf?v=1733221759",
+        "terms_url": "shopify://pages/terms-and-conditions",
+        "privacy_url": "shopify://pages/privacy-and-legal",
+        "submit_label": "Submit",
+        "showroom_address": "Via Andegari, 4, 20121 Milano, Italy",
+        "showroom_lat": "45.468492",
+        "showroom_lng": "9.189679",
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     },
-    "ms_quiz": {
-      "type": "section",
-      "name": "Find your Midsummer",
-      "blocks": {
-        "left": {
-          "type": "group",
-          "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "flex-start",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "flex-start",
-            "gap": 0,
-            "width": "custom",
-            "custom_width": 50,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "open_in_new_tab": false,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "eyebrow": {
-              "type": "text",
-              "settings": {
-                "text": "<p>Not ready to write?</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h6",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "uppercase",
-                "wrap": "pretty",
-                "text_color": "{{ settings.color_palette.color1 }}",
-                "background": false,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "title": {
-              "type": "text",
-              "settings": {
-                "text": "<h2>Answer five questions instead.</h2>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h3",
-                "line_height": "tight",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "padding-block-start": 16,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "eyebrow",
-            "title"
-          ]
-        },
-        "right": {
-          "type": "group",
-          "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "flex-start",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "flex-end",
-            "gap": 22,
-            "width": "custom",
-            "custom_width": 42,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "open_in_new_tab": false,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "body": {
-              "type": "text",
-              "settings": {
-                "text": "<p>Tell us how you sleep, where you sleep and what the room asks for. We will name the system we would build for you.</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "paragraph",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "cta": {
-              "type": "button",
-              "settings": {
-                "label": "Find your Midsummer",
-                "link": "/pages/find-your-midsummer",
-                "open_in_new_tab": false,
-                "style_class": "button-secondary",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "body",
-            "cta"
-          ]
-        }
-      },
-      "block_order": [
-        "left",
-        "right"
-      ],
+    "form": {
+      "type": "contact-form",
+      "disabled": true,
       "settings": {
-        "content_direction": "row",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "space-between",
-        "vertical_alignment": "flex-end",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "flex-start",
-        "gap": 64,
-        "section_width": "page-width",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "background_color": "{{ settings.color_palette.color2 }}",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "padding-block-start": 96,
-        "padding-block-end": 96
+        "heading": "Get in Touch",
+        "heading_size": "h1",
+        "color_scheme": "scheme-1",
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     },
     "ms_pair": {
-      "type": "section",
+      "type": "ms-cards",
       "name": "Photography",
+      "settings": {
+        "tone": "ivory",
+        "head_rule": false,
+        "eyebrow": "",
+        "heading": "",
+        "heading_size": "h2",
+        "intro": "",
+        "head_layout": "stacked",
+        "head_link_label": "",
+        "head_link": "",
+        "columns": "2",
+        "image_ratio": "natural",
+        "title_size": "h3",
+        "card_rule": false,
+        "card_align": "left",
+        "button_label": "",
+        "button_link": "",
+        "button_panel": false,
+        "padding_top": 96,
+        "padding_bottom": 96
+      },
       "blocks": {
-        "left": {
-          "type": "group",
+        "card_1": {
+          "type": "card",
           "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "flex-start",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "flex-start",
-            "gap": 14,
-            "width": "custom",
-            "custom_width": 50,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "open_in_new_tab": false,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "img": {
-              "type": "image",
-              "settings": {
-                "image": "shopify://shop_images/Paisleydettaglio.jpg",
-                "link": "",
-                "image_ratio": "portrait",
-                "width": "fill",
-                "custom_width": 100,
-                "width_mobile": "fill",
-                "custom_width_mobile": 100,
-                "height": "fit",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "cap": {
-              "type": "text",
-              "settings": {
-                "text": "<p><em>Via Andegari 4, Milano.</em></p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "custom",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "text_color": "#6E675C",
-                "background": false,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0,
-                "font": "var(--font-heading--family)",
-                "font_size": "1rem"
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "img",
-            "cap"
-          ]
+            "icon": "none",
+            "numeral": "",
+            "eyebrow": "",
+            "title": "",
+            "tagline": "",
+            "text": "<p>Via Andegari 4, Milano.</p>",
+            "text_style": "caption",
+            "link": "",
+            "link_label": "",
+            "open_panel": false,
+            "image": "shopify://shop_images/Paisleydettaglio.jpg"
+          }
         },
-        "right": {
-          "type": "group",
+        "card_2": {
+          "type": "card",
           "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "flex-start",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "flex-start",
-            "gap": 14,
-            "width": "custom",
-            "custom_width": 50,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "open_in_new_tab": false,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "img": {
-              "type": "image",
-              "settings": {
-                "image": "shopify://shop_images/giotto_SANGALGANO.jpg",
-                "link": "",
-                "image_ratio": "portrait",
-                "width": "fill",
-                "custom_width": 100,
-                "width_mobile": "fill",
-                "custom_width_mobile": 100,
-                "height": "fit",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "cap": {
-              "type": "text",
-              "settings": {
-                "text": "<p><em>The systems are made by hand, in Italy.</em></p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "custom",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "text_color": "#6E675C",
-                "background": false,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0,
-                "font": "var(--font-heading--family)",
-                "font_size": "1rem"
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "img",
-            "cap"
-          ]
+            "icon": "none",
+            "numeral": "",
+            "eyebrow": "",
+            "title": "",
+            "tagline": "",
+            "text": "<p>The systems are made by hand, in Italy.</p>",
+            "text_style": "caption",
+            "link": "",
+            "link_label": "",
+            "open_panel": false,
+            "image": "shopify://shop_images/giotto_SANGALGANO.jpg"
+          }
         }
       },
       "block_order": [
-        "left",
-        "right"
-      ],
+        "card_1",
+        "card_2"
+      ]
+    },
+    "ms_quiz": {
+      "type": "ms-split",
+      "name": "Find your Midsummer",
       "settings": {
-        "content_direction": "row",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "space-between",
-        "vertical_alignment": "flex-start",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "flex-start",
-        "gap": 48,
-        "section_width": "page-width",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "background_color": "{{ settings.color_palette.background }}",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "padding-block-start": 96,
-        "padding-block-end": 96
-      }
+        "tone": "stone",
+        "text_align": "left",
+        "first_width": 50,
+        "image_position": "right",
+        "image_ratio": "natural",
+        "image_caption": "",
+        "image_link": "",
+        "padding_top": 96,
+        "padding_bottom": 96
+      },
+      "blocks": {
+        "a_0": {
+          "type": "eyebrow",
+          "settings": {
+            "text": "Not ready to write?",
+            "rule": false,
+            "column": "first"
+          }
+        },
+        "a_1": {
+          "type": "heading",
+          "settings": {
+            "text": "Answer five questions instead.",
+            "size": "h3",
+            "column": "first"
+          }
+        },
+        "b_2": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Tell us how you sleep, where you sleep and what the room asks for. We will name the system we would build for you.</p>",
+            "style": "body",
+            "column": "second"
+          }
+        },
+        "b_btn3": {
+          "type": "buttons",
+          "settings": {
+            "column": "second",
+            "label_1": "Find your Midsummer",
+            "link_1": "/pages/find-your-midsummer",
+            "style_1": "secondary",
+            "panel_1": false,
+            "label_2": ""
+          }
+        }
+      },
+      "block_order": [
+        "a_0",
+        "a_1",
+        "b_2",
+        "b_btn3"
+      ]
     }
   },
   "order": [
-    "ms_head",
-    "ms_form",
+    "main",
+    "enquire_tabs_8KmLA6",
+    "form",
     "ms_pair",
     "ms_quiz"
   ]

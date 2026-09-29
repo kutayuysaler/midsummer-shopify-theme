@@ -1,0 +1,238 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "custom_liquid_YFiWXQ": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "settings": {
+        "custom_liquid": "",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "popup_9nEQxG": {
+          "type": "popup",
+          "disabled": true,
+          "settings": {
+            "text": "Back to Products",
+            "page": ""
+          }
+        },
+        "vendor": {
+          "type": "text",
+          "settings": {
+            "text": "{{ product.vendor }}",
+            "text_style": "uppercase"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        },
+        "icon_with_text_nfL8gE": {
+          "type": "icon-with-text",
+          "settings": {
+            "layout": "horizontal",
+            "icon_1": "heart",
+            "image_1": "shopify://shop_images/alpaca_0e64aea1-1a58-4fbc-a670-2ec761ad2229.png",
+            "heading_1": "Baby Alpaca",
+            "icon_2": "return",
+            "image_2": "shopify://shop_images/horse.png",
+            "heading_2": "Horsehair",
+            "icon_3": "truck",
+            "heading_3": ""
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "none"
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "collapsible_tab_Vz79fK": {
+          "type": "collapsible_tab",
+          "disabled": true,
+          "settings": {
+            "heading": "Size Guide",
+            "icon": "ruler",
+            "content": "<h3><strong>Height 25cm:</strong></h3><h4>Single <strong>100x200x25</strong>cm</h4><h4>Queen <strong>153x203x25</strong>cm</h4><h4>Small Double <strong>160x200x25</strong>cm</h4><h4>Double <strong>180x200x25</strong>cm</h4><h4>King <strong>193x203x25</strong>cm</h4><h4>Double Extra <strong>200x200x25</strong>cm</h4><h4></h4><h4></h4><h3><strong>Height 30cm:</strong></h3><h4>Single <strong>100x200x30</strong>cm</h4><h4>Queen <strong>153x203x30</strong>cm</h4><h4>Small Double <strong>160x200x30</strong>cm</h4><h4>Double <strong>180x200x30</strong>cm</h4><h4>King <strong>193x203x30</strong>cm</h4><h4>Double Extra <strong>200x200x30</strong>cm</h4>",
+            "page": ""
+          }
+        },
+        "collapsible_tab_qQ7yqk": {
+          "type": "collapsible_tab",
+          "disabled": true,
+          "settings": {
+            "heading": "Composition",
+            "icon": "leather",
+            "content": "<h4>Height 25cm consists of single-layer pocket spring</h4><h4>Height 30cm consists of 3-layer pocket springs</h4>",
+            "page": ""
+          }
+        },
+        "collapsible_tab_gMEdJF": {
+          "type": "collapsible_tab",
+          "disabled": true,
+          "settings": {
+            "heading": "Fittings",
+            "icon": "check_mark",
+            "content": "<h4>Three/four rows side stitching</h4><h4>Edged with ribbon</h4><h4>Air-vents</h4><h4>Midsummer pink logo handles</h4>",
+            "page": ""
+          }
+        },
+        "icon_with_text_3QhQTx": {
+          "type": "icon-with-text",
+          "settings": {
+            "layout": "horizontal",
+            "icon_1": "stopwatch",
+            "heading_1": "Midsummer offers a free check-up of your product after 15 years of usage.",
+            "icon_2": "chat_bubble",
+            "heading_2": "Midsummer offers size customization upon request.",
+            "icon_3": "plant",
+            "heading_3": "This product satisfies Midsummer's fine sustainability standards."
+          }
+        }
+      },
+      "block_order": [
+        "popup_9nEQxG",
+        "vendor",
+        "title",
+        "share",
+        "icon_with_text_nfL8gE",
+        "variant_picker",
+        "description",
+        "collapsible_tab_Vz79fK",
+        "collapsible_tab_qQ7yqk",
+        "collapsible_tab_gMEdJF",
+        "icon_with_text_3QhQTx"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-1",
+        "media_size": "medium",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "thumbnail_slider",
+        "media_position": "left",
+        "image_zoom": "hover",
+        "mobile_thumbnails": "show",
+        "hide_variants": true,
+        "enable_video_looping": true,
+        "expose_price_sd": false,
+        "padding_top": 36,
+        "padding_bottom": 12
+      }
+    },
+    "contact_form_DdNCYC": {
+      "type": "contact-form",
+      "disabled": true,
+      "settings": {
+        "heading": "Contact Midsummer",
+        "heading_size": "h2",
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "enquire_tabs_b87iaE": {
+      "type": "enquire-tabs",
+      "name": "Enquire – in-page tabs",
+      "settings": {
+        "heading": "Interested? Get in contact with Midsummer.",
+        "heading_size": "h2",
+        "color_scheme": "",
+        "label_brochure": "Request brochure",
+        "label_appointment": "Book appointment",
+        "label_callback": "Request callback",
+        "label_message": "Leave a message",
+        "title_options": "Mr.,Mrs.,Ms.,Mx.,Dr.,Prof.,Other",
+        "brochure_url": "https://cdn.shopify.com/s/files/1/0697/8829/files/Midsummer-Milano_Brochure.pdf?v=1733221759",
+        "terms_url": "shopify://pages/terms-and-conditions",
+        "privacy_url": "shopify://pages/privacy-and-legal",
+        "submit_label": "Submit",
+        "showroom_address": "Via Andegari, 4, 20121 Milano, Italy",
+        "showroom_lat": "45.468492",
+        "showroom_lng": "9.189679",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "featured_collection_UqEXqN": {
+      "type": "featured-collection",
+      "disabled": true,
+      "settings": {
+        "title": "Featured collection",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "gallery-furniture",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "enable_desktop_slider": false,
+        "color_scheme": "",
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {
+        "heading": "You may also like",
+        "heading_size": "h2",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "color_scheme": "scheme-1",
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "columns_mobile": "2",
+        "padding_top": 36,
+        "padding_bottom": 28
+      }
+    }
+  },
+  "order": [
+    "custom_liquid_YFiWXQ",
+    "main",
+    "contact_form_DdNCYC",
+    "enquire_tabs_b87iaE",
+    "featured_collection_UqEXqN",
+    "related-products"
+  ]
+}

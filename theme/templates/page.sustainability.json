@@ -1,1296 +1,347 @@
 /*
- * ------------------------------------------------------------
- * Midsummer Milano — customised for the Atelier theme.
- * Generated from the approved UX preview. Safe to replace the
- * matching file in the theme export before upload.
- * ------------------------------------------------------------
+ * Midsummer Milano — built on the live Dawn theme.
+ * Design sections: ms-hero, ms-split, ms-cards and the ms-* specialist sections.
  */
 {
   "sections": {
     "ms_hero": {
-      "type": "section",
-      "name": "t:names.heading",
+      "type": "ms-split",
+      "settings": {
+        "tone": "ivory",
+        "text_align": "left",
+        "first_width": 50,
+        "image_position": "right",
+        "image_ratio": "natural",
+        "image_caption": "",
+        "image_link": "",
+        "padding_top": 120,
+        "padding_bottom": 64
+      },
       "blocks": {
-        "eyebrow": {
-          "type": "text",
+        "a_0": {
+          "type": "eyebrow",
           "settings": {
-            "text": "<p>Sustainability</p>",
-            "width": "100%",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h6",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "uppercase",
-            "wrap": "pretty",
-            "text_color": "{{ settings.color_palette.color1 }}",
-            "background": false,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "text": "Sustainability",
+            "rule": false,
+            "column": "first"
+          }
         },
-        "title": {
-          "type": "text",
+        "a_1": {
+          "type": "heading",
           "settings": {
-            "text": "<h1>Luxury without waste.</h1>",
-            "width": "100%",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h1",
-            "line_height": "tight",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "background": false,
-            "padding-block-start": 20,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "text": "Luxury without waste.",
+            "size": "h1",
+            "column": "first"
+          }
         },
-        "lede": {
-          "type": "text",
+        "a_2": {
+          "type": "heading",
           "settings": {
-            "text": "<p>A bed that lasts thirty years is not a green claim, it is arithmetic. Everything below is a description of how these beds are made, not a policy.</p>",
-            "width": "100%",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h5",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "background": false,
-            "padding-block-start": 28,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "text": "A bed that lasts thirty years is not a green claim, it is arithmetic. Everything below is a description of how these beds are made, not a policy.",
+            "size": "h4",
+            "column": "first"
+          }
         }
       },
       "block_order": [
-        "eyebrow",
-        "title",
-        "lede"
-      ],
-      "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "flex-start",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "flex-start",
-        "gap": 0,
-        "section_width": "page-width",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "background_color": "{{ settings.color_palette.background }}",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "padding-block-start": 120,
-        "padding-block-end": 64
-      }
+        "a_0",
+        "a_1",
+        "a_2"
+      ]
     },
     "ms_pillars": {
-      "type": "section",
+      "type": "ms-cards",
       "name": "Four pillars",
+      "settings": {
+        "tone": "ivory",
+        "head_rule": false,
+        "eyebrow": "",
+        "heading": "",
+        "heading_size": "h2",
+        "intro": "",
+        "head_layout": "stacked",
+        "head_link_label": "",
+        "head_link": "",
+        "columns": "4",
+        "image_ratio": "portrait",
+        "title_size": "h3",
+        "card_rule": true,
+        "card_align": "left",
+        "button_label": "",
+        "button_link": "",
+        "button_panel": false,
+        "padding_top": 0,
+        "padding_bottom": 120
+      },
       "blocks": {
-        "grid": {
-          "type": "group",
+        "card_1": {
+          "type": "card",
           "settings": {
-            "content_direction": "row",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "flex-start",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "flex-start",
-            "gap": 48,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "open_in_new_tab": false,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "p_1": {
-              "type": "group",
-              "name": "Natural materials",
-              "settings": {
-                "content_direction": "column",
-                "vertical_on_mobile": true,
-                "horizontal_alignment": "flex-start",
-                "vertical_alignment": "flex-start",
-                "align_baseline": false,
-                "horizontal_alignment_flex_direction_column": "flex-start",
-                "vertical_alignment_flex_direction_column": "flex-start",
-                "gap": 0,
-                "width": "fill",
-                "custom_width": 100,
-                "width_mobile": "fill",
-                "custom_width_mobile": 100,
-                "height": "fit",
-                "custom_height": 100,
-                "background_media": "none",
-                "video_position": "cover",
-                "background_image_position": "cover",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "toggle_overlay": false,
-                "overlay_color": "#00000026",
-                "overlay_style": "solid",
-                "gradient_direction": "to top",
-                "open_in_new_tab": false,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {
-                "rule": {
-                  "type": "_divider",
-                  "name": "t:names.divider",
-                  "settings": {
-                    "thickness": 1,
-                    "divider_color": "{{ settings.color_palette.foreground }}",
-                    "corner_radius": "square",
-                    "width_percent": 100,
-                    "padding-block-start": 0,
-                    "padding-block-end": 20
-                  },
-                  "blocks": {}
-                },
-                "icon": {
-                  "type": "icon",
-                  "name": "t:names.icon",
-                  "settings": {
-                    "icon": "leaf",
-                    "width": 22,
-                    "icon_color": "#7E623B"
-                  },
-                  "blocks": {}
-                },
-                "title": {
-                  "type": "text",
-                  "settings": {
-                    "text": "<h3>Natural materials</h3>",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "h3",
-                    "line_height": "tight",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "background": false,
-                    "padding-block-start": 16,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                },
-                "body": {
-                  "type": "text",
-                  "settings": {
-                    "text": "<p>Baby alpaca, Cheviot wool, horsehair, vegetable horsehair, yak, mohair, cashmere, silk, linen, organic cotton and Orange Fiber. Fibres that were grown rather than extruded, and that can be carded, washed and laid again.</p>",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "paragraph",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "background": false,
-                    "padding-block-start": 14,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "rule",
-                "icon",
-                "title",
-                "body"
-              ]
-            },
-            "p_2": {
-              "type": "group",
-              "name": "Handmade production",
-              "settings": {
-                "content_direction": "column",
-                "vertical_on_mobile": true,
-                "horizontal_alignment": "flex-start",
-                "vertical_alignment": "flex-start",
-                "align_baseline": false,
-                "horizontal_alignment_flex_direction_column": "flex-start",
-                "vertical_alignment_flex_direction_column": "flex-start",
-                "gap": 0,
-                "width": "fill",
-                "custom_width": 100,
-                "width_mobile": "fill",
-                "custom_width_mobile": 100,
-                "height": "fit",
-                "custom_height": 100,
-                "background_media": "none",
-                "video_position": "cover",
-                "background_image_position": "cover",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "toggle_overlay": false,
-                "overlay_color": "#00000026",
-                "overlay_style": "solid",
-                "gradient_direction": "to top",
-                "open_in_new_tab": false,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {
-                "rule": {
-                  "type": "_divider",
-                  "name": "t:names.divider",
-                  "settings": {
-                    "thickness": 1,
-                    "divider_color": "{{ settings.color_palette.foreground }}",
-                    "corner_radius": "square",
-                    "width_percent": 100,
-                    "padding-block-start": 0,
-                    "padding-block-end": 20
-                  },
-                  "blocks": {}
-                },
-                "icon": {
-                  "type": "icon",
-                  "name": "t:names.icon",
-                  "settings": {
-                    "icon": "hand",
-                    "width": 22,
-                    "icon_color": "#7E623B"
-                  },
-                  "blocks": {}
-                },
-                "title": {
-                  "type": "text",
-                  "settings": {
-                    "text": "<h3>Handmade production</h3>",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "h3",
-                    "line_height": "tight",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "background": false,
-                    "padding-block-start": 16,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                },
-                "body": {
-                  "type": "text",
-                  "settings": {
-                    "text": "<p>Two artisans build each system start to finish, in Italy. No line, no tooling to amortise, no minimum run. A bed is made when it is ordered, which is why there is nothing to discount and nothing to clear.</p>",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "paragraph",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "background": false,
-                    "padding-block-start": 14,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "rule",
-                "icon",
-                "title",
-                "body"
-              ]
-            },
-            "p_3": {
-              "type": "group",
-              "name": "Repairability",
-              "settings": {
-                "content_direction": "column",
-                "vertical_on_mobile": true,
-                "horizontal_alignment": "flex-start",
-                "vertical_alignment": "flex-start",
-                "align_baseline": false,
-                "horizontal_alignment_flex_direction_column": "flex-start",
-                "vertical_alignment_flex_direction_column": "flex-start",
-                "gap": 0,
-                "width": "fill",
-                "custom_width": 100,
-                "width_mobile": "fill",
-                "custom_width_mobile": 100,
-                "height": "fit",
-                "custom_height": 100,
-                "background_media": "none",
-                "video_position": "cover",
-                "background_image_position": "cover",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "toggle_overlay": false,
-                "overlay_color": "#00000026",
-                "overlay_style": "solid",
-                "gradient_direction": "to top",
-                "open_in_new_tab": false,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {
-                "rule": {
-                  "type": "_divider",
-                  "name": "t:names.divider",
-                  "settings": {
-                    "thickness": 1,
-                    "divider_color": "{{ settings.color_palette.foreground }}",
-                    "corner_radius": "square",
-                    "width_percent": 100,
-                    "padding-block-start": 0,
-                    "padding-block-end": 20
-                  },
-                  "blocks": {}
-                },
-                "icon": {
-                  "type": "icon",
-                  "name": "t:names.icon",
-                  "settings": {
-                    "icon": "wrench",
-                    "width": 22,
-                    "icon_color": "#7E623B"
-                  },
-                  "blocks": {}
-                },
-                "title": {
-                  "type": "text",
-                  "settings": {
-                    "text": "<h3>Repairability</h3>",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "h3",
-                    "line_height": "tight",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "background": false,
-                    "padding-block-start": 16,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                },
-                "body": {
-                  "type": "text",
-                  "settings": {
-                    "text": "<p>Every layer is reachable. Fibres can be opened, redistributed and replaced; upholstery can be taken off and remade. A system is a set of serviceable parts, not a sealed unit.</p>",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "paragraph",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "background": false,
-                    "padding-block-start": 14,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "rule",
-                "icon",
-                "title",
-                "body"
-              ]
-            },
-            "p_4": {
-              "type": "group",
-              "name": "15 + 15",
-              "settings": {
-                "content_direction": "column",
-                "vertical_on_mobile": true,
-                "horizontal_alignment": "flex-start",
-                "vertical_alignment": "flex-start",
-                "align_baseline": false,
-                "horizontal_alignment_flex_direction_column": "flex-start",
-                "vertical_alignment_flex_direction_column": "flex-start",
-                "gap": 0,
-                "width": "fill",
-                "custom_width": 100,
-                "width_mobile": "fill",
-                "custom_width_mobile": 100,
-                "height": "fit",
-                "custom_height": 100,
-                "background_media": "none",
-                "video_position": "cover",
-                "background_image_position": "cover",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "toggle_overlay": false,
-                "overlay_color": "#00000026",
-                "overlay_style": "solid",
-                "gradient_direction": "to top",
-                "open_in_new_tab": false,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {
-                "rule": {
-                  "type": "_divider",
-                  "name": "t:names.divider",
-                  "settings": {
-                    "thickness": 1,
-                    "divider_color": "{{ settings.color_palette.foreground }}",
-                    "corner_radius": "square",
-                    "width_percent": 100,
-                    "padding-block-start": 0,
-                    "padding-block-end": 20
-                  },
-                  "blocks": {}
-                },
-                "icon": {
-                  "type": "icon",
-                  "name": "t:names.icon",
-                  "settings": {
-                    "icon": "recycle",
-                    "width": 22,
-                    "icon_color": "#7E623B"
-                  },
-                  "blocks": {}
-                },
-                "title": {
-                  "type": "text",
-                  "settings": {
-                    "text": "<h3>15 + 15</h3>",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "h3",
-                    "line_height": "tight",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "background": false,
-                    "padding-block-start": 16,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                },
-                "body": {
-                  "type": "text",
-                  "settings": {
-                    "text": "<p>At year fifteen the mattress returns to the artisans who made it and its comfort, integrity and life are restored for the fifteen years ahead. The alternative — replacement — is the thing this service exists to avoid.</p>",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "paragraph",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "background": false,
-                    "padding-block-start": 14,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "rule",
-                "icon",
-                "title",
-                "body"
-              ]
-            }
-          },
-          "block_order": [
-            "p_1",
-            "p_2",
-            "p_3",
-            "p_4"
-          ]
+            "icon": "leaf",
+            "numeral": "",
+            "eyebrow": "",
+            "title": "Natural materials",
+            "tagline": "",
+            "text": "<p>Baby alpaca, Cheviot wool, horsehair, vegetable horsehair, yak, mohair, cashmere, silk, linen, organic cotton and Orange Fiber. Fibres that were grown rather than extruded, and that can be carded, washed and laid again.</p>",
+            "text_style": "body",
+            "link": "",
+            "link_label": "",
+            "open_panel": false
+          }
+        },
+        "card_2": {
+          "type": "card",
+          "settings": {
+            "icon": "hand",
+            "numeral": "",
+            "eyebrow": "",
+            "title": "Handmade production",
+            "tagline": "",
+            "text": "<p>Two artisans build each system start to finish, in Italy. No line, no tooling to amortise, no minimum run. A bed is made when it is ordered, which is why there is nothing to discount and nothing to clear.</p>",
+            "text_style": "body",
+            "link": "",
+            "link_label": "",
+            "open_panel": false
+          }
+        },
+        "card_3": {
+          "type": "card",
+          "settings": {
+            "icon": "wrench",
+            "numeral": "",
+            "eyebrow": "",
+            "title": "Repairability",
+            "tagline": "",
+            "text": "<p>Every layer is reachable. Fibres can be opened, redistributed and replaced; upholstery can be taken off and remade. A system is a set of serviceable parts, not a sealed unit.</p>",
+            "text_style": "body",
+            "link": "",
+            "link_label": "",
+            "open_panel": false
+          }
+        },
+        "card_4": {
+          "type": "card",
+          "settings": {
+            "icon": "recycle",
+            "numeral": "",
+            "eyebrow": "",
+            "title": "15 + 15",
+            "tagline": "",
+            "text": "<p>At year fifteen the mattress returns to the artisans who made it and its comfort, integrity and life are restored for the fifteen years ahead. The alternative — replacement — is the thing this service exists to avoid.</p>",
+            "text_style": "body",
+            "link": "",
+            "link_label": "",
+            "open_panel": false
+          }
         }
       },
       "block_order": [
-        "grid"
-      ],
+        "card_1",
+        "card_2",
+        "card_3",
+        "card_4"
+      ]
+    },
+    "ms_pair": {
+      "type": "ms-cards",
+      "name": "Photography",
       "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "flex-start",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "flex-start",
-        "gap": 0,
-        "section_width": "page-width",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "background_color": "{{ settings.color_palette.background }}",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "padding-block-start": 0,
-        "padding-block-end": 120
-      }
+        "tone": "ivory",
+        "head_rule": false,
+        "eyebrow": "",
+        "heading": "",
+        "heading_size": "h2",
+        "intro": "",
+        "head_layout": "stacked",
+        "head_link_label": "",
+        "head_link": "",
+        "columns": "2",
+        "image_ratio": "natural",
+        "title_size": "h3",
+        "card_rule": false,
+        "card_align": "left",
+        "button_label": "",
+        "button_link": "",
+        "button_panel": false,
+        "padding_top": 96,
+        "padding_bottom": 96
+      },
+      "blocks": {
+        "card_1": {
+          "type": "card",
+          "settings": {
+            "icon": "none",
+            "numeral": "",
+            "eyebrow": "",
+            "title": "",
+            "tagline": "",
+            "text": "<p>Vicuña, carded and laid by hand.</p>",
+            "text_style": "caption",
+            "link": "",
+            "link_label": "",
+            "open_panel": false,
+            "image": "shopify://shop_images/Vicuna-mattress.jpg"
+          }
+        },
+        "card_2": {
+          "type": "card",
+          "settings": {
+            "icon": "none",
+            "numeral": "",
+            "eyebrow": "",
+            "title": "",
+            "tagline": "",
+            "text": "<p>Upholstery that can be taken off and remade.</p>",
+            "text_style": "caption",
+            "link": "",
+            "link_label": "",
+            "open_panel": false,
+            "image": "shopify://shop_images/Paisley.png"
+          }
+        }
+      },
+      "block_order": [
+        "card_1",
+        "card_2"
+      ]
     },
     "ms_claim": {
-      "type": "section",
+      "type": "ms-split",
       "name": "What we do not say",
+      "settings": {
+        "tone": "dark",
+        "text_align": "left",
+        "first_width": 50,
+        "image_position": "right",
+        "image_ratio": "natural",
+        "image_caption": "",
+        "image_link": "",
+        "padding_top": 120,
+        "padding_bottom": 120
+      },
       "blocks": {
-        "left": {
-          "type": "group",
+        "a_0": {
+          "type": "eyebrow",
           "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "flex-start",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "flex-start",
-            "gap": 0,
-            "width": "custom",
-            "custom_width": 48,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "open_in_new_tab": false,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "eyebrow": {
-              "type": "text",
-              "settings": {
-                "text": "<p>What we do not say</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h6",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "uppercase",
-                "wrap": "pretty",
-                "text_color": "{{ settings.color_palette.background }}",
-                "background": false,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "head": {
-              "type": "text",
-              "settings": {
-                "text": "<h2>No offsets, no certifications we did not earn.</h2>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h2",
-                "line_height": "tight",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "text_color": "{{ settings.color_palette.background }}",
-                "background": false,
-                "padding-block-start": 18,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "eyebrow",
-            "head"
-          ]
+            "text": "What we do not say",
+            "rule": false,
+            "column": "first"
+          }
         },
-        "right": {
-          "type": "group",
+        "a_1": {
+          "type": "heading",
           "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "flex-start",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "flex-end",
-            "gap": 26,
-            "width": "custom",
-            "custom_width": 44,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "open_in_new_tab": false,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "body": {
-              "type": "text",
-              "settings": {
-                "text": "<p>We do not buy carbon credits, and we do not print a badge we cannot explain. What we can account for is the fibre, the hands, the repair and the thirty years. The Top System took the 2025 Green Product Award in Berlin on that basis — plant-based materials, Orange Fiber, and seasonal construction.</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "paragraph",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "text_color": "{{ settings.color_palette.background }}",
-                "background": false,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "cta": {
-              "type": "button",
-              "settings": {
-                "label": "The 15 + 15 service",
-                "link": "/pages/midsummer-milanos-regeneration-service",
-                "open_in_new_tab": false,
-                "style_class": "button-custom",
-                "custom_button_background": "rgba(0,0,0,0)",
-                "custom_button_text": "{{ settings.color_palette.background }}",
-                "custom_button_border": "{{ settings.color_palette.background }}",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "body",
-            "cta"
-          ]
+            "text": "No offsets, no certifications we did not earn.",
+            "size": "h2",
+            "column": "first"
+          }
+        },
+        "b_2": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We do not buy carbon credits, and we do not print a badge we cannot explain. What we can account for is the fibre, the hands, the repair and the thirty years. The Top System took the 2025 Green Product Award in Berlin on that basis — plant-based materials, Orange Fiber, and seasonal construction.</p>",
+            "style": "body",
+            "column": "second"
+          }
+        },
+        "b_btn3": {
+          "type": "buttons",
+          "settings": {
+            "column": "second",
+            "label_1": "The 15 + 15 service",
+            "link_1": "/pages/midsummer-milanos-regeneration-service",
+            "style_1": "primary",
+            "panel_1": false,
+            "label_2": ""
+          }
         }
       },
       "block_order": [
-        "left",
-        "right"
-      ],
+        "a_0",
+        "a_1",
+        "b_2",
+        "b_btn3"
+      ]
+    },
+    "ms_image": {
+      "type": "ms-hero",
+      "name": "Photography",
       "settings": {
-        "content_direction": "row",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "space-between",
-        "vertical_alignment": "flex-end",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "flex-start",
-        "gap": 64,
-        "section_width": "page-width",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "background_color": "{{ settings.color_palette.foreground }}",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "padding-block-start": 120,
-        "padding-block-end": 120
+        "image": "shopify://shop_images/ms-graded-horse.jpg",
+        "height": "medium",
+        "align": "left",
+        "position": "bottom",
+        "veil": 70,
+        "loading": "lazy",
+        "fetchpriority": "auto",
+        "eyebrow": "Materials",
+        "heading": "Fibres that were grown, not extruded.",
+        "heading_size": "h3",
+        "text": "",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "primary",
+        "button_panel": false,
+        "note": ""
       }
     },
     "ms_atelier": {
-      "type": "section",
+      "type": "ms-split",
       "name": "Book an appointment",
-      "blocks": {
-        "left": {
-          "type": "group",
-          "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "flex-start",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "flex-start",
-            "gap": 0,
-            "width": "custom",
-            "custom_width": 48,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "open_in_new_tab": false,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "eyebrow": {
-              "type": "text",
-              "settings": {
-                "text": "<p>The atelier</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h6",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "uppercase",
-                "wrap": "pretty",
-                "text_color": "{{ settings.color_palette.color1 }}",
-                "background": false,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "head": {
-              "type": "text",
-              "settings": {
-                "text": "<h2>Come and lie down.</h2>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h2",
-                "line_height": "tight",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "padding-block-start": 18,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "eyebrow",
-            "head"
-          ]
-        },
-        "right": {
-          "type": "group",
-          "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "flex-start",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "flex-end",
-            "gap": 26,
-            "width": "custom",
-            "custom_width": 44,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "open_in_new_tab": false,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "body": {
-              "type": "text",
-              "settings": {
-                "text": "<p>Via Andegari 4, Milano. By appointment, Monday to Friday, confirmed by email within one working day.</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "paragraph",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "cta": {
-              "type": "button",
-              "settings": {
-                "label": "Book a private appointment",
-                "link": "/pages/contact",
-                "open_in_new_tab": false,
-                "style_class": "button",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "body",
-            "cta"
-          ]
-        }
-      },
-      "block_order": [
-        "left",
-        "right"
-      ],
       "settings": {
-        "content_direction": "row",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "space-between",
-        "vertical_alignment": "flex-end",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "flex-start",
-        "gap": 64,
-        "section_width": "page-width",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "background_color": "{{ settings.color_palette.background }}",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "padding-block-start": 120,
-        "padding-block-end": 120
-      }
-    },
-    "ms_image": {
-      "type": "hero",
-      "name": "Photography",
+        "tone": "ivory",
+        "text_align": "left",
+        "first_width": 50,
+        "image_position": "right",
+        "image_ratio": "natural",
+        "image_caption": "",
+        "image_link": "",
+        "padding_top": 120,
+        "padding_bottom": 120
+      },
       "blocks": {
-        "eyebrow": {
+        "a_0": {
+          "type": "eyebrow",
+          "settings": {
+            "text": "The atelier",
+            "rule": false,
+            "column": "first"
+          }
+        },
+        "a_1": {
+          "type": "heading",
+          "settings": {
+            "text": "Come and lie down.",
+            "size": "h2",
+            "column": "first"
+          }
+        },
+        "b_2": {
           "type": "text",
           "settings": {
-            "text": "<p>Materials</p>",
-            "width": "100%",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h6",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "uppercase",
-            "wrap": "pretty",
-            "text_color": "{{ settings.color_palette.background }}",
-            "background": false,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "text": "<p>Via Andegari 4, Milano. By appointment, Monday to Friday, confirmed by email within one working day.</p>",
+            "style": "body",
+            "column": "second"
+          }
         },
-        "heading": {
-          "type": "text",
+        "b_btn3": {
+          "type": "buttons",
           "settings": {
-            "text": "<h2>Fibres that were grown, not extruded.</h2>",
-            "width": "100%",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h3",
-            "line_height": "tight",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "text_color": "{{ settings.color_palette.background }}",
-            "background": false,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "column": "second",
+            "label_1": "Book a private appointment",
+            "link_1": "/pages/contact",
+            "style_1": "primary",
+            "panel_1": true,
+            "label_2": ""
+          }
         }
       },
       "block_order": [
-        "eyebrow",
-        "heading"
-      ],
-      "settings": {
-        "media_type_1": "image",
-        "image_1": "shopify://shop_images/ms-graded-horse.jpg",
-        "media_type_2": "image",
-        "stack_media_on_mobile": false,
-        "custom_mobile_media": false,
-        "media_type_1_mobile": "image",
-        "media_type_2_mobile": "image",
-        "open_in_new_tab": false,
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "flex-end",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "flex-end",
-        "gap": 14,
-        "section_width": "full-width",
-        "section_height": "medium",
-        "section_height_custom": 60,
-        "background_color": "{{ settings.color_palette.foreground }}",
-        "toggle_overlay": true,
-        "overlay_color": "#0A080680",
-        "overlay_style": "gradient",
-        "gradient_direction": "to top",
-        "blurred_reflection": false,
-        "reflection_opacity": 75,
-        "padding-block-start": 0,
-        "padding-block-end": 64
-      }
-    },
-    "ms_pair": {
-      "type": "section",
-      "name": "Photography",
-      "blocks": {
-        "left": {
-          "type": "group",
-          "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "flex-start",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "flex-start",
-            "gap": 14,
-            "width": "custom",
-            "custom_width": 50,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "open_in_new_tab": false,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "img": {
-              "type": "image",
-              "settings": {
-                "image": "shopify://shop_images/Vicuna-mattress.jpg",
-                "link": "",
-                "image_ratio": "portrait",
-                "width": "fill",
-                "custom_width": 100,
-                "width_mobile": "fill",
-                "custom_width_mobile": 100,
-                "height": "fit",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "cap": {
-              "type": "text",
-              "settings": {
-                "text": "<p><em>Vicuña, carded and laid by hand.</em></p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "custom",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "text_color": "#6E675C",
-                "background": false,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0,
-                "font": "var(--font-heading--family)",
-                "font_size": "1rem"
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "img",
-            "cap"
-          ]
-        },
-        "right": {
-          "type": "group",
-          "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "flex-start",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "flex-start",
-            "gap": 14,
-            "width": "custom",
-            "custom_width": 50,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "open_in_new_tab": false,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "img": {
-              "type": "image",
-              "settings": {
-                "image": "shopify://shop_images/Paisley.png",
-                "link": "",
-                "image_ratio": "portrait",
-                "width": "fill",
-                "custom_width": 100,
-                "width_mobile": "fill",
-                "custom_width_mobile": 100,
-                "height": "fit",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "cap": {
-              "type": "text",
-              "settings": {
-                "text": "<p><em>Upholstery that can be taken off and remade.</em></p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "custom",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "text_color": "#6E675C",
-                "background": false,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0,
-                "font": "var(--font-heading--family)",
-                "font_size": "1rem"
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "img",
-            "cap"
-          ]
-        }
-      },
-      "block_order": [
-        "left",
-        "right"
-      ],
-      "settings": {
-        "content_direction": "row",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "space-between",
-        "vertical_alignment": "flex-start",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "flex-start",
-        "gap": 48,
-        "section_width": "page-width",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "background_color": "{{ settings.color_palette.background }}",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "padding-block-start": 96,
-        "padding-block-end": 96
-      }
+        "a_0",
+        "a_1",
+        "b_2",
+        "b_btn3"
+      ]
     }
   },
   "order": [

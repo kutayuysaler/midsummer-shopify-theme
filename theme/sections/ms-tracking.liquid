@@ -56,7 +56,8 @@
     }
 
     var CTA_SELECTOR = [
-      '[data-ms-enquiry]',
+      '[data-enquire-open]',
+      '.msm-enquire-trigger',
       '[data-ms-cta]',
       'a[href*="/pages/contact"]',
       'a[href*="/pages/agents-and-resellers"]',
@@ -66,16 +67,19 @@
     document.addEventListener('click', function (e) {
       var el = e.target.closest ? e.target.closest(CTA_SELECTOR) : null;
       if (!el) return;
-      push('ms_cta_click', {
+      var payload = {
         cta_label: labelFor(el),
         audience_segment: segmentFor(el),
         page_template: {{ template.name | json }},
         page_path: window.location.pathname
-      });
+      };
+      push('ms_cta_click', payload);
+      // The live enquire panel (sections/enquire-panel.liquid) opens from [data-enquire-open].
+      if (el.closest('[data-enquire-open]')) push('ms_enquiry_open', payload);
     }, true);
 
     // The enquiry panel announces every open a visitor triggers, whether from a
-    // [data-ms-enquiry] button, the edge tab, or a link to the enquiry page.
+    // [data-enquire-open] button, the edge tab, or a link to the enquiry page.
     document.addEventListener('ms:enquiry-open', function (e) {
       var el = e.detail && e.detail.source;
       push('ms_enquiry_open', {

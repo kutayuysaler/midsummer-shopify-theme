@@ -1,9 +1,6 @@
 /*
- * ------------------------------------------------------------
- * Midsummer Milano — customised for the Atelier theme.
- * Generated from the approved UX preview. Safe to replace the
- * matching file in the theme export before upload.
- * ------------------------------------------------------------
+ * Midsummer Milano — built on the live Dawn theme.
+ * Design sections: ms-hero, ms-split, ms-cards and the ms-* specialist sections.
  */
 {
   "sections": {
@@ -249,234 +246,85 @@
         "button_text": "#FBF9F5"
       }
     },
+    "ms_image": {
+      "type": "ms-hero",
+      "name": "Photography",
+      "settings": {
+        "image": "shopify://shop_images/dreamy_spiaggia.jpg",
+        "height": "small",
+        "align": "left",
+        "position": "bottom",
+        "veil": 70,
+        "loading": "lazy",
+        "fetchpriority": "auto",
+        "eyebrow": "",
+        "heading": "",
+        "heading_size": "h2",
+        "text": "",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "primary",
+        "button_panel": false,
+        "note": ""
+      }
+    },
     "ms_note": {
-      "type": "section",
+      "type": "ms-split",
       "name": "Book an appointment",
+      "settings": {
+        "tone": "stone",
+        "text_align": "left",
+        "first_width": 50,
+        "image_position": "right",
+        "image_ratio": "natural",
+        "image_caption": "",
+        "image_link": "",
+        "padding_top": 96,
+        "padding_bottom": 96
+      },
       "blocks": {
-        "left": {
-          "type": "group",
+        "a_0": {
+          "type": "eyebrow",
           "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "flex-start",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "flex-start",
-            "gap": 0,
-            "width": "custom",
-            "custom_width": 50,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "open_in_new_tab": false,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "eyebrow": {
-              "type": "text",
-              "settings": {
-                "text": "<p>Or come and lie down</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h6",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "uppercase",
-                "wrap": "pretty",
-                "text_color": "{{ settings.color_palette.color1 }}",
-                "background": false,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "title": {
-              "type": "text",
-              "settings": {
-                "text": "<h2>Five questions will not beat an hour at the atelier.</h2>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h3",
-                "line_height": "tight",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "padding-block-start": 16,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "eyebrow",
-            "title"
-          ]
+            "text": "Or come and lie down",
+            "rule": false,
+            "column": "first"
+          }
         },
-        "right": {
-          "type": "group",
+        "a_1": {
+          "type": "heading",
           "settings": {
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "flex-start",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "flex-end",
-            "gap": 22,
-            "width": "custom",
-            "custom_width": 42,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "open_in_new_tab": false,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "body": {
-              "type": "text",
-              "settings": {
-                "text": "<p>Via Andegari 4, Monday to Friday, 09:00–12:00 and 13:00–18:00. Appointments are confirmed by email within one working day.</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "paragraph",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "cta": {
-              "type": "button",
-              "settings": {
-                "label": "Book a private appointment",
-                "link": "/pages/contact",
-                "open_in_new_tab": false,
-                "style_class": "button-secondary",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "body",
-            "cta"
-          ]
+            "text": "Five questions will not beat an hour at the atelier.",
+            "size": "h3",
+            "column": "first"
+          }
+        },
+        "b_2": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Via Andegari 4, Monday to Friday, 09:00–12:00 and 13:00–18:00. Appointments are confirmed by email within one working day.</p>",
+            "style": "body",
+            "column": "second"
+          }
+        },
+        "b_btn3": {
+          "type": "buttons",
+          "settings": {
+            "column": "second",
+            "label_1": "Book a private appointment",
+            "link_1": "/pages/contact",
+            "style_1": "secondary",
+            "panel_1": true,
+            "label_2": ""
+          }
         }
       },
       "block_order": [
-        "left",
-        "right"
-      ],
-      "settings": {
-        "content_direction": "row",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "space-between",
-        "vertical_alignment": "flex-end",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "flex-start",
-        "gap": 64,
-        "section_width": "page-width",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "background_color": "{{ settings.color_palette.color2 }}",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "padding-block-start": 96,
-        "padding-block-end": 96
-      }
-    },
-    "ms_image": {
-      "type": "hero",
-      "name": "Photography",
-      "blocks": {},
-      "block_order": [],
-      "settings": {
-        "media_type_1": "image",
-        "image_1": "shopify://shop_images/dreamy_spiaggia.jpg",
-        "media_type_2": "image",
-        "stack_media_on_mobile": false,
-        "custom_mobile_media": false,
-        "media_type_1_mobile": "image",
-        "media_type_2_mobile": "image",
-        "open_in_new_tab": false,
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "flex-end",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "flex-end",
-        "gap": 14,
-        "section_width": "full-width",
-        "section_height": "small",
-        "section_height_custom": 60,
-        "background_color": "{{ settings.color_palette.foreground }}",
-        "toggle_overlay": false,
-        "overlay_color": "#0A080680",
-        "overlay_style": "gradient",
-        "gradient_direction": "to top",
-        "blurred_reflection": false,
-        "reflection_opacity": 75,
-        "padding-block-start": 0,
-        "padding-block-end": 0
-      }
+        "a_0",
+        "a_1",
+        "b_2",
+        "b_btn3"
+      ]
     }
   },
   "order": [

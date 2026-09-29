@@ -1,0 +1,61 @@
+<button class="msm-enquire-trigger"
+        type="button"
+        data-enquire-open
+        aria-haspopup="dialog"
+        aria-controls="msm-enquire-panel">
+  <span class="msm-enquire-trigger__icon" aria-hidden="true">
+    <!-- icon follows currentColor so it matches your header ink -->
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none"
+         stroke="currentColor" stroke-width="1.5" stroke-linejoin="round">
+      <path d="M20 14c0 1.1-.9 2-2 2H9l-4 3V6c0-1.1.9-2 2-2h11c1.1 0 2 .9 2 2v8Z"/>
+    </svg>
+  </span>
+  <span class="msm-enquire-trigger__label">Enquire</span>
+</button>
+
+<style>
+  /* Inherit the header’s foreground colour across desktop & mobile */
+  .msm-enquire-trigger{
+    --ink: rgba(var(--color-foreground,0,0,0), .92);
+    --ink-hover: rgba(var(--color-foreground,0,0,0), 1);
+    --ring: rgba(var(--color-foreground,0,0,0), .25);
+
+    display:inline-flex;
+    align-items:center;
+    gap:.55rem;
+
+    color:var(--ink);
+    background:transparent;
+    border:1px solid rgba(var(--color-foreground,0,0,0), .15);
+    border-radius:999px;
+    padding:.5rem .9rem;
+    line-height:1;
+    cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .msm-enquire-trigger:hover{
+    color:var(--ink-hover);
+    border-color:rgba(var(--color-foreground,0,0,0), .28);
+    background:rgba(var(--color-foreground,0,0,0), .04);
+  }
+  .msm-enquire-trigger:focus-visible{
+    outline:2px solid var(--ring);
+    outline-offset:2px;
+  }
+
+  .msm-enquire-trigger__label{
+    font-size:12px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+  }
+  .msm-enquire-trigger__icon svg{
+    display:block;
+    stroke:currentColor;  /* important: match header colour */
+  }
+
+  /* Mobile: icon-only, tighter padding */
+  @media (max-width:749px){
+    .msm-enquire-trigger{ padding:.45rem .6rem; }
+    .msm-enquire-trigger__label{ display:none; }
+  }
+</style>

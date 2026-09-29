@@ -1,0 +1,726 @@
+{% comment %}
+  Enquire – slide-out panel (Brochure / Appointment / Callback / Message)
+  - Uses AJAX when possible.
+  - If Shopify Spam Protection blocks AJAX, falls back to a hidden native form rendered with {% form 'contact' %} so the CAPTCHA token is included (opens in a new tab).
+{% endcomment %}
+
+<div id="msm-enquire-overlay" class="msm-enquire__overlay" data-enquire-close aria-hidden="true"></div>
+
+<aside id="msm-enquire-panel"
+       class="msm-enquire__panel"
+       role="dialog"
+       aria-modal="true"
+       aria-labelledby="msm-enquire-title"
+       aria-hidden="true">
+  <header class="msm-enquire__header">
+    <h2 id="msm-enquire-title">{{ section.settings.drawer_heading }}</h2>
+    <button class="msm-enquire__close" type="button" aria-label="Close" data-enquire-close>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </header>
+
+  <div class="msm-enquire__tabs" role="tablist" aria-label="Enquire">
+    <button class="msm-tab is-active" role="tab" aria-selected="true" aria-controls="pane-brochure-{{ section.id }}" id="tab-brochure-{{ section.id }}">{{ section.settings.label_brochure }}</button>
+    <button class="msm-tab" role="tab" aria-selected="false" aria-controls="pane-appointment-{{ section.id }}" id="tab-appointment-{{ section.id }}">{{ section.settings.label_appointment }}</button>
+    <button class="msm-tab" role="tab" aria-selected="false" aria-controls="pane-callback-{{ section.id }}" id="tab-callback-{{ section.id }}">{{ section.settings.label_callback }}</button>
+    <button class="msm-tab" role="tab" aria-selected="false" aria-controls="pane-message-{{ section.id }}" id="tab-message-{{ section.id }}">{{ section.settings.label_message }}</button>
+  </div>
+
+  <div class="msm-enquire__body">
+    {% assign showroom_address = section.settings.showroom_address | default: "Via Andegari, 4, 20121 Milano, Italy" %}
+    {% assign showroom_lat = section.settings.showroom_lat | default: "45.470272" %}
+    {% assign showroom_lng = section.settings.showroom_lng | default: "9.192558" %}
+    {% assign title_options = section.settings.title_options | default: "Mr.,Mrs.,Ms.,Mx.,Dr.,Prof.,Other" | split: "," %}
+
+    <!-- Brochure -->
+    <div class="msm-pane is-active" id="pane-brochure-{{ section.id }}" role="tabpanel" aria-labelledby="tab-brochure-{{ section.id }}">
+      <form method="post" action="{{ routes.contact_url }}" class="msm-form" novalidate id="msm-brochure-form-{{ section.id }}" data-brochure="{{ section.settings.brochure_url }}">
+        <input type="hidden" name="form_type" value="contact">
+        <input type="hidden" name="utf8" value="✓">
+        <input type="hidden" name="contact[tags]" value="Enquiry, Brochure">
+        <input type="hidden" name="contact[subject]" value="Brochure request">
+
+        <div class="msm-grid">
+          <div class="msm-field">
+            <label for="bro-title-{{ section.id }}">Title*</label>
+            <select id="bro-title-{{ section.id }}" name="contact[Title]" required>
+              <option value="" disabled selected>Select</option>
+              {% for t in title_options %}<option>{{ t | strip }}</option>{% endfor %}
+            </select>
+          </div>
+          <div class="msm-field">
+            <label for="bro-first-{{ section.id }}">First name*</label>
+            <input id="bro-first-{{ section.id }}" name="contact[First name]" required>
+          </div>
+          <div class="msm-field">
+            <label for="bro-last-{{ section.id }}">Last name*</label>
+            <input id="bro-last-{{ section.id }}" name="contact[Last name]" required>
+          </div>
+          <div class="msm-field">
+            <label for="bro-email-{{ section.id }}">Email*</label>
+            <input id="bro-email-{{ section.id }}" type="email" name="contact[email]" required>
+          </div>
+          <div class="msm-field">
+            <label for="bro-city-{{ section.id }}">City</label>
+            <input id="bro-city-{{ section.id }}" name="contact[City]">
+          </div>
+          <div class="msm-field">
+            <label for="bro-type-{{ section.id }}">Enquiry type*</label>
+            <select id="bro-type-{{ section.id }}" name="contact[Enquiry type]" required>
+              <option value="" selected disabled>Choose your enquiry type</option>
+              <option>General</option><option>Trade</option><option>Press</option>
+            </select>
+          </div>
+          <div class="msm-field msm-field--full">
+            <label for="bro-hear-{{ section.id }}">How did you hear about us?</label>
+            <input id="bro-hear-{{ section.id }}" name="contact[How did you hear about us]">
+          </div>
+        </div>
+
+        <label class="msm-consent">
+          <input type="checkbox" required>
+          <span>By clicking ‘submit’ you agree to our
+            {% if section.settings.terms_url %}
+              <a href="{{ section.settings.terms_url }}" target="_blank" rel="noopener">terms and conditions</a>
+            {% else %}terms and conditions{% endif %} and
+            {% if section.settings.privacy_url %}
+              <a href="{{ section.settings.privacy_url }}" target="_blank" rel="noopener">privacy policy</a>
+            {% else %}privacy policy{% endif %}.
+          </span>
+        </label>
+
+        <button type="submit" class="msm-btn">{{ section.settings.submit_label }}</button>
+        <p class="msm-success msm-hide" id="brochure-success-{{ section.id }}" aria-live="polite">Thank you for your interest in Midsummer-Milano. Your brochure will open shortly.</p>
+        <p class="msm-error msm-hide" id="brochure-error-{{ section.id }}" aria-live="assertive">Sorry, something went wrong. Please try again.</p>
+      </form>
+    </div>
+
+    <!-- Appointment -->
+    <div class="msm-pane" id="pane-appointment-{{ section.id }}" role="tabpanel" aria-labelledby="tab-appointment-{{ section.id }}">
+      <form method="post" action="{{ routes.contact_url }}" class="msm-form" novalidate id="msm-appointment-form-{{ section.id }}">
+        <input type="hidden" name="form_type" value="contact">
+        <input type="hidden" name="utf8" value="✓">
+        <input type="hidden" name="contact[tags]" value="Enquiry, Appointment">
+        <input type="hidden" name="contact[subject]" value="Appointment request">
+
+        <div class="msm-grid">
+          <div class="msm-field">
+            <label for="app-title-{{ section.id }}">Title*</label>
+            <select id="app-title-{{ section.id }}" name="contact[Title]" required>
+              <option value="" disabled selected>Select</option>
+              {% for t in title_options %}<option>{{ t | strip }}</option>{% endfor %}
+            </select>
+          </div>
+          <div class="msm-field">
+            <label for="app-first-{{ section.id }}">First name*</label>
+            <input id="app-first-{{ section.id }}" name="contact[First name]" required>
+          </div>
+          <div class="msm-field">
+            <label for="app-last-{{ section.id }}">Last name*</label>
+            <input id="app-last-{{ section.id }}" name="contact[Last name]" required>
+          </div>
+          <div class="msm-field">
+            <label for="app-email-{{ section.id }}">Email*</label>
+            <input id="app-email-{{ section.id }}" type="email" name="contact[email]" required>
+          </div>
+
+          <div class="msm-field">
+            <label for="app-phone-{{ section.id }}">Phone*</label>
+            <div class="msm-phone-wrap">
+              <select class="msm-phone-code" id="app-code-{{ section.id }}" aria-label="Country code"></select>
+              <input id="app-phone-{{ section.id }}" inputmode="tel" autocomplete="tel" name="contact[Phone]" required placeholder="Phone number">
+            </div>
+          </div>
+
+          <div class="msm-field">
+            <label for="app-company-{{ section.id }}">Company</label>
+            <input id="app-company-{{ section.id }}" name="contact[Company]">
+          </div>
+
+          <div class="msm-field msm-field--full">
+            <label>Showroom</label>
+            <input id="app-showroom-{{ section.id }}" value="{{ showroom_address | strip }}" data-map-link="{{ showroom_address | strip | escape }}" readonly class="msm-showroom-link">
+          </div>
+
+          <div class="msm-field">
+            <label for="app-date-{{ section.id }}">Preferred date*</label>
+            <input id="app-date-{{ section.id }}" type="date" name="contact[Preferred date]" required>
+          </div>
+
+          <div class="msm-field">
+            <label for="app-time-{{ section.id }}">Preferred time*</label>
+            <select id="app-time-{{ section.id }}" name="contact[Preferred time]" required>
+              <option value="" selected disabled>Select a time</option>
+            </select>
+          </div>
+
+          <div class="msm-field msm-field--full">
+            <label for="app-notes-{{ section.id }}">Notes</label>
+            <input id="app-notes-{{ section.id }}" name="contact[Notes]" placeholder="Optional">
+          </div>
+
+          <div class="msm-field msm-field--full">
+            <label>Find us</label>
+            <div class="msm-map">
+              <div id="msm-map-{{ section.id }}" class="msm-leaflet" data-lat="{{ showroom_lat }}" data-lng="{{ showroom_lng }}"></div>
+              <a class="msm-map-open" data-open-map
+                 href="https://www.google.com/maps/dir/?api=1&destination={{ showroom_address | url_encode }}"
+                 target="_blank" rel="noopener">Directions (Google Maps)</a>
+            </div>
+          </div>
+        </div>
+
+        <p class="msm-help">Hours: Mon–Fri 09:00–12:00 and 13:00–18:00 (Milan time). We’ll confirm your appointment by email.</p>
+
+        <label class="msm-consent">
+          <input type="checkbox" required>
+          <span>By clicking ‘submit’ you agree to our
+            {% if section.settings.terms_url %}<a href="{{ section.settings.terms_url }}" target="_blank" rel="noopener">terms and conditions</a>{% else %}terms and conditions{% endif %} and
+            {% if section.settings.privacy_url %}<a href="{{ section.settings.privacy_url }}" target="_blank" rel="noopener">privacy policy</a>{% else %}privacy policy{% endif %}.
+          </span>
+        </label>
+
+        <button type="submit" class="msm-btn">{{ section.settings.submit_label }}</button>
+        <p class="msm-success msm-hide" aria-live="polite">Thank you. We have received your appointment request and will confirm by email.</p>
+      </form>
+    </div>
+
+    <!-- Callback -->
+    <div class="msm-pane" id="pane-callback-{{ section.id }}" role="tabpanel" aria-labelledby="tab-callback-{{ section.id }}">
+      <form method="post" action="{{ routes.contact_url }}" class="msm-form" novalidate id="msm-callback-form-{{ section.id }}">
+        <input type="hidden" name="form_type" value="contact">
+        <input type="hidden" name="utf8" value="✓">
+        <input type="hidden" name="contact[tags]" value="Enquiry, Callback">
+        <input type="hidden" name="contact[subject]" value="Callback request">
+
+        <div class="msm-grid">
+          <div class="msm-field">
+            <label for="cb-title-{{ section.id }}">Title*</label>
+            <select id="cb-title-{{ section.id }}" name="contact[Title]" required>
+              <option value="" disabled selected>Select</option>
+              {% for t in title_options %}<option>{{ t | strip }}</option>{% endfor %}
+            </select>
+          </div>
+          <div class="msm-field">
+            <label for="cb-first-{{ section.id }}">First name*</label>
+            <input id="cb-first-{{ section.id }}" name="contact[First name]" required>
+          </div>
+          <div class="msm-field">
+            <label for="cb-last-{{ section.id }}">Last name*</label>
+            <input id="cb-last-{{ section.id }}" name="contact[Last name]" required>
+          </div>
+          <div class="msm-field">
+            <label for="cb-email-{{ section.id }}">Email*</label>
+            <input id="cb-email-{{ section.id }}" type="email" name="contact[email]" required>
+          </div>
+
+          <div class="msm-field">
+            <label for="cb-phone-{{ section.id }}">Phone*</label>
+            <div class="msm-phone-wrap">
+              <select class="msm-phone-code" id="cb-code-{{ section.id }}" aria-label="Country code"></select>
+              <input id="cb-phone-{{ section.id }}" inputmode="tel" autocomplete="tel" name="contact[Phone]" required placeholder="Phone number">
+            </div>
+          </div>
+
+          <div class="msm-field msm-field--full">
+            <label for="cb-message-{{ section.id }}">Please tell us about your enquiry*</label>
+            <textarea id="cb-message-{{ section.id }}" name="contact[Message]" required rows="3"></textarea>
+          </div>
+          <div class="msm-field msm-field--full">
+            <label for="cb-hear-{{ section.id }}">How did you hear about us?</label>
+            <input id="cb-hear-{{ section.id }}" name="contact[How did you hear about us]">
+          </div>
+        </div>
+
+        <label class="msm-consent">
+          <input type="checkbox" required>
+          <span>By clicking ‘submit’ you agree to our
+            {% if section.settings.terms_url %}<a href="{{ section.settings.terms_url }}" target="_blank" rel="noopener">terms and conditions</a>{% else %}terms and conditions{% endif %} and
+            {% if section.settings.privacy_url %}<a href="{{ section.settings.privacy_url }}" target="_blank" rel="noopener">privacy policy</a>{% else %}privacy policy{% endif %}.
+          </span>
+        </label>
+
+        <button type="submit" class="msm-btn">{{ section.settings.submit_label }}</button>
+        <p class="msm-success msm-hide" aria-live="polite">Thank you. We will call you back as requested.</p>
+      </form>
+    </div>
+
+    <!-- Leave a message -->
+    <div class="msm-pane" id="pane-message-{{ section.id }}" role="tabpanel" aria-labelledby="tab-message-{{ section.id }}">
+      <form method="post" action="{{ routes.contact_url }}" class="msm-form" novalidate id="msm-message-form-{{ section.id }}">
+        <input type="hidden" name="form_type" value="contact">
+        <input type="hidden" name="utf8" value="✓">
+        <input type="hidden" name="contact[tags]" value="Enquiry, Message">
+        <input type="hidden" name="contact[subject]" value="Message via site">
+
+        <div class="msm-grid">
+          <div class="msm-field">
+            <label for="msg-name-{{ section.id }}">Name</label>
+            <input id="msg-name-{{ section.id }}" name="contact[Name]" placeholder="Your name">
+          </div>
+          <div class="msm-field">
+            <label for="msg-email-{{ section.id }}">Email*</label>
+            <input id="msg-email-{{ section.id }}" type="email" name="contact[email]" required placeholder="you@example.com">
+          </div>
+          <div class="msm-field msm-field--full">
+            <label for="msg-phone-{{ section.id }}">Phone</label>
+            <div class="msm-phone-wrap">
+              <select class="msm-phone-code" id="msg-code-{{ section.id }}" aria-label="Country code"></select>
+              <input id="msg-phone-{{ section.id }}" inputmode="tel" autocomplete="tel" name="contact[Phone]" placeholder="Phone number (optional)">
+            </div>
+          </div>
+          <div class="msm-field msm-field--full">
+            <label for="msg-message-{{ section.id }}">Message*</label>
+            <textarea id="msg-message-{{ section.id }}" name="contact[Message]" required rows="4" placeholder=""></textarea>
+          </div>
+        </div>
+
+        <label class="msm-consent">
+          <input type="checkbox" required>
+          <span>By clicking ‘submit’ you agree to our
+            {% if section.settings.terms_url %}<a href="{{ section.settings.terms_url }}" target="_blank" rel="noopener">terms and conditions</a>{% else %}terms and conditions{% endif %} and
+            {% if section.settings.privacy_url %}<a href="{{ section.settings.privacy_url }}" target="_blank" rel="noopener">privacy policy</a>{% else %}privacy policy{% endif %}.
+          </span>
+        </label>
+
+        <button type="submit" class="msm-btn">{{ section.settings.submit_label }}</button>
+        <p class="msm-success msm-hide" aria-live="polite">Thank you for your message. We’ll get back to you shortly.</p>
+      </form>
+    </div>
+  </div>
+
+  {%- comment -%}
+    Hidden native Shopify contact form (ensures CAPTCHA token is injected). Reused for all flows.
+  {%- endcomment -%}
+  <div aria-hidden="true" style="display:none">
+    {% form 'contact', id: 'msm-native-contact' %}
+      <input type="hidden" name="contact[tags]" value="">
+      <input type="hidden" name="contact[subject]" value="">
+      <input type="hidden" name="contact[Title]">
+      <input type="hidden" name="contact[First name]">
+      <input type="hidden" name="contact[Last name]">
+      <input type="hidden" name="contact[Name]">
+      <input type="hidden" name="contact[email]">
+      <input type="hidden" name="contact[City]">
+      <input type="hidden" name="contact[Enquiry type]">
+      <input type="hidden" name="contact[How did you hear about us]">
+      <input type="hidden" name="contact[Phone]">
+      <input type="hidden" name="contact[Company]">
+      <input type="hidden" name="contact[Preferred date]">
+      <input type="hidden" name="contact[Preferred time]">
+      <input type="hidden" name="contact[Notes]">
+      <input type="hidden" name="contact[Message]">
+    {% endform %}
+  </div>
+</aside>
+
+<style>
+  :root { --msm-panel-w: 760px; }
+  #msm-enquire-panel{
+    --msm-ink: #1A1A1A;
+    --msm-accent: #7A5A53;
+    --msm-accent-strong: #5B423D;
+  }
+
+  .msm-enquire__overlay{position:fixed; inset:0; background:rgba(0,0,0,.35); opacity:0; pointer-events:none; transition:opacity .25s ease; z-index:1000}
+  .msm-enquire__panel{position:fixed; top:0; right:0; height:100vh; width:min(var(--msm-panel-w),100vw);
+    background: {{ section.settings.panel_bg | default: '#FAF3EC' }}; color:var(--msm-ink); transform:translateX(100%); transition:transform .28s ease;
+    z-index:1001; display:flex; flex-direction:column; box-shadow:-8px 0 24px rgba(0,0,0,.12)}
+  .msm-enquire__header{display:flex; align-items:center; justify-content:space-between; padding:1.2rem 1.6rem; border-bottom:1px solid rgba(0,0,0,.1)}
+  .msm-enquire__close{appearance:none;background:transparent;border:0;padding:.4rem; line-height:0; cursor:pointer}
+
+  .msm-enquire__tabs{display:flex; gap:2rem; padding:1.2rem 1.6rem; border-bottom:1px solid rgba(0,0,0,.1); flex-wrap:wrap}
+  .msm-tab{appearance:none;background:transparent;border:0;padding:.6rem 0;font:inherit;letter-spacing:.08em;text-transform:uppercase;opacity:.6;position:relative;cursor:pointer;color:var(--msm-ink)}
+  .msm-tab.is-active{opacity:1}
+  .msm-tab.is-active:after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--msm-accent)}
+
+  .msm-enquire__body{padding:1.6rem; overflow:auto}
+  .msm-pane{display:none}
+  .msm-pane.is-active{display:block}
+  .msm-grid{display:grid;grid-template-columns:1fr;gap:1.2rem}
+  @media(min-width:900px){.msm-grid{grid-template-columns:repeat(2,1fr)} .msm-field--full{grid-column:1/-1}}
+  .msm-field label{display:block;font-size:1.3rem;letter-spacing:.06em;margin-bottom:.4rem;opacity:.8}
+  .msm-field input,.msm-field select,.msm-field textarea{
+    width:100%;min-width:0;padding:1.1rem 1.2rem;border:1px solid rgba(0,0,0,.2);background:#fff;border-radius:2px;color:var(--msm-ink);
+    accent-color: var(--msm-accent);
+  }
+  .msm-field select{
+    -webkit-appearance:none;appearance:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%237A5A53' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+    background-repeat:no-repeat;background-position:right .9rem center;background-size:14px 14px;padding-right:2.2rem;
+  }
+  input[type="date"]{width:100%}
+  input[type="date"]::-webkit-calendar-picker-indicator{ filter: invert(36%) sepia(8%) saturate(900%) hue-rotate(330deg) brightness(90%) contrast(90%); }
+
+  .msm-phone-wrap{display:flex;gap:.6rem}
+  .msm-phone-code{min-width:150px}
+
+  .msm-consent{display:flex;gap:.8rem;align-items:flex-start;margin:1.2rem 0}
+  .msm-consent input{margin-top:.25rem}
+  .msm-btn{display:inline-block;padding:1.2rem 2.2rem;border:0;border-radius:2px;background:rgba(0,0,0,.9);color:#fff;letter-spacing:.08em;text-transform:uppercase}
+  .msm-help,.msm-success,.msm-error{font-size:1.3rem;margin:.8rem 0}
+  .msm-success{color:#2f7d32}.msm-error{color:#c0342b}
+  .msm-hide{display:none}
+
+  /* map */
+  .msm-map{position:relative;height:260px;border:1px solid rgba(0,0,0,.12);border-radius:4px;overflow:hidden;background:#efeeec}
+  .msm-leaflet{height:100%; width:100%}
+  .msm-leaflet .leaflet-tile{filter:grayscale(1) contrast(1.05) brightness(.98)}
+  .msm-map-open{position:absolute;inset:auto 0 0 0;margin:auto;bottom:16px;left:50%;transform:translateX(-50%);
+    background:#fff;border:1px solid rgba(0,0,0,.2);border-radius:999px;padding:.5rem 1rem;cursor:pointer;text-decoration:none}
+  .msm-showroom-link{cursor:pointer}
+
+  /* error visuals */
+  .msm-field--error input,
+  .msm-field--error select,
+  .msm-field--error textarea{border-color:#c0342b; box-shadow:0 0 0 2px rgba(192,52,43,.1)}
+  .msm-consent.msm-field--error{outline:2px solid rgba(192,52,43,.35); outline-offset:4px; border-radius:3px}
+
+  /* open state */
+  .msm-enquire__overlay.is-visible{opacity:1; pointer-events:auto}
+  .msm-enquire__panel.is-open{transform:translateX(0)}
+
+  /* links inside drawer */
+  .msm-enquire__panel a{color:var(--msm-accent);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
+  .msm-enquire__panel a:hover{color:var(--msm-accent-strong);text-decoration-thickness:1.5px}
+
+  /* mobile tweaks */
+  @media (max-width: 749px){
+    .msm-enquire__panel{width:100vw}
+    .msm-enquire__header{padding:12px}
+    .msm-enquire__tabs{padding:0 12px 8px; gap:1rem}
+    .msm-enquire__body{padding:12px}
+    .msm-grid{grid-template-columns:1fr; gap:12px}
+    .msm-field--full{grid-column:1/-1}
+    .msm-btn{padding:12px 16px; font-size:14px}
+    .msm-phone-code{min-width:120px}
+    .msm-map{height:220px}
+  }
+</style>
+
+<script>
+(() => {
+  const panel   = document.getElementById('msm-enquire-panel');
+  const overlay = document.getElementById('msm-enquire-overlay');
+  if (!panel || !overlay) return;
+
+  /* ---------- Open / Close ---------- */
+  const openDrawer = () => { panel.classList.add('is-open'); overlay.classList.add('is-visible'); panel.setAttribute('aria-hidden','false'); document.documentElement.style.overflow='hidden'; };
+  const closeDrawer = () => { panel.classList.remove('is-open'); overlay.classList.remove('is-visible'); panel.setAttribute('aria-hidden','true'); document.documentElement.style.overflow=''; };
+  document.addEventListener('click', (e) => {
+    const openBtn  = e.target.closest('[data-enquire-open]');
+    const closeBtn = e.target.closest('[data-enquire-close]');
+    if (openBtn){ e.preventDefault(); openDrawer(); ensureMap(); }
+    if (closeBtn || e.target === overlay){ e.preventDefault(); closeDrawer(); }
+  });
+  document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeDrawer(); });
+
+  /* ---------- Tabs ---------- */
+  const tabs  = panel.querySelectorAll('.msm-tab');
+  const panes = panel.querySelectorAll('.msm-pane');
+  function activatePane(btn){
+    tabs.forEach(b => { b.classList.remove('is-active'); b.setAttribute('aria-selected','false'); });
+    panes.forEach(p => p.classList.remove('is-active'));
+    btn.classList.add('is-active'); btn.setAttribute('aria-selected','true');
+    const pane = panel.querySelector('#' + btn.getAttribute('aria-controls'));
+    pane.classList.add('is-active');
+    if (pane.id.startsWith('pane-appointment')) ensureMap();
+  }
+  tabs.forEach(btn => btn.addEventListener('click', () => activatePane(btn)));
+
+  /* ---------- Appointment times (Mon–Fri) ---------- */
+  const dateInput = panel.querySelector('#app-date-{{ section.id }}');
+  const timeSelect = panel.querySelector('#app-time-{{ section.id }}');
+  const todayISOinZone = (tz)=>{
+    const p = new Intl.DateTimeFormat('en-CA',{timeZone:tz,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
+    return `${p.find(x=>x.type==='year').value}-${p.find(x=>x.type==='month').value}-${p.find(x=>x.type==='day').value}`;
+  };
+  if (dateInput && timeSelect){
+    const tz = 'Europe/Rome', isoToday = todayISOinZone(tz);
+    dateInput.min = isoToday; if (!dateInput.value) dateInput.value = isoToday;
+    const makeSlots = (d) => {
+      const out=[], blocks=[['09:00','12:00'],['13:00','18:00']], step=30;
+      blocks.forEach(([s,e])=>{
+        let [sh,sm]=s.split(':').map(Number), [eh,em]=e.split(':').map(Number);
+        let cur=new Date(d); cur.setHours(sh,sm,0,0);
+        let end=new Date(d); end.setHours(eh,em,0,0);
+        while(cur<end){ out.push(cur.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})); cur=new Date(cur.getTime()+step*60000); }
+      });
+      return out;
+    };
+    const refreshTimes = ()=>{
+      timeSelect.innerHTML = '<option value="" disabled selected>Select a time</option>';
+      const sel = dateInput.value ? new Date(dateInput.value + 'T00:00:00') : null; if(!sel) return;
+      if (sel.getDay()===0 || sel.getDay()===6){ const o=document.createElement('option'); o.textContent='Closed (Mon–Fri only)'; o.disabled=true; timeSelect.appendChild(o); return; }
+      const slots = makeSlots(sel), now=new Date(), isToday = sel.toDateString()===now.toDateString();
+      slots.forEach(t=>{ const [h,m]=t.split(':'), cand=new Date(sel); cand.setHours(+h, +m, 0, 0);
+        const o=document.createElement('option'); o.value=t; o.textContent=t; if(isToday && cand<now) o.disabled=true; timeSelect.appendChild(o);
+      });
+    };
+    refreshTimes(); dateInput.addEventListener('change', refreshTimes);
+  }
+
+  /* ---------- Country codes (default Italy) ---------- */
+  const CODES_RAW =
+"Afghanistan,+93|Albania,+355|Algeria,+213|Andorra,+376|Angola,+244|Antigua & Barbuda,+1-268|Argentina,+54|Armenia,+374|Australia,+61|Austria,+43|Azerbaijan,+994|Bahamas,+1-242|Bahrain,+973|Bangladesh,+880|Barbados,+1-246|Belarus,+375|Belgium,+32|Belize,+501|Benin,+229|Bhutan,+975|Bolivia,+591|Bosnia & Herzegovina,+387|Botswana,+267|Brazil,+55|Brunei,+673|Bulgaria,+359|Burkina Faso,+226|Burundi,+257|Cambodia,+855|Cameroon,+237|Canada,+1|Cape Verde,+238|Central African Republic,+236|Chad,+235|Chile,+56|China,+86|Colombia,+57|Comoros,+269|Congo (DRC),+243|Congo (Republic),+242|Costa Rica,+506|Côte d’Ivoire,+225|Croatia,+385|Cuba,+53|Cyprus,+357|Czechia,+420|Denmark,+45|Djibouti,+253|Dominica,+1-767|Dominican Republic,+1-809|Dominican Republic 2,+1-829|Dominican Republic 3,+1-849|Ecuador,+593|Egypt,+20|El Salvador,+503|Equatorial Guinea,+240|Eritrea,+291|Estonia,+372|Eswatini,+268|Ethiopia,+251|Fiji,+679|Finland,+358|France,+33|Gabon,+241|Gambia,+220|Georgia,+995|Germany,+49|Ghana,+233|Greece,+30|Grenada,+1-473|Guatemala,+502|Guinea,+224|Guinea-Bissau,+245|Guyana,+592|Haiti,+509|Honduras,+504|Hong Kong,+852|Hungary,+36|Iceland,+354|India,+91|Indonesia,+62|Iran,+98|Iraq,+964|Ireland,+353|Israel,+972|Italy,+39|Jamaica,+1-876|Japan,+81|Jordan,+962|Kazakhstan,+7|Kenya,+254|Kiribati,+686|Kuwait,+965|Kyrgyzstan,+996|Laos,+856|Latvia,+371|Lebanon,+961|Lesotho,+266|Liberia,+231|Libya,+218|Liechtenstein,+423|Lithuania,+370|Luxembourg,+352|Macao,+853|North Macedonia,+389|Madagascar,+261|Malawi,+265|Malaysia,+60|Maldives,+960|Mali,+223|Malta,+356|Marshall Islands,+692|Mauritania,+222|Mauritius,+230|Mexico,+52|Micronesia,+691|Moldova,+373|Monaco,+377|Mongolia,+976|Montenegro,+382|Morocco,+212|Mozambique,+258|Myanmar,+95|Namibia,+264|Nauru,+674|Nepal,+977|Netherlands,+31|New Zealand,+64|Nicaragua,+505|Niger,+227|Nigeria,+234|North Korea,+850|Norway,+47|Oman,+968|Pakistan,+92|Palau,+680|Panama,+507|Papua New Guinea,+675|Paraguay,+595|Peru,+51|Philippines,+63|Poland,+48|Portugal,+351|Qatar,+974|Romania,+40|Russia,+7|Rwanda,+250|Saint Kitts & Nevis,+1-869|Saint Lucia,+1-758|Saint Vincent & the Grenadines,+1-784|Samoa,+685|San Marino,+378|São Tomé & Príncipe,+239|Saudi Arabia,+966|Senegal,+221|Serbia,+381|Seychelles,+248|Sierra Leone,+232|Singapore,+65|Slovakia,+421|Slovenia,+386|Solomon Islands,+677|Somalia,+252|South Africa,+27|South Korea,+82|South Sudan,+211|Spain,+34|Sri Lanka,+94|Sudan,+249|Suriname,+597|Sweden,+46|Switzerland,+41|Syria,+963|Taiwan,+886|Tajikistan,+992|Tanzania,+255|Thailand,+66|Timor-Leste,+670|Togo,+228|Tonga,+676|Trinidad & Tobago,+1-868|Tunisia,+216|Turkey,+90|Turkmenistan,+993|Tuvalu,+688|Uganda,+256|Ukraine,+380|United Arab Emirates,+971|United Kingdom,+44|United States,+1|Uruguay,+598|Uzbekistan,+998|Vanuatu,+678|Vatican City,+39|Venezuela,+58|Vietnam,+84|Yemen,+967|Zambia,+260|Zimbabwe,+263|Åland Islands,+358|Guernsey,+44|Jersey,+44|Isle of Man,+44|Bermuda,+1-441|Cayman Islands,+1-345|Gibraltar,+350|Greenland,+299|Faroe Islands,+298|Aruba,+297|Bonaire,+599|Curaçao,+599|Guadeloupe,+590|Martinique,+596|Réunion,+262|French Guiana,+594|Mayotte,+262|New Caledonia,+687|French Polynesia,+689|Montserrat,+1-664|Anguilla,+1-264|Saint Barthélemy,+590|Saint Martin,+590|Saint Pierre & Miquelon,+508|Sint Maarten,+1-721|Turks & Caicos,+1-649|Falkland Islands,+500|Palestine,+970|Western Sahara,+212|Pitcairn Islands,+64|Tokelau,+690|Niue,+683|Cook Islands,+682|British Virgin Islands,+1-284|US Virgin Islands,+1-340|Puerto Rico,+1-787|Puerto Rico 2,+1-939|Guam,+1-671|Northern Mariana Islands,+1-670|American Samoa,+1-684";
+  function populateCodes(selectEl){
+    if(!selectEl) return;
+    const pairs = CODES_RAW.split('|').map(s => { const i=s.lastIndexOf(','); return { name:s.slice(0,i), code:s.slice(i+1) }; }).sort((a,b)=> a.name.localeCompare(b.name));
+    selectEl.innerHTML = '';
+    const opt0 = document.createElement('option'); opt0.value=''; opt0.disabled=true; opt0.textContent='Country code'; selectEl.appendChild(opt0);
+    pairs.forEach(({name,code})=>{
+      const o=document.createElement('option'); o.value=code; o.textContent=`${name} (${code})`;
+      if(name==='Italy') o.selected=true;
+      selectEl.appendChild(o);
+    });
+  }
+  populateCodes(panel.querySelector('#app-code-{{ section.id }}'));
+  populateCodes(panel.querySelector('#cb-code-{{ section.id }}'));
+  populateCodes(panel.querySelector('#msg-code-{{ section.id }}'));
+
+  /* ---------- Validation ---------- */
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+  const digitsOnly = v => (v||'').replace(/[^\d]/g,'');
+  function setError(field, msg){
+    const wrap = field.closest('.msm-field, .msm-consent') || field.parentElement;
+    if (!wrap) return;
+    wrap.classList.add('msm-field--error');
+    let p = wrap.querySelector('.msm-error-text');
+    if(!p){
+      p = document.createElement('p'); p.className='msm-error-text'; p.style.color='#c0342b'; p.style.margin='.35rem 0 0';
+      wrap.appendChild(p);
+    }
+    p.textContent = msg;
+    field.setAttribute('aria-invalid','true');
+    const id = field.id || Math.random().toString(36).slice(2);
+    field.id = id; p.id = id + '-error'; field.setAttribute('aria-describedby', p.id);
+  }
+  function clearErrors(form){
+    form.querySelectorAll('[aria-invalid="true"]').forEach(el=>{ el.removeAttribute('aria-invalid'); el.removeAttribute('aria-describedby'); });
+    form.querySelectorAll('.msm-field--error').forEach(el=>el.classList.remove('msm-field--error'));
+    form.querySelectorAll('.msm-error-text').forEach(p=>p.remove());
+  }
+  function validate(form){
+    clearErrors(form); let ok=true;
+    form.querySelectorAll('[required]').forEach(el=>{
+      if ((el.type === 'checkbox' && !el.checked) || !el.value || (el.tagName==='SELECT' && !el.value)){
+        setError(el,'This field is required'); ok=false;
+      }
+    });
+    const em=form.querySelector('input[type="email"]'); if (em && em.value && !emailRe.test(em.value.trim())){ setError(em,'Please enter a valid email'); ok=false; }
+
+    // Phone: validate for required fields, or when optional but filled.
+    const phone=form.querySelector('input[name="contact[Phone]"]');
+    const code=form.querySelector('.msm-phone-code');
+    if (phone){
+      const hasValue = !!phone.value.trim();
+      const isRequired = phone.hasAttribute('required');
+      if (isRequired || hasValue){
+        const num=digitsOnly(phone.value);
+        if (num.length < 6){ setError(phone,'Please enter a valid phone number'); ok=false; }
+        if (ok && code && code.value && hasValue){ phone.value = `${code.value} ${phone.value.trim()}`; }
+      }
+    }
+
+    form.querySelectorAll('input,select,textarea').forEach(el=>{ el.addEventListener('input', ()=>{ clearErrors(form); }, { once:true }); });
+    return ok;
+  }
+
+  /* ---------- AJAX submit ---------- */
+  async function postContact(form){
+    const action = form.getAttribute('action') || '/contact';
+    const fd = new FormData(form);
+    const body = new URLSearchParams(Array.from(fd.entries())).toString();
+    try{
+      const res = await fetch(action, {
+        method:'POST',
+        headers:{ 'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8', 'Accept':'text/html' },
+        body,
+        credentials:'same-origin',
+        redirect:'follow'
+      });
+      return { ok: (res.ok || res.redirected || (res.status >= 200 && res.status < 400)), status: res.status, url: res.url || '' };
+    }catch(e){
+      return { ok:false, status:0, url:'' };
+    }
+  }
+
+  /* ---------- Native fallback (CAPTCHA-friendly) ---------- */
+  function submitViaNative(sourceForm, openInNewTab){
+    const native = panel.querySelector('#msm-native-contact');
+    if (!native) return false;
+
+    const set = (name, value) => {
+      let el = native.querySelector(`[name="${name.replace(/"/g,'\\"')}"]`);
+      if (!el){ el = document.createElement('input'); el.type='hidden'; el.name = name; native.appendChild(el); }
+      el.value = value;
+    };
+
+    (new FormData(sourceForm)).forEach((v,k)=> set(k, v));
+
+    if (openInNewTab) native.setAttribute('target','_blank'); else native.removeAttribute('target');
+    native.submit();
+    return true;
+  }
+
+  function wireAjaxForm(selector, successText){
+    const form = panel.querySelector(selector); if(!form) return;
+    const msg = form.querySelector('.msm-success') || (()=>{ const p=document.createElement('p'); p.className='msm-success msm-hide'; p.setAttribute('aria-live','polite'); form.appendChild(p); return p; })();
+    const btn = form.querySelector('button[type="submit"]');
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      if(!validate(form)) return;
+      msg.classList.add('msm-hide'); btn.disabled=true;
+
+      const res = await postContact(form);
+
+      if(res.ok){
+        msg.textContent = successText;
+        msg.classList.remove('msm-hide');
+        form.reset();
+      } else {
+        submitViaNative(form, true);
+        alert('We opened a new tab to finish your request (Shopify may ask you to verify you’re human).');
+      }
+      btn.disabled=false;
+    });
+  }
+
+  /* brochure (opens PDF on AJAX success; fallback opens native tab) */
+  const broForm = panel.querySelector('#msm-brochure-form-{{ section.id }}');
+  if (broForm){
+    const successEl = panel.querySelector('#brochure-success-{{ section.id }}');
+    const errorEl   = panel.querySelector('#brochure-error-{{ section.id }}');
+    const btn       = broForm.querySelector('button[type="submit"]');
+    const pdfUrl    = (broForm.dataset.brochure || '').trim();
+    broForm.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      if(!validate(broForm)) return;
+      successEl?.classList.add('msm-hide'); errorEl?.classList.add('msm-hide');
+      let dlWin = window.open('', '_blank'); // popup-safety
+      btn.disabled=true;
+
+      const res = await postContact(broForm);
+
+      if(res.ok && pdfUrl){
+        if (dlWin) dlWin.location.href = pdfUrl;
+        successEl?.classList.remove('msm-hide'); broForm.reset();
+      }else if(res.ok && !pdfUrl){
+        if (dlWin) dlWin.close();
+        errorEl?.classList.remove('msm-hide'); if (errorEl) errorEl.textContent = 'Brochure file is not configured.';
+      }else{
+        if (dlWin) dlWin.close();
+        submitViaNative(broForm, true);
+        errorEl?.classList.remove('msm-hide');
+      }
+      btn.disabled=false;
+    });
+  }
+
+  wireAjaxForm('#msm-appointment-form-{{ section.id }}','Thank you. We have received your appointment request and will confirm by email.');
+  wireAjaxForm('#msm-callback-form-{{ section.id }}','Thank you. We will call you back as requested.');
+  wireAjaxForm('#msm-message-form-{{ section.id }}','Thank you for your message. We’ll get back to you shortly.');
+
+  /* ---------- Map (Leaflet, Carto Positron – interactive) ---------- */
+  let msmMap;
+  function loadLeaflet(cb){
+    if (window.L) return cb();
+    if (!document.getElementById('leaflet-css')){
+      const l = document.createElement('link');
+      l.id='leaflet-css'; l.rel='stylesheet';
+      l.href='https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css';
+      document.head.appendChild(l);
+    }
+    let s = document.getElementById('leaflet-js');
+    if (!s){
+      s = document.createElement('script');
+      s.id='leaflet-js';
+      s.src='https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js';
+      s.onload = ()=> cb();
+      document.head.appendChild(s);
+    } else {
+      s.addEventListener('load', cb, { once:true });
+    }
+  }
+
+  function ensureMap(){
+    const container = document.getElementById('msm-map-{{ section.id }}');
+    if (!container) return;
+    loadLeaflet(()=>{
+      const lat = parseFloat(container.dataset.lat);
+      const lng = parseFloat(container.dataset.lng);
+      if (!msmMap){
+        msmMap = L.map(container, {
+          zoomControl:true,
+          scrollWheelZoom:true,
+          dragging:true,
+          doubleClickZoom:true,
+          boxZoom:true,
+          keyboard:true
+        });
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+          attribution: '&copy; OpenStreetMap &copy; CARTO',
+          subdomains: 'abcd',
+          maxZoom: 19
+        }).addTo(msmMap);
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png', {
+          subdomains: 'abcd',
+          maxZoom: 19,
+          opacity: 0.85
+        }).addTo(msmMap);
+        L.circleMarker([lat,lng], {
+          radius: 7, weight: 1.5, color: '#5B423D', fillColor: '#7A5A53', fillOpacity: 0.9
+        }).addTo(msmMap).bindPopup('{{ showroom_address | escape }}');
+        msmMap.setView([lat,lng], 17);
+        setTimeout(()=> msmMap.invalidateSize(), 250);
+      } else {
+        msmMap.invalidateSize();
+      }
+    });
+  }
+
+  function openMapNewTab(){
+    const url = 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(`{{ showroom_address | strip }}`);
+    window.open(url, '_blank', 'noopener');
+  }
+  panel.querySelectorAll('[data-open-map]').forEach(btn => btn.addEventListener('click', openMapNewTab));
+  const showroomInput = panel.querySelector('#app-showroom-{{ section.id }}');
+  if (showroomInput){ showroomInput.addEventListener('click', openMapNewTab); }
+
+  // If appointment tab is default, bring up the map
+  if (panel.querySelector('#pane-appointment-{{ section.id }}').classList.contains('is-active')) ensureMap();
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Enquire – slide-out panel",
+  "settings": [
+    { "type": "text",  "id": "drawer_heading", "label": "Drawer heading", "default": "Please proceed with your enquiry." },
+
+    { "type": "text",  "id": "label_brochure",    "label": "Tab label – Brochure",    "default": "Request brochure" },
+    { "type": "text",  "id": "label_appointment", "label": "Tab label – Appointment", "default": "Book appointment" },
+    { "type": "text",  "id": "label_callback",    "label": "Tab label – Callback",    "default": "Request callback" },
+    { "type": "text",  "id": "label_message",     "label": "Tab label – Message",     "default": "Leave a message" },
+
+    { "type": "text",  "id": "title_options", "label": "Title options (comma-separated)", "default": "Mr.,Mrs.,Ms.,Mx.,Dr.,Prof.,Other" },
+
+    { "type": "url", "id": "brochure_url", "label": "Brochure PDF" },
+    { "type": "url", "id": "terms_url", "label": "Terms URL" },
+    { "type": "url", "id": "privacy_url", "label": "Privacy URL" },
+
+    { "type": "text",  "id": "submit_label", "label": "Submit button label", "default": "Submit" },
+
+    { "type": "text", "id": "showroom_address", "label": "Showroom address", "default": "Via Andegari, 4, 20121 Milano, Italy" },
+    { "type": "text", "id": "showroom_lat", "label": "Showroom latitude (decimal)", "default": "45.470272" },
+    { "type": "text", "id": "showroom_lng", "label": "Showroom longitude (decimal)", "default": "9.192558" },
+
+    { "type": "color", "id": "panel_bg", "label": "Panel background", "default": "#FAF3EC" }
+  ],
+  "presets": [
+    { "name": "Enquire – slide-out panel" }
+  ]
+}
+{% endschema %}

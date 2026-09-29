@@ -1,0 +1,236 @@
+{%- assign sid = section.id -%}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+
+<style>
+  #fo-{{ sid }} {
+    background: #faf9f7;
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+    overflow: hidden;
+    border-top: 1px solid #e4e0d8;
+    border-bottom: 1px solid #e4e0d8;
+  }
+  #fo-{{ sid }} .fo-header {
+    text-align: center;
+    margin-bottom: 44px;
+    padding: 0 24px;
+  }
+  #fo-{{ sid }} .fo-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 10px;
+  }
+  #fo-{{ sid }} .fo-eyebrow::before,
+  #fo-{{ sid }} .fo-eyebrow::after {
+    content: '';
+    display: block;
+    width: 36px;
+    height: 1px;
+    background: #b0a898;
+  }
+  #fo-{{ sid }} .fo-eyebrow span {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #8a7f72;
+  }
+  #fo-{{ sid }} .fo-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: 300;
+    font-style: italic;
+    color: #2a2520;
+    line-height: 1.25;
+    margin: 0;
+    letter-spacing: 0.01em;
+  }
+  #fo-{{ sid }} .fo-track-wrap {
+    position: relative;
+    overflow: hidden;
+  }
+  #fo-{{ sid }} .fo-track-wrap::before,
+  #fo-{{ sid }} .fo-track-wrap::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100px;
+    z-index: 2;
+    pointer-events: none;
+  }
+  #fo-{{ sid }} .fo-track-wrap::before {
+    left: 0;
+    background: linear-gradient(to right, #faf9f7, transparent);
+  }
+  #fo-{{ sid }} .fo-track-wrap::after {
+    right: 0;
+    background: linear-gradient(to left, #faf9f7, transparent);
+  }
+  #fo-{{ sid }} .fo-belt {
+    display: flex;
+    width: max-content;
+  }
+  #fo-{{ sid }} .fo-belt-fwd {
+    animation: fo-fwd {{ section.settings.speed }}s linear infinite;
+  }
+  #fo-{{ sid }} .fo-belt-rev {
+    animation: fo-rev {{ section.settings.speed | plus: 14 }}s linear infinite;
+  }
+  #fo-{{ sid }} .fo-belt:hover {
+    animation-play-state: paused;
+  }
+  @keyframes fo-fwd {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  @keyframes fo-rev {
+    from { transform: translateX(-50%); }
+    to   { transform: translateX(0); }
+  }
+  #fo-{{ sid }} .fo-track {
+    display: flex;
+    align-items: center;
+  }
+  #fo-{{ sid }} .fo-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 38px;
+    border-right: 1px solid #e4e0d8;
+    text-decoration: none;
+    min-width: 145px;
+    flex-shrink: 0;
+    transition: background 0.3s ease;
+  }
+  #fo-{{ sid }} .fo-track .fo-item:first-child {
+    border-left: 1px solid #e4e0d8;
+  }
+  #fo-{{ sid }} .fo-item:hover {
+    background: #f0ece6;
+  }
+  #fo-{{ sid }} .fo-item img {
+    height: {{ section.settings.logo_height }}px;
+    width: auto;
+    max-width: 140px;
+    object-fit: contain;
+    display: block;
+    filter: grayscale(100%) opacity(0.52) brightness(0.82);
+    transition: filter 0.35s ease, transform 0.35s ease;
+  }
+  #fo-{{ sid }} .fo-item:hover img {
+    filter: grayscale(0%) opacity(1) brightness(1);
+    transform: scale(1.05);
+  }
+  #fo-{{ sid }} .fo-divider {
+    height: 1px;
+    background: #e4e0d8;
+  }
+  @media (max-width: 768px) {
+    #fo-{{ sid }} .fo-item { padding: 14px 22px; min-width: 110px; }
+    #fo-{{ sid }} .fo-item img {
+      height: {{ section.settings.logo_height | minus: 8 }}px;
+      max-width: 95px;
+    }
+    #fo-{{ sid }} .fo-track-wrap::before,
+    #fo-{{ sid }} .fo-track-wrap::after { width: 40px; }
+  }
+</style>
+
+<section id="fo-{{ sid }}">
+
+  {%- if section.settings.show_header -%}
+  <div class="fo-header">
+    {%- if section.settings.eyebrow != blank -%}
+    <div class="fo-eyebrow"><span>{{ section.settings.eyebrow | escape }}</span></div>
+    {%- endif -%}
+    {%- if section.settings.title != blank -%}
+    <h2 class="fo-title">{{ section.settings.title | escape }}</h2>
+    {%- endif -%}
+  </div>
+  {%- endif -%}
+
+  {%- comment %} ── Row 1 — forward scroll ── {% endcomment -%}
+  <div class="fo-track-wrap">
+    <div class="fo-belt fo-belt-fwd">
+      <div class="fo-track">{% render 'fo-logos-1' %}</div>
+      <div class="fo-track">{% render 'fo-logos-1' %}</div>
+    </div>
+  </div>
+
+  <div class="fo-divider"></div>
+
+  {%- comment %} ── Row 2 — reverse scroll, also renders editor blocks ── {% endcomment -%}
+  <div class="fo-track-wrap">
+    <div class="fo-belt fo-belt-rev">
+      <div class="fo-track">
+        {% render 'fo-logos-2' %}
+        {%- for block in section.blocks -%}
+          {%- if block.settings.logo_image != blank -%}
+          <a class="fo-item"
+             href="{{ block.settings.logo_url | default: '#' }}"
+             target="_blank" rel="noopener noreferrer"
+             title="{{ block.settings.logo_name | escape }}"
+             {{ block.shopify_attributes }}>
+            <img src="{{ block.settings.logo_image | image_url: width: 300 }}"
+                 alt="{{ block.settings.logo_name | escape }}"
+                 loading="lazy">
+          </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      <div class="fo-track">
+        {% render 'fo-logos-2' %}
+        {%- for block in section.blocks -%}
+          {%- if block.settings.logo_image != blank -%}
+          <a class="fo-item"
+             href="{{ block.settings.logo_url | default: '#' }}"
+             target="_blank" rel="noopener noreferrer"
+             title="{{ block.settings.logo_name | escape }}"
+             {{ block.shopify_attributes }}>
+            <img src="{{ block.settings.logo_image | image_url: width: 300 }}"
+                 alt="{{ block.settings.logo_name | escape }}"
+                 loading="lazy">
+          </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+
+</section>
+
+{% schema %}
+{
+  "name": "Featured On",
+  "tag": "div",
+  "settings": [
+    { "type": "header",   "content": "Header" },
+    { "type": "checkbox", "id": "show_header",   "label": "Show header",              "default": true },
+    { "type": "text",     "id": "eyebrow",        "label": "Eyebrow label",            "default": "As Seen In" },
+    { "type": "text",     "id": "title",           "label": "Heading",                  "default": "Celebrated by the world\u2019s finest press" },
+    { "type": "header",   "content": "Display" },
+    { "type": "range",    "id": "logo_height",    "label": "Logo height",              "min": 20, "max": 60, "step": 2,  "default": 34, "unit": "px" },
+    { "type": "range",    "id": "speed",           "label": "Scroll speed (lower = faster)", "min": 20, "max": 100, "step": 5, "default": 55, "unit": "s" },
+    { "type": "header",   "content": "Spacing" },
+    { "type": "range",    "id": "padding_top",    "label": "Top padding",              "min": 0, "max": 120, "step": 4,  "default": 64, "unit": "px" },
+    { "type": "range",    "id": "padding_bottom", "label": "Bottom padding",           "min": 0, "max": 120, "step": 4,  "default": 72, "unit": "px" }
+  ],
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Add extra logo",
+      "settings": [
+        { "type": "image_picker", "id": "logo_image", "label": "Logo image",         "info": "Upload a new logo to add it to the second row." },
+        { "type": "url",          "id": "logo_url",   "label": "Link URL" },
+        { "type": "text",         "id": "logo_name",  "label": "Publication name",   "default": "Publication" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Featured On" }]
+}
+{% endschema %}

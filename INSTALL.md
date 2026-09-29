@@ -1,181 +1,89 @@
-# Midsummer Milano × Atelier — install guide
+# Midsummer Milano — the new design, built into the live theme
 
-`midsummer-atelier-theme-final.zip` is the complete theme: Shopify's Atelier 4.1.5
-with every Midsummer section, template and setting built in. The theme folders sit at
-the top level of the zip, which is what Shopify expects. Uploading it creates a new,
-**unpublished** theme and does not touch products, collections, pages, menus or blog
-posts.
+`midsummer-milano-theme.zip` is your **live theme** (the Dawn 15.2 export
+`website-audit-fixes-aug-2026`) with the new Midsummer design built into it. Everything
+that already works on the live site is unchanged:
 
-It passes Shopify Theme Check with no errors and every template setting validates
-against its schema, so every file uploads. `CHANGES.md` lists what was fixed relative to
-the Claude Design export.
+- the header, footer, menus and logo
+- the enquire panel, enquire tabs, store locator and sleep-assessment quiz
+- Google Tag Manager, HubSpot, iubenda, Avada SEO, `robots.txt` and the audit's SEO fixes
+- every app embed (EcomSend, store locator, SEOon, Avada, Tipo, Appointo, Air Reviews, Mailchimp)
+- the per-product templates (`product.paisley`, `product.vicuna`, …) and the page templates your pages are already assigned
 
-Work through the steps in order. Steps 1–2 take about ten minutes; steps 3–7 are admin
-data that can't travel inside a theme file.
+What's new is the design: the Midsummer sections, the redesigned templates, and the
+type and colour.
 
----
+## 1. Upload the photographs to Files
 
-## 1. Upload the photographs and logos to Files first
+**Content → Files → Upload files**, keeping the names exactly as they are. They're in the
+Drive folder `export/upload-to-shopify-files/`:
+`ms-graded-bougainvillea.jpg`, `ms-graded-ochre-room.jpg`, `ms-graded-arches.jpg`,
+`ms-graded-dune.jpg`, `ms-graded-paisley-red.jpg`, `ms-graded-horse.jpg`.
 
-**Content → Files → Upload files.** Keep the filenames exactly as they are, because
-the templates reference them by name. They're in the Drive folder
-`export/upload-to-shopify-files/`:
-
-| File | Used for |
-| --- | --- |
-| `midsummer-logotype.png` | Header logo |
-| `midsummer-logotype-ivory.png` | Header logo over the homepage film (transparent header) |
-| `ms-graded-bougainvillea.jpg` | Essentials card, default page band, Journal |
-| `ms-graded-ochre-room.jpg` | Signature card, Professionals opening, Hospitality pair |
-| `ms-graded-arches.jpg` | Icons card, Hospitality opening |
-| `ms-graded-dune.jpg` | Recognition (Green Product Award), 404 |
-| `ms-graded-paisley-red.jpg` | Paisley plate |
-| `ms-graded-horse.jpg` | Find your Midsummer band, collection, Sustainability, Natural Materials |
-
-The templates also use these photographs, which are **already in your Files library**
-because the live site uses them. If any of them has been renamed or deleted, that
-image slot shows a grey placeholder until you pick a picture in the editor:
-
-`Paisleydettaglio.jpg` · `giotto_SANGALGANO.jpg` · `Vicuna-mattress.jpg` ·
-`Paisley_IMG_5161_low.jpg` · `paisley_india_low.jpg` · `Paisley.png` · `Picture4.png` ·
-`dreamy_spiaggia.jpg` · `Top_deserto_mobile5.jpg` ·
-`Paisley_IMG_4918_low_70960abc-6877-49b2-abc8-0bd379994114.jpg` ·
-`Untitled_Project_5_b49a7740-07fa-45f1-8b4f-464d951b0772.jpg` (the film's poster frame)
+The design also uses photographs that are already in your Files library:
+`Paisleydettaglio.jpg`, `giotto_SANGALGANO.jpg`, `Vicuna-mattress.jpg`,
+`Paisley_IMG_5161_low.jpg`, `paisley_india_low.jpg`, `Paisley.png`, `Picture4.png`,
+`dreamy_spiaggia.jpg`, `Top_deserto_mobile5.jpg`,
+`Paisley_IMG_4918_low_70960abc-….jpg` and the film's poster `Untitled_Project_5_….jpg`.
+If one of them was renamed, its slot shows a grey placeholder; pick the picture again
+in the editor.
 
 ## 2. Upload the theme
 
-**Online Store → Themes → Add theme → Upload zip file** →
-`midsummer-atelier-theme-final.zip`. Don't unzip it first. Leave it unpublished until
-step 8.
+**Online Store → Themes → Add theme → Upload zip file** → `midsummer-milano-theme.zip`.
+It arrives unpublished next to your live theme, so preview it before publishing.
 
-## 3. Pages — Online Store → Pages
+## 3. The new pages
 
-The templates link to these handles. Where a page already exists on the live site,
-keep its handle and just assign the template. Create the ones marked *new*.
+The existing pages (Contact, Agents & Resellers, Our Story and the rest) already have
+their templates and pick up the new design on their own. Create the new ones and
+choose the template in each page's **Theme template** dropdown:
 
 | Page | Handle | Template |
 | --- | --- | --- |
-| Our Story | `about-midsummer-milano` | `page` |
-| Handmade in Italy *(new)* | `handmade-in-italy` | `page` |
-| Natural Materials | `natural-luxury-materials` | `page` |
-| 15 + 15 Refurbishment | `midsummer-milanos-regeneration-service` | `page` |
-| Sleep Culture *(new)* | `sleep-culture` | `page` |
-| Sustainability | `our-eco-friendly-approach` | `page.sustainability` |
-| Architects & Interior Designers *(new)* | `professionals` | `page.professionals` |
-| Hospitality *(new)* | `hospitality` | `page.hospitality` |
-| Find Your Midsummer *(new)* | `find-your-midsummer` | `page.find-your-midsummer` |
-| Agents & Resellers | `agents-and-resellers` | `page.agents-resellers` (the template it already uses on the live site) |
-| Book an appointment / Contact | `contact` | `page.contact` |
-| Questions | `sleep-wise-faq` | `page.faq` |
+| Architects & Interior Designers | `professionals` | `page.professionals` |
+| Hospitality | `hospitality` | `page.hospitality` |
+| Find Your Midsummer | `find-your-midsummer` | `page.find-your-midsummer` |
+| Sustainability (existing page) | `our-eco-friendly-approach` | `page.sustainability` |
+| Questions (existing page) | `sleep-wise-faq` | `page.faq` |
 
-`/pages/contact` is also the enquiry panel's page. Any link to it opens the side panel
-instead of loading the page, while the page itself keeps working for direct visits,
-search engines and visitors without JavaScript.
+Collections linked from the design: `essentials`, `signature`, `icons`.
 
-## 4. Collections, blog and product data
+## 4. Product pages
 
-- **Collections** with the handles `essentials`, `signature` and `icons` (5, 7 and 12
-  systems). The homepage, the comparison table and the quiz link to them. `/collections`
-  is the *Our Beds* landing page (template `list-collections`).
-- **Journal** is the existing blog `news`. Tag every article `sleep`, `materials` or
-  `design`, so the Journal menu items filter it. The *As featured in* strip links to
-  your existing `press-…` blogs.
-- **Product metafields**: Settings → Custom data → Products → Add definition:
+The default `product` template carries the new design: your live product section,
+followed by the build drawing, dimensions, the three reasons, the price-on-request
+invitation and two photographic plates. Products that are assigned their own template
+(`product.paisley`, `product.vicuna` and so on) keep that template, so none of their
+content is lost. To move a product to the new design, set its **Theme template** to
+*Default product*.
 
-  | Namespace and key | Type | Shows as |
-  | --- | --- | --- |
-  | `custom.subtitle` | Single line text | Italic line under the product name |
-  | `custom.specification` | Rich text | *Specification* accordion row |
-  | `custom.materials` | Rich text | *Materials and fibres* row, plus structured data |
+## 5. What the design adds, and how to edit it
 
-  Empty metafields render nothing. The eyebrow above each product name reads the
-  product's **Type**; set it to `Essentials`, `Signature` or `Icons`.
-- **Paisley**: in Products → Paisley, make `ms-graded-paisley-red.jpg` the first image.
+Every Midsummer section starts with **MS ·** in *Add section*, and every word, image
+and link in it is editable:
 
-## 5. Menus — Content → Navigation
+- **MS · Hero**: a full-bleed photograph or film with words over it. The homepage film
+  is your existing atelier film, set through *Film file URL*.
+- **MS · Editorial split**: text beside a photograph, or two text columns, in Ivory, Stone
+  or Ink.
+- **MS · Cards**: the collections, service steps, doors, trade offers, the three
+  Hospitality lines and the captioned photograph pairs.
+- **Figures, Pull quote, Compare the collections, Questions and answers, The build in
+  section, Dimensions, Find Your Midsummer**: the specialist sections from the design.
 
-The header reads `main-menu`. Keep *Book an appointment* out of it, because it's already the
-persistent action on the right of the header.
+Any button can **open the enquire panel**: tick *Open the enquire panel* on it. The
+"Book a private appointment" buttons are already set that way, and they still link to
+`/pages/contact` for visitors without JavaScript.
 
-| Top level | Children |
-| --- | --- |
-| Our Beds → `/collections` | Mattresses · Toppers · Bases · Headboards · Bedding (your product-type collections) · Bespoke → `/pages/contact` · Compare Beds → `/collections` · Find Your Midsummer → `/pages/find-your-midsummer` · Essentials · Signature · Icons |
-| Heritage & Craft → `/pages/about-midsummer-milano` | Our Story · Handmade in Italy · Natural Materials · 15 + 15 Refurbishment · Sleep Culture · Sustainability |
-| Professionals → `/pages/professionals` | Architects & Interior Designers · Hospitality · Agents & Resellers |
-| Journal → `/blogs/news` | Sleep → `/blogs/news/tagged/sleep` · Materials → `…/tagged/materials` · Design → `…/tagged/design` |
-| Contact → `/pages/contact` | Book an appointment · Stockists & Partners → `/pages/agents-and-resellers` · Trade enquiry → `/pages/professionals` · Questions → `/pages/sleep-wise-faq` |
+**Photographic grade** and **Conversion tracking** sit beside the enquire panel as
+site-wide sections. The tracking pushes `ms_cta_click`, `ms_enquiry_open`,
+`ms_enquiry_submit` and `ms_quiz_complete` to the GTM dataLayer, each carrying an
+`audience_segment`.
 
-The footer reads five menus by handle. Create each one, mirroring the header branch
-of the same name: `footer-our-beds`, `footer-heritage-craft`, `footer-professionals`,
-`footer-journal`, `footer-contact`.
+## 6. Look and feel
 
-## 6. Media to pick in the theme editor
-
-The theme can't pre-select these, because they aren't in the store yet or are videos:
-
-- **Home → Hero — atelier film**: Media type → *Video* → pick the atelier film. Until
-  then the hero shows the film's poster frame.
-- **Home → As featured in**: 27 publication blocks, in the live site's order and
-  already linked. Pick each logo from Files. Until you do, each block shows the
-  publication's name in type.
-- **Find Your Midsummer**: one image per question (5). This is optional; the quiz
-  works without them.
-- **Product → Precious materials**: five fibre line drawings (Baby Alpaca, Cashmere,
-  Horsehair, Mohair, Yak). This is optional: on the storefront the row shows the names
-  only until an icon is picked, and in the editor empty icons show as outlined squares.
-
-## 7. Settings worth knowing
-
-- **Carried over from the live theme, so nothing changes when you publish:** Google
-  Tag Manager (`GTM-T2NKS496`), HubSpot tracking, the iubenda consent API, Avada SEO,
-  `robots.txt`, the policy-page canonicals, noindex rules, brand-suffixed titles and
-  meta description fallbacks. The same app embeds are also switched on: EcomSend,
-  store locator, SEOon, Avada SEO, Tipo and Appointo booking, Air Reviews and
-  Mailchimp. Check the **App embeds** panel in the theme editor once after upload.
-- **The enquiry panel, structured data, photographic grade and conversion tracking**
-  are site-wide sections rendered from the layout, the same way the live theme renders
-  its enquire panel. The header and footer groups hold only Atelier's own sections,
-  so they can never be taken down by custom code.
-
-- **Theme settings → Enquiry-led commerce → Show prices** is **off**. Prices are
-  hidden everywhere they could appear (product cards, predictive search, menus,
-  cart), and structured data describes each system as *price on request*. Turn it on
-  to show prices, for example if Essentials becomes priced.
-- **Structured data** (a site-wide section; in the editor it's listed with the other site-wide sections): fill in **Telephone** and **Social profiles**,
-  which were left blank rather than guessed. Each graph has its own switch in case an
-  SEO app already outputs it.
-- **Photographic grade** (site-wide section) applies a warm, matte filter to every photograph
-  except files with `graded` in the name. It has four sliders, plus an off switch.
-- **Conversion tracking** (site-wide section) pushes these events to `window.dataLayer` for
-  GTM/GA4: `ms_track_ready`, `ms_cta_click`, `ms_enquiry_open`, `ms_enquiry_submit`
-  and `ms_quiz_complete`. Each carries `audience_segment` (private,
-  architect-designer, hospitality, dealer or press), inferred from the page path.
-  Override it on any element with `data-ms-segment="dealer"`. Turn on **Log events to
-  the browser console** while you set up GA4.
-- **Footer → Social links** are blank, so add the correct accounts.
-- The scroll-reveal motion lives in `assets/ms-motion.js`. To switch it off, delete the
-  one `<script>` line marked in `layout/theme.liquid`.
-
-## 8. Before you publish, check the placeholder content
-
-The theme's copy is written and editable, but a few things were placeholders that
-only you can confirm:
-
-1. **Agents & Resellers**: the 22 markets on the map are an illustrative structure,
-   not your real partner list. Replace, rename or delete the *Market* blocks; the map
-   redraws from each block's latitude and longitude (decimal degrees, and either
-   `45.4642` or `45,4642` works).
-2. **Dimensions**: the five sizes are European standards (Singolo 90 × 200 up to Super
-   King 200 × 200). Check them against your schedule.
-3. **Figures**: 2 artisans · 24 systems · 6 spring layers · 15 + 15 years. Add
-   hours-per-system or systems-per-year if you publish them.
-4. **Hospitality**: the lines are named Amalfi, Silver Dream and Rapallo, in block order.
-   Drag the blocks to reorder them.
-5. **Pull quote**: currently the Green Product Award 2025. Swap in a named press or
-   client quote once one is cleared.
-6. **Questions**: review the eleven FAQ answers on the FAQ page. The FAQ structured data
-   is emitted there only; the homepage and Hospitality show the same questions without
-   duplicating the markup.
-
-Then preview each template (Home, a product, a collection, `/collections`, each page
-above, the Journal and an article), and publish.
+In **Theme settings**, the headings are now Newsreader and the body text Red Hat Text.
+Colour scheme 1 is now ivory `#FBF9F5` with ink `#17140F` text and ink buttons, so
+your existing Dawn sections match the new ones. To go back, change those two fonts and
+scheme 1.
