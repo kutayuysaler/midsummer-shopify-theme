@@ -1,0 +1,29 @@
+/*
+ * Midsummer Milano: Collaborations: the Midsummer journal, opened by the current collaboration.
+ */
+{
+  "layout": "ms",
+  "sections": {
+    "s01": {
+      "type": "ms-banner",
+      "settings": {
+        "image": "shopify://shop_images/DSC05117.jpg",
+        "eyebrow": "Collaboration",
+        "height": "tall",
+        "heading": "Midsummer-Milano & Strega del Castello",
+        "text": "Introducing our new bed perfumes, Lavanda Barocca and Agrumi di Sicilia.",
+        "button": "Discover the perfumes",
+        "product_handle": "midsummer-milano-x-la-strega-del-castello",
+        "link": "shopify://collections/all"
+      }
+    },
+    "s02": {
+      "type": "ms-journal-list",
+      "settings": {}
+    }
+  },
+  "order": [
+    "s01",
+    "s02"
+  ]
+}

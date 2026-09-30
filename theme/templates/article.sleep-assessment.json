@@ -1,0 +1,20 @@
+/*
+ * Midsummer Milano: A journal note with Find your Midsummer.
+ */
+{
+  "layout": "ms",
+  "sections": {
+    "s01": {
+      "type": "ms-article",
+      "settings": {}
+    },
+    "s02": {
+      "type": "ms-quiz",
+      "settings": {}
+    }
+  },
+  "order": [
+    "s01",
+    "s02"
+  ]
+}

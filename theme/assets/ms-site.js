@@ -204,6 +204,7 @@
     if (notes) { notes.name = 'contact[' + copy.notes.replace('*', '').replace(/\?$/, '') + ']'; notes.required = /\*$/.test(copy.notes); }
     var mode = form.querySelector('[data-ms-enq-mode-field]');
     if (mode) mode.value = t;
+    form.querySelectorAll('[data-ms-brochure]').forEach(function (a) { a.hidden = t !== 'Request brochure'; });
   }
   document.addEventListener('click', function (e) {
     var b = e.target.closest('[data-ms-tab]');

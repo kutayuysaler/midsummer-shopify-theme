@@ -1,0 +1,72 @@
+/*
+ * Midsummer Milano: Salone del Mobile 2026: this year, the answer is Paisley.
+ */
+{
+  "layout": "ms",
+  "sections": {
+    "s01": {
+      "type": "ms-banner",
+      "settings": {
+        "image_fallback": "ms-graded-paisley-red.jpg",
+        "eyebrow": "Salone del Mobile 2026 · Via Andegari 4, Milan · 21–26 April",
+        "heading": "This year, the answer is Paisley.",
+        "height": "full",
+        "text": "Every year, we ask ourselves the same question: what can we make better?",
+        "button": "Discover Paisley",
+        "product_handle": "paisley",
+        "link": "shopify://collections/all"
+      }
+    },
+    "s02": {
+      "type": "ms-statement",
+      "settings": {
+        "eyebrow": "Salone del Mobile 2026",
+        "use_content": true,
+        "heading": "Every year, we ask ourselves the same question: what can we make better?",
+        "text": "<p>This year, the answer is Paisley: Loro Piana Interiors Shadan in silk and linen, over a micro spring layer of baby alpaca, wool and linen. Warm in winter, breathable in summer.</p><p>Presented at the atelier, Via Andegari 4, Milan, from 21 to 26 April.</p>",
+        "link_label": "Book a private appointment",
+        "enquire": true
+      }
+    },
+    "s03": {
+      "type": "ms-image-pair",
+      "settings": {
+        "eyebrow": "Paisley",
+        "heading": "An extraordinary fabric, met by a precise design vision.",
+        "image_1": "shopify://shop_images/Paisley_IMG_5161_low.jpg",
+        "fallback_1": "https://midsummer-milano.com/cdn/shop/files/Paisley_IMG_5161_low.jpg?v=1777114994&width=1400",
+        "caption_1": "Paisley, in Loro Piana Interiors Shadan.",
+        "image_2": "shopify://shop_images/Paisleydettaglio.jpg",
+        "fallback_2": "https://midsummer-milano.com/cdn/shop/files/Paisleydettaglio.jpg?v=1788246821&width=1400",
+        "caption_2": "Silk and linen, sewn by hand."
+      }
+    },
+    "s04": {
+      "type": "ms-video-band",
+      "settings": {
+        "video": "shopify://files/videos/Salone Del Mobile Page Video.mp4",
+        "caption": "Salone del Mobile, at the atelier on Via Andegari."
+      }
+    },
+    "s05": {
+      "type": "ms-cta-band",
+      "settings": {
+        "tone": "ink",
+        "eyebrow": "The atelier",
+        "heading": "Via Andegari 4, Milano.",
+        "text": "<p>Come and lie down on Paisley at the atelier, by appointment, Monday to Friday.</p>",
+        "button": "Book a private appointment",
+        "button_enquire": true,
+        "link_label": "Salone 2025 in the Journal",
+        "link": "https://midsummer-milano.com/blogs/press/midsummer-milano-at-salone-del-mobile-2025-a-journey-through-design-nature-and-well-being"
+      }
+    }
+  },
+  "order": [
+    "s01",
+    "s02",
+    "s03",
+    "s04",
+    "s05"
+  ]
+}

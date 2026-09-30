@@ -1,0 +1,63 @@
+{%- comment -%} A palette of cloths: each colour a tall specimen with its name, as a fabric book shows them. {%- endcomment -%}
+<section class="ms-sw">
+  <div class="ms-sw__in">
+    <div class="ms-sw__head">
+      <div>
+        {%- if section.settings.eyebrow != blank -%}<div class="ms-sw__eyebrow">{{ section.settings.eyebrow }}</div>{%- endif -%}
+        <h2 class="ms-sw__heading">{{ section.settings.heading }}</h2>
+      </div>
+      {%- if section.settings.text != blank -%}<div class="ms-sw__text">{{ section.settings.text }}</div>{%- endif -%}
+    </div>
+    <ul class="ms-sw__row" role="list">
+      {%- for block in section.blocks -%}
+        <li class="ms-sw__item" {{ block.shopify_attributes }}>
+          <span class="ms-sw__chip" style="background-color: {{ block.settings.color }};{% if block.settings.image != blank %} background-image: url({{ block.settings.image | image_url: width: 600 }});{% endif %}"></span>
+          <span class="ms-sw__name">{{ block.settings.name }}</span>
+          {%- if block.settings.note != blank -%}<span class="ms-sw__note">{{ block.settings.note }}</span>{%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+    {%- if section.settings.footnote != blank -%}<p class="ms-sw__foot">{{ section.settings.footnote }}</p>{%- endif -%}
+  </div>
+</section>
+<style>
+  .ms-sw { background: #F4EFE5; padding: clamp(72px, 10vw, 160px) clamp(18px, 5vw, 80px); }
+  .ms-sw__in { max-width: 1560px; margin: 0 auto; }
+  .ms-sw__head { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(24px, 5vw, 96px); align-items: end; }
+  .ms-sw__eyebrow { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: #6E675C; }
+  .ms-sw__heading { font-family: Newsreader, Georgia, serif; font-size: clamp(28px, 3.6vw, 52px); line-height: 1.08; letter-spacing: -.025em; font-weight: 200; margin-top: 18px; max-width: 18ch; }
+  .ms-sw__text { font-size: 15px; line-height: 1.95; color: #4A443B; max-width: 52ch; }
+  .ms-sw__text p { margin: 0; }
+  .ms-sw__row { list-style: none; margin: clamp(40px, 5vw, 72px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: clamp(18px, 2vw, 30px); }
+  .ms-sw__item { display: flex; flex-direction: column; gap: 6px; }
+  .ms-sw__chip { display: block; aspect-ratio: 3 / 4; background-size: cover; background-position: center; box-shadow: inset 0 0 0 1px rgba(23, 20, 15, .1); position: relative; overflow: hidden; }
+  .ms-sw__chip::after { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, rgba(255, 255, 255, .05) 0 1px, transparent 1px 3px), repeating-linear-gradient(0deg, rgba(0, 0, 0, .05) 0 1px, transparent 1px 3px); }
+  .ms-sw__name { font-family: Newsreader, Georgia, serif; font-size: 19px; margin-top: 10px; }
+  .ms-sw__note { font-size: 12px; letter-spacing: .08em; color: #6E675C; }
+  .ms-sw__foot { font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 17px; color: #6E675C; margin-top: clamp(28px, 4vw, 48px); }
+</style>
+{% schema %}
+{
+  "name": "Fabric palette",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Label" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "The palette" },
+    { "type": "richtext", "id": "text", "label": "Text" },
+    { "type": "text", "id": "footnote", "label": "Footnote" }
+  ],
+  "blocks": [
+    {
+      "type": "swatch",
+      "name": "Cloth",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Name", "default": "Colour" },
+        { "type": "color", "id": "color", "label": "Colour", "default": "#C9BCA8" },
+        { "type": "image_picker", "id": "image", "label": "Photograph of the cloth" },
+        { "type": "text", "id": "note", "label": "Note" }
+      ]
+    }
+  ],
+  "max_blocks": 40,
+  "presets": [ { "name": "Fabric palette" } ]
+}
+{% endschema %}

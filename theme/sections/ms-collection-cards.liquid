@@ -1,0 +1,84 @@
+{%- comment -%} Collections as cards: photograph, numeral, name and a line, as the preview's Three collections. {%- endcomment -%}
+<section class="ms-cc">
+  <div class="ms-cc__in">
+    <div class="ms-cc__head">
+      <div>
+        {%- if section.settings.eyebrow != blank -%}<div class="ms-cc__eyebrow">{{ section.settings.eyebrow }}</div>{%- endif -%}
+        <h2 class="ms-cc__heading">{{ section.settings.heading }}</h2>
+      </div>
+      {%- if section.settings.link_label != blank -%}<a data-ms="cta" class="ms-cc__all" href="{% render 'ms-link', to: 'collections' %}">{{ section.settings.link_label }}</a>{%- endif -%}
+    </div>
+    <div class="ms-cc__grid" data-ms="rail">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign c = block.settings.collection
+          if c == blank and block.settings.handle != blank
+            assign c = collections[block.settings.handle]
+          endif
+          assign url = c.url
+          if url == blank
+            capture url
+              render 'ms-link', to: 'collections'
+            endcapture
+          endif
+          assign title = block.settings.title | default: c.title
+        -%}
+        <a class="ms-cc__card" href="{{ url }}" {{ block.shopify_attributes }}>
+          <span class="ms-cc__img">
+            {%- if block.settings.image != blank -%}
+              <img src="{{ block.settings.image | image_url: width: 1200 }}" alt="{{ title | escape }}" loading="lazy" width="1200" height="1500">
+            {%- elsif block.settings.image_fallback != blank -%}
+              <img src="{% render 'ms-img', fallback: block.settings.image_fallback %}" alt="{{ title | escape }}" loading="lazy" width="1200" height="1500">
+            {%- elsif c.image != blank -%}
+              <img src="{{ c.image | image_url: width: 1200 }}" alt="{{ title | escape }}" loading="lazy" width="1200" height="1500">
+            {%- endif -%}
+          </span>
+          <span class="ms-cc__name"><span class="ms-cc__num">{{ block.settings.numeral }}</span>{{ title }}</span>
+          {%- if block.settings.text != blank -%}<span class="ms-cc__text">{{ block.settings.text }}</span>{%- endif -%}
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+<style>
+  .ms-cc { padding: clamp(72px, 10vw, 160px) clamp(18px, 5vw, 80px); }
+  .ms-cc__in { max-width: 1560px; margin: 0 auto; }
+  .ms-cc__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 18px 40px; border-top: 1px solid #DDD6C9; padding-top: 26px; margin-bottom: clamp(32px, 4vw, 60px); }
+  .ms-cc__eyebrow { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: #6E675C; }
+  .ms-cc__heading { font-family: Newsreader, Georgia, serif; font-size: clamp(26px, 3.2vw, 44px); letter-spacing: -.02em; font-weight: 200; margin-top: 12px; }
+  .ms-site .ms-cc__all { font-size: 11px; letter-spacing: .26em; text-transform: uppercase; color: #6E675C; }
+  .ms-cc__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: clamp(20px, 3vw, 48px); }
+  .ms-cc__card { display: block; }
+  .ms-cc__img { display: block; overflow: hidden; background: #F1ECE3; aspect-ratio: 4 / 5; }
+  .ms-cc__img img { width: 100%; height: 100%; object-fit: cover; }
+  .ms-cc__name { display: flex; align-items: baseline; gap: 12px; margin-top: 18px; font-family: Newsreader, Georgia, serif; font-size: clamp(22px, 2.2vw, 28px); }
+  .ms-cc__num { font-size: 13px; color: #9A7B4F; }
+  .ms-cc__text { display: block; font-size: 13.5px; line-height: 1.8; color: #6E675C; margin-top: 8px; max-width: 42ch; }
+</style>
+{% schema %}
+{
+  "name": "Collections",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Label" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The collections" },
+    { "type": "text", "id": "link_label", "label": "Link to all collections", "default": "All twenty-four →" }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "text", "id": "handle", "label": "Or its handle", "info": "Used when no collection is picked." },
+        { "type": "text", "id": "title", "label": "Name" },
+        { "type": "text", "id": "numeral", "label": "Numeral" },
+        { "type": "image_picker", "id": "image", "label": "Photograph" },
+        { "type": "text", "id": "image_fallback", "label": "Photograph address" },
+        { "type": "textarea", "id": "text", "label": "Line" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [ { "name": "Collections" } ]
+}
+{% endschema %}

@@ -1,0 +1,15 @@
+{%- comment -%}
+  The address of a picture: the one chosen in the editor, else the fallback, which is
+  either a full address or the name of a file in the theme's assets.
+  Usage: src="{% render 'ms-img', image: section.settings.image, fallback: section.settings.fallback, width: 2000 %}"
+{%- endcomment -%}
+{%- liquid
+  assign w = width | default: 1800
+  if image != blank
+    echo image | image_url: width: w
+  elsif fallback contains '/'
+    echo fallback
+  elsif fallback != blank
+    echo fallback | asset_url
+  endif
+-%}

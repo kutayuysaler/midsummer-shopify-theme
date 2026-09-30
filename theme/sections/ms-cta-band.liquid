@@ -1,0 +1,73 @@
+{%- comment -%} A closing band: a heading, a line of text, and one or two ways to act. {%- endcomment -%}
+{%- liquid
+  case section.settings.tone
+    when 'ivory'
+      assign cls = 'is-ivory'
+    when 'stone'
+      assign cls = 'is-stone'
+    else
+      assign cls = 'is-ink'
+  endcase
+-%}
+<section class="ms-cb {{ cls }}">
+  <div class="ms-cb__in">
+    <div>
+      {%- if section.settings.eyebrow != blank -%}<div class="ms-cb__eyebrow">{{ section.settings.eyebrow }}</div>{%- endif -%}
+      <h2 class="ms-cb__heading">{{ section.settings.heading }}</h2>
+    </div>
+    <div class="ms-cb__col">
+      {%- if section.settings.text != blank -%}<div class="ms-cb__text">{{ section.settings.text }}</div>{%- endif -%}
+      <div class="ms-cb__actions">
+        {%- if section.settings.button != blank -%}
+          <a class="ms-cb__button"
+            href="{% if section.settings.button_enquire %}{% render 'ms-link', to: 'contact' %}{% else %}{{ section.settings.button_link | default: '#' }}{% endif %}"
+            {% if section.settings.button_enquire %}data-ms-enquire{% endif %}
+            {% if section.settings.new_tab %}target="_blank" rel="noopener"{% endif %}>{{ section.settings.button }}</a>
+        {%- endif -%}
+        {%- if section.settings.link_label != blank -%}
+          <a class="ms-cb__link"
+            href="{% if section.settings.link_enquire %}{% render 'ms-link', to: 'contact' %}{% elsif section.settings.link_place != 'none' %}{% render 'ms-link', to: section.settings.link_place %}{% else %}{{ section.settings.link | default: '#' }}{% endif %}"
+            {% if section.settings.link_enquire %}data-ms-enquire{% endif %}>{{ section.settings.link_label }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .ms-cb { padding: clamp(70px, 10vw, 160px) clamp(18px, 5vw, 80px); }
+  .ms-cb.is-ink { background: #17140F; color: #FBF9F5; --muted: rgba(251, 249, 245, .55); --body: rgba(251, 249, 245, .78); --btn-bg: #FBF9F5; --btn-fg: #17140F; }
+  .ms-cb.is-stone { background: #F1ECE3; color: #17140F; --muted: #6E675C; --body: #4A443B; --btn-bg: #17140F; --btn-fg: #FBF9F5; }
+  .ms-cb.is-ivory { background: #FBF9F5; color: #17140F; border-top: 1px solid #DDD6C9; --muted: #6E675C; --body: #4A443B; --btn-bg: #17140F; --btn-fg: #FBF9F5; }
+  .ms-cb__in { max-width: 1560px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: clamp(32px, 6vw, 96px); align-items: end; }
+  .ms-cb__eyebrow { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: var(--muted); }
+  .ms-cb__heading { font-family: Newsreader, Georgia, serif; font-size: clamp(30px, 4.2vw, 58px); line-height: 1.04; letter-spacing: -.03em; font-weight: 200; margin-top: 20px; max-width: 18ch; }
+  .ms-cb__text { font-size: 15px; line-height: 1.95; color: var(--body); max-width: 50ch; }
+  .ms-cb__text p { margin: 0; }
+  .ms-cb__text p + p { margin-top: 1em; }
+  .ms-cb__text em { font-family: Newsreader, Georgia, serif; font-size: 1.15em; }
+  .ms-cb__text a { color: inherit; border-bottom: 1px solid currentColor; }
+  .ms-cb__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 20px 30px; margin-top: 28px; }
+  .ms-site .ms-cb__button { display: inline-flex; align-items: center; min-height: 56px; padding: 0 36px; background: var(--btn-bg); color: var(--btn-fg); font-size: 11px; letter-spacing: .26em; text-transform: uppercase; transition: opacity .25s ease; }
+  .ms-site .ms-cb__button:hover { color: var(--btn-fg); opacity: .88; }
+  .ms-site .ms-cb__link { font-size: 11px; letter-spacing: .26em; text-transform: uppercase; color: inherit; border-bottom: 1px solid currentColor; padding-bottom: 7px; }
+</style>
+{% schema %}
+{
+  "name": "Closing band",
+  "settings": [
+    { "type": "select", "id": "tone", "label": "Ground", "default": "ink", "options": [ { "value": "ink", "label": "Ink" }, { "value": "stone", "label": "Stone" }, { "value": "ivory", "label": "Ivory" } ] },
+    { "type": "text", "id": "eyebrow", "label": "Label" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Come and lie down." },
+    { "type": "richtext", "id": "text", "label": "Text" },
+    { "type": "text", "id": "button", "label": "Button", "default": "Book a private appointment" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "checkbox", "id": "button_enquire", "label": "Button opens the enquiry", "default": true },
+    { "type": "checkbox", "id": "new_tab", "label": "Open the button's link in a new tab", "default": false },
+    { "type": "text", "id": "link_label", "label": "Second link" },
+    { "type": "select", "id": "link_place", "label": "Second link goes to", "default": "none", "options": [ { "value": "none", "label": "The address below" }, { "value": "collections", "label": "Our Beds" }, { "value": "journal", "label": "Journal" }, { "value": "materials", "label": "Natural Materials" }, { "value": "agents", "label": "Agents & Resellers" }, { "value": "quiz", "label": "Find your Midsummer" }, { "value": "story", "label": "Our Story" } ] },
+    { "type": "url", "id": "link", "label": "Second link address" },
+    { "type": "checkbox", "id": "link_enquire", "label": "Second link opens the enquiry", "default": false }
+  ],
+  "presets": [ { "name": "Closing band" } ]
+}
+{% endschema %}

@@ -11,7 +11,12 @@ theme on the store's Atelier 4.1.5 export.
 
 - **Templates:** `index`, `collection`, `list-collections`, `product`, `blog`, `article`,
   `search`, `404`, `page` and the `page.*` templates. Each one lists `ms-*` sections,
-  one per band of the preview, and renders in `layout/ms.liquid`.
+  one per band of the preview, and renders in `layout/ms.liquid`. The store's own
+  template names (`page.loro-piana-interiors`, `page.download-the-dream`,
+  `page.salone-2026`, `page.sleep-assesment`, `article.*`, `blog.collaborations` and the
+  24 `product.*` templates) are kept, so every page and product switches over on its own.
+- **Links:** `snippets/ms-link.liquid` finds each destination by the store's real
+  handles and never leads to a 404.
 - **Header, footer and enquiry sheet:** `sections/ms-header.liquid` (the bar, five
   panels and the phone menu), `sections/ms-footer.liquid` and
   `sections/ms-enquiry-drawer.liquid`.

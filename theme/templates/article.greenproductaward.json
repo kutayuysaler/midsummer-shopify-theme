@@ -1,0 +1,62 @@
+/*
+ * Midsummer Milano: A journal note with its photographs.
+ */
+{
+  "layout": "ms",
+  "sections": {
+    "s01": {
+      "type": "ms-article",
+      "settings": {}
+    },
+    "s02": {
+      "type": "ms-gallery",
+      "settings": {
+        "eyebrow": "Green Product Award",
+        "heading": "The Top System"
+      },
+      "blocks": {
+        "photo_01": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/1829-2-top-bed-system.jpg"
+          }
+        },
+        "photo_02": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/1829-0-top-bed-system.jpg"
+          }
+        },
+        "photo_03": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/1829-5-top-bed-system.jpg"
+          }
+        },
+        "photo_04": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/1829-6-top-bed-system.jpg"
+          }
+        },
+        "photo_05": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/1829-4-top-bed-system.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "photo_01",
+        "photo_02",
+        "photo_03",
+        "photo_04",
+        "photo_05"
+      ]
+    }
+  },
+  "order": [
+    "s01",
+    "s02"
+  ]
+}

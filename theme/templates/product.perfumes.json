@@ -1,0 +1,39 @@
+/*
+ * Midsummer Milano: Bed perfumes, with Strega del Castello.
+ */
+{
+  "layout": "ms",
+  "sections": {
+    "s01": {
+      "type": "ms-banner",
+      "settings": {
+        "image": "shopify://shop_images/DSC05117.jpg",
+        "eyebrow": "Scented bed perfumes",
+        "height": "medium",
+        "heading": "Midsummer-Milano & Strega del Castello",
+        "text": "Lavanda Barocca & Agrumi di Sicilia"
+      }
+    },
+    "s02": {
+      "type": "ms-product-main",
+      "settings": {
+        "f1_label": "Made",
+        "f1_value": "Handcrafted in Italy through sustainable and artisanal production methods",
+        "f2_label": "Ingredients",
+        "f2_value": "Natural, plant-based ingredients for a pure and gentle scent",
+        "f3_label": "Use",
+        "f3_value": "Safe for linens; made for pillows and sheets",
+        "price_text": "On request, from the atelier."
+      }
+    },
+    "s03": {
+      "type": "ms-product-related",
+      "settings": {}
+    }
+  },
+  "order": [
+    "s01",
+    "s02",
+    "s03"
+  ]
+}

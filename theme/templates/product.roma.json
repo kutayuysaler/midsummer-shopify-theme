@@ -1,0 +1,53 @@
+/*
+ * Midsummer Milano: the product, with its own fibres.
+ */
+{
+  "layout": "ms",
+  "sections": {
+    "s01": {
+      "type": "ms-product-main",
+      "settings": {}
+    },
+    "s02": {
+      "type": "ms-product-fibres",
+      "settings": {},
+      "blocks": {
+        "fibre_01": {
+          "type": "fibre",
+          "settings": {
+            "name": "Horsehair",
+            "icon": "shopify://shop_images/horse.png",
+            "note": "Support · Breathability"
+          }
+        }
+      },
+      "block_order": [
+        "fibre_01"
+      ]
+    },
+    "s03": {
+      "type": "ms-product-fibres",
+      "settings": {}
+    },
+    "s04": {
+      "type": "ms-product-build",
+      "settings": {}
+    },
+    "s05": {
+      "type": "ms-product-reasons",
+      "settings": {}
+    },
+    "s06": {
+      "type": "ms-product-related",
+      "settings": {}
+    }
+  },
+  "order": [
+    "s01",
+    "s02",
+    "s03",
+    "s04",
+    "s05",
+    "s06"
+  ]
+}

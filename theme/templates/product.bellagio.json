@@ -1,0 +1,62 @@
+/*
+ * Midsummer Milano: the product, with its own fibres.
+ */
+{
+  "layout": "ms",
+  "sections": {
+    "s01": {
+      "type": "ms-product-main",
+      "settings": {}
+    },
+    "s02": {
+      "type": "ms-product-fibres",
+      "settings": {},
+      "blocks": {
+        "fibre_01": {
+          "type": "fibre",
+          "settings": {
+            "name": "Yak Hair",
+            "icon": "shopify://shop_images/yak.png",
+            "note": "Warmth · Softness"
+          }
+        },
+        "fibre_02": {
+          "type": "fibre",
+          "settings": {
+            "name": "Cheviot Wool",
+            "icon": "shopify://shop_images/cheviot.png",
+            "note": "Support · Temperature"
+          }
+        }
+      },
+      "block_order": [
+        "fibre_01",
+        "fibre_02"
+      ]
+    },
+    "s03": {
+      "type": "ms-product-fibres",
+      "settings": {}
+    },
+    "s04": {
+      "type": "ms-product-build",
+      "settings": {}
+    },
+    "s05": {
+      "type": "ms-product-reasons",
+      "settings": {}
+    },
+    "s06": {
+      "type": "ms-product-related",
+      "settings": {}
+    }
+  },
+  "order": [
+    "s01",
+    "s02",
+    "s03",
+    "s04",
+    "s05",
+    "s06"
+  ]
+}

@@ -49,14 +49,61 @@ the collection pages. If one doesn't exist, its links go to `/collections`.
 ## 4. Product pages
 
 All of a product's photographs sit together on the left, and a click opens them full
-screen. The name, the line under it, price on request and the two enquiry buttons stay
-on the right. **The build, in section** follows as a dark band: the seven layers drawn to
-depth with the texture of each material. Then come dimensions and fabric, and the other
-systems in the collection. The line under the name is the metafield `custom.subtitle`;
-without it, the preview's line for that system is used.
+screen. On the right are the name, the line under it, price on request and the two
+enquiry buttons. **The build, in section** follows as a dark band. It draws the seven
+layers to depth with the texture of each material, and you can step through them.
 
-## 5. Pages the old theme built from sections
+Next come dimensions and fabric, in the store's six sizes:
 
-`Loro Piana Interiors`, `Download the dream` and `Salone 2026` were built from Dawn
-sections in the old theme. In this theme they show their page text in the editorial
-layout. Tell me if they should get a design of their own.
+- Single 100 × 200
+- Queen 153 × 203
+- Small Double 160 × 200
+- Double 180 × 200
+- King 193 × 203
+- Double Extra 200 × 200
+
+The other systems in the collection come last. The line under the name is the metafield
+`custom.subtitle`; without it, the preview's line for that system is used.
+
+**Products keep their own templates.** The old theme gave 24 products a template of their
+own (`amalfi`, `bellagio`, `bellini`, `brera`, `capri`, `dreamy-2`, `dreamy-springs`,
+`essenziale`, `first-dream`, `flora`, `giotto`, `monteverdi`, `my-dream`, `paisley`,
+`perfumes`, `raffaello`, `roma`, `storage`, `top-2`, `topper-roma`, `ultra-dry`,
+`vicuna`, `vivaldi-2`, `vivaldi-plus`). This theme has a template under each of those
+names, so every product picks up the new design with nothing to reassign.
+
+- Each template carries the **Product · Fibres** band, with that system's natural fibres (for
+  example Cashmere, Silk, Cheviot Wool, Horsehair) taken from the old theme's icons.
+- `topper-roma` also lists its sizes and covering.
+- `perfumes` opens on a photograph.
+- The `appointment` template keeps Atelier's own product page, so the booking product and
+  its app go on working.
+
+## 5. Pages with a design of their own
+
+These pages already use these templates in the store, so each one switches to its design
+by itself. Their text comes from the page itself, so what you write in admin appears in
+the design.
+
+| Page | Template | What it shows |
+| --- | --- | --- |
+| Loro Piana Interiors | `page.loro-piana-interiors` | The opening photograph and the page text. Then the palette of seven cloths (Paisley, Kummel, Tawny, Burnt Orange, Earthy Neutral, Verdant Green, Muted Blue), seasonal upholstery, Paisley in two photographs, Signature and Icons, and an invitation to see the cloths in Milano. |
+| Download the Dream | `page.download-the-dream` | The Art of Rest: the page text, then the eight works (Toulouse-Lautrec, Frida Kahlo, Casorati, Rousseau, William Morris, Renoir, Magritte, Hockney), each opening full screen. The Dropbox link downloads the series. |
+| Salone del Mobile 2026 | `page.salone-2026` | Full-screen opening "This year, the answer is Paisley.", the page text, two photographs, the Salone film and the invitation to Via Andegari 4. |
+
+Journal posts and blog:
+
+- `article.salonedelmobile` shows the post with its film.
+- `article.greenproductaward` shows it with the five photographs of the Top bed system.
+- `article.sleep-assessment` shows it with the quiz.
+- `blog.collaborations` opens on La Strega del Castello.
+
+Each band can be edited in the editor: its photographs, cloths, works and text. The same
+bands (Opening photograph, Statement and text, Fabric palette, Works of art, Two
+photographs, Film, Photographs, Closing band, Collections) can be added to any
+other page.
+
+## 6. The enquiry sheet
+
+"Book an appointment", "Request a proposal" and "Request brochure" open the same sheet.
+Under "Request brochure" it also offers the PDF brochure to download straight away.
