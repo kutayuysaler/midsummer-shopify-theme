@@ -148,19 +148,19 @@
 
 {%- comment -%} 02 · Heritage & craft {%- endcomment -%}
 {%- capture items -%}
-{{ u_story }}|{{ ss.mg_h1 }}|{{ ss.mg_h1_note }}|{{ 'ms-graded-ochre-room.jpg' | asset_url }}|
-§{{ u_handmade }}|{{ ss.mg_h2 }}|{{ ss.mg_h2_note }}|{{ cdn }}Paisleydettaglio.jpg?width=900|
-§{{ u_culture }}|{{ ss.mg_h3 }}|{{ ss.mg_h3_note }}|{{ 'ms-graded-horse.jpg' | asset_url }}|
-§{{ u_materials }}|{{ ss.mg_h4 }}|{{ ss.mg_h4_note }}|{{ 'ms-graded-dune.jpg' | asset_url }}|
-§{{ u_loro }}|{{ ss.mg_h5 }}|{{ ss.mg_h5_note }}|{{ 'ms-graded-paisley-red.jpg' | asset_url }}|
-§{{ u_regen }}|{{ ss.mg_h6 }}|{{ ss.mg_h6_note }}|{{ cdn }}giotto_SANGALGANO.jpg?width=900|
+{{ u_story }}|{{ ss.mg_h1 }}|{{ ss.mg_h1_note }}|{{ 'ms-photo-loft.jpg' | asset_url }}|
+§{{ u_handmade }}|{{ ss.mg_h2 }}|{{ ss.mg_h2_note }}|{{ 'ms-photo-mattress-detail.jpg' | asset_url }}|
+§{{ u_culture }}|{{ ss.mg_h3 }}|{{ ss.mg_h3_note }}|{{ 'ms-photo-window-chair.jpg' | asset_url }}|
+§{{ u_materials }}|{{ ss.mg_h4 }}|{{ ss.mg_h4_note }}|{{ 'ms-photo-cashmere-throw.jpg' | asset_url }}|
+§{{ u_loro }}|{{ ss.mg_h5 }}|{{ ss.mg_h5_note }}|{{ 'ms-photo-paisley-throw.jpg' | asset_url }}|
+§{{ u_regen }}|{{ ss.mg_h6 }}|{{ ss.mg_h6_note }}|{{ 'ms-photo-drapes-fireplace.jpg' | asset_url }}|
 {%- endcapture -%}
 {%- render 'ms-mega-panel', key: 'heritage', no: '02', title: ss.t2, lede: ss.mg_heritage_lede, items: items, feature: ss.mg_img_heritage, foot: foot -%}
 
 {%- comment -%} 03 · Professionals {%- endcomment -%}
 {%- capture items -%}
-{{ u_pro }}|{{ ss.mg_p1 }}|{{ ss.mg_p1_note }}|{{ cdn }}Untitled_Project_5_b49a7740-07fa-45f1-8b4f-464d951b0772.jpg?width=900|
-§{{ u_hosp }}|{{ ss.mg_p2 }}|{{ ss.mg_p2_note }}|{{ cdn }}PANTHER_POND_CAPRI_1.jpg?width=900|
+{{ u_pro }}|{{ ss.mg_p1 }}|{{ ss.mg_p1_note }}|{{ 'ms-photo-fresco-bed.jpg' | asset_url }}|
+§{{ u_hosp }}|{{ ss.mg_p2 }}|{{ ss.mg_p2_note }}|{{ 'ms-photo-glass-house.jpg' | asset_url }}|
 §{{ u_portfolio }}|{{ ss.mg_p3 }}|{{ ss.mg_p3_note }}|{{ 'ms-graded-arches.jpg' | asset_url }}|
 §{{ u_partner }}#enquire|{{ ss.mg_p4 }}|{{ ss.mg_p4_note }}|{{ cdn }}Top_deserto_mobile5.jpg?width=900|landing
 §{{ u_trade }}#enquire|{{ ss.mg_p5 }}|{{ ss.mg_p5_note }}|{{ cdn }}Vicuna-mattress.jpg?width=900|landing
@@ -208,9 +208,9 @@
 
 {%- comment -%} 05 · Contact {%- endcomment -%}
 {%- capture items -%}
-{{ u_appointment }}#enquire|{{ ss.mg_c1 }}|{{ ss.mg_c1_note }}|{{ 'ms-graded-paisley-red.jpg' | asset_url }}|landing
+{{ u_appointment }}#enquire|{{ ss.mg_c1 }}|{{ ss.mg_c1_note }}|{{ 'ms-photo-villa-doorway.jpg' | asset_url }}|landing
 §{{ u_agents }}|{{ ss.mg_c2 }}|{{ ss.mg_c2_note }}|{{ 'ms-graded-arches.jpg' | asset_url }}|
-§{{ u_agents }}#atelier|{{ ss.mg_c5 }}|{{ ss.mg_c5_note }}|{{ 'ms-graded-ochre-room.jpg' | asset_url }}|
+§{{ u_agents }}#atelier|{{ ss.mg_c5 }}|{{ ss.mg_c5_note }}|{{ 'ms-photo-atelier-chair.jpg' | asset_url }}|
 §{{ u_enquire }}#direct|{{ ss.mg_c3 }}|{{ ss.mg_c3_note }}|{{ cdn }}Paisley_IMG_4918_low_70960abc-6877-49b2-abc8-0bd379994114.jpg?width=900|landing
 {%- if settings.ms_social_whatsapp != blank -%}§{{ settings.ms_social_whatsapp }}|WhatsApp|{{ ss.mg_c4_note }}|{{ cdn }}Paisley_IMG_5161_low.jpg?width=900|external{%- endif -%}
 §{{ u_faq }}|{{ ss.mg_c6 }}|{{ ss.mg_c6_note }}|{{ 'ms-graded-dune.jpg' | asset_url }}|

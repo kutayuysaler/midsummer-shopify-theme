@@ -399,3 +399,30 @@ under *Menu panels*.
 the store's Icons collection lives under another handle. It is now found by its title.
 If it still doesn't open, check in admin that the collection is published to the Online
 Store and has products, or set its link under Theme settings → Midsummer · Where links go.
+
+## 12. Photographs from your own library
+
+Fourteen photographs from your Google Drive (the catalogue and location shoots, the
+atelier shoot) are now part of the theme, sized for the web (`assets/ms-photo-*.jpg`, about
+5 MB in all), so they show without uploading anything:
+
+| Photograph | Where it appears |
+|---|---|
+| Villa doorway, bed beyond (A8447393) | Home · Come and lie down; Contact panel |
+| Loft with spiral staircase (A8447647) | Our story; Heritage panel; Follow the atelier |
+| Frescoed bedroom, paisley throw (AMB_01) | Professionals page; Professionals panel; Follow |
+| Draped room with fireplace (AMB_02) | Home · Fifteen years, then fifteen more; 15 + 15 in the menu |
+| Window and armchair (AMB_05) | Sleep culture in the menu; Follow |
+| Glass house in the forest (MODERNA_01) | Hospitality page; Hospitality panel |
+| Tufted mattress detail (DSC3726) | Home · Two artisans, one bed; Handmade (the tufting); menu |
+| Cashmere throw (A8447515) | Home · Only what nature makes; Natural materials in the menu |
+| Paisley throw (A8447571) | Loro Piana Interiors page; menu; Follow |
+| Silk and stitching (A8447706) | Handmade (the border); Follow |
+| Linen sheets (A8447418) | Sleep culture (temperature) |
+| Cream blanket (MidSummer-240) | Sleep culture (the seasons) |
+| Atelier armchair (DSC4773) | The Milano atelier in the Contact panel |
+| Painted ceiling (SOFFITTO) | In the theme, ready for any section |
+
+Any of them can be replaced in the theme editor by picking another photograph in that
+section. The craftsmen "making" photographs (IMG_1111–1114) are over 10 MB each, too large
+to bring across here: upload them to Settings → Files and pick them in Handmade in Italy.

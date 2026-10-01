@@ -35,7 +35,7 @@
         "step_01": {
           "type": "step",
           "settings": {
-            "image_fallback": "ms-graded-dune.jpg",
+            "image_fallback": "ms-photo-linen-sheets.jpg",
             "title": "Temperature",
             "text": "<p>Natural fibres breathe. Wool and horsehair carry warmth and moisture away from the body, so the bed stays even through the night, in August as in January.</p>"
           }
@@ -51,7 +51,7 @@
         "step_03": {
           "type": "step",
           "settings": {
-            "image_fallback": "ms-graded-arches.jpg",
+            "image_fallback": "ms-photo-cream-blanket.jpg",
             "title": "The seasons",
             "text": "<p>Rest has a rhythm. Our toppers turn with the year: linen and silk to face the summer, wool and cashmere for the winter, in the same bed.</p>"
           }

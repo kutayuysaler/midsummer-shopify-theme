@@ -55,7 +55,7 @@
         "step_03": {
           "type": "step",
           "settings": {
-            "image_fallback": "ms-graded-arches.jpg",
+            "image_fallback": "ms-photo-mattress-detail.jpg",
             "title": "The tufting",
             "text": "<p>The layers are tufted by hand through the whole depth of the mattress. The dimples you see are what keep every fibre in its place, year after year.</p>"
           }
@@ -63,7 +63,7 @@
         "step_04": {
           "type": "step",
           "settings": {
-            "image_fallback": "ms-graded-paisley-red.jpg",
+            "image_fallback": "ms-photo-silk-detail.jpg",
             "title": "The border",
             "text": "<p>The sides are stitched by hand, row by row. It gives the edge its line, and the strength to hold you right to the border of the bed.</p>"
           }
