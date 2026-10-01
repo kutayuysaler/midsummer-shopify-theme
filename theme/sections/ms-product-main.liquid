@@ -1,7 +1,7 @@
 {%- comment -%}
-  The product, in one view: every photograph together on the left, the system on the
-  right, held in place while the pictures scroll. Price on request, and the two ways
-  to ask for one, sit directly under the name.
+  The product, in one view: the photographs on a single large stage on the left, with
+  a strip of every picture beneath it, as the great bed houses show theirs; the system
+  on the right. Price on request, and the two ways to ask for one, sit under the name.
 {%- endcomment -%}
 {%- liquid
   assign tier = nil
@@ -36,22 +36,48 @@
 -%}
 <section class="ms-pm" data-ms-pm>
   <div class="ms-pm__grid">
-    <div class="ms-pm__media{% if n_images == 1 %} is-single{% endif %}" data-ms-pm-media aria-label="{{ product.title | escape }}: photographs">
-      {%- for media in images -%}
-        <button type="button" class="ms-pm__shot{% if forloop.first %} is-lead{% endif %}" data-ms-pm-open="{{ forloop.index0 }}" aria-label="Enlarge photograph {{ forloop.index }} of {{ n_images }}">
-          <img
-            src="{{ media | image_url: width: 1600 }}"
-            srcset="{{ media | image_url: width: 700 }} 700w, {{ media | image_url: width: 1100 }} 1100w, {{ media | image_url: width: 1600 }} 1600w, {{ media | image_url: width: 2200 }} 2200w"
-            sizes="{% if forloop.first %}(max-width: 900px) 88vw, 58vw{% else %}(max-width: 900px) 88vw, 29vw{% endif %}"
-            width="{{ media.width }}" height="{{ media.height }}"
-            alt="{{ media.alt | default: product.title | escape }}"
-            {% if forloop.index > 2 %}loading="lazy"{% else %}fetchpriority="high"{% endif %}
-            data-full="{{ media | image_url: width: 2400 }}"
-          >
-        </button>
-      {%- else -%}
-        <span class="ms-pm__shot is-lead" style="aspect-ratio: 4 / 5; background: #F4EFE5;"></span>
-      {%- endfor -%}
+    <div class="ms-pm__gallery{% if n_images < 2 %} is-single{% endif %}" data-ms-pm-gallery aria-roledescription="carousel" aria-label="{{ product.title | escape }}: photographs">
+      <div class="ms-pm__stage">
+        <div class="ms-pm__track" data-ms-pm-track tabindex="0">
+          {%- for media in images -%}
+            <button type="button" class="ms-pm__slide" data-ms-pm-open="{{ forloop.index0 }}" aria-label="Photograph {{ forloop.index }} of {{ n_images }}, enlarge">
+              <img
+                src="{{ media | image_url: width: 1600 }}"
+                srcset="{{ media | image_url: width: 800 }} 800w, {{ media | image_url: width: 1200 }} 1200w, {{ media | image_url: width: 1600 }} 1600w, {{ media | image_url: width: 2200 }} 2200w"
+                sizes="(max-width: 900px) 100vw, 58vw"
+                width="{{ media.width }}" height="{{ media.height }}"
+                alt="{{ media.alt | default: product.title | escape }}"
+                style="object-position: {{ media.preview_image.presentation.focal_point | default: 'center' }};"
+                {% if forloop.first %}fetchpriority="high"{% else %}loading="lazy"{% endif %}
+                data-full="{{ media | image_url: width: 2400 }}"
+              >
+            </button>
+          {%- else -%}
+            <span class="ms-pm__slide is-empty"></span>
+          {%- endfor -%}
+        </div>
+        {%- if n_images > 1 -%}
+          <button type="button" class="ms-pm__arrow is-prev" data-ms-pm-go="-1" aria-label="Previous photograph">
+            <svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.1"/></svg>
+          </button>
+          <button type="button" class="ms-pm__arrow is-next" data-ms-pm-go="1" aria-label="Next photograph">
+            <svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"/></svg>
+          </button>
+          <div class="ms-pm__counter" aria-hidden="true"><span data-ms-pm-at>01</span><i></i>{{ n_images | prepend: '0' | slice: -2, 2 }}</div>
+        {%- endif -%}
+        {%- if n_images > 0 -%}
+          <span class="ms-pm__enlarge" aria-hidden="true"><svg viewBox="0 0 16 16" width="13" height="13"><path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4" fill="none" stroke="currentColor" stroke-width="1.1"/></svg>{{ section.settings.enlarge_label }}</span>
+        {%- endif -%}
+      </div>
+      {%- if n_images > 1 -%}
+        <div class="ms-pm__thumbs" data-ms-pm-thumbs>
+          {%- for media in images -%}
+            <button type="button" class="ms-pm__thumb{% if forloop.first %} is-on{% endif %}" data-ms-pm-to="{{ forloop.index0 }}" aria-label="Show photograph {{ forloop.index }}"{% if forloop.first %} aria-current="true"{% endif %}>
+              <img src="{{ media | image_url: width: 240 }}" alt="" width="120" height="90" loading="lazy">
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
     </div>
 
     <div class="ms-pm__info">
@@ -110,13 +136,32 @@
 <style>
   .ms-pm { padding: clamp(28px, 4vw, 64px) clamp(18px, 5vw, 80px) clamp(56px, 8vw, 120px); max-width: 1560px; margin: 0 auto; }
   .ms-pm__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(320px, 5fr); gap: clamp(32px, 5vw, 96px); align-items: start; }
-  .ms-pm__media { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(8px, 1vw, 14px); }
-  .ms-pm__shot { display: block; padding: 0; border: 0; background: #F4EFE5; cursor: zoom-in; overflow: hidden; }
-  .ms-pm__shot img { display: block; width: 100%; height: 100%; aspect-ratio: 4 / 5; object-fit: cover; transition: transform 1.1s cubic-bezier(.2,.7,.2,1); }
-  .ms-pm__shot:hover img { transform: scale(1.022); }
-  .ms-pm__shot.is-lead { grid-column: 1 / -1; }
-  .ms-pm__shot.is-lead img { aspect-ratio: auto; height: auto; max-height: 88vh; object-fit: contain; }
-  .ms-pm__media.is-single .ms-pm__shot img { max-height: none; }
+  .ms-pm__stage { position: relative; background: #F1ECE3; overflow: hidden; }
+  .ms-pm__track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; overscroll-behavior-x: contain; outline: none; }
+  .ms-pm__track::-webkit-scrollbar { display: none; }
+  .ms-pm__slide { flex: 0 0 100%; scroll-snap-align: start; scroll-snap-stop: always; display: block; padding: 0; border: 0; background: none; cursor: zoom-in; aspect-ratio: 5 / 4; max-height: calc(100vh - 150px); min-height: 360px; overflow: hidden; }
+  .ms-pm__slide.is-empty { cursor: default; }
+  .ms-pm__slide img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s cubic-bezier(.2,.7,.2,1); }
+  .ms-pm__stage:hover .ms-pm__slide img { transform: scale(1.015); }
+  .ms-pm__arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 50%; background: rgba(251, 249, 245, .9); color: #17140F; cursor: pointer; opacity: 0; transition: opacity .35s ease, background .25s ease; }
+  .ms-pm__arrow.is-prev { left: 20px; }
+  .ms-pm__arrow.is-next { right: 20px; }
+  .ms-pm__stage:hover .ms-pm__arrow, .ms-pm__arrow:focus-visible { opacity: 1; }
+  .ms-pm__arrow:hover { background: #FBF9F5; }
+  .ms-pm__arrow[disabled] { opacity: 0 !important; pointer-events: none; }
+  .ms-pm__counter { position: absolute; left: 22px; bottom: 20px; display: flex; align-items: center; gap: 12px; padding: 9px 14px; background: rgba(251, 249, 245, .9); font-size: 11px; letter-spacing: .2em; color: #6E675C; font-variant-numeric: tabular-nums; pointer-events: none; }
+  .ms-pm__counter span { color: #17140F; }
+  .ms-pm__counter i { display: block; width: 26px; height: 1px; background: #B8AE9C; }
+  .ms-pm__enlarge { position: absolute; right: 22px; bottom: 20px; display: flex; align-items: center; gap: 9px; padding: 9px 14px; background: rgba(251, 249, 245, .9); font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: #17140F; pointer-events: none; opacity: 0; transition: opacity .35s ease; }
+  .ms-pm__stage:hover .ms-pm__enlarge { opacity: 1; }
+  .ms-pm__thumbs { display: flex; gap: 10px; margin-top: 12px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+  .ms-pm__thumbs::-webkit-scrollbar { display: none; }
+  .ms-pm__thumb { flex: 0 0 auto; width: clamp(68px, 7vw, 104px); aspect-ratio: 5 / 4; padding: 0; border: 0; background: #F1ECE3; cursor: pointer; position: relative; opacity: .5; transition: opacity .3s ease; }
+  .ms-pm__thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .ms-pm__thumb::after { content: ''; position: absolute; left: 0; right: 0; bottom: -2px; height: 1px; background: #17140F; transform: scaleX(0); transform-origin: left; transition: transform .45s cubic-bezier(.2,.7,.2,1); }
+  .ms-pm__thumb:hover { opacity: .85; }
+  .ms-pm__thumb.is-on { opacity: 1; }
+  .ms-pm__thumb.is-on::after { transform: scaleX(1); }
   .ms-pm__sticky { position: sticky; top: 118px; }
   .ms-pm__eyebrow { font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: #6E675C; }
   .ms-pm__eyebrow a { color: inherit; }
@@ -151,13 +196,12 @@
   .ms-pm__vcount { position: absolute; bottom: 22px; left: 0; right: 0; text-align: center; font-size: 11px; letter-spacing: 0.26em; color: #6E675C; }
 
   @media (max-width: 900px) {
-    .ms-pm__grid { grid-template-columns: minmax(0, 1fr); }
-    .ms-pm__media { display: grid; grid-auto-flow: column; grid-template-columns: none; grid-auto-columns: 86%; overflow-x: auto; scroll-snap-type: x mandatory; margin-inline: calc(-1 * clamp(18px, 5vw, 80px)); padding-inline: clamp(18px, 5vw, 80px); scroll-padding-inline: clamp(18px, 5vw, 80px); scrollbar-width: none; }
-    .ms-pm__media::-webkit-scrollbar { display: none; }
-    .ms-pm__media.is-single { grid-auto-columns: 100%; }
-    .ms-pm__shot { scroll-snap-align: start; }
-    .ms-pm__shot.is-lead { grid-column: auto; }
-    .ms-pm__shot img, .ms-pm__shot.is-lead img { aspect-ratio: 4 / 5; height: 100%; max-height: none; object-fit: cover; }
+    .ms-pm__grid { grid-template-columns: minmax(0, 1fr); gap: 30px; }
+    .ms-pm__gallery { margin-inline: calc(-1 * clamp(18px, 5vw, 80px)); margin-top: calc(-1 * clamp(28px, 4vw, 64px)); }
+    .ms-pm__slide { aspect-ratio: 4 / 5; max-height: 78vh; min-height: 0; }
+    .ms-pm__arrow, .ms-pm__enlarge { display: none; }
+    .ms-pm__counter { left: 16px; bottom: 14px; }
+    .ms-pm__thumbs { display: none; }
     .ms-pm__sticky { position: static; }
   }
 </style>
@@ -167,10 +211,42 @@
     var root = document.currentScript.parentElement.querySelector('[data-ms-pm]') || document.querySelector('[data-ms-pm]');
     if (!root) return;
     var shots = Array.prototype.slice.call(root.querySelectorAll('[data-ms-pm-open] img'));
+    var track = root.querySelector('[data-ms-pm-track]');
+    var thumbs = Array.prototype.slice.call(root.querySelectorAll('[data-ms-pm-to]'));
+    var atEl = root.querySelector('[data-ms-pm-at]');
+    var prev = root.querySelector('[data-ms-pm-go="-1"]'), next = root.querySelector('[data-ms-pm-go="1"]');
     var viewer = root.querySelector('[data-ms-pm-viewer]');
     var full = root.querySelector('[data-ms-pm-full]');
     var count = root.querySelector('[data-ms-pm-count]');
-    var at = 0, last = null;
+    var at = 0, cur = 0, last = null;
+    function pad(n) { return (n < 10 ? '0' : '') + n; }
+    function mark(i) {
+      cur = i;
+      if (atEl) atEl.textContent = pad(i + 1);
+      thumbs.forEach(function (t, k) { t.classList.toggle('is-on', k === i); if (k === i) { t.setAttribute('aria-current', 'true'); } else { t.removeAttribute('aria-current'); } });
+      if (thumbs[i] && thumbs[i].parentElement.scrollWidth > thumbs[i].parentElement.clientWidth) thumbs[i].parentElement.scrollTo({ left: thumbs[i].offsetLeft - 40, behavior: 'smooth' });
+      if (prev) prev.disabled = i === 0;
+      if (next) next.disabled = i === shots.length - 1;
+    }
+    function go(i) {
+      if (!track || !shots.length) return;
+      i = Math.max(0, Math.min(shots.length - 1, i));
+      track.scrollTo({ left: i * track.clientWidth, behavior: 'smooth' });
+      mark(i);
+    }
+    if (track) {
+      var tick = null;
+      track.addEventListener('scroll', function () {
+        if (tick) return;
+        tick = requestAnimationFrame(function () { tick = null; var i = Math.round(track.scrollLeft / Math.max(1, track.clientWidth)); if (i !== cur) mark(i); });
+      }, { passive: true });
+      track.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight') { e.preventDefault(); go(cur + 1); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); go(cur - 1); }
+      });
+      window.addEventListener('resize', function () { track.scrollTo({ left: cur * track.clientWidth }); });
+      mark(0);
+    }
     function show(i) {
       at = (i + shots.length) % shots.length;
       full.src = shots[at].getAttribute('data-full');
@@ -178,10 +254,14 @@
       count.textContent = (at + 1) + ' / ' + shots.length;
     }
     function open(i) { last = document.activeElement; show(i); viewer.hidden = false; document.body.classList.add('ms-lock'); viewer.querySelector('[data-ms-pm-close]').focus(); }
-    function close() { viewer.hidden = true; document.body.classList.remove('ms-lock'); if (last) last.focus(); }
+    function close() { viewer.hidden = true; document.body.classList.remove('ms-lock'); go(at); if (last) last.focus(); }
     root.addEventListener('click', function (e) {
       var o = e.target.closest('[data-ms-pm-open]');
       if (o) { open(+o.getAttribute('data-ms-pm-open')); return; }
+      var g = e.target.closest('[data-ms-pm-go]');
+      if (g) { go(cur + +g.getAttribute('data-ms-pm-go')); return; }
+      var t = e.target.closest('[data-ms-pm-to]');
+      if (t) { go(+t.getAttribute('data-ms-pm-to')); return; }
       if (e.target.closest('[data-ms-pm-close]') || e.target === viewer) { close(); return; }
       var s = e.target.closest('[data-ms-pm-step]');
       if (s) show(at + +s.getAttribute('data-ms-pm-step'));
@@ -199,7 +279,7 @@
 {
   "name": "Product · The system",
   "settings": [
-    { "type": "paragraph", "content": "Every product photograph, then the name, the line under it (metafield custom.subtitle) and the enquiry." },
+    { "type": "paragraph", "content": "The product photographs on one large stage, with a strip of every picture beneath; then the name, the line under it (metafield custom.subtitle) and the enquiry." },
     { "type": "text", "id": "eyebrow", "label": "Label when not in a collection", "default": "Midsummer Milano" },
     { "type": "text", "id": "price_label", "label": "Price label", "default": "Price" },
     { "type": "text", "id": "price_text", "label": "Price statement", "default": "On request. The specification sets it." },
@@ -212,7 +292,8 @@
     { "type": "text", "id": "f3_label", "label": "Fact 3 label", "default": "Service" },
     { "type": "text", "id": "f3_value", "label": "Fact 3", "default": "Regenerated at fifteen years, for fifteen more" },
     { "type": "checkbox", "id": "show_description", "label": "Show the product description", "default": true },
-    { "type": "text", "id": "description_label", "label": "Description label", "default": "About this system" }
+    { "type": "text", "id": "description_label", "label": "Description label", "default": "About this system" },
+    { "type": "text", "id": "enlarge_label", "label": "Enlarge label", "default": "Enlarge" }
   ]
 }
 {% endschema %}

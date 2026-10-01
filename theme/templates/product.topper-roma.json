@@ -9,6 +9,14 @@
       "settings": {}
     },
     "s02": {
+      "type": "ms-product-reasons",
+      "settings": {}
+    },
+    "s03": {
+      "type": "ms-product-build",
+      "settings": {}
+    },
+    "s04": {
       "type": "ms-product-fibres",
       "settings": {
         "specs": "<p><strong>Single</strong> 100 × 200 × 10 cm</p><p><strong>Queen</strong> 153 × 203 × 10 cm</p><p><strong>Small Double</strong> 160 × 200 × 10 cm</p><p><strong>Double</strong> 180 × 200 × 10 cm</p><p><strong>King</strong> 193 × 203 × 10 cm</p><p><strong>Double Extra</strong> 200 × 200 × 10 cm</p><p>Headboard height 110 cm</p><p>Removable covering</p>"
@@ -27,19 +35,7 @@
         "fibre_01"
       ]
     },
-    "s03": {
-      "type": "ms-product-fibres",
-      "settings": {}
-    },
-    "s04": {
-      "type": "ms-product-build",
-      "settings": {}
-    },
     "s05": {
-      "type": "ms-product-reasons",
-      "settings": {}
-    },
-    "s06": {
       "type": "ms-product-related",
       "settings": {}
     }
@@ -49,7 +45,6 @@
     "s02",
     "s03",
     "s04",
-    "s05",
-    "s06"
+    "s05"
   ]
 }

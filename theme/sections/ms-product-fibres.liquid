@@ -45,10 +45,11 @@
   .ms-pf__eyebrow { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: #6E675C; }
   .ms-pf__heading { font-family: Newsreader, Georgia, serif; font-size: clamp(28px, 3.4vw, 48px); line-height: 1.08; letter-spacing: -.025em; font-weight: 200; margin-top: 16px; max-width: 16ch; }
   .ms-site .ms-pf__link { display: inline-block; margin-top: 24px; font-size: 11px; letter-spacing: .26em; text-transform: uppercase; border-bottom: 1px solid #17140F; padding-bottom: 7px; }
-  .ms-pf__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 0; border-top: 1px solid #DDD6C9; border-left: 1px solid #DDD6C9; }
-  .ms-pf__fibre { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 26px 22px 28px; border-right: 1px solid #DDD6C9; border-bottom: 1px solid #DDD6C9; }
-  .ms-pf__icon { width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; }
-  .ms-pf__icon img { width: 56px; height: 56px; object-fit: contain; filter: none !important; }
+  .ms-pf__list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; }
+  .ms-pf__fibre { flex: 0 1 230px; min-width: 170px; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 26px 24px 28px; border: 1px solid #DDD6C9; margin: 0 -1px -1px 0; }
+  /* the drawings arrive on white: multiplied onto the ground, the white falls away and only the ink line stays */
+  .ms-pf__icon { width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; background: #F4EFE5; isolation: isolate; }
+  .ms-site .ms-pf__icon img { width: 64px; height: 64px; object-fit: contain; mix-blend-mode: multiply; filter: grayscale(1) contrast(1.35) brightness(1.06) !important; opacity: .82; }
   .ms-pf__name { font-family: Newsreader, Georgia, serif; font-size: 21px; line-height: 1.2; margin-top: 6px; }
   .ms-pf__note { font-size: 13px; line-height: 1.7; color: #6E675C; }
   .ms-pf__specs { margin-top: clamp(28px, 3.4vw, 44px); border-top: 1px solid #DDD6C9; padding-top: 22px; }

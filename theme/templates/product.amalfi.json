@@ -9,7 +9,7 @@
       "settings": {}
     },
     "s02": {
-      "type": "ms-product-fibres",
+      "type": "ms-product-reasons",
       "settings": {}
     },
     "s03": {
@@ -17,10 +17,6 @@
       "settings": {}
     },
     "s04": {
-      "type": "ms-product-reasons",
-      "settings": {}
-    },
-    "s05": {
       "type": "ms-product-related",
       "settings": {}
     }
@@ -29,7 +25,6 @@
     "s01",
     "s02",
     "s03",
-    "s04",
-    "s05"
+    "s04"
   ]
 }

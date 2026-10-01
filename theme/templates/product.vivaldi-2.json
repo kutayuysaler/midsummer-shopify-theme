@@ -9,6 +9,14 @@
       "settings": {}
     },
     "s02": {
+      "type": "ms-product-reasons",
+      "settings": {}
+    },
+    "s03": {
+      "type": "ms-product-build",
+      "settings": {}
+    },
+    "s04": {
       "type": "ms-product-fibres",
       "settings": {},
       "blocks": {
@@ -24,19 +32,7 @@
         "fibre_01"
       ]
     },
-    "s03": {
-      "type": "ms-product-fibres",
-      "settings": {}
-    },
-    "s04": {
-      "type": "ms-product-build",
-      "settings": {}
-    },
     "s05": {
-      "type": "ms-product-reasons",
-      "settings": {}
-    },
-    "s06": {
       "type": "ms-product-related",
       "settings": {}
     }
@@ -46,7 +42,6 @@
     "s02",
     "s03",
     "s04",
-    "s05",
-    "s06"
+    "s05"
   ]
 }

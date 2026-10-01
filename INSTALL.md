@@ -48,12 +48,17 @@ the collection pages. If one doesn't exist, its links go to `/collections`.
 
 ## 4. Product pages
 
-All of a product's photographs sit together on the left, and a click opens them full
-screen. On the right are the name, the line under it, price on request and the two
-enquiry buttons. **The build, in section** follows as a dark band. It draws the seven
-layers to depth with the texture of each material, and you can step through them.
+The photographs sit on one large stage, as the great bed houses show theirs. A strip of
+every picture runs beneath it. Arrows appear on hover, a counter shows where you are,
+the keyboard arrows work, and a click opens the photograph full screen. On a phone the
+stage runs the full width and you swipe through the pictures. The first photograph
+opens the page, so put the strongest one first in the product's media. If you set a
+focal point on a photograph in admin, the crop follows it.
 
-Next come dimensions and fabric, in the store's six sizes:
+On the right are the name, the line under it, price on request and the two enquiry
+buttons.
+
+Dimensions and fabric follow straight after, in the store's six sizes:
 
 - Single 100 × 200
 - Queen 153 × 203
@@ -61,6 +66,16 @@ Next come dimensions and fabric, in the store's six sizes:
 - Double 180 × 200
 - King 193 × 203
 - Double Extra 200 × 200
+
+Then comes **The build, in section**, a dark band that draws the seven layers with the
+texture of each material; you can step through them. Depths are never given in figures.
+The drawing is marked "Indicative, not to scale", and each layer carries a word instead
+of a measurement (Fine, Light, Generous, Deep, Foundation). The cm values in the editor
+only choose which word and drawing height a layer gets, and they never reach the page.
+
+After it, **The fibres** shows that system's natural fibres. Their drawings arrive on a
+white ground, so the theme blends the white away and only the ink line shows on the
+page.
 
 The other systems in the collection come last. The line under the name is the metafield
 `custom.subtitle`; without it, the preview's line for that system is used.
@@ -74,6 +89,8 @@ names, so every product picks up the new design with nothing to reassign.
 
 - Each template carries the **Product · Fibres** band, with that system's natural fibres (for
   example Cashmere, Silk, Cheviot Wool, Horsehair) taken from the old theme's icons.
+- Every product page runs in this order: the system, dimensions and fabric, the build,
+  the fibres, then the other systems.
 - `topper-roma` also lists its sizes and covering.
 - `perfumes` opens on a photograph.
 - The `appointment` template keeps Atelier's own product page, so the booking product and
