@@ -1,5 +1,5 @@
 /*
- * Midsummer Milano: Sleep Culture: on rest, and the rooms we keep for it.
+ * Midsummer Milano: Sleep Culture: rest, designed with the same rigour as the room around it.
  */
 {
   "layout": "ms",
@@ -12,23 +12,23 @@
         "use_page_title": true,
         "heading": "Sleep Culture",
         "height": "tall",
-        "text": "On rest, and the rooms we keep for it."
+        "text": "Rest, designed with the same rigour as the room around it."
       }
     },
     "s02": {
       "type": "ms-statement",
       "settings": {
-        "eyebrow": "Sleep culture",
+        "eyebrow": "An architect's question",
         "use_content": true,
-        "heading": "A third of a life is spent in bed. It deserves the care we give the rooms we are seen in.",
-        "text": "<p>We think about sleep the way an architect thinks about a room: light, temperature, material, and the body at rest within them. These are our notes on it.</p>"
+        "heading": "A sofa gets specified. A kitchen gets designed. The bed, where we spend a third of our lives, deserves the same care.",
+        "text": "<p>Midsummer Milano began with a question its founder, an architect, kept asking: why is the bed treated as a technical product from a catalogue, when every other piece of a room is chosen with care?</p><p>Sleep Culture is where we follow that question: how material, temperature, proportion and ritual shape the night, and what making beds by hand, and listening to the people who sleep in them, has taught us.</p>"
       }
     },
     "s03": {
       "type": "ms-process",
       "settings": {
-        "eyebrow": "Three things that matter",
-        "heading": "What a good night is made of.",
+        "eyebrow": "What a good night is made of",
+        "heading": "Three things we design for.",
         "ground": "#F4EFE5"
       },
       "blocks": {
@@ -37,7 +37,7 @@
           "settings": {
             "image_fallback": "ms-graded-dune.jpg",
             "title": "Temperature",
-            "text": "<p>Natural fibres breathe. Wool and horsehair carry warmth and moisture away from the body, so the bed stays even through the night.</p>"
+            "text": "<p>Natural fibres breathe. Wool and horsehair carry warmth and moisture away from the body, so the bed stays even through the night, in August as in January.</p>"
           }
         },
         "step_02": {
@@ -45,15 +45,15 @@
           "settings": {
             "image_fallback": "ms-graded-ochre-room.jpg",
             "title": "Support",
-            "text": "<p>Springs that work independently follow the body rather than pushing back against it, at every point and in every position.</p>"
+            "text": "<p>Springs that work one by one follow the body instead of pushing back against it, at every point and in every position you sleep in.</p>"
           }
         },
         "step_03": {
           "type": "step",
           "settings": {
             "image_fallback": "ms-graded-arches.jpg",
-            "title": "Stillness",
-            "text": "<p>A bed made to your measure, of materials that do not shift, is a bed you stop noticing. That is the point.</p>"
+            "title": "The seasons",
+            "text": "<p>Rest has a rhythm. Our toppers turn with the year: linen and silk to face the summer, wool and cashmere for the winter, in the same bed.</p>"
           }
         }
       },

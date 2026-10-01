@@ -13,56 +13,56 @@
 </header>
 <div style="flex: 1 1 0%; overflow-y: auto; padding: clamp(34px, 4.4vw, 58px) clamp(22px, 3.4vw, 48px) clamp(40px, 5vw, 64px);">{%- form 'contact', id: 'ms-drawer-form' -%}<div data-ms-enq="Book appointment"><input data-ms-enq-mode-field="" name="contact[Enquiry mode]" type="hidden" value="Book appointment"/>{%- if form.posted_successfully? -%}<p role="status" style="font-family: Newsreader, Georgia, serif; font-size: 20px; line-height: 1.5; border-top: 1px solid #DDD6C9; border-bottom: 1px solid #DDD6C9; padding: 18px 0; margin-bottom: 30px;">Thank you. The atelier will reply within one working day.</p>{%- endif -%}{%- if form.errors -%}<div role="alert" style="font-size: 13px; line-height: 1.8; color: #8B3A2B; margin-bottom: 24px;">{{ form.errors | default_errors }}</div>{%- endif -%}
 <h2 style="font-family: Newsreader, Georgia, serif; font-size: clamp(26px, 3.2vw, 40px); font-weight: 200; line-height: 1.1; letter-spacing: -0.02em; max-width: 22ch;">{{ section.settings.t2 }}</h2>
-<p data-ms-copy="note" style="margin-top: 20px; font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); max-width: 48ch;">{{ section.settings.t3 }}</p><a data-ms-brochure="" hidden="" href="https://cdn.shopify.com/s/files/1/0697/8829/files/Midsummer-Milano_Brochure.pdf?v=1733221759" rel="noopener" style="display: inline-block; margin-top: 14px; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; border-bottom: 1px solid rgb(23, 20, 15); padding-bottom: 6px;" target="_blank">{{ section.settings.t4 }}</a>
+<p data-ms-copy="note" style="margin-top: 20px; font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); max-width: 48ch;">{{ section.settings.t3 }}</p>
 <div style="margin-top: clamp(30px, 3.6vw, 46px);">
-<div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92); margin-bottom: 6px;">{{ section.settings.t5 }}</div>
-<button aria-pressed="false" data-ms-tab="Request brochure" style="display: flex; align-items: center; gap: 14px; width: 100%; text-align: left; background: transparent; border-width: 1px 0px 0px; border-top-style: solid; border-right-style: initial; border-bottom-style: initial; border-left-style: initial; border-top-color: rgb(221, 214, 201); border-right-color: initial; border-bottom-color: initial; border-left-color: initial; border-image: initial; padding: 16px 0px; cursor: pointer; font-family: inherit; color: inherit;" type="button">{{ section.settings.t6 }}</button>
-<button aria-pressed="true" data-ms-tab="Book appointment" style="display: flex; align-items: center; gap: 14px; width: 100%; text-align: left; background: transparent; border-width: 1px 0px 0px; border-top-style: solid; border-right-style: initial; border-bottom-style: initial; border-left-style: initial; border-top-color: rgb(221, 214, 201); border-right-color: initial; border-bottom-color: initial; border-left-color: initial; border-image: initial; padding: 16px 0px; cursor: pointer; font-family: inherit; color: inherit;" type="button">{{ section.settings.t7 }}</button>
-<button aria-pressed="false" data-ms-tab="Request a proposal" style="display: flex; align-items: center; gap: 14px; width: 100%; text-align: left; background: transparent; border-width: 1px 0px 0px; border-top-style: solid; border-right-style: initial; border-bottom-style: initial; border-left-style: initial; border-top-color: rgb(221, 214, 201); border-right-color: initial; border-bottom-color: initial; border-left-color: initial; border-image: initial; padding: 16px 0px; cursor: pointer; font-family: inherit; color: inherit;" type="button"><span data-ms-dot="" style="flex: 0 0 auto; width: 7px; height: 7px; border-radius: 50%; background: transparent; box-shadow: rgb(221, 214, 201) 0px 0px 0px 1px inset;"></span><span data-ms-tablabel="" style="font-family: Newsreader, Georgia, serif; font-size: clamp(17px, 1.8vw, 21px); line-height: 1.3; color: rgb(110, 103, 92);">Request a proposal</span></button><button aria-pressed="false" data-ms-tab="Request callback" style="display: flex; align-items: center; gap: 14px; width: 100%; text-align: left; background: transparent; border-width: 1px 0px 0px; border-top-style: solid; border-right-style: initial; border-bottom-style: initial; border-left-style: initial; border-top-color: rgb(221, 214, 201); border-right-color: initial; border-bottom-color: initial; border-left-color: initial; border-image: initial; padding: 16px 0px; cursor: pointer; font-family: inherit; color: inherit;" type="button">{{ section.settings.t8 }}</button>
-<button aria-pressed="false" data-ms-tab="Leave a message" style="display: flex; align-items: center; gap: 14px; width: 100%; text-align: left; background: transparent; border-width: 1px 0px; border-top-style: solid; border-right-style: initial; border-bottom-style: solid; border-left-style: initial; border-top-color: rgb(221, 214, 201); border-right-color: initial; border-bottom-color: rgb(221, 214, 201); border-left-color: initial; border-image: initial; padding: 16px 0px; cursor: pointer; font-family: inherit; color: inherit;" type="button">{{ section.settings.t9 }}</button>
+<div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92); margin-bottom: 6px;">{{ section.settings.t4 }}</div>
+<button aria-pressed="false" data-ms-tab="Request brochure" style="display: flex; align-items: center; gap: 14px; width: 100%; text-align: left; background: transparent; border-width: 1px 0px 0px; border-top-style: solid; border-right-style: initial; border-bottom-style: initial; border-left-style: initial; border-top-color: rgb(221, 214, 201); border-right-color: initial; border-bottom-color: initial; border-left-color: initial; border-image: initial; padding: 16px 0px; cursor: pointer; font-family: inherit; color: inherit;" type="button">{{ section.settings.t5 }}</button>
+<button aria-pressed="true" data-ms-tab="Book appointment" style="display: flex; align-items: center; gap: 14px; width: 100%; text-align: left; background: transparent; border-width: 1px 0px 0px; border-top-style: solid; border-right-style: initial; border-bottom-style: initial; border-left-style: initial; border-top-color: rgb(221, 214, 201); border-right-color: initial; border-bottom-color: initial; border-left-color: initial; border-image: initial; padding: 16px 0px; cursor: pointer; font-family: inherit; color: inherit;" type="button">{{ section.settings.t6 }}</button>
+<button aria-pressed="false" data-ms-tab="Request a proposal" style="display: flex; align-items: center; gap: 14px; width: 100%; text-align: left; background: transparent; border-width: 1px 0px 0px; border-top-style: solid; border-right-style: initial; border-bottom-style: initial; border-left-style: initial; border-top-color: rgb(221, 214, 201); border-right-color: initial; border-bottom-color: initial; border-left-color: initial; border-image: initial; padding: 16px 0px; cursor: pointer; font-family: inherit; color: inherit;" type="button"><span data-ms-dot="" style="flex: 0 0 auto; width: 7px; height: 7px; border-radius: 50%; background: transparent; box-shadow: rgb(221, 214, 201) 0px 0px 0px 1px inset;"></span><span data-ms-tablabel="" style="font-family: Newsreader, Georgia, serif; font-size: clamp(17px, 1.8vw, 21px); line-height: 1.3; color: rgb(110, 103, 92);">Request a proposal</span></button><button aria-pressed="false" data-ms-tab="Request callback" style="display: flex; align-items: center; gap: 14px; width: 100%; text-align: left; background: transparent; border-width: 1px 0px 0px; border-top-style: solid; border-right-style: initial; border-bottom-style: initial; border-left-style: initial; border-top-color: rgb(221, 214, 201); border-right-color: initial; border-bottom-color: initial; border-left-color: initial; border-image: initial; padding: 16px 0px; cursor: pointer; font-family: inherit; color: inherit;" type="button">{{ section.settings.t7 }}</button>
+<button aria-pressed="false" data-ms-tab="Leave a message" style="display: flex; align-items: center; gap: 14px; width: 100%; text-align: left; background: transparent; border-width: 1px 0px; border-top-style: solid; border-right-style: initial; border-bottom-style: solid; border-left-style: initial; border-top-color: rgb(221, 214, 201); border-right-color: initial; border-bottom-color: rgb(221, 214, 201); border-left-color: initial; border-image: initial; padding: 16px 0px; cursor: pointer; font-family: inherit; color: inherit;" type="button">{{ section.settings.t8 }}</button>
 </div>
 <div data-ms="fieldgrid" style="display: grid; grid-template-columns: repeat(2, minmax(0px, 1fr)); gap: 26px; margin-top: clamp(32px, 3.8vw, 48px); align-items: end;">
 <label style="display: flex; flex-direction: column; gap: 9px;">
-<span style="font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(110, 103, 92); min-height: 26px; display: flex; align-items: flex-end;">{{ section.settings.t10 }}</span>
-<select class="ms-field" name="contact[Title]" required="" style="border-bottom: 1px solid rgb(221, 214, 201); padding: 9px 0px; font-size: 15px;"><option value=""><span>{{ section.settings.t11 }}</span></option><option><span>{{ section.settings.t12 }}</span></option><option><span>{{ section.settings.t13 }}</span></option><option><span>{{ section.settings.t14 }}</span></option><option><span>{{ section.settings.t15 }}</span></option><option><span>{{ section.settings.t16 }}</span></option></select>
+<span style="font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(110, 103, 92); min-height: 26px; display: flex; align-items: flex-end;">{{ section.settings.t9 }}</span>
+<select class="ms-field" name="contact[Title]" required="" style="border-bottom: 1px solid rgb(221, 214, 201); padding: 9px 0px; font-size: 15px;"><option value=""><span>{{ section.settings.t10 }}</span></option><option><span>{{ section.settings.t11 }}</span></option><option><span>{{ section.settings.t12 }}</span></option><option><span>{{ section.settings.t13 }}</span></option><option><span>{{ section.settings.t14 }}</span></option><option><span>{{ section.settings.t15 }}</span></option></select>
 </label>
 <label style="display: flex; flex-direction: column; gap: 9px;">
-<span style="font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(110, 103, 92); min-height: 26px; display: flex; align-items: flex-end;">{{ section.settings.t17 }}</span>
+<span style="font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(110, 103, 92); min-height: 26px; display: flex; align-items: flex-end;">{{ section.settings.t16 }}</span>
 <input autocomplete="given-name" class="ms-field" name="contact[First name]" required="" style="border-bottom: 1px solid rgb(221, 214, 201); padding: 9px 0px; font-size: 15px;" type="text"/>
 </label>
 <label style="display: flex; flex-direction: column; gap: 9px;">
-<span style="font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(110, 103, 92); min-height: 26px; display: flex; align-items: flex-end;">{{ section.settings.t18 }}</span>
+<span style="font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(110, 103, 92); min-height: 26px; display: flex; align-items: flex-end;">{{ section.settings.t17 }}</span>
 <input autocomplete="family-name" class="ms-field" name="contact[Last name]" required="" style="border-bottom: 1px solid rgb(221, 214, 201); padding: 9px 0px; font-size: 15px;" type="text"/>
 </label>
 <label style="display: flex; flex-direction: column; gap: 9px;">
-<span style="font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(110, 103, 92); min-height: 26px; display: flex; align-items: flex-end;">{{ section.settings.t19 }}</span>
+<span style="font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(110, 103, 92); min-height: 26px; display: flex; align-items: flex-end;">{{ section.settings.t18 }}</span>
 <input autocomplete="email" class="ms-field" name="contact[email]" required="" style="border-bottom: 1px solid rgb(221, 214, 201); padding: 9px 0px; font-size: 15px;" type="email"/>
 </label>
 <label style="display: flex; flex-direction: column; gap: 9px;">
-<span data-ms-copy="five" style="font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(110, 103, 92); min-height: 26px; display: flex; align-items: flex-end;">{{ section.settings.t20 }}</span>
+<span data-ms-copy="five" style="font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(110, 103, 92); min-height: 26px; display: flex; align-items: flex-end;">{{ section.settings.t19 }}</span>
 <input class="ms-field" data-ms-field="five" name="contact[Phone]" style="border-bottom: 1px solid rgb(221, 214, 201); padding: 9px 0px; font-size: 15px;" type="tel"/>
 </label>
 <label style="display: flex; flex-direction: column; gap: 9px;">
-<span data-ms-copy="six" style="font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(110, 103, 92); min-height: 26px; display: flex; align-items: flex-end;">{{ section.settings.t21 }}</span>
+<span data-ms-copy="six" style="font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(110, 103, 92); min-height: 26px; display: flex; align-items: flex-end;">{{ section.settings.t20 }}</span>
 <input class="ms-field" data-ms-copy="sixHint" data-ms-field="six" name="contact[Preferred date]" placeholder="Monday to Friday" style="border-bottom: 1px solid rgb(221, 214, 201); padding: 9px 0px; font-size: 15px;" type="text"/>
 </label>
 <label style="display: flex; flex-direction: column; gap: 9px; grid-column: 1 / -1;">
-<span data-ms-copy="notes" style="font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(110, 103, 92); min-height: 26px; display: flex; align-items: flex-end;">{{ section.settings.t22 }}</span>
+<span data-ms-copy="notes" style="font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: rgb(110, 103, 92); min-height: 26px; display: flex; align-items: flex-end;">{{ section.settings.t21 }}</span>
 <textarea class="ms-field" data-ms-field="notes" name="contact[Notes]" rows="1" style="border-bottom: 1px solid rgb(221, 214, 201); padding: 9px 0px 46px; font-size: 15px;"></textarea>
 </label>
 </div>
 <label style="display: flex; align-items: flex-start; gap: 12px; margin-top: 30px; font-size: 12.5px; line-height: 1.8; color: rgb(110, 103, 92);">
 <input class="ms-check" name="contact[Consent]" required="" type="checkbox" value="yes"/>
-<span>{{ section.settings.t23 }}</span>
+<span>{{ section.settings.t22 }}</span>
 </label>
 <div style="display: flex; flex-direction: column; gap: 20px; align-items: flex-start; margin-top: 32px;">
-<button style="background: rgb(23, 20, 15); color: rgb(251, 249, 245); border: 0px; padding: 20px 44px; cursor: pointer; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;" type="submit">{{ section.settings.t24 }}</button>
-<a data-ms="cta" href="{% render 'ms-link', to: 'enquire' %}" style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92);">{{ section.settings.t25 }}</a>
+<button style="background: rgb(23, 20, 15); color: rgb(251, 249, 245); border: 0px; padding: 20px 44px; cursor: pointer; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;" type="submit">{{ section.settings.t23 }}</button>
+<a data-ms="cta" href="{% render 'ms-link', to: 'enquire' %}" style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92);">{{ section.settings.t24 }}</a>
 </div>
 </div>{%- endform -%}</div>
 <footer style="flex: 0 0 auto; border-top: 1px solid rgb(221, 214, 201); background: rgb(241, 236, 227); padding: clamp(22px, 2.6vw, 32px) clamp(22px, 3.4vw, 48px); display: flex; flex-wrap: wrap; gap: 22px 44px;">
+<div style="display: flex; flex-direction: column; gap: 7px;">{{ section.settings.t25 }}</div>
 <div style="display: flex; flex-direction: column; gap: 7px;">{{ section.settings.t26 }}</div>
-<div style="display: flex; flex-direction: column; gap: 7px;">{{ section.settings.t27 }}</div>
 </footer></aside></div>
 {% schema %}
 {
@@ -89,144 +89,138 @@
     {
       "type": "text",
       "id": "t4",
-      "label": "Or download it now (PDF) →",
-      "default": "Or download it now (PDF) →"
-    },
-    {
-      "type": "text",
-      "id": "t5",
       "label": "I would like to",
       "default": "I would like to"
     },
     {
       "type": "html",
-      "id": "t6",
+      "id": "t5",
       "label": "Request brochure",
       "default": "<span data-ms-dot=\"\" style=\"flex: 0 0 auto; width: 7px; height: 7px; border-radius: 50%; background: transparent; box-shadow: rgb(221, 214, 201) 0px 0px 0px 1px inset;\"></span>\n<span data-ms-tablabel=\"\" style=\"font-family: Newsreader, Georgia, serif; font-size: clamp(17px, 1.8vw, 21px); line-height: 1.3; color: rgb(110, 103, 92);\">Request brochure</span>"
     },
     {
       "type": "html",
-      "id": "t7",
+      "id": "t6",
       "label": "Book appointment",
       "default": "<span data-ms-dot=\"\" style=\"flex: 0 0 auto; width: 7px; height: 7px; border-radius: 50%; background: rgb(154, 123, 79); box-shadow: rgb(154, 123, 79) 0px 0px 0px 1px inset;\"></span>\n<span data-ms-tablabel=\"\" style=\"font-family: Newsreader, Georgia, serif; font-size: clamp(17px, 1.8vw, 21px); line-height: 1.3; color: rgb(23, 20, 15);\">Book appointment</span>"
     },
     {
       "type": "html",
-      "id": "t8",
+      "id": "t7",
       "label": "Request callback",
       "default": "<span data-ms-dot=\"\" style=\"flex: 0 0 auto; width: 7px; height: 7px; border-radius: 50%; background: transparent; box-shadow: rgb(221, 214, 201) 0px 0px 0px 1px inset;\"></span>\n<span data-ms-tablabel=\"\" style=\"font-family: Newsreader, Georgia, serif; font-size: clamp(17px, 1.8vw, 21px); line-height: 1.3; color: rgb(110, 103, 92);\">Request callback</span>"
     },
     {
       "type": "html",
-      "id": "t9",
+      "id": "t8",
       "label": "Leave a message",
       "default": "<span data-ms-dot=\"\" style=\"flex: 0 0 auto; width: 7px; height: 7px; border-radius: 50%; background: transparent; box-shadow: rgb(221, 214, 201) 0px 0px 0px 1px inset;\"></span>\n<span data-ms-tablabel=\"\" style=\"font-family: Newsreader, Georgia, serif; font-size: clamp(17px, 1.8vw, 21px); line-height: 1.3; color: rgb(110, 103, 92);\">Leave a message</span>"
     },
     {
       "type": "text",
-      "id": "t10",
+      "id": "t9",
       "label": "Title*",
       "default": "Title*"
     },
     {
       "type": "text",
-      "id": "t11",
+      "id": "t10",
       "label": "Select",
       "default": "Select"
     },
     {
       "type": "text",
-      "id": "t12",
+      "id": "t11",
       "label": "Mr",
       "default": "Mr"
     },
     {
       "type": "text",
-      "id": "t13",
+      "id": "t12",
       "label": "Mrs",
       "default": "Mrs"
     },
     {
       "type": "text",
-      "id": "t14",
+      "id": "t13",
       "label": "Ms",
       "default": "Ms"
     },
     {
       "type": "text",
-      "id": "t15",
+      "id": "t14",
       "label": "Dr",
       "default": "Dr"
     },
     {
       "type": "text",
-      "id": "t16",
+      "id": "t15",
       "label": "Arch.",
       "default": "Arch."
     },
     {
       "type": "text",
-      "id": "t17",
+      "id": "t16",
       "label": "First name*",
       "default": "First name*"
     },
     {
       "type": "text",
-      "id": "t18",
+      "id": "t17",
       "label": "Last name*",
       "default": "Last name*"
     },
     {
       "type": "text",
-      "id": "t19",
+      "id": "t18",
       "label": "Email*",
       "default": "Email*"
     },
     {
       "type": "text",
-      "id": "t20",
+      "id": "t19",
       "label": "Phone*",
       "default": "Phone*"
     },
     {
       "type": "text",
-      "id": "t21",
+      "id": "t20",
       "label": "Preferred date*",
       "default": "Preferred date*"
     },
     {
       "type": "text",
-      "id": "t22",
+      "id": "t21",
       "label": "Notes",
       "default": "Notes"
     },
     {
       "type": "text",
-      "id": "t23",
+      "id": "t22",
       "label": "By clicking submit you agree to ou…",
       "default": "By clicking submit you agree to our terms and conditions and privacy policy."
     },
     {
       "type": "text",
-      "id": "t24",
+      "id": "t23",
       "label": "Submit",
       "default": "Submit"
     },
     {
       "type": "text",
-      "id": "t25",
+      "id": "t24",
       "label": "Open the full enquiry page →",
       "default": "Open the full enquiry page →"
     },
     {
       "type": "html",
-      "id": "t26",
+      "id": "t25",
       "label": "The atelier Via Andegari 4, Milano",
       "default": "<span style=\"font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92);\">The atelier</span>\n<span style=\"font-family: Newsreader, Georgia, serif; font-size: 17px; line-height: 1.4;\">Via Andegari 4, Milano</span>"
     },
     {
       "type": "html",
-      "id": "t27",
+      "id": "t26",
       "label": "Or speak to us Mon–Fri, 09:00–18:00",
       "default": "<span style=\"font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92);\">Or speak to us</span>\n<span style=\"font-family: Newsreader, Georgia, serif; font-size: 17px; line-height: 1.4;\">Mon–Fri, 09:00–18:00</span>"
     }

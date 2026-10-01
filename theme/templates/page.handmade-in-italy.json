@@ -14,24 +14,24 @@
         "heading": "Handmade in Italy",
         "height": "tall",
         "focus": "center",
-        "text": "Two artisans, one bed, start to finish."
+        "text": "Two Italian artisans. Two or three full days. One bed."
       }
     },
     "s02": {
       "type": "ms-statement",
       "settings": {
-        "eyebrow": "In Milano",
+        "eyebrow": "The method",
         "use_content": true,
-        "heading": "Every bed is made by the same two pairs of hands, from the first spring to the last stitch.",
-        "text": "<p>Nothing is passed down a line. The two artisans who begin a bed finish it, and their names go with it. It is slower, and it is the reason the bed can come back to them at fifteen years and be made new.</p>"
+        "heading": "A Midsummer bed is not assembled. It is made, by the same two pairs of hands, from the first spring to the last stitch.",
+        "text": "<p>Every piece is built by hand, from start to finish, by the same two Italian artisans: two or three full days of work for each mattress. It is not a marketing promise; it is a method.</p><p>Because one pair of hands follows the bed through every stage, nothing goes inside it that its makers did not choose and place themselves. And because they know it from the inside, the bed can come back to them at fifteen years to be opened, renewed and made ready for fifteen more.</p>"
       }
     },
     "s03": {
       "type": "ms-process",
       "settings": {
         "eyebrow": "The making",
-        "heading": "Five stages, all by hand.",
-        "text": "<p>The order in which a Midsummer bed comes together, from the springs up.</p>",
+        "heading": "Five stages, every one by hand.",
+        "text": "<p>The order in which a Midsummer bed comes together, from the springs up. Nothing is glued; everything can be reached again.</p>",
         "ground": "#FBF9F5"
       },
       "blocks": {
@@ -40,7 +40,7 @@
           "settings": {
             "image_fallback": "ms-graded-ochre-room.jpg",
             "title": "The springs",
-            "text": "<p>The pocketed spring core is assembled by hand, row by row, so each spring can move on its own.</p>"
+            "text": "<p>The pocket-spring core is set out by hand, spring by spring, so that each one answers only to the part of the body above it.</p>"
           }
         },
         "step_02": {
@@ -48,8 +48,8 @@
           "settings": {
             "image": "shopify://shop_images/Paisleydettaglio.jpg",
             "image_fallback": "https://midsummer-milano.com/cdn/shop/files/Paisleydettaglio.jpg?width=1400",
-            "title": "The fibres",
-            "text": "<p>Wool, horsehair, cashmere and silk are opened, carded and laid in layers by hand, each where it does its work.</p>"
+            "title": "The natural fibres",
+            "text": "<p>Wool, silk, cashmere, horsehair, linen and Ingeo, chosen because they perform better, age better and breathe better, are opened and laid in layers, each where it does its work.</p>"
           }
         },
         "step_03": {
@@ -57,7 +57,7 @@
           "settings": {
             "image_fallback": "ms-graded-arches.jpg",
             "title": "The tufting",
-            "text": "<p>The layers are tufted through by hand so they keep their place for decades, not seasons.</p>"
+            "text": "<p>The layers are tufted by hand through the whole depth of the mattress. The dimples you see are what keep every fibre in its place, year after year.</p>"
           }
         },
         "step_04": {
@@ -65,7 +65,7 @@
           "settings": {
             "image_fallback": "ms-graded-paisley-red.jpg",
             "title": "The border",
-            "text": "<p>The sides are stitched by hand, which gives the edge its shape and lets it carry weight without sagging.</p>"
+            "text": "<p>The sides are stitched by hand, row by row. It gives the edge its line, and the strength to hold you right to the border of the bed.</p>"
           }
         },
         "step_05": {
@@ -73,7 +73,7 @@
           "settings": {
             "image_fallback": "ms-graded-bougainvillea.jpg",
             "title": "The cloth",
-            "text": "<p>Upholstered in Loro Piana Interiors fabrics, chosen for the room at consultation, and turned with the seasons.</p>"
+            "text": "<p>Last, the upholstery: Loro Piana Interiors fabrics, chosen for your room. Two or three days after it was begun, the bed is finished by the same two people who started it.</p>"
           }
         }
       },
@@ -89,22 +89,22 @@
       "type": "ms-image-pair",
       "settings": {
         "eyebrow": "In the atelier",
-        "heading": "Slow, by intention.",
+        "heading": "Slow, by method.",
         "image_1": "shopify://shop_images/Paisley_IMG_5161_low.jpg",
         "fallback_1": "https://midsummer-milano.com/cdn/shop/files/Paisley_IMG_5161_low.jpg?width=1400",
-        "caption_1": "Seen from the side: the hand-stitched border.",
+        "caption_1": "The border, stitched by hand.",
         "image_2": "shopify://shop_images/Paisleydettaglio.jpg",
         "fallback_2": "https://midsummer-milano.com/cdn/shop/files/Paisleydettaglio.jpg?width=1400",
-        "caption_2": "Loro Piana Interiors, laid over the fibres."
+        "caption_2": "Loro Piana Interiors, over the hand-tufted layers."
       }
     },
     "s05": {
       "type": "ms-cta-band",
       "settings": {
         "tone": "ink",
-        "eyebrow": "Via Andegari 4",
-        "heading": "Come and see them at work.",
-        "text": "<p>The atelier receives by appointment, Monday to Friday. Lie on the systems, see the fibres and the cloth.</p>",
+        "eyebrow": "Via Andegari 4, Milano",
+        "heading": "Come and see the hands at work.",
+        "text": "<p>The atelier receives by appointment, Monday to Friday. Lie on the systems, and see the fibres before they are laid.</p>",
         "button": "Book a private appointment",
         "button_enquire": true,
         "link_label": "Natural materials",

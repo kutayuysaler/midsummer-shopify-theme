@@ -1,3 +1,16 @@
+{%- liquid
+  assign ms_show = true
+  if template.suffix == blank and page
+    assign ms_show = false
+    capture ms_here
+      render 'ms-link', to: 'agents'
+    endcapture
+    if ms_here == page.url
+      assign ms_show = true
+    endif
+  endif
+-%}
+{%- if ms_show -%}
 {%- comment -%}
   Showrooms, agents and resellers: where to find Midsummer Milano.
   The list and the map sit side by side at the same height. Choosing a place opens its
@@ -339,12 +352,15 @@
   }
 </style>
 
-<script src="{{ 'ms-atlas-vendor.js' | asset_url }}" defer="defer"></script>
+{%- comment -%} d3 and the world outline travel inside the page: nothing to fetch, nothing to wait for. {%- endcomment -%}
+<script>{% render 'ms-atlas-vendor' %}</script>
+<script type="application/json" data-ms-sl-geo>{% render 'ms-world-110m' %}</script>
 <script>
-  window.addEventListener('DOMContentLoaded', function () {
+  (function () {
+  var msSlInit = function () {
     var root = document.querySelector('[data-ms-sl]');
-    if (!root) return;
-    var URL110 = {{ 'ms-world-110m.json' | asset_url | json }};
+    if (!root || root.__msSl) return;
+    root.__msSl = true;
     var URL50 = {{ 'ms-world-50m.json' | asset_url | json }};
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var KINDS = { atelier: {{ section.settings.atelier_kind | json }}, showroom: {{ section.settings.showroom_kind | json }}, boutique: {{ section.settings.boutique_kind | json }}, agent: {{ section.settings.agent_kind | json }} };
@@ -641,7 +657,8 @@
     mapEl.addEventListener('click', function (e) { if (!e.target.closest('.ms-sl__pop, .ms-sl__pin, button')) hidePop(); });
 
     map = { layout: layout, fit: fit, flyTo: flyTo };
-    d3.json(URL110).then(function (topology) {
+    var world0 = document.querySelector('script[data-ms-sl-geo]');
+    Promise.resolve().then(function () { return JSON.parse(world0.textContent); }).then(function (topology) {
       draw(topology);
       size();
       svg.call(zoom);
@@ -655,10 +672,13 @@
         clearTimeout(rt);
         rt = setTimeout(function () { var w0 = W, h0 = H; size(); if (W !== w0 || H !== h0) { if (state.sel) flyTo(state.sel); else svg.call(zoom.transform, viewFor(stores.filter(shown), 40)); } layout(); }, 120);
       }).observe(mapEl);
-    }).catch(function () { mapEl.classList.add('is-failed'); });
-  });
+    }).catch(function (err) { mapEl.classList.add('is-failed'); if (window.console) console.error('[agents map]', err); });
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', msSlInit); else msSlInit();
+  document.addEventListener('shopify:section:load', function () { setTimeout(msSlInit, 0); });
+  })();
 </script>
-
+{%- endif -%}
 {% schema %}
 {
   "name": "Agents & resellers",

@@ -1,3 +1,16 @@
+{%- liquid
+  assign ms_show = true
+  if template.suffix == blank and page
+    assign ms_show = false
+    capture ms_here
+      render 'ms-link', to: 'enquire'
+    endcapture
+    if ms_here == page.url
+      assign ms_show = true
+    endif
+  endif
+-%}
+{%- if ms_show -%}
 {%- comment -%}
   The enquiry page: the full-page version of the enquiry sheet. Every enquiry in the
   menus leads here, each to its own form (?enquiry=appointment, proposal, brochure,
@@ -63,9 +76,6 @@
       <div class="ms-eq__label">{{ s.form_label }}</div>
       <h2 class="ms-eq__ptitle" data-ms-copy="title">Book appointment</h2>
       <p class="ms-eq__note" data-ms-copy="note">{{ s.d_appointment }}</p>
-      {%- if s.brochure_url != blank -%}
-        <a class="ms-eq__brochure" data-ms-brochure hidden href="{{ s.brochure_url }}" target="_blank" rel="noopener">{{ s.brochure_label }}</a>
-      {%- endif -%}
 
       <div class="ms-eq__fields">
         <label class="ms-eq__f"><span>{{ s.l_title }}</span>
@@ -183,7 +193,7 @@
   .ms-eq__panel { background: #FBF9F5; padding: clamp(28px, 4vw, 64px); box-shadow: 0 1px 0 var(--rule), 0 30px 60px -40px rgba(23, 20, 15, .25); }
   .ms-eq__ptitle { font-family: Newsreader, Georgia, serif; font-size: clamp(30px, 3.4vw, 48px); line-height: 1.05; letter-spacing: -.03em; font-weight: 200; margin-top: 14px; }
   .ms-eq__note { font-size: 15px; line-height: 1.9; color: var(--body); margin-top: 16px; max-width: 52ch; min-height: 3.8em; }
-  .ms-site .ms-eq__brochure { display: inline-block; margin-top: 10px; font-size: 11px; letter-spacing: .26em; text-transform: uppercase; border-bottom: 1px solid #17140F; padding-bottom: 6px; }
+  .ms-site .ms-eq__unused { display: inline-block; margin-top: 10px; font-size: 11px; letter-spacing: .26em; text-transform: uppercase; border-bottom: 1px solid #17140F; padding-bottom: 6px; }
   .ms-eq__fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 28px; margin-top: clamp(28px, 3.4vw, 44px); }
   .ms-eq__f { display: flex; flex-direction: column; gap: 8px; }
   .ms-eq__f.is-wide { grid-column: 1 / -1; }
@@ -249,6 +259,7 @@
     .ms-eq__panel { margin-inline: calc(-1 * var(--gut)); }
   }
 </style>
+{%- endif -%}
 {% schema %}
 {
   "name": "Enquiry page",
@@ -267,15 +278,13 @@
     { "type": "text", "id": "intents_label", "label": "Label", "default": "I would like to" },
     { "type": "text", "id": "d_appointment", "label": "Book an appointment", "default": "Visit the atelier on Via Andegari, or meet us by video. We confirm within one working day." },
     { "type": "text", "id": "d_proposal", "label": "Request a proposal", "default": "A written specification and its price, for your system, size and room." },
-    { "type": "text", "id": "d_brochure", "label": "Request brochure", "default": "The systems, fibres and Loro Piana Interiors fabrics, as a PDF." },
+    { "type": "text", "id": "d_brochure", "label": "Request brochure", "default": "The systems, fibres and Loro Piana Interiors fabrics, sent to you by the atelier." },
     { "type": "text", "id": "d_callback", "label": "Request a callback", "default": "Tell us when suits; one of the atelier team will call you." },
     { "type": "text", "id": "d_trade", "label": "Trade enquiry", "default": "Architects, interior designers and hospitality: drawings, samples and terms." },
     { "type": "text", "id": "d_partner", "label": "Become a partner", "default": "Represent Midsummer Milano in your market, as a showroom or an agent." },
     { "type": "text", "id": "d_message", "label": "Leave a message", "default": "Anything else: regeneration, care or press." },
     { "type": "header", "content": "The form" },
     { "type": "text", "id": "form_label", "label": "Form label", "default": "Your enquiry" },
-    { "type": "url", "id": "brochure_url", "label": "Brochure (PDF)", "default": "https://cdn.shopify.com/s/files/1/0697/8829/files/Midsummer-Milano_Brochure.pdf?v=1733221759" },
-    { "type": "text", "id": "brochure_label", "label": "Brochure link", "default": "Or download it now (PDF) →" },
     { "type": "text", "id": "l_title", "label": "Title label", "default": "Title*" },
     { "type": "text", "id": "l_select", "label": "Title placeholder", "default": "Select" },
     { "type": "text", "id": "titles", "label": "Titles", "default": "Mr, Mrs, Ms, Dr, Arch." },

@@ -34,7 +34,9 @@ then **Preview**.
   Find your Midsummer quiz. If the store has no quiz page at all, every "Find your
   Midsummer" link opens the quiz as an overlay, on any page.
 - **Agents & Resellers** keeps its template (`page.agents-resellers`, with
-  `page.agents-and-resellers` as a copy). It shows all 16 places from your current store
+  `page.agents-and-resellers` as a copy), and the default page template shows it too, so
+  the map appears whichever template the page has. The map's code and world outline are
+  written into the page itself, so it never waits on another file. It shows all 16 places from your current store
   locator; the old section held 13 of them in its own code and the other 5 as blocks:
   - **The atelier:** Midsummer Milano, Milan.
   - **Showrooms:** bredaquaranta, Bergomi Milano, Bergomi Monza, Villa Arredamenti
@@ -191,8 +193,11 @@ other page.
 
 ## 6. Enquiries: the enquiry page and the sheet
 
-**The enquiry page** is your Contact page (`/pages/contact`, template `page.contact`),
-redesigned as a full landing page:
+**The enquiry page** is your Contact page (`/pages/contact`, template `page.contact`; the
+default page template shows it too, and `contact-us` or `contatti` work as handles),
+redesigned as a full landing page. It is reached from the Contact menu's picture card, the
+phone menu's "Enquire", every enquiry link in the menus, and the footer. The brochure is
+requested through the form, never downloaded directly:
 
 - An opening, then seven enquiries side by side with one form whose labels change with
   the choice: book an appointment, request a proposal, request brochure, request a
@@ -219,7 +224,6 @@ the top right and for the buttons inside the pages:
 - The product page's Request a proposal opens it on the proposal form.
 - An introduction on Agents & Resellers opens it with the message written.
 - Its link "Open the full enquiry page" carries the chosen enquiry across.
-- Under Request brochure it offers the PDF to download straight away.
 
 Both send through Shopify's contact form. The chosen enquiry arrives as "Enquiry mode",
 so each message says what it is.
@@ -239,3 +243,26 @@ These apply across the site:
 - **Anchor links:** they stop below the header.
 - **Reduced motion:** visitors who ask their device for less motion get none of the
   movement.
+
+## 8. One site, fewer and fuller pages
+
+- **Made to last.** Sustainability and the 15 + 15 regeneration service were two pages
+  saying much of the same thing. They are now one page, "Made to last", in this order:
+  the 15 + 15 service and its promise, the four principles, what happens at year
+  fifteen, the timeline, what we do not claim, and bringing your mattress home. Both
+  addresses show it, and the menus carry one entry, "Made to last · 15 + 15". If you
+  like, delete the Sustainability page and add a URL redirect (Online Store → Navigation
+  → URL Redirects) from `/pages/our-eco-friendly-approach` to the 15 + 15 page.
+- **Product pages:**
+  - **Gallery:** a larger stage with a slim column of thumbnails and a soft cross-fade.
+    Click the left or right of the photograph to move through them. A fine segmented line
+    and a counter sit below, and the middle of the photograph opens it full screen. On a
+    phone you swipe full width.
+  - **The fibres:** now a compact row closing the size & fabric band, before the build,
+    so the page is shorter.
+- **Journal:** two views, remembered per visitor.
+  - **Gallery:** the newest note opens the page; the rest follow in a magazine rhythm,
+    each numbered like an issue.
+  - **Index:** every note as a line of type, and the photograph follows the cursor.
+- **Editorial pages (About Us …):** text in one centred reading column, photographs in a
+  wider band, always centred, however the editor wrapped them.

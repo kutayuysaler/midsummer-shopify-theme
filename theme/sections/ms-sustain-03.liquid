@@ -1,11 +1,18 @@
 {%- liquid
   assign ms_show = true
   if template.suffix == blank
+    assign ms_show = false
+    capture ms_here
+      render 'ms-link', to: 'regen'
+    endcapture
+    if ms_here == page.url
+      assign ms_show = true
+    endif
     capture ms_here
       render 'ms-link', to: 'sustain'
     endcapture
-    if ms_here != page.url
-      assign ms_show = false
+    if ms_here == page.url
+      assign ms_show = true
     endif
   endif
 -%}

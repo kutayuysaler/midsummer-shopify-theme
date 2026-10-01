@@ -1,6 +1,5 @@
 /*
- * Midsummer Milano: built from the approved Atelier preview, one section per band.
- * Rendered with layout/ms.liquid, the preview's own type, colour and spacing.
+ * Midsummer Milano: every page. Pages with a design of their own (Questions, Professionals, Hospitality, Natural Materials, Made to last, Find your Midsummer, Agents & resellers, the enquiry page) show it here too, each only on its own page.
  */
 {
   "layout": "ms",
@@ -154,31 +153,31 @@
       "settings": {}
     },
     "s15": {
-      "type": "ms-regen-01",
+      "type": "ms-quiz",
       "settings": {}
     },
     "s16": {
-      "type": "ms-regen-02",
+      "type": "ms-regen-01",
       "settings": {}
     },
     "s17": {
-      "type": "ms-regen-03",
+      "type": "ms-regen-02",
       "settings": {}
     },
     "s18": {
-      "type": "ms-regen-04",
-      "settings": {}
-    },
-    "s19": {
-      "type": "ms-regen-05",
-      "settings": {}
-    },
-    "s20": {
       "type": "ms-sustain-01",
       "settings": {}
     },
-    "s21": {
+    "s19": {
       "type": "ms-sustain-02",
+      "settings": {}
+    },
+    "s20": {
+      "type": "ms-regen-03",
+      "settings": {}
+    },
+    "s21": {
+      "type": "ms-regen-04",
       "settings": {}
     },
     "s22": {
@@ -186,11 +185,282 @@
       "settings": {}
     },
     "s23": {
-      "type": "ms-sustain-04",
+      "type": "ms-regen-05",
       "settings": {}
     },
-    "s24": {
-      "type": "ms-quiz",
+    "agents": {
+      "type": "ms-stockists",
+      "settings": {},
+      "blocks": {
+        "place_01": {
+          "type": "place",
+          "settings": {
+            "name": "Midsummer Milano — the atelier",
+            "kind": "atelier",
+            "city": "Milan",
+            "country": "Italy",
+            "region": "Europe",
+            "address": "Via Andegari, 4\n20121 Milano (MI)",
+            "email": "info@midsummer-milano.com",
+            "lat": "45.468492",
+            "lon": "9.189679",
+            "note": "Where every system is made, and can be lain on. By appointment, Monday to Friday."
+          }
+        },
+        "place_02": {
+          "type": "place",
+          "settings": {
+            "name": "Vago Arredamenti",
+            "kind": "showroom",
+            "city": "Barlassina, Monza and Brianza",
+            "country": "Italy",
+            "region": "Europe",
+            "address": "Corso Guglielmo Marconi, 52\n20825 Barlassina (MB)",
+            "phone": "+39 0362 565906",
+            "website": "https://www.vago.com",
+            "lat": "45.6507",
+            "lon": "9.1181"
+          }
+        },
+        "place_03": {
+          "type": "place",
+          "settings": {
+            "name": "Berenice — Cannigione",
+            "kind": "boutique",
+            "city": "Cannigione, Sardinia",
+            "country": "Italy",
+            "region": "Europe",
+            "address": "Via Lungomare A. Doria, snc\n07021 Cannigione (SS)",
+            "phone": "+39 0789 88432",
+            "lat": "41.1066",
+            "lon": "9.4392"
+          }
+        },
+        "place_04": {
+          "type": "place",
+          "settings": {
+            "name": "Villa Arredamenti Interior Solutions",
+            "kind": "showroom",
+            "city": "Colnago, Monza and Brianza",
+            "country": "Italy",
+            "region": "Europe",
+            "address": "Via Manzoni, 47\n20872 Colnago (MB)",
+            "phone": "+39 039695287",
+            "email": "info@villaarredamenti.it",
+            "website": "https://www.villaarredamenti.it",
+            "lat": "45.637759",
+            "lon": "9.470799"
+          }
+        },
+        "place_05": {
+          "type": "place",
+          "settings": {
+            "name": "Bergomi Milano",
+            "kind": "showroom",
+            "city": "Milan",
+            "country": "Italy",
+            "region": "Europe",
+            "address": "Via Palestro, 6\n20121 Milano (MI)",
+            "phone": "+39 327 2186080",
+            "email": "info@bergomiinteriors.com",
+            "lat": "45.4719",
+            "lon": "9.2002"
+          }
+        },
+        "place_06": {
+          "type": "place",
+          "settings": {
+            "name": "bredaquaranta",
+            "kind": "showroom",
+            "city": "Milan",
+            "country": "Italy",
+            "region": "Europe",
+            "contact": "Ms. Liupin Shen",
+            "address": "Via Fatebenefratelli, 10\n20121 Milano (MI)",
+            "phone": "+39 02 3655 7430",
+            "email": "info@bredaquaranta.com",
+            "website": "https://www.bredaquaranta.it",
+            "lat": "45.473113",
+            "lon": "9.189725"
+          }
+        },
+        "place_07": {
+          "type": "place",
+          "settings": {
+            "name": "Bergomi Monza",
+            "kind": "showroom",
+            "city": "Monza",
+            "country": "Italy",
+            "region": "Europe",
+            "address": "Via Zucchi, 46\n20900 Monza (MB)",
+            "phone": "+39 039 324194",
+            "email": "showroom@bergomiinteriors.com",
+            "lat": "45.5845",
+            "lon": "9.2744"
+          }
+        },
+        "place_08": {
+          "type": "place",
+          "settings": {
+            "name": "Berenice — Porto Cervo",
+            "kind": "boutique",
+            "city": "Porto Cervo, Sardinia",
+            "country": "Italy",
+            "region": "Europe",
+            "address": "Castel Cervo, Liscia di Vacca\n07021 Porto Cervo (SS)",
+            "phone": "+39 0789 91347",
+            "lat": "41.1333",
+            "lon": "9.5333"
+          }
+        },
+        "place_09": {
+          "type": "place",
+          "settings": {
+            "name": "COSE & COSE",
+            "kind": "agent",
+            "city": "Dogana",
+            "country": "San Marino",
+            "region": "Europe",
+            "contact": "Antonella Romagnoli",
+            "address": "Via Oreste Brizi, 8\n47891 Dogana",
+            "phone": "+378 0549 908132",
+            "email": "info@cosesrl.sm",
+            "website": "https://www.cosesrl.sm",
+            "lat": "43.975425",
+            "lon": "12.487031"
+          }
+        },
+        "place_10": {
+          "type": "place",
+          "settings": {
+            "name": "HH Solutions",
+            "kind": "showroom",
+            "city": "Warsaw",
+            "country": "Poland",
+            "region": "Europe",
+            "address": "ul. Duchnicka 3\n01-796 Warszawa",
+            "phone": "+48 733 55 77 11",
+            "email": "warszawa@hhsolutions.pl",
+            "website": "https://www.hhsolutions.pl",
+            "lat": "52.2608",
+            "lon": "20.9823"
+          }
+        },
+        "place_11": {
+          "type": "place",
+          "settings": {
+            "name": "WWTS Moscow",
+            "kind": "showroom",
+            "city": "Moscow",
+            "country": "Russia",
+            "region": "Europe",
+            "address": "1-y Magistral'nyy Tupik, 11/9\n123290 Moscow",
+            "phone": "+7 495 781-61-20",
+            "lat": "55.7585",
+            "lon": "37.5527"
+          }
+        },
+        "place_12": {
+          "type": "place",
+          "settings": {
+            "name": "WWTS London",
+            "kind": "showroom",
+            "city": "London",
+            "country": "United Kingdom",
+            "region": "Europe",
+            "contact": "Tim",
+            "address": "60 Fulham Road\nLondon SW3 6HH",
+            "phone": "+44 7884 260739",
+            "email": "tim@wwts.uk",
+            "lat": "51.4888",
+            "lon": "-0.1666"
+          }
+        },
+        "place_13": {
+          "type": "place",
+          "settings": {
+            "name": "Maison Territo",
+            "kind": "showroom",
+            "city": "Montreal (Mont-Royal)",
+            "country": "Canada",
+            "region": "Americas",
+            "address": "5050 Chem. de la Côte-de-Liesse,\nSuite 1050, Mont-Royal\nQC H4P 0C9",
+            "phone": "+1 (514) 800-0101",
+            "email": "servicedesigner@maisonterrito.ca",
+            "website": "https://www.maisonterrito.ca",
+            "lat": "45.499107",
+            "lon": "-73.666560"
+          }
+        },
+        "place_14": {
+          "type": "place",
+          "settings": {
+            "name": "Passerini Design — Showroom",
+            "kind": "showroom",
+            "city": "Jupiter, FL",
+            "country": "United States",
+            "region": "Americas",
+            "address": "820 W Indiantown Rd, Suite 101–102\nJupiter, FL 33458",
+            "phone": "+1 (561) 225-1261",
+            "lat": "26.9342",
+            "lon": "-80.0942",
+            "note": "Showroom and headquarters, with an interior designer on hand."
+          }
+        },
+        "place_15": {
+          "type": "place",
+          "settings": {
+            "name": "Passerini Design — Boutique",
+            "kind": "boutique",
+            "city": "Palm Beach, FL",
+            "country": "United States",
+            "region": "Americas",
+            "address": "117 N County Rd\nPalm Beach, FL 33480",
+            "phone": "+1 (561) 225-1261",
+            "lat": "26.7057",
+            "lon": "-80.0364",
+            "note": "Palm Beach boutique, with an interior designer on hand."
+          }
+        },
+        "place_16": {
+          "type": "place",
+          "settings": {
+            "name": "In Made Ltd, a Desidery Company",
+            "kind": "agent",
+            "city": "Central, Hong Kong",
+            "country": "Hong Kong",
+            "region": "Asia Pacific",
+            "contact": "Ms. Sarah Fung",
+            "address": "1301 Winsome House\n73 Wyndham Street",
+            "phone": "+852-2778 1616",
+            "email": "sarah@inmade.hk",
+            "website": "https://www.inmade.hk/",
+            "lat": "22.281849",
+            "lon": "114.154879"
+          }
+        }
+      },
+      "block_order": [
+        "place_01",
+        "place_02",
+        "place_03",
+        "place_04",
+        "place_05",
+        "place_06",
+        "place_07",
+        "place_08",
+        "place_09",
+        "place_10",
+        "place_11",
+        "place_12",
+        "place_13",
+        "place_14",
+        "place_15",
+        "place_16"
+      ]
+    },
+    "enquire": {
+      "type": "ms-enquire",
       "settings": {}
     }
   },
@@ -218,6 +488,7 @@
     "s21",
     "s22",
     "s23",
-    "s24"
+    "agents",
+    "enquire"
   ]
 }

@@ -60,7 +60,8 @@
   .ms-article-body h2 { font-size: clamp(24px, 2.8vw, 34px); margin-top: 18px; }
   .ms-article-body h3 { font-size: clamp(20px, 2.2vw, 26px); margin-top: 12px; }
   .ms-article-body a { border-bottom: 1px solid currentColor; }
-  .ms-article-body img { max-width: 100%; height: auto; }
+  .ms-site .ms-article-body img { display: block; float: none !important; width: auto !important; max-width: 100%; height: auto !important; max-height: 80vh; margin: 1em auto !important; }
+  .ms-article-body p:has(img), .ms-article-body figure { text-align: center; }
   .ms-article-body ul, .ms-article-body ol { padding-left: 1.2em; }
   .ms-article-body blockquote { font-family: Newsreader, Georgia, serif; font-style: italic; font-size: clamp(19px, 2.2vw, 24px); line-height: 1.5; color: #17140F; border-left: 1px solid #9A7B4F; padding-left: 24px; }
 </style>

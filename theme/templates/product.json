@@ -13,11 +13,11 @@
       "settings": {}
     },
     "s03": {
-      "type": "ms-product-build",
+      "type": "ms-product-fibres",
       "settings": {}
     },
     "s04": {
-      "type": "ms-product-fibres",
+      "type": "ms-product-build",
       "settings": {}
     },
     "s05": {

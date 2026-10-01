@@ -13,10 +13,6 @@
       "settings": {}
     },
     "s03": {
-      "type": "ms-product-build",
-      "settings": {}
-    },
-    "s04": {
       "type": "ms-product-fibres",
       "settings": {},
       "blocks": {
@@ -40,6 +36,10 @@
         "fibre_01",
         "fibre_02"
       ]
+    },
+    "s04": {
+      "type": "ms-product-build",
+      "settings": {}
     },
     "s05": {
       "type": "ms-product-related",

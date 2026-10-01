@@ -1,11 +1,12 @@
 {%- liquid
   assign ms_show = true
   if template.suffix == blank
+    assign ms_show = false
     capture ms_here
       render 'ms-link', to: 'professionals'
     endcapture
-    if ms_here != page.url
-      assign ms_show = false
+    if ms_here == page.url
+      assign ms_show = true
     endif
   endif
 -%}

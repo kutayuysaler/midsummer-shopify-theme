@@ -96,7 +96,7 @@
 
   /* ── the enquiry sheet ── */
   var drawer = document.querySelector('[data-ms-drawer]');
-  var onContact = /\/pages\/contact\/?$/.test(location.pathname);
+  var onContact = /\/pages\/contact\/?$/.test(location.pathname) || !!document.querySelector('[data-ms-enq-page]');
   var lastFocus = null;
   function openDrawer(source) {
     if (!drawer) return false;
@@ -169,7 +169,7 @@
 
   /* ── enquiry forms: the four intentions rewrite the labels, as in the preview ── */
   var TABS = {
-    'Request brochure': { note: 'The full catalogue of systems, fibres and Loro Piana Interiors fabrics, as a PDF.', five: 'City', six: 'Enquiry type*', sixHint: 'General · Trade · Press', notes: 'How did you hear about us?' },
+    'Request brochure': { note: 'The full catalogue of systems, fibres and Loro Piana Interiors fabrics, sent to you by the atelier.', five: 'City', six: 'Enquiry type*', sixHint: 'General · Trade · Press', notes: 'How did you hear about us?' },
     'Book appointment': { title: 'Book an appointment', note: 'Visit the atelier on Via Andegari, or meet us by video. We confirm within one working day.', five: 'Phone*', six: 'Preferred date*', sixHint: 'Monday to Friday', notes: 'Notes' },
     'Request callback': { title: 'Request a callback', note: 'Tell us when suits and one of the atelier team will call you.', five: 'Phone*', six: 'Preferred time*', sixHint: 'Select a time', notes: 'Please tell us about your enquiry*' },
     'Leave a message': { note: 'Anything else — regeneration, care or press.', five: 'Phone', six: 'Subject', sixHint: 'Optional', notes: 'Message*' },

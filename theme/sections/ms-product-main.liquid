@@ -37,47 +37,53 @@
 <section class="ms-pm" data-ms-pm>
   <div class="ms-pm__grid">
     <div class="ms-pm__gallery{% if n_images < 2 %} is-single{% endif %}" data-ms-pm-gallery aria-roledescription="carousel" aria-label="{{ product.title | escape }}: photographs">
-      <div class="ms-pm__stage">
-        <div class="ms-pm__track" data-ms-pm-track tabindex="0">
-          {%- for media in images -%}
-            <button type="button" class="ms-pm__slide" data-ms-pm-open="{{ forloop.index0 }}" aria-label="Photograph {{ forloop.index }} of {{ n_images }}, enlarge">
-              <img
-                src="{{ media | image_url: width: 1600 }}"
-                srcset="{{ media | image_url: width: 800 }} 800w, {{ media | image_url: width: 1200 }} 1200w, {{ media | image_url: width: 1600 }} 1600w, {{ media | image_url: width: 2200 }} 2200w"
-                sizes="(max-width: 900px) 100vw, 58vw"
-                width="{{ media.width }}" height="{{ media.height }}"
-                alt="{{ media.alt | default: product.title | escape }}"
-                style="object-position: {{ media.preview_image.presentation.focal_point | default: 'center' }};"
-                {% if forloop.first %}fetchpriority="high"{% else %}loading="lazy"{% endif %}
-                data-full="{{ media | image_url: width: 2400 }}"
-              >
-            </button>
-          {%- else -%}
-            <span class="ms-pm__slide is-empty"></span>
-          {%- endfor -%}
-        </div>
-        {%- if n_images > 1 -%}
-          <button type="button" class="ms-pm__arrow is-prev" data-ms-pm-go="-1" aria-label="Previous photograph">
-            <svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.1"/></svg>
-          </button>
-          <button type="button" class="ms-pm__arrow is-next" data-ms-pm-go="1" aria-label="Next photograph">
-            <svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"/></svg>
-          </button>
-          <div class="ms-pm__counter" aria-hidden="true"><span data-ms-pm-at>01</span><i></i>{{ n_images | prepend: '0' | slice: -2, 2 }}</div>
-        {%- endif -%}
-        {%- if n_images > 0 -%}
-          <span class="ms-pm__enlarge" aria-hidden="true"><svg viewBox="0 0 16 16" width="13" height="13"><path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4" fill="none" stroke="currentColor" stroke-width="1.1"/></svg>{{ section.settings.enlarge_label }}</span>
-        {%- endif -%}
-      </div>
       {%- if n_images > 1 -%}
         <div class="ms-pm__thumbs" data-ms-pm-thumbs>
           {%- for media in images -%}
             <button type="button" class="ms-pm__thumb{% if forloop.first %} is-on{% endif %}" data-ms-pm-to="{{ forloop.index0 }}" aria-label="Show photograph {{ forloop.index }}"{% if forloop.first %} aria-current="true"{% endif %}>
-              <img src="{{ media | image_url: width: 240 }}" alt="" width="120" height="90" loading="lazy">
+              <img src="{{ media | image_url: width: 200 }}" alt="" width="100" height="125" loading="lazy">
             </button>
           {%- endfor -%}
         </div>
       {%- endif -%}
+      <div class="ms-pm__main">
+        <div class="ms-pm__stage" data-ms-pm-stage>
+          <div class="ms-pm__track" data-ms-pm-track tabindex="0">
+            {%- for media in images -%}
+              <div class="ms-pm__slide{% if forloop.first %} is-on{% endif %}" data-ms-pm-slide="{{ forloop.index0 }}">
+                <img
+                  src="{{ media | image_url: width: 1600 }}"
+                  srcset="{{ media | image_url: width: 800 }} 800w, {{ media | image_url: width: 1200 }} 1200w, {{ media | image_url: width: 1600 }} 1600w, {{ media | image_url: width: 2200 }} 2200w"
+                  sizes="(max-width: 900px) 100vw, 62vw"
+                  width="{{ media.width }}" height="{{ media.height }}"
+                  alt="{{ media.alt | default: product.title | escape }}"
+                  style="object-position: {{ media.preview_image.presentation.focal_point | default: 'center' }};"
+                  {% if forloop.first %}fetchpriority="high"{% else %}loading="lazy"{% endif %}
+                  data-full="{{ media | image_url: width: 2400 }}"
+                >
+              </div>
+            {%- else -%}
+              <div class="ms-pm__slide is-on is-empty"></div>
+            {%- endfor -%}
+          </div>
+          {%- if n_images > 1 -%}
+            <button type="button" class="ms-pm__half is-prev" data-ms-pm-go="-1" aria-label="Previous photograph"></button>
+            <button type="button" class="ms-pm__half is-next" data-ms-pm-go="1" aria-label="Next photograph"></button>
+          {%- endif -%}
+          {%- if n_images > 0 -%}
+            <button type="button" class="ms-pm__zoom" data-ms-pm-open aria-label="{{ section.settings.enlarge_label | escape }}"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4" fill="none" stroke="currentColor" stroke-width="1.1"/></svg></button>
+          {%- endif -%}
+        </div>
+        {%- if n_images > 1 -%}
+          <div class="ms-pm__bar">
+            <span class="ms-pm__num" aria-hidden="true"><span data-ms-pm-at>01</span> / {{ n_images | prepend: '0' | slice: -2, 2 }}</span>
+            <div class="ms-pm__segs">
+              {%- for media in images -%}<button type="button" class="ms-pm__seg{% if forloop.first %} is-on{% endif %}" data-ms-pm-to="{{ forloop.index0 }}" aria-label="Photograph {{ forloop.index }}"></button>{%- endfor -%}
+            </div>
+            <button type="button" class="ms-pm__enl" data-ms-pm-open>{{ section.settings.enlarge_label }}</button>
+          </div>
+        {%- endif -%}
+      </div>
     </div>
 
     <div class="ms-pm__info">
@@ -135,33 +141,39 @@
 
 <style>
   .ms-pm { padding: clamp(28px, 4vw, 64px) clamp(18px, 5vw, 80px) clamp(36px, 5vw, 72px); max-width: 1560px; margin: 0 auto; }
-  .ms-pm__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(320px, 5fr); gap: clamp(32px, 5vw, 96px); align-items: start; }
-  .ms-pm__stage { position: relative; background: #F1ECE3; overflow: hidden; }
-  .ms-pm__track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; overscroll-behavior-x: contain; outline: none; }
-  .ms-pm__track::-webkit-scrollbar { display: none; }
-  .ms-pm__slide { flex: 0 0 100%; scroll-snap-align: start; scroll-snap-stop: always; display: block; padding: 0; border: 0; background: none; cursor: zoom-in; aspect-ratio: 1 / 1; max-height: calc(100vh - 170px); min-height: 360px; overflow: hidden; }
-  .ms-pm__slide.is-empty { cursor: default; }
-  .ms-pm__slide img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s cubic-bezier(.2,.7,.2,1); }
-  .ms-pm__stage:hover .ms-pm__slide img { transform: scale(1.015); }
-  .ms-pm__arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 50%; background: rgba(251, 249, 245, .9); color: #17140F; cursor: pointer; opacity: 0; transition: opacity .35s ease, background .25s ease; }
-  .ms-pm__arrow.is-prev { left: 20px; }
-  .ms-pm__arrow.is-next { right: 20px; }
-  .ms-pm__stage:hover .ms-pm__arrow, .ms-pm__arrow:focus-visible { opacity: 1; }
-  .ms-pm__arrow:hover { background: #FBF9F5; }
-  .ms-pm__arrow[disabled] { opacity: 0 !important; pointer-events: none; }
-  .ms-pm__counter { position: absolute; left: 22px; bottom: 20px; display: flex; align-items: center; gap: 12px; padding: 9px 14px; background: rgba(251, 249, 245, .9); font-size: 11px; letter-spacing: .2em; color: #6E675C; font-variant-numeric: tabular-nums; pointer-events: none; }
-  .ms-pm__counter span { color: #17140F; }
-  .ms-pm__counter i { display: block; width: 26px; height: 1px; background: #B8AE9C; }
-  .ms-pm__enlarge { position: absolute; right: 22px; bottom: 20px; display: flex; align-items: center; gap: 9px; padding: 9px 14px; background: rgba(251, 249, 245, .9); font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: #17140F; pointer-events: none; opacity: 0; transition: opacity .35s ease; }
-  .ms-pm__stage:hover .ms-pm__enlarge { opacity: 1; }
-  .ms-pm__thumbs { display: flex; gap: 10px; margin-top: 12px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+  .ms-pm__grid { display: grid; grid-template-columns: minmax(0, 8fr) minmax(340px, 4fr); gap: clamp(28px, 4vw, 80px); align-items: start; }
+  /* the gallery: a slim rail of every photograph, a large stage that cross-fades, a fine line that counts */
+  .ms-pm__gallery { display: grid; grid-template-columns: 68px minmax(0, 1fr); gap: 16px; align-items: start; }
+  .ms-pm__gallery.is-single { grid-template-columns: minmax(0, 1fr); }
+  .ms-pm__thumbs { display: flex; flex-direction: column; gap: 10px; max-height: min(calc(100vh - 128px), 980px); overflow-y: auto; scrollbar-width: none; padding: 3px; margin: -3px; }
   .ms-pm__thumbs::-webkit-scrollbar { display: none; }
-  .ms-pm__thumb { flex: 0 0 auto; width: clamp(64px, 6vw, 92px); aspect-ratio: 1 / 1; padding: 0; border: 0; background: #F1ECE3; cursor: pointer; position: relative; opacity: .5; transition: opacity .3s ease; }
+  .ms-pm__thumb { flex: 0 0 auto; width: 62px; aspect-ratio: 4 / 5; padding: 0; border: 0; background: #F1ECE3; cursor: pointer; opacity: .45; outline: 1px solid transparent; outline-offset: 3px; transition: opacity .35s ease, outline-color .35s ease; }
   .ms-pm__thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
-  .ms-pm__thumb::after { content: ''; position: absolute; left: 0; right: 0; bottom: -2px; height: 1px; background: #17140F; transform: scaleX(0); transform-origin: left; transition: transform .45s cubic-bezier(.2,.7,.2,1); }
-  .ms-pm__thumb:hover { opacity: .85; }
-  .ms-pm__thumb.is-on { opacity: 1; }
-  .ms-pm__thumb.is-on::after { transform: scaleX(1); }
+  .ms-pm__thumb:hover { opacity: .8; }
+  .ms-pm__thumb.is-on { opacity: 1; outline-color: #17140F; }
+  .ms-pm__stage { position: relative; background: #F1ECE3; overflow: hidden; }
+  .ms-pm__track { position: relative; width: 100%; aspect-ratio: 4 / 5; max-height: min(calc(100vh - 128px), 980px); outline: none; }
+  .ms-pm__slide { position: absolute; inset: 0; opacity: 0; transition: opacity .9s cubic-bezier(.4,0,.2,1); }
+  .ms-pm__slide.is-on { opacity: 1; z-index: 1; }
+  .ms-pm__slide img { display: block; width: 100%; height: 100%; object-fit: cover; transform: scale(1.035); transition: transform 2.4s cubic-bezier(.2,.7,.2,1); }
+  .ms-pm__slide.is-on img { transform: none; }
+  .ms-pm__stage { cursor: zoom-in; }
+  .ms-pm__half { position: absolute; top: 0; bottom: 0; width: 34%; z-index: 2; border: 0; padding: 0; background: none; }
+  .ms-pm__half.is-prev { left: 0; cursor: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44'%3E%3Ccircle cx='22' cy='22' r='21' fill='%23FBF9F5' fill-opacity='.92'/%3E%3Cpath d='M25 15l-7 7 7 7' fill='none' stroke='%2317140F' stroke-width='1.2'/%3E%3C/svg%3E\") 22 22, w-resize; }
+  .ms-pm__half.is-next { right: 0; cursor: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44'%3E%3Ccircle cx='22' cy='22' r='21' fill='%23FBF9F5' fill-opacity='.92'/%3E%3Cpath d='M19 15l7 7-7 7' fill='none' stroke='%2317140F' stroke-width='1.2'/%3E%3C/svg%3E\") 22 22, e-resize; }
+  .ms-pm__half[disabled] { display: none; }
+  .ms-pm__half:focus-visible { outline: 1px solid #9A7B4F; outline-offset: -6px; }
+  .ms-pm__zoom { position: absolute; top: 16px; right: 16px; z-index: 3; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 50%; background: rgba(251, 249, 245, .9); color: #17140F; cursor: pointer; opacity: 0; transition: opacity .35s ease; }
+  .ms-pm__stage:hover .ms-pm__zoom, .ms-pm__zoom:focus-visible { opacity: 1; }
+  .ms-pm__bar { display: flex; align-items: center; gap: 22px; margin-top: 16px; }
+  .ms-pm__num { flex: 0 0 auto; font-family: Newsreader, Georgia, serif; font-size: 15px; color: #8C8579; font-variant-numeric: tabular-nums; }
+  .ms-pm__num span { color: #17140F; }
+  .ms-pm__segs { flex: 1 1 auto; display: flex; gap: 6px; }
+  .ms-pm__seg { flex: 1 1 0; height: 21px; padding: 0; border: 0; background: none; cursor: pointer; position: relative; }
+  .ms-pm__seg::before { content: ''; position: absolute; left: 0; right: 0; top: 10px; height: 1px; background: #DDD6C9; transition: background .4s ease, height .3s ease; }
+  .ms-pm__seg:hover::before { background: #8C8579; }
+  .ms-pm__seg.is-on::before { background: #17140F; height: 2px; top: 9.5px; }
+  .ms-site .ms-pm__enl { flex: 0 0 auto; background: none; border: 0; padding: 0 0 4px; border-bottom: 1px solid #17140F; font: inherit; font-size: 10.5px; letter-spacing: .24em; text-transform: uppercase; color: #17140F; cursor: pointer; }
   .ms-pm__sticky { position: sticky; top: 118px; }
   .ms-pm__eyebrow { font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: #6E675C; }
   .ms-pm__eyebrow a { color: inherit; }
@@ -197,11 +209,13 @@
 
   @media (max-width: 900px) {
     .ms-pm__grid { grid-template-columns: minmax(0, 1fr); gap: 30px; }
-    .ms-pm__gallery { margin-inline: calc(-1 * clamp(18px, 5vw, 80px)); margin-top: calc(-1 * clamp(28px, 4vw, 64px)); }
-    .ms-pm__slide { aspect-ratio: 4 / 5; max-height: 78vh; min-height: 0; }
-    .ms-pm__arrow, .ms-pm__enlarge { display: none; }
-    .ms-pm__counter { left: 16px; bottom: 14px; }
-    .ms-pm__thumbs { display: none; }
+    .ms-pm__gallery { grid-template-columns: minmax(0, 1fr); margin-inline: calc(-1 * clamp(18px, 5vw, 80px)); margin-top: calc(-1 * clamp(28px, 4vw, 64px)); }
+    .ms-pm__thumbs, .ms-pm__half, .ms-pm__zoom, .ms-pm__enl { display: none !important; }
+    .ms-pm__track { display: flex; aspect-ratio: auto; max-height: none; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
+    .ms-pm__track::-webkit-scrollbar { display: none; }
+    .ms-pm__slide { position: relative; inset: auto; flex: 0 0 100%; opacity: 1; scroll-snap-align: start; scroll-snap-stop: always; aspect-ratio: 4 / 5; max-height: 78vh; }
+    .ms-pm__slide img { transform: none; }
+    .ms-pm__bar { padding-inline: clamp(18px, 5vw, 80px); margin-top: 12px; }
     .ms-pm__sticky { position: static; }
   }
 </style>
@@ -210,41 +224,46 @@
   (function () {
     var root = document.currentScript.parentElement.querySelector('[data-ms-pm]') || document.querySelector('[data-ms-pm]');
     if (!root) return;
-    var shots = Array.prototype.slice.call(root.querySelectorAll('[data-ms-pm-open] img'));
+    var shots = Array.prototype.slice.call(root.querySelectorAll('[data-ms-pm-slide] img'));
+    var slides = Array.prototype.slice.call(root.querySelectorAll('[data-ms-pm-slide]'));
     var track = root.querySelector('[data-ms-pm-track]');
     var thumbs = Array.prototype.slice.call(root.querySelectorAll('[data-ms-pm-to]'));
+    var rail = root.querySelector('[data-ms-pm-thumbs]');
     var atEl = root.querySelector('[data-ms-pm-at]');
     var prev = root.querySelector('[data-ms-pm-go="-1"]'), next = root.querySelector('[data-ms-pm-go="1"]');
     var viewer = root.querySelector('[data-ms-pm-viewer]');
     var full = root.querySelector('[data-ms-pm-full]');
     var count = root.querySelector('[data-ms-pm-count]');
+    var phone = window.matchMedia('(max-width: 900px)');
     var at = 0, cur = 0, last = null;
     function pad(n) { return (n < 10 ? '0' : '') + n; }
     function mark(i) {
       cur = i;
       if (atEl) atEl.textContent = pad(i + 1);
-      thumbs.forEach(function (t, k) { t.classList.toggle('is-on', k === i); if (k === i) { t.setAttribute('aria-current', 'true'); } else { t.removeAttribute('aria-current'); } });
-      if (thumbs[i] && thumbs[i].parentElement.scrollWidth > thumbs[i].parentElement.clientWidth) thumbs[i].parentElement.scrollTo({ left: thumbs[i].offsetLeft - 40, behavior: 'smooth' });
+      slides.forEach(function (s, k) { s.classList.toggle('is-on', k === i); });
+      thumbs.forEach(function (t, k) { var on = +t.getAttribute('data-ms-pm-to') === i; t.classList.toggle('is-on', on); if (on && t.classList.contains('ms-pm__thumb')) t.setAttribute('aria-current', 'true'); else t.removeAttribute('aria-current'); });
+      var th = rail && rail.querySelector('.ms-pm__thumb.is-on');
+      if (th && rail.scrollHeight > rail.clientHeight) rail.scrollTo({ top: th.offsetTop - rail.clientHeight / 2 + th.clientHeight / 2, behavior: 'smooth' });
       if (prev) prev.disabled = i === 0;
       if (next) next.disabled = i === shots.length - 1;
     }
     function go(i) {
       if (!track || !shots.length) return;
       i = Math.max(0, Math.min(shots.length - 1, i));
-      track.scrollTo({ left: i * track.clientWidth, behavior: 'smooth' });
+      if (phone.matches) track.scrollTo({ left: i * track.clientWidth, behavior: 'smooth' });
       mark(i);
     }
     if (track) {
       var tick = null;
       track.addEventListener('scroll', function () {
-        if (tick) return;
+        if (!phone.matches || tick) return;
         tick = requestAnimationFrame(function () { tick = null; var i = Math.round(track.scrollLeft / Math.max(1, track.clientWidth)); if (i !== cur) mark(i); });
       }, { passive: true });
       track.addEventListener('keydown', function (e) {
         if (e.key === 'ArrowRight') { e.preventDefault(); go(cur + 1); }
         if (e.key === 'ArrowLeft') { e.preventDefault(); go(cur - 1); }
       });
-      window.addEventListener('resize', function () { track.scrollTo({ left: cur * track.clientWidth }); });
+      window.addEventListener('resize', function () { if (phone.matches) track.scrollTo({ left: cur * track.clientWidth }); });
       mark(0);
     }
     function show(i) {
@@ -256,12 +275,11 @@
     function open(i) { last = document.activeElement; show(i); viewer.hidden = false; document.body.classList.add('ms-lock'); viewer.querySelector('[data-ms-pm-close]').focus(); }
     function close() { viewer.hidden = true; document.body.classList.remove('ms-lock'); go(at); if (last) last.focus(); }
     root.addEventListener('click', function (e) {
-      var o = e.target.closest('[data-ms-pm-open]');
-      if (o) { open(+o.getAttribute('data-ms-pm-open')); return; }
       var g = e.target.closest('[data-ms-pm-go]');
       if (g) { go(cur + +g.getAttribute('data-ms-pm-go')); return; }
       var t = e.target.closest('[data-ms-pm-to]');
       if (t) { go(+t.getAttribute('data-ms-pm-to')); return; }
+      if (shots.length && (e.target.closest('[data-ms-pm-open]') || e.target.closest('[data-ms-pm-slide]'))) { open(cur); return; }
       if (e.target.closest('[data-ms-pm-close]') || e.target === viewer) { close(); return; }
       var s = e.target.closest('[data-ms-pm-step]');
       if (s) show(at + +s.getAttribute('data-ms-pm-step'));

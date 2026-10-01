@@ -1,56 +1,203 @@
-{%- paginate blog.articles by 13 -%}
+{%- comment -%}
+  The Journal's notes, two ways. Gallery: the newest note opens the page, the rest follow
+  in a magazine rhythm (a wide picture, a tall one, three in a row, and back again), each
+  numbered like an issue. Index: every note as a line of type; hovering a line shows its
+  photograph beside the cursor. The visitor's choice is remembered.
+{%- endcomment -%}
+{%- paginate blog.articles by 15 -%}
 {%- liquid
   assign featured = nil
   if paginate.current_page == 1
     assign featured = blog.articles.first
   endif
+  assign total = blog.articles_count
+  assign start = paginate.current_offset
 -%}
-{%- if featured -%}
-{%- assign article = featured -%}
-{%- assign kicker = article.tags | first | default: blog.title -%}
-<section style="padding: 0px clamp(18px, 5vw, 80px) clamp(48px, 6vw, 96px); max-width: 1560px; margin: 0px auto;">
-<a href="{{ article.url }}" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(28px, 5vw, 80px); align-items: center; border-top: 1px solid rgb(221, 214, 201); padding-top: clamp(28px, 4vw, 56px);">
-{%- if article.image -%}<img alt="{{ article.image.alt | escape }}" src="{{ article.image | image_url: width: 1600 }}" width="1600" height="1200" style="width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover;">{%- else -%}<span style="display: block; width: 100%; aspect-ratio: 4 / 3; background: rgb(241, 236, 227);"></span>{%- endif -%}
-<div>
-<div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92);">{{ kicker }}</div>
-<h2 style="font-family: Newsreader, Georgia, serif; font-size: clamp(26px, 3.6vw, 48px); line-height: 1.08; letter-spacing: -0.02em; margin-top: 18px;">{{ article.title }}</h2>
-<p style="font-size: 15px; line-height: 1.95; color: rgb(74, 68, 59); margin-top: 18px; max-width: 50ch;">{{ article.excerpt_or_content | strip_html | truncatewords: 34 }}</p>
-<div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; margin-top: 24px;">{{ section.settings.read }}</div>
-</div>
-</a>
-</section>
-{%- endif -%}
-<section style="padding: 0px clamp(18px, 5vw, 80px) clamp(60px, 9vw, 150px); max-width: 1560px; margin: 0px auto;">
-{%- if blog.articles_count == 0 -%}
-<p style="font-size: 15px; line-height: 1.95; color: rgb(74, 68, 59);">{{ section.settings.empty }}</p>
-{%- else -%}
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: clamp(24px, 3vw, 56px);">
-{%- for article in blog.articles -%}
-{%- if featured and forloop.first -%}{%- continue -%}{%- endif -%}
-{%- assign kicker = article.tags | first | default: blog.title -%}
-<a href="{{ article.url }}" style="display: block;">
-{%- if article.image -%}<img alt="{{ article.image.alt | escape }}" src="{{ article.image | image_url: width: 900 }}" loading="lazy" width="900" height="1200" style="width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover;">{%- else -%}<span style="display: block; width: 100%; aspect-ratio: 3 / 4; background: rgb(241, 236, 227);"></span>{%- endif -%}
-<div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92); margin-top: 18px;">{{ kicker }}</div>
-<h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(20px, 2.2vw, 26px); line-height: 1.25; margin-top: 10px;">{{ article.title }}</h3>
-</a>
-{%- endfor -%}
-</div>
-{%- if paginate.pages > 1 -%}
-<nav style="display: flex; gap: 22px; justify-content: center; margin-top: clamp(40px, 5vw, 72px); font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase;">
-{%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">← Newer</a>{%- endif -%}
-<span style="color: rgb(110, 103, 92);">{{ paginate.current_page }} / {{ paginate.pages }}</span>
-{%- if paginate.next -%}<a href="{{ paginate.next.url }}">Older →</a>{%- endif -%}
-</nav>
-{%- endif -%}
-{%- endif -%}
+<section class="ms-jl" data-ms-jl>
+  {%- if blog.articles_count == 0 -%}
+    <p class="ms-jl__empty">{{ section.settings.empty }}</p>
+  {%- else -%}
+  <div class="ms-jl__bar">
+    <span class="ms-jl__total">{{ total }} {{ section.settings.notes_label }}</span>
+    <div class="ms-jl__views" role="group" aria-label="{{ section.settings.view_label | escape }}">
+      <button type="button" data-ms-jl-view="gallery" aria-pressed="true">{{ section.settings.gallery_label }}</button>
+      <button type="button" data-ms-jl-view="index" aria-pressed="false">{{ section.settings.index_label }}</button>
+    </div>
+  </div>
+
+  <div class="ms-jl__gallery" data-ms-jl-pane="gallery">
+    {%- if featured -%}
+      {%- assign article = featured -%}
+      <a class="ms-jl__lead" href="{{ article.url }}">
+        <span class="ms-jl__img">{%- if article.image -%}<img src="{{ article.image | image_url: width: 1800 }}" srcset="{{ article.image | image_url: width: 900 }} 900w, {{ article.image | image_url: width: 1800 }} 1800w" sizes="(max-width: 900px) 100vw, 58vw" alt="{{ article.image.alt | default: article.title | escape }}" width="1800" height="1200" fetchpriority="high">{%- endif -%}</span>
+        <span class="ms-jl__leadtext">
+          <span class="ms-jl__no">No. {{ total }}</span>
+          <span class="ms-jl__meta">{{ article.tags | first | default: blog.title }} · {{ article.published_at | date: '%B %Y' }}</span>
+          <span class="ms-jl__leadtitle">{{ article.title }}</span>
+          <span class="ms-jl__excerpt">{{ article.excerpt_or_content | strip_html | truncatewords: 40 }}</span>
+          <span class="ms-jl__read">{{ section.settings.read }}</span>
+        </span>
+      </a>
+    {%- endif -%}
+    <div class="ms-jl__mosaic">
+      {%- assign k = 0 -%}
+      {%- for article in blog.articles -%}
+        {%- if featured and forloop.first -%}{%- continue -%}{%- endif -%}
+        {%- assign slot = k | modulo: 7 -%}
+        {%- assign no = total | minus: start | minus: forloop.index0 -%}
+        <a class="ms-jl__card is-s{{ slot }}" href="{{ article.url }}">
+          <span class="ms-jl__img">{%- if article.image -%}<img src="{{ article.image | image_url: width: 1200 }}" srcset="{{ article.image | image_url: width: 600 }} 600w, {{ article.image | image_url: width: 1200 }} 1200w" sizes="(max-width: 760px) 100vw, 45vw" alt="{{ article.image.alt | default: article.title | escape }}" loading="lazy" width="1200" height="1200">{%- endif -%}</span>
+          <span class="ms-jl__row"><span class="ms-jl__no">No. {{ no }}</span><span class="ms-jl__meta">{{ article.tags | first | default: blog.title }}</span></span>
+          <span class="ms-jl__title">{{ article.title }}</span>
+          {%- if slot == 0 or slot == 6 -%}<span class="ms-jl__excerpt">{{ article.excerpt_or_content | strip_html | truncatewords: 26 }}</span>{%- endif -%}
+        </a>
+        {%- assign k = k | plus: 1 -%}
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <div class="ms-jl__index" data-ms-jl-pane="index" hidden>
+    <ol class="ms-jl__list" role="list">
+      {%- for article in blog.articles -%}
+        {%- assign no = total | minus: start | minus: forloop.index0 -%}
+        <li>
+          <a class="ms-jl__line" href="{{ article.url }}"{% if article.image %} data-ms-jl-img="{{ article.image | image_url: width: 700 }}"{% endif %}>
+            <span class="ms-jl__no">No. {{ no }}</span>
+            {%- if article.image -%}<img class="ms-jl__thumb" src="{{ article.image | image_url: width: 200 }}" alt="" loading="lazy" width="100" height="125">{%- endif -%}
+            <span class="ms-jl__ltitle">{{ article.title }}</span>
+            <span class="ms-jl__ltag">{{ article.tags | first | default: blog.title }}</span>
+            <span class="ms-jl__ldate">{{ article.published_at | date: '%d.%m.%Y' }}</span>
+          </a>
+        </li>
+      {%- endfor -%}
+    </ol>
+    <div class="ms-jl__float" data-ms-jl-float aria-hidden="true"><img alt="" data-ms-jl-floatimg width="240" height="300"></div>
+  </div>
+
+  {%- if paginate.pages > 1 -%}
+    <nav class="ms-jl__pages" aria-label="Pages">
+      {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">← {{ section.settings.newer }}</a>{%- else -%}<span></span>{%- endif -%}
+      <span class="ms-jl__pnum">{{ paginate.current_page }} / {{ paginate.pages }}</span>
+      {%- if paginate.next -%}<a href="{{ paginate.next.url }}">{{ section.settings.older }} →</a>{%- else -%}<span></span>{%- endif -%}
+    </nav>
+  {%- endif -%}
+  {%- endif -%}
 </section>
 {%- endpaginate -%}
+<style>
+  .ms-jl { max-width: 1560px; margin: 0 auto; padding: 0 clamp(18px, 5vw, 80px) clamp(64px, 9vw, 150px); --rule: #DDD6C9; --muted: #6E675C; --gold: #9A7B4F; }
+  .ms-jl__empty { font-size: 15px; line-height: 1.95; color: #4A443B; }
+  .ms-jl__bar { display: flex; justify-content: space-between; align-items: center; gap: 20px; border-top: 1px solid var(--rule); padding: 18px 0; }
+  .ms-jl__total { font-size: 11px; letter-spacing: .26em; text-transform: uppercase; color: var(--muted); }
+  .ms-jl__views { display: flex; gap: 22px; }
+  .ms-jl__views button { background: none; border: 0; padding: 0 0 5px; border-bottom: 1px solid transparent; font: inherit; font-size: 11px; letter-spacing: .26em; text-transform: uppercase; color: var(--muted); cursor: pointer; transition: color .25s ease, border-color .25s ease; }
+  .ms-jl__views button[aria-pressed="true"] { color: #17140F; border-bottom-color: #17140F; }
+  .ms-jl [hidden] { display: none !important; }
+
+  .ms-jl__no { font-family: Newsreader, Georgia, serif; font-size: 14px; color: var(--gold); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .ms-jl__meta { font-size: 10.5px; letter-spacing: .24em; text-transform: uppercase; color: var(--muted); }
+  .ms-jl__img { display: block; overflow: hidden; background: #F1ECE3; }
+  .ms-jl__img img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s cubic-bezier(.2,.7,.2,1); }
+  .ms-site .ms-jl__lead, .ms-site .ms-jl__card, .ms-site .ms-jl__line { color: #17140F; }
+  .ms-jl__lead:hover .ms-jl__img img, .ms-jl__card:hover .ms-jl__img img { transform: scale(1.035); }
+
+  /* the opening note */
+  .ms-jl__lead { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(28px, 5vw, 88px); align-items: end; padding: clamp(18px, 2vw, 28px) 0 clamp(56px, 7vw, 110px); }
+  .ms-jl__lead .ms-jl__img { aspect-ratio: 3 / 2; }
+  .ms-jl__leadtext { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; padding-bottom: 8px; }
+  .ms-jl__lead .ms-jl__no { font-size: clamp(34px, 4vw, 60px); line-height: 1; letter-spacing: -.02em; }
+  .ms-jl__leadtitle { font-family: Newsreader, Georgia, serif; font-size: clamp(28px, 3.6vw, 52px); line-height: 1.06; letter-spacing: -.03em; font-weight: 200; margin-top: 6px; }
+  .ms-jl__excerpt { font-size: 14.5px; line-height: 1.9; color: #4A443B; max-width: 52ch; }
+  .ms-jl__read { font-size: 10.5px; letter-spacing: .26em; text-transform: uppercase; border-bottom: 1px solid #17140F; padding-bottom: 5px; margin-top: 8px; }
+
+  /* the rhythm: wide, tall / three / tall, wide */
+  .ms-jl__mosaic { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: clamp(40px, 5vw, 88px) clamp(18px, 2.4vw, 40px); align-items: start; }
+  .ms-jl__card { display: flex; flex-direction: column; gap: 10px; }
+  .ms-jl__card .ms-jl__img { margin-bottom: 8px; }
+  .ms-jl__row { display: flex; align-items: baseline; gap: 14px; }
+  .ms-jl__title { font-family: Newsreader, Georgia, serif; font-size: clamp(20px, 1.9vw, 26px); line-height: 1.25; letter-spacing: -.015em; transition: color .25s ease; }
+  .ms-jl__card:hover .ms-jl__title { color: var(--gold); }
+  .ms-jl__card.is-s0 { grid-column: 1 / span 7; }  .ms-jl__card.is-s0 .ms-jl__img { aspect-ratio: 4 / 3; }
+  .ms-jl__card.is-s1 { grid-column: 9 / span 4; margin-top: clamp(60px, 10vw, 180px); } .ms-jl__card.is-s1 .ms-jl__img { aspect-ratio: 4 / 5; }
+  .ms-jl__card.is-s2, .ms-jl__card.is-s3, .ms-jl__card.is-s4 { grid-column: span 4; } .ms-jl__card.is-s2 .ms-jl__img, .ms-jl__card.is-s3 .ms-jl__img, .ms-jl__card.is-s4 .ms-jl__img { aspect-ratio: 3 / 4; }
+  .ms-jl__card.is-s3 { margin-top: clamp(30px, 5vw, 90px); }
+  .ms-jl__card.is-s5 { grid-column: 1 / span 4; margin-top: clamp(60px, 10vw, 180px); } .ms-jl__card.is-s5 .ms-jl__img { aspect-ratio: 4 / 5; }
+  .ms-jl__card.is-s6 { grid-column: 6 / span 7; } .ms-jl__card.is-s6 .ms-jl__img { aspect-ratio: 4 / 3; }
+  .ms-jl__card.is-s0 .ms-jl__title, .ms-jl__card.is-s6 .ms-jl__title { font-size: clamp(24px, 2.6vw, 36px); line-height: 1.12; }
+
+  /* the index */
+  .ms-jl__list { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--rule); }
+  .ms-jl__line { position: relative; display: grid; grid-template-columns: 90px minmax(0, 1fr) 180px 110px; gap: 24px; align-items: baseline; padding: clamp(18px, 2vw, 26px) 0; border-top: 1px solid var(--rule); transition: padding .35s cubic-bezier(.2,.7,.2,1); }
+  .ms-jl__line::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: #17140F; transform: scaleX(0); transform-origin: left; transition: transform .55s cubic-bezier(.2,.7,.2,1); }
+  .ms-jl__line:hover::after { transform: scaleX(1); }
+  .ms-jl__line:hover { padding-left: 14px; }
+  .ms-jl__ltitle { font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.4vw, 34px); line-height: 1.15; letter-spacing: -.02em; font-weight: 200; }
+  .ms-jl__ltag { font-size: 10.5px; letter-spacing: .24em; text-transform: uppercase; color: var(--muted); }
+  .ms-jl__ldate { font-size: 12px; letter-spacing: .08em; color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
+  .ms-site .ms-jl__thumb { display: none; }
+  .ms-jl__float { position: fixed; left: 0; top: 0; z-index: 40; width: 240px; aspect-ratio: 4 / 5; pointer-events: none; opacity: 0; transform: translate(-50%, -50%) scale(.92); transition: opacity .3s ease, transform .4s cubic-bezier(.2,.7,.2,1); overflow: hidden; box-shadow: 0 30px 60px -30px rgba(23, 20, 15, .4); }
+  .ms-jl__float.is-on { opacity: 1; }
+  .ms-jl__float img { width: 100%; height: 100%; object-fit: cover; }
+
+  .ms-jl__pages { display: flex; justify-content: space-between; align-items: center; margin-top: clamp(48px, 6vw, 88px); border-top: 1px solid var(--rule); padding-top: 22px; font-size: 11px; letter-spacing: .26em; text-transform: uppercase; }
+  .ms-site .ms-jl__pages a { color: #17140F; border-bottom: 1px solid currentColor; padding-bottom: 5px; }
+  .ms-jl__pnum { font-family: Newsreader, Georgia, serif; font-size: 15px; letter-spacing: 0; text-transform: none; color: var(--muted); }
+
+  @media (max-width: 900px) {
+    .ms-jl__lead { grid-template-columns: minmax(0, 1fr); }
+    .ms-jl__mosaic { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .ms-jl__card[class*="is-s"] { grid-column: auto; margin-top: 0; }
+    .ms-jl__card.is-s0, .ms-jl__card.is-s6 { grid-column: 1 / -1; }
+    .ms-jl__card .ms-jl__img { aspect-ratio: 4 / 5 !important; }
+    .ms-jl__card.is-s0 .ms-jl__img, .ms-jl__card.is-s6 .ms-jl__img { aspect-ratio: 4 / 3 !important; }
+    .ms-jl__line { grid-template-columns: 64px minmax(0, 1fr); gap: 6px 16px; align-items: start; }
+    .ms-jl__line:hover { padding-left: 0; }
+    .ms-site .ms-jl__thumb { display: block; grid-row: span 3; width: 64px; height: 80px; object-fit: cover; }
+    .ms-jl__line .ms-jl__no { grid-column: 2; }
+    .ms-jl__ltag, .ms-jl__ldate { grid-column: 2; text-align: left; }
+    .ms-jl__float { display: none; }
+  }
+  @media (max-width: 560px) { .ms-jl__mosaic { grid-template-columns: minmax(0, 1fr); } }
+  @media (prefers-reduced-motion: reduce) { .ms-jl__float, .ms-jl__line, .ms-jl__line::after { transition: none; } }
+</style>
+<script>
+  (function () {
+    var root = document.currentScript.parentElement.querySelector('[data-ms-jl]') || document.querySelector('[data-ms-jl]');
+    if (!root) return;
+    var KEY = 'ms-journal-view';
+    function set(v) {
+      root.querySelectorAll('[data-ms-jl-view]').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-ms-jl-view') === v ? 'true' : 'false'); });
+      root.querySelectorAll('[data-ms-jl-pane]').forEach(function (p) { p.hidden = p.getAttribute('data-ms-jl-pane') !== v; });
+      try { localStorage.setItem(KEY, v); } catch (e) {}
+    }
+    root.addEventListener('click', function (e) { var b = e.target.closest('[data-ms-jl-view]'); if (b) set(b.getAttribute('data-ms-jl-view')); });
+    var saved = null; try { saved = localStorage.getItem(KEY); } catch (e) {}
+    if (saved === 'index') set('index');
+    // the index: a photograph follows the cursor over the lines
+    var fl = root.querySelector('[data-ms-jl-float]'), img = root.querySelector('[data-ms-jl-floatimg]');
+    if (!fl || !window.matchMedia('(hover: hover)').matches) return;
+    var x = 0, y = 0, raf = null;
+    function place() { raf = null; fl.style.transform = 'translate(' + (x + 36) + 'px,' + (y - 150) + 'px) scale(1)'; }
+    root.addEventListener('mousemove', function (e) { x = e.clientX; y = e.clientY; if (!raf) raf = requestAnimationFrame(place); });
+    root.addEventListener('mouseover', function (e) {
+      var l = e.target.closest('[data-ms-jl-img]');
+      if (l) { if (img.getAttribute('src') !== l.getAttribute('data-ms-jl-img')) img.src = l.getAttribute('data-ms-jl-img'); fl.classList.add('is-on'); }
+    });
+    root.addEventListener('mouseout', function (e) { var l = e.target.closest('[data-ms-jl-img]'); if (l && !l.contains(e.relatedTarget)) fl.classList.remove('is-on'); });
+  })();
+</script>
 {% schema %}
 {
   "name": "Journal · Notes",
   "settings": [
-    { "type": "text", "id": "read", "label": "Read label", "default": "Read →" },
-    { "type": "text", "id": "empty", "label": "When empty", "default": "New notes from the atelier are on their way." }
+    { "type": "text", "id": "read", "label": "Read label", "default": "Read the note" },
+    { "type": "text", "id": "empty", "label": "When empty", "default": "New notes from the atelier are on their way." },
+    { "type": "text", "id": "notes_label", "label": "Notes", "default": "notes" },
+    { "type": "text", "id": "view_label", "label": "View label", "default": "View" },
+    { "type": "text", "id": "gallery_label", "label": "Gallery view", "default": "Gallery" },
+    { "type": "text", "id": "index_label", "label": "Index view", "default": "Index" },
+    { "type": "text", "id": "newer", "label": "Newer", "default": "Newer" },
+    { "type": "text", "id": "older", "label": "Older", "default": "Older" }
   ]
 }
 {% endschema %}
