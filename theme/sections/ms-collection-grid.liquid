@@ -1,4 +1,4 @@
-<section style="padding: 0px clamp(18px, 5vw, 80px) clamp(60px, 9vw, 150px); max-width: 1560px; margin: 0px auto;">
+<style>.ms-card__img { position: relative; display: block; overflow: hidden; } .ms-site img.ms-card__alt { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .7s ease, transform 1.4s cubic-bezier(.2,.7,.2,1); transform: scale(1.03); } @media (hover: hover) { a:hover > .ms-card__img img.ms-card__alt { opacity: 1; transform: none; } }</style><section style="padding: 0px clamp(18px, 5vw, 80px) clamp(60px, 9vw, 150px); max-width: 1560px; margin: 0px auto;">
 <div style="display: flex; gap: 8px; flex-wrap: wrap; border-top: 1px solid rgb(221, 214, 201); padding-top: 22px; margin-bottom: clamp(32px, 4vw, 60px);">
 {%- for h in (1..3) -%}
   {%- case h -%}{%- when 1 -%}{%- assign k = 'essentials' -%}{%- assign l = section.settings.tab1 -%}{%- when 2 -%}{%- assign k = 'signature' -%}{%- assign l = section.settings.tab2 -%}{%- else -%}{%- assign k = 'icons' -%}{%- assign l = section.settings.tab3 -%}{%- endcase -%}
@@ -12,7 +12,11 @@
   {%- assign sub = product.metafields.custom.subtitle.value | default: note -%}
   <a href="{{ product.url }}" style="display: block;">
     {%- if product.featured_media -%}
+      <span class="ms-card__img">
       <img alt="{{ product.featured_media.alt | default: product.title | escape }}" src="{{ product.featured_media | image_url: width: 1000 }}" srcset="{{ product.featured_media | image_url: width: 600 }} 600w, {{ product.featured_media | image_url: width: 1000 }} 1000w" sizes="(max-width: 760px) 50vw, 33vw" loading="{% if forloop.index > 3 %}lazy{% else %}eager{% endif %}" width="1000" height="1333" style="width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; display: block;">
+      {%- assign alt_media = product.media[1] -%}
+      {%- if alt_media and alt_media.media_type == 'image' -%}<img class="ms-card__alt" alt="" src="{{ alt_media | image_url: width: 1000 }}" loading="lazy" width="1000" height="1333">{%- endif -%}
+      </span>
     {%- else -%}
       <span style="display: block; width: 100%; aspect-ratio: 3 / 4; background: rgb(241, 236, 227);"></span>
     {%- endif -%}

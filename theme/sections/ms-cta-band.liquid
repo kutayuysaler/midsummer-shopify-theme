@@ -20,7 +20,7 @@
       <div class="ms-cb__actions">
         {%- if section.settings.button != blank -%}
           <a class="ms-cb__button"
-            href="{% if section.settings.button_enquire %}{% render 'ms-link', to: 'contact' %}{% else %}{{ section.settings.button_link | default: '#' }}{% endif %}"
+            href="{% if section.settings.button_enquire %}{% render 'ms-link', to: 'contact' %}{% elsif section.settings.button_place != blank and section.settings.button_place != 'none' %}{% render 'ms-link', to: section.settings.button_place %}{% else %}{{ section.settings.button_link | default: '#' }}{% endif %}"
             {% if section.settings.button_enquire %}data-ms-enquire{% endif %}
             {% if section.settings.new_tab %}target="_blank" rel="noopener"{% endif %}>{{ section.settings.button }}</a>
         {%- endif -%}
@@ -60,6 +60,7 @@
     { "type": "textarea", "id": "heading", "label": "Heading", "default": "Come and lie down." },
     { "type": "richtext", "id": "text", "label": "Text" },
     { "type": "text", "id": "button", "label": "Button", "default": "Book a private appointment" },
+    { "type": "select", "id": "button_place", "label": "Button goes to", "default": "none", "options": [ { "value": "none", "label": "The address below" }, { "value": "collections", "label": "Our Beds" }, { "value": "quiz", "label": "Find your Midsummer" }, { "value": "materials", "label": "Natural Materials" }, { "value": "agents", "label": "Agents & Resellers" }, { "value": "journal", "label": "Journal" } ] },
     { "type": "url", "id": "button_link", "label": "Button link" },
     { "type": "checkbox", "id": "button_enquire", "label": "Button opens the enquiry", "default": true },
     { "type": "checkbox", "id": "new_tab", "label": "Open the button's link in a new tab", "default": false },

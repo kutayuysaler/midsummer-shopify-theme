@@ -67,16 +67,46 @@ then **Preview**.
 
 ## 3. Pages to create
 
-These have no page in the store yet, so they stay out of the menus until you create them.
-Create each page in **Online Store → Pages** with exactly this handle; the design and
-its menu entries appear on their own:
+Four pages have a design in the theme but no page in the store yet. Until you create
+them, they stay out of the menus.
 
-| Page | Handle |
-| --- | --- |
-| Architects & Interior Designers | `professionals` |
-| Hospitality | `hospitality` |
-| Handmade in Italy (optional) | `handmade-in-italy` |
-| Sleep Culture (optional) | `sleep-culture` |
+| Page | Handle | Template |
+| --- | --- | --- |
+| Architects & Interior Designers | `professionals` | `page.professionals` |
+| Hospitality | `hospitality` | `page.hospitality` |
+| Handmade in Italy | `handmade-in-italy` | `page.handmade-in-italy` |
+| Sleep Culture | `sleep-culture` | `page.sleep-culture` |
+
+**With the script** (`scripts/create_pages.py`), all four are created with their text and
+template in one go:
+
+1. In Shopify admin, go to Settings → Apps and sales channels → Develop apps → Create an
+   app.
+2. Under Admin API scopes, give it `write_content` and `read_content`, then install it and
+   copy the Admin API access token.
+3. Publish this theme first, so the templates exist. Then run:
+
+```
+SHOPIFY_STORE=your-store.myshopify.com SHOPIFY_ADMIN_TOKEN=shpat_... python3 scripts/create_pages.py
+```
+
+Add `--dry-run` to see what it would do first. Pages that already exist are left alone;
+only a missing template is set. You can delete the app afterwards.
+
+**By hand:** in **Online Store → Pages → Add page**, enter the title, set the handle
+under "Search engine listing", and choose the template on the right.
+
+The designs:
+- **Professionals and Hospitality** also appear on the default template, so you can skip
+  choosing a template for those two.
+- **Handmade in Italy:** the opening photograph and the page text, then *The making*: a
+  photograph held in place while five stages scroll past it (springs, fibres, tufting,
+  border, cloth). After that, two photographs and the invitation to the atelier.
+- **Sleep Culture:** the opening photograph and the page text, three things a good night
+  is made of, the Journal's notes tagged *sleep*, and the quiz.
+
+The step texts are a first draft; please check them against how the beds are really made.
+Each is editable in the theme editor.
 
 The collections `essentials`, `signature` and `icons` are used by the Our Beds panel and
 the collection pages. If one doesn't exist, its links go to `/collections`. By type,
@@ -193,3 +223,19 @@ the top right and for the buttons inside the pages:
 
 Both send through Shopify's contact form. The chosen enquiry arrives as "Enquiry mode",
 so each message says what it is.
+
+## 7. Movement and finish
+
+These apply across the site:
+
+- **Between pages:** a short cross-fade in Chrome, Edge and Safari 18. Other browsers
+  simply load the page.
+- **Figures:** the home page's figures count up the first time they come into view.
+- **Collection pages:** each bed card fades to the bed's second photograph on hover.
+- **Journal notes:** a thin reading line runs along the top, and the previous and next
+  notes are linked at the end.
+- **Editorial pages (About Us …):** photographs no longer grow taller than the screen.
+- **Keyboard:** focus is visible, in the house gold.
+- **Anchor links:** they stop below the header.
+- **Reduced motion:** visitors who ask their device for less motion get none of the
+  movement.

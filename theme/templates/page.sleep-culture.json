@@ -1,0 +1,96 @@
+/*
+ * Midsummer Milano: Sleep Culture: on rest, and the rooms we keep for it.
+ */
+{
+  "layout": "ms",
+  "sections": {
+    "s01": {
+      "type": "ms-banner",
+      "settings": {
+        "image_fallback": "ms-graded-horse.jpg",
+        "eyebrow": "Heritage & craft",
+        "use_page_title": true,
+        "heading": "Sleep Culture",
+        "height": "tall",
+        "text": "On rest, and the rooms we keep for it."
+      }
+    },
+    "s02": {
+      "type": "ms-statement",
+      "settings": {
+        "eyebrow": "Sleep culture",
+        "use_content": true,
+        "heading": "A third of a life is spent in bed. It deserves the care we give the rooms we are seen in.",
+        "text": "<p>We think about sleep the way an architect thinks about a room: light, temperature, material, and the body at rest within them. These are our notes on it.</p>"
+      }
+    },
+    "s03": {
+      "type": "ms-process",
+      "settings": {
+        "eyebrow": "Three things that matter",
+        "heading": "What a good night is made of.",
+        "ground": "#F4EFE5"
+      },
+      "blocks": {
+        "step_01": {
+          "type": "step",
+          "settings": {
+            "image_fallback": "ms-graded-dune.jpg",
+            "title": "Temperature",
+            "text": "<p>Natural fibres breathe. Wool and horsehair carry warmth and moisture away from the body, so the bed stays even through the night.</p>"
+          }
+        },
+        "step_02": {
+          "type": "step",
+          "settings": {
+            "image_fallback": "ms-graded-ochre-room.jpg",
+            "title": "Support",
+            "text": "<p>Springs that work independently follow the body rather than pushing back against it, at every point and in every position.</p>"
+          }
+        },
+        "step_03": {
+          "type": "step",
+          "settings": {
+            "image_fallback": "ms-graded-arches.jpg",
+            "title": "Stillness",
+            "text": "<p>A bed made to your measure, of materials that do not shift, is a bed you stop noticing. That is the point.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "step_01",
+        "step_02",
+        "step_03"
+      ]
+    },
+    "s04": {
+      "type": "ms-article-rail",
+      "settings": {
+        "tag": "sleep",
+        "eyebrow": "From the Journal",
+        "heading": "Notes on sleep.",
+        "link_label": "All notes"
+      }
+    },
+    "s05": {
+      "type": "ms-cta-band",
+      "settings": {
+        "tone": "ink",
+        "eyebrow": "Five questions",
+        "heading": "Find the bed that suits the way you sleep.",
+        "button": "Find your Midsummer",
+        "button_enquire": false,
+        "button_place": "quiz",
+        "link_label": "Book a private appointment",
+        "link_enquire": true
+      }
+    }
+  },
+  "order": [
+    "s01",
+    "s02",
+    "s03",
+    "s04",
+    "s05"
+  ]
+}

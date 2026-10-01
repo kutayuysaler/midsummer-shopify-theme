@@ -2,7 +2,14 @@
    Every section carries its own inline styles, exactly as the preview does;
    this file holds only what the preview declared globally. */
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+/* moving between pages: a short cross-fade where the browser supports it (Chrome, Edge, Safari 18) */
+@view-transition { navigation: auto; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: .38s; animation-timing-function: cubic-bezier(.2,.7,.2,1); }
+.ms-site ::selection { background: #E7DCC8; color: #17140F; }
+/* keyboard focus, visible and in the house colour; the mouse keeps the clean look */
+.ms-site a:focus-visible, .ms-site button:focus-visible, .ms-site summary:focus-visible, .ms-site [tabindex]:focus-visible { outline: 1px solid #9A7B4F; outline-offset: 3px; }
+.ms-site .ms-field:focus-visible { outline: none; }
 body.ms-site { margin: 0; background: #FBF9F5; color: #17140F; font-family: "Red Hat Text", system-ui, sans-serif; font-weight: 300; -webkit-font-smoothing: antialiased; }
 .ms-site * { box-sizing: border-box; }
 .ms-site img { display: block; }
@@ -126,5 +133,6 @@ textarea.ms-field { resize: vertical; min-height: 0; line-height: 1.4; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
   [data-ms-panel], [data-ms="sheet"] { animation: none !important; }
 }

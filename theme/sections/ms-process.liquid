@@ -1,0 +1,113 @@
+{%- comment -%}
+  The making, step by step: one photograph held in place while the steps scroll past it,
+  changing to each step's own picture as it comes into the middle of the screen. On a
+  phone each step carries its picture above it.
+{%- endcomment -%}
+<section class="ms-pc" data-ms-pc>
+  <div class="ms-pc__in">
+    <header class="ms-pc__head">
+      {%- if section.settings.eyebrow != blank -%}<div class="ms-pc__eyebrow">{{ section.settings.eyebrow }}</div>{%- endif -%}
+      <h2 class="ms-pc__heading">{{ section.settings.heading }}</h2>
+      {%- if section.settings.text != blank -%}<div class="ms-pc__text">{{ section.settings.text }}</div>{%- endif -%}
+    </header>
+    <div class="ms-pc__grid">
+      <div class="ms-pc__stage" aria-hidden="true">
+        <div class="ms-pc__frame">
+          {%- for block in section.blocks -%}
+            {%- capture src -%}{% render 'ms-img', image: block.settings.image, fallback: block.settings.image_fallback, width: 1400 %}{%- endcapture -%}
+            {%- if src != blank -%}<img src="{{ src }}" alt="" data-ms-pc-img="{{ forloop.index0 }}" class="{% if forloop.first %}is-on{% endif %}" loading="lazy" width="1200" height="1500">{%- endif -%}
+          {%- endfor -%}
+          <span class="ms-pc__count"><span data-ms-pc-n>01</span> / {{ section.blocks.size | prepend: '0' | slice: -2, 2 }}</span>
+        </div>
+      </div>
+      <ol class="ms-pc__steps" role="list">
+        {%- for block in section.blocks -%}
+          {%- capture src -%}{% render 'ms-img', image: block.settings.image, fallback: block.settings.image_fallback, width: 1000 %}{%- endcapture -%}
+          <li class="ms-pc__step{% if forloop.first %} is-on{% endif %}" data-ms-pc-step="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+            {%- if src != blank -%}<img class="ms-pc__inline" src="{{ src }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="1000" height="1250">{%- endif -%}
+            <span class="ms-pc__num">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+            <h3 class="ms-pc__title">{{ block.settings.title }}</h3>
+            <div class="ms-pc__body">{{ block.settings.text }}</div>
+          </li>
+        {%- endfor -%}
+      </ol>
+    </div>
+  </div>
+</section>
+<style>
+  .ms-pc { padding: clamp(72px, 10vw, 160px) clamp(18px, 5vw, 80px); background: {{ section.settings.ground }}; }
+  .ms-pc__in { max-width: 1560px; margin: 0 auto; }
+  .ms-pc__head { max-width: 760px; }
+  .ms-pc__eyebrow { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: #6E675C; }
+  .ms-pc__heading { font-family: Newsreader, Georgia, serif; font-size: clamp(32px, 4.4vw, 64px); line-height: 1.06; letter-spacing: -.03em; font-weight: 200; margin-top: clamp(18px, 2vw, 26px); }
+  .ms-pc__text { font-size: 15px; line-height: 1.95; color: #4A443B; margin-top: 20px; max-width: 56ch; }
+  .ms-pc__text p { margin: 0; }
+  .ms-pc__grid { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(36px, 6vw, 110px); margin-top: clamp(40px, 5vw, 80px); align-items: start; }
+  .ms-pc__stage { position: sticky; top: 104px; }
+  .ms-pc__frame { position: relative; aspect-ratio: 4 / 5; max-height: calc(100vh - 140px); overflow: hidden; background: #F1ECE3; }
+  .ms-pc__frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.04); transition: opacity .9s ease, transform 1.6s cubic-bezier(.2,.7,.2,1); }
+  .ms-pc__frame img.is-on { opacity: 1; transform: none; }
+  .ms-pc__count { position: absolute; left: 18px; bottom: 16px; padding: 8px 12px; background: rgba(251, 249, 245, .9); font-size: 11px; letter-spacing: .2em; color: #6E675C; font-variant-numeric: tabular-nums; }
+  .ms-pc__count span { color: #17140F; }
+  .ms-pc__steps { list-style: none; margin: 0; padding: 0; }
+  .ms-pc__step { padding: clamp(40px, 9vh, 110px) 0; border-top: 1px solid #DDD6C9; opacity: .38; transition: opacity .5s ease; }
+  .ms-pc__step:first-child { padding-top: 0; border-top: 0; }
+  .ms-pc__step:last-child { padding-bottom: clamp(40px, 20vh, 220px); }
+  .ms-pc__step.is-on { opacity: 1; }
+  .ms-site .ms-pc__inline { display: none; }
+  .ms-pc__num { font-family: Newsreader, Georgia, serif; font-size: 15px; color: #9A7B4F; font-variant-numeric: tabular-nums; }
+  .ms-pc__title { font-family: Newsreader, Georgia, serif; font-size: clamp(26px, 2.8vw, 40px); line-height: 1.12; letter-spacing: -.02em; font-weight: 200; margin-top: 12px; }
+  .ms-pc__body { font-size: 15px; line-height: 1.95; color: #4A443B; margin-top: 16px; max-width: 46ch; }
+  .ms-pc__body p { margin: 0; }
+  @media (max-width: 900px) {
+    .ms-pc__grid { grid-template-columns: minmax(0, 1fr); }
+    .ms-pc__stage { display: none; }
+    .ms-pc__step { opacity: 1; padding: 36px 0; }
+    .ms-pc__step:last-child { padding-bottom: 0; }
+    .ms-site .ms-pc__inline { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; margin-bottom: 22px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .ms-pc__frame img, .ms-pc__step { transition: none; } }
+</style>
+<script>
+  (function () {
+    var root = document.currentScript.parentElement.querySelector('[data-ms-pc]') || document.querySelector('[data-ms-pc]');
+    if (!root || !('IntersectionObserver' in window)) return;
+    var steps = root.querySelectorAll('[data-ms-pc-step]');
+    var imgs = root.querySelectorAll('[data-ms-pc-img]');
+    var n = root.querySelector('[data-ms-pc-n]');
+    function on(i) {
+      steps.forEach(function (s, k) { s.classList.toggle('is-on', k === i); });
+      imgs.forEach(function (im) { im.classList.toggle('is-on', +im.getAttribute('data-ms-pc-img') === i); });
+      if (n) n.textContent = (i + 1 < 10 ? '0' : '') + (i + 1);
+    }
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) on(+e.target.getAttribute('data-ms-pc-step')); });
+    }, { rootMargin: '-45% 0px -45% 0px' });
+    steps.forEach(function (s) { io.observe(s); });
+  })();
+</script>
+{% schema %}
+{
+  "name": "The making, step by step",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Label" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "How a bed is made." },
+    { "type": "richtext", "id": "text", "label": "Introduction" },
+    { "type": "color", "id": "ground", "label": "Ground", "default": "#FBF9F5" }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photograph" },
+        { "type": "text", "id": "image_fallback", "label": "Photograph address", "info": "Used when no photograph is picked: a full address, or a file in the theme's assets." },
+        { "type": "text", "id": "title", "label": "Title", "default": "A step" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>What happens here, in a sentence or two.</p>" }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [ { "name": "The making, step by step" } ]
+}
+{% endschema %}

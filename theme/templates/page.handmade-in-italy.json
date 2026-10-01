@@ -1,0 +1,122 @@
+/*
+ * Midsummer Milano: Handmade in Italy: how a Midsummer bed is made, by two artisans, start to finish.
+ */
+{
+  "layout": "ms",
+  "sections": {
+    "s01": {
+      "type": "ms-banner",
+      "settings": {
+        "image": "shopify://shop_images/Untitled_Project_5_b49a7740-07fa-45f1-8b4f-464d951b0772.jpg",
+        "image_fallback": "https://midsummer-milano.com/cdn/shop/files/Untitled_Project_5_b49a7740-07fa-45f1-8b4f-464d951b0772.jpg?width=2400",
+        "eyebrow": "Heritage & craft",
+        "use_page_title": true,
+        "heading": "Handmade in Italy",
+        "height": "tall",
+        "focus": "center",
+        "text": "Two artisans, one bed, start to finish."
+      }
+    },
+    "s02": {
+      "type": "ms-statement",
+      "settings": {
+        "eyebrow": "In Milano",
+        "use_content": true,
+        "heading": "Every bed is made by the same two pairs of hands, from the first spring to the last stitch.",
+        "text": "<p>Nothing is passed down a line. The two artisans who begin a bed finish it, and their names go with it. It is slower, and it is the reason the bed can come back to them at fifteen years and be made new.</p>"
+      }
+    },
+    "s03": {
+      "type": "ms-process",
+      "settings": {
+        "eyebrow": "The making",
+        "heading": "Five stages, all by hand.",
+        "text": "<p>The order in which a Midsummer bed comes together, from the springs up.</p>",
+        "ground": "#FBF9F5"
+      },
+      "blocks": {
+        "step_01": {
+          "type": "step",
+          "settings": {
+            "image_fallback": "ms-graded-ochre-room.jpg",
+            "title": "The springs",
+            "text": "<p>The pocketed spring core is assembled by hand, row by row, so each spring can move on its own.</p>"
+          }
+        },
+        "step_02": {
+          "type": "step",
+          "settings": {
+            "image": "shopify://shop_images/Paisleydettaglio.jpg",
+            "image_fallback": "https://midsummer-milano.com/cdn/shop/files/Paisleydettaglio.jpg?width=1400",
+            "title": "The fibres",
+            "text": "<p>Wool, horsehair, cashmere and silk are opened, carded and laid in layers by hand, each where it does its work.</p>"
+          }
+        },
+        "step_03": {
+          "type": "step",
+          "settings": {
+            "image_fallback": "ms-graded-arches.jpg",
+            "title": "The tufting",
+            "text": "<p>The layers are tufted through by hand so they keep their place for decades, not seasons.</p>"
+          }
+        },
+        "step_04": {
+          "type": "step",
+          "settings": {
+            "image_fallback": "ms-graded-paisley-red.jpg",
+            "title": "The border",
+            "text": "<p>The sides are stitched by hand, which gives the edge its shape and lets it carry weight without sagging.</p>"
+          }
+        },
+        "step_05": {
+          "type": "step",
+          "settings": {
+            "image_fallback": "ms-graded-bougainvillea.jpg",
+            "title": "The cloth",
+            "text": "<p>Upholstered in Loro Piana Interiors fabrics, chosen for the room at consultation, and turned with the seasons.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "step_01",
+        "step_02",
+        "step_03",
+        "step_04",
+        "step_05"
+      ]
+    },
+    "s04": {
+      "type": "ms-image-pair",
+      "settings": {
+        "eyebrow": "In the atelier",
+        "heading": "Slow, by intention.",
+        "image_1": "shopify://shop_images/Paisley_IMG_5161_low.jpg",
+        "fallback_1": "https://midsummer-milano.com/cdn/shop/files/Paisley_IMG_5161_low.jpg?width=1400",
+        "caption_1": "Seen from the side: the hand-stitched border.",
+        "image_2": "shopify://shop_images/Paisleydettaglio.jpg",
+        "fallback_2": "https://midsummer-milano.com/cdn/shop/files/Paisleydettaglio.jpg?width=1400",
+        "caption_2": "Loro Piana Interiors, laid over the fibres."
+      }
+    },
+    "s05": {
+      "type": "ms-cta-band",
+      "settings": {
+        "tone": "ink",
+        "eyebrow": "Via Andegari 4",
+        "heading": "Come and see them at work.",
+        "text": "<p>The atelier receives by appointment, Monday to Friday. Lie on the systems, see the fibres and the cloth.</p>",
+        "button": "Book a private appointment",
+        "button_enquire": true,
+        "link_label": "Natural materials",
+        "link_place": "materials"
+      }
+    }
+  },
+  "order": [
+    "s01",
+    "s02",
+    "s03",
+    "s04",
+    "s05"
+  ]
+}

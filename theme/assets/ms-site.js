@@ -265,6 +265,31 @@
     landOn(u.searchParams.get('enquiry'), u.hash);
   });
 
+  /* figures count up the first time they come into view: <div data-ms-count>24</div>, or 15 / 15 */
+  if (!reduce && 'IntersectionObserver' in window) {
+    var cio = new IntersectionObserver(function (es) {
+      es.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        cio.unobserve(en.target);
+        var nodes = [], w = document.createTreeWalker(en.target, NodeFilter.SHOW_TEXT);
+        while (w.nextNode()) if (/^\s*\d{1,4}\s*$/.test(w.currentNode.nodeValue)) nodes.push(w.currentNode);
+        nodes.forEach(function (n) {
+          var to = parseInt(n.nodeValue, 10), pad = n.nodeValue.match(/^\s*/)[0], t0 = null;
+          if (to < 2) return;
+          function step(t) {
+            if (!t0) t0 = t;
+            var k = Math.min(1, (t - t0) / 1400), e = 1 - Math.pow(1 - k, 3);
+            n.nodeValue = pad + Math.round(to * e);
+            if (k < 1) requestAnimationFrame(step);
+          }
+          n.nodeValue = pad + '0';
+          requestAnimationFrame(step);
+        });
+      });
+    }, { threshold: 0.6 });
+    document.querySelectorAll('[data-ms-count]').forEach(function (el) { cio.observe(el); });
+  }
+
   /* a link ending #care opens the first question on the page that mentions care */
   (function () {
     var h = decodeURIComponent(location.hash.slice(1) || '').toLowerCase();
