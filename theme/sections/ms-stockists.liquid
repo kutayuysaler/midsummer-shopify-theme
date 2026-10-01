@@ -181,7 +181,7 @@
       </div>
     </div>
   </div>
-  <p class="ms-sl__partner">{{ s.partner_text }} <a href="{% render 'ms-link', to: 'enquire' %}?enquiry=partner#enquire">{{ s.partner_link }}</a></p>
+  <p class="ms-sl__partner">{{ s.partner_text }} <a href="{% render 'ms-link', to: 'enquire', q: 'enquiry=partner' %}#enquire">{{ s.partner_link }}</a></p>
 
   <script type="application/json" data-ms-sl-data>[
     {%- for block in section.blocks -%}

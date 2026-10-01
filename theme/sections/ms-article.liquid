@@ -15,7 +15,7 @@
 {{ article.content }}
 <div style="border-top: 1px solid rgb(221, 214, 201); padding-top: 24px; margin-top: 12px; display: flex; flex-wrap: wrap; gap: 24px; align-items: center;">
 <a data-ms="cta" href="{{ blog.url }}" style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92);">{{ section.settings.all }}</a>
-<a data-ms="cta" data-ms-enquire href="/pages/contact" style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; border-bottom: 1px solid rgb(23, 20, 15); padding-bottom: 7px;">{{ section.settings.cta }}</a>
+<a data-ms="cta" data-ms-enquire href="{% render 'ms-link', to: 'enquire' %}" style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; border-bottom: 1px solid rgb(23, 20, 15); padding-bottom: 7px;">{{ section.settings.cta }}</a>
 </div>
 </section>
 {%- assign older = blog.next_article -%}

@@ -1,0 +1,30 @@
+/*
+ * Midsummer Milano: the hospitality page, reachable before its page exists in admin (?view=ms-hospitality).
+ */
+{
+  "layout": "ms",
+  "sections": {
+    "s01": {
+      "type": "ms-hosp-01",
+      "settings": {}
+    },
+    "s02": {
+      "type": "ms-hosp-02",
+      "settings": {}
+    },
+    "s03": {
+      "type": "ms-hosp-03",
+      "settings": {}
+    },
+    "s04": {
+      "type": "ms-hosp-04",
+      "settings": {}
+    }
+  },
+  "order": [
+    "s01",
+    "s02",
+    "s03",
+    "s04"
+  ]
+}

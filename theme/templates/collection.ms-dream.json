@@ -1,0 +1,155 @@
+/*
+ * Midsummer Milano: the dream page, reachable before its page exists in admin (?view=ms-dream).
+ */
+{
+  "layout": "ms",
+  "sections": {
+    "s01": {
+      "type": "ms-banner",
+      "settings": {
+        "image": "shopify://shop_images/Henry_Rousseau.png",
+        "eyebrow": "The Art of Rest",
+        "heading": "Download the Dream",
+        "height": "tall",
+        "text": "Art inspired beds by Midsummer-Milano — where luxury Italian design meets timeless sleep.",
+        "button": "Download the series",
+        "link": "https://www.dropbox.com/scl/fo/y4pley49zghabv8gl14d5/AHqqaDI-dUed5LFO2lluPYs?rlkey=sv0gr78ax2c4oyb01p76vne16&st=r5604kll&dl=0",
+        "new_tab": true
+      }
+    },
+    "s02": {
+      "type": "ms-statement",
+      "settings": {
+        "eyebrow": "Why we made it",
+        "heading": "A bed is more than furniture; it is a cultural object.",
+        "text": "<p>A bed lives in the intimacy of your home. In <strong>“The Art of Rest”</strong> we place our designer beds inside re-imagined masterpieces, linking bedroom art to daily wellbeing. Each downloadable image shows how comfort, beauty, and storytelling unite in a single piece of sustainable craftsmanship.</p><p><em>Free high-resolution downloads: use them as mood-board inspiration, wallpapers, or a gentle reminder that rest itself can be a work of art.</em></p>"
+      }
+    },
+    "s03": {
+      "type": "ms-art-gallery",
+      "settings": {
+        "eyebrow": "Eight masterpieces, re-imagined",
+        "heading": "The series",
+        "link_label": "Download all, in high resolution ↗",
+        "link": "https://www.dropbox.com/scl/fo/y4pley49zghabv8gl14d5/AHqqaDI-dUed5LFO2lluPYs?rlkey=sv0gr78ax2c4oyb01p76vne16&st=r5604kll&dl=0"
+      },
+      "blocks": {
+        "work_01": {
+          "type": "work",
+          "settings": {
+            "image": "shopify://shop_images/Tolouse_Lautrec.png",
+            "artist": "Henri de Toulouse-Lautrec",
+            "title": "Whispers in Yellow",
+            "text": "<p>Two figures rest on a Midsummer mattress, elevating Lautrec’s intimate Paris settings with refined upholstery and artisan details.</p>"
+          }
+        },
+        "work_02": {
+          "type": "work",
+          "settings": {
+            "image": "shopify://shop_images/Frida_Kahlo.png",
+            "artist": "Frida Kahlo",
+            "title": "The Sacred Room",
+            "text": "<p>Amid roses and symbolism, our bed becomes part of Kahlo’s inner world — a sanctuary for identity, beauty, and restorative sleep.</p>"
+          }
+        },
+        "work_03": {
+          "type": "work",
+          "settings": {
+            "image": "shopify://shop_images/Casorati.png",
+            "artist": "Felice Casorati",
+            "title": "Reading in Silence",
+            "text": "<p>Architectural stillness meets soft elegance; the bed serves as a pedestal for focused calm.</p>"
+          }
+        },
+        "work_04": {
+          "type": "work",
+          "settings": {
+            "image": "shopify://shop_images/Henry_Rousseau.png",
+            "artist": "Henri Rousseau",
+            "title": "Where Tigers Sleep",
+            "text": "<p>A surreal landscape where even the wild find peace — showing how natural materials bring elemental comfort.</p>"
+          }
+        },
+        "work_05": {
+          "type": "work",
+          "settings": {
+            "image": "shopify://shop_images/William_Morris.png",
+            "artist": "William Morris",
+            "title": "The Botanical Reverie",
+            "text": "<p>A fox naps amid ornate flora, proving luxury can speak nature’s language.</p>"
+          }
+        },
+        "work_06": {
+          "type": "work",
+          "settings": {
+            "image": "shopify://shop_images/Renoir.png",
+            "artist": "Pierre-Auguste Renoir",
+            "title": "Impression at Rest",
+            "text": "<p>Blooming greens, soft light, and effortless romance surround a bed built for generations.</p>"
+          }
+        },
+        "work_07": {
+          "type": "work",
+          "settings": {
+            "image": "shopify://shop_images/Magritte.png",
+            "artist": "René Magritte",
+            "title": "The Weight of Dreams",
+            "text": "<p>Dreams feel weightless yet meaningful — mirroring the balanced support of natural fibre mattresses.</p>"
+          }
+        },
+        "work_08": {
+          "type": "work",
+          "settings": {
+            "image": "shopify://shop_images/David_Hockney.png",
+            "artist": "David Hockney",
+            "title": "Lines of Lightness",
+            "text": "<p>Vivid geometry meets calming comfort; proof that modern art and heritage craft can coexist.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "work_01",
+        "work_02",
+        "work_03",
+        "work_04",
+        "work_05",
+        "work_06",
+        "work_07",
+        "work_08"
+      ]
+    },
+    "s04": {
+      "type": "ms-cta-band",
+      "settings": {
+        "tone": "stone",
+        "eyebrow": "Free to download",
+        "heading": "The whole series, in high resolution.",
+        "text": "<p>Download the entire bedroom art series and learn how our luxury Italian beds are handcrafted for longevity, sustainability, and heirloom value.</p>",
+        "button": "Download the images",
+        "button_link": "https://www.dropbox.com/scl/fo/y4pley49zghabv8gl14d5/AHqqaDI-dUed5LFO2lluPYs?rlkey=sv0gr78ax2c4oyb01p76vne16&st=r5604kll&dl=0",
+        "button_enquire": false,
+        "new_tab": true
+      }
+    },
+    "s05": {
+      "type": "ms-cta-band",
+      "settings": {
+        "tone": "ink",
+        "eyebrow": "Your own",
+        "heading": "Ready to turn your bedroom into a masterpiece?",
+        "text": "<p>Talk to our artisans about a bespoke Midsummer bed, made by hand in Italy to your dimensions.</p>",
+        "button": "Book a private appointment",
+        "button_enquire": true,
+        "link_label": "Our beds",
+        "link_place": "collections"
+      }
+    }
+  },
+  "order": [
+    "s01",
+    "s02",
+    "s03",
+    "s04",
+    "s05"
+  ]
+}

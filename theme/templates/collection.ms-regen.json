@@ -1,0 +1,50 @@
+/*
+ * Midsummer Milano: the regen page, reachable before its page exists in admin (?view=ms-regen).
+ */
+{
+  "layout": "ms",
+  "sections": {
+    "s01": {
+      "type": "ms-regen-01",
+      "settings": {}
+    },
+    "s02": {
+      "type": "ms-regen-02",
+      "settings": {}
+    },
+    "s03": {
+      "type": "ms-sustain-01",
+      "settings": {}
+    },
+    "s04": {
+      "type": "ms-sustain-02",
+      "settings": {}
+    },
+    "s05": {
+      "type": "ms-regen-03",
+      "settings": {}
+    },
+    "s06": {
+      "type": "ms-regen-04",
+      "settings": {}
+    },
+    "s07": {
+      "type": "ms-sustain-03",
+      "settings": {}
+    },
+    "s08": {
+      "type": "ms-regen-05",
+      "settings": {}
+    }
+  },
+  "order": [
+    "s01",
+    "s02",
+    "s03",
+    "s04",
+    "s05",
+    "s06",
+    "s07",
+    "s08"
+  ]
+}

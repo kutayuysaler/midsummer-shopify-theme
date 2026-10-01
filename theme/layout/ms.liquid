@@ -17,6 +17,10 @@
     if template.name == 'index' or template.name == 'collection'
       assign ms_overlay = true
     endif
+    assign ms_sfx = template.suffix | slice: 0, 3
+    if ms_sfx == 'ms-'
+      assign ms_overlay = false
+    endif
   -%}
   <body class="ms-site{% if ms_overlay %} ms-overlay{% endif %}" data-template="{{ template.name }}">
     <a class="ms-visually-hidden" href="#MainContent">Skip to content</a>

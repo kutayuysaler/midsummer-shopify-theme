@@ -15,12 +15,10 @@ then **Preview**.
   pages, collections and blog by handle (for example `about-midsummer-milano` or
   `about-us`, `sleep-wise-faq` or `faq`, and `news` or `journal`). If a page has another
   handle, point the link at it under **Theme settings → Midsummer · Where links go**.
-- **No two menu titles lead to the same page.** A menu entry whose page, collection or
-  journal subject doesn't exist yet is left out of the menus until it does, instead of
-  sending you to a page another title already leads to. This applies to Handmade in
-  Italy, Sleep Culture, Architects & Interior Designers, Hospitality, the Mattresses,
-  Toppers, Bases, Headboards and Bedding collections, and the Journal's Sleep, Materials
-  and Design subjects. Other duplicates are fixed too:
+- **No two menu titles lead to the same page, and none leads nowhere.** A place whose
+  page doesn't exist yet opens its own designed page (section 11). Only the Mattresses,
+  Toppers, Bases, Headboards and Bedding collections and the Journal's subjects stay out
+  of the menus until they exist. Other duplicates are fixed too:
   - "Store locator" is now called Agents & resellers everywhere.
   - "Cookies" opens Shopify's cookie preferences.
   - "Care and maintenance" opens the care question on the Questions page.
@@ -70,7 +68,8 @@ then **Preview**.
 ## 3. Pages to create
 
 Four pages have a design in the theme but no page in the store yet. Until you create
-them, they stay out of the menus.
+them, their menu entries open the same design at a stand-in address (section 11); create
+them so they get their own address and appear in search engines.
 
 | Page | Handle | Template |
 | --- | --- | --- |
@@ -290,8 +289,9 @@ These apply across the site:
 ## 9. Social accounts and WhatsApp
 
 Your accounts, as small icons:
-- **Where they appear:** the footer, the Contact menu panel, the foot of the phone menu,
-  and the enquiry page's direct lines.
+- **Where they appear:** the footer, the foot of every menu panel, the Contact panel,
+  the foot of the phone menu, the enquiry page's direct lines, and the home page's new
+  Follow the atelier band.
 - **Accounts:** Instagram, Pinterest, LinkedIn, WhatsApp, Telegram and VK, pre-filled
   from your old theme. Facebook, YouTube and TikTok appear as soon as you add their
   links.
@@ -301,43 +301,75 @@ Your accounts, as small icons:
   open.
 
 Change or remove any of them under **Theme settings → Midsummer · Social and WhatsApp**.
+The addresses are now saved in the theme's own settings as well, so they show as soon as
+the theme is installed. If they are still missing on your store, open that settings group:
+an empty field there hides its icon.
 
-## 10. The home page, as one story
+## 10. The home page, as a case for Midsummer
 
-The home page introduces Midsummer in the order a client should meet it, each band once:
+The home page now argues, band by band, why a Midsummer bed and not another:
 
-1. **Who we are:** the film, The house, the press.
-2. **The beds:** the three collections, Icons · Paisley.
-3. **How they are made:** two artisans, one bed; the atelier in figures.
-4. **A bed for thirty years:** fifteen years, then fifteen more; the Green Product Award;
-   the service, from the first conversation to year thirty.
-5. **Choosing and staying in touch:** Find your Midsummer, the Journal, the trade desk,
-   the newsletter.
-6. **The invitation:** come and lie down, at Via Andegari 4.
+1. **Who we are:** the film, then The house.
+2. **The beds:** the three collections, then Icons · Paisley.
+3. **Why Midsummer:** a new comparison, *What a bed should be, and rarely is*. Six points
+   (who makes it, what is inside, through the year, size and shape, what it is dressed
+   in, after fifteen years), each set against the usual luxury bed. Then *Lie on one in
+   Milan* and *Compare the collections*. Edit the points as blocks of the **Why
+   Midsummer** section.
+4. **How it is made:** two artisans, one bed; the atelier in figures.
+5. **Inside a Midsummer bed:** the Top System's twenty-nine layers, drawn as on its
+   product page and interactive, under *Twenty-nine layers. Not one of them synthetic.*
+6. **A bed for thirty years:** fifteen years then fifteen more, and the service from the
+   first conversation to year thirty.
+7. **The proof:** the Green Product Award, then **As featured in**, now well down the
+   page, where it backs up what came before.
+8. **The invitations:** Find your Midsummer, the trade desk, the Journal, **Follow the
+   atelier** (new), the newsletter, then come and lie down at Via Andegari 4.
 
-The comparison table and the "private clients / professionals / hospitality" band are
-off the home page: the comparison lives on Compare beds, and the trade band and the menus
-already lead professionals and hotels to their pages. Both sections stay in the theme and
-can be added back in the editor.
+**Follow the atelier** shows @midsummermilano large, your accounts as large icons and
+five photographs leading to Instagram. Pick your own photographs in the section.
 
-## 11. Menus that find their pages
+## 11. Menus that never lead nowhere
 
-Menu entries no longer guess a page's address. For each place (About Us, the
-collections, Natural materials, 15 + 15, Agents & resellers, FAQ, Contact, the Journal …)
-the theme looks in this order:
+**Every place in the menus always opens a designed page, even before you create it in
+admin.** When the store has no page for a place, its link opens the same design at
+`/collections/all?view=ms-<place>`, an address every Shopify store has:
 
-1. The link set under **Theme settings → Midsummer · Where links go**, if you set one. Use it
-   whenever an entry still goes to the wrong place.
-2. The store's own menus (Online Store → Navigation): an entry whose title matches, e.g.
-   "About Us", "Store locator", "15 + 15", and whose type matches (page, collection or
-   blog).
-3. For collections, the store's published collections, by title or handle. "Icons" finds
-   the Icons collection whatever its handle is (icons, icons-collection, the-icons …).
-   An empty collection is skipped.
-4. The usual page handles (about-us, contact, faq …).
+| Place | Opens, until its page exists |
+|---|---|
+| Our story | `?view=ms-story` (the house, the craft, the figures, the service) |
+| Handmade in Italy, Sleep culture, Natural materials, Loro Piana Interiors | `?view=ms-handmade`, `ms-sleep-culture`, `ms-materials`, `ms-loro` |
+| Made to last · 15 + 15 | `?view=ms-regen` |
+| Find your Midsummer | opens as an overlay; the full page is `?view=ms-quiz` |
+| Architects & Interior Designers, Hospitality & Contract | `?view=ms-professionals`, `ms-hospitality` |
+| Agents & Resellers, Questions | `?view=ms-agents`, `ms-faq` |
+| Every enquiry | `?view=ms-contact`, on the right form |
 
-If none of these exists, the entry stays out of the menus rather than leading to a
-missing page.
+As soon as you create the page (scripts/create_pages.py, or by hand with the template
+named in section 3), the links move to it by themselves. Those addresses carry the
+page's own title and are kept out of search engines; the real pages are what Google
+should find, so create them when you can.
+
+For each place the theme looks, in order: a link set under **Theme settings →
+Midsummer · Where links go**; your store's menus (Online Store → Navigation) by title;
+for collections, your published collections by title or handle (that is how Icons is
+found whatever its handle); the usual page handles; and last, the designed page above.
+Only the product-type links under Our beds (Mattresses, Toppers …) still stay hidden until
+such a collection exists, because there is nothing to show without products.
+
+### The menu panels
+
+Each title in the bar opens a panel that drops down while the page behind dims:
+- **Layout:** the panel's number and title with a line on the left; the places as large
+  titles, each with a short line; and, for Heritage, Professionals and Contact, the
+  photograph of the place under the pointer on the right.
+- **Our beds and Journal:** the three collections, or the three newest notes, as
+  pictures.
+- **Foot of every panel:** the atelier's address and hours, Book an appointment, and your
+  social accounts.
+
+All the words, lines and the collection photographs are in the **MS · Header** section
+under *Menu panels*.
 
 **Why the Icons collection didn't load:** the menu went to `/collections/icons`, but
 the store's Icons collection lives under another handle. It is now found by its title.

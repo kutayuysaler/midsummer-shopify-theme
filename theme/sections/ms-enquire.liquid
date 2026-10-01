@@ -137,7 +137,7 @@
         <div class="ms-eq__line">
           <div class="ms-eq__label">{{ s.press_label }}</div>
           <p class="ms-eq__small">{{ s.press_text }}</p>
-          <a class="ms-eq__ruled" href="?enquiry=message#enquire" data-ms-landing>{{ s.press_link }}</a>
+          <a class="ms-eq__ruled" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=message' %}#enquire" data-ms-landing>{{ s.press_link }}</a>
         </div>
       </div>
     </div>

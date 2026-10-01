@@ -3,7 +3,7 @@
   so every "Find your Midsummer" link still opens the five questions.
 {%- endcomment -%}
 {%- capture ms_quiz_url -%}{% render 'ms-link', to: 'quiz' %}{%- endcapture -%}
-{%- if ms_quiz_url contains '#' -%}
+{%- if ms_quiz_url contains '#' or ms_quiz_url contains 'view=ms-quiz' -%}{%- unless template.suffix == 'ms-quiz' -%}
 <div class="ms-quizdlg" data-ms-quiz-dialog hidden role="dialog" aria-modal="true" aria-label="{{ section.settings.label | escape }}">
   <button type="button" class="ms-quizdlg__close" data-ms-quiz-close aria-label="Close">
     Close<svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M2 2l12 12M14 2 2 14" fill="none" stroke="currentColor" stroke-width="1.1"/></svg>
@@ -15,6 +15,7 @@
   .ms-quizdlg .ms-quiz { min-height: 100vh !important; }
   .ms-quizdlg__close { position: fixed; top: 18px; right: clamp(18px, 3vw, 40px); z-index: 2; display: flex; align-items: center; gap: 10px; min-height: 44px; background: rgba(251, 249, 245, .92); border: 0; padding: 0 12px; cursor: pointer; color: #17140F; font-size: 11px; letter-spacing: .26em; text-transform: uppercase; }
 </style>
+{%- endunless -%}
 {%- endif -%}
 {% schema %}
 {

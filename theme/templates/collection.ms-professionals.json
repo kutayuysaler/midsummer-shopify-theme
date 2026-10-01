@@ -1,0 +1,30 @@
+/*
+ * Midsummer Milano: the professionals page, reachable before its page exists in admin (?view=ms-professionals).
+ */
+{
+  "layout": "ms",
+  "sections": {
+    "s01": {
+      "type": "ms-pro-01",
+      "settings": {}
+    },
+    "s02": {
+      "type": "ms-pro-02",
+      "settings": {}
+    },
+    "s03": {
+      "type": "ms-pro-03",
+      "settings": {}
+    },
+    "s04": {
+      "type": "ms-pro-04",
+      "settings": {}
+    }
+  },
+  "order": [
+    "s01",
+    "s02",
+    "s03",
+    "s04"
+  ]
+}

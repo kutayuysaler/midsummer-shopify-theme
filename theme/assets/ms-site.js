@@ -153,7 +153,8 @@
   function openQuiz() { if (!quizDlg) return false; closeMega(); closeMenu(); closeDrawer(); quizDlg.hidden = false; body.classList.add('ms-lock'); var c = quizDlg.querySelector('[data-ms-quiz-close]'); if (c) c.focus({ preventScroll: true }); return true; }
   function closeQuiz() { if (!quizDlg || quizDlg.hidden) return; quizDlg.hidden = true; body.classList.remove('ms-lock'); if (location.hash === '#find-your-midsummer') history.replaceState(null, '', location.pathname + location.search); }
   document.addEventListener('click', function (e) {
-    var a = e.target.closest('a[href$="#find-your-midsummer"]');
+    var a = e.target.closest('a[href$="#find-your-midsummer"], a[href*="view=ms-quiz"]');
+    if (a && (e.metaKey || e.ctrlKey)) return;
     if (a && quizDlg) { e.preventDefault(); openQuiz(); return; }
     if (e.target.closest('[data-ms-quiz-close]')) { e.preventDefault(); closeQuiz(); }
   });
@@ -212,7 +213,7 @@
     set('[data-ms-copy="title"]', copy.title || t);
     // the sheet's link to the full page carries the chosen enquiry with it
     var full = form.closest('[data-ms-drawer]') && form.closest('[data-ms-drawer]').querySelector('a[data-ms="cta"]');
-    if (full) full.setAttribute('href', full.getAttribute('href').split(/[?#]/)[0] + '?enquiry=' + slugOf(t) + '#enquire');
+    if (full) { var fu = new URL(full.getAttribute('href'), location.href); fu.searchParams.set('enquiry', slugOf(t)); fu.hash = 'enquire'; full.setAttribute('href', fu.pathname + fu.search + fu.hash); }
     form.dispatchEvent(new CustomEvent('ms:enquiry-tab', { bubbles: true, detail: { tab: t, slug: slugOf(t) } }));
     form.querySelectorAll('[data-ms-brochure]').forEach(function (a) { a.hidden = t !== 'Request brochure'; });
   }
@@ -258,7 +259,7 @@
     var a = e.target.closest('a[data-ms-landing]');
     if (!a || !landing || e.metaKey || e.ctrlKey) return;
     var u = new URL(a.href, location.href);
-    if (u.pathname !== location.pathname) return;
+    if (u.pathname !== location.pathname || u.searchParams.get('view') !== new URLSearchParams(location.search).get('view')) return;
     e.preventDefault();
     closeMega(); closeMenu();
     history.replaceState(null, '', u.pathname + u.search + u.hash);

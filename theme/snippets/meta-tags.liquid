@@ -142,6 +142,40 @@
 {%- liquid
   assign ms_brand = 'Midsummer Milano'
   assign ms_title = page_title | strip | remove_last: ' | midsummer-milano' | remove_last: ' | Midsummer-Milano' | remove_last: ' | Midsummer Milano' | strip
+
+  comment
+    the designed places reached at /collections/all?view=ms-<place> carry their own title
+  endcomment
+  if template.name == 'collection'
+    case template.suffix
+      when 'ms-story'
+        assign ms_title = 'Our story'
+      when 'ms-handmade'
+        assign ms_title = 'Handmade in Italy'
+      when 'ms-sleep-culture'
+        assign ms_title = 'Sleep culture'
+      when 'ms-materials'
+        assign ms_title = 'Natural materials'
+      when 'ms-regen'
+        assign ms_title = 'Made to last · 15 + 15'
+      when 'ms-quiz'
+        assign ms_title = 'Find your Midsummer'
+      when 'ms-professionals'
+        assign ms_title = 'Architects & Interior Designers'
+      when 'ms-hospitality'
+        assign ms_title = 'Hospitality & Contract'
+      when 'ms-agents'
+        assign ms_title = 'Agents & Resellers'
+      when 'ms-faq'
+        assign ms_title = 'Questions'
+      when 'ms-contact'
+        assign ms_title = 'Enquire'
+      when 'ms-loro'
+        assign ms_title = 'Loro Piana Interiors'
+      when 'ms-dream'
+        assign ms_title = 'Download the dream'
+    endcase
+  endif
 -%}
 <title>
   {{ ms_title }}

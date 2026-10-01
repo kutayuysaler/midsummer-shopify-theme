@@ -1,0 +1,15 @@
+/*
+ * Midsummer Milano: the quiz page, reachable before its page exists in admin (?view=ms-quiz).
+ */
+{
+  "layout": "ms",
+  "sections": {
+    "s01": {
+      "type": "ms-quiz",
+      "settings": {}
+    }
+  },
+  "order": [
+    "s01"
+  ]
+}

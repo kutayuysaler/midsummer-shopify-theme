@@ -8,11 +8,14 @@
 
   Usage:
     href="{% render 'ms-link', to: 'materials' %}"
-    {% render 'ms-link', to: 'handmade', strict: true %}   → empty when the store has no such place
+    {% render 'ms-link', to: 'mattresses', strict: true %} → empty when the store has no such collection
     {% render 'ms-link', to: 'journal-tag', tag: 'sleep' %} → the journal's subject, empty when unused
+    {% render 'ms-link', to: 'enquire', q: 'enquiry=trade' %}#enquire → with a query, joined with ? or &
 
-  Without strict, a missing place falls back to the nearest sensible page so in-text
-  links never 404; the menus use strict, so no two titles lead to the same page.
+  A place with a design of its own (About, Natural materials, Professionals …) is never
+  missing: when the store has no page for it, the link opens its designed page at
+  /collections/all?view=ms-<place> (templates/collection.ms-*.json), which every store has.
+  Creating the page in admin later makes the link move to it by itself.
 {%- endcomment -%}
 {%- liquid
   assign p = ''
@@ -21,41 +24,60 @@
   assign fp = ''
   assign fbb = ''
   assign fb = '/pages/contact'
+  assign view = ''
   case to
     when 'story'
+      assign view = 'story'
       assign p = 'about-midsummer-milano,our-story,about-us,about,chi-siamo'
       assign fb = '/'
     when 'handmade'
+      assign view = 'handmade'
       assign p = 'handmade-in-italy,handmade,made-in-italy,fatto-a-mano'
       assign fp = 'about-midsummer-milano,our-story,about-us,about'
       assign fb = '/'
     when 'sleep-culture'
+      assign view = 'sleep-culture'
       assign p = 'sleep-culture,the-culture-of-sleep,culture-of-sleep'
       assign b = 'sleep-culture'
       assign fbb = 'news,journal'
       assign fb = '/'
     when 'materials'
+      assign view = 'materials'
       assign p = 'natural-luxury-materials,natural-materials,materials'
       assign fb = '/'
     when 'regen'
+      assign view = 'regen'
       assign p = 'midsummer-milanos-regeneration-service,15-15-refurbishment,regeneration-service,regeneration,15-15'
       assign fb = '/'
     when 'sustain'
+      assign view = 'regen'
       assign p = 'our-eco-friendly-approach,sustainability,eco-friendly-approach'
       assign fb = '/'
     when 'quiz'
+      assign view = 'quiz'
       assign p = 'find-your-midsummer,sleep-assessment,sleep-assesment,sleep-style-quiz,sleep-quiz,quiz'
       assign fb = '#find-your-midsummer'
     when 'professionals'
+      assign view = 'professionals'
       assign p = 'professionals,architects-and-interior-designers,architects-interior-designers,for-architects,trade'
     when 'hospitality'
+      assign view = 'hospitality'
       assign p = 'hospitality,hospitality-and-contract,contract,hotels'
     when 'agents'
+      assign view = 'agents'
       assign p = 'agents-and-resellers,agents-resellers,store-locator,stockists,where-to-find-us'
     when 'faq'
+      assign view = 'faq'
       assign p = 'sleep-wise-faq,faq,questions,frequently-asked-questions'
     when 'contact', 'enquire'
+      assign view = 'contact'
       assign p = 'contact,contact-us,contacts,contatti,enquire,enquiry,enquiries'
+    when 'loro'
+      assign p = 'loro-piana-interiors,loro-piana,fabrics'
+      assign view = 'loro'
+    when 'dream'
+      assign p = 'download-the-dream,the-dream'
+      assign view = 'dream'
     when 'terms'
       assign p = 'terms-and-conditions,terms'
       assign fb = '/policies/terms-of-service'
@@ -124,6 +146,8 @@
       assign kw = 'faq,question,sleep wise,domande'
     when 'contact', 'enquire'
       assign kw = 'contact,enquir,contatt'
+    when 'loro'
+      assign kw = 'loro piana'
     when 'terms'
       assign kw = 'terms,condizioni'
     when 'privacy'
@@ -262,6 +286,10 @@
       endif
     endfor
   endif
+  # nothing in the store yet: the place's own designed page, which always exists
+  if out == '' and view != ''
+    assign out = routes.all_products_collection_url | append: '?view=ms-' | append: view
+  endif
   assign settled = false
   if out != '' or strict or to == 'journal-tag'
     assign settled = true
@@ -289,5 +317,12 @@
       assign out = fb
     endif
   endunless
+  if q != blank and out != ''
+    if out contains '?'
+      assign out = out | append: '&' | append: q
+    else
+      assign out = out | append: '?' | append: q
+    endif
+  endif
   echo out
 -%}

@@ -147,7 +147,15 @@
         },
         "blocks": {}
       }
-    }
+    },
+    "ms_social_instagram": "https://www.instagram.com/midsummermilano/",
+    "ms_social_pinterest": "https://it.pinterest.com/midsummermilanosocial/",
+    "ms_social_linkedin": "https://www.linkedin.com/company/midsummer-milano/",
+    "ms_social_whatsapp": "https://wa.me/message/CAC4ZAEYHOTHN1",
+    "ms_social_telegram": "https://t.me/midsummermilano",
+    "ms_social_vk": "https://vk.com/midsummermilano",
+    "ms_whatsapp_button": true,
+    "ms_whatsapp_label": "Chat with the atelier"
   },
   "presets": {
     "Atelier": {

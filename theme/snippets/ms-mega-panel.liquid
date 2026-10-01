@@ -1,0 +1,51 @@
+{%- comment -%}
+  One panel of the bar (see ms-mega): number, title and line on the left; the places as
+  large titles; the photograph of the place under the pointer on the right.
+  items: "url|title|note|image|kind" joined with §; kind is landing, quiz, external or empty.
+  feature: an optional picked image shown first instead of the first place's photograph.
+{%- endcomment -%}
+{%- assign rows = items | split: '§' -%}
+<div data-ms-panel="{{ key }}" hidden class="ms-mg ms-mg--{{ key }}">
+  <div class="ms-mg__in">
+    <div class="ms-mg__intro">
+      <div class="ms-mg__no">{{ no }}</div>
+      <div class="ms-mg__title">{{ title }}</div>
+      <p class="ms-mg__lede">{{ lede }}</p>
+    </div>
+    <div class="ms-mg__body">
+      <ul class="ms-mg__list" role="list" data-ms-mg-list>
+        {%- assign n = 0 -%}
+        {%- for r in rows -%}
+          {%- assign f = r | strip | split: '|' -%}
+          {%- if f[0] == blank -%}{%- continue -%}{%- endif -%}
+          {%- assign kind = f[4] | strip -%}
+          <li style="--i: {{ n }};">
+            <a class="ms-mg__item{% if n == 0 %} is-on{% endif %}" href="{{ f[0] | strip }}" data-ms-mg-i="{{ n }}"{% if kind == 'landing' %} data-ms-landing{% elsif kind == 'quiz' %} data-ms-quiz-link{% elsif kind == 'external' %} target="_blank" rel="noopener"{% endif %}>
+              <span class="ms-mg__n">{% if n < 9 %}0{% endif %}{{ n | plus: 1 }}</span>
+              <span class="ms-mg__t">{{ f[1] }}</span>
+              <span class="ms-mg__d">{{ f[2] }}</span>
+            </a>
+          </li>
+          {%- assign n = n | plus: 1 -%}
+        {%- endfor -%}
+      </ul>
+      <figure class="ms-mg__fig">
+        <div class="ms-mg__frame">
+          {%- assign n = 0 -%}
+          {%- for r in rows -%}
+            {%- assign f = r | strip | split: '|' -%}
+            {%- if f[0] == blank -%}{%- continue -%}{%- endif -%}
+            {%- if n == 0 and feature != blank -%}
+              <img src="{{ feature | image_url: width: 900 }}" alt="" width="900" height="1125" loading="lazy" class="is-on">
+            {%- else -%}
+              <img src="{{ f[3] | strip }}" alt="" width="900" height="1125" loading="lazy"{% if n == 0 %} class="is-on"{% endif %}>
+            {%- endif -%}
+            {%- assign n = n | plus: 1 -%}
+          {%- endfor -%}
+        </div>
+        <figcaption class="ms-mg__cap"><span data-ms-mg-cap>{%- assign f = rows.first | strip | split: '|' -%}{{ f[1] }}</span><span aria-hidden="true">→</span></figcaption>
+      </figure>
+    </div>
+  </div>
+  {{ foot }}
+</div>

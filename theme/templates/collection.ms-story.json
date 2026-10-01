@@ -1,0 +1,51 @@
+/*
+ * Midsummer Milano: Our story, reachable before the About page exists in admin (?view=ms-story).
+ */
+{
+  "layout": "ms",
+  "sections": {
+    "s01": {
+      "type": "ms-banner",
+      "settings": {
+        "image_fallback": "ms-graded-ochre-room.jpg",
+        "eyebrow": "Midsummer Milano",
+        "heading": "Our story",
+        "height": "tall",
+        "text": "A house of beds, made by hand in Milan."
+      }
+    },
+    "s02": {
+      "type": "ms-home-02",
+      "settings": {}
+    },
+    "s03": {
+      "type": "ms-home-05",
+      "settings": {}
+    },
+    "s04": {
+      "type": "ms-home-06",
+      "settings": {}
+    },
+    "s05": {
+      "type": "ms-home-09",
+      "settings": {}
+    },
+    "s06": {
+      "type": "ms-home-08",
+      "settings": {}
+    },
+    "s07": {
+      "type": "ms-home-17",
+      "settings": {}
+    }
+  },
+  "order": [
+    "s01",
+    "s02",
+    "s03",
+    "s04",
+    "s05",
+    "s06",
+    "s07"
+  ]
+}

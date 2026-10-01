@@ -1,0 +1,15 @@
+/*
+ * Midsummer Milano: the contact page, reachable before its page exists in admin (?view=ms-contact).
+ */
+{
+  "layout": "ms",
+  "sections": {
+    "s01": {
+      "type": "ms-enquire",
+      "settings": {}
+    }
+  },
+  "order": [
+    "s01"
+  ]
+}

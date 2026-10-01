@@ -16,151 +16,29 @@
 <span style="display: block; height: 1px; background: currentcolor;"></span>
 </span>
 </button>
-</div><div data-ms-panel="beds" hidden="" style="border-top: 1px solid rgb(221, 214, 201); background: rgb(251, 249, 245); color: rgb(23, 20, 15); padding: clamp(28px, 4vw, 64px) clamp(18px, 5vw, 80px);">
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: clamp(24px, 3vw, 56px); max-width: 1560px; margin: 0px auto;">
-<a href="{% render 'ms-link', to: 'essentials' %}" style="display: block;">
-<div style="overflow: hidden;"><img alt="Essentials" loading="lazy" src="{% if section.settings.img2 != blank %}{{ section.settings.img2 | image_url: width: 2000 }}{% else %}{{ 'ms-graded-bougainvillea.jpg' | asset_url }}{% endif %}" style="width: 100%; aspect-ratio: 5 / 6; object-fit: cover;"/></div>
-<div style="display: flex; align-items: baseline; gap: 10px; margin-top: 16px;">{{ section.settings.t7 }}</div>
-<div style="font-size: 13px; line-height: 1.75; color: rgb(140, 133, 121); margin-top: 6px;">{{ section.settings.t8 }}</div>
-</a>
-<a href="{% render 'ms-link', to: 'signature' %}" style="display: block;">
-<div style="overflow: hidden;"><img alt="Signature" loading="lazy" src="{% if section.settings.img3 != blank %}{{ section.settings.img3 | image_url: width: 2000 }}{% else %}{{ 'ms-graded-ochre-room.jpg' | asset_url }}{% endif %}" style="width: 100%; aspect-ratio: 5 / 6; object-fit: cover;"/></div>
-<div style="display: flex; align-items: baseline; gap: 10px; margin-top: 16px;">{{ section.settings.t9 }}</div>
-<div style="font-size: 13px; line-height: 1.75; color: rgb(140, 133, 121); margin-top: 6px;">{{ section.settings.t10 }}</div>
-</a>
-<a href="{% render 'ms-link', to: 'icons' %}" style="display: block;">
-<div style="overflow: hidden;"><img alt="Icons" loading="lazy" src="{% if section.settings.img4 != blank %}{{ section.settings.img4 | image_url: width: 2000 }}{% else %}{{ 'ms-graded-arches.jpg' | asset_url }}{% endif %}" style="width: 100%; aspect-ratio: 5 / 6; object-fit: cover;"/></div>
-<div style="display: flex; align-items: baseline; gap: 10px; margin-top: 16px;">{{ section.settings.t11 }}</div>
-<div style="font-size: 13px; line-height: 1.75; color: rgb(140, 133, 121); margin-top: 6px;">{{ section.settings.t12 }}</div>
-</a>
-<div style="display: flex; flex-direction: column; gap: 26px; border-left: 1px solid rgb(221, 214, 201); padding-left: clamp(20px, 3vw, 44px);">
-<div style="display: flex; flex-direction: column; gap: 11px;">
-<div style="font-size: 10.5px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(140, 133, 121);">{{ section.settings.t13 }}</div>
-{%- capture ms_u1 -%}{% render 'ms-link', to: 'mattresses', strict: true %}{%- endcapture -%}{%- if ms_u1 != blank -%}<a href="{{ ms_u1 }}" style="font-size: 13.5px; line-height: 1.5; color: rgb(74, 68, 59);">{{ section.settings.t14 }}</a>{%- endif -%}
-{%- capture ms_u2 -%}{% render 'ms-link', to: 'toppers', strict: true %}{%- endcapture -%}{%- if ms_u2 != blank -%}<a href="{{ ms_u2 }}" style="font-size: 13.5px; line-height: 1.5; color: rgb(74, 68, 59);">{{ section.settings.t15 }}</a>{%- endif -%}
-{%- capture ms_u3 -%}{% render 'ms-link', to: 'bases', strict: true %}{%- endcapture -%}{%- if ms_u3 != blank -%}<a href="{{ ms_u3 }}" style="font-size: 13.5px; line-height: 1.5; color: rgb(74, 68, 59);">{{ section.settings.t16 }}</a>{%- endif -%}
-{%- capture ms_u4 -%}{% render 'ms-link', to: 'headboards', strict: true %}{%- endcapture -%}{%- if ms_u4 != blank -%}<a href="{{ ms_u4 }}" style="font-size: 13.5px; line-height: 1.5; color: rgb(74, 68, 59);">{{ section.settings.t17 }}</a>{%- endif -%}
-{%- capture ms_u5 -%}{% render 'ms-link', to: 'bedding', strict: true %}{%- endcapture -%}{%- if ms_u5 != blank -%}<a href="{{ ms_u5 }}" style="font-size: 13.5px; line-height: 1.5; color: rgb(74, 68, 59);">{{ section.settings.t18 }}</a>{%- endif -%}
-<a href="{% render 'ms-link', to: 'enquire' %}?enquiry=proposal#enquire" style="font-size: 13.5px; line-height: 1.5; color: rgb(74, 68, 59);" data-ms-landing="">{{ section.settings.t19 }}</a>
-</div>
-<div style="display: flex; flex-direction: column; gap: 11px; padding-top: 22px; border-top: 1px solid rgb(221, 214, 201);">
-<a href="{% render 'ms-link', to: 'collections' %}" style="font-size: 13.5px; line-height: 1.5; color: rgb(74, 68, 59);">{{ section.settings.t20 }}</a>
-<a data-ms-quiz-link="" href="{% render 'ms-link', to: 'quiz' %}" style="font-size: 13.5px; line-height: 1.5; color: rgb(74, 68, 59);">{{ section.settings.t21 }}</a>
-</div>
-</div>
-</div>
-</div><div data-ms-panel="heritage" hidden="" style="border-top: 1px solid rgb(221, 214, 201); background: rgb(251, 249, 245); color: rgb(23, 20, 15); padding: clamp(28px, 4vw, 64px) clamp(18px, 5vw, 80px);">
-<div style="display: grid; grid-template-columns: minmax(0px, 1.6fr) minmax(0px, 1fr); gap: clamp(28px, 4vw, 72px); max-width: 1560px; margin: 0px auto; align-items: start;">
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: clamp(24px, 3vw, 52px);">
-<div style="display: flex; flex-direction: column; gap: 11px;">
-<div style="font-size: 10.5px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(140, 133, 121); margin-bottom: 5px;">{{ section.settings.t22 }}</div>
-<a href="{% render 'ms-link', to: 'story' %}" style="font-size: 13.5px; line-height: 1.5; color: rgb(74, 68, 59);">{{ section.settings.t23 }}</a>
-{%- capture ms_u6 -%}{% render 'ms-link', to: 'handmade', strict: true %}{%- endcapture -%}{%- if ms_u6 != blank -%}<a href="{{ ms_u6 }}" style="font-size: 13.5px; line-height: 1.5; color: rgb(74, 68, 59);">{{ section.settings.t24 }}</a>{%- endif -%}
-{%- capture ms_u7 -%}{% render 'ms-link', to: 'sleep-culture', strict: true %}{%- endcapture -%}{%- if ms_u7 != blank -%}<a href="{{ ms_u7 }}" style="font-size: 13.5px; line-height: 1.5; color: rgb(74, 68, 59);">{{ section.settings.t25 }}</a>{%- endif -%}
-</div>
-<div style="display: flex; flex-direction: column; gap: 11px;">
-<div style="font-size: 10.5px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(140, 133, 121); margin-bottom: 5px;">{{ section.settings.t26 }}</div>
-<a href="{% render 'ms-link', to: 'materials' %}" style="font-size: 13.5px; line-height: 1.5; color: rgb(74, 68, 59);">{{ section.settings.t27 }}</a>
-
-<a href="{% render 'ms-link', to: 'regen' %}" style="font-size: 13.5px; line-height: 1.5; color: rgb(74, 68, 59);">Made to last · 15 + 15</a>
-<a data-ms-quiz-link="" href="{% render 'ms-link', to: 'quiz' %}" style="font-size: 13.5px; line-height: 1.5; color: rgb(74, 68, 59);">Find Your Midsummer</a>
-</div>
-</div>
-<a href="{% render 'ms-link', to: 'regen' %}" style="display: block;">
-<div style="overflow: hidden;"><img alt="" loading="lazy" src="{% if section.settings.img5 != blank %}{{ section.settings.img5 | image_url: width: 2000 }}{% else %}https://midsummer-milano.com/cdn/shop/files/giotto_SANGALGANO.jpg?v=1748612061&amp;width=900{% endif %}" style="width: 100%; aspect-ratio: 16 / 10; object-fit: cover;"/></div>
-<div style="font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: rgb(154, 123, 79); margin-top: 16px;">Made to last · 15 + 15</div><div style="font-family: Newsreader, Georgia, serif; font-size: clamp(17px, 1.7vw, 21px); line-height: 1.3; margin-top: 8px; max-width: 28ch;">Two artisans, one bed, start to finish.</div>
-</a>
-</div>
-</div><div data-ms-panel="pro" hidden="" style="border-top: 1px solid rgb(221, 214, 201); background: rgb(251, 249, 245); color: rgb(23, 20, 15); padding: clamp(28px, 4vw, 64px) clamp(18px, 5vw, 80px);">
-<div style="display: grid; grid-template-columns: minmax(0px, 1.6fr) minmax(0px, 1fr); gap: clamp(28px, 4vw, 72px); max-width: 1560px; margin: 0px auto; align-items: start;">
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: clamp(24px, 3vw, 52px);">
-<div style="display: flex; flex-direction: column; gap: 11px;">
-<div style="font-size: 10.5px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(140, 133, 121); margin-bottom: 5px;">Specify with us</div>
-{%- capture ms_u8 -%}{% render 'ms-link', to: 'professionals', strict: true %}{%- endcapture -%}{%- if ms_u8 != blank -%}<a href="{{ ms_u8 }}" style="font-size: 13.5px; line-height: 1.5; color: rgb(74, 68, 59);">Architects &amp; Interior Designers</a>{%- endif -%}
-{%- capture ms_u9 -%}{% render 'ms-link', to: 'hospitality', strict: true %}{%- endcapture -%}{%- if ms_u9 != blank -%}<a href="{{ ms_u9 }}" style="font-size: 13.5px; line-height: 1.5; color: rgb(74, 68, 59);">Hospitality &amp; Contract</a>{%- endif -%}
-</div>
-<div style="display: flex; flex-direction: column; gap: 11px;">
-<div style="font-size: 10.5px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(140, 133, 121); margin-bottom: 5px;">Trade</div>
-<a href="{% render 'ms-link', to: 'agents' %}" style="font-size: 13.5px; line-height: 1.5; color: rgb(74, 68, 59);">Agents &amp; Resellers</a>
-<a href="{% render 'ms-link', to: 'enquire' %}?enquiry=partner#enquire" style="font-size: 13.5px; line-height: 1.5; color: rgb(74, 68, 59);" data-ms-landing="">Become a partner</a>
-<a href="{% render 'ms-link', to: 'enquire' %}?enquiry=trade#enquire" style="font-size: 13.5px; line-height: 1.5; color: rgb(74, 68, 59);" data-ms-landing="">Trade enquiry</a>
-</div>
-</div>
-{%- capture ms_u10 -%}{% render 'ms-link', to: 'professionals', strict: true %}{%- endcapture -%}{%- if ms_u10 != blank -%}<a href="{{ ms_u10 }}" style="display: block;">
-<div style="overflow: hidden;"><img alt="" loading="lazy" src="{% if section.settings.img6 != blank %}{{ section.settings.img6 | image_url: width: 2000 }}{% else %}https://midsummer-milano.com/cdn/shop/files/Untitled_Project_5_b49a7740-07fa-45f1-8b4f-464d951b0772.jpg?v=1683816726&amp;width=900{% endif %}" style="width: 100%; aspect-ratio: 16 / 10; object-fit: cover;"/></div>
-<div style="font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: rgb(154, 123, 79); margin-top: 16px;">Architects &amp; Interior Designers</div><div style="font-family: Newsreader, Georgia, serif; font-size: clamp(17px, 1.7vw, 21px); line-height: 1.3; margin-top: 8px; max-width: 28ch;">Drawings, sections and material schedules for your set.</div>
-</a>{%- endif -%}
-</div>
-</div><div data-ms-panel="journal" hidden="" style="border-top: 1px solid rgb(221, 214, 201); background: rgb(251, 249, 245); color: rgb(23, 20, 15); padding: clamp(28px, 4vw, 64px) clamp(18px, 5vw, 80px);">
-<div style="display: grid; grid-template-columns: minmax(0px, 1.6fr) minmax(0px, 1fr); gap: clamp(28px, 4vw, 72px); max-width: 1560px; margin: 0px auto; align-items: start;">
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: clamp(24px, 3vw, 52px);">
-<div style="display: flex; flex-direction: column; gap: 11px;">
-<div style="font-size: 10.5px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(140, 133, 121); margin-bottom: 5px;">Subjects</div>
-{%- capture ms_u11 -%}{% render 'ms-link', to: 'journal-tag', tag: 'sleep' %}{%- endcapture -%}{%- if ms_u11 != blank -%}<a href="{{ ms_u11 }}" style="font-size: 13.5px; line-height: 1.5; color: rgb(74, 68, 59);">Sleep</a>{%- endif -%}
-{%- capture ms_u12 -%}{% render 'ms-link', to: 'journal-tag', tag: 'materials' %}{%- endcapture -%}{%- if ms_u12 != blank -%}<a href="{{ ms_u12 }}" style="font-size: 13.5px; line-height: 1.5; color: rgb(74, 68, 59);">Materials</a>{%- endif -%}
-{%- capture ms_u13 -%}{% render 'ms-link', to: 'journal-tag', tag: 'design' %}{%- endcapture -%}{%- if ms_u13 != blank -%}<a href="{{ ms_u13 }}" style="font-size: 13.5px; line-height: 1.5; color: rgb(74, 68, 59);">Design</a>{%- endif -%}
-</div>
-<div style="display: flex; flex-direction: column; gap: 11px;">
-<div style="font-size: 10.5px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(140, 133, 121); margin-bottom: 5px;">Also</div>
-<a href="{% render 'ms-link', to: 'journal' %}" style="font-size: 13.5px; line-height: 1.5; color: rgb(74, 68, 59);">All notes</a>
-<a href="{% render 'ms-link', to: 'faq' %}" style="font-size: 13.5px; line-height: 1.5; color: rgb(74, 68, 59);">Questions</a>
-</div>
-</div>
-{%- liquid
-  assign ms_blog = nil
-  assign ms_blogs = 'news,journal' | split: ','
-  for h in ms_blogs
-    if blogs[h].articles_count > 0
-      assign ms_blog = blogs[h]
-      break
-    endif
-  endfor
-  assign ms_latest = ms_blog.articles.first
--%}<a href="{% if ms_latest %}{{ ms_latest.url }}{% else %}{% render 'ms-link', to: 'journal' %}{% endif %}" style="display: block;">
-<div style="overflow: hidden;"><img alt="" loading="lazy" src="{% if section.settings.img7 != blank %}{{ section.settings.img7 | image_url: width: 2000 }}{% elsif ms_latest.image %}{{ ms_latest.image | image_url: width: 900 }}{% else %}https://midsummer-milano.com/cdn/shop/files/Vicuna-mattress.jpg?v=1748611838&amp;width=900{% endif %}" style="width: 100%; aspect-ratio: 16 / 10; object-fit: cover;"/></div>
-<div style="font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: rgb(154, 123, 79); margin-top: 16px;">From the Journal</div><div style="font-family: Newsreader, Georgia, serif; font-size: clamp(17px, 1.7vw, 21px); line-height: 1.3; margin-top: 8px; max-width: 28ch;">{% if ms_latest %}{{ ms_latest.title }}{% else %}Vicuña, and why it is called the fibre of the gods.{% endif %}</div>
-</a>
-</div>
-</div><div data-ms-panel="contact" hidden="" style="border-top: 1px solid rgb(221, 214, 201); background: rgb(251, 249, 245); color: rgb(23, 20, 15); padding: clamp(28px, 4vw, 64px) clamp(18px, 5vw, 80px);">
-<div style="display: grid; grid-template-columns: minmax(0px, 1.6fr) minmax(0px, 1fr); gap: clamp(28px, 4vw, 72px); max-width: 1560px; margin: 0px auto; align-items: start;">
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: clamp(24px, 3vw, 52px);">
-<div style="display: flex; flex-direction: column; gap: 11px;">
-<div style="font-size: 10.5px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(140, 133, 121); margin-bottom: 5px;">Speak to us</div>
-<a href="{% render 'ms-link', to: 'enquire' %}?enquiry=appointment#enquire" style="font-size: 13.5px; line-height: 1.5; color: rgb(74, 68, 59);" data-ms-landing="">Book an appointment</a>
-<a href="{% render 'ms-link', to: 'enquire' %}#direct" style="font-size: 13.5px; line-height: 1.5; color: rgb(74, 68, 59);" data-ms-landing="">Direct contact</a>{%- if settings.ms_social_whatsapp != blank -%}<a href="{{ settings.ms_social_whatsapp }}" target="_blank" rel="noopener" style="font-size: 13.5px; line-height: 1.5; color: rgb(74, 68, 59);">WhatsApp</a>{%- endif -%}
-<a href="{% render 'ms-link', to: 'enquire' %}?enquiry=trade#enquire" style="font-size: 13.5px; line-height: 1.5; color: rgb(74, 68, 59);" data-ms-landing="">Trade enquiry</a>
-</div>
-<div style="display: flex; flex-direction: column; gap: 11px;">
-<div style="font-size: 10.5px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(140, 133, 121); margin-bottom: 5px;">Find us</div>
-<a href="{% render 'ms-link', to: 'agents' %}" style="font-size: 13.5px; line-height: 1.5; color: rgb(74, 68, 59);">Agents &amp; Resellers</a>
-<a href="{% render 'ms-link', to: 'agents' %}#atelier" style="font-size: 13.5px; line-height: 1.5; color: rgb(74, 68, 59);">The Milano atelier</a>
-<a href="{% render 'ms-link', to: 'faq' %}" style="font-size: 13.5px; line-height: 1.5; color: rgb(74, 68, 59);">Questions</a><div style="margin-top: 10px;">{% render 'ms-social' %}</div>
-</div>
-</div>
-<a href="{% render 'ms-link', to: 'enquire' %}#enquire" data-ms-landing="" style="display: block;"><div style="overflow: hidden;"><img alt="" loading="lazy" src="{{ 'ms-graded-paisley-red.jpg' | asset_url }}" style="display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover;"/></div><div style="font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: rgb(154, 123, 79); margin-top: 16px;">The enquiry page</div><div style="font-family: Newsreader, Georgia, serif; font-size: clamp(17px, 1.7vw, 21px); line-height: 1.3; margin-top: 8px; max-width: 28ch;">Seven kinds of enquiry, one page, one person who answers.</div></a></div>
-</div></header><div aria-label="Menu" aria-modal="true" data-ms-menu="" hidden="" role="dialog" style="position: fixed; inset: 0px; z-index: 95; background: rgb(251, 249, 245); color: rgb(23, 20, 15); display: flex; flex-direction: column;">
+</div>{% render 'ms-mega', ss: section.settings %}</header><div aria-label="Menu" aria-modal="true" data-ms-menu="" hidden="" role="dialog" style="position: fixed; inset: 0px; z-index: 95; background: rgb(251, 249, 245); color: rgb(23, 20, 15); display: flex; flex-direction: column;">
 <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px 18px; min-height: 64px; border-bottom: 1px solid rgb(221, 214, 201);">
-<a data-ms-mroot-only="" href="{% render 'ms-link', to: 'home' %}" style="display: flex; align-items: center; min-height: 44px;"><img alt="Midsummer Milano" loading="lazy" src="{% if section.settings.img8 != blank %}{{ section.settings.img8 | image_url: width: 2000 }}{% else %}{{ 'midsummer-logotype.svg' | asset_url }}{% endif %}" style="height: 20px; width: auto; display: block;"/></a><button data-ms-msub-back="" hidden="" style="display: flex; align-items: center; gap: 12px; min-height: 44px; background: none; border: 0px; padding: 0px; cursor: pointer; color: inherit; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase;" type="button"><svg aria-hidden="true" height="14" style="display: block;" viewbox="0 0 16 16" width="14"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg><span>Menu</span></button>
-<button aria-label="Close menu" data-ms-menu-close="" style="display: flex; align-items: center; justify-content: flex-end; gap: 10px; min-height: 44px; min-width: 44px; background: none; border: 0px; padding: 0px; cursor: pointer; color: inherit; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase;" type="button"><span>Close</span><svg aria-hidden="true" height="13" style="display: block;" viewbox="0 0 16 16" width="13"><path d="M2 2l12 12M14 2 2 14" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></button>
+<a data-ms-mroot-only="" href="{% render 'ms-link', to: 'home' %}" style="display: flex; align-items: center; min-height: 44px;"><img alt="Midsummer Milano" loading="lazy" src="{% if section.settings.img2 != blank %}{{ section.settings.img2 | image_url: width: 2000 }}{% else %}{{ 'midsummer-logotype.svg' | asset_url }}{% endif %}" style="height: 20px; width: auto; display: block;"/></a><button data-ms-msub-back="" hidden="" style="display: flex; align-items: center; gap: 12px; min-height: 44px; background: none; border: 0px; padding: 0px; cursor: pointer; color: inherit; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase;" type="button"><svg aria-hidden="true" height="14" style="display: block;" viewbox="0 0 16 16" width="14"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg><span>{{ section.settings.t7 }}</span></button>
+<button aria-label="Close menu" data-ms-menu-close="" style="display: flex; align-items: center; justify-content: flex-end; gap: 10px; min-height: 44px; min-width: 44px; background: none; border: 0px; padding: 0px; cursor: pointer; color: inherit; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase;" type="button"><span>{{ section.settings.t8 }}</span><svg aria-hidden="true" height="13" style="display: block;" viewbox="0 0 16 16" width="13"><path d="M2 2l12 12M14 2 2 14" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></button>
 </div>
 <div data-ms="mbody" style="flex: 1 1 auto; overflow-y: auto; padding: 6px 18px 28px;"><div data-ms-mroot="">
 <nav aria-label="Main">
-<button data-ms-msub-open="beds" style="display: grid; grid-template-columns: 34px minmax(0px, 1fr) 16px; align-items: center; width: 100%; min-height: 74px; background: none; border-width: 0px 0px 1px; border-top-style: initial; border-right-style: initial; border-bottom-style: solid; border-left-style: initial; border-top-color: initial; border-right-color: initial; border-bottom-color: rgb(221, 214, 201); border-left-color: initial; border-image: initial; padding: 0px; cursor: pointer; color: inherit; text-align: left;" type="button"><span style="font-size: 11px; letter-spacing: 0.14em; color: rgb(126, 98, 59); font-variant-numeric: tabular-nums;">01</span><span style="font-family: Newsreader, Georgia, serif; font-size: 31px; line-height: 1.1; letter-spacing: -0.02em; font-weight: 200;">Our Beds</span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></button>
-<button data-ms-msub-open="heritage" style="display: grid; grid-template-columns: 34px minmax(0px, 1fr) 16px; align-items: center; width: 100%; min-height: 74px; background: none; border-width: 0px 0px 1px; border-top-style: initial; border-right-style: initial; border-bottom-style: solid; border-left-style: initial; border-top-color: initial; border-right-color: initial; border-bottom-color: rgb(221, 214, 201); border-left-color: initial; border-image: initial; padding: 0px; cursor: pointer; color: inherit; text-align: left;" type="button"><span style="font-size: 11px; letter-spacing: 0.14em; color: rgb(126, 98, 59); font-variant-numeric: tabular-nums;">02</span><span style="font-family: Newsreader, Georgia, serif; font-size: 31px; line-height: 1.1; letter-spacing: -0.02em; font-weight: 200;">Heritage &amp; Craft</span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></button>
-<button data-ms-msub-open="pro" style="display: grid; grid-template-columns: 34px minmax(0px, 1fr) 16px; align-items: center; width: 100%; min-height: 74px; background: none; border-width: 0px 0px 1px; border-top-style: initial; border-right-style: initial; border-bottom-style: solid; border-left-style: initial; border-top-color: initial; border-right-color: initial; border-bottom-color: rgb(221, 214, 201); border-left-color: initial; border-image: initial; padding: 0px; cursor: pointer; color: inherit; text-align: left;" type="button"><span style="font-size: 11px; letter-spacing: 0.14em; color: rgb(126, 98, 59); font-variant-numeric: tabular-nums;">03</span><span style="font-family: Newsreader, Georgia, serif; font-size: 31px; line-height: 1.1; letter-spacing: -0.02em; font-weight: 200;">Professionals</span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></button>
-<a href="{% render 'ms-link', to: 'journal' %}" style="display: grid; grid-template-columns: 34px minmax(0px, 1fr) 16px; align-items: center; width: 100%; min-height: 74px; background: none; border-width: 0px 0px 1px; border-top-style: initial; border-right-style: initial; border-bottom-style: solid; border-left-style: initial; border-top-color: initial; border-right-color: initial; border-bottom-color: rgb(221, 214, 201); border-left-color: initial; border-image: initial; padding: 0px; cursor: pointer; color: inherit; text-align: left;"><span style="font-size: 11px; letter-spacing: 0.14em; color: rgb(126, 98, 59); font-variant-numeric: tabular-nums;">04</span><span style="font-family: Newsreader, Georgia, serif; font-size: 31px; line-height: 1.1; letter-spacing: -0.02em; font-weight: 200;">Journal</span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></a>
-<button data-ms-msub-open="contact" style="display: grid; grid-template-columns: 34px minmax(0px, 1fr) 16px; align-items: center; width: 100%; min-height: 74px; background: none; border-width: 0px 0px 1px; border-top-style: initial; border-right-style: initial; border-bottom-style: solid; border-left-style: initial; border-top-color: initial; border-right-color: initial; border-bottom-color: rgb(221, 214, 201); border-left-color: initial; border-image: initial; padding: 0px; cursor: pointer; color: inherit; text-align: left;" type="button"><span style="font-size: 11px; letter-spacing: 0.14em; color: rgb(126, 98, 59); font-variant-numeric: tabular-nums;">05</span><span style="font-family: Newsreader, Georgia, serif; font-size: 31px; line-height: 1.1; letter-spacing: -0.02em; font-weight: 200;">Contact</span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></button>
+<button data-ms-msub-open="beds" style="display: grid; grid-template-columns: 34px minmax(0px, 1fr) 16px; align-items: center; width: 100%; min-height: 74px; background: none; border-width: 0px 0px 1px; border-top-style: initial; border-right-style: initial; border-bottom-style: solid; border-left-style: initial; border-top-color: initial; border-right-color: initial; border-bottom-color: rgb(221, 214, 201); border-left-color: initial; border-image: initial; padding: 0px; cursor: pointer; color: inherit; text-align: left;" type="button"><span style="font-size: 11px; letter-spacing: 0.14em; color: rgb(126, 98, 59); font-variant-numeric: tabular-nums;">{{ section.settings.t9 }}</span><span style="font-family: Newsreader, Georgia, serif; font-size: 31px; line-height: 1.1; letter-spacing: -0.02em; font-weight: 200;">{{ section.settings.t10 }}</span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></button>
+<button data-ms-msub-open="heritage" style="display: grid; grid-template-columns: 34px minmax(0px, 1fr) 16px; align-items: center; width: 100%; min-height: 74px; background: none; border-width: 0px 0px 1px; border-top-style: initial; border-right-style: initial; border-bottom-style: solid; border-left-style: initial; border-top-color: initial; border-right-color: initial; border-bottom-color: rgb(221, 214, 201); border-left-color: initial; border-image: initial; padding: 0px; cursor: pointer; color: inherit; text-align: left;" type="button"><span style="font-size: 11px; letter-spacing: 0.14em; color: rgb(126, 98, 59); font-variant-numeric: tabular-nums;">{{ section.settings.t11 }}</span><span style="font-family: Newsreader, Georgia, serif; font-size: 31px; line-height: 1.1; letter-spacing: -0.02em; font-weight: 200;">{{ section.settings.t12 }}</span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></button>
+<button data-ms-msub-open="pro" style="display: grid; grid-template-columns: 34px minmax(0px, 1fr) 16px; align-items: center; width: 100%; min-height: 74px; background: none; border-width: 0px 0px 1px; border-top-style: initial; border-right-style: initial; border-bottom-style: solid; border-left-style: initial; border-top-color: initial; border-right-color: initial; border-bottom-color: rgb(221, 214, 201); border-left-color: initial; border-image: initial; padding: 0px; cursor: pointer; color: inherit; text-align: left;" type="button"><span style="font-size: 11px; letter-spacing: 0.14em; color: rgb(126, 98, 59); font-variant-numeric: tabular-nums;">{{ section.settings.t13 }}</span><span style="font-family: Newsreader, Georgia, serif; font-size: 31px; line-height: 1.1; letter-spacing: -0.02em; font-weight: 200;">{{ section.settings.t14 }}</span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></button>
+<a href="{% render 'ms-link', to: 'journal' %}" style="display: grid; grid-template-columns: 34px minmax(0px, 1fr) 16px; align-items: center; width: 100%; min-height: 74px; background: none; border-width: 0px 0px 1px; border-top-style: initial; border-right-style: initial; border-bottom-style: solid; border-left-style: initial; border-top-color: initial; border-right-color: initial; border-bottom-color: rgb(221, 214, 201); border-left-color: initial; border-image: initial; padding: 0px; cursor: pointer; color: inherit; text-align: left;"><span style="font-size: 11px; letter-spacing: 0.14em; color: rgb(126, 98, 59); font-variant-numeric: tabular-nums;">{{ section.settings.t15 }}</span><span style="font-family: Newsreader, Georgia, serif; font-size: 31px; line-height: 1.1; letter-spacing: -0.02em; font-weight: 200;">{{ section.settings.t16 }}</span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></a>
+<button data-ms-msub-open="contact" style="display: grid; grid-template-columns: 34px minmax(0px, 1fr) 16px; align-items: center; width: 100%; min-height: 74px; background: none; border-width: 0px 0px 1px; border-top-style: initial; border-right-style: initial; border-bottom-style: solid; border-left-style: initial; border-top-color: initial; border-right-color: initial; border-bottom-color: rgb(221, 214, 201); border-left-color: initial; border-image: initial; padding: 0px; cursor: pointer; color: inherit; text-align: left;" type="button"><span style="font-size: 11px; letter-spacing: 0.14em; color: rgb(126, 98, 59); font-variant-numeric: tabular-nums;">{{ section.settings.t17 }}</span><span style="font-family: Newsreader, Georgia, serif; font-size: 31px; line-height: 1.1; letter-spacing: -0.02em; font-weight: 200;">{{ section.settings.t18 }}</span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></button>
 </nav>
 <a data-ms-quiz-link="" href="{% render 'ms-link', to: 'quiz' %}" style="display: grid; grid-template-columns: 88px minmax(0px, 1fr); gap: 18px; align-items: center; margin-top: 26px; padding: 14px; background: rgb(241, 236, 227); color: rgb(23, 20, 15);">
-<img alt="" loading="lazy" src="{% if section.settings.img9 != blank %}{{ section.settings.img9 | image_url: width: 2000 }}{% else %}{{ 'ms-graded-bougainvillea.jpg' | asset_url }}{% endif %}" style="display: block; width: 88px; aspect-ratio: 4 / 5; object-fit: cover;"/>
-<span style="display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(126, 98, 59);">Five questions</span><span style="font-family: Newsreader, Georgia, serif; font-size: 21px; line-height: 1.2;">Find your Midsummer</span><span style="font-size: 13px; line-height: 1.55; color: rgb(74, 68, 59);">The bed that suits the way you sleep.</span></span>
+<img alt="" loading="lazy" src="{% if section.settings.img3 != blank %}{{ section.settings.img3 | image_url: width: 2000 }}{% else %}{{ 'ms-graded-bougainvillea.jpg' | asset_url }}{% endif %}" style="display: block; width: 88px; aspect-ratio: 4 / 5; object-fit: cover;"/>
+<span style="display: flex; flex-direction: column; gap: 6px;">{{ section.settings.t19 }}</span>
 </a>
 <div style="display: grid; grid-template-columns: repeat(2, minmax(0px, 1fr)); column-gap: 18px; margin-top: 20px;">
-<a href="{% render 'ms-link', to: 'agents' %}" style="display: flex; align-items: center; min-height: 48px; border-bottom: 1px solid rgb(234, 228, 216); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(74, 68, 59);">Agents &amp; resellers</a><a href="{% render 'ms-link', to: 'faq' %}" style="display: flex; align-items: center; min-height: 48px; border-bottom: 1px solid rgb(234, 228, 216); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(74, 68, 59);">Questions</a><a href="{% render 'ms-link', to: 'search' %}" style="display: flex; align-items: center; min-height: 48px; border-bottom: 1px solid rgb(234, 228, 216); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(74, 68, 59);">Search</a><a href="{% render 'ms-link', to: 'agents' %}#atelier" style="display: flex; align-items: center; min-height: 48px; border-bottom: 1px solid rgb(234, 228, 216); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(74, 68, 59);">The Milano atelier</a>
+<a href="{% render 'ms-link', to: 'agents' %}" style="display: flex; align-items: center; min-height: 48px; border-bottom: 1px solid rgb(234, 228, 216); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(74, 68, 59);">{{ section.settings.t20 }}</a><a href="{% render 'ms-link', to: 'faq' %}" style="display: flex; align-items: center; min-height: 48px; border-bottom: 1px solid rgb(234, 228, 216); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(74, 68, 59);">{{ section.settings.t21 }}</a><a href="{% render 'ms-link', to: 'search' %}" style="display: flex; align-items: center; min-height: 48px; border-bottom: 1px solid rgb(234, 228, 216); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(74, 68, 59);">{{ section.settings.t22 }}</a><a data-ms-enquire="" href="{% render 'ms-link', to: 'contact' %}" style="display: flex; align-items: center; min-height: 48px; border-bottom: 1px solid rgb(234, 228, 216); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(74, 68, 59);">{{ section.settings.t23 }}</a>
 </div>
-</div><div data-ms-msub="beds" hidden=""><div style="padding: 22px 0px 20px;"><div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(126, 98, 59);">01</div><div style="font-family: Newsreader, Georgia, serif; font-size: 38px; line-height: 1.05; letter-spacing: -0.025em; font-weight: 200; margin-top: 10px;">Our Beds</div><p style="font-size: 13.5px; line-height: 1.7; color: rgb(74, 68, 59); margin-top: 12px; max-width: 34ch;">Twenty-four systems in three collections, each one built to order.</p></div><a href="{% render 'ms-link', to: 'essentials' %}" style="display: grid; grid-template-columns: 64px minmax(0px, 1fr) 16px; gap: 16px; align-items: center; min-height: 64px; padding: 12px 0px; border-top: 1px solid rgb(221, 214, 201); color: rgb(23, 20, 15);"><img alt="" loading="lazy" src="{% if section.settings.img10 != blank %}{{ section.settings.img10 | image_url: width: 2000 }}{% else %}{{ 'ms-graded-dune.jpg' | asset_url }}{% endif %}" style="display: block; width: 64px; aspect-ratio: 4 / 5; object-fit: cover;"/><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.2;">Essentials</span><span style="font-size: 12.5px; line-height: 1.5; color: rgb(110, 103, 92);">Five systems</span></span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></a><a href="{% render 'ms-link', to: 'signature' %}" style="display: grid; grid-template-columns: 64px minmax(0px, 1fr) 16px; gap: 16px; align-items: center; min-height: 64px; padding: 12px 0px; border-top: 1px solid rgb(221, 214, 201); color: rgb(23, 20, 15);"><img alt="" loading="lazy" src="{% if section.settings.img11 != blank %}{{ section.settings.img11 | image_url: width: 2000 }}{% else %}{{ 'ms-graded-ochre-room.jpg' | asset_url }}{% endif %}" style="display: block; width: 64px; aspect-ratio: 4 / 5; object-fit: cover;"/><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.2;">Signature</span><span style="font-size: 12.5px; line-height: 1.5; color: rgb(110, 103, 92);">Seven systems</span></span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></a><a href="{% render 'ms-link', to: 'icons' %}" style="display: grid; grid-template-columns: 64px minmax(0px, 1fr) 16px; gap: 16px; align-items: center; min-height: 64px; padding: 12px 0px; border-top: 1px solid rgb(221, 214, 201); color: rgb(23, 20, 15);"><img alt="" loading="lazy" src="{% if section.settings.img12 != blank %}{{ section.settings.img12 | image_url: width: 2000 }}{% else %}{{ 'ms-graded-arches.jpg' | asset_url }}{% endif %}" style="display: block; width: 64px; aspect-ratio: 4 / 5; object-fit: cover;"/><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.2;">Icons</span><span style="font-size: 12.5px; line-height: 1.5; color: rgb(110, 103, 92);">Twelve systems</span></span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></a><a href="{% render 'ms-link', to: 'collections' %}" style="display: grid; grid-template-columns: minmax(0px, 1fr) 16px; gap: 16px; align-items: center; min-height: 64px; padding: 12px 0px; border-top: 1px solid rgb(221, 214, 201); color: rgb(23, 20, 15);"><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.2;">Compare beds</span><span style="font-size: 12.5px; line-height: 1.5; color: rgb(110, 103, 92);">The three compared side by side</span></span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></a></div><div data-ms-msub="heritage" hidden=""><div style="padding: 22px 0px 20px;"><div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(126, 98, 59);">02</div><div style="font-family: Newsreader, Georgia, serif; font-size: 38px; line-height: 1.05; letter-spacing: -0.025em; font-weight: 200; margin-top: 10px;">Heritage &amp; Craft</div><p style="font-size: 13.5px; line-height: 1.7; color: rgb(74, 68, 59); margin-top: 12px; max-width: 34ch;">How a Midsummer bed is made, and what it is made of.</p></div><a href="{% render 'ms-link', to: 'materials' %}" style="display: grid; grid-template-columns: minmax(0px, 1fr) 16px; gap: 16px; align-items: center; min-height: 64px; padding: 12px 0px; border-top: 1px solid rgb(221, 214, 201); color: rgb(23, 20, 15);"><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.2;">Natural materials</span><span style="font-size: 12.5px; line-height: 1.5; color: rgb(110, 103, 92);">Wool, horsehair, silk and linen</span></span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></a><a href="{% render 'ms-link', to: 'regen' %}" style="display: grid; grid-template-columns: minmax(0px, 1fr) 16px; gap: 16px; align-items: center; min-height: 64px; padding: 12px 0px; border-top: 1px solid rgb(221, 214, 201); color: rgb(23, 20, 15);"><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.2;">Made to last</span><span style="font-size: 12.5px; line-height: 1.5; color: rgb(110, 103, 92);">The 15 + 15 service, and how a bed lasts thirty years</span></span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></a><a data-ms-quiz-link="" href="{% render 'ms-link', to: 'quiz' %}" style="display: grid; grid-template-columns: minmax(0px, 1fr) 16px; gap: 16px; align-items: center; min-height: 64px; padding: 12px 0px; border-top: 1px solid rgb(221, 214, 201); color: rgb(23, 20, 15);"><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.2;">Find your Midsummer</span><span style="font-size: 12.5px; line-height: 1.5; color: rgb(110, 103, 92);">Five questions to your bed</span></span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></a></div><div data-ms-msub="pro" hidden=""><div style="padding: 22px 0px 20px;"><div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(126, 98, 59);">03</div><div style="font-family: Newsreader, Georgia, serif; font-size: 38px; line-height: 1.05; letter-spacing: -0.025em; font-weight: 200; margin-top: 10px;">Professionals</div><p style="font-size: 13.5px; line-height: 1.7; color: rgb(74, 68, 59); margin-top: 12px; max-width: 34ch;">For architects, interior designers, hotels and residences.</p></div>{%- capture ms_u14 -%}{% render 'ms-link', to: 'professionals', strict: true %}{%- endcapture -%}{%- if ms_u14 != blank -%}<a href="{{ ms_u14 }}" style="display: grid; grid-template-columns: minmax(0px, 1fr) 16px; gap: 16px; align-items: center; min-height: 64px; padding: 12px 0px; border-top: 1px solid rgb(221, 214, 201); color: rgb(23, 20, 15);"><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.2;">Architects &amp; interior designers</span><span style="font-size: 12.5px; line-height: 1.5; color: rgb(110, 103, 92);">Specification support</span></span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></a>{%- endif -%}{%- capture ms_u15 -%}{% render 'ms-link', to: 'hospitality', strict: true %}{%- endcapture -%}{%- if ms_u15 != blank -%}<a href="{{ ms_u15 }}" style="display: grid; grid-template-columns: minmax(0px, 1fr) 16px; gap: 16px; align-items: center; min-height: 64px; padding: 12px 0px; border-top: 1px solid rgb(221, 214, 201); color: rgb(23, 20, 15);"><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.2;">Hotels &amp; residences</span><span style="font-size: 12.5px; line-height: 1.5; color: rgb(110, 103, 92);">Volume and contract programmes</span></span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></a>{%- endif -%}<a href="{% render 'ms-link', to: 'agents' %}" style="display: grid; grid-template-columns: minmax(0px, 1fr) 16px; gap: 16px; align-items: center; min-height: 64px; padding: 12px 0px; border-top: 1px solid rgb(221, 214, 201); color: rgb(23, 20, 15);"><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.2;">Agents &amp; resellers</span><span style="font-size: 12.5px; line-height: 1.5; color: rgb(110, 103, 92);">Find Midsummer near you</span></span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></a></div><div data-ms-msub="contact" hidden=""><div style="padding: 22px 0px 20px;"><div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(126, 98, 59);">05</div><div style="font-family: Newsreader, Georgia, serif; font-size: 38px; line-height: 1.05; letter-spacing: -0.025em; font-weight: 200; margin-top: 10px;">Contact</div><p style="font-size: 13.5px; line-height: 1.7; color: rgb(74, 68, 59); margin-top: 12px; max-width: 34ch;">Visit the atelier on Via Andegari, or write to us.</p></div><a href="{% render 'ms-link', to: 'enquire' %}#enquire" style="display: grid; grid-template-columns: minmax(0px, 1fr) 16px; gap: 16px; align-items: center; min-height: 64px; padding: 12px 0px; border-top: 1px solid rgb(221, 214, 201); color: rgb(23, 20, 15);" data-ms-landing=""><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.2;">Enquire</span><span style="font-size: 12.5px; line-height: 1.5; color: rgb(110, 103, 92);">Seven kinds of enquiry, one page</span></span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></a><a href="{% render 'ms-link', to: 'enquire' %}?enquiry=appointment#enquire" style="display: grid; grid-template-columns: minmax(0px, 1fr) 16px; gap: 16px; align-items: center; min-height: 64px; padding: 12px 0px; border-top: 1px solid rgb(221, 214, 201); color: rgb(23, 20, 15);" data-ms-landing=""><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.2;">Book an appointment</span><span style="font-size: 12.5px; line-height: 1.5; color: rgb(110, 103, 92);">At the atelier or by video call</span></span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></a><a href="{% render 'ms-link', to: 'faq' %}" style="display: grid; grid-template-columns: minmax(0px, 1fr) 16px; gap: 16px; align-items: center; min-height: 64px; padding: 12px 0px; border-top: 1px solid rgb(221, 214, 201); color: rgb(23, 20, 15);"><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.2;">Questions</span><span style="font-size: 12.5px; line-height: 1.5; color: rgb(110, 103, 92);">Answers to common questions</span></span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></a><a href="{% render 'ms-link', to: 'agents' %}" style="display: grid; grid-template-columns: minmax(0px, 1fr) 16px; gap: 16px; align-items: center; min-height: 64px; padding: 12px 0px; border-top: 1px solid rgb(221, 214, 201); color: rgb(23, 20, 15);"><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.2;">Agents &amp; resellers</span><span style="font-size: 12.5px; line-height: 1.5; color: rgb(110, 103, 92);">Showrooms and agents worldwide</span></span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></a></div></div>
+</div><div data-ms-msub="beds" hidden=""><div style="padding: 22px 0px 20px;"><div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(126, 98, 59);">{{ section.settings.t24 }}</div><div style="font-family: Newsreader, Georgia, serif; font-size: 38px; line-height: 1.05; letter-spacing: -0.025em; font-weight: 200; margin-top: 10px;">{{ section.settings.t25 }}</div><p style="font-size: 13.5px; line-height: 1.7; color: rgb(74, 68, 59); margin-top: 12px; max-width: 34ch;">{{ section.settings.t26 }}</p></div><a href="{% render 'ms-link', to: 'essentials' %}" style="display: grid; grid-template-columns: 64px minmax(0px, 1fr) 16px; gap: 16px; align-items: center; min-height: 64px; padding: 12px 0px; border-top: 1px solid rgb(221, 214, 201); color: rgb(23, 20, 15);"><img alt="" loading="lazy" src="{% if section.settings.img4 != blank %}{{ section.settings.img4 | image_url: width: 2000 }}{% else %}{{ 'ms-graded-bougainvillea.jpg' | asset_url }}{% endif %}" style="display: block; width: 64px; aspect-ratio: 4 / 5; object-fit: cover;"/><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0px;">{{ section.settings.t27 }}</span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></a><a href="{% render 'ms-link', to: 'signature' %}" style="display: grid; grid-template-columns: 64px minmax(0px, 1fr) 16px; gap: 16px; align-items: center; min-height: 64px; padding: 12px 0px; border-top: 1px solid rgb(221, 214, 201); color: rgb(23, 20, 15);"><img alt="" loading="lazy" src="{% if section.settings.img5 != blank %}{{ section.settings.img5 | image_url: width: 2000 }}{% else %}{{ 'ms-graded-ochre-room.jpg' | asset_url }}{% endif %}" style="display: block; width: 64px; aspect-ratio: 4 / 5; object-fit: cover;"/><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0px;">{{ section.settings.t28 }}</span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></a><a href="{% render 'ms-link', to: 'icons' %}" style="display: grid; grid-template-columns: 64px minmax(0px, 1fr) 16px; gap: 16px; align-items: center; min-height: 64px; padding: 12px 0px; border-top: 1px solid rgb(221, 214, 201); color: rgb(23, 20, 15);"><img alt="" loading="lazy" src="{% if section.settings.img6 != blank %}{{ section.settings.img6 | image_url: width: 2000 }}{% else %}{{ 'ms-graded-arches.jpg' | asset_url }}{% endif %}" style="display: block; width: 64px; aspect-ratio: 4 / 5; object-fit: cover;"/><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0px;">{{ section.settings.t29 }}</span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></a><a href="{% render 'ms-link', to: 'collections' %}" style="display: grid; grid-template-columns: minmax(0px, 1fr) 16px; gap: 16px; align-items: center; min-height: 64px; padding: 12px 0px; border-top: 1px solid rgb(221, 214, 201); color: rgb(23, 20, 15);"><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0px;">{{ section.settings.t30 }}</span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></a><a data-ms-quiz-link="" href="{% render 'ms-link', to: 'quiz' %}" style="display: grid; grid-template-columns: minmax(0px, 1fr) 16px; gap: 16px; align-items: center; min-height: 64px; padding: 12px 0px; border-top: 1px solid rgb(221, 214, 201); color: rgb(23, 20, 15);"><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0px;">{{ section.settings.t31 }}</span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></a></div><div data-ms-msub="heritage" hidden=""><div style="padding: 22px 0px 20px;"><div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(126, 98, 59);">{{ section.settings.t32 }}</div><div style="font-family: Newsreader, Georgia, serif; font-size: 38px; line-height: 1.05; letter-spacing: -0.025em; font-weight: 200; margin-top: 10px;">{{ section.settings.t33 }}</div><p style="font-size: 13.5px; line-height: 1.7; color: rgb(74, 68, 59); margin-top: 12px; max-width: 34ch;">{{ section.settings.t34 }}</p></div><a href="{% render 'ms-link', to: 'story' %}" style="display: grid; grid-template-columns: minmax(0px, 1fr) 16px; gap: 16px; align-items: center; min-height: 64px; padding: 12px 0px; border-top: 1px solid rgb(221, 214, 201); color: rgb(23, 20, 15);"><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.2;">Our story</span><span style="font-size: 12.5px; line-height: 1.5; color: rgb(110, 103, 92);">A house of beds in Milan</span></span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></a><a href="{% render 'ms-link', to: 'handmade' %}" style="display: grid; grid-template-columns: minmax(0px, 1fr) 16px; gap: 16px; align-items: center; min-height: 64px; padding: 12px 0px; border-top: 1px solid rgb(221, 214, 201); color: rgb(23, 20, 15);"><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.2;">Handmade in Italy</span><span style="font-size: 12.5px; line-height: 1.5; color: rgb(110, 103, 92);">Two artisans, one bed</span></span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></a><a href="{% render 'ms-link', to: 'sleep-culture' %}" style="display: grid; grid-template-columns: minmax(0px, 1fr) 16px; gap: 16px; align-items: center; min-height: 64px; padding: 12px 0px; border-top: 1px solid rgb(221, 214, 201); color: rgb(23, 20, 15);"><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.2;">Sleep culture</span><span style="font-size: 12.5px; line-height: 1.5; color: rgb(110, 103, 92);">The art of sleeping well</span></span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></a><a href="{% render 'ms-link', to: 'materials' %}" style="display: grid; grid-template-columns: minmax(0px, 1fr) 16px; gap: 16px; align-items: center; min-height: 64px; padding: 12px 0px; border-top: 1px solid rgb(221, 214, 201); color: rgb(23, 20, 15);"><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.2;">Natural materials</span><span style="font-size: 12.5px; line-height: 1.5; color: rgb(110, 103, 92);">Wool, horsehair, silk and linen</span></span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></a><a href="{% render 'ms-link', to: 'loro' %}" style="display: grid; grid-template-columns: minmax(0px, 1fr) 16px; gap: 16px; align-items: center; min-height: 64px; padding: 12px 0px; border-top: 1px solid rgb(221, 214, 201); color: rgb(23, 20, 15);"><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.2;">Loro Piana Interiors</span><span style="font-size: 12.5px; line-height: 1.5; color: rgb(110, 103, 92);">The fabrics we upholster in</span></span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></a><a href="{% render 'ms-link', to: 'regen' %}" style="display: grid; grid-template-columns: minmax(0px, 1fr) 16px; gap: 16px; align-items: center; min-height: 64px; padding: 12px 0px; border-top: 1px solid rgb(221, 214, 201); color: rgb(23, 20, 15);"><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.2;">Made to last · 15 + 15</span><span style="font-size: 12.5px; line-height: 1.5; color: rgb(110, 103, 92);">Regenerated at fifteen years</span></span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></a></div><div data-ms-msub="pro" hidden=""><div style="padding: 22px 0px 20px;"><div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(126, 98, 59);">03</div><div style="font-family: Newsreader, Georgia, serif; font-size: 38px; line-height: 1.05; letter-spacing: -0.025em; font-weight: 200; margin-top: 10px;">Professionals</div><p style="font-size: 13.5px; line-height: 1.7; color: rgb(74, 68, 59); margin-top: 12px; max-width: 34ch;">For architects, interior designers, hotels and residences.</p></div><a href="{% render 'ms-link', to: 'professionals' %}" style="display: grid; grid-template-columns: minmax(0px, 1fr) 16px; gap: 16px; align-items: center; min-height: 64px; padding: 12px 0px; border-top: 1px solid rgb(221, 214, 201); color: rgb(23, 20, 15);"><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.2;">Architects &amp; Interior Designers</span><span style="font-size: 12.5px; line-height: 1.5; color: rgb(110, 103, 92);">Specification support</span></span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></a><a href="{% render 'ms-link', to: 'hospitality' %}" style="display: grid; grid-template-columns: minmax(0px, 1fr) 16px; gap: 16px; align-items: center; min-height: 64px; padding: 12px 0px; border-top: 1px solid rgb(221, 214, 201); color: rgb(23, 20, 15);"><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.2;">Hospitality &amp; Contract</span><span style="font-size: 12.5px; line-height: 1.5; color: rgb(110, 103, 92);">Hotels and residences</span></span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></a><a href="{% render 'ms-link', to: 'agents' %}" style="display: grid; grid-template-columns: minmax(0px, 1fr) 16px; gap: 16px; align-items: center; min-height: 64px; padding: 12px 0px; border-top: 1px solid rgb(221, 214, 201); color: rgb(23, 20, 15);"><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.2;">Agents &amp; Resellers</span><span style="font-size: 12.5px; line-height: 1.5; color: rgb(110, 103, 92);">Showrooms worldwide</span></span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></a></div><div data-ms-msub="contact" hidden=""><div style="padding: 22px 0px 20px;"><div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(126, 98, 59);">05</div><div style="font-family: Newsreader, Georgia, serif; font-size: 38px; line-height: 1.05; letter-spacing: -0.025em; font-weight: 200; margin-top: 10px;">Contact</div><p style="font-size: 13.5px; line-height: 1.7; color: rgb(74, 68, 59); margin-top: 12px; max-width: 34ch;">Visit the atelier on Via Andegari, or write to us.</p></div><a href="{% render 'ms-link', to: 'enquire' %}#enquire" style="display: grid; grid-template-columns: minmax(0px, 1fr) 16px; gap: 16px; align-items: center; min-height: 64px; padding: 12px 0px; border-top: 1px solid rgb(221, 214, 201); color: rgb(23, 20, 15);" data-ms-landing=""><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.2;">Enquire</span><span style="font-size: 12.5px; line-height: 1.5; color: rgb(110, 103, 92);">Seven kinds of enquiry, one page</span></span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></a><a href="{% render 'ms-link', to: 'enquire', q: 'enquiry=appointment' %}#enquire" style="display: grid; grid-template-columns: minmax(0px, 1fr) 16px; gap: 16px; align-items: center; min-height: 64px; padding: 12px 0px; border-top: 1px solid rgb(221, 214, 201); color: rgb(23, 20, 15);" data-ms-landing=""><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.2;">Book an appointment</span><span style="font-size: 12.5px; line-height: 1.5; color: rgb(110, 103, 92);">At the atelier or by video call</span></span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></a><a href="{% render 'ms-link', to: 'faq' %}" style="display: grid; grid-template-columns: minmax(0px, 1fr) 16px; gap: 16px; align-items: center; min-height: 64px; padding: 12px 0px; border-top: 1px solid rgb(221, 214, 201); color: rgb(23, 20, 15);"><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.2;">Questions</span><span style="font-size: 12.5px; line-height: 1.5; color: rgb(110, 103, 92);">Answers to common questions</span></span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></a><a href="{% render 'ms-link', to: 'agents' %}" style="display: grid; grid-template-columns: minmax(0px, 1fr) 16px; gap: 16px; align-items: center; min-height: 64px; padding: 12px 0px; border-top: 1px solid rgb(221, 214, 201); color: rgb(23, 20, 15);"><span style="display: flex; flex-direction: column; gap: 4px; min-width: 0px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.2;">Agents &amp; Resellers</span><span style="font-size: 12.5px; line-height: 1.5; color: rgb(110, 103, 92);">Showrooms worldwide</span></span><svg aria-hidden="true" height="14" style="display: block; justify-self: end;" viewbox="0 0 16 16" width="14"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg></a></div></div>
 <div style="flex: 0 0 auto; padding: 14px 18px 16px; border-top: 1px solid rgb(221, 214, 201); background: rgb(251, 249, 245);">
-<a class="scp0" href="{% render 'ms-link', to: 'enquire' %}?enquiry=appointment#enquire" style="display: flex; align-items: center; justify-content: center; gap: 14px; min-height: 54px; background: rgb(23, 20, 15); color: rgb(251, 249, 245); font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase;" data-ms-landing="">Book a private appointment</a>
+<a class="scp0" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=appointment' %}#enquire" style="display: flex; align-items: center; justify-content: center; gap: 14px; min-height: 54px; background: rgb(23, 20, 15); color: rgb(251, 249, 245); font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase;" data-ms-landing="">Book a private appointment</a>
 <div style="font-size: 12px; line-height: 1.5; color: rgb(110, 103, 92); text-align: center; margin-top: 10px;">At our Milan atelier, or by video call</div><div style="margin-top: 18px; display: flex; justify-content: center;">{% render 'ms-social' %}</div>
 </div></div></div>
 {% schema %}
@@ -175,17 +53,17 @@
     {
       "type": "image_picker",
       "id": "img2",
-      "label": "Image: Essentials"
+      "label": "Image: Midsummer Milano"
     },
     {
       "type": "image_picker",
       "id": "img3",
-      "label": "Image: Signature"
+      "label": "Image 3"
     },
     {
       "type": "image_picker",
       "id": "img4",
-      "label": "Image: Icons"
+      "label": "Image 4"
     },
     {
       "type": "image_picker",
@@ -196,36 +74,6 @@
       "type": "image_picker",
       "id": "img6",
       "label": "Image 6"
-    },
-    {
-      "type": "image_picker",
-      "id": "img7",
-      "label": "Image 7"
-    },
-    {
-      "type": "image_picker",
-      "id": "img8",
-      "label": "Image: Midsummer Milano"
-    },
-    {
-      "type": "image_picker",
-      "id": "img9",
-      "label": "Image 9"
-    },
-    {
-      "type": "image_picker",
-      "id": "img10",
-      "label": "Image 10"
-    },
-    {
-      "type": "image_picker",
-      "id": "img11",
-      "label": "Image 11"
-    },
-    {
-      "type": "image_picker",
-      "id": "img12",
-      "label": "Image 12"
     },
     {
       "type": "text",
@@ -264,136 +112,513 @@
       "default": "Book an appointment"
     },
     {
-      "type": "html",
+      "type": "text",
       "id": "t7",
-      "label": "IEssentials",
-      "default": "<span style=\"font-family: Newsreader, Georgia, serif; font-size: 12px; color: rgb(154, 123, 79);\">I</span><span style=\"font-family: Newsreader, Georgia, serif; font-size: 22px;\">Essentials</span>"
+      "label": "Menu",
+      "default": "Menu"
     },
     {
       "type": "text",
       "id": "t8",
-      "label": "Five systems",
-      "default": "Five systems"
+      "label": "Close",
+      "default": "Close"
     },
     {
-      "type": "html",
+      "type": "text",
       "id": "t9",
-      "label": "IISignature",
-      "default": "<span style=\"font-family: Newsreader, Georgia, serif; font-size: 12px; color: rgb(154, 123, 79);\">II</span><span style=\"font-family: Newsreader, Georgia, serif; font-size: 22px;\">Signature</span>"
+      "label": "01",
+      "default": "01"
     },
     {
       "type": "text",
       "id": "t10",
-      "label": "Seven systems",
-      "default": "Seven systems"
+      "label": "Our Beds",
+      "default": "Our Beds"
     },
     {
-      "type": "html",
+      "type": "text",
       "id": "t11",
-      "label": "IIIIcons",
-      "default": "<span style=\"font-family: Newsreader, Georgia, serif; font-size: 12px; color: rgb(154, 123, 79);\">III</span><span style=\"font-family: Newsreader, Georgia, serif; font-size: 22px;\">Icons</span>"
+      "label": "02",
+      "default": "02"
     },
     {
       "type": "text",
       "id": "t12",
-      "label": "Twelve systems",
-      "default": "Twelve systems"
+      "label": "Heritage & Craft",
+      "default": "Heritage & Craft"
     },
     {
       "type": "text",
       "id": "t13",
-      "label": "By type",
-      "default": "By type"
+      "label": "03",
+      "default": "03"
     },
     {
       "type": "text",
       "id": "t14",
-      "label": "Mattresses",
-      "default": "Mattresses"
+      "label": "Professionals",
+      "default": "Professionals"
     },
     {
       "type": "text",
       "id": "t15",
-      "label": "Toppers",
-      "default": "Toppers"
+      "label": "04",
+      "default": "04"
     },
     {
       "type": "text",
       "id": "t16",
-      "label": "Bases",
-      "default": "Bases"
+      "label": "Journal",
+      "default": "Journal"
     },
     {
       "type": "text",
       "id": "t17",
-      "label": "Headboards",
-      "default": "Headboards"
+      "label": "05",
+      "default": "05"
     },
     {
       "type": "text",
       "id": "t18",
-      "label": "Bedding",
-      "default": "Bedding"
+      "label": "Contact",
+      "default": "Contact"
     },
     {
-      "type": "text",
+      "type": "html",
       "id": "t19",
-      "label": "Bespoke",
-      "default": "Bespoke"
+      "label": "Five questionsFind your MidsummerT…",
+      "default": "<span style=\"font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(126, 98, 59);\">Five questions</span><span style=\"font-family: Newsreader, Georgia, serif; font-size: 21px; line-height: 1.2;\">Find your Midsummer</span><span style=\"font-size: 13px; line-height: 1.55; color: rgb(74, 68, 59);\">The bed that suits the way you sleep.</span>"
     },
     {
       "type": "text",
       "id": "t20",
-      "label": "Compare beds",
-      "default": "Compare beds"
+      "label": "Store locator",
+      "default": "Store locator"
     },
     {
       "type": "text",
       "id": "t21",
-      "label": "Find Your Midsummer",
-      "default": "Find Your Midsummer"
+      "label": "Questions",
+      "default": "Questions"
     },
     {
       "type": "text",
       "id": "t22",
-      "label": "The house",
-      "default": "The house"
+      "label": "Search",
+      "default": "Search"
     },
     {
       "type": "text",
       "id": "t23",
-      "label": "Our Story",
-      "default": "Our Story"
+      "label": "Visit the atelier",
+      "default": "Visit the atelier"
     },
     {
       "type": "text",
       "id": "t24",
-      "label": "Handmade in Italy",
-      "default": "Handmade in Italy"
+      "label": "01",
+      "default": "01"
     },
     {
       "type": "text",
       "id": "t25",
-      "label": "Sleep Culture",
-      "default": "Sleep Culture"
+      "label": "Our Beds",
+      "default": "Our Beds"
     },
     {
       "type": "text",
       "id": "t26",
-      "label": "Materials & service",
-      "default": "Materials & service"
+      "label": "Twenty-four systems in three colle…",
+      "default": "Twenty-four systems in three collections, each one built to order."
     },
     {
-      "type": "text",
+      "type": "html",
       "id": "t27",
-      "label": "Natural Materials",
-      "default": "Natural Materials"
+      "label": "EssentialsFive systems",
+      "default": "<span style=\"font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.2;\">Essentials</span><span style=\"font-size: 12.5px; line-height: 1.5; color: rgb(110, 103, 92);\">Five systems</span>"
+    },
+    {
+      "type": "html",
+      "id": "t28",
+      "label": "SignatureSeven systems",
+      "default": "<span style=\"font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.2;\">Signature</span><span style=\"font-size: 12.5px; line-height: 1.5; color: rgb(110, 103, 92);\">Seven systems</span>"
+    },
+    {
+      "type": "html",
+      "id": "t29",
+      "label": "IconsTwelve systems",
+      "default": "<span style=\"font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.2;\">Icons</span><span style=\"font-size: 12.5px; line-height: 1.5; color: rgb(110, 103, 92);\">Twelve systems</span>"
+    },
+    {
+      "type": "html",
+      "id": "t30",
+      "label": "Compare the collectionsThe three s…",
+      "default": "<span style=\"font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.2;\">Compare the collections</span><span style=\"font-size: 12.5px; line-height: 1.5; color: rgb(110, 103, 92);\">The three side by side</span>"
+    },
+    {
+      "type": "html",
+      "id": "t31",
+      "label": "Find your MidsummerFive questions …",
+      "default": "<span style=\"font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.2;\">Find your Midsummer</span><span style=\"font-size: 12.5px; line-height: 1.5; color: rgb(110, 103, 92);\">Five questions to your bed</span>"
     },
     {
       "type": "text",
-      "id": "t28",
-      "label": "Sustainability",
-      "default": "Sustainability"
+      "id": "t32",
+      "label": "02",
+      "default": "02"
+    },
+    {
+      "type": "text",
+      "id": "t33",
+      "label": "Heritage & Craft",
+      "default": "Heritage & Craft"
+    },
+    {
+      "type": "text",
+      "id": "t34",
+      "label": "How a Midsummer bed is made, and w…",
+      "default": "How a Midsummer bed is made, and what it is made of."
+    },
+    {
+      "type": "header",
+      "content": "Menu panels"
+    },
+    {
+      "type": "text",
+      "id": "mg_address",
+      "label": "Address",
+      "default": "Via Andegari 4, 20121 Milano"
+    },
+    {
+      "type": "text",
+      "id": "mg_hours",
+      "label": "Hours",
+      "default": "By appointment, Monday to Friday"
+    },
+    {
+      "type": "text",
+      "id": "mg_book",
+      "label": "Appointment link",
+      "default": "Book an appointment"
+    },
+    {
+      "type": "textarea",
+      "id": "mg_beds_lede",
+      "label": "Our beds: line",
+      "default": "Twenty-four systems in three collections, each built to order by two artisans in Milan."
+    },
+    {
+      "type": "text",
+      "id": "mg_compare",
+      "label": "Our beds: compare",
+      "default": "Compare the collections"
+    },
+    {
+      "type": "text",
+      "id": "mg_quiz",
+      "label": "Our beds: quiz",
+      "default": "Find your Midsummer"
+    },
+    {
+      "type": "text",
+      "id": "mg_proposal",
+      "label": "Our beds: proposal",
+      "default": "Request a proposal"
+    },
+    {
+      "type": "image_picker",
+      "id": "mg_img_essentials",
+      "label": "Essentials photograph"
+    },
+    {
+      "type": "text",
+      "id": "mg_essentials",
+      "label": "Essentials line",
+      "default": "The entry into the Midsummer world: natural fibres, artisan construction, clean lines."
+    },
+    {
+      "type": "image_picker",
+      "id": "mg_img_signature",
+      "label": "Signature photograph"
+    },
+    {
+      "type": "text",
+      "id": "mg_signature",
+      "label": "Signature line",
+      "default": "Loro Piana Interiors fabrics over spring architectures designed for the highest comfort."
+    },
+    {
+      "type": "image_picker",
+      "id": "mg_img_icons",
+      "label": "Icons photograph"
+    },
+    {
+      "type": "text",
+      "id": "mg_icons",
+      "label": "Icons line",
+      "default": "The most important pieces we make. Completely bespoke, with no equivalent."
+    },
+    {
+      "type": "textarea",
+      "id": "mg_heritage_lede",
+      "label": "Heritage: line",
+      "default": "How a Midsummer bed is made, what it is made of, and why it lasts thirty years."
+    },
+    {
+      "type": "image_picker",
+      "id": "mg_img_heritage",
+      "label": "Heritage photograph (first)"
+    },
+    {
+      "type": "text",
+      "id": "mg_h1",
+      "label": "Heritage 1",
+      "default": "Our story"
+    },
+    {
+      "type": "text",
+      "id": "mg_h1_note",
+      "label": "Heritage 1 line",
+      "default": "A house of beds in Milan"
+    },
+    {
+      "type": "text",
+      "id": "mg_h2",
+      "label": "Heritage 2",
+      "default": "Handmade in Italy"
+    },
+    {
+      "type": "text",
+      "id": "mg_h2_note",
+      "label": "Heritage 2 line",
+      "default": "Two artisans, one bed"
+    },
+    {
+      "type": "text",
+      "id": "mg_h3",
+      "label": "Heritage 3",
+      "default": "Sleep culture"
+    },
+    {
+      "type": "text",
+      "id": "mg_h3_note",
+      "label": "Heritage 3 line",
+      "default": "The art of sleeping well"
+    },
+    {
+      "type": "text",
+      "id": "mg_h4",
+      "label": "Heritage 4",
+      "default": "Natural materials"
+    },
+    {
+      "type": "text",
+      "id": "mg_h4_note",
+      "label": "Heritage 4 line",
+      "default": "Wool, horsehair, silk, cashmere"
+    },
+    {
+      "type": "text",
+      "id": "mg_h5",
+      "label": "Heritage 5",
+      "default": "Loro Piana Interiors"
+    },
+    {
+      "type": "text",
+      "id": "mg_h5_note",
+      "label": "Heritage 5 line",
+      "default": "The fabrics we upholster in"
+    },
+    {
+      "type": "text",
+      "id": "mg_h6",
+      "label": "Heritage 6",
+      "default": "Made to last · 15 + 15"
+    },
+    {
+      "type": "text",
+      "id": "mg_h6_note",
+      "label": "Heritage 6 line",
+      "default": "Regenerated at fifteen years"
+    },
+    {
+      "type": "text",
+      "id": "mg_h7",
+      "label": "Heritage 7",
+      "default": "Find your Midsummer"
+    },
+    {
+      "type": "text",
+      "id": "mg_h7_note",
+      "label": "Heritage 7 line",
+      "default": "Five questions to your bed"
+    },
+    {
+      "type": "textarea",
+      "id": "mg_pro_lede",
+      "label": "Professionals: line",
+      "default": "For architects, interior designers, hotels and residences: drawings, samples and a single contact from brief to installation."
+    },
+    {
+      "type": "image_picker",
+      "id": "mg_img_pro",
+      "label": "Professionals photograph (first)"
+    },
+    {
+      "type": "text",
+      "id": "mg_p1",
+      "label": "Professionals 1",
+      "default": "Architects & Interior Designers"
+    },
+    {
+      "type": "text",
+      "id": "mg_p1_note",
+      "label": "Professionals 1 line",
+      "default": "Specification support"
+    },
+    {
+      "type": "text",
+      "id": "mg_p2",
+      "label": "Professionals 2",
+      "default": "Hospitality & Contract"
+    },
+    {
+      "type": "text",
+      "id": "mg_p2_note",
+      "label": "Professionals 2 line",
+      "default": "Hotels and residences"
+    },
+    {
+      "type": "text",
+      "id": "mg_p3",
+      "label": "Professionals 3",
+      "default": "Agents & Resellers"
+    },
+    {
+      "type": "text",
+      "id": "mg_p3_note",
+      "label": "Professionals 3 line",
+      "default": "Showrooms worldwide"
+    },
+    {
+      "type": "text",
+      "id": "mg_p4",
+      "label": "Professionals 4",
+      "default": "Become a partner"
+    },
+    {
+      "type": "text",
+      "id": "mg_p4_note",
+      "label": "Professionals 4 line",
+      "default": "Represent Midsummer"
+    },
+    {
+      "type": "text",
+      "id": "mg_p5",
+      "label": "Professionals 5",
+      "default": "Trade enquiry"
+    },
+    {
+      "type": "text",
+      "id": "mg_p5_note",
+      "label": "Professionals 5 line",
+      "default": "Samples, drawings, pricing"
+    },
+    {
+      "type": "textarea",
+      "id": "mg_journal_lede",
+      "label": "Journal: line",
+      "default": "Notes from the atelier on sleep, natural fibres and the houses our beds go to."
+    },
+    {
+      "type": "text",
+      "id": "mg_all_notes",
+      "label": "Journal: all notes",
+      "default": "All notes"
+    },
+    {
+      "type": "text",
+      "id": "mg_questions",
+      "label": "Journal: questions",
+      "default": "Questions"
+    },
+    {
+      "type": "text",
+      "id": "mg_note_label",
+      "label": "Journal: note label",
+      "default": "From the Journal"
+    },
+    {
+      "type": "textarea",
+      "id": "mg_contact_lede",
+      "label": "Contact: line",
+      "default": "Come and lie down at the atelier in Milan, or speak to us by video. One person answers every enquiry."
+    },
+    {
+      "type": "text",
+      "id": "mg_c1",
+      "label": "Contact 1",
+      "default": "Book an appointment"
+    },
+    {
+      "type": "text",
+      "id": "mg_c1_note",
+      "label": "Contact 1 line",
+      "default": "At the atelier or by video"
+    },
+    {
+      "type": "text",
+      "id": "mg_c2",
+      "label": "Contact 2",
+      "default": "Request a proposal"
+    },
+    {
+      "type": "text",
+      "id": "mg_c2_note",
+      "label": "Contact 2 line",
+      "default": "For a room, a house, a project"
+    },
+    {
+      "type": "text",
+      "id": "mg_c3",
+      "label": "Contact 3",
+      "default": "Direct contact"
+    },
+    {
+      "type": "text",
+      "id": "mg_c3_note",
+      "label": "Contact 3 line",
+      "default": "Telephone and email"
+    },
+    {
+      "type": "text",
+      "id": "mg_c4_note",
+      "label": "WhatsApp line",
+      "default": "Write to the atelier"
+    },
+    {
+      "type": "text",
+      "id": "mg_c5",
+      "label": "Contact 5",
+      "default": "The Milano atelier"
+    },
+    {
+      "type": "text",
+      "id": "mg_c5_note",
+      "label": "Contact 5 line",
+      "default": "Via Andegari 4"
+    },
+    {
+      "type": "text",
+      "id": "mg_c6",
+      "label": "Contact 6",
+      "default": "Questions"
+    },
+    {
+      "type": "text",
+      "id": "mg_c6_note",
+      "label": "Contact 6 line",
+      "default": "Answers before you ask"
     }
   ],
   "tag": "div",

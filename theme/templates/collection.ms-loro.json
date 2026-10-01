@@ -1,0 +1,174 @@
+/*
+ * Midsummer Milano: the loro page, reachable before its page exists in admin (?view=ms-loro).
+ */
+{
+  "layout": "ms",
+  "sections": {
+    "s01": {
+      "type": "ms-banner",
+      "settings": {
+        "image_fallback": "ms-graded-paisley-red.jpg",
+        "eyebrow": "Upholstery",
+        "use_page_title": true,
+        "heading": "Loro Piana Interiors",
+        "height": "tall",
+        "text": "The fabric leads; the springwork does the rest."
+      }
+    },
+    "s02": {
+      "type": "ms-statement",
+      "settings": {
+        "eyebrow": "Loro Piana Interiors",
+        "use_content": true,
+        "heading": "We upholster our systems in Loro Piana Interiors fabrics, which change with the seasons as our needs do.",
+        "text": "<p>Exclusive blends of precious natural fibres, yak, camel hair, silk and cashmere, over spring architectures designed for the highest comfort. Every Signature and Icons system is upholstered in them, and the cloth is chosen for the room at consultation.</p>"
+      }
+    },
+    "s03": {
+      "type": "ms-swatches",
+      "settings": {
+        "eyebrow": "The palette",
+        "heading": "Seven of the palette, shown here.",
+        "text": "<p>The full range, and your own cloth, at consultation. Each colour is seen and chosen against the bed at the atelier on Via Andegari.</p>",
+        "footnote": "Colours on screen are indicative; the cloth itself decides."
+      },
+      "blocks": {
+        "swatch_01": {
+          "type": "swatch",
+          "settings": {
+            "name": "Paisley",
+            "color": "#C4714A"
+          }
+        },
+        "swatch_02": {
+          "type": "swatch",
+          "settings": {
+            "name": "Kummel",
+            "color": "#8E8672"
+          }
+        },
+        "swatch_03": {
+          "type": "swatch",
+          "settings": {
+            "name": "Tawny",
+            "color": "#A9764B"
+          }
+        },
+        "swatch_04": {
+          "type": "swatch",
+          "settings": {
+            "name": "Burnt Orange",
+            "color": "#B4552B"
+          }
+        },
+        "swatch_05": {
+          "type": "swatch",
+          "settings": {
+            "name": "Earthy Neutral",
+            "color": "#C9BCA8"
+          }
+        },
+        "swatch_06": {
+          "type": "swatch",
+          "settings": {
+            "name": "Verdant Green",
+            "color": "#5E6B4F"
+          }
+        },
+        "swatch_07": {
+          "type": "swatch",
+          "settings": {
+            "name": "Muted Blue",
+            "color": "#6B7E8C"
+          }
+        }
+      },
+      "block_order": [
+        "swatch_01",
+        "swatch_02",
+        "swatch_03",
+        "swatch_04",
+        "swatch_05",
+        "swatch_06",
+        "swatch_07"
+      ]
+    },
+    "s04": {
+      "type": "ms-statement",
+      "settings": {
+        "tone": "stone",
+        "eyebrow": "Seasonal upholstery",
+        "heading": "Dressed twice a year, without anything being replaced.",
+        "text": "<p>Loro Piana Interiors on one face, linen and silk on the other. The upholstery is turned when the season changes, so the same bed is dressed for winter and for summer.</p>"
+      }
+    },
+    "s05": {
+      "type": "ms-image-pair",
+      "settings": {
+        "eyebrow": "Paisley",
+        "heading": "Shadan, in silk and linen.",
+        "image_1": "shopify://shop_images/Paisleydettaglio.jpg",
+        "fallback_1": "https://midsummer-milano.com/cdn/shop/files/Paisleydettaglio.jpg?v=1788246821&width=1400",
+        "caption_1": "The seam is sewn by the same hands that opened the core.",
+        "image_2": "shopify://shop_images/Paisley_IMG_4918_low_70960abc-6877-49b2-abc8-0bd379994114.jpg",
+        "fallback_2": "https://midsummer-milano.com/cdn/shop/files/Paisley_IMG_4918_low_70960abc-6877-49b2-abc8-0bd379994114.jpg?v=1777114994&width=1400",
+        "caption_2": "Headboard specified to the client's drawing, without additional tooling."
+      }
+    },
+    "s06": {
+      "type": "ms-collection-cards",
+      "settings": {
+        "eyebrow": "Where you will find it",
+        "heading": "Signature and Icons",
+        "link_label": "All twenty-four →"
+      },
+      "blocks": {
+        "collection_01": {
+          "type": "collection",
+          "settings": {
+            "handle": "signature",
+            "title": "Signature",
+            "numeral": "II",
+            "image_fallback": "ms-graded-ochre-room.jpg",
+            "text": "Loro Piana Interiors fabrics over spring architectures designed for the highest comfort. Seven systems."
+          }
+        },
+        "collection_02": {
+          "type": "collection",
+          "settings": {
+            "handle": "icons",
+            "title": "Icons",
+            "numeral": "III",
+            "image_fallback": "ms-graded-arches.jpg",
+            "text": "Fully upholstered in Loro Piana Interiors. Twelve systems, completely bespoke."
+          }
+        }
+      },
+      "block_order": [
+        "collection_01",
+        "collection_02"
+      ]
+    },
+    "s07": {
+      "type": "ms-cta-band",
+      "settings": {
+        "eyebrow": "The atelier",
+        "heading": "See the cloths in Milano.",
+        "text": "<p>The Loro Piana Interiors range is at the atelier on Via Andegari. Choose it against the bed, or ask us for samples by post.</p>",
+        "button": "Book a private appointment",
+        "button_enquire": true,
+        "link_label": "Request the brochure",
+        "link_enquire": true
+      }
+    }
+  },
+  "order": [
+    "s01",
+    "s02",
+    "s03",
+    "s04",
+    "s05",
+    "s06",
+    "s07"
+  ]
+}
