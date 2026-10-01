@@ -18,7 +18,7 @@
 -%}
 {%- if ms_show -%}
 <section data-dc-tpl="960" style="position: relative; overflow: hidden;">
-<img alt="" data-ms="band" src="{% if section.settings.img1 != blank %}{{ section.settings.img1 | image_url: width: 2000 }}{% else %}{{ 'ms-graded-horse.jpg' | asset_url }}{% endif %}" style="width: 100%; height: min(64vh, 600px); object-fit: cover;"/>
+<img width="1600" height="1000" alt="" data-ms="band" src="{% if section.settings.img1 != blank %}{{ section.settings.img1 | image_url: width: 2000 }}{% else %}{{ 'ms-graded-horse.jpg' | asset_url }}{% endif %}" style="width: 100%; height: min(64vh, 600px); object-fit: cover;"/>
 <div style="position: absolute; inset: 0px; background: rgba(10, 8, 6, 0.42);"></div>
 <div style="position: absolute; inset: 0px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 22px; padding: clamp(26px, 5vw, 80px); color: rgb(251, 249, 245);">
 <h2 style="font-family: Newsreader, Georgia, serif; font-size: clamp(28px, 4vw, 56px); line-height: 1.06; letter-spacing: -0.025em; max-width: 20ch;">{{ section.settings.t1 }}</h2>

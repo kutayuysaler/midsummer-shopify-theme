@@ -4,6 +4,30 @@
 band of every screen is its own section. The fonts, the logotype, the graded
 photographs, the press logos and the map ship inside the theme.
 
+## Start here: what you need to do
+
+**Everything works the moment you upload the theme. You do not have to create any page.**
+
+1. **Upload and publish** `midsummer-milano-atelier.zip` (section 1).
+2. **That's it for the site to work.** Every menu entry opens a finished page. Where the
+   store has no page yet, the theme shows the same design at a stand-in address (section 11).
+   - **The enquiry page:** menu **Contact → Enquire** (the solid button at the top of the
+     Contact panel), and every "Enquire" link in the menus and footer. The top-right
+     **Book an appointment** still opens the side sheet, as agreed.
+   - **The Agents & Resellers world map:** menu **Contact → Agents & Resellers**,
+     **Professionals → Agents & Resellers** (the button in the panel), **Contact → The
+     Milano atelier**, and **Agents & resellers** in the footer.
+3. **Recommended for Google and AI search (10 minutes):** create the four pages in section 3
+   (Architects & Interior Designers, Hospitality, Handmade in Italy, Sleep Culture). A
+   stand-in address works for visitors but is kept out of search results on purpose, so
+   only a real page gets its own clean address in Google. The menus switch to the real page
+   on their own as soon as it exists.
+4. **Recommended:** add one URL redirect for AI search: **Online Store → Navigation → URL
+   redirects → Create**, from `/llms.txt` to `/?view=llms` (section 13).
+5. **Optional:** in **Theme settings → Midsummer · Social**, check your account addresses.
+   They feed the icons and tell Google which profiles are yours. In the theme editor,
+   under **Structured data**, add the atelier's telephone number.
+
 ## 1. Upload
 
 **Online Store → Themes → Add theme → Upload zip file** → `midsummer-milano-atelier.zip`,
@@ -432,7 +456,7 @@ without uploading anything:
 | Window and armchair (AMB_05) | Sleep culture in the menu |
 | Glass house in the forest (MODERNA_01) | Hospitality page and panel |
 | Tufted mattress detail (DSC3726) | Handmade in Italy · the tufting |
-| Cashmere throw (A8447515) | Home · Only what nature makes |
+| Cashmere throw (A8447515) | Home · Only what nature makes; Natural materials opening |
 | Paisley throw (A8447571) | Loro Piana Interiors page and menu; Follow |
 | Silk and stitching (A8447706) | Handmade in Italy · the border |
 | Linen sheets, cream blanket | Sleep culture · temperature, the seasons |
@@ -452,3 +476,33 @@ section.
 **Too large to bring across here (over 10 MB each):** the craftsmen at work (IMG_1111–1114)
 and the high-resolution craftsman portrait (Frugone TIF). Upload them under Settings → Files
 and pick them in Handmade in Italy. The portrait in the theme is small and looks softer.
+
+## 13. Search engines and AI search (SEO and GEO)
+
+Already done in the theme, with nothing to set:
+
+- **One heading per page.** Every page has exactly one main title (h1). The quiz overlay no
+  longer adds a second one.
+- **Titles and descriptions.** Every page has a title and a meta description. Pages that
+  have none in admin get one written for them. The stand-in pages carry their own title
+  and description and are kept out of search results (`noindex`), so Google only lists the
+  real pages.
+- **Sharing.** Every page has a picture for WhatsApp, iMessage, LinkedIn and Facebook
+  previews (the atelier, when the page has none of its own).
+- **Structured data (schema.org).** The house as an Organisation and shop, with the
+  atelier's address, opening hours, map position, founder (Chiara Mennini), logo, contact
+  point and every social profile from Theme settings. Also the website with site search,
+  breadcrumbs, each product (made in Italy, made to measure, price on request) and each
+  Journal article. The FAQ page is marked up as questions and answers.
+- **Speed and stability.** Every picture states its size, so nothing jumps while the page
+  loads. Pictures below the first screen load only when reached, and the two fonts are
+  preloaded.
+- **AI search (GEO).** `/?view=llms` is a plain summary of the house for ChatGPT,
+  Perplexity, Gemini and Claude: who you are, the key facts, every collection and product
+  with a line about it, the professional pages, and the press. It is built from the store
+  live, so it never goes out of date. Add the redirect in **Start here**, step 4, so it
+  also answers at the standard address `/llms.txt`. `robots.txt` keeps Shopify's own
+  rules and points to it.
+
+The step texts and figures written for the designed pages are a first draft; please check
+them against how the beds are really made.

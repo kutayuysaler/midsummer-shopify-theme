@@ -17,7 +17,13 @@
   endif
 -%}
 {%- if ms_show -%}
-{%- render 'ms-quiz', label: section.settings.label, result_label: section.settings.result_label -%}
+{%- liquid
+  assign qtag = 'h1'
+  if template.name == 'article' or template.name == 'product' or template.name == 'index' or template.name == 'blog'
+    assign qtag = 'p'
+  endif
+-%}
+{%- render 'ms-quiz', tag: qtag, label: section.settings.label, result_label: section.settings.result_label -%}
 {%- endif -%}
 {% schema %}
 {

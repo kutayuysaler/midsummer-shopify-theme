@@ -5,17 +5,17 @@
 </div>
 <div data-ms="rail" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: clamp(20px, 3vw, 48px);">
 <a href="{% render 'ms-link', to: 'journal' %}" style="display: block;">
-<img alt="" src="{% if section.settings.img1 != blank %}{{ section.settings.img1 | image_url: width: 2000 }}{% else %}https://midsummer-milano.com/cdn/shop/files/Vicuna-mattress.jpg?v=1748611838&amp;width=900{% endif %}" style="width: 100%; aspect-ratio: 4 / 3; object-fit: cover;"/>
+<img width="1200" height="900" alt="" src="{% if section.settings.img1 != blank %}{{ section.settings.img1 | image_url: width: 2000 }}{% else %}https://midsummer-milano.com/cdn/shop/files/Vicuna-mattress.jpg?v=1748611838&amp;width=900{% endif %}" style="width: 100%; aspect-ratio: 4 / 3; object-fit: cover;"/>
 <div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92); margin-top: 18px;">{{ section.settings.t3 }}</div>
 <h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(20px, 2.2vw, 26px); line-height: 1.25; margin-top: 10px; max-width: 30ch;">{{ section.settings.t4 }}</h3>
 </a>
 <a href="{% render 'ms-link', to: 'journal' %}" style="display: block;">
-<img alt="" loading="lazy" src="{% if section.settings.img2 != blank %}{{ section.settings.img2 | image_url: width: 2000 }}{% else %}{{ 'ms-graded-horse.jpg' | asset_url }}{% endif %}" style="width: 100%; aspect-ratio: 4 / 3; object-fit: cover;"/>
+<img width="1200" height="900" alt="" loading="lazy" src="{% if section.settings.img2 != blank %}{{ section.settings.img2 | image_url: width: 2000 }}{% else %}{{ 'ms-graded-horse.jpg' | asset_url }}{% endif %}" style="width: 100%; aspect-ratio: 4 / 3; object-fit: cover;"/>
 <div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92); margin-top: 18px;">{{ section.settings.t5 }}</div>
 <h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(20px, 2.2vw, 26px); line-height: 1.25; margin-top: 10px; max-width: 30ch;">{{ section.settings.t6 }}</h3>
 </a>
 <a href="{% render 'ms-link', to: 'journal' %}" style="display: block;">
-<img alt="" loading="lazy" src="{% if section.settings.img3 != blank %}{{ section.settings.img3 | image_url: width: 2000 }}{% else %}https://midsummer-milano.com/cdn/shop/files/giotto_SANGALGANO.jpg?v=1748612061&amp;width=900{% endif %}" style="width: 100%; aspect-ratio: 4 / 3; object-fit: cover;"/>
+<img width="1200" height="900" alt="" loading="lazy" src="{% if section.settings.img3 != blank %}{{ section.settings.img3 | image_url: width: 2000 }}{% else %}https://midsummer-milano.com/cdn/shop/files/giotto_SANGALGANO.jpg?v=1748612061&amp;width=900{% endif %}" style="width: 100%; aspect-ratio: 4 / 3; object-fit: cover;"/>
 <div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92); margin-top: 18px;">{{ section.settings.t7 }}</div>
 <h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(20px, 2.2vw, 26px); line-height: 1.25; margin-top: 10px; max-width: 30ch;">{{ section.settings.t8 }}</h3>
 </a>

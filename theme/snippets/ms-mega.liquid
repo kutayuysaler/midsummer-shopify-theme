@@ -165,7 +165,7 @@
 §{{ u_partner }}#enquire|{{ ss.mg_p4 }}|{{ ss.mg_p4_note }}|{{ cdn }}Top_deserto_mobile5.jpg?width=900|landing
 §{{ u_trade }}#enquire|{{ ss.mg_p5 }}|{{ ss.mg_p5_note }}|{{ cdn }}Vicuna-mattress.jpg?width=900|landing
 {%- endcapture -%}
-{%- render 'ms-mega-panel', key: 'pro', no: '03', title: ss.t3, lede: ss.mg_pro_lede, items: items, feature: ss.mg_img_pro, foot: foot -%}
+{%- render 'ms-mega-panel', key: 'pro', no: '03', title: ss.t3, lede: ss.mg_pro_lede, items: items, feature: ss.mg_img_pro, foot: foot, cta1_url: u_agents, cta1_label: ss.mg_pro_cta1 -%}
 
 {%- comment -%} 04 · Journal: the newest notes, then the subjects {%- endcomment -%}
 <div data-ms-panel="journal" hidden class="ms-mg ms-mg--journal">
@@ -215,7 +215,8 @@
 {%- if settings.ms_social_whatsapp != blank -%}§{{ settings.ms_social_whatsapp }}|WhatsApp|{{ ss.mg_c4_note }}|{{ cdn }}Paisley_IMG_5161_low.jpg?width=900|external{%- endif -%}
 §{{ u_faq }}|{{ ss.mg_c6 }}|{{ ss.mg_c6_note }}|{{ 'ms-graded-dune.jpg' | asset_url }}|
 {%- endcapture -%}
-{%- render 'ms-mega-panel', key: 'contact', no: '05', title: ss.t5, lede: ss.mg_contact_lede, items: items, feature: blank, foot: foot -%}
+{%- capture u_enq_cta -%}{{ u_enquire }}#enquire{%- endcapture -%}
+{%- render 'ms-mega-panel', key: 'contact', no: '05', title: ss.t5, lede: ss.mg_contact_lede, items: items, feature: blank, foot: foot, cta1_url: u_enq_cta, cta1_label: ss.mg_contact_cta1, cta1_landing: true, cta2_url: u_agents, cta2_label: ss.mg_contact_cta2 -%}
 
 <style>
   /* the panels drop from the bar; the page behind dims */
@@ -229,6 +230,10 @@
   .ms-mg__no { font-family: Newsreader, Georgia, serif; font-size: 14px; color: #9A7B4F; font-variant-numeric: tabular-nums; }
   .ms-mg__title { font-family: Newsreader, Georgia, serif; font-weight: 200; font-size: clamp(34px, 3.3vw, 52px); line-height: 1.02; letter-spacing: -0.03em; margin-top: 14px; }
   .ms-mg__lede { font-size: 13.5px; line-height: 1.8; color: #4A443B; margin-top: 18px; max-width: 30ch; }
+  .ms-mg__ctas { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; margin-top: 28px; }
+  .ms-site .ms-mg__cta { font-size: 10.5px; letter-spacing: .24em; text-transform: uppercase; color: #17140F; border-bottom: 1px solid currentColor; padding-bottom: 4px; }
+  .ms-site .ms-mg__cta--solid { display: inline-flex; align-items: center; min-height: 46px; padding: 0 22px; border: 0; background: #17140F; color: #FBF9F5; }
+  .ms-site .ms-mg__cta--solid:hover { background: #3A332A; color: #FBF9F5; }
   .ms-mg__minor { list-style: none; margin: 30px 0 0; padding: 22px 0 0; border-top: 1px solid #DDD6C9; display: grid; gap: 10px; }
   .ms-site .ms-mg__minor a { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: #4A443B; background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; padding-bottom: 3px; transition: background-size .4s cubic-bezier(.2,.7,.2,1), color .25s ease; }
   .ms-site .ms-mg__minor a:hover { color: #17140F; background-size: 100% 1px; }

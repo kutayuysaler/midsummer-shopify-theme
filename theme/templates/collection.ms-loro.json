@@ -9,7 +9,7 @@
       "settings": {
         "image_fallback": "ms-photo-paisley-throw.jpg",
         "eyebrow": "Upholstery",
-        "use_page_title": true,
+        "use_page_title": false,
         "heading": "Loro Piana Interiors",
         "height": "tall",
         "text": "The fabric leads; the springwork does the rest."
@@ -19,7 +19,7 @@
       "type": "ms-statement",
       "settings": {
         "eyebrow": "Loro Piana Interiors",
-        "use_content": true,
+        "use_content": false,
         "heading": "We upholster our systems in Loro Piana Interiors fabrics, which change with the seasons as our needs do.",
         "text": "<p>Exclusive blends of precious natural fibres, yak, camel hair, silk and cashmere, over spring architectures designed for the highest comfort. Every Signature and Icons system is upholstered in them, and the cloth is chosen for the room at consultation.</p>"
       }

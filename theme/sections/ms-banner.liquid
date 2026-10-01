@@ -47,7 +47,7 @@
   <div class="ms-bn__copy">
     <div class="ms-bn__in">
       {%- if section.settings.eyebrow != blank -%}<div class="ms-bn__eyebrow">{{ section.settings.eyebrow }}</div>{%- endif -%}
-      {%- if heading != blank -%}<h1 class="ms-bn__title">{{ heading }}</h1>{%- endif -%}
+      {%- if heading != blank -%}{%- comment -%} the page heading, except on a product, whose name is its heading {%- endcomment -%}{%- if template.name == 'product' -%}<h2 class="ms-bn__title">{{ heading }}</h2>{%- else -%}<h1 class="ms-bn__title">{{ heading }}</h1>{%- endif -%}{%- endif -%}
       {%- if section.settings.text != blank -%}<p class="ms-bn__text">{{ section.settings.text }}</p>{%- endif -%}
       {%- if section.settings.button != blank -%}
         <a class="ms-bn__button"

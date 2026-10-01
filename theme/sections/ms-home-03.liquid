@@ -5,17 +5,17 @@
 </div>
 <div data-ms="rail" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: clamp(18px, 3vw, 48px);">
 <a href="{% render 'ms-link', to: 'essentials' %}" style="display: block;">
-<img alt="Essentials" src="{% if section.settings.img1 != blank %}{{ section.settings.img1 | image_url: width: 2000 }}{% else %}{{ 'ms-graded-bougainvillea.jpg' | asset_url }}{% endif %}" style="width: 100%; aspect-ratio: 3 / 4; object-fit: cover;"/>
+<img width="1200" height="1600" alt="Essentials" src="{% if section.settings.img1 != blank %}{{ section.settings.img1 | image_url: width: 2000 }}{% else %}{{ 'ms-graded-bougainvillea.jpg' | asset_url }}{% endif %}" style="width: 100%; aspect-ratio: 3 / 4; object-fit: cover;"/>
 <div style="display: flex; align-items: baseline; gap: 12px; margin-top: 22px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 13px; color: rgb(126, 98, 59);">{{ section.settings.t3 }}</span><h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(22px, 2.4vw, 30px);">{{ section.settings.t4 }}</h3></div>
 <p style="font-size: 14px; line-height: 1.85; color: rgb(74, 68, 59); margin-top: 12px; max-width: 40ch;">{{ section.settings.t5 }}</p>
 </a>
 <a href="{% render 'ms-link', to: 'signature' %}" style="display: block;">
-<img alt="Signature" loading="lazy" src="{% if section.settings.img2 != blank %}{{ section.settings.img2 | image_url: width: 2000 }}{% else %}{{ 'ms-graded-ochre-room.jpg' | asset_url }}{% endif %}" style="width: 100%; aspect-ratio: 3 / 4; object-fit: cover;"/>
+<img width="1200" height="1600" alt="Signature" loading="lazy" src="{% if section.settings.img2 != blank %}{{ section.settings.img2 | image_url: width: 2000 }}{% else %}{{ 'ms-graded-ochre-room.jpg' | asset_url }}{% endif %}" style="width: 100%; aspect-ratio: 3 / 4; object-fit: cover;"/>
 <div style="display: flex; align-items: baseline; gap: 12px; margin-top: 22px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 13px; color: rgb(126, 98, 59);">{{ section.settings.t6 }}</span><h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(22px, 2.4vw, 30px);">{{ section.settings.t7 }}</h3></div>
 <p style="font-size: 14px; line-height: 1.85; color: rgb(74, 68, 59); margin-top: 12px; max-width: 40ch;">{{ section.settings.t8 }}</p>
 </a>
 <a href="{% render 'ms-link', to: 'icons' %}" style="display: block;">
-<img alt="Icons" loading="lazy" src="{% if section.settings.img3 != blank %}{{ section.settings.img3 | image_url: width: 2000 }}{% else %}{{ 'ms-graded-arches.jpg' | asset_url }}{% endif %}" style="width: 100%; aspect-ratio: 3 / 4; object-fit: cover;"/>
+<img width="1200" height="1600" alt="Icons" loading="lazy" src="{% if section.settings.img3 != blank %}{{ section.settings.img3 | image_url: width: 2000 }}{% else %}{{ 'ms-graded-arches.jpg' | asset_url }}{% endif %}" style="width: 100%; aspect-ratio: 3 / 4; object-fit: cover;"/>
 <div style="display: flex; align-items: baseline; gap: 12px; margin-top: 22px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 13px; color: rgb(126, 98, 59);">{{ section.settings.t9 }}</span><h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(22px, 2.4vw, 30px);">{{ section.settings.t10 }}</h3></div>
 <p style="font-size: 14px; line-height: 1.85; color: rgb(74, 68, 59); margin-top: 12px; max-width: 40ch;">{{ section.settings.t11 }}</p>
 </a>

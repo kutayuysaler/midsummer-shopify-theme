@@ -1,0 +1,14 @@
+{%- comment -%}
+  Shopify's own rules, unchanged, plus a pointer to the plain summary for AI search (/llms.txt).
+{%- endcomment -%}
+{%- for group in robots.default_groups -%}
+  {{- group.user_agent }}
+  {%- for rule in group.rules %}
+{{ rule }}
+  {%- endfor -%}
+  {%- if group.sitemap != blank %}
+{{ group.sitemap }}
+  {%- endif %}
+
+{% endfor -%}
+# A plain summary of the house for AI assistants: {{ shop.url }}/llms.txt

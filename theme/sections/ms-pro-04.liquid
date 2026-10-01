@@ -28,7 +28,7 @@
 <a data-ms="cta" data-ms-enquire="" href="{% render 'ms-link', to: 'contact' %}" style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; border-bottom: 1px solid rgb(23, 20, 15); padding-bottom: 7px;">{{ section.settings.t5 }}</a>
 </div>
 </div>
-<img alt="A Midsummer bed dressed in Loro Piana Interiors fabric" src="{% if section.settings.img1 != blank %}{{ section.settings.img1 | image_url: width: 2000 }}{% else %}https://midsummer-milano.com/cdn/shop/products/LOROPIANA_IMG_9595.jpg?v=1748612004&amp;width=1400{% endif %}" style="width: 100%; aspect-ratio: 4 / 5; object-fit: cover;"/>
+<img width="1200" height="1500" alt="A Midsummer bed dressed in Loro Piana Interiors fabric" src="{% if section.settings.img1 != blank %}{{ section.settings.img1 | image_url: width: 2000 }}{% else %}https://midsummer-milano.com/cdn/shop/products/LOROPIANA_IMG_9595.jpg?v=1748612004&amp;width=1400{% endif %}" style="width: 100%; aspect-ratio: 4 / 5; object-fit: cover;"/>
 </div>
 </section>
 {%- endif -%}

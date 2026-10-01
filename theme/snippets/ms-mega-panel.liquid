@@ -3,6 +3,7 @@
   large titles; the photograph of the place under the pointer on the right.
   items: "url|title|note|image|kind" joined with §; kind is landing, quiz, external or empty.
   feature: an optional picked image shown first instead of the first place's photograph.
+  cta1_url/cta1_label (solid button), cta2_url/cta2_label: the panel's main places, under its title.
 {%- endcomment -%}
 {%- assign rows = items | split: '§' -%}
 <div data-ms-panel="{{ key }}" hidden class="ms-mg ms-mg--{{ key }}">
@@ -11,6 +12,12 @@
       <div class="ms-mg__no">{{ no }}</div>
       <div class="ms-mg__title">{{ title }}</div>
       <p class="ms-mg__lede">{{ lede }}</p>
+      {%- if cta1_url != blank or cta2_url != blank -%}
+        <div class="ms-mg__ctas">
+          {%- if cta1_url != blank -%}<a class="ms-mg__cta ms-mg__cta--solid" href="{{ cta1_url }}"{% if cta1_landing %} data-ms-landing{% endif %}>{{ cta1_label }}</a>{%- endif -%}
+          {%- if cta2_url != blank -%}<a class="ms-mg__cta" href="{{ cta2_url }}">{{ cta2_label }} <span aria-hidden="true">→</span></a>{%- endif -%}
+        </div>
+      {%- endif -%}
     </div>
     <div class="ms-mg__body">
       <ul class="ms-mg__list" role="list" data-ms-mg-list>

@@ -21,7 +21,7 @@
       "type": "ms-statement",
       "settings": {
         "eyebrow": "Salone del Mobile 2026",
-        "use_content": true,
+        "use_content": false,
         "heading": "Every year, we ask ourselves the same question: what can we make better?",
         "text": "<p>This year, the answer is Paisley: Loro Piana Interiors Shadan in silk and linen, over a micro spring layer of baby alpaca, wool and linen. Warm in winter, breathable in summer.</p><p>Presented at the atelier, Via Andegari 4, Milan, from 21 to 26 April.</p>",
         "link_label": "Book a private appointment",

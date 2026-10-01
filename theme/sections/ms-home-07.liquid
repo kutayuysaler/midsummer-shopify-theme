@@ -6,7 +6,7 @@
 <p style="font-size: 15px; line-height: 1.95; color: rgb(74, 68, 59); max-width: 50ch;">{{ section.settings.t3 }}</p>
 <a data-ms="cta" href="{% render 'ms-link', to: 'regen' %}" style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; border-bottom: 1px solid rgb(23, 20, 15); padding-bottom: 8px; width: fit-content;">{{ section.settings.t4 }}</a>
 </div>
-<img alt="Regeneration" src="{% if section.settings.img1 != blank %}{{ section.settings.img1 | image_url: width: 2000 }}{% else %}{{ 'ms-graded-paisley-red.jpg' | asset_url }}{% endif %}" style="width: 100%; aspect-ratio: 4 / 5; object-fit: cover;"/>
+<img width="1200" height="1500" alt="Regeneration" src="{% if section.settings.img1 != blank %}{{ section.settings.img1 | image_url: width: 2000 }}{% else %}{{ 'ms-graded-paisley-red.jpg' | asset_url }}{% endif %}" style="width: 100%; aspect-ratio: 4 / 5; object-fit: cover;"/>
 </div>
 </section>
 {% schema %}

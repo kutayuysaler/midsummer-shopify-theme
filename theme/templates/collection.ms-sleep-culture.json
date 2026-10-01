@@ -9,7 +9,7 @@
       "settings": {
         "image_fallback": "ms-graded-horse.jpg",
         "eyebrow": "Heritage & craft",
-        "use_page_title": true,
+        "use_page_title": false,
         "heading": "Sleep Culture",
         "height": "tall",
         "text": "Rest, designed with the same rigour as the room around it."
@@ -19,7 +19,7 @@
       "type": "ms-statement",
       "settings": {
         "eyebrow": "An architect's question",
-        "use_content": true,
+        "use_content": false,
         "heading": "A sofa gets specified. A kitchen gets designed. The bed, where we spend a third of our lives, deserves the same care.",
         "text": "<p>Midsummer Milano began with a question its founder, an architect, kept asking: why is the bed treated as a technical product from a catalogue, when every other piece of a room is chosen with care?</p><p>Sleep Culture is where we follow that question: how material, temperature, proportion and ritual shape the night, and what making beds by hand, and listening to the people who sleep in them, has taught us.</p>"
       }

@@ -10,7 +10,7 @@
         "image": "shopify://shop_images/Untitled_Project_5_b49a7740-07fa-45f1-8b4f-464d951b0772.jpg",
         "image_fallback": "https://midsummer-milano.com/cdn/shop/files/Untitled_Project_5_b49a7740-07fa-45f1-8b4f-464d951b0772.jpg?width=2400",
         "eyebrow": "Heritage & craft",
-        "use_page_title": true,
+        "use_page_title": false,
         "heading": "Handmade in Italy",
         "height": "tall",
         "focus": "center",
@@ -21,7 +21,7 @@
       "type": "ms-statement",
       "settings": {
         "eyebrow": "The method",
-        "use_content": true,
+        "use_content": false,
         "heading": "A Midsummer bed is not assembled. It is made, by the same two pairs of hands, from the first spring to the last stitch.",
         "text": "<p>Every piece is built by hand, from start to finish, by the same two Italian artisans: two or three full days of work for each mattress. It is not a marketing promise; it is a method.</p><p>Because one pair of hands follows the bed through every stage, nothing goes inside it that its makers did not choose and place themselves. And because they know it from the inside, the bed can come back to them at fifteen years to be opened, renewed and made ready for fifteen more.</p>"
       }

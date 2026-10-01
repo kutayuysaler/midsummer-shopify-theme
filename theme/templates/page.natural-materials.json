@@ -5,6 +5,17 @@
 {
   "layout": "ms",
   "sections": {
+    "opening": {
+      "type": "ms-banner",
+      "settings": {
+        "image_fallback": "ms-photo-cashmere-throw.jpg",
+        "eyebrow": "Heritage & craft",
+        "use_page_title": false,
+        "heading": "Natural materials",
+        "height": "tall",
+        "text": "Vicuña, cashmere, alpaca, horsehair and wool, each laid by hand where it does its work."
+      }
+    },
     "s01": {
       "type": "ms-materials-01",
       "settings": {}
@@ -19,6 +30,7 @@
     }
   },
   "order": [
+    "opening",
     "s01",
     "s02",
     "s03"

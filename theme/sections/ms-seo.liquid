@@ -21,16 +21,31 @@
       {%- if logo != blank %}
       "logo": {
         "@type": "ImageObject",
-        "url": "{{ logo | image_url: width: 600 }}",
+        "url": "https:{{ logo | image_url: width: 600 }}",
         "width": {{ logo.width | json }},
         "height": {{ logo.height | json }}
       },
-      "image": "{{ logo | image_url: width: 1200 }}",
+      {%- else %}
+      "logo": "https:{{ 'midsummer-logotype.svg' | asset_url }}",
       {%- endif %}
+      "image": "https:{{ 'ms-photo-atelier-blue-gold.jpg' | asset_url }}",
+      "foundingLocation": { "@type": "Place", "name": "Milan, Italy" },
+      {%- if section.settings.founder != blank %}
+      "founder": { "@type": "Person", "name": {{ section.settings.founder | json }}, "jobTitle": "Founder" },
+      {%- endif %}
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer service",
+        "email": {{ section.settings.email | json }},
+        {%- if section.settings.telephone != blank %}"telephone": {{ section.settings.telephone | json }},{%- endif %}
+        "availableLanguage": ["Italian", "English", "Russian"]
+      },
       "description": {{ section.settings.description | json }},
       "slogan": {{ section.settings.slogan | json }},
       "email": {{ section.settings.email | json }},
+      {%- if section.settings.telephone != blank %}
       "telephone": {{ section.settings.telephone | json }},
+      {%- endif %}
       "priceRange": {{ section.settings.price_range | json }},
       "currenciesAccepted": {{ section.settings.currencies | json }},
       "areaServed": {{ section.settings.area_served | json }},
@@ -76,10 +91,15 @@
           "description": {{ section.settings.service_description | json }}
         }
       },
+      {%- liquid
+        assign profiles = section.settings.same_as | append: ',' | append: settings.ms_social_instagram | append: ',' | append: settings.ms_social_facebook | append: ',' | append: settings.ms_social_pinterest | append: ',' | append: settings.ms_social_linkedin | append: ',' | append: settings.ms_social_youtube | append: ',' | append: settings.ms_social_tiktok | append: ',' | append: settings.ms_social_telegram | append: ',' | append: settings.ms_social_vk
+        assign profiles = profiles | split: ',' | compact | uniq
+        assign sep = ''
+      -%}
       "sameAs": [
-        {%- assign profiles = section.settings.same_as | split: ',' -%}
         {%- for profile in profiles -%}
-          {{ profile | strip | json }}{%- unless forloop.last -%},{%- endunless -%}
+          {%- assign pr = profile | strip -%}
+          {%- if pr contains 'http' -%}{{ sep }}{{ pr | json }}{%- assign sep = ',' -%}{%- endif -%}
         {%- endfor -%}
       ]
     }
@@ -299,6 +319,12 @@
       "label": "Logo"
     },
     {
+      "type": "text",
+      "id": "founder",
+      "label": "Founder",
+      "default": "Chiara Mennini"
+    },
+    {
       "type": "textarea",
       "id": "description",
       "label": "Description",
@@ -414,7 +440,7 @@
       "type": "text",
       "id": "same_as",
       "label": "Social profiles",
-      "info": "Comma separated URLs."
+      "info": "Comma separated URLs. The accounts in Theme settings → Midsummer · Social are added automatically."
     },
     {
       "type": "header",

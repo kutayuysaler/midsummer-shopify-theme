@@ -15,7 +15,7 @@
 >
 <meta
   name="theme-color"
-  content=""
+  content="#FBF9F5"
 >
 
 {%- liquid
@@ -47,7 +47,58 @@
   endif
   assign ms_desc = ms_desc | strip | truncate: 158
 
+  comment
+    the designed places reached at /collections/all?view=ms-<place> carry their own title and description
+  endcomment
+  assign ms_view_title = ''
+  if template.name == 'collection'
+    case template.suffix
+      when 'ms-story'
+        assign ms_view_title = 'Our story'
+        assign ms_desc = 'Midsummer Milano, founded in Milan by Chiara Mennini: luxury beds and mattresses made by hand in Italy, one at a time, from natural fibres.'
+      when 'ms-handmade'
+        assign ms_view_title = 'Handmade in Italy'
+        assign ms_desc = 'How a Midsummer bed is made: two artisans in Italy tuft, stitch and finish every mattress, topper and boxspring by hand, from start to finish.'
+      when 'ms-sleep-culture'
+        assign ms_view_title = 'Sleep culture'
+        assign ms_desc = 'Temperature, seasons and support: how natural fibres and a handmade sleep system change the way you rest, from the Midsummer Milano atelier.'
+      when 'ms-materials'
+        assign ms_view_title = 'Natural materials'
+        assign ms_desc = 'Vicuña, cashmere, baby alpaca, mohair, horsehair and wool: the natural fibres inside every Midsummer Milano bed, and why each one is there.'
+      when 'ms-regen'
+        assign ms_view_title = 'Made to last · 15 + 15'
+        assign ms_desc = 'A Midsummer mattress is built to last and to be regenerated: fifteen years, then fifteen more after the atelier renews it by hand.'
+      when 'ms-quiz'
+        assign ms_view_title = 'Find your Midsummer'
+        assign ms_desc = 'Five questions on how you sleep, and the Midsummer Milano system the atelier would build for you: mattress, topper and boxspring.'
+      when 'ms-professionals'
+        assign ms_view_title = 'Architects & Interior Designers'
+        assign ms_desc = 'Made-to-measure beds, mattresses and Loro Piana Interiors fabrics for architects and interior designers, with trade support from the Milan atelier.'
+      when 'ms-hospitality'
+        assign ms_view_title = 'Hospitality & Contract'
+        assign ms_desc = 'Handmade beds and mattresses for hotels, villas, yachts and residences, specified and built in Italy by the Midsummer Milano atelier.'
+      when 'ms-agents'
+        assign ms_view_title = 'Agents & Resellers'
+        assign ms_desc = 'Find a Midsummer Milano agent or reseller near you, or visit the atelier on Via Andegari in Milan, by appointment.'
+      when 'ms-faq'
+        assign ms_view_title = 'Questions'
+        assign ms_desc = 'Answers on Midsummer Milano beds and mattresses: materials, sizes, delivery, care, regeneration and how a made-to-order system is specified.'
+      when 'ms-contact'
+        assign ms_view_title = 'Enquire'
+        assign ms_desc = 'Book an appointment at the Milan atelier, ask for a quote or write to Midsummer Milano about a bed, a project or becoming a partner.'
+      when 'ms-loro'
+        assign ms_view_title = 'Loro Piana Interiors'
+        assign ms_desc = 'Midsummer Milano beds and headboards upholstered in Loro Piana Interiors fabrics: cashmere, linen and wool, chosen at the Milan atelier.'
+      when 'ms-dream'
+        assign ms_view_title = 'Download the dream'
+        assign ms_desc = 'The Midsummer Milano book: the house, the fibres and the collections. Ask the atelier for your copy.'
+    endcase
+  endif
+
   assign og_title = page_title | default: shop.name
+  if ms_view_title != blank
+    assign og_title = ms_view_title | append: ' | Midsummer Milano'
+  endif
   assign og_url = ms_canonical | default: request.origin
   assign og_type = 'website'
   assign og_description = ms_desc | default: shop.name
@@ -108,6 +159,20 @@
   >
 {%- endif -%}
 
+{%- comment -%} No page leaves without a picture to share: the atelier when nothing else is set. {%- endcomment -%}
+{%- if page_image == blank -%}
+  {%- unless request.page_type == 'article' and article.image != blank -%}
+  <meta
+    property="og:image"
+    content="https:{{ 'ms-photo-atelier-blue-gold.jpg' | asset_url }}"
+  >
+  <meta
+    property="og:image:alt"
+    content="The Midsummer Milano atelier in Milan"
+  >
+  {%- endunless -%}
+{%- endif -%}
+
 {%- comment -%} Price tags only when prices are shown (Theme settings → Enquiry-led commerce). {%- endcomment -%}
 {%- if request.page_type == 'product' and settings.ms_show_prices != false -%}
   <meta
@@ -142,40 +207,10 @@
 {%- liquid
   assign ms_brand = 'Midsummer Milano'
   assign ms_title = page_title | strip | remove_last: ' | midsummer-milano' | remove_last: ' | Midsummer-Milano' | remove_last: ' | Midsummer Milano' | strip
-
-  comment
-    the designed places reached at /collections/all?view=ms-<place> carry their own title
-  endcomment
-  if template.name == 'collection'
-    case template.suffix
-      when 'ms-story'
-        assign ms_title = 'Our story'
-      when 'ms-handmade'
-        assign ms_title = 'Handmade in Italy'
-      when 'ms-sleep-culture'
-        assign ms_title = 'Sleep culture'
-      when 'ms-materials'
-        assign ms_title = 'Natural materials'
-      when 'ms-regen'
-        assign ms_title = 'Made to last · 15 + 15'
-      when 'ms-quiz'
-        assign ms_title = 'Find your Midsummer'
-      when 'ms-professionals'
-        assign ms_title = 'Architects & Interior Designers'
-      when 'ms-hospitality'
-        assign ms_title = 'Hospitality & Contract'
-      when 'ms-agents'
-        assign ms_title = 'Agents & Resellers'
-      when 'ms-faq'
-        assign ms_title = 'Questions'
-      when 'ms-contact'
-        assign ms_title = 'Enquire'
-      when 'ms-loro'
-        assign ms_title = 'Loro Piana Interiors'
-      when 'ms-dream'
-        assign ms_title = 'Download the dream'
-    endcase
+  if ms_view_title != blank
+    assign ms_title = ms_view_title
   endif
+
 -%}
 <title>
   {{ ms_title }}
