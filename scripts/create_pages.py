@@ -2,7 +2,8 @@
 """Create the Midsummer Milano pages the theme has designs for (and a Contact page, if the store has none).
 
 Each page is created with its handle, its text, and the theme template that designs it.
-Pages that already exist are left as they are (their template is set if it is missing).
+Pages that already exist keep their text. Their template is set if missing; the Contact and
+Agents & Resellers pages are always set to the theme's own templates, so their new design shows.
 
 Needs an Admin API token with the write_content scope (Shopify admin → Settings → Apps
 and sales channels → Develop apps → Create an app → Admin API scopes: write_content,
@@ -35,6 +36,14 @@ PAGES = [
 ]
 
 
+# The two landing pages. The store already has them, often still set to a template from the
+# previous theme, which hides the new design; the script sets them to the theme's own templates.
+LANDING = [
+    {'handle': 'agents-and-resellers', 'title': 'Agents & Resellers', 'template_suffix': 'agents-and-resellers',
+     'body_html': '<p>The beds are made in Milano and can be lain on there. Elsewhere, a showroom, an agent or a reseller will receive you, by appointment.</p>'},
+]
+LANDING_HANDLES = ('contact', 'agents-and-resellers')
+
 # the enquiry page lives on the store's Contact page; it is created only if the store has none
 CONTACT = {'handle': 'contact', 'title': 'Contact', 'template_suffix': 'contact',
            'body_html': '<p>The atelier on Via Andegari 4, Milano, by appointment, Monday to Friday. Write to us, and the person who answers will follow your enquiry from the first message to the day the bed is made up in your room.</p>'}
@@ -55,9 +64,11 @@ def main():
     dry = '--dry-run' in sys.argv
     if not store or not token:
         sys.exit(__doc__)
-    pages = list(PAGES)
+    pages = list(PAGES) + LANDING
     try:
-        if not any(call('GET', 'pages.json?handle=%s&fields=id' % h, store, token).get('pages') for h in CONTACT_HANDLES):
+        if call('GET', 'pages.json?handle=contact&fields=id', store, token).get('pages'):
+            pages.append(CONTACT)  # exists: only its template is set
+        elif not any(call('GET', 'pages.json?handle=%s&fields=id' % h, store, token).get('pages') for h in CONTACT_HANDLES):
             pages.append(CONTACT)
     except urllib.error.HTTPError as e:
         print('could not look for a contact page:', e.code)
@@ -66,9 +77,13 @@ def main():
             found = call('GET', 'pages.json?handle=%s&fields=id,handle,template_suffix' % p['handle'], store, token).get('pages', [])
             if found:
                 page = found[0]
-                if not page.get('template_suffix') and not dry:
-                    call('PUT', 'pages/%d.json' % page['id'], store, token, {'page': {'id': page['id'], 'template_suffix': p['template_suffix']}})
-                    print('exists, template set:', p['handle'])
+                wrong = page.get('template_suffix') != p['template_suffix']
+                if wrong and (not page.get('template_suffix') or p['handle'] in LANDING_HANDLES):
+                    if dry:
+                        print('would set template:', p['handle'], '→ page.%s' % p['template_suffix'])
+                    else:
+                        call('PUT', 'pages/%d.json' % page['id'], store, token, {'page': {'id': page['id'], 'template_suffix': p['template_suffix']}})
+                        print('exists, template set:', p['handle'], '→ page.%s' % p['template_suffix'])
                 else:
                     print('exists, left as it is:', p['handle'], '(template: %s)' % (page.get('template_suffix') or 'default'))
                 continue

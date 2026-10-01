@@ -150,3 +150,8 @@ body[data-template="index"] .ms-pr { padding-top: var(--ms-gap); }
 body[data-template="index"] :is([id$="__s14"], [id$="-s14"]) > section { padding-top: var(--ms-gap) !important; padding-bottom: var(--ms-gap-s) !important; }
 body[data-template="index"] .ms-fw { padding-top: var(--ms-gap-s); padding-bottom: var(--ms-gap); }
 body[data-template="index"] :is([id$="__visit"], [id$="-visit"]) .ms-ch { padding-top: var(--ms-gap); padding-bottom: var(--ms-gap); }
+
+/* ── header: the agents map and the enquiry page, beside the appointment button ── */
+.ms-site a.ms-hlink { font-size: 10.5px; letter-spacing: .19em; text-transform: uppercase; color: inherit; white-space: nowrap; padding: 12px 0; background: linear-gradient(currentColor, currentColor) 0 calc(100% - 8px) / 0 1px no-repeat; transition: background-size .45s cubic-bezier(.2,.7,.2,1); }
+.ms-site a.ms-hlink:hover, .ms-site a.ms-hlink:focus-visible { background-size: 100% 1px; }
+@media (max-width: 1240px) { .ms-site a.ms-hlink { display: none; } }

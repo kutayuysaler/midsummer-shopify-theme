@@ -6,27 +6,16 @@ photographs, the press logos and the map ship inside the theme.
 
 ## Start here: what you need to do
 
-**Everything works the moment you upload the theme. You do not have to create any page.**
-
 1. **Upload and publish** `midsummer-milano-atelier.zip` (section 1).
-2. **That's it for the site to work.** Every menu entry opens a finished page. Where the
-   store has no page yet, the theme shows the same design at a stand-in address (section 11).
-   - **The enquiry page:** menu **Contact → Enquire** (the solid button at the top of the
-     Contact panel), and every "Enquire" link in the menus and footer. The top-right
-     **Book an appointment** still opens the side sheet, as agreed.
-   - **The Agents & Resellers world map:** menu **Contact → Agents & Resellers**,
-     **Professionals → Agents & Resellers** (the button in the panel), **Contact → The
-     Milano atelier**, and **Agents & resellers** in the footer.
-3. **Recommended for Google and AI search (10 minutes):** create the four pages in section 3
-   (Architects & Interior Designers, Hospitality, Handmade in Italy, Sleep Culture). A
-   stand-in address works for visitors but is kept out of search results on purpose, so
-   only a real page gets its own clean address in Google. The menus switch to the real page
-   on their own as soon as it exists.
-4. **Recommended:** add one URL redirect for AI search: **Online Store → Navigation → URL
-   redirects → Create**, from `/llms.txt` to `/?view=llms` (section 13).
-5. **Optional:** in **Theme settings → Midsummer · Social**, check your account addresses.
-   They feed the icons and tell Google which profiles are yours. In the theme editor,
-   under **Structured data**, add the atelier's telephone number.
+2. **Run the page script once** (section 3). It creates Architects & Interior Designers,
+   Hospitality, Handmade in Italy and Sleep Culture, and switches your existing **Contact**
+   and **Agents & Resellers** pages to the new theme's templates. Until it runs, those two
+   pages may still be set to a template from the old theme, which hides their new design.
+3. **Add one URL redirect:** Online Store → Navigation → URL redirects → Create, from
+   `/llms.txt` to `/?view=llms`.
+
+Where the two landing pages are: **Showrooms** and **Enquiries** in the top bar, next to
+Book an appointment (on phones, in the menu), and in the Contact panel and the footer.
 
 ## 1. Upload
 

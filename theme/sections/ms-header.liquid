@@ -8,6 +8,7 @@
 <button aria-expanded="false" data-ms-mega="contact" style="background: none; border: 0px; padding: 0px; cursor: pointer; font-size: 10.5px; letter-spacing: 0.19em; text-transform: uppercase; color: inherit; white-space: nowrap; flex: 0 0 auto;" type="button">{{ section.settings.t5 }}</button>
 </nav>
 <div data-ms="headaction" style="display: flex; align-items: center; flex: 0 0 auto; order: 3; gap: clamp(14px, 2vw, 28px);">
+<a class="ms-hlink" href="{% render 'ms-link', to: 'agents' %}">{{ section.settings.hl_agents }}</a><a class="ms-hlink" href="{% render 'ms-link', to: 'enquire' %}#enquire" data-ms-landing>{{ section.settings.hl_enquire }}</a>
 <a data-ms-enquire="" href="{% render 'ms-link', to: 'contact' %}" style="display: inline-flex; align-items: center; min-height: 42px; padding: 0px 18px; border: 1px solid currentcolor; font-size: 10.5px; letter-spacing: 0.19em; text-transform: uppercase; color: inherit; white-space: nowrap; flex: 0 0 auto;">{{ section.settings.t6 }}</a>
 </div>
 <button aria-expanded="false" aria-label="Menu" data-ms="menubtn" data-ms-menu-open="" style="display: none; flex: 0 0 auto; order: 4; align-items: center; gap: 9px; background: none; border: 0px; padding: 6px 0px; cursor: pointer; color: inherit;" type="button">
@@ -631,6 +632,18 @@
       "id": "mg_c6_note",
       "label": "Contact 6 line",
       "default": "Answers before you ask"
+    },
+    {
+      "type": "text",
+      "id": "hl_agents",
+      "label": "Header link: agents map",
+      "default": "Showrooms"
+    },
+    {
+      "type": "text",
+      "id": "hl_enquire",
+      "label": "Header link: enquiry page",
+      "default": "Enquiries"
     }
   ],
   "tag": "div",
