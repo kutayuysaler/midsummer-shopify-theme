@@ -1,19 +1,11 @@
 /*
- * Midsummer Milano: the product, with its own fibres.
+ * Midsummer Milano: the product, with its own fibres and its own layers.
  */
 {
   "layout": "ms",
   "sections": {
     "s01": {
       "type": "ms-product-main",
-      "settings": {}
-    },
-    "s02": {
-      "type": "ms-product-reasons",
-      "settings": {}
-    },
-    "s03": {
-      "type": "ms-product-fibres",
       "settings": {},
       "blocks": {
         "fibre_01": {
@@ -38,11 +30,197 @@
         "fibre_02"
       ]
     },
-    "s04": {
-      "type": "ms-product-build",
+    "s02": {
+      "type": "ms-product-reasons",
       "settings": {}
     },
-    "s05": {
+    "s03": {
+      "type": "ms-product-build",
+      "settings": {
+        "padding": "<p><strong>Mattress</strong> Cheviot wool, silk and cashmere</p><p><strong>Drawers</strong> In mahogany</p>"
+      },
+      "blocks": {
+        "layer_01": {
+          "type": "layer",
+          "settings": {
+            "name": "Loro Piana Interiors fabric, or white cotton",
+            "group": "Mattress",
+            "depth": "fine",
+            "texture": "cloth",
+            "note": "The upholstery, in a Loro Piana Interiors cloth chosen at consultation. It can be changed without touching anything beneath."
+          }
+        },
+        "layer_02": {
+          "type": "layer",
+          "settings": {
+            "name": "Cashmere",
+            "group": "Mattress",
+            "depth": "fine",
+            "texture": "alpaca",
+            "note": "Cashmere, warmth without weight, laid where body heat reaches it first."
+          }
+        },
+        "layer_03": {
+          "type": "layer",
+          "settings": {
+            "name": "Cheviot wool",
+            "group": "Mattress",
+            "depth": "light",
+            "texture": "wool",
+            "note": "Cheviot wool, springy and breathing: it carries moisture away and keeps the temperature even."
+          }
+        },
+        "layer_04": {
+          "type": "layer",
+          "settings": {
+            "name": "Wool felt",
+            "group": "Mattress",
+            "depth": "fine",
+            "texture": "felt",
+            "note": "A wool felt that keeps the padding apart from the springs, so neither wears the other."
+          }
+        },
+        "layer_05": {
+          "type": "layer",
+          "settings": {
+            "name": "Micro pocket springs",
+            "group": "Mattress",
+            "depth": "light",
+            "texture": "micro",
+            "note": "A fine layer of micro springs that reads the body at a smaller scale, so the surface feels continuous."
+          }
+        },
+        "layer_06": {
+          "type": "layer",
+          "settings": {
+            "name": "Wool felt",
+            "group": "Mattress",
+            "depth": "fine",
+            "texture": "felt",
+            "note": "A wool felt that keeps the padding apart from the springs, so neither wears the other."
+          }
+        },
+        "layer_07": {
+          "type": "layer",
+          "settings": {
+            "name": "Cheviot wool",
+            "group": "Mattress",
+            "depth": "light",
+            "texture": "wool",
+            "note": "Cheviot wool, springy and breathing: it carries moisture away and keeps the temperature even."
+          }
+        },
+        "layer_08": {
+          "type": "layer",
+          "settings": {
+            "name": "Silk",
+            "group": "Mattress",
+            "depth": "fine",
+            "texture": "silk",
+            "note": "Silk, next to the sleeper: it regulates temperature and moisture, cool in summer, soft in winter."
+          }
+        },
+        "layer_09": {
+          "type": "layer",
+          "settings": {
+            "name": "Loro Piana Interiors fabric",
+            "group": "Boxspring",
+            "depth": "fine",
+            "texture": "cloth",
+            "note": "The upholstery, in a Loro Piana Interiors cloth chosen at consultation. It can be changed without touching anything beneath."
+          }
+        },
+        "layer_10": {
+          "type": "layer",
+          "settings": {
+            "name": "Beech plywood structure",
+            "group": "Boxspring",
+            "depth": "foundation",
+            "texture": "wood",
+            "note": "A beech plywood frame that defines the geometry of the bed, built to your height."
+          }
+        },
+        "layer_11": {
+          "type": "layer",
+          "settings": {
+            "name": "Cheviot wool",
+            "group": "Boxspring",
+            "depth": "light",
+            "texture": "wool",
+            "note": "Cheviot wool, springy and breathing: it carries moisture away and keeps the temperature even."
+          }
+        },
+        "layer_12": {
+          "type": "layer",
+          "settings": {
+            "name": "Wool felt",
+            "group": "Boxspring",
+            "depth": "fine",
+            "texture": "felt",
+            "note": "A wool felt that keeps the padding apart from the springs, so neither wears the other."
+          }
+        },
+        "layer_13": {
+          "type": "layer",
+          "settings": {
+            "name": "Pocket springs",
+            "group": "Boxspring",
+            "depth": "deep",
+            "texture": "springs",
+            "note": "Pocket springs, each sewn into its own pocket so it works independently of its neighbour."
+          }
+        },
+        "layer_14": {
+          "type": "layer",
+          "settings": {
+            "name": "Wool felt",
+            "group": "Boxspring",
+            "depth": "fine",
+            "texture": "felt",
+            "note": "A wool felt that keeps the padding apart from the springs, so neither wears the other."
+          }
+        },
+        "layer_15": {
+          "type": "layer",
+          "settings": {
+            "name": "Beech plywood frame",
+            "group": "Boxspring",
+            "depth": "foundation",
+            "texture": "wood",
+            "note": "A beech plywood frame that defines the geometry of the bed, built to your height."
+          }
+        },
+        "layer_16": {
+          "type": "layer",
+          "settings": {
+            "name": "Padded drawers",
+            "group": "Boxspring",
+            "depth": "deep",
+            "texture": "wood",
+            "note": "Padded drawers in the base, for linens and the covers of the other season."
+          }
+        }
+      },
+      "block_order": [
+        "layer_01",
+        "layer_02",
+        "layer_03",
+        "layer_04",
+        "layer_05",
+        "layer_06",
+        "layer_07",
+        "layer_08",
+        "layer_09",
+        "layer_10",
+        "layer_11",
+        "layer_12",
+        "layer_13",
+        "layer_14",
+        "layer_15",
+        "layer_16"
+      ]
+    },
+    "s04": {
       "type": "ms-product-related",
       "settings": {}
     }
@@ -51,7 +229,6 @@
     "s01",
     "s02",
     "s03",
-    "s04",
-    "s05"
+    "s04"
   ]
 }

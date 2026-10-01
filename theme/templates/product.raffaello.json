@@ -1,19 +1,11 @@
 /*
- * Midsummer Milano: the product, with its own fibres.
+ * Midsummer Milano: the product, with its own fibres and its own layers.
  */
 {
   "layout": "ms",
   "sections": {
     "s01": {
       "type": "ms-product-main",
-      "settings": {}
-    },
-    "s02": {
-      "type": "ms-product-reasons",
-      "settings": {}
-    },
-    "s03": {
-      "type": "ms-product-fibres",
       "settings": {},
       "blocks": {
         "fibre_01": {
@@ -29,11 +21,96 @@
         "fibre_01"
       ]
     },
-    "s04": {
-      "type": "ms-product-build",
+    "s02": {
+      "type": "ms-product-reasons",
       "settings": {}
     },
-    "s05": {
+    "s03": {
+      "type": "ms-product-build",
+      "settings": {},
+      "blocks": {
+        "layer_01": {
+          "type": "layer",
+          "settings": {
+            "name": "Baby alpaca",
+            "group": "Mattress",
+            "depth": "fine",
+            "texture": "alpaca",
+            "note": "Baby alpaca: soft, warm and naturally hypoallergenic."
+          }
+        },
+        "layer_02": {
+          "type": "layer",
+          "settings": {
+            "name": "Wool",
+            "group": "Mattress",
+            "depth": "light",
+            "texture": "wool",
+            "note": "Wool, opened and laid by hand: it breathes, regulates temperature and recovers its shape."
+          }
+        },
+        "layer_03": {
+          "type": "layer",
+          "settings": {
+            "name": "Wool felt",
+            "group": "Mattress",
+            "depth": "fine",
+            "texture": "felt",
+            "note": "A wool felt that keeps the padding apart from the springs, so neither wears the other."
+          }
+        },
+        "layer_04": {
+          "type": "layer",
+          "settings": {
+            "name": "Pocket springs",
+            "group": "Mattress",
+            "depth": "deep",
+            "texture": "springs",
+            "note": "Pocket springs, each sewn into its own pocket so it works independently of its neighbour."
+          }
+        },
+        "layer_05": {
+          "type": "layer",
+          "settings": {
+            "name": "Wool felt",
+            "group": "Mattress",
+            "depth": "fine",
+            "texture": "felt",
+            "note": "A wool felt that keeps the padding apart from the springs, so neither wears the other."
+          }
+        },
+        "layer_06": {
+          "type": "layer",
+          "settings": {
+            "name": "Wool",
+            "group": "Mattress",
+            "depth": "light",
+            "texture": "wool",
+            "note": "Wool, opened and laid by hand: it breathes, regulates temperature and recovers its shape."
+          }
+        },
+        "layer_07": {
+          "type": "layer",
+          "settings": {
+            "name": "Cotton and Ingeo™",
+            "group": "Mattress",
+            "depth": "fine",
+            "texture": "cloth",
+            "note": "Ingeo™, a fibre made from plants, that keeps the surface cool and dry."
+          }
+        }
+      },
+      "block_order": [
+        "layer_01",
+        "layer_02",
+        "layer_03",
+        "layer_04",
+        "layer_05",
+        "layer_06",
+        "layer_07"
+      ]
+    },
+    "s04": {
       "type": "ms-product-related",
       "settings": {}
     }
@@ -42,7 +119,6 @@
     "s01",
     "s02",
     "s03",
-    "s04",
-    "s05"
+    "s04"
   ]
 }

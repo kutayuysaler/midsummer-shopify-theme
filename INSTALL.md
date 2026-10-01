@@ -138,15 +138,36 @@ with the size:
 - King 193 × 203
 - Double Extra 200 × 200
 
-Then comes **The build, in section**, a dark band that draws the seven layers with the
-texture of each material; you can step through them. Depths are never given in figures.
-The drawing is marked "Indicative, not to scale", and each layer carries a word instead
-of a measurement (Fine, Light, Generous, Deep, Foundation). The cm values in the editor
-only choose which word and drawing height a layer gets, and they never reach the page.
+**About this system** (the product description) is open from the start. Below it,
+**Natural fibres** lists that system's fibres one per row, in the same measure as the
+facts above: the fibre's drawing, its name and what it does. Their drawings arrive on a
+white ground, so the theme blends the white away and only the ink line shows. "All the
+fibres" leads to the Natural materials page. In the editor they are the **Fibre** blocks
+of the Product · Main section.
 
-After it, **The fibres** shows that system's natural fibres. Their drawings arrive on a
-white ground, so the theme blends the white away and only the ink line shows on the
-page.
+Then comes **The build, in section**, a dark band drawing that system's own layers, from
+the top of the bed down, as the Models & Layers book sets them out. Each part of the bed
+(Topper, Mattress, Boxspring, or Summer side and Winter side for Ultra Dry) is drawn as its
+own piece. The heading counts the layers in words ("Twenty-nine layers, laid by hand."),
+the drawing opens on the first spring layer, and you can hover, tap or step through
+them; the note beside the drawing says what each layer does. Where the book gives a
+seasonal padding, it is listed under the note.
+
+Depths are never given in figures. The drawing is marked "Indicative, not to scale", and
+each layer carries a word instead (Fine, Light, Generous, Deep, Foundation). In the editor
+each layer is a **Layer** block: name, part of the bed, depth word, texture and note. Add,
+remove or reorder them there. A product with no layers doesn't show the band at all.
+
+- **Layers from the book:** Amalfi, Bellagio, Bellini, Brera, Capri, Dreamy 2, Dreamy
+  Springs, Flora, Giotto, Monteverdi, My Dream, Raffaello, Roma, Storage, Top 2, Ultra Dry,
+  Vicuña, Vivaldi 2, Vivaldi Plus.
+- **Essenziale** isn't in the book. Its layers follow its own product description, so
+  check them.
+- **Monteverdi:** the book contradicts itself. It is drawn from its plant-based
+  composition (linen and Ingeo™, vegetal horsehair, two layers of pocket springs), so check
+  it.
+- **Not in the book, so no build band:** Paisley, First Dream, Topper Roma, and any product
+  on the default product template. Add Layer blocks to show one.
 
 The other systems in the collection come last. The line under the name is the metafield
 `custom.subtitle`; without it, the preview's line for that system is used.
@@ -158,10 +179,10 @@ own (`amalfi`, `bellagio`, `bellini`, `brera`, `capri`, `dreamy-2`, `dreamy-spri
 `vicuna`, `vivaldi-2`, `vivaldi-plus`). This theme has a template under each of those
 names, so every product picks up the new design with nothing to reassign.
 
-- Each template carries the **Product · Fibres** band, with that system's natural fibres (for
-  example Cashmere, Silk, Cheviot Wool, Horsehair) taken from the old theme's icons.
-- Every product page runs in this order: the system, dimensions and fabric, the build,
-  the fibres, then the other systems.
+- Each template carries that system's natural fibres (for example Cashmere, Silk, Cheviot
+  Wool, Horsehair), taken from the old theme's icons, and its own layers from the book.
+- Every product page runs in this order: the system with its fibres, dimensions and
+  fabric, the build, then the other systems.
 - `topper-roma` also lists its sizes and covering.
 - `perfumes` opens on a photograph.
 - The `appointment` template keeps Atelier's own product page, so the booking product and
@@ -258,8 +279,7 @@ These apply across the site:
     Click the left or right of the photograph to move through them. A fine segmented line
     and a counter sit below, and the middle of the photograph opens it full screen. On a
     phone you swipe full width.
-  - **The fibres:** now a compact row closing the size & fabric band, before the build,
-    so the page is shorter.
+  - **The fibres:** now beside the photographs, under About this system.
 - **Journal:** two views, remembered per visitor.
   - **Gallery:** the newest note opens the page; the rest follow in a magazine rhythm,
     each numbered like an issue.
@@ -299,3 +319,27 @@ The comparison table and the "private clients / professionals / hospitality" ban
 off the home page: the comparison lives on Compare beds, and the trade band and the menus
 already lead professionals and hotels to their pages. Both sections stay in the theme and
 can be added back in the editor.
+
+## 11. Menus that find their pages
+
+Menu entries no longer guess a page's address. For each place (About Us, the
+collections, Natural materials, 15 + 15, Agents & resellers, FAQ, Contact, the Journal …)
+the theme looks in this order:
+
+1. The link set under **Theme settings → Midsummer · Where links go**, if you set one. Use it
+   whenever an entry still goes to the wrong place.
+2. The store's own menus (Online Store → Navigation): an entry whose title matches, e.g.
+   "About Us", "Store locator", "15 + 15", and whose type matches (page, collection or
+   blog).
+3. For collections, the store's published collections, by title or handle. "Icons" finds
+   the Icons collection whatever its handle is (icons, icons-collection, the-icons …).
+   An empty collection is skipped.
+4. The usual page handles (about-us, contact, faq …).
+
+If none of these exists, the entry stays out of the menus rather than leading to a
+missing page.
+
+**Why the Icons collection didn't load:** the menu went to `/collections/icons`, but
+the store's Icons collection lives under another handle. It is now found by its title.
+If it still doesn't open, check in admin that the collection is published to the Online
+Store and has products, or set its link under Theme settings → Midsummer · Where links go.

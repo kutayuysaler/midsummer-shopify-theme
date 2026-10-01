@@ -115,9 +115,36 @@
         </dl>
 
         {%- if product.description != blank and section.settings.show_description -%}
-          <details class="ms-pm__more">
+          <details class="ms-pm__more" open>
             <summary>{{ section.settings.description_label }}</summary>
             <div class="ms-pm__desc">{{ product.description }}</div>
+          </details>
+        {%- endif -%}
+
+        {%- if section.blocks.size > 0 -%}
+          <div class="ms-pm__fibres">
+            <div class="ms-pm__fhead">
+              <span>{{ section.settings.fibres_label }}</span>
+              <a href="{% render 'ms-link', to: 'materials' %}">{{ section.settings.fibres_link }}</a>
+            </div>
+            <ul class="ms-pm__flist" role="list">
+              {%- for block in section.blocks -%}
+                <li class="ms-pm__fibre" {{ block.shopify_attributes }}>
+                  <span class="ms-pm__ficon">
+                    {%- if block.settings.icon != blank -%}<img src="{{ block.settings.icon | image_url: width: 120 }}" alt="" width="44" height="44" loading="lazy">{%- endif -%}
+                  </span>
+                  <span class="ms-pm__fname">{{ block.settings.name }}</span>
+                  {%- if block.settings.note != blank -%}<span class="ms-pm__fnote">{{ block.settings.note }}</span>{%- endif -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.specs != blank -%}
+          <details class="ms-pm__more ms-pm__specs" open>
+            <summary>{{ section.settings.specs_label }}</summary>
+            <div class="ms-pm__desc">{{ section.settings.specs }}</div>
           </details>
         {%- endif -%}
       </div>
@@ -192,6 +219,25 @@
   .ms-pm__facts dt { font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: #6E675C; padding-top: 3px; }
   .ms-pm__facts dd { margin: 0; font-size: 14px; line-height: 1.7; color: #4A443B; }
   .ms-pm__more { margin-top: 22px; }
+  /* the fibres of this system, beside the photographs */
+  .ms-pm__fibres { margin-top: 28px; border-top: 1px solid #DDD6C9; padding-top: 18px; }
+  .ms-pm__fhead { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+  .ms-pm__fhead span { font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: #6E675C; }
+  .ms-site .ms-pm__fhead a { font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; color: #17140F; border-bottom: 1px solid currentColor; padding-bottom: 3px; }
+  /* one row per fibre, in the same measure as the facts above: mark, name, what it does */
+  .ms-pm__flist { list-style: none; margin: 12px 0 0; padding: 0; }
+  .ms-pm__fibre { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; column-gap: 16px; align-items: center; padding: 10px 0; border-top: 1px solid #ECE6DB; }
+  .ms-pm__fibre:first-child { border-top: 0; }
+  .ms-pm__ficon { width: 40px; height: 40px; background: #FBF9F5; isolation: isolate; display: flex; align-items: center; justify-content: center; }
+  .ms-site .ms-pm__ficon img { width: 40px; height: 40px; object-fit: contain; mix-blend-mode: multiply; filter: grayscale(1) contrast(1.35) brightness(1.06) !important; opacity: .85; }
+  .ms-pm__fname { font-family: Newsreader, Georgia, serif; font-size: 17px; line-height: 1.25; }
+  .ms-pm__fnote { font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; line-height: 1.5; color: #6E675C; text-align: right; }
+  @media (max-width: 520px) {
+    .ms-pm__fibre { grid-template-columns: 40px minmax(0, 1fr); }
+    .ms-pm__fnote { grid-column: 2; text-align: left; }
+  }
+  .ms-pm__specs .ms-pm__desc p { margin: 0; }
+  .ms-pm__specs .ms-pm__desc strong { font-weight: 400; color: #17140F; }
   .ms-pm__more summary { cursor: pointer; list-style: none; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: #6E675C; }
   .ms-pm__more summary::-webkit-details-marker { display: none; }
   .ms-pm__more summary::after { content: ' +'; }
@@ -311,7 +357,24 @@
     { "type": "text", "id": "f3_value", "label": "Fact 3", "default": "Regenerated at fifteen years, for fifteen more" },
     { "type": "checkbox", "id": "show_description", "label": "Show the product description", "default": true },
     { "type": "text", "id": "description_label", "label": "Description label", "default": "About this system" },
-    { "type": "text", "id": "enlarge_label", "label": "Enlarge label", "default": "Enlarge" }
-  ]
+    { "type": "text", "id": "enlarge_label", "label": "Enlarge label", "default": "Enlarge" },
+    { "type": "header", "content": "Natural fibres" },
+    { "type": "text", "id": "fibres_label", "label": "Label", "default": "Natural fibres" },
+    { "type": "text", "id": "fibres_link", "label": "Link", "default": "All the fibres" },
+    { "type": "richtext", "id": "specs", "label": "Specifications (optional)" },
+    { "type": "text", "id": "specs_label", "label": "Specifications label", "default": "Specifications" }
+  ],
+  "blocks": [
+    {
+      "type": "fibre",
+      "name": "Fibre",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Name", "default": "Cheviot Wool" },
+        { "type": "image_picker", "id": "icon", "label": "Drawing" },
+        { "type": "text", "id": "note", "label": "Note" }
+      ]
+    }
+  ],
+  "max_blocks": 12
 }
 {% endschema %}

@@ -1,5 +1,5 @@
 /*
- * Midsummer Milano: the product, with its own fibres.
+ * Midsummer Milano: the product, with its own fibres and its own layers.
  */
 {
   "layout": "ms",
@@ -14,7 +14,211 @@
     },
     "s03": {
       "type": "ms-product-build",
-      "settings": {}
+      "settings": {
+        "padding": "<p><strong>Summer</strong> Linen, Ingeo™, cotton and palm leaves, cool and dry</p><p><strong>Winter</strong> Cashmere, silk and Cheviot wool</p>"
+      },
+      "blocks": {
+        "layer_01": {
+          "type": "layer",
+          "settings": {
+            "name": "Linen and Ingeo™",
+            "group": "Summer side",
+            "depth": "fine",
+            "texture": "cloth",
+            "note": "Linen with Ingeo™, a fibre made from plants: cool, dry and fully renewable."
+          }
+        },
+        "layer_02": {
+          "type": "layer",
+          "settings": {
+            "name": "Cotton",
+            "group": "Summer side",
+            "depth": "fine",
+            "texture": "cloth",
+            "note": "A layer of natural cloth that breathes, between the padding and the cover."
+          }
+        },
+        "layer_03": {
+          "type": "layer",
+          "settings": {
+            "name": "Palm leaves",
+            "group": "Summer side",
+            "depth": "light",
+            "texture": "horsehair",
+            "note": "Palm leaf fibre, firm and dry, for a summer side that stays cool."
+          }
+        },
+        "layer_04": {
+          "type": "layer",
+          "settings": {
+            "name": "Cotton felt",
+            "group": "Summer side",
+            "depth": "fine",
+            "texture": "felt",
+            "note": "A cotton felt that keeps the padding apart from the springs, so neither wears the other."
+          }
+        },
+        "layer_05": {
+          "type": "layer",
+          "settings": {
+            "name": "Pocket springs, with cover springs",
+            "group": "Summer side",
+            "depth": "deep",
+            "texture": "springs",
+            "note": "Pocket springs with cover springs at the faces. Each spring is sewn into its own pocket and works independently of its neighbour."
+          }
+        },
+        "layer_06": {
+          "type": "layer",
+          "settings": {
+            "name": "Cotton felt",
+            "group": "Summer side",
+            "depth": "fine",
+            "texture": "felt",
+            "note": "A cotton felt that keeps the padding apart from the springs, so neither wears the other."
+          }
+        },
+        "layer_07": {
+          "type": "layer",
+          "settings": {
+            "name": "Palm leaves",
+            "group": "Summer side",
+            "depth": "light",
+            "texture": "horsehair",
+            "note": "Palm leaf fibre, firm and dry, for a summer side that stays cool."
+          }
+        },
+        "layer_08": {
+          "type": "layer",
+          "settings": {
+            "name": "Cotton",
+            "group": "Summer side",
+            "depth": "fine",
+            "texture": "cloth",
+            "note": "A layer of natural cloth that breathes, between the padding and the cover."
+          }
+        },
+        "layer_09": {
+          "type": "layer",
+          "settings": {
+            "name": "Linen and Ingeo™",
+            "group": "Summer side",
+            "depth": "fine",
+            "texture": "cloth",
+            "note": "Linen with Ingeo™, a fibre made from plants: cool, dry and fully renewable."
+          }
+        },
+        "layer_10": {
+          "type": "layer",
+          "settings": {
+            "name": "Cashmere",
+            "group": "Winter side",
+            "depth": "fine",
+            "texture": "alpaca",
+            "note": "Cashmere, warmth without weight, laid where body heat reaches it first."
+          }
+        },
+        "layer_11": {
+          "type": "layer",
+          "settings": {
+            "name": "Silk",
+            "group": "Winter side",
+            "depth": "fine",
+            "texture": "silk",
+            "note": "Silk, next to the sleeper: it regulates temperature and moisture, cool in summer, soft in winter."
+          }
+        },
+        "layer_12": {
+          "type": "layer",
+          "settings": {
+            "name": "Cheviot wool",
+            "group": "Winter side",
+            "depth": "light",
+            "texture": "wool",
+            "note": "Cheviot wool, springy and breathing: it carries moisture away and keeps the temperature even."
+          }
+        },
+        "layer_13": {
+          "type": "layer",
+          "settings": {
+            "name": "Wool felt",
+            "group": "Winter side",
+            "depth": "fine",
+            "texture": "felt",
+            "note": "A wool felt that keeps the padding apart from the springs, so neither wears the other."
+          }
+        },
+        "layer_14": {
+          "type": "layer",
+          "settings": {
+            "name": "Pocket springs, with cover springs",
+            "group": "Winter side",
+            "depth": "deep",
+            "texture": "springs",
+            "note": "Pocket springs with cover springs at the faces. Each spring is sewn into its own pocket and works independently of its neighbour."
+          }
+        },
+        "layer_15": {
+          "type": "layer",
+          "settings": {
+            "name": "Wool felt",
+            "group": "Winter side",
+            "depth": "fine",
+            "texture": "felt",
+            "note": "A wool felt that keeps the padding apart from the springs, so neither wears the other."
+          }
+        },
+        "layer_16": {
+          "type": "layer",
+          "settings": {
+            "name": "Cheviot wool",
+            "group": "Winter side",
+            "depth": "light",
+            "texture": "wool",
+            "note": "Cheviot wool, springy and breathing: it carries moisture away and keeps the temperature even."
+          }
+        },
+        "layer_17": {
+          "type": "layer",
+          "settings": {
+            "name": "Silk",
+            "group": "Winter side",
+            "depth": "fine",
+            "texture": "silk",
+            "note": "Silk, next to the sleeper: it regulates temperature and moisture, cool in summer, soft in winter."
+          }
+        },
+        "layer_18": {
+          "type": "layer",
+          "settings": {
+            "name": "Cashmere",
+            "group": "Winter side",
+            "depth": "fine",
+            "texture": "alpaca",
+            "note": "Cashmere, warmth without weight, laid where body heat reaches it first."
+          }
+        }
+      },
+      "block_order": [
+        "layer_01",
+        "layer_02",
+        "layer_03",
+        "layer_04",
+        "layer_05",
+        "layer_06",
+        "layer_07",
+        "layer_08",
+        "layer_09",
+        "layer_10",
+        "layer_11",
+        "layer_12",
+        "layer_13",
+        "layer_14",
+        "layer_15",
+        "layer_16",
+        "layer_17",
+        "layer_18"
+      ]
     },
     "s04": {
       "type": "ms-product-related",

@@ -13,14 +13,10 @@
       "settings": {}
     },
     "s03": {
-      "type": "ms-product-fibres",
-      "settings": {}
-    },
-    "s04": {
       "type": "ms-product-build",
       "settings": {}
     },
-    "s05": {
+    "s04": {
       "type": "ms-product-related",
       "settings": {}
     }
@@ -29,7 +25,6 @@
     "s01",
     "s02",
     "s03",
-    "s04",
-    "s05"
+    "s04"
   ]
 }

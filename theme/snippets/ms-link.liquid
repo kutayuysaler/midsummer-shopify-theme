@@ -1,5 +1,7 @@
 {%- comment -%}
-  The address of a place on the site, resolved against what the store really has.
+  The address of a place on the site, resolved against what the store really has:
+  first a link chosen in Theme settings, then the store's own menus (and, for collections,
+  its published collections), then the handles each place has been published under.
   Each destination lists the handles it has been published under; the first page,
   collection or blog that exists wins. A link chosen under Theme settings → Midsummer ·
   Where links go overrides the search.
@@ -94,6 +96,133 @@
   if to != 'journal-tag' and settings[key] != blank
     assign out = settings[key]
   endif
+  # the store's own menus and published collections come first: they point to pages that exist
+  assign kw = ''
+  assign lt = 'page_link'
+  case to
+    when 'story'
+      assign kw = 'about,our story,chi siamo,la nostra storia'
+    when 'handmade'
+      assign kw = 'handmade,hand made,hand-made,fatto a mano'
+    when 'sleep-culture'
+      assign kw = 'sleep culture'
+    when 'materials'
+      assign kw = 'material,fibre,fiber,materiali'
+    when 'regen'
+      assign kw = '15 + 15,15+15,15 +15,regenerat,refurbish,rigenera'
+    when 'sustain'
+      assign kw = 'sustainab,eco-friendly,eco friendly,sostenib'
+    when 'quiz'
+      assign kw = 'find your midsummer,quiz,assessment,assesment'
+    when 'professionals'
+      assign kw = 'architect,interior designer,professional'
+    when 'hospitality'
+      assign kw = 'hospitality,hotel'
+    when 'agents'
+      assign kw = 'agent,reseller,stockist,store locator,where to find'
+    when 'faq'
+      assign kw = 'faq,question,sleep wise,domande'
+    when 'contact', 'enquire'
+      assign kw = 'contact,enquir,contatt'
+    when 'terms'
+      assign kw = 'terms,condizioni'
+    when 'privacy'
+      assign kw = 'privacy'
+    when 'journal'
+      assign kw = 'journal,news,blog'
+      assign lt = 'blog_link'
+    when 'essentials', 'signature', 'icons'
+      assign kw = to
+      assign lt = 'collection_link'
+    when 'mattresses'
+      assign kw = 'mattress,materass'
+      assign lt = 'collection_link'
+    when 'toppers'
+      assign kw = 'topper'
+      assign lt = 'collection_link'
+    when 'bases'
+      assign kw = 'base,boxspring,box spring'
+      assign lt = 'collection_link'
+    when 'headboards'
+      assign kw = 'headboard,testat'
+      assign lt = 'collection_link'
+    when 'bedding'
+      assign kw = 'bedding,bed linen,sheets,lenzuol'
+      assign lt = 'collection_link'
+  endcase
+  if out == '' and kw != ''
+    assign kws = kw | split: ','
+    if lt == 'collection_link'
+      for col in collections
+        if col.products_count > 0
+          assign ct = col.title | downcase
+          assign chd = col.handle | downcase
+          for k in kws
+            if ct contains k or chd contains k
+              assign out = col.url
+              break
+            endif
+          endfor
+        endif
+        if out != ''
+          break
+        endif
+      endfor
+    endif
+    if out == ''
+      for menu in linklists
+        for l1 in menu.links
+          if l1.type == lt
+            assign t = l1.title | downcase
+            for k in kws
+              if t contains k
+                assign out = l1.url
+                break
+              endif
+            endfor
+          endif
+          if out == ''
+            for l2 in l1.links
+              if l2.type == lt
+                assign t = l2.title | downcase
+                for k in kws
+                  if t contains k
+                    assign out = l2.url
+                    break
+                  endif
+                endfor
+              endif
+              if out == ''
+                for l3 in l2.links
+                  if l3.type == lt
+                    assign t = l3.title | downcase
+                    for k in kws
+                      if t contains k
+                        assign out = l3.url
+                        break
+                      endif
+                    endfor
+                  endif
+                  if out != ''
+                    break
+                  endif
+                endfor
+              endif
+              if out != ''
+                break
+              endif
+            endfor
+          endif
+          if out != ''
+            break
+          endif
+        endfor
+        if out != ''
+          break
+        endif
+      endfor
+    endif
+  endif
   if out == '' and p != ''
     assign list = p | split: ','
     for h in list
@@ -105,9 +234,9 @@
   endif
   if out == '' and c != ''
     assign list = c | split: ','
-    for h in list
-      if collections[h].url != blank and collections[h].products_count > 0
-        assign out = collections[h].url
+    for col in collections
+      if list contains col.handle and col.products_count > 0
+        assign out = col.url
         break
       endif
     endfor

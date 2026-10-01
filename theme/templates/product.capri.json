@@ -1,19 +1,11 @@
 /*
- * Midsummer Milano: the product, with its own fibres.
+ * Midsummer Milano: the product, with its own fibres and its own layers.
  */
 {
   "layout": "ms",
   "sections": {
     "s01": {
       "type": "ms-product-main",
-      "settings": {}
-    },
-    "s02": {
-      "type": "ms-product-reasons",
-      "settings": {}
-    },
-    "s03": {
-      "type": "ms-product-fibres",
       "settings": {},
       "blocks": {
         "fibre_01": {
@@ -29,11 +21,219 @@
         "fibre_01"
       ]
     },
-    "s04": {
-      "type": "ms-product-build",
+    "s02": {
+      "type": "ms-product-reasons",
       "settings": {}
     },
-    "s05": {
+    "s03": {
+      "type": "ms-product-build",
+      "settings": {
+        "padding": "<p><strong>Mattress</strong> Linen, Cheviot wool and horsehair</p><p><strong>Topper</strong> Silk and Cheviot wool</p>"
+      },
+      "blocks": {
+        "layer_01": {
+          "type": "layer",
+          "settings": {
+            "name": "Loro Piana Interiors fabric, or white linen and cotton",
+            "group": "Topper",
+            "depth": "fine",
+            "texture": "cloth",
+            "note": "The upholstery, in a Loro Piana Interiors cloth chosen at consultation. It can be changed without touching anything beneath."
+          }
+        },
+        "layer_02": {
+          "type": "layer",
+          "settings": {
+            "name": "Cheviot wool and silk",
+            "group": "Topper",
+            "depth": "light",
+            "texture": "wool",
+            "note": "Cheviot wool with silk: the wool carries moisture away, the silk keeps the layer cool and smooth."
+          }
+        },
+        "layer_03": {
+          "type": "layer",
+          "settings": {
+            "name": "Wool felt",
+            "group": "Topper",
+            "depth": "fine",
+            "texture": "felt",
+            "note": "A wool felt that keeps the padding apart from the springs, so neither wears the other."
+          }
+        },
+        "layer_04": {
+          "type": "layer",
+          "settings": {
+            "name": "Micro springs",
+            "group": "Topper",
+            "depth": "light",
+            "texture": "micro",
+            "note": "A fine layer of micro springs that reads the body at a smaller scale, so the surface feels continuous."
+          }
+        },
+        "layer_05": {
+          "type": "layer",
+          "settings": {
+            "name": "Wool felt",
+            "group": "Topper",
+            "depth": "fine",
+            "texture": "felt",
+            "note": "A wool felt that keeps the padding apart from the springs, so neither wears the other."
+          }
+        },
+        "layer_06": {
+          "type": "layer",
+          "settings": {
+            "name": "Cheviot wool",
+            "group": "Topper",
+            "depth": "light",
+            "texture": "wool",
+            "note": "Cheviot wool, springy and breathing: it carries moisture away and keeps the temperature even."
+          }
+        },
+        "layer_07": {
+          "type": "layer",
+          "settings": {
+            "name": "Linen and cotton",
+            "group": "Topper",
+            "depth": "fine",
+            "texture": "cloth",
+            "note": "The cover, in natural linen and cotton, the face the sheets lie on."
+          }
+        },
+        "layer_08": {
+          "type": "layer",
+          "settings": {
+            "name": "Loro Piana Interiors fabric",
+            "group": "Mattress and boxspring",
+            "depth": "fine",
+            "texture": "cloth",
+            "note": "The upholstery, in a Loro Piana Interiors cloth chosen at consultation. It can be changed without touching anything beneath."
+          }
+        },
+        "layer_09": {
+          "type": "layer",
+          "settings": {
+            "name": "Linen and cotton",
+            "group": "Mattress and boxspring",
+            "depth": "fine",
+            "texture": "cloth",
+            "note": "A layer of natural cloth that breathes, between the padding and the cover."
+          }
+        },
+        "layer_10": {
+          "type": "layer",
+          "settings": {
+            "name": "Linen",
+            "group": "Mattress and boxspring",
+            "depth": "fine",
+            "texture": "cloth",
+            "note": "A layer of natural cloth that breathes, between the padding and the cover."
+          }
+        },
+        "layer_11": {
+          "type": "layer",
+          "settings": {
+            "name": "Cheviot wool",
+            "group": "Mattress and boxspring",
+            "depth": "light",
+            "texture": "wool",
+            "note": "Cheviot wool, springy and breathing: it carries moisture away and keeps the temperature even."
+          }
+        },
+        "layer_12": {
+          "type": "layer",
+          "settings": {
+            "name": "Austrian horsehair",
+            "group": "Mattress and boxspring",
+            "depth": "light",
+            "texture": "horsehair",
+            "note": "Horsehair, curled and laid by hand: resilient, breathing and almost everlasting. It can be washed and relaid at regeneration."
+          }
+        },
+        "layer_13": {
+          "type": "layer",
+          "settings": {
+            "name": "Wool felt",
+            "group": "Mattress and boxspring",
+            "depth": "fine",
+            "texture": "felt",
+            "note": "A wool felt that keeps the padding apart from the springs, so neither wears the other."
+          }
+        },
+        "layer_14": {
+          "type": "layer",
+          "settings": {
+            "name": "Pocket springs",
+            "group": "Mattress and boxspring",
+            "depth": "deep",
+            "texture": "springs",
+            "note": "Pocket springs, each sewn into its own pocket so it works independently of its neighbour."
+          }
+        },
+        "layer_15": {
+          "type": "layer",
+          "settings": {
+            "name": "Wool felt",
+            "group": "Mattress and boxspring",
+            "depth": "fine",
+            "texture": "felt",
+            "note": "A wool felt that keeps the padding apart from the springs, so neither wears the other."
+          }
+        },
+        "layer_16": {
+          "type": "layer",
+          "settings": {
+            "name": "Bonnel springs",
+            "group": "Mattress and boxspring",
+            "depth": "deep",
+            "texture": "springs",
+            "note": "An interlaced bonnel spring unit, the firm and even foundation the mattress rests on."
+          }
+        },
+        "layer_17": {
+          "type": "layer",
+          "settings": {
+            "name": "Wool felt",
+            "group": "Mattress and boxspring",
+            "depth": "fine",
+            "texture": "felt",
+            "note": "A wool felt that keeps the padding apart from the springs, so neither wears the other."
+          }
+        },
+        "layer_18": {
+          "type": "layer",
+          "settings": {
+            "name": "Beech plywood frame",
+            "group": "Mattress and boxspring",
+            "depth": "foundation",
+            "texture": "wood",
+            "note": "A beech plywood frame that defines the geometry of the bed, built to your height."
+          }
+        }
+      },
+      "block_order": [
+        "layer_01",
+        "layer_02",
+        "layer_03",
+        "layer_04",
+        "layer_05",
+        "layer_06",
+        "layer_07",
+        "layer_08",
+        "layer_09",
+        "layer_10",
+        "layer_11",
+        "layer_12",
+        "layer_13",
+        "layer_14",
+        "layer_15",
+        "layer_16",
+        "layer_17",
+        "layer_18"
+      ]
+    },
+    "s04": {
       "type": "ms-product-related",
       "settings": {}
     }
@@ -42,7 +242,6 @@
     "s01",
     "s02",
     "s03",
-    "s04",
-    "s05"
+    "s04"
   ]
 }
