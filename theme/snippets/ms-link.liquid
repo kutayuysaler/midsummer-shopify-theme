@@ -1,83 +1,87 @@
 {%- comment -%}
-  The address of a place on the site, resolved against what the store really has:
-  first a link chosen in Theme settings, then the store's own menus (and, for collections,
-  its published collections), then the handles each place has been published under.
-  Each destination lists the handles it has been published under; the first page,
-  collection or blog that exists wins. A link chosen under Theme settings → Midsummer ·
-  Where links go overrides the search.
+  The address of a place on the site. In order:
+    1. a link chosen under Theme settings → Midsummer · Where links go;
+    2. the store's own page, collection or blog, by the handles it is published under
+       (the store's real handles come first: about-midsummer-milano, italian-craftsmen-
+       luxury-mattresses, natural-luxury-materials, sleep-wise-faq, agents-and-resellers …).
+       A page with a design of its own opens in that design (?view=<template>) with its
+       own title and words, whatever template admin assigned it;
+    3. for the three collections, any published collection whose title or handle names it;
+    4. the place's designed page, which always exists: /collections/all?view=ms-<place>
+       (templates/collection.ms-*.json). Creating the page later moves the link to it.
 
   Usage:
     href="{% render 'ms-link', to: 'materials' %}"
-    {% render 'ms-link', to: 'mattresses', strict: true %} → empty when the store has no such collection
+    {% render 'ms-link', to: 'enquire', q: 'enquiry=trade' %}#enquire → query joined with ? or &
+    {% render 'ms-link', to: 'mattresses', strict: true %} → empty when the store has no such place
     {% render 'ms-link', to: 'journal-tag', tag: 'sleep' %} → the journal's subject, empty when unused
-    {% render 'ms-link', to: 'enquire', q: 'enquiry=trade' %}#enquire → with a query, joined with ? or &
-
-  A place with a design of its own (About, Natural materials, Professionals …) is never
-  missing: when the store has no page for it, the link opens its designed page at
-  /collections/all?view=ms-<place> (templates/collection.ms-*.json), which every store has.
-  Creating the page in admin later makes the link move to it by itself.
+    {% render 'ms-link', to: 'faq', handles: true %} → the page handles this place answers to
 {%- endcomment -%}
 {%- liquid
   assign p = ''
   assign c = ''
   assign b = ''
-  assign fp = ''
-  assign fbb = ''
-  assign fb = '/pages/contact'
+  assign kw = ''
   assign view = ''
+  assign fb = ''
+  assign tpl = ''
   case to
     when 'story'
-      assign view = 'story'
       assign p = 'about-midsummer-milano,our-story,about-us,about,chi-siamo'
-      assign fb = '/'
+      assign view = 'story'
     when 'handmade'
+      assign tpl = 'handmade-in-italy'
+      assign p = 'italian-craftsmen-luxury-mattresses,handmade-in-italy,handmade,made-in-italy,italian-craftsmen'
       assign view = 'handmade'
-      assign p = 'handmade-in-italy,handmade,made-in-italy,fatto-a-mano'
-      assign fp = 'about-midsummer-milano,our-story,about-us,about'
-      assign fb = '/'
     when 'sleep-culture'
-      assign view = 'sleep-culture'
+      assign tpl = 'sleep-culture'
       assign p = 'sleep-culture,the-culture-of-sleep,culture-of-sleep'
-      assign b = 'sleep-culture'
-      assign fbb = 'news,journal'
-      assign fb = '/'
+      assign view = 'sleep-culture'
     when 'materials'
-      assign view = 'materials'
+      assign tpl = 'natural-materials'
       assign p = 'natural-luxury-materials,natural-materials,materials'
-      assign fb = '/'
-    when 'regen'
+      assign view = 'materials'
+    when 'regen', 'sustain'
+      assign tpl = 'regeneration'
+      assign p = 'midsummer-milanos-regeneration-service,regeneration-service,15-15-refurbishment,regeneration,15-15,our-eco-friendly-approach,sustainability'
       assign view = 'regen'
-      assign p = 'midsummer-milanos-regeneration-service,15-15-refurbishment,regeneration-service,regeneration,15-15'
-      assign fb = '/'
-    when 'sustain'
-      assign view = 'regen'
-      assign p = 'our-eco-friendly-approach,sustainability,eco-friendly-approach'
-      assign fb = '/'
-    when 'quiz'
-      assign view = 'quiz'
-      assign p = 'find-your-midsummer,sleep-assessment,sleep-assesment,sleep-style-quiz,sleep-quiz,quiz'
-      assign fb = '#find-your-midsummer'
-    when 'professionals'
-      assign view = 'professionals'
-      assign p = 'professionals,architects-and-interior-designers,architects-interior-designers,for-architects,trade'
-    when 'hospitality'
-      assign view = 'hospitality'
-      assign p = 'hospitality,hospitality-and-contract,contract,hotels'
-    when 'agents'
-      assign view = 'agents'
-      assign p = 'agents-and-resellers,agents-resellers,store-locator,stockists,where-to-find-us'
-    when 'faq'
-      assign view = 'faq'
-      assign p = 'sleep-wise-faq,faq,questions,frequently-asked-questions'
-    when 'contact', 'enquire'
-      assign view = 'contact'
-      assign p = 'contact,contact-us,contacts,contatti,enquire,enquiry,enquiries'
+    when 'ergonomics'
+      assign p = 'ergonomic-mattresses-benefits,ergonomics'
     when 'loro'
-      assign p = 'loro-piana-interiors,loro-piana,fabrics'
+      assign tpl = 'loro-piana-interiors'
+      assign p = 'loro-piana-interiors,loro-piana'
       assign view = 'loro'
     when 'dream'
-      assign p = 'download-the-dream,the-dream'
+      assign tpl = 'download-the-dream'
+      assign p = 'download-dream-art-of-rest,download-the-dream,the-dream'
       assign view = 'dream'
+    when 'quiz'
+      assign tpl = 'find-your-midsummer'
+      assign p = 'find-your-midsummer,sleep-assessment,sleep-assesment,sleep-style-quiz,sleep-quiz'
+      assign view = 'quiz'
+    when 'professionals'
+      assign tpl = 'professionals'
+      assign p = 'professionals,architects-and-interior-designers,architects-interior-designers,for-architects,trade'
+      assign view = 'professionals'
+    when 'hospitality'
+      assign tpl = 'hospitality'
+      assign p = 'hospitality,hospitality-and-contract,contract,hotels'
+      assign view = 'hospitality'
+    when 'agents'
+      assign tpl = 'agents-and-resellers'
+      assign p = 'agents-and-resellers,agents-resellers,store-locator,stockists,where-to-find-us'
+      assign view = 'agents'
+    when 'faq'
+      assign tpl = 'faq'
+      assign p = 'sleep-wise-faq,faq,questions,frequently-asked-questions'
+      assign view = 'faq'
+    when 'care'
+      assign p = 'customer-assistance,customer-care'
+      assign view = 'faq'
+    when 'contact', 'enquire'
+      assign tpl = 'contact'
+      assign p = 'contact,contact-us,contacts,contatti'
+      assign view = 'contact'
     when 'terms'
       assign p = 'terms-and-conditions,terms'
       assign fb = '/policies/terms-of-service'
@@ -87,242 +91,114 @@
     when 'journal', 'journal-tag'
       assign b = 'news,journal'
       assign fb = '/blogs/news'
+    when 'press'
+      assign b = 'press'
+    when 'portfolio'
+      assign b = 'projects,portfolio'
+    when 'collaborations'
+      assign b = 'collaborations'
     when 'collections'
       assign fb = routes.collections_url
     when 'essentials', 'signature', 'icons'
-      assign c = to
+      assign c = to | append: ',' | append: to | append: '-collection,the-' | append: to
+      assign kw = to
       assign fb = routes.collections_url
     when 'mattresses'
-      assign c = 'mattresses,mattress,materassi'
-      assign fb = routes.collections_url
+      assign c = 'mattresses,mattress'
     when 'toppers'
-      assign c = 'toppers,topper,mattress-toppers'
-      assign fb = routes.collections_url
+      assign c = 'mattress-toppers,toppers,topper'
     when 'bases'
-      assign c = 'bases,bed-bases,bed-base,box-springs,boxsprings'
-      assign fb = routes.collections_url
+      assign c = 'bed-bases,bases,box-springs,boxsprings'
     when 'headboards'
-      assign c = 'headboards,headboard,testate'
-      assign fb = routes.collections_url
+      assign c = 'beds-with-headboards,gallery-beds,headboards'
     when 'bedding'
-      assign c = 'bedding,bed-linen,linen,accessories'
-      assign fb = routes.collections_url
+      assign c = 'duvets,bedding,bed-linen,gallery-blankets-and-throws'
+    when 'furniture'
+      assign c = 'gallery-furniture,furniture'
     when 'home'
       assign fb = routes.root_url
     when 'search'
       assign fb = routes.search_url
   endcase
 
-  assign out = ''
-  assign key = 'ms_link_' | append: to | replace: '-', '_'
-  if to != 'journal-tag' and settings[key] != blank
-    assign out = settings[key]
-  endif
-  # the store's own menus and published collections come first: they point to pages that exist
-  assign kw = ''
-  assign lt = 'page_link'
-  case to
-    when 'story'
-      assign kw = 'about,our story,chi siamo,la nostra storia'
-    when 'handmade'
-      assign kw = 'handmade,hand made,hand-made,fatto a mano'
-    when 'sleep-culture'
-      assign kw = 'sleep culture'
-    when 'materials'
-      assign kw = 'material,fibre,fiber,materiali'
-    when 'regen'
-      assign kw = '15 + 15,15+15,15 +15,regenerat,refurbish,rigenera'
-    when 'sustain'
-      assign kw = 'sustainab,eco-friendly,eco friendly,sostenib'
-    when 'quiz'
-      assign kw = 'find your midsummer,quiz,assessment,assesment'
-    when 'professionals'
-      assign kw = 'architect,interior designer,professional'
-    when 'hospitality'
-      assign kw = 'hospitality,hotel'
-    when 'agents'
-      assign kw = 'agent,reseller,stockist,store locator,where to find'
-    when 'faq'
-      assign kw = 'faq,question,sleep wise,domande'
-    when 'contact', 'enquire'
-      assign kw = 'contact,enquir,contatt'
-    when 'loro'
-      assign kw = 'loro piana'
-    when 'terms'
-      assign kw = 'terms,condizioni'
-    when 'privacy'
-      assign kw = 'privacy'
-    when 'journal'
-      assign kw = 'journal,news,blog'
-      assign lt = 'blog_link'
-    when 'essentials', 'signature', 'icons'
-      assign kw = to
-      assign lt = 'collection_link'
-    when 'mattresses'
-      assign kw = 'mattress,materass'
-      assign lt = 'collection_link'
-    when 'toppers'
-      assign kw = 'topper'
-      assign lt = 'collection_link'
-    when 'bases'
-      assign kw = 'base,boxspring,box spring'
-      assign lt = 'collection_link'
-    when 'headboards'
-      assign kw = 'headboard,testat'
-      assign lt = 'collection_link'
-    when 'bedding'
-      assign kw = 'bedding,bed linen,sheets,lenzuol'
-      assign lt = 'collection_link'
-  endcase
-  if out == '' and kw != ''
-    assign kws = kw | split: ','
-    if lt == 'collection_link'
-      for col in collections
-        if col.products_count > 0
-          assign ct = col.title | downcase
-          assign chd = col.handle | downcase
-          for k in kws
-            if ct contains k or chd contains k
-              assign out = col.url
-              break
-            endif
-          endfor
-        endif
-        if out != ''
-          break
-        endif
-      endfor
+  if handles
+    echo p
+  else
+    assign out = ''
+    assign key = 'ms_link_' | append: to | replace: '-', '_'
+    if to != 'journal-tag' and settings[key] != blank
+      assign out = settings[key]
     endif
-    if out == ''
-      for menu in linklists
-        for l1 in menu.links
-          if l1.type == lt
-            assign t = l1.title | downcase
-            for k in kws
-              if t contains k
-                assign out = l1.url
-                break
-              endif
-            endfor
-          endif
-          if out == ''
-            for l2 in l1.links
-              if l2.type == lt
-                assign t = l2.title | downcase
-                for k in kws
-                  if t contains k
-                    assign out = l2.url
-                    break
-                  endif
-                endfor
-              endif
-              if out == ''
-                for l3 in l2.links
-                  if l3.type == lt
-                    assign t = l3.title | downcase
-                    for k in kws
-                      if t contains k
-                        assign out = l3.url
-                        break
-                      endif
-                    endfor
-                  endif
-                  if out != ''
-                    break
-                  endif
-                endfor
-              endif
-              if out != ''
-                break
-              endif
-            endfor
-          endif
-          if out != ''
-            break
-          endif
-        endfor
-        if out != ''
-          break
-        endif
-      endfor
-    endif
-  endif
-  if out == '' and p != ''
-    assign list = p | split: ','
-    for h in list
-      if pages[h].url != blank
-        assign out = pages[h].url
-        break
-      endif
-    endfor
-  endif
-  if out == '' and c != ''
-    assign list = c | split: ','
-    for col in collections
-      if list contains col.handle and col.products_count > 0
-        assign out = col.url
-        break
-      endif
-    endfor
-  endif
-  if out == '' and b != ''
-    assign list = b | split: ','
-    for h in list
-      if blogs[h].url != blank
-        if to == 'journal-tag'
-          assign want = tag | downcase
-          for t in blogs[h].all_tags
-            assign tt = t | downcase
-            if tt == want
-              assign th = t | handleize
-              assign out = blogs[h].url | append: '/tagged/' | append: th
-              break
-            endif
-          endfor
-        else
-          assign out = blogs[h].url
-        endif
-        break
-      endif
-    endfor
-  endif
-  # nothing in the store yet: the place's own designed page, which always exists
-  if out == '' and view != ''
-    assign out = routes.all_products_collection_url | append: '?view=ms-' | append: view
-  endif
-  assign settled = false
-  if out != '' or strict or to == 'journal-tag'
-    assign settled = true
-  endif
-  unless settled
-    if fp != ''
-      assign list = fp | split: ','
+    if out == '' and p != ''
+      assign list = p | split: ','
       for h in list
         if pages[h].url != blank
           assign out = pages[h].url
+          comment
+            the page opens in its designed template, with its own title and words, even if
+            admin gave it another one
+          endcomment
+          if tpl != '' and pages[h].template_suffix != tpl
+            assign out = out | append: '?view=' | append: tpl
+          endif
           break
         endif
       endfor
     endif
-    if out == '' and fbb != ''
-      assign list = fbb | split: ','
+    if out == '' and c != ''
+      assign list = c | split: ','
+      for col in collections
+        if list contains col.handle and col.products_count > 0
+          assign out = col.url
+          break
+        endif
+      endfor
+      if out == '' and kw != ''
+        for col in collections
+          if col.products_count > 0
+            assign ct = col.title | downcase
+            if ct contains kw
+              assign out = col.url
+              break
+            endif
+          endif
+        endfor
+      endif
+    endif
+    if out == '' and b != ''
+      assign list = b | split: ','
       for h in list
         if blogs[h].url != blank
-          assign out = blogs[h].url
+          if to == 'journal-tag'
+            assign want = tag | downcase
+            for t in blogs[h].all_tags
+              assign tt = t | downcase
+              if tt == want
+                assign th = t | handleize
+                assign out = blogs[h].url | append: '/tagged/' | append: th
+                break
+              endif
+            endfor
+          else
+            assign out = blogs[h].url
+          endif
           break
         endif
       endfor
     endif
-    if out == ''
+    if out == '' and view != ''
+      assign out = routes.all_products_collection_url | append: '?view=ms-' | append: view
+    endif
+    if out == '' and strict != true and to != 'journal-tag'
       assign out = fb
     endif
-  endunless
-  if q != blank and out != ''
-    if out contains '?'
-      assign out = out | append: '&' | append: q
-    else
-      assign out = out | append: '?' | append: q
+    if q != blank and out != ''
+      if out contains '?'
+        assign out = out | append: '&' | append: q
+      else
+        assign out = out | append: '?' | append: q
+      endif
     endif
+    echo out
   endif
-  echo out
 -%}

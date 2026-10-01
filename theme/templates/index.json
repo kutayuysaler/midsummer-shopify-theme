@@ -1,5 +1,5 @@
 /*
- * Midsummer Milano: the home page: who we are and the beds; why a Midsummer bed is different, how it is made, what is inside it and how long it lasts; the proof; then the invitations.
+ * Midsummer Milano: the home page, in chapters: the film, one sentence, the collections; made by hand, what is inside, what it is made of, why it is different, made to last; the proof; the journal; the invitation.
  */
 {
   "layout": "ms",
@@ -8,404 +8,45 @@
       "type": "ms-home-01",
       "settings": {}
     },
-    "s02": {
-      "type": "ms-home-02",
-      "settings": {}
-    },
     "s03": {
       "type": "ms-home-03",
-      "settings": {}
-    },
-    "s04": {
-      "type": "ms-home-04",
-      "settings": {}
-    },
-    "s05": {
-      "type": "ms-home-05",
-      "settings": {}
-    },
-    "s06": {
-      "type": "ms-home-06",
-      "settings": {}
-    },
-    "s07": {
-      "type": "ms-home-07",
-      "settings": {}
-    },
-    "s08": {
-      "type": "ms-home-08",
-      "settings": {}
-    },
-    "s09": {
-      "type": "ms-home-09",
-      "settings": {}
-    },
-    "s10": {
-      "type": "ms-home-10",
-      "settings": {}
-    },
-    "s13": {
-      "type": "ms-home-13",
       "settings": {}
     },
     "s14": {
       "type": "ms-home-14",
       "settings": {}
     },
-    "s15": {
-      "type": "ms-home-15",
-      "settings": {},
-      "blocks": {
-        "publication_01": {
-          "type": "publication",
-          "settings": {
-            "name": "Elle Decor",
-            "row": "1",
-            "link": "shopify://blogs/press-elle-decor",
-            "logo_file": "ms-press-elle-decor.svg"
-          }
-        },
-        "publication_02": {
-          "type": "publication",
-          "settings": {
-            "name": "Architectural Digest",
-            "row": "1",
-            "link": "shopify://blogs/press-architectural-digest",
-            "logo_file": "ms-press-architectural-digest.svg"
-          }
-        },
-        "publication_03": {
-          "type": "publication",
-          "settings": {
-            "name": "Vanity Fair",
-            "row": "1",
-            "link": "shopify://blogs/press-vanity-fair",
-            "logo_file": "ms-press-vanity-fair.svg"
-          }
-        },
-        "publication_04": {
-          "type": "publication",
-          "settings": {
-            "name": "Marie Claire Maison",
-            "row": "1",
-            "link": "shopify://blogs/press-marie-claire-maison",
-            "logo_file": "ms-press-marie-claire-maison.svg"
-          }
-        },
-        "publication_05": {
-          "type": "publication",
-          "settings": {
-            "name": "Robb Report",
-            "row": "1",
-            "link": "shopify://blogs/press-robb-report",
-            "logo_file": "ms-press-robb-report.svg"
-          }
-        },
-        "publication_06": {
-          "type": "publication",
-          "settings": {
-            "name": "AD Magazine",
-            "row": "1",
-            "link": "shopify://blogs/press-ad-magazine",
-            "logo_file": "ms-press-ad-magazine.svg"
-          }
-        },
-        "publication_07": {
-          "type": "publication",
-          "settings": {
-            "name": "L Officiel",
-            "row": "1",
-            "link": "shopify://blogs/press-lofficiel",
-            "logo_file": "ms-press-l-officiel.svg"
-          }
-        },
-        "publication_08": {
-          "type": "publication",
-          "settings": {
-            "name": "Il Sole 24 Ore",
-            "row": "1",
-            "link": "shopify://blogs/press-il-sole-24-ore",
-            "logo_file": "ms-press-il-sole-24-ore.svg"
-          }
-        },
-        "publication_09": {
-          "type": "publication",
-          "settings": {
-            "name": "Villegiardini",
-            "row": "1",
-            "link": "shopify://blogs/press-villegiardini",
-            "logo_file": "ms-press-villegiardini.svg"
-          }
-        },
-        "publication_10": {
-          "type": "publication",
-          "settings": {
-            "name": "Salone del Mobile",
-            "row": "1",
-            "link": "shopify://blogs/press-salone-del-mobile",
-            "logo_file": "ms-press-salone-del-mobile.svg"
-          }
-        },
-        "publication_11": {
-          "type": "publication",
-          "settings": {
-            "name": "Green Product Award",
-            "row": "1",
-            "link": "shopify://blogs/press-green-product-award",
-            "logo_file": "ms-press-green-product-award.svg"
-          }
-        },
-        "publication_12": {
-          "type": "publication",
-          "settings": {
-            "name": "Interior Design",
-            "row": "1",
-            "link": "shopify://blogs/press-interior-design",
-            "logo_file": "ms-press-interior-design.svg"
-          }
-        },
-        "publication_13": {
-          "type": "publication",
-          "settings": {
-            "name": "Hospitality Design",
-            "row": "1",
-            "link": "shopify://blogs/press-hospitality-design",
-            "logo_file": "ms-press-hospitality-design.png"
-          }
-        },
-        "publication_14": {
-          "type": "publication",
-          "settings": {
-            "name": "Interiors Monthly",
-            "row": "1",
-            "link": "shopify://blogs/press-interiors-monthly",
-            "logo_file": "ms-press-interiors-monthly.png"
-          }
-        },
-        "publication_15": {
-          "type": "publication",
-          "settings": {
-            "name": "Gaaf Goed",
-            "row": "2",
-            "link": "shopify://blogs/press-gaaf-goed",
-            "logo_file": "ms-press-gaaf-goed.png"
-          }
-        },
-        "publication_16": {
-          "type": "publication",
-          "settings": {
-            "name": "Glam Deko",
-            "row": "2",
-            "link": "shopify://blogs/press-glam-deko",
-            "logo_file": "ms-press-glam-deko.png"
-          }
-        },
-        "publication_17": {
-          "type": "publication",
-          "settings": {
-            "name": "Pekne Bydleni",
-            "row": "2",
-            "link": "shopify://blogs/press-pekne-bydleni",
-            "logo_file": "ms-press-pekne-bydleni.png"
-          }
-        },
-        "publication_18": {
-          "type": "publication",
-          "settings": {
-            "name": "Lust und Leben",
-            "row": "2",
-            "link": "shopify://blogs/press-lust-leben",
-            "logo_file": "ms-press-lust-und-leben.png"
-          }
-        },
-        "publication_19": {
-          "type": "publication",
-          "settings": {
-            "name": "Bella",
-            "row": "2",
-            "link": "shopify://blogs/press-bella",
-            "logo_file": "ms-press-bella.png"
-          }
-        },
-        "publication_20": {
-          "type": "publication",
-          "settings": {
-            "name": "RBC Style",
-            "row": "2",
-            "link": "shopify://blogs/press-rbc-style",
-            "logo_file": "ms-press-rbc-style.png"
-          }
-        },
-        "publication_21": {
-          "type": "publication",
-          "settings": {
-            "name": "Kommersant",
-            "row": "2",
-            "link": "shopify://blogs/press-kommersant",
-            "logo_file": "ms-press-kommersant.svg"
-          }
-        },
-        "publication_22": {
-          "type": "publication",
-          "settings": {
-            "name": "The Symbol",
-            "row": "2",
-            "link": "shopify://blogs/press-the-symbol",
-            "logo_file": "ms-press-the-symbol.svg"
-          }
-        },
-        "publication_23": {
-          "type": "publication",
-          "settings": {
-            "name": "Chi E Chi",
-            "row": "2",
-            "link": "shopify://blogs/press-chi-echi",
-            "logo_file": "ms-press-chi-e-chi.svg"
-          }
-        },
-        "publication_24": {
-          "type": "publication",
-          "settings": {
-            "name": "Festival dell Etica",
-            "row": "2",
-            "link": "shopify://blogs/press-festival-delletica",
-            "logo_file": "ms-press-festival-dell-etica.svg"
-          }
-        },
-        "publication_25": {
-          "type": "publication",
-          "settings": {
-            "name": "Home",
-            "row": "2",
-            "link": "shopify://blogs/press-home",
-            "logo_file": "ms-press-home.png"
-          }
-        },
-        "publication_26": {
-          "type": "publication",
-          "settings": {
-            "name": "You Trade",
-            "row": "2",
-            "link": "shopify://blogs/press-you-trade",
-            "logo_file": "ms-press-you-trade.png"
-          }
-        },
-        "publication_27": {
-          "type": "publication",
-          "settings": {
-            "name": "Rent",
-            "row": "2",
-            "link": "shopify://blogs/press-rent",
-            "logo_file": "ms-press-rent.png"
-          }
-        }
-      },
-      "block_order": [
-        "publication_01",
-        "publication_02",
-        "publication_03",
-        "publication_04",
-        "publication_05",
-        "publication_06",
-        "publication_07",
-        "publication_08",
-        "publication_09",
-        "publication_10",
-        "publication_11",
-        "publication_12",
-        "publication_13",
-        "publication_14",
-        "publication_15",
-        "publication_16",
-        "publication_17",
-        "publication_18",
-        "publication_19",
-        "publication_20",
-        "publication_21",
-        "publication_22",
-        "publication_23",
-        "publication_24",
-        "publication_25",
-        "publication_26",
-        "publication_27"
-      ]
-    },
-    "s16": {
-      "type": "ms-home-16",
+    "words": {
+      "type": "ms-hp-statement",
       "settings": {}
     },
-    "s17": {
-      "type": "ms-home-17",
-      "settings": {}
-    },
-    "why": {
-      "type": "ms-why",
-      "settings": {},
-      "blocks": {
-        "row_01": {
-          "type": "row",
-          "settings": {
-            "label": "Who makes it",
-            "ours": "Two artisans, start to finish, in our Milan atelier.",
-            "theirs": "A production line, with many hands and no one answerable for the whole."
-          }
-        },
-        "row_02": {
-          "type": "row",
-          "settings": {
-            "label": "What is inside",
-            "ours": "Only natural fibres: wool, horsehair, silk, cashmere and linen, laid by hand over pocket springs.",
-            "theirs": "Foams, latex and synthetic fillings, glued in layers."
-          }
-        },
-        "row_03": {
-          "type": "row",
-          "settings": {
-            "label": "Through the year",
-            "ours": "A winter side and a summer side, turned with the season.",
-            "theirs": "One side, all year."
-          }
-        },
-        "row_04": {
-          "type": "row",
-          "settings": {
-            "label": "Size and shape",
-            "ours": "Any size, round included, with no tooling charge.",
-            "theirs": "A catalogue of standard sizes."
-          }
-        },
-        "row_05": {
-          "type": "row",
-          "settings": {
-            "label": "What it is dressed in",
-            "ours": "Loro Piana Interiors fabrics, chosen for the room.",
-            "theirs": "The house ticking."
-          }
-        },
-        "row_06": {
-          "type": "row",
-          "settings": {
-            "label": "After fifteen years",
-            "ours": "Opened, cleaned and rebuilt by the artisans who made it, for fifteen more.",
-            "theirs": "Replaced, and sent to landfill."
-          }
-        }
-      },
-      "block_order": [
-        "row_01",
-        "row_02",
-        "row_03",
-        "row_04",
-        "row_05",
-        "row_06"
-      ]
+    "ch1": {
+      "type": "ms-hp-chapter",
+      "settings": {
+        "layout": "split",
+        "side": "left",
+        "tone": "light",
+        "image_fallback": "https://midsummer-milano.com/cdn/shop/files/Paisleydettaglio.jpg?width=2000",
+        "numeral": "I",
+        "eyebrow": "Handmade in Milan",
+        "heading": "Two artisans. One bed.",
+        "text": "No production line. The same two hands open the spring core and sew the final seam, in our atelier on Via Andegari. That is why a change of size, height or fabric is a decision, never an exception.",
+        "stat1_value": "2",
+        "stat1_label": "Artisans build each system, start to finish",
+        "stat2_value": "24",
+        "stat2_label": "Systems across three collections",
+        "stat3_value": "6",
+        "stat3_label": "Layers of springs in an Icons system",
+        "link_label": "Handmade in Italy",
+        "link_place": "handmade"
+      }
     },
     "build": {
       "type": "ms-product-build",
       "settings": {
-        "eyebrow": "Inside a Midsummer bed",
+        "eyebrow": "II · Inside a Midsummer bed",
         "heading": "[count] layers. Not one of them synthetic.",
-        "intro": "This is the Top System, from the topper down to the frame, as the atelier builds it. Move along the drawing to read what each layer does.",
+        "intro": "The Top System, from the topper down to the frame, as the atelier builds it. Move along the drawing to read what each layer does.",
         "padding": "<p><strong>Mattress, winter</strong> Cashmere, baby alpaca, mohair, horsehair and Cheviot wool</p><p><strong>Mattress, summer</strong> Linen, silk, Cheviot wool and horsehair</p><p><strong>Topper, winter</strong> Yak and Cheviot wool</p><p><strong>Topper, summer</strong> Cheviot wool and linen</p>",
         "link_label": "The Icons collection",
         "link_place": "icons"
@@ -734,29 +375,410 @@
         "layer_29"
       ]
     },
+    "ch3": {
+      "type": "ms-hp-chapter",
+      "settings": {
+        "layout": "split",
+        "side": "right",
+        "tone": "sand",
+        "image_fallback": "https://midsummer-milano.com/cdn/shop/files/Paisley_IMG_5161_low.jpg?width=2000",
+        "numeral": "III",
+        "eyebrow": "Natural fibres · Loro Piana Interiors",
+        "heading": "Only what nature makes. Dressed in Loro Piana.",
+        "text": "Wool, cashmere, silk, horsehair, linen and Ingeo, chosen because they breathe, last and age well, are laid by hand where each does its work. Every Signature and Icons system is then upholstered in Loro Piana Interiors, the cloth chosen for the room.",
+        "link_label": "Natural materials",
+        "link_place": "materials"
+      }
+    },
+    "why": {
+      "type": "ms-why",
+      "settings": {
+        "eyebrow": "IV · Why Midsummer"
+      },
+      "blocks": {
+        "row_01": {
+          "type": "row",
+          "settings": {
+            "label": "Who makes it",
+            "ours": "Two artisans, start to finish, in our Milan atelier.",
+            "theirs": "A production line, with many hands and no one answerable for the whole."
+          }
+        },
+        "row_02": {
+          "type": "row",
+          "settings": {
+            "label": "What is inside",
+            "ours": "Only natural fibres: wool, horsehair, silk, cashmere and linen, laid by hand over pocket springs.",
+            "theirs": "Foams, latex and synthetic fillings, glued in layers."
+          }
+        },
+        "row_03": {
+          "type": "row",
+          "settings": {
+            "label": "Through the year",
+            "ours": "A winter side and a summer side, turned with the season.",
+            "theirs": "One side, all year."
+          }
+        },
+        "row_04": {
+          "type": "row",
+          "settings": {
+            "label": "Size and shape",
+            "ours": "Any size, round included, with no tooling charge.",
+            "theirs": "A catalogue of standard sizes."
+          }
+        },
+        "row_05": {
+          "type": "row",
+          "settings": {
+            "label": "What it is dressed in",
+            "ours": "Loro Piana Interiors fabrics, chosen for the room.",
+            "theirs": "The house ticking."
+          }
+        },
+        "row_06": {
+          "type": "row",
+          "settings": {
+            "label": "After fifteen years",
+            "ours": "Opened, cleaned and rebuilt by the artisans who made it, for fifteen more.",
+            "theirs": "Replaced, and sent to landfill."
+          }
+        }
+      },
+      "block_order": [
+        "row_01",
+        "row_02",
+        "row_03",
+        "row_04",
+        "row_05",
+        "row_06"
+      ]
+    },
+    "ch5": {
+      "type": "ms-hp-chapter",
+      "settings": {
+        "layout": "full",
+        "tone": "dark",
+        "image_fallback": "ms-graded-paisley-red.jpg",
+        "numeral": "V",
+        "eyebrow": "Made to last · 15 + 15",
+        "heading": "Fifteen years. Then fifteen more.",
+        "text": "At fifteen years your mattress comes back to the artisans who made it. They open it, wash and re-card the fibres, check every spring and close it again, for fifteen more.",
+        "link_label": "The 15 + 15 service",
+        "link_place": "regen"
+      }
+    },
+    "proof": {
+      "type": "ms-hp-proof",
+      "settings": {},
+      "blocks": {
+        "publication_01": {
+          "type": "publication",
+          "settings": {
+            "name": "Elle Decor",
+            "row": "1",
+            "link": "shopify://blogs/press-elle-decor",
+            "logo_file": "ms-press-elle-decor.svg"
+          }
+        },
+        "publication_02": {
+          "type": "publication",
+          "settings": {
+            "name": "Architectural Digest",
+            "row": "1",
+            "link": "shopify://blogs/press-architectural-digest",
+            "logo_file": "ms-press-architectural-digest.svg"
+          }
+        },
+        "publication_03": {
+          "type": "publication",
+          "settings": {
+            "name": "Vanity Fair",
+            "row": "1",
+            "link": "shopify://blogs/press-vanity-fair",
+            "logo_file": "ms-press-vanity-fair.svg"
+          }
+        },
+        "publication_04": {
+          "type": "publication",
+          "settings": {
+            "name": "Marie Claire Maison",
+            "row": "1",
+            "link": "shopify://blogs/press-marie-claire-maison",
+            "logo_file": "ms-press-marie-claire-maison.svg"
+          }
+        },
+        "publication_05": {
+          "type": "publication",
+          "settings": {
+            "name": "Robb Report",
+            "row": "1",
+            "link": "shopify://blogs/press-robb-report",
+            "logo_file": "ms-press-robb-report.svg"
+          }
+        },
+        "publication_06": {
+          "type": "publication",
+          "settings": {
+            "name": "AD Magazine",
+            "row": "1",
+            "link": "shopify://blogs/press-ad-magazine",
+            "logo_file": "ms-press-ad-magazine.svg"
+          }
+        },
+        "publication_07": {
+          "type": "publication",
+          "settings": {
+            "name": "L Officiel",
+            "row": "1",
+            "link": "shopify://blogs/press-lofficiel",
+            "logo_file": "ms-press-l-officiel.svg"
+          }
+        },
+        "publication_08": {
+          "type": "publication",
+          "settings": {
+            "name": "Il Sole 24 Ore",
+            "row": "1",
+            "link": "shopify://blogs/press-il-sole-24-ore",
+            "logo_file": "ms-press-il-sole-24-ore.svg"
+          }
+        },
+        "publication_09": {
+          "type": "publication",
+          "settings": {
+            "name": "Villegiardini",
+            "row": "1",
+            "link": "shopify://blogs/press-villegiardini",
+            "logo_file": "ms-press-villegiardini.svg"
+          }
+        },
+        "publication_10": {
+          "type": "publication",
+          "settings": {
+            "name": "Salone del Mobile",
+            "row": "1",
+            "link": "shopify://blogs/press-salone-del-mobile",
+            "logo_file": "ms-press-salone-del-mobile.svg"
+          }
+        },
+        "publication_11": {
+          "type": "publication",
+          "settings": {
+            "name": "Green Product Award",
+            "row": "1",
+            "link": "shopify://blogs/press-green-product-award",
+            "logo_file": "ms-press-green-product-award.svg"
+          }
+        },
+        "publication_12": {
+          "type": "publication",
+          "settings": {
+            "name": "Interior Design",
+            "row": "1",
+            "link": "shopify://blogs/press-interior-design",
+            "logo_file": "ms-press-interior-design.svg"
+          }
+        },
+        "publication_13": {
+          "type": "publication",
+          "settings": {
+            "name": "Hospitality Design",
+            "row": "1",
+            "link": "shopify://blogs/press-hospitality-design",
+            "logo_file": "ms-press-hospitality-design.png"
+          }
+        },
+        "publication_14": {
+          "type": "publication",
+          "settings": {
+            "name": "Interiors Monthly",
+            "row": "1",
+            "link": "shopify://blogs/press-interiors-monthly",
+            "logo_file": "ms-press-interiors-monthly.png"
+          }
+        },
+        "publication_15": {
+          "type": "publication",
+          "settings": {
+            "name": "Gaaf Goed",
+            "row": "2",
+            "link": "shopify://blogs/press-gaaf-goed",
+            "logo_file": "ms-press-gaaf-goed.png"
+          }
+        },
+        "publication_16": {
+          "type": "publication",
+          "settings": {
+            "name": "Glam Deko",
+            "row": "2",
+            "link": "shopify://blogs/press-glam-deko",
+            "logo_file": "ms-press-glam-deko.png"
+          }
+        },
+        "publication_17": {
+          "type": "publication",
+          "settings": {
+            "name": "Pekne Bydleni",
+            "row": "2",
+            "link": "shopify://blogs/press-pekne-bydleni",
+            "logo_file": "ms-press-pekne-bydleni.png"
+          }
+        },
+        "publication_18": {
+          "type": "publication",
+          "settings": {
+            "name": "Lust und Leben",
+            "row": "2",
+            "link": "shopify://blogs/press-lust-leben",
+            "logo_file": "ms-press-lust-und-leben.png"
+          }
+        },
+        "publication_19": {
+          "type": "publication",
+          "settings": {
+            "name": "Bella",
+            "row": "2",
+            "link": "shopify://blogs/press-bella",
+            "logo_file": "ms-press-bella.png"
+          }
+        },
+        "publication_20": {
+          "type": "publication",
+          "settings": {
+            "name": "RBC Style",
+            "row": "2",
+            "link": "shopify://blogs/press-rbc-style",
+            "logo_file": "ms-press-rbc-style.png"
+          }
+        },
+        "publication_21": {
+          "type": "publication",
+          "settings": {
+            "name": "Kommersant",
+            "row": "2",
+            "link": "shopify://blogs/press-kommersant",
+            "logo_file": "ms-press-kommersant.svg"
+          }
+        },
+        "publication_22": {
+          "type": "publication",
+          "settings": {
+            "name": "The Symbol",
+            "row": "2",
+            "link": "shopify://blogs/press-the-symbol",
+            "logo_file": "ms-press-the-symbol.svg"
+          }
+        },
+        "publication_23": {
+          "type": "publication",
+          "settings": {
+            "name": "Chi E Chi",
+            "row": "2",
+            "link": "shopify://blogs/press-chi-echi",
+            "logo_file": "ms-press-chi-e-chi.svg"
+          }
+        },
+        "publication_24": {
+          "type": "publication",
+          "settings": {
+            "name": "Festival dell Etica",
+            "row": "2",
+            "link": "shopify://blogs/press-festival-delletica",
+            "logo_file": "ms-press-festival-dell-etica.svg"
+          }
+        },
+        "publication_25": {
+          "type": "publication",
+          "settings": {
+            "name": "Home",
+            "row": "2",
+            "link": "shopify://blogs/press-home",
+            "logo_file": "ms-press-home.png"
+          }
+        },
+        "publication_26": {
+          "type": "publication",
+          "settings": {
+            "name": "You Trade",
+            "row": "2",
+            "link": "shopify://blogs/press-you-trade",
+            "logo_file": "ms-press-you-trade.png"
+          }
+        },
+        "publication_27": {
+          "type": "publication",
+          "settings": {
+            "name": "Rent",
+            "row": "2",
+            "link": "shopify://blogs/press-rent",
+            "logo_file": "ms-press-rent.png"
+          }
+        }
+      },
+      "block_order": [
+        "publication_01",
+        "publication_02",
+        "publication_03",
+        "publication_04",
+        "publication_05",
+        "publication_06",
+        "publication_07",
+        "publication_08",
+        "publication_09",
+        "publication_10",
+        "publication_11",
+        "publication_12",
+        "publication_13",
+        "publication_14",
+        "publication_15",
+        "publication_16",
+        "publication_17",
+        "publication_18",
+        "publication_19",
+        "publication_20",
+        "publication_21",
+        "publication_22",
+        "publication_23",
+        "publication_24",
+        "publication_25",
+        "publication_26",
+        "publication_27"
+      ]
+    },
     "follow": {
       "type": "ms-follow",
       "settings": {}
+    },
+    "visit": {
+      "type": "ms-hp-chapter",
+      "settings": {
+        "layout": "split",
+        "side": "left",
+        "tone": "dark",
+        "image_fallback": "ms-graded-ochre-room.jpg",
+        "numeral": "",
+        "eyebrow": "The atelier · Via Andegari 4, Milano",
+        "heading": "Come and lie down.",
+        "text": "Lie on the systems, touch the fibres and the cloths, and leave with a proposal drawn for your room. By appointment, Monday to Friday, 09:00–12:00 and 13:00–18:00, or by video call wherever you are.",
+        "link_label": "Book a private appointment",
+        "link_place": "enquire",
+        "link_query": "enquiry=appointment"
+      }
     }
   },
   "order": [
     "s01",
-    "s02",
+    "words",
     "s03",
-    "s04",
-    "why",
-    "s05",
-    "s06",
+    "ch1",
     "build",
-    "s07",
-    "s09",
-    "s08",
-    "s15",
-    "s10",
-    "s13",
+    "ch3",
+    "why",
+    "ch5",
+    "proof",
     "s14",
     "follow",
-    "s16",
-    "s17"
+    "visit"
   ]
 }

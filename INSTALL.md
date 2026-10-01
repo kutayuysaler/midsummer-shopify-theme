@@ -305,57 +305,81 @@ The addresses are now saved in the theme's own settings as well, so they show as
 the theme is installed. If they are still missing on your store, open that settings group:
 an empty field there hides its icon.
 
-## 10. The home page, as a case for Midsummer
+## 10. The home page, in chapters
 
-The home page now argues, band by band, why a Midsummer bed and not another:
+The home page is now twelve calm bands, one idea per screen, each with the same space
+around it:
 
-1. **Who we are:** the film, then The house.
-2. **The beds:** the three collections, then Icons · Paisley.
-3. **Why Midsummer:** a new comparison, *What a bed should be, and rarely is*. Six points
-   (who makes it, what is inside, through the year, size and shape, what it is dressed
-   in, after fifteen years), each set against the usual luxury bed. Then *Lie on one in
-   Milan* and *Compare the collections*. Edit the points as blocks of the **Why
-   Midsummer** section.
-4. **How it is made:** two artisans, one bed; the atelier in figures.
-5. **Inside a Midsummer bed:** the Top System's twenty-nine layers, drawn as on its
-   product page and interactive, under *Twenty-nine layers. Not one of them synthetic.*
-6. **A bed for thirty years:** fifteen years then fifteen more, and the service from the
-   first conversation to year thirty.
-7. **The proof:** the Green Product Award, then **As featured in**, now well down the
-   page, where it backs up what came before.
-8. **The invitations:** Find your Midsummer, the trade desk, the Journal, **Follow the
-   atelier** (new), the newsletter, then come and lie down at Via Andegari 4.
+1. **The film**, with Book a private appointment.
+2. **Opening words:** one sentence, centred, signed by Chiara Mennini, and a link to Our
+   story.
+3. **The three collections.**
+4. **I · Handmade in Milan:** a tall photograph beside *Two artisans. One bed.*, with three
+   figures (2 artisans, 24 systems, 6 layers of springs).
+5. **II · Inside a Midsummer bed:** the Top System's twenty-nine layers, interactive.
+6. **III · Natural fibres · Loro Piana Interiors:** *Only what nature makes. Dressed in Loro
+   Piana.*
+7. **IV · Why Midsummer:** the six-point comparison.
+8. **V · Made to last:** *Fifteen years. Then fifteen more.*, across the whole screen.
+9. **Recognition:** the Green Product Award, then the press as a quiet grid of marks, each
+   leading to its press page, and a link to all the press.
+10. **The Journal.**
+11. **Follow the atelier:** @midsummermilano, your accounts and five photographs.
+12. **Come and lie down:** the atelier on Via Andegari and Book a private appointment.
 
-**Follow the atelier** shows @midsummermilano large, your accounts as large icons and
-five photographs leading to Instagram. Pick your own photographs in the section.
+Each chapter is a **Home · Chapter** section: change the photograph, the words, the
+figures and the link in the editor, or add another chapter anywhere. The figures, the
+service steps, the quiz band, the trade band and the newsletter are off the home page now
+(the quiz and the trade desk are in the menus); their sections stay in the theme.
 
-## 11. Menus that never lead nowhere
+## 11. Menus and pages that always open
 
-**Every place in the menus always opens a designed page, even before you create it in
-admin.** When the store has no page for a place, its link opens the same design at
-`/collections/all?view=ms-<place>`, an address every Shopify store has:
+**Why pages didn't open before:** to decide where a menu entry should go, the theme
+searched your store's own menus by keyword. For some places that found a different
+address than the one the page is published at, and then the page's design didn't
+recognise it as its own page and showed nothing. The theme no longer guesses.
 
-| Place | Opens, until its page exists |
-|---|---|
-| Our story | `?view=ms-story` (the house, the craft, the figures, the service) |
-| Handmade in Italy, Sleep culture, Natural materials, Loro Piana Interiors | `?view=ms-handmade`, `ms-sleep-culture`, `ms-materials`, `ms-loro` |
-| Made to last · 15 + 15 | `?view=ms-regen` |
-| Find your Midsummer | opens as an overlay; the full page is `?view=ms-quiz` |
-| Architects & Interior Designers, Hospitality & Contract | `?view=ms-professionals`, `ms-hospitality` |
-| Agents & Resellers, Questions | `?view=ms-agents`, `ms-faq` |
-| Every enquiry | `?view=ms-contact`, on the right form |
+**Now each place goes, in this order, to:**
+1. A link you set under **Theme settings → Midsummer · Where links go**.
+2. Your store's real page, collection or blog, by its address. These come from your live
+   site:
 
-As soon as you create the page (scripts/create_pages.py, or by hand with the template
-named in section 3), the links move to it by themselves. Those addresses carry the
-page's own title and are kept out of search engines; the real pages are what Google
-should find, so create them when you can.
+   | Place | Address |
+   |---|---|
+   | Our story | /pages/about-midsummer-milano |
+   | Handmade in Italy | /pages/italian-craftsmen-luxury-mattresses |
+   | Natural materials | /pages/natural-luxury-materials |
+   | Agents & Resellers | /pages/agents-and-resellers |
+   | Questions | /pages/sleep-wise-faq |
+   | Contact and every enquiry | /pages/contact |
+   | Download the dream | /pages/download-dream-art-of-rest |
+   | Mattresses, Toppers, Beds with headboards, Duvets | /collections/mattresses, mattress-toppers, beds-with-headboards, duvets |
+   | Journal, Press, Portfolio, Collaborations | /blogs/news, press, projects, collaborations |
 
-For each place the theme looks, in order: a link set under **Theme settings →
-Midsummer · Where links go**; your store's menus (Online Store → Navigation) by title;
-for collections, your published collections by title or handle (that is how Icons is
-found whatever its handle); the usual page handles; and last, the designed page above.
-Only the product-type links under Our beds (Mattresses, Toppers …) still stay hidden until
-such a collection exists, because there is nothing to show without products.
+3. The place's designed page, which always exists, for places your store has no page for
+   yet: Sleep culture, Loro Piana Interiors, Made to last · 15 + 15, Find your Midsummer,
+   Architects & Interior Designers, and Hospitality & Contract. These open at
+   `/collections/all?view=ms-<place>`.
+
+**Pages always open in their design, whatever template admin gave them.** A page with a
+design of its own is linked with `?view=<template>` (for example
+`/pages/sleep-wise-faq?view=faq`), so it shows its design with its own title and words.
+Opened directly, from Google say, the page still recognises itself by its address and
+shows its design.
+
+**The menus, at a glance:**
+- **Our beds:** Essentials, Signature, Icons; Mattresses, Toppers, Beds with headboards,
+  Duvets and sheets; Compare the collections, Find your Midsummer, Request a proposal.
+- **Heritage & craft:** Our story, Handmade in Italy, Sleep culture, Natural materials, Loro
+  Piana Interiors, Made to last · 15 + 15.
+- **Professionals:** Architects & Interior Designers, Hospitality & Contract, Portfolio,
+  Become a partner, Trade enquiry.
+- **Journal:** the three newest notes; All notes, the subjects, Press, Collaborations.
+- **Contact:** Book an appointment, **Agents & Resellers** (the map of showrooms), The
+  Milano atelier, Direct contact, WhatsApp, Questions & customer care.
+
+No two titles lead to the same page. The footer and the phone menu use the same
+addresses.
 
 ### The menu panels
 

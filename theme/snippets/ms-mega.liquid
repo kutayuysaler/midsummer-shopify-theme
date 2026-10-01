@@ -61,6 +61,15 @@
   capture u_enquire
     render 'ms-link', to: 'enquire'
   endcapture
+  capture u_portfolio
+    render 'ms-link', to: 'portfolio', strict: true
+  endcapture
+  capture u_press
+    render 'ms-link', to: 'press', strict: true
+  endcapture
+  capture u_collab
+    render 'ms-link', to: 'collaborations', strict: true
+  endcapture
 
   assign ms_blog = nil
   assign ms_blogs = 'news,journal' | split: ','
@@ -88,8 +97,8 @@
       <div class="ms-mg__title">{{ ss.t1 }}</div>
       <p class="ms-mg__lede">{{ ss.mg_beds_lede }}</p>
       <ul class="ms-mg__minor" role="list">
-        {%- assign types = 'mattresses,toppers,bases,headboards,bedding' | split: ',' -%}
-        {%- assign type_names = 'Mattresses,Toppers,Bases,Headboards,Bedding' | split: ',' -%}
+        {%- assign types = 'mattresses,toppers,headboards,bedding,furniture' | split: ',' -%}
+        {%- assign type_names = 'Mattresses,Toppers,Beds with headboards,Duvets and sheets,Furniture' | split: ',' -%}
         {%- for t in types -%}
           {%- capture tu -%}{% render 'ms-link', to: t, strict: true %}{%- endcapture -%}
           {%- if tu != blank -%}<li><a href="{{ tu }}">{{ type_names[forloop.index0] }}</a></li>{%- endif -%}
@@ -145,7 +154,6 @@
 §{{ u_materials }}|{{ ss.mg_h4 }}|{{ ss.mg_h4_note }}|{{ 'ms-graded-dune.jpg' | asset_url }}|
 §{{ u_loro }}|{{ ss.mg_h5 }}|{{ ss.mg_h5_note }}|{{ 'ms-graded-paisley-red.jpg' | asset_url }}|
 §{{ u_regen }}|{{ ss.mg_h6 }}|{{ ss.mg_h6_note }}|{{ cdn }}giotto_SANGALGANO.jpg?width=900|
-§{{ u_quiz }}|{{ ss.mg_h7 }}|{{ ss.mg_h7_note }}|{{ cdn }}dreamy_spiaggia.jpg?width=900|quiz
 {%- endcapture -%}
 {%- render 'ms-mega-panel', key: 'heritage', no: '02', title: ss.t2, lede: ss.mg_heritage_lede, items: items, feature: ss.mg_img_heritage, foot: foot -%}
 
@@ -153,7 +161,7 @@
 {%- capture items -%}
 {{ u_pro }}|{{ ss.mg_p1 }}|{{ ss.mg_p1_note }}|{{ cdn }}Untitled_Project_5_b49a7740-07fa-45f1-8b4f-464d951b0772.jpg?width=900|
 §{{ u_hosp }}|{{ ss.mg_p2 }}|{{ ss.mg_p2_note }}|{{ cdn }}PANTHER_POND_CAPRI_1.jpg?width=900|
-§{{ u_agents }}|{{ ss.mg_p3 }}|{{ ss.mg_p3_note }}|{{ 'ms-graded-arches.jpg' | asset_url }}|
+§{{ u_portfolio }}|{{ ss.mg_p3 }}|{{ ss.mg_p3_note }}|{{ 'ms-graded-arches.jpg' | asset_url }}|
 §{{ u_partner }}#enquire|{{ ss.mg_p4 }}|{{ ss.mg_p4_note }}|{{ cdn }}Top_deserto_mobile5.jpg?width=900|landing
 §{{ u_trade }}#enquire|{{ ss.mg_p5 }}|{{ ss.mg_p5_note }}|{{ cdn }}Vicuna-mattress.jpg?width=900|landing
 {%- endcapture -%}
@@ -173,7 +181,8 @@
           {%- capture tu -%}{% render 'ms-link', to: 'journal-tag', tag: t %}{%- endcapture -%}
           {%- if tu != blank -%}<li><a href="{{ tu }}">{{ t | capitalize }}</a></li>{%- endif -%}
         {%- endfor -%}
-        <li><a href="{{ u_faq }}">{{ ss.mg_questions }}</a></li>
+        {%- if u_press != blank -%}<li><a href="{{ u_press }}">{{ ss.mg_press }}</a></li>{%- endif -%}
+        {%- if u_collab != blank -%}<li><a href="{{ u_collab }}">{{ ss.mg_collab }}</a></li>{%- endif -%}
       </ul>
     </div>
     <div class="ms-mg__cards">
@@ -200,10 +209,10 @@
 {%- comment -%} 05 · Contact {%- endcomment -%}
 {%- capture items -%}
 {{ u_appointment }}#enquire|{{ ss.mg_c1 }}|{{ ss.mg_c1_note }}|{{ 'ms-graded-paisley-red.jpg' | asset_url }}|landing
-§{{ u_proposal }}#enquire|{{ ss.mg_c2 }}|{{ ss.mg_c2_note }}|{{ cdn }}Paisley_IMG_4918_low_70960abc-6877-49b2-abc8-0bd379994114.jpg?width=900|landing
-§{{ u_enquire }}#direct|{{ ss.mg_c3 }}|{{ ss.mg_c3_note }}|{{ 'ms-graded-ochre-room.jpg' | asset_url }}|landing
+§{{ u_agents }}|{{ ss.mg_c2 }}|{{ ss.mg_c2_note }}|{{ 'ms-graded-arches.jpg' | asset_url }}|
+§{{ u_agents }}#atelier|{{ ss.mg_c5 }}|{{ ss.mg_c5_note }}|{{ 'ms-graded-ochre-room.jpg' | asset_url }}|
+§{{ u_enquire }}#direct|{{ ss.mg_c3 }}|{{ ss.mg_c3_note }}|{{ cdn }}Paisley_IMG_4918_low_70960abc-6877-49b2-abc8-0bd379994114.jpg?width=900|landing
 {%- if settings.ms_social_whatsapp != blank -%}§{{ settings.ms_social_whatsapp }}|WhatsApp|{{ ss.mg_c4_note }}|{{ cdn }}Paisley_IMG_5161_low.jpg?width=900|external{%- endif -%}
-§{{ u_agents }}#atelier|{{ ss.mg_c5 }}|{{ ss.mg_c5_note }}|{{ 'ms-graded-arches.jpg' | asset_url }}|
 §{{ u_faq }}|{{ ss.mg_c6 }}|{{ ss.mg_c6_note }}|{{ 'ms-graded-dune.jpg' | asset_url }}|
 {%- endcapture -%}
 {%- render 'ms-mega-panel', key: 'contact', no: '05', title: ss.t5, lede: ss.mg_contact_lede, items: items, feature: blank, foot: foot -%}

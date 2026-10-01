@@ -1,12 +1,18 @@
 {%- liquid
   assign ms_show = true
-  if template.suffix == blank and page
+  if template.name == 'page'
     assign ms_show = false
-    capture ms_here
-      render 'ms-link', to: 'agents'
-    endcapture
-    if ms_here == page.url
+    assign ms_ours = 'agents-and-resellers,agents-resellers,collections,contact,download-the-dream,faq,find-your-midsummer,handmade-in-italy,hospitality,loro-piana-interiors,natural-materials,professionals,regeneration,salone-2026,sleep-assesment,sleep-culture,sustainability' | split: ','
+    if ms_ours contains template.suffix
       assign ms_show = true
+    else
+      capture ms_key
+        render 'ms-page-key'
+      endcapture
+      assign ms_want = 'agents' | split: ','
+      if ms_want contains ms_key
+        assign ms_show = true
+      endif
     endif
   endif
 -%}

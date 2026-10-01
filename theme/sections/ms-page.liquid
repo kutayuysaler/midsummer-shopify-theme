@@ -4,17 +4,13 @@
 {%- endcomment -%}
 {%- liquid
   assign ms_show = true
-  if template.suffix == blank
-    assign ms_keys = 'professionals,hospitality,materials,regen,faq,sustain,quiz,agents,enquire' | split: ','
-    for k in ms_keys
-      capture ms_u
-        render 'ms-link', to: k
-      endcapture
-      if ms_u == page.url
-        assign ms_show = false
-        break
-      endif
-    endfor
+  if template.name == 'page'
+    capture ms_key
+      render 'ms-page-key'
+    endcapture
+    if ms_key != blank
+      assign ms_show = false
+    endif
   endif
 -%}
 {%- if ms_show -%}

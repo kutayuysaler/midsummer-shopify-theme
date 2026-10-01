@@ -1,0 +1,23 @@
+{%- comment -%}
+  Which designed place the current page is, by its handle (snippets/ms-link.liquid lists
+  the handles of each place), or nothing. Used on the default page template, so a page
+  reached directly shows its design even when admin gave it no template.
+  Usage: {%- capture key -%}{% render 'ms-page-key' %}{%- endcapture -%}
+{%- endcomment -%}
+{%- liquid
+  assign found = ''
+  if page
+    assign ms_keys = 'professionals,hospitality,materials,regen,faq,quiz,agents,contact' | split: ','
+    for k in ms_keys
+      capture hl
+        render 'ms-link', to: k, handles: true
+      endcapture
+      assign hs = hl | split: ','
+      if hs contains page.handle
+        assign found = k
+        break
+      endif
+    endfor
+  endif
+  echo found
+-%}
