@@ -1,58 +1,225 @@
 {%- comment -%}
-  Recognition: the award in one sentence, then the publications that have written about
-  the house, as a quiet grid of their marks. Each mark leads to its press page.
+  Recognition and press. One publication at a time: its mark, the headline of its piece
+  (taken live from that publication's press blog, or the line set in the block), and a
+  link to read it. The award opens the sequence. Beneath, every publication's mark runs
+  in one slow line; hover or tap a mark to bring its piece forward.
 {%- endcomment -%}
-<section class="ms-pr">
+{%- liquid
+  assign s = section.settings
+  assign n = 1
+  capture items
+    echo '<figure class="ms-pr__item is-on" data-ms-pr-item="0" aria-hidden="false">'
+    if s.award_logo != blank
+      assign alogo = s.award_logo
+      unless alogo contains '/'
+        assign alogo = alogo | asset_url
+      endunless
+      echo '<div class="ms-pr__mark"><img src="' | append: alogo | append: '" alt="" width="200" height="56"></div>'
+    endif
+    echo '<p class="ms-pr__line">' | append: s.award | append: '</p>'
+    echo '<figcaption class="ms-pr__cap"><span>' | append: s.award_by | append: '</span></figcaption></figure>'
+  endcapture
+  capture strip
+    for block in section.blocks
+      assign handle = block.settings.link | split: '/blogs/' | last | split: '/' | first
+      assign line = ''
+      assign href = block.settings.link
+      assign when = block.settings.when
+      if handle contains 'green-product-award'
+        assign line = ''
+      elsif handle != blank and blogs[handle].articles_count > 0
+        assign art = blogs[handle].articles.first
+        assign line = art.title
+        assign href = art.url
+        assign when = art.published_at | date: '%Y'
+      elsif block.settings.line != blank
+        assign line = block.settings.line
+      endif
+      if block.settings.logo != blank
+        assign src = block.settings.logo | image_url: width: 300
+      elsif block.settings.logo_file != blank
+        assign src = block.settings.logo_file | asset_url
+      else
+        assign src = ''
+      endif
+      assign target = ''
+      if line != blank
+        assign target = n
+        assign mark = ''
+        if src != ''
+          assign mark = '<div class="ms-pr__mark"><img src="' | append: src | append: '" alt="' | append: block.settings.name | append: '" width="200" height="56"></div>'
+        endif
+        capture one
+          echo '<figure class="ms-pr__item" data-ms-pr-item="' | append: n | append: '" aria-hidden="true">' | append: mark
+          echo '<p class="ms-pr__line">' | append: line | append: '</p>'
+          echo '<figcaption class="ms-pr__cap"><span>' | append: block.settings.name
+          if when != blank
+            echo ' · ' | append: when
+          endif
+          echo '</span>'
+          if href != blank
+            echo '<a href="' | append: href | append: '">' | append: s.read_label | append: ' <span aria-hidden="true">→</span></a>'
+          endif
+          echo '</figcaption></figure>'
+        endcapture
+        assign items = items | append: one
+        assign n = n | plus: 1
+      endif
+      echo '<li class="ms-pr__logo'
+      if target != ''
+        echo ' has-piece'
+      endif
+      echo '" ' | append: block.shopify_attributes | append: '>'
+      if target != ''
+        echo '<button type="button" data-ms-pr-to="' | append: target | append: '" aria-label="' | append: block.settings.name | append: '">'
+      else
+        echo '<a href="' | append: block.settings.link | default: '#' | append: '" aria-label="' | append: block.settings.name | append: '">'
+      endif
+      if src != ''
+        echo '<img src="' | append: src | append: '" alt="" width="150" height="40">'
+      else
+        echo '<span>' | append: block.settings.name | append: '</span>'
+      endif
+      if target != ''
+        echo '</button>'
+      else
+        echo '</a>'
+      endif
+      echo '</li>'
+    endfor
+  endcapture
+  capture press_url
+    render 'ms-link', to: 'press', strict: true
+  endcapture
+-%}
+<section class="ms-pr" data-ms-pr data-interval="{{ s.interval | times: 1000 }}">
   <div class="ms-pr__in">
-    <div class="ms-pr__eyebrow">{{ section.settings.eyebrow }}</div>
-    <p class="ms-pr__award">{{ section.settings.award }}</p>
-    <div class="ms-pr__by">{{ section.settings.award_by }}</div>
-    {%- if section.blocks.size > 0 -%}
-      <div class="ms-pr__label"><span></span>{{ section.settings.press_label }}<span></span></div>
-      <ul class="ms-pr__grid" role="list">
-        {%- for block in section.blocks limit: section.settings.limit -%}
-          <li {{ block.shopify_attributes }}>
-            <a href="{{ block.settings.link | default: '#' }}" aria-label="{{ block.settings.name | escape }}">
-              {%- if block.settings.logo != blank -%}<img src="{{ block.settings.logo | image_url: width: 300 }}" alt="{{ block.settings.name | escape }}" width="150" height="40" loading="lazy">
-              {%- elsif block.settings.logo_file != blank -%}<img src="{{ block.settings.logo_file | asset_url }}" alt="{{ block.settings.name | escape }}" width="150" height="40" loading="lazy">
-              {%- else -%}<span>{{ block.settings.name }}</span>{%- endif -%}
-            </a>
-          </li>
-        {%- endfor -%}
-      </ul>
-      {%- capture press -%}{% render 'ms-link', to: 'press', strict: true %}{%- endcapture -%}
-      {%- if press != blank and section.settings.all_label != blank -%}<a class="ms-pr__all" href="{{ press }}">{{ section.settings.all_label }}</a>{%- endif -%}
-    {%- endif -%}
+    <div class="ms-pr__top">
+      <span class="ms-pr__eyebrow">{{ s.eyebrow }}</span>
+      <span class="ms-pr__count"><span data-ms-pr-n>01</span> / {% if n < 10 %}0{% endif %}{{ n }}</span>
+    </div>
+    <div class="ms-pr__stage" aria-live="polite">{{ items }}</div>
+    <div class="ms-pr__bar" role="tablist" aria-label="{{ s.eyebrow | escape }}">
+      {%- for i in (1..n) -%}
+        <button type="button" class="ms-pr__seg{% if forloop.first %} is-on{% endif %}" data-ms-pr-to="{{ forloop.index0 }}" aria-label="{{ forloop.index }}"><span></span></button>
+      {%- endfor -%}
+    </div>
   </div>
+  {%- if section.blocks.size > 0 -%}
+    <div class="ms-pr__strip">
+      <div class="ms-pr__label">{{ s.press_label }}</div>
+      <div class="ms-pr__rail" data-ms-pr-rail>
+        <ul class="ms-pr__run" role="list">{{ strip }}</ul>
+        <ul class="ms-pr__run" role="list" aria-hidden="true">{{ strip | replace: '<button', '<button tabindex="-1"' | replace: '<a href', '<a tabindex="-1" href' }}</ul>
+      </div>
+      {%- if press_url != blank and s.all_label != blank -%}<a class="ms-pr__all" href="{{ press_url }}">{{ s.all_label }} <span aria-hidden="true">→</span></a>{%- endif -%}
+    </div>
+  {%- endif -%}
 </section>
 <style>
-  .ms-pr { background: #FBF9F5; color: #17140F; padding: clamp(96px, 12vw, 200px) clamp(18px, 5vw, 80px); text-align: center; border-top: 1px solid #ECE6DB; }
-  .ms-pr__in { max-width: 1240px; margin: 0 auto; }
-  .ms-pr__eyebrow { font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: #9A7B4F; }
-  .ms-pr__award { font-family: Newsreader, Georgia, serif; font-weight: 200; font-size: clamp(28px, 3.4vw, 50px); line-height: 1.2; letter-spacing: -0.025em; max-width: 26ch; margin: clamp(24px, 3vw, 38px) auto 0; text-wrap: balance; }
-  .ms-pr__by { font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #6E675C; margin-top: 22px; }
-  .ms-pr__label { display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: clamp(72px, 8vw, 130px); font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: #6E675C; }
-  .ms-pr__label span { width: clamp(28px, 6vw, 72px); height: 1px; background: #DDD6C9; }
-  .ms-pr__grid { list-style: none; margin: clamp(30px, 3.4vw, 48px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); border-top: 1px solid #ECE6DB; border-left: 1px solid #ECE6DB; }
-  .ms-pr__grid li { border-right: 1px solid #ECE6DB; border-bottom: 1px solid #ECE6DB; }
-  .ms-pr__grid a { display: flex; align-items: center; justify-content: center; height: clamp(84px, 8vw, 112px); padding: 0 clamp(14px, 1.8vw, 26px); }
-  .ms-site .ms-pr__grid img { max-width: 100%; max-height: 34px; width: auto; height: auto; object-fit: contain; filter: grayscale(1) contrast(1.1); opacity: .62; transition: opacity .35s ease; }
-  .ms-pr__grid a:hover img { opacity: 1; }
-  .ms-pr__grid span { font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: #8C8579; }
-  .ms-site .ms-pr__all { display: inline-block; margin-top: clamp(32px, 3.6vw, 50px); font-size: 11px; letter-spacing: .26em; text-transform: uppercase; color: #17140F; border-bottom: 1px solid currentColor; padding-bottom: 6px; }
-  @media (max-width: 1000px) { .ms-pr__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-  @media (max-width: 600px) { .ms-pr__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .ms-pr__grid li:nth-child(n+13) { display: none; } }
+  .ms-pr { background: #FBF9F5; color: #17140F; padding: clamp(88px, 10vw, 160px) 0 0; border-top: 1px solid #ECE6DB; }
+  .ms-pr__in { max-width: 1120px; margin: 0 auto; padding: 0 clamp(18px, 5vw, 80px); text-align: center; }
+  .ms-pr__top { display: flex; justify-content: space-between; align-items: baseline; font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: #9A7B4F; border-bottom: 1px solid #ECE6DB; padding-bottom: 16px; }
+  .ms-pr__count { font-family: Newsreader, Georgia, serif; font-size: 14px; letter-spacing: 0; color: #8C8579; font-variant-numeric: tabular-nums; }
+  .ms-pr__count span { color: #17140F; }
+  .ms-pr__stage { position: relative; display: grid; min-height: clamp(300px, 30vw, 380px); margin-top: clamp(40px, 5vw, 64px); }
+  .ms-pr__item { grid-area: 1 / 1; margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; transform: translateY(14px); transition: opacity .8s ease, transform 1s cubic-bezier(.2,.7,.2,1); pointer-events: none; }
+  .ms-pr__item.is-on { opacity: 1; transform: none; pointer-events: auto; }
+  .ms-pr__mark { height: 44px; display: flex; align-items: center; justify-content: center; }
+  .ms-site .ms-pr .ms-pr__mark img { height: 40px; max-width: 240px; width: auto; object-fit: contain; filter: grayscale(1) contrast(1.1) !important; opacity: .85; }
+  .ms-pr__line { font-family: Newsreader, Georgia, serif; font-weight: 200; font-size: clamp(26px, 3.1vw, 46px); line-height: 1.22; letter-spacing: -0.025em; max-width: 24ch; margin: clamp(26px, 3vw, 38px) auto 0; text-wrap: balance; }
+  .ms-pr__cap { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 10px 28px; margin-top: clamp(22px, 2.6vw, 32px); font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #6E675C; }
+  .ms-site .ms-pr__cap a { color: #17140F; border-bottom: 1px solid currentColor; padding-bottom: 4px; }
+  .ms-pr__bar { display: flex; gap: 6px; justify-content: center; margin-top: clamp(30px, 3.4vw, 46px); }
+  .ms-pr__seg { width: clamp(22px, 3vw, 40px); height: 20px; padding: 0; background: none; border: 0; cursor: pointer; display: flex; align-items: center; }
+  .ms-pr__seg span { display: block; width: 100%; height: 1px; background: #DDD6C9; position: relative; overflow: hidden; }
+  .ms-pr__seg span::after { content: ''; position: absolute; inset: 0; background: #17140F; transform: scaleX(0); transform-origin: left; }
+  .ms-pr__seg.is-on span::after { animation: msPrFill var(--t, 6s) linear forwards; }
+  .ms-pr.is-paused .ms-pr__seg.is-on span::after { animation-play-state: paused; }
+  .ms-pr__seg.is-done span::after { transform: none; }
+  @keyframes msPrFill { to { transform: none; } }
+
+  /* every publication, in one slow line */
+  .ms-pr__strip { margin-top: clamp(64px, 7vw, 104px); border-top: 1px solid #ECE6DB; border-bottom: 1px solid #ECE6DB; padding: 22px 0 26px; text-align: center; }
+  .ms-pr__label { font-size: 10.5px; letter-spacing: .3em; text-transform: uppercase; color: #8C8579; }
+  .ms-pr__rail { display: flex; overflow: hidden; margin-top: 18px; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+  .ms-pr__run { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; flex: 0 0 auto; animation: msPrRun 90s linear infinite; }
+  .ms-pr__rail:hover .ms-pr__run, .ms-pr__rail:focus-within .ms-pr__run { animation-play-state: paused; }
+  @keyframes msPrRun { to { transform: translateX(-100%); } }
+  .ms-pr__logo > * { display: flex; align-items: center; justify-content: center; width: clamp(130px, 12vw, 170px); height: 56px; padding: 0 clamp(16px, 2vw, 28px); background: none; border: 0; cursor: pointer; }
+  .ms-site .ms-pr .ms-pr__logo img { height: 28px; max-width: 100%; width: auto; object-fit: contain; filter: grayscale(1) !important; opacity: .45; transition: opacity .35s ease, transform .45s cubic-bezier(.2,.7,.2,1); }
+  .ms-pr__logo span { font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: #8C8579; }
+  .ms-pr__logo > *:hover img, .ms-pr__logo > *:focus-visible img, .ms-pr__logo.is-on img { opacity: 1; transform: scale(1.04); }
+  .ms-site .ms-pr__all { display: inline-block; margin-top: 18px; font-size: 10.5px; letter-spacing: .26em; text-transform: uppercase; color: #17140F; border-bottom: 1px solid currentColor; padding-bottom: 4px; }
+  @media (prefers-reduced-motion: reduce) {
+    .ms-pr__run { animation: none; }
+    .ms-pr__rail { overflow-x: auto; }
+    .ms-pr__item { transition: none; }
+  }
 </style>
+<script>
+  (function () {
+    var root = document.currentScript.previousElementSibling.previousElementSibling;
+    if (!root || !root.hasAttribute('data-ms-pr')) root = document.querySelector('[data-ms-pr]');
+    if (!root) return;
+    var items = root.querySelectorAll('[data-ms-pr-item]');
+    var segs = root.querySelectorAll('.ms-pr__seg');
+    var num = root.querySelector('[data-ms-pr-n]');
+    var wait = +root.getAttribute('data-interval') || 6000;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var at = 0, timer = null, paused = false;
+    root.style.setProperty('--t', wait + 'ms');
+    function show(i) {
+      at = (i + items.length) % items.length;
+      items.forEach(function (it, k) { it.classList.toggle('is-on', k === at); it.setAttribute('aria-hidden', k === at ? 'false' : 'true'); });
+      segs.forEach(function (sg, k) {
+        sg.classList.remove('is-on'); sg.classList.toggle('is-done', k < at);
+        if (k === at) { void sg.offsetWidth; sg.classList.add('is-on'); }
+      });
+      root.querySelectorAll('.ms-pr__logo').forEach(function (l) {
+        var b = l.querySelector('[data-ms-pr-to]');
+        l.classList.toggle('is-on', !!b && +b.getAttribute('data-ms-pr-to') === at);
+      });
+      if (num) num.textContent = (at + 1 < 10 ? '0' : '') + (at + 1);
+      schedule();
+    }
+    function schedule() {
+      clearTimeout(timer);
+      if (reduce || paused || items.length < 2) return;
+      timer = setTimeout(function () { show(at + 1); }, wait);
+    }
+    root.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-ms-pr-to]');
+      if (b) { e.preventDefault(); show(+b.getAttribute('data-ms-pr-to')); }
+    });
+    root.addEventListener('mouseover', function (e) {
+      var b = e.target.closest('.ms-pr__logo [data-ms-pr-to]');
+      if (b && +b.getAttribute('data-ms-pr-to') !== at) show(+b.getAttribute('data-ms-pr-to'));
+    });
+    var stage = root.querySelector('.ms-pr__in');
+    function pause(v) { paused = v; root.classList.toggle('is-paused', v); if (!v) schedule(); else clearTimeout(timer); }
+    [stage, root.querySelector('[data-ms-pr-rail]')].forEach(function (el) {
+      if (!el) return;
+      el.addEventListener('mouseenter', function () { pause(true); });
+      el.addEventListener('mouseleave', function () { pause(false); });
+    });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) { if (!paused) show(at); } else clearTimeout(timer); }); }, { threshold: 0.3 }).observe(root);
+    } else { schedule(); }
+  })();
+</script>
 
 {% schema %}
 {
   "name": "Home · Recognition",
   "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Label", "default": "Recognition" },
-    { "type": "textarea", "id": "award", "label": "Award", "default": "The Top System was awarded the Green Product Award 2025, in Berlin, for its plant-based materials and seasonal construction." },
+    { "type": "text", "id": "eyebrow", "label": "Label", "default": "Recognition & press" },
+    { "type": "textarea", "id": "award", "label": "First piece: the award", "default": "The Top System was awarded the Green Product Award 2025, in Berlin, for its plant-based materials and seasonal construction." },
     { "type": "text", "id": "award_by", "label": "Award line", "default": "Green Product Award · Berlin, 2025" },
-    { "type": "text", "id": "press_label", "label": "Press label", "default": "As featured in" },
-    { "type": "range", "id": "limit", "label": "Publications shown", "min": 6, "max": 30, "step": 6, "default": 18 },
+    { "type": "text", "id": "award_logo", "label": "Award mark (file in the theme or an address)" },
+    { "type": "text", "id": "read_label", "label": "Read link", "default": "Read the piece" },
+    { "type": "range", "id": "interval", "label": "Seconds per piece", "min": 4, "max": 12, "step": 1, "default": 6 },
+    { "type": "text", "id": "press_label", "label": "Strip label", "default": "As featured in" },
     { "type": "text", "id": "all_label", "label": "Link to the press page", "default": "All the press" }
   ],
   "blocks": [
@@ -63,8 +230,10 @@
         { "type": "text", "id": "name", "label": "Publication", "default": "Publication" },
         { "type": "image_picker", "id": "logo", "label": "Logo" },
         { "type": "text", "id": "logo_file", "label": "Logo file in the theme" },
-        { "type": "url", "id": "link", "label": "Link" },
-        { "type": "select", "id": "row", "label": "Row", "options": [{"value":"1","label":"First"},{"value":"2","label":"Second"}], "default": "1" }
+        { "type": "url", "id": "link", "label": "Link (its press blog)" },
+        { "type": "textarea", "id": "line", "label": "Headline", "info": "Used when the publication's press blog has no article yet. Publications with a headline join the sequence." },
+        { "type": "text", "id": "when", "label": "Year" },
+        { "type": "select", "id": "row", "label": "Row (unused)", "options": [{"value":"1","label":"First"},{"value":"2","label":"Second"}], "default": "1" }
       ]
     }
   ],

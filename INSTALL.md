@@ -307,8 +307,9 @@ an empty field there hides its icon.
 
 ## 10. The home page, in chapters
 
-The home page is now twelve calm bands, one idea per screen, each with the same space
-around it:
+The home page is now twelve calm bands, one idea per screen, on one rhythm of space: where
+two bands share a ground, the second adds no gap of its own, so no stretch of the page is
+left empty:
 
 1. **The film**, with Book a private appointment.
 2. **Opening words:** one sentence, centred, signed by Chiara Mennini, and a link to Our
@@ -321,8 +322,13 @@ around it:
    Piana.*
 7. **IV · Why Midsummer:** the six-point comparison.
 8. **V · Made to last:** *Fifteen years. Then fifteen more.*, across the whole screen.
-9. **Recognition:** the Green Product Award, then the press as a quiet grid of marks, each
-   leading to its press page, and a link to all the press.
+9. **Recognition & press:** one piece at a time. The award comes first, with its mark. Then each
+   publication's mark and the headline of its piece, taken live from that publication's press
+   blog (press-il-sole-24-ore and so on), with "Read the piece". The pieces change on their
+   own, with a fine bar to step through them, and pause while you read. Beneath, every
+   publication's mark runs in one slow grayscale line; hover or tap a mark to bring its piece
+   forward. A publication joins the sequence as soon as its press blog has an article (or you
+   write a headline in its block). The others stay in the line and link to their page.
 10. **The Journal.**
 11. **Follow the atelier:** @midsummermilano, your accounts and five photographs.
 12. **Come and lie down:** the atelier on Via Andegari and Book a private appointment.

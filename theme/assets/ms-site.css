@@ -12,10 +12,10 @@ html { scroll-behavior: smooth; scroll-padding-top: 96px; }
 .ms-site .ms-field:focus-visible { outline: none; }
 body.ms-site { margin: 0; background: #FBF9F5; color: #17140F; font-family: "Red Hat Text", system-ui, sans-serif; font-weight: 300; -webkit-font-smoothing: antialiased; }
 .ms-site * { box-sizing: border-box; }
-.ms-site img { display: block; }
-.ms-site p { margin: 0; }
-.ms-site h1, .ms-site h2, .ms-site h3, .ms-site h4 { margin: 0; font-weight: 200; text-wrap: balance; }
-.ms-site p { text-wrap: pretty; }
+/* resets carry no weight (:where), so every section's own spacing and centring wins */
+:where(.ms-site) img { display: block; }
+:where(.ms-site) p { margin: 0; text-wrap: pretty; }
+:where(.ms-site) :is(h1, h2, h3, h4) { margin: 0; font-weight: 200; text-wrap: balance; }
 .ms-site a img { transition: transform 1.1s cubic-bezier(.2,.7,.2,1); }
 .ms-site a:hover img { transform: scale(1.022); }
 .ms-site a { color: #17140F; text-decoration: none; }
@@ -136,3 +136,17 @@ textarea.ms-field { resize: vertical; min-height: 0; line-height: 1.4; }
   ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
   [data-ms-panel], [data-ms="sheet"] { animation: none !important; }
 }
+
+/* ── the home page's rhythm: one measure of space between chapters; where two bands share a
+   ground, the second does not add its own, so no stretch of the page is left empty ── */
+body[data-template="index"] { --ms-gap: clamp(80px, 9vw, 144px); --ms-gap-s: clamp(32px, 3.6vw, 56px); }
+body[data-template="index"] .ms-hs { padding-top: var(--ms-gap); padding-bottom: var(--ms-gap); }
+body[data-template="index"] :is([id$="__s03"], [id$="-s03"]) > section { padding-bottom: var(--ms-gap) !important; }
+body[data-template="index"] :is([id$="__ch1"], [id$="-ch1"]) .ms-ch { padding-top: var(--ms-gap-s); padding-bottom: var(--ms-gap); }
+body[data-template="index"] .ms-bd { padding-top: var(--ms-gap); padding-bottom: var(--ms-gap); }
+body[data-template="index"] :is([id$="__ch3"], [id$="-ch3"]) .ms-ch { padding-top: var(--ms-gap); padding-bottom: var(--ms-gap-s); }
+body[data-template="index"] .ms-why { padding-top: var(--ms-gap-s); padding-bottom: var(--ms-gap); }
+body[data-template="index"] .ms-pr { padding-top: var(--ms-gap); }
+body[data-template="index"] :is([id$="__s14"], [id$="-s14"]) > section { padding-top: var(--ms-gap) !important; padding-bottom: var(--ms-gap-s) !important; }
+body[data-template="index"] .ms-fw { padding-top: var(--ms-gap-s); padding-bottom: var(--ms-gap); }
+body[data-template="index"] :is([id$="__visit"], [id$="-visit"]) .ms-ch { padding-top: var(--ms-gap); padding-bottom: var(--ms-gap); }

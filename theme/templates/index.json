@@ -27,7 +27,7 @@
         "side": "left",
         "tone": "light",
         "image_fallback": "ms-photo-mattress-label.jpg",
-        "numeral": "I",
+        "numeral": "01",
         "eyebrow": "Handmade in Milan",
         "heading": "Two artisans. One bed.",
         "text": "No production line. The same two hands open the spring core and sew the final seam, in our atelier on Via Andegari. That is why a change of size, height or fabric is a decision, never an exception.",
@@ -44,7 +44,7 @@
     "build": {
       "type": "ms-product-build",
       "settings": {
-        "eyebrow": "II · Inside a Midsummer bed",
+        "eyebrow": "02 · Inside a Midsummer bed",
         "heading": "[count] layers. Not one of them synthetic.",
         "intro": "The Top System, from the topper down to the frame, as the atelier builds it. Move along the drawing to read what each layer does.",
         "padding": "<p><strong>Mattress, winter</strong> Cashmere, baby alpaca, mohair, horsehair and Cheviot wool</p><p><strong>Mattress, summer</strong> Linen, silk, Cheviot wool and horsehair</p><p><strong>Topper, winter</strong> Yak and Cheviot wool</p><p><strong>Topper, summer</strong> Cheviot wool and linen</p>",
@@ -382,7 +382,7 @@
         "side": "right",
         "tone": "sand",
         "image_fallback": "ms-photo-cashmere-throw.jpg",
-        "numeral": "III",
+        "numeral": "03",
         "eyebrow": "Natural fibres · Loro Piana Interiors",
         "heading": "Only what nature makes. Dressed in Loro Piana.",
         "text": "Wool, cashmere, silk, horsehair, linen and Ingeo, chosen because they breathe, last and age well, are laid by hand where each does its work. Every Signature and Icons system is then upholstered in Loro Piana Interiors, the cloth chosen for the room.",
@@ -393,7 +393,7 @@
     "why": {
       "type": "ms-why",
       "settings": {
-        "eyebrow": "IV · Why Midsummer"
+        "eyebrow": "04 · Why Midsummer"
       },
       "blocks": {
         "row_01": {
@@ -460,7 +460,7 @@
         "layout": "full",
         "tone": "dark",
         "image_fallback": "ms-photo-drapes-fireplace.jpg",
-        "numeral": "V",
+        "numeral": "05",
         "eyebrow": "Made to last · 15 + 15",
         "heading": "Fifteen years. Then fifteen more.",
         "text": "At fifteen years your mattress comes back to the artisans who made it. They open it, wash and re-card the fibres, check every spring and close it again, for fifteen more.",
@@ -470,7 +470,9 @@
     },
     "proof": {
       "type": "ms-hp-proof",
-      "settings": {},
+      "settings": {
+        "award_logo": "ms-press-green-product-award.svg"
+      },
       "blocks": {
         "publication_01": {
           "type": "publication",
@@ -541,7 +543,9 @@
             "name": "Il Sole 24 Ore",
             "row": "1",
             "link": "shopify://blogs/press-il-sole-24-ore",
-            "logo_file": "ms-press-il-sole-24-ore.svg"
+            "logo_file": "ms-press-il-sole-24-ore.svg",
+            "line": "Arredo Design 24 on the elegance of good sleep, with Midsummer Milano.",
+            "when": "2025"
           }
         },
         "publication_09": {
@@ -559,7 +563,9 @@
             "name": "Salone del Mobile",
             "row": "1",
             "link": "shopify://blogs/press-salone-del-mobile",
-            "logo_file": "ms-press-salone-del-mobile.svg"
+            "logo_file": "ms-press-salone-del-mobile.svg",
+            "line": "Salone del Mobile 2026: the atelier on Via Andegari opens its doors.",
+            "when": "2026"
           }
         },
         "publication_11": {
@@ -658,7 +664,9 @@
             "name": "Kommersant",
             "row": "2",
             "link": "shopify://blogs/press-kommersant",
-            "logo_file": "ms-press-kommersant.svg"
+            "logo_file": "ms-press-kommersant.svg",
+            "line": "Midsummer Milano in Style Interiors, the Russian design magazine.",
+            "when": ""
           }
         },
         "publication_22": {
