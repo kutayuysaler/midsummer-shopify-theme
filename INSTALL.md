@@ -266,3 +266,36 @@ These apply across the site:
   - **Index:** every note as a line of type, and the photograph follows the cursor.
 - **Editorial pages (About Us …):** text in one centred reading column, photographs in a
   wider band, always centred, however the editor wrapped them.
+
+## 9. Social accounts and WhatsApp
+
+Your accounts, as small icons:
+- **Where they appear:** the footer, the Contact menu panel, the foot of the phone menu,
+  and the enquiry page's direct lines.
+- **Accounts:** Instagram, Pinterest, LinkedIn, WhatsApp, Telegram and VK, pre-filled
+  from your old theme. Facebook, YouTube and TikTok appear as soon as you add their
+  links.
+- **WhatsApp:** also a link among "Speak to us" in the Contact panel, and a small round
+  button in the corner of every page. It appears once the visitor scrolls, opens to
+  "Chat with the atelier" on hover, and steps aside when a menu or the enquiry sheet is
+  open.
+
+Change or remove any of them under **Theme settings → Midsummer · Social and WhatsApp**.
+
+## 10. The home page, as one story
+
+The home page introduces Midsummer in the order a client should meet it, each band once:
+
+1. **Who we are:** the film, The house, the press.
+2. **The beds:** the three collections, Icons · Paisley.
+3. **How they are made:** two artisans, one bed; the atelier in figures.
+4. **A bed for thirty years:** fifteen years, then fifteen more; the Green Product Award;
+   the service, from the first conversation to year thirty.
+5. **Choosing and staying in touch:** Find your Midsummer, the Journal, the trade desk,
+   the newsletter.
+6. **The invitation:** come and lie down, at Via Andegari 4.
+
+The comparison table and the "private clients / professionals / hospitality" band are
+off the home page: the comparison lives on Compare beds, and the trade band and the menus
+already lead professionals and hotels to their pages. Both sections stay in the theme and
+can be added back in the editor.

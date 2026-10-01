@@ -1,6 +1,5 @@
 /*
- * Midsummer Milano: built from the approved Atelier preview, one section per band.
- * Rendered with layout/ms.liquid, the preview's own type, colour and spacing.
+ * Midsummer Milano: the home page: who we are, the beds, how they are made, a bed for thirty years, then the invitation to the atelier.
  */
 {
   "layout": "ms",
@@ -43,14 +42,6 @@
     },
     "s10": {
       "type": "ms-home-10",
-      "settings": {}
-    },
-    "s11": {
-      "type": "ms-home-11",
-      "settings": {}
-    },
-    "s12": {
-      "type": "ms-home-12",
       "settings": {}
     },
     "s13": {
@@ -351,6 +342,7 @@
   "order": [
     "s01",
     "s02",
+    "s15",
     "s03",
     "s04",
     "s05",
@@ -359,11 +351,8 @@
     "s08",
     "s09",
     "s10",
-    "s11",
-    "s12",
-    "s13",
     "s14",
-    "s15",
+    "s13",
     "s16",
     "s17"
   ]

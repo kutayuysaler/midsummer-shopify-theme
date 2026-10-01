@@ -2306,5 +2306,77 @@
         "label": "Enquiry page"
       }
     ]
+  },
+  {
+    "name": "Midsummer · Social and WhatsApp",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Shown as icons in the footer, the Contact menu, the phone menu and the enquiry page. Leave a link empty to leave it out."
+      },
+      {
+        "type": "url",
+        "id": "ms_social_instagram",
+        "label": "Instagram",
+        "default": "https://www.instagram.com/midsummermilano/"
+      },
+      {
+        "type": "url",
+        "id": "ms_social_pinterest",
+        "label": "Pinterest",
+        "default": "https://it.pinterest.com/midsummermilanosocial/"
+      },
+      {
+        "type": "url",
+        "id": "ms_social_linkedin",
+        "label": "LinkedIn",
+        "default": "https://www.linkedin.com/company/midsummer-milano/"
+      },
+      {
+        "type": "url",
+        "id": "ms_social_whatsapp",
+        "label": "WhatsApp",
+        "default": "https://wa.me/message/CAC4ZAEYHOTHN1"
+      },
+      {
+        "type": "url",
+        "id": "ms_social_telegram",
+        "label": "Telegram",
+        "default": "https://t.me/midsummermilano"
+      },
+      {
+        "type": "url",
+        "id": "ms_social_vk",
+        "label": "VK",
+        "default": "https://vk.com/midsummermilano"
+      },
+      {
+        "type": "url",
+        "id": "ms_social_facebook",
+        "label": "Facebook"
+      },
+      {
+        "type": "url",
+        "id": "ms_social_youtube",
+        "label": "YouTube"
+      },
+      {
+        "type": "url",
+        "id": "ms_social_tiktok",
+        "label": "TikTok"
+      },
+      {
+        "type": "checkbox",
+        "id": "ms_whatsapp_button",
+        "label": "Show the WhatsApp button in the corner",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "ms_whatsapp_label",
+        "label": "WhatsApp button label",
+        "default": "Chat with the atelier"
+      }
+    ]
   }
 ]
