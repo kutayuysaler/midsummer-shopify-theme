@@ -402,27 +402,47 @@ Store and has products, or set its link under Theme settings → Midsummer · Wh
 
 ## 12. Photographs from your own library
 
-Fourteen photographs from your Google Drive (the catalogue and location shoots, the
-atelier shoot) are now part of the theme, sized for the web (`assets/ms-photo-*.jpg`, about
-5 MB in all), so they show without uploading anything:
+I went through the photo library in your Google Drive. That covered the catalogue and location
+shoots, the atelier shoots at Via Andegari (including Pure and the parrot and blue-and-gold
+rooms), Lierna, Lucca, Tulip, the Mood folder and the craftsmen. Twenty-four of them are now in
+the theme as web-sized assets (`assets/ms-photo-*.jpg`, about 8 MB together), so they show
+without uploading anything:
 
 | Photograph | Where it appears |
 |---|---|
-| Villa doorway, bed beyond (A8447393) | Home · Come and lie down; Contact panel |
-| Loft with spiral staircase (A8447647) | Our story; Heritage panel; Follow the atelier |
-| Frescoed bedroom, paisley throw (AMB_01) | Professionals page; Professionals panel; Follow |
+| Mattress with the MIDSUMMER label (atelier, DSC4500) | Home · Two artisans, one bed |
+| Bed against the blue-and-gold wallpaper (Pure, DSC4320) | Home · Come and lie down |
+| Orange leather bed, blue-and-gold room (Pure, DSC4401) | The Milano atelier in the Contact panel |
+| Seamstress cutting cloth (SARTA) | Handmade in Italy · Slow, by method; Handmade in the menu |
+| Craftsman's portrait (Frugone) | Handmade in Italy · Slow, by method |
+| Asleep on My Dream (My dream 9717) | Sleep culture · Support |
+| Shepherd carrying a sheep (PECORONE) | Natural materials in the menu; Follow the atelier |
+| Parrot room with red bedding (DSC4636) | Follow the atelier |
+| Red throw on white bed (Lucca, DSC0035) | Follow the atelier |
+| Villa doorway, bed beyond (A8447393) | Book an appointment in the Contact panel |
+| Loft with spiral staircase (A8447647) | Our story; Heritage panel |
+| Frescoed bedroom, paisley throw (AMB_01) | Professionals page and panel; Follow |
 | Draped room with fireplace (AMB_02) | Home · Fifteen years, then fifteen more; 15 + 15 in the menu |
-| Window and armchair (AMB_05) | Sleep culture in the menu; Follow |
-| Glass house in the forest (MODERNA_01) | Hospitality page; Hospitality panel |
-| Tufted mattress detail (DSC3726) | Home · Two artisans, one bed; Handmade (the tufting); menu |
-| Cashmere throw (A8447515) | Home · Only what nature makes; Natural materials in the menu |
-| Paisley throw (A8447571) | Loro Piana Interiors page; menu; Follow |
-| Silk and stitching (A8447706) | Handmade (the border); Follow |
-| Linen sheets (A8447418) | Sleep culture (temperature) |
-| Cream blanket (MidSummer-240) | Sleep culture (the seasons) |
-| Atelier armchair (DSC4773) | The Milano atelier in the Contact panel |
-| Painted ceiling (SOFFITTO) | In the theme, ready for any section |
+| Window and armchair (AMB_05) | Sleep culture in the menu |
+| Glass house in the forest (MODERNA_01) | Hospitality page and panel |
+| Tufted mattress detail (DSC3726) | Handmade in Italy · the tufting |
+| Cashmere throw (A8447515) | Home · Only what nature makes |
+| Paisley throw (A8447571) | Loro Piana Interiors page and menu; Follow |
+| Silk and stitching (A8447706) | Handmade in Italy · the border |
+| Linen sheets, cream blanket | Sleep culture · temperature, the seasons |
+| Atelier armchair, painted ceiling, Lake Como balcony | In the theme, ready for any section |
 
 Any of them can be replaced in the theme editor by picking another photograph in that
-section. The craftsmen "making" photographs (IMG_1111–1114) are over 10 MB each, too large
-to bring across here: upload them to Settings → Files and pick them in Handmade in Italy.
+section.
+
+**What I left out, and why:**
+- The Mood folder's stock pictures (Unsplash and Shutterstock), because they aren't yours to
+  use as brand imagery.
+- The Lierna villa interiors, beautiful but showing someone else's house rather than a
+  Midsummer bed.
+- The Tulip set, a plain catalogue of the velvet bed that suits its product page better than
+  the site.
+
+**Too large to bring across here (over 10 MB each):** the craftsmen at work (IMG_1111–1114)
+and the high-resolution craftsman portrait (Frugone TIF). Upload them under Settings → Files
+and pick them in Handmade in Italy. The portrait in the theme is small and looks softer.

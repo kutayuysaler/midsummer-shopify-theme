@@ -90,12 +90,10 @@
       "settings": {
         "eyebrow": "In the atelier",
         "heading": "Slow, by method.",
-        "image_1": "shopify://shop_images/Paisley_IMG_5161_low.jpg",
-        "fallback_1": "https://midsummer-milano.com/cdn/shop/files/Paisley_IMG_5161_low.jpg?width=1400",
-        "caption_1": "The border, stitched by hand.",
-        "image_2": "shopify://shop_images/Paisleydettaglio.jpg",
-        "fallback_2": "https://midsummer-milano.com/cdn/shop/files/Paisleydettaglio.jpg?width=1400",
-        "caption_2": "Loro Piana Interiors, over the hand-tufted layers."
+        "fallback_1": "ms-photo-seamstress.jpg",
+        "caption_1": "The cloth, cut by hand at the atelier.",
+        "fallback_2": "ms-photo-artisan.jpg",
+        "caption_2": "Every system has its two artisans, start to finish."
       }
     },
     "s05": {

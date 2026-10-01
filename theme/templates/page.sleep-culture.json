@@ -43,7 +43,7 @@
         "step_02": {
           "type": "step",
           "settings": {
-            "image_fallback": "ms-graded-ochre-room.jpg",
+            "image_fallback": "ms-photo-my-dream-sleep.jpg",
             "title": "Support",
             "text": "<p>Springs that work one by one follow the body instead of pushing back against it, at every point and in every position you sleep in.</p>"
           }
