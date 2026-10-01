@@ -170,10 +170,15 @@
   /* ── enquiry forms: the four intentions rewrite the labels, as in the preview ── */
   var TABS = {
     'Request brochure': { note: 'The full catalogue of systems, fibres and Loro Piana Interiors fabrics, as a PDF.', five: 'City', six: 'Enquiry type*', sixHint: 'General · Trade · Press', notes: 'How did you hear about us?' },
-    'Book appointment': { note: 'Visit the atelier on Via Andegari, or meet us by video. We confirm within one working day.', five: 'Phone*', six: 'Preferred date*', sixHint: 'Monday to Friday', notes: 'Notes' },
-    'Request callback': { note: 'Tell us when suits and one of the atelier team will call you.', five: 'Phone*', six: 'Preferred time*', sixHint: 'Select a time', notes: 'Please tell us about your enquiry*' },
-    'Leave a message': { note: 'Anything else — regeneration, care, press or partnership.', five: 'Phone', six: 'Subject', sixHint: 'Optional', notes: 'Message*' }
+    'Book appointment': { title: 'Book an appointment', note: 'Visit the atelier on Via Andegari, or meet us by video. We confirm within one working day.', five: 'Phone*', six: 'Preferred date*', sixHint: 'Monday to Friday', notes: 'Notes' },
+    'Request callback': { title: 'Request a callback', note: 'Tell us when suits and one of the atelier team will call you.', five: 'Phone*', six: 'Preferred time*', sixHint: 'Select a time', notes: 'Please tell us about your enquiry*' },
+    'Leave a message': { note: 'Anything else — regeneration, care or press.', five: 'Phone', six: 'Subject', sixHint: 'Optional', notes: 'Message*' },
+    'Request a proposal': { note: 'Tell us the system, the size and the room. The atelier replies with a written specification and its price.', five: 'Phone', six: 'System and size', sixHint: 'e.g. Paisley, 180 × 200', notes: 'About the room*' },
+    'Trade enquiry': { note: 'For architects, interior designers and hospitality: drawings, samples and trade terms for your project.', five: 'Company*', six: 'Project*', sixHint: 'Residence, hotel, yacht…', notes: 'Tell us about the project*' },
+    'Become a partner': { note: 'To represent Midsummer Milano in your market, as a showroom, an agent or a reseller.', five: 'Company*', six: 'Market*', sixHint: 'City and country', notes: 'Tell us about your showroom*' }
   };
+  var SLUG = { appointment: 'Book appointment', proposal: 'Request a proposal', brochure: 'Request brochure', callback: 'Request callback', message: 'Leave a message', trade: 'Trade enquiry', partner: 'Become a partner' };
+  function slugOf(t) { for (var k in SLUG) if (SLUG[k] === t) return k; return ''; }
   function setTab(form, t) {
     var copy = TABS[t];
     if (!copy) return;
@@ -204,6 +209,11 @@
     if (notes) { notes.name = 'contact[' + copy.notes.replace('*', '').replace(/\?$/, '') + ']'; notes.required = /\*$/.test(copy.notes); }
     var mode = form.querySelector('[data-ms-enq-mode-field]');
     if (mode) mode.value = t;
+    set('[data-ms-copy="title"]', copy.title || t);
+    // the sheet's link to the full page carries the chosen enquiry with it
+    var full = form.closest('[data-ms-drawer]') && form.closest('[data-ms-drawer]').querySelector('a[data-ms="cta"]');
+    if (full) full.setAttribute('href', full.getAttribute('href').split(/[?#]/)[0] + '?enquiry=' + slugOf(t) + '#enquire');
+    form.dispatchEvent(new CustomEvent('ms:enquiry-tab', { bubbles: true, detail: { tab: t, slug: slugOf(t) } }));
     form.querySelectorAll('[data-ms-brochure]').forEach(function (a) { a.hidden = t !== 'Request brochure'; });
   }
   document.addEventListener('click', function (e) {
@@ -213,6 +223,68 @@
     setTab(b.closest('[data-ms-enq]'), b.getAttribute('data-ms-tab'));
   });
   document.querySelectorAll('[data-ms-enq]').forEach(function (f) { setTab(f, f.getAttribute('data-ms-enq') || 'Book appointment'); });
+
+  /* the sheet opens on the enquiry its button asks for (data-ms-enquiry="proposal") */
+  document.addEventListener('ms:enquiry-open', function (e) {
+    var src = e.detail && e.detail.source;
+    var want = src && src.getAttribute && SLUG[src.getAttribute('data-ms-enquiry')];
+    if (!want && src && src.textContent) {
+      var w = src.textContent.toLowerCase();
+      want = /proposal|quote|specif/.test(w) ? 'Request a proposal' : /brochure|catalogue/.test(w) ? 'Request brochure' : /call ?back/.test(w) ? 'Request callback'
+        : /partner|represent/.test(w) ? 'Become a partner' : /trade/.test(w) ? 'Trade enquiry' : null;
+    }
+    var f = drawer && drawer.querySelector('[data-ms-enq]');
+    if (f) setTab(f, want || 'Book appointment');
+    // a button can start the message (data-ms-note), e.g. an introduction to a showroom
+    var note = src && src.getAttribute && src.getAttribute('data-ms-note');
+    var area = f && f.querySelector('[data-ms-field="notes"]');
+    if (area && note && (!area.value || area.getAttribute('data-ms-prefilled') === '1')) { area.value = note; area.setAttribute('data-ms-prefilled', '1'); }
+  });
+
+  /* the enquiry landing page: ?enquiry=trade opens that form; menu links on the page itself don't reload */
+  var landing = document.querySelector('[data-ms-enq-page] [data-ms-enq]');
+  function landOn(slug, hash) {
+    if (!landing) return false;
+    if (slug && SLUG[slug]) setTab(landing, SLUG[slug]);
+    var target = hash && document.getElementById(hash.replace('#', ''));
+    if (target) target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    return true;
+  }
+  if (landing) {
+    var q = new URLSearchParams(location.search).get('enquiry');
+    if (q && SLUG[q]) setTab(landing, SLUG[q]);
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[data-ms-landing]');
+    if (!a || !landing || e.metaKey || e.ctrlKey) return;
+    var u = new URL(a.href, location.href);
+    if (u.pathname !== location.pathname) return;
+    e.preventDefault();
+    closeMega(); closeMenu();
+    history.replaceState(null, '', u.pathname + u.search + u.hash);
+    landOn(u.searchParams.get('enquiry'), u.hash);
+  });
+
+  /* a link ending #care opens the first question on the page that mentions care */
+  (function () {
+    var h = decodeURIComponent(location.hash.slice(1) || '').toLowerCase();
+    if (!h || document.getElementById(h)) return;
+    var hit = Array.prototype.find.call(document.querySelectorAll('main details'), function (d) {
+      var s = d.querySelector('summary'); return s && s.textContent.toLowerCase().indexOf(h) > -1;
+    });
+    if (!hit) return;
+    document.querySelectorAll('main details[open]').forEach(function (d) { if (d !== hit) d.open = false; });
+    hit.open = true;
+    setTimeout(function () { hit.scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' }); }, 120);
+  })();
+
+  /* Cookies: Shopify's own preferences, when the store's cookie banner is on */
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('[data-ms-cookies]');
+    if (!a) return;
+    var pb = window.privacyBanner;
+    if (pb && typeof pb.showPreferences === 'function') { e.preventDefault(); pb.showPreferences(); }
+  });
   document.addEventListener('change', function (e) {
     if (e.target.matches && e.target.matches('select.ms-field')) e.target.classList.toggle('is-set', !!e.target.value);
   });

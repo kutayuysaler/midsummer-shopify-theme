@@ -1,0 +1,323 @@
+{%- comment -%}
+  The enquiry page: the full-page version of the enquiry sheet. Every enquiry in the
+  menus leads here, each to its own form (?enquiry=appointment, proposal, brochure,
+  callback, message, trade, partner); the sheet stays for the buttons in the pages and
+  the bar's Book an appointment. One form, its labels rewritten for each intention by
+  assets/ms-site.js, sent through Shopify's contact form.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  capture photo
+    render 'ms-img', image: s.image, fallback: 'ms-graded-paisley-red.jpg', width: 1600
+  endcapture
+-%}
+<section class="ms-eq" data-ms-enq-page>
+  <header class="ms-eq__head">
+    <div class="ms-eq__headtext">
+      <div class="ms-eq__eyebrow">{{ s.eyebrow }}</div>
+      <h1 class="ms-eq__title">{{ s.heading }}</h1>
+      <p class="ms-eq__lede">{{ s.lede }}</p>
+      <dl class="ms-eq__facts">
+        <div><dt>{{ s.fact1_label }}</dt><dd>{{ s.fact1 }}</dd></div>
+        <div><dt>{{ s.fact2_label }}</dt><dd>{{ s.fact2 }}</dd></div>
+        <div><dt>{{ s.fact3_label }}</dt><dd>{{ s.fact3 }}</dd></div>
+      </dl>
+    </div>
+    <figure class="ms-eq__photo">
+      <img src="{{ photo }}" alt="{{ s.image.alt | default: s.heading | escape }}" width="1200" height="1500" fetchpriority="high">
+    </figure>
+  </header>
+
+  <div class="ms-eq__form">
+  {%- form 'contact', id: 'ms-enquire-form' -%}
+  <div class="ms-eq__grid" id="enquire" data-ms-enq="Book appointment">
+    <input type="hidden" name="contact[Enquiry mode]" value="Book appointment" data-ms-enq-mode-field>
+    <input type="hidden" name="contact[Sent from]" value="Enquiry page">
+
+    <div class="ms-eq__intents">
+      <div class="ms-eq__label">{{ s.intents_label }}</div>
+      <div class="ms-eq__list" role="group" aria-label="{{ s.intents_label | escape }}">
+        {%- assign rows = 'Book appointment|appointment,Request a proposal|proposal,Request brochure|brochure,Request callback|callback,Trade enquiry|trade,Become a partner|partner,Leave a message|message' | split: ',' -%}
+        {%- for row in rows -%}
+          {%- assign parts = row | split: '|' -%}
+          {%- assign dk = 'd_' | append: parts[1] -%}
+          <button type="button" class="ms-eq__intent" data-ms-tab="{{ parts[0] }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">
+            <span class="ms-eq__num">{{ forloop.index | prepend: '0' }}</span>
+            <span class="ms-eq__ititle"><span data-ms-dot></span><span data-ms-tablabel>{{ parts[0] | replace: 'Book appointment', 'Book an appointment' | replace: 'Request callback', 'Request a callback' }}</span></span>
+            <span class="ms-eq__idesc">{{ s[dk] }}</span>
+          </button>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <div class="ms-eq__panel">
+      {%- if form.posted_successfully? -%}
+        <div class="ms-eq__done" role="status">
+          <div class="ms-eq__label">{{ s.done_label }}</div>
+          <p>{{ s.done_text }}</p>
+        </div>
+      {%- endif -%}
+      {%- if form.errors -%}
+        <div class="ms-eq__errors" role="alert">{{ form.errors | default_errors }}</div>
+      {%- endif -%}
+      <div class="ms-eq__label">{{ s.form_label }}</div>
+      <h2 class="ms-eq__ptitle" data-ms-copy="title">Book appointment</h2>
+      <p class="ms-eq__note" data-ms-copy="note">{{ s.d_appointment }}</p>
+      {%- if s.brochure_url != blank -%}
+        <a class="ms-eq__brochure" data-ms-brochure hidden href="{{ s.brochure_url }}" target="_blank" rel="noopener">{{ s.brochure_label }}</a>
+      {%- endif -%}
+
+      <div class="ms-eq__fields">
+        <label class="ms-eq__f"><span>{{ s.l_title }}</span>
+          <select class="ms-field" name="contact[Title]" required>
+            <option value="">{{ s.l_select }}</option>
+            {%- assign titles = s.titles | split: ',' -%}
+            {%- for t in titles -%}<option>{{ t | strip }}</option>{%- endfor -%}
+          </select>
+        </label>
+        <label class="ms-eq__f"><span>{{ s.l_first }}</span><input class="ms-field" type="text" name="contact[First name]" autocomplete="given-name" required></label>
+        <label class="ms-eq__f"><span>{{ s.l_last }}</span><input class="ms-field" type="text" name="contact[Last name]" autocomplete="family-name" required></label>
+        <label class="ms-eq__f"><span>{{ s.l_email }}</span><input class="ms-field" type="email" name="contact[email]" autocomplete="email" required></label>
+        <label class="ms-eq__f"><span data-ms-copy="five">Phone*</span><input class="ms-field" type="tel" name="contact[Phone]" data-ms-field="five" autocomplete="tel"></label>
+        <label class="ms-eq__f"><span data-ms-copy="six">Preferred date*</span><input class="ms-field" type="text" name="contact[Preferred date]" data-ms-field="six" data-ms-copy="sixHint" placeholder="Monday to Friday"></label>
+        <label class="ms-eq__f is-wide"><span data-ms-copy="notes">Notes</span><textarea class="ms-field" name="contact[Notes]" data-ms-field="notes" rows="3"></textarea></label>
+      </div>
+      <label class="ms-eq__consent"><input class="ms-check" type="checkbox" name="contact[Consent]" value="yes" required><span>{{ s.consent }}</span></label>
+      <div class="ms-eq__send">
+        <button type="submit" class="ms-eq__submit">{{ s.submit }}</button>
+        <span class="ms-eq__promise">{{ s.promise }}</span>
+      </div>
+    </div>
+  </div>
+  {%- endform -%}
+  </div>
+
+  <div class="ms-eq__next" id="next">
+    <div class="ms-eq__nexthead">
+      <div class="ms-eq__label">{{ s.next_label }}</div>
+      <h2 class="ms-eq__h2">{{ s.next_heading }}</h2>
+    </div>
+    <ol class="ms-eq__steps">
+      <li><span class="ms-eq__num">01</span><h3>{{ s.step1_title }}</h3><p>{{ s.step1 }}</p></li>
+      <li><span class="ms-eq__num">02</span><h3>{{ s.step2_title }}</h3><p>{{ s.step2 }}</p></li>
+      <li><span class="ms-eq__num">03</span><h3>{{ s.step3_title }}</h3><p>{{ s.step3 }}</p></li>
+    </ol>
+  </div>
+
+  <div class="ms-eq__direct" id="direct">
+    <div class="ms-eq__directin">
+      <div>
+        <div class="ms-eq__label">{{ s.direct_label }}</div>
+        <h2 class="ms-eq__h2">{{ s.direct_heading }}</h2>
+      </div>
+      <div class="ms-eq__lines">
+        <div class="ms-eq__line">
+          <div class="ms-eq__label">{{ s.atelier_label }}</div>
+          <p class="ms-eq__serif">{{ s.address }}</p>
+          <p class="ms-eq__small">{{ s.hours }}</p>
+          {%- if s.directions_url != blank -%}<a class="ms-eq__ruled" href="{{ s.directions_url }}" target="_blank" rel="noopener">{{ s.directions_label }}</a>{%- endif -%}
+        </div>
+        <div class="ms-eq__line">
+          <div class="ms-eq__label">{{ s.write_label }}</div>
+          {%- if s.email != blank -%}<a class="ms-eq__serif ms-eq__mail" href="mailto:{{ s.email }}">{{ s.email }}</a>{%- endif -%}
+          {%- if s.phone != blank -%}<a class="ms-eq__serif ms-eq__mail" href="tel:{{ s.phone | remove: ' ' }}">{{ s.phone }}</a>{%- endif -%}
+          {%- if s.whatsapp_url != blank -%}<a class="ms-eq__ruled" href="{{ s.whatsapp_url }}" target="_blank" rel="noopener">{{ s.whatsapp_label }}</a>{%- endif -%}
+        </div>
+        <div class="ms-eq__line">
+          <div class="ms-eq__label">{{ s.press_label }}</div>
+          <p class="ms-eq__small">{{ s.press_text }}</p>
+          <a class="ms-eq__ruled" href="?enquiry=message#enquire" data-ms-landing>{{ s.press_link }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ms-eq__onward">
+    <a class="ms-eq__card" href="{% render 'ms-link', to: 'agents' %}">
+      <span class="ms-eq__label">{{ s.on1_label }}</span>
+      <span class="ms-eq__cardtitle">{{ s.on1_title }}</span>
+      <span class="ms-eq__arrow" aria-hidden="true">→</span>
+    </a>
+    <a class="ms-eq__card" href="{% render 'ms-link', to: 'quiz' %}">
+      <span class="ms-eq__label">{{ s.on2_label }}</span>
+      <span class="ms-eq__cardtitle">{{ s.on2_title }}</span>
+      <span class="ms-eq__arrow" aria-hidden="true">→</span>
+    </a>
+  </div>
+</section>
+
+<style>
+  .ms-eq { --gut: clamp(18px, 5vw, 80px); --rule: #DDD6C9; --muted: #6E675C; --body: #4A443B; --gold: #9A7B4F; }
+  .ms-eq #enquire, .ms-eq #direct, .ms-eq #next { scroll-margin-top: 104px; }
+  .ms-eq__label { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: var(--muted); }
+  .ms-eq__num { font-family: Newsreader, Georgia, serif; font-size: 13px; color: var(--gold); font-variant-numeric: tabular-nums; }
+  .ms-eq__h2 { font-family: Newsreader, Georgia, serif; font-size: clamp(30px, 3.8vw, 54px); line-height: 1.06; letter-spacing: -.03em; font-weight: 200; margin-top: 16px; max-width: 16ch; }
+
+  /* the opening */
+  .ms-eq__head { max-width: 1560px; margin: 0 auto; padding: clamp(40px, 6vw, 96px) var(--gut) clamp(48px, 6vw, 96px); display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(32px, 6vw, 110px); align-items: end; }
+  .ms-eq__eyebrow { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: var(--muted); }
+  .ms-eq__title { font-family: Newsreader, Georgia, serif; font-size: clamp(46px, 7vw, 112px); line-height: 1; letter-spacing: -.045em; font-weight: 200; margin-top: clamp(20px, 2.4vw, 34px); max-width: 12ch; }
+  .ms-eq__lede { font-family: Newsreader, Georgia, serif; font-size: clamp(19px, 1.9vw, 24px); line-height: 1.5; font-weight: 200; color: var(--body); margin-top: clamp(22px, 2.6vw, 36px); max-width: 40ch; }
+  .ms-eq__facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 28px; margin: clamp(32px, 4vw, 56px) 0 0; border-top: 1px solid var(--rule); }
+  .ms-eq__facts > div { padding-top: 18px; }
+  .ms-eq__facts dt { font-size: 10.5px; letter-spacing: .26em; text-transform: uppercase; color: var(--gold); }
+  .ms-eq__facts dd { margin: 8px 0 0; font-size: 14px; line-height: 1.7; color: var(--body); }
+  .ms-eq__photo { margin: 0; overflow: hidden; background: #F1ECE3; aspect-ratio: 4 / 5; max-height: 74vh; }
+  .ms-eq__photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* the form */
+  .ms-eq__form { display: block; background: #F4EFE5; padding: clamp(56px, 7vw, 120px) var(--gut); }
+  .ms-eq__grid { max-width: 1560px; margin: 0 auto; display: grid; grid-template-columns: minmax(280px, 5fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 110px); align-items: start; }
+  .ms-eq__intents { position: sticky; top: 112px; }
+  .ms-eq__list { margin-top: 14px; border-bottom: 1px solid var(--rule); }
+  .ms-eq__intent { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 2px 10px; width: 100%; text-align: left; background: none; border: 0; border-top: 1px solid var(--rule); padding: 17px 0 18px; cursor: pointer; color: inherit; font: inherit; transition: background .3s ease; }
+  .ms-eq__intent .ms-eq__num { grid-row: span 2; padding-top: 5px; }
+  .ms-eq__ititle { display: flex; align-items: center; gap: 12px; }
+  .ms-eq__ititle [data-ms-dot] { flex: 0 0 auto; width: 7px; height: 7px; border-radius: 50%; box-shadow: inset 0 0 0 1px #DDD6C9; }
+  .ms-eq__ititle [data-ms-tablabel] { font-family: Newsreader, Georgia, serif; font-size: clamp(19px, 1.8vw, 24px); line-height: 1.25; color: var(--muted); transition: color .25s ease; }
+  .ms-eq__idesc { grid-column: 2; font-size: 13px; line-height: 1.6; color: var(--muted); padding-left: 19px; max-height: 0; opacity: 0; overflow: hidden; transition: max-height .4s ease, opacity .3s ease, margin .3s ease; }
+  .ms-eq__intent[aria-pressed="true"] .ms-eq__idesc { max-height: 60px; opacity: 1; margin-top: 4px; }
+  .ms-eq__intent:hover [data-ms-tablabel] { color: #17140F !important; }
+  .ms-eq__intent:focus-visible { outline: 1px solid var(--gold); outline-offset: 2px; }
+
+  .ms-eq__panel { background: #FBF9F5; padding: clamp(28px, 4vw, 64px); box-shadow: 0 1px 0 var(--rule), 0 30px 60px -40px rgba(23, 20, 15, .25); }
+  .ms-eq__ptitle { font-family: Newsreader, Georgia, serif; font-size: clamp(30px, 3.4vw, 48px); line-height: 1.05; letter-spacing: -.03em; font-weight: 200; margin-top: 14px; }
+  .ms-eq__note { font-size: 15px; line-height: 1.9; color: var(--body); margin-top: 16px; max-width: 52ch; min-height: 3.8em; }
+  .ms-site .ms-eq__brochure { display: inline-block; margin-top: 10px; font-size: 11px; letter-spacing: .26em; text-transform: uppercase; border-bottom: 1px solid #17140F; padding-bottom: 6px; }
+  .ms-eq__fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 28px; margin-top: clamp(28px, 3.4vw, 44px); }
+  .ms-eq__f { display: flex; flex-direction: column; gap: 8px; }
+  .ms-eq__f.is-wide { grid-column: 1 / -1; }
+  .ms-eq__f > span { font-size: 11px; letter-spacing: .26em; text-transform: uppercase; color: var(--muted); }
+  .ms-eq__consent { display: flex; gap: 12px; align-items: flex-start; margin-top: 28px; font-size: 12.5px; line-height: 1.7; color: var(--muted); max-width: 62ch; }
+  .ms-eq__send { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 28px; margin-top: 30px; }
+  .ms-eq__submit { min-height: 58px; padding: 0 46px; background: #17140F; color: #FBF9F5; border: 0; font: inherit; font-size: 11px; letter-spacing: .28em; text-transform: uppercase; cursor: pointer; transition: background .25s ease; }
+  .ms-eq__submit:hover { background: #2A251E; }
+  .ms-eq__promise { font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 16px; color: var(--muted); }
+  .ms-eq__done { border-top: 1px solid var(--gold); border-bottom: 1px solid var(--rule); padding: 20px 0 22px; margin-bottom: 34px; }
+  .ms-eq__done p { font-family: Newsreader, Georgia, serif; font-size: clamp(20px, 2vw, 26px); line-height: 1.4; margin-top: 10px; }
+  .ms-eq__errors { font-size: 13px; line-height: 1.8; color: #8B3A2B; margin-bottom: 24px; }
+
+  /* what happens next */
+  .ms-eq__next { max-width: 1560px; margin: 0 auto; padding: clamp(64px, 9vw, 150px) var(--gut); display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(32px, 6vw, 110px); }
+  .ms-eq__steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 3vw, 48px); }
+  .ms-eq__steps li { border-top: 1px solid #17140F; padding-top: 20px; }
+  .ms-eq__steps h3 { font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2vw, 27px); line-height: 1.2; letter-spacing: -.015em; font-weight: 200; margin-top: 16px; }
+  .ms-eq__steps p { font-size: 14.5px; line-height: 1.85; color: var(--body); margin-top: 12px; }
+
+  /* direct lines */
+  .ms-eq__direct { background: #17140F; color: #FBF9F5; padding: clamp(64px, 9vw, 140px) var(--gut); --muted: rgba(251, 249, 245, .55); --body: rgba(251, 249, 245, .78); }
+  .ms-eq__directin { max-width: 1560px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(32px, 6vw, 110px); }
+  .ms-eq__direct .ms-eq__label { color: #B89A6E; }
+  .ms-eq__lines { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 3vw, 48px); }
+  .ms-eq__line { border-top: 1px solid rgba(251, 249, 245, .22); padding-top: 20px; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+  .ms-eq__serif { font-family: Newsreader, Georgia, serif; font-size: clamp(20px, 1.9vw, 25px); line-height: 1.35; font-weight: 200; margin-top: 6px; }
+  .ms-site .ms-eq__mail { color: #FBF9F5; word-break: break-word; }
+  .ms-eq__small { font-size: 14px; line-height: 1.8; color: var(--body); }
+  .ms-site .ms-eq__ruled { margin-top: 6px; font-size: 11px; letter-spacing: .26em; text-transform: uppercase; color: #FBF9F5; border-bottom: 1px solid currentColor; padding-bottom: 6px; }
+
+  /* onward */
+  .ms-eq__onward { max-width: 1560px; margin: 0 auto; padding: clamp(48px, 6vw, 96px) var(--gut) clamp(64px, 8vw, 120px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 2vw, 28px); }
+  .ms-site .ms-eq__card { position: relative; display: flex; flex-direction: column; gap: 14px; padding: clamp(26px, 3vw, 44px); border: 1px solid var(--rule); color: #17140F; transition: border-color .3s ease, background .3s ease; }
+  .ms-site .ms-eq__card:hover { border-color: #17140F; background: #F4EFE5; }
+  .ms-eq__cardtitle { font-family: Newsreader, Georgia, serif; font-size: clamp(24px, 2.6vw, 36px); line-height: 1.12; letter-spacing: -.02em; font-weight: 200; max-width: 20ch; }
+  .ms-eq__arrow { position: absolute; right: clamp(22px, 3vw, 40px); bottom: clamp(22px, 3vw, 40px); font-size: 20px; transition: transform .3s ease; }
+  .ms-eq__card:hover .ms-eq__arrow { transform: translateX(6px); }
+
+  @media (max-width: 1080px) {
+    .ms-eq__grid { grid-template-columns: minmax(0, 1fr); }
+    .ms-eq__intents { position: static; }
+    .ms-eq__list { display: flex; gap: 8px; overflow-x: auto; border: 0; margin-inline: calc(-1 * var(--gut)); padding: 2px var(--gut) 6px; scrollbar-width: none; }
+    .ms-eq__list::-webkit-scrollbar { display: none; }
+    .ms-eq__intent { display: flex; flex: 0 0 auto; width: auto; padding: 12px 18px; border: 1px solid var(--rule); background: #FBF9F5; }
+    .ms-eq__intent .ms-eq__num, .ms-eq__idesc { display: none; }
+    .ms-eq__ititle [data-ms-dot] { display: none; }
+    .ms-eq__ititle [data-ms-tablabel] { font-family: inherit; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; white-space: nowrap; }
+    .ms-eq__intent[aria-pressed="true"] { background: #17140F; border-color: #17140F; }
+    .ms-eq__intent[aria-pressed="true"] [data-ms-tablabel] { color: #FBF9F5 !important; }
+    .ms-eq__next, .ms-eq__directin { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 900px) {
+    .ms-eq__head { grid-template-columns: minmax(0, 1fr); align-items: start; }
+    .ms-eq__photo { aspect-ratio: 4 / 3; max-height: none; order: -1; margin: calc(-1 * clamp(40px, 6vw, 96px)) calc(-1 * var(--gut)) 0; }
+    .ms-eq__facts { grid-template-columns: minmax(0, 1fr); }
+    .ms-eq__facts > div { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--rule); }
+    .ms-eq__facts dd { margin: 0; }
+    .ms-eq__steps, .ms-eq__lines, .ms-eq__onward { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .ms-eq__fields { grid-template-columns: minmax(0, 1fr); }
+    .ms-eq__panel { margin-inline: calc(-1 * var(--gut)); }
+  }
+</style>
+{% schema %}
+{
+  "name": "Enquiry page",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Photograph" },
+    { "type": "text", "id": "eyebrow", "label": "Label", "default": "Enquiries" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Please proceed with your enquiry." },
+    { "type": "textarea", "id": "lede", "label": "Introduction", "default": "Seven ways to reach the atelier. Whichever you choose, one person follows your enquiry from the first message to the day the bed is made up in your room." },
+    { "type": "text", "id": "fact1_label", "label": "Fact 1 label", "default": "Reply" },
+    { "type": "text", "id": "fact1", "label": "Fact 1", "default": "Within one working day, from a person" },
+    { "type": "text", "id": "fact2_label", "label": "Fact 2 label", "default": "Where" },
+    { "type": "text", "id": "fact2", "label": "Fact 2", "default": "Via Andegari 4, Milano, or by video" },
+    { "type": "text", "id": "fact3_label", "label": "Fact 3 label", "default": "Price" },
+    { "type": "text", "id": "fact3", "label": "Fact 3", "default": "On request; the specification sets it" },
+    { "type": "header", "content": "The seven enquiries" },
+    { "type": "text", "id": "intents_label", "label": "Label", "default": "I would like to" },
+    { "type": "text", "id": "d_appointment", "label": "Book an appointment", "default": "Visit the atelier on Via Andegari, or meet us by video. We confirm within one working day." },
+    { "type": "text", "id": "d_proposal", "label": "Request a proposal", "default": "A written specification and its price, for your system, size and room." },
+    { "type": "text", "id": "d_brochure", "label": "Request brochure", "default": "The systems, fibres and Loro Piana Interiors fabrics, as a PDF." },
+    { "type": "text", "id": "d_callback", "label": "Request a callback", "default": "Tell us when suits; one of the atelier team will call you." },
+    { "type": "text", "id": "d_trade", "label": "Trade enquiry", "default": "Architects, interior designers and hospitality: drawings, samples and terms." },
+    { "type": "text", "id": "d_partner", "label": "Become a partner", "default": "Represent Midsummer Milano in your market, as a showroom or an agent." },
+    { "type": "text", "id": "d_message", "label": "Leave a message", "default": "Anything else: regeneration, care or press." },
+    { "type": "header", "content": "The form" },
+    { "type": "text", "id": "form_label", "label": "Form label", "default": "Your enquiry" },
+    { "type": "url", "id": "brochure_url", "label": "Brochure (PDF)", "default": "https://cdn.shopify.com/s/files/1/0697/8829/files/Midsummer-Milano_Brochure.pdf?v=1733221759" },
+    { "type": "text", "id": "brochure_label", "label": "Brochure link", "default": "Or download it now (PDF) →" },
+    { "type": "text", "id": "l_title", "label": "Title label", "default": "Title*" },
+    { "type": "text", "id": "l_select", "label": "Title placeholder", "default": "Select" },
+    { "type": "text", "id": "titles", "label": "Titles", "default": "Mr, Mrs, Ms, Dr, Arch." },
+    { "type": "text", "id": "l_first", "label": "First name label", "default": "First name*" },
+    { "type": "text", "id": "l_last", "label": "Last name label", "default": "Last name*" },
+    { "type": "text", "id": "l_email", "label": "Email label", "default": "Email*" },
+    { "type": "text", "id": "consent", "label": "Consent", "default": "By clicking submit you agree to our terms and conditions and privacy policy." },
+    { "type": "text", "id": "submit", "label": "Button", "default": "Submit" },
+    { "type": "text", "id": "promise", "label": "Beside the button", "default": "A person replies, within one working day." },
+    { "type": "text", "id": "done_label", "label": "Sent: label", "default": "Received" },
+    { "type": "text", "id": "done_text", "label": "Sent: message", "default": "Thank you. The atelier will reply within one working day." },
+    { "type": "header", "content": "What happens next" },
+    { "type": "text", "id": "next_label", "label": "Label", "default": "What happens next" },
+    { "type": "text", "id": "next_heading", "label": "Heading", "default": "From a message to a made bed." },
+    { "type": "text", "id": "step1_title", "label": "Step 1", "default": "A reply from a person" },
+    { "type": "textarea", "id": "step1", "label": "Step 1 text", "default": "Within one working day, from the person who will follow your enquiry to the end." },
+    { "type": "text", "id": "step2_title", "label": "Step 2", "default": "A conversation" },
+    { "type": "textarea", "id": "step2", "label": "Step 2 text", "default": "At the atelier on Via Andegari, by video, or at your project: the room, the way you sleep, the cloth." },
+    { "type": "text", "id": "step3_title", "label": "Step 3", "default": "A specification, then the making" },
+    { "type": "textarea", "id": "step3", "label": "Step 3 text", "default": "Drawings, materials and price in writing. Then two artisans make the bed, start to finish, and our own team delivers it." },
+    { "type": "header", "content": "Direct lines" },
+    { "type": "text", "id": "direct_label", "label": "Label", "default": "Direct contact" },
+    { "type": "text", "id": "direct_heading", "label": "Heading", "default": "Or speak to us directly." },
+    { "type": "text", "id": "atelier_label", "label": "Atelier label", "default": "Atelier and showroom" },
+    { "type": "text", "id": "address", "label": "Address", "default": "Via Andegari 4, 20121 Milano" },
+    { "type": "text", "id": "hours", "label": "Hours", "default": "Monday to Friday, 09:00–12:00 and 13:00–18:00, Milan time. By appointment." },
+    { "type": "url", "id": "directions_url", "label": "Directions", "default": "https://www.google.com/maps/dir/?api=1&destination=Via+Andegari%2C+4%2C+20121+Milano%2C+Italy" },
+    { "type": "text", "id": "directions_label", "label": "Directions link", "default": "Directions" },
+    { "type": "text", "id": "write_label", "label": "Write label", "default": "Write or message" },
+    { "type": "text", "id": "email", "label": "Email", "default": "info@midsummer-milano.com" },
+    { "type": "text", "id": "phone", "label": "Telephone (optional)" },
+    { "type": "url", "id": "whatsapp_url", "label": "WhatsApp", "default": "https://wa.me/message/CAC4ZAEYHOTHN1" },
+    { "type": "text", "id": "whatsapp_label", "label": "WhatsApp link", "default": "WhatsApp" },
+    { "type": "text", "id": "press_label", "label": "Third column label", "default": "Press and regeneration" },
+    { "type": "text", "id": "press_text", "label": "Third column text", "default": "For press, care and the fifteen-year regeneration of a bed you own, leave a message and it reaches the right person." },
+    { "type": "text", "id": "press_link", "label": "Third column link", "default": "Leave a message" },
+    { "type": "header", "content": "Onward" },
+    { "type": "text", "id": "on1_label", "label": "First card label", "default": "Agents & resellers" },
+    { "type": "text", "id": "on1_title", "label": "First card", "default": "Find a showroom near you." },
+    { "type": "text", "id": "on2_label", "label": "Second card label", "default": "Five questions" },
+    { "type": "text", "id": "on2_title", "label": "Second card", "default": "Find your Midsummer." }
+  ],
+  "presets": [ { "name": "Enquiry page" } ]
+}
+{% endschema %}

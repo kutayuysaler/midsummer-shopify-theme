@@ -1,21 +1,15 @@
 /*
- * Midsummer Milano: built from the approved Atelier preview, one section per band.
- * Rendered with layout/ms.liquid, the preview's own type, colour and spacing.
+ * Midsummer Milano: the enquiry page. Every enquiry in the menus leads here; ?enquiry=appointment, proposal, brochure, callback, message, trade or partner opens that form.
  */
 {
   "layout": "ms",
   "sections": {
     "s01": {
-      "type": "ms-contact-01",
-      "settings": {}
-    },
-    "s02": {
-      "type": "ms-contact-02",
+      "type": "ms-enquire",
       "settings": {}
     }
   },
   "order": [
-    "s01",
-    "s02"
+    "s01"
   ]
 }

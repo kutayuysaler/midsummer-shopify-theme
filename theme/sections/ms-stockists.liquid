@@ -1,786 +1,740 @@
 {%- comment -%}
-  Showrooms, agents and resellers: the preview's Stockists page. Each market is a
-  block; the map draws from its latitude and longitude (a decimal comma works too).
-  d3 and the world geometry ship with the theme, so the page calls no third party.
+  Showrooms, agents and resellers: where to find Midsummer Milano.
+  The list and the map sit side by side at the same height. Choosing a place opens its
+  details in the list and flies the map to it; places close together gather into a
+  numbered cluster that opens as you zoom in. Every place is a block (latitude and
+  longitude in decimal degrees; a decimal comma works too). d3 and the world geometry
+  ship with the theme: the coarse map loads first, the fine one only once you zoom in.
 {%- endcomment -%}
-<style>
-.ms-stk {
-    --panel-h: clamp(440px, 62vh, 680px);
-    --ink: #17140F;
-    --ivory: #FBF9F5;
-    --muted: #8C8579;
-    --body: #4A443B;
-    --rule: #DDD6C9;
-    --bronze: #9A7B4F;
-    --wash: #F4F0E8;
-  }
-.ms-stk * { box-sizing: border-box; }
-.ms-stk {
-    margin: 0;
-    background: var(--ivory);
-    color: var(--ink);
-    font-family: 'Red Hat Text', system-ui, sans-serif;
-    font-weight: 300;
-    -webkit-font-smoothing: antialiased;
-  }
-.ms-stk a { color: inherit; text-decoration: none; }
-.ms-stk a:hover { color: var(--bronze); }
-.ms-stk h1, .ms-stk h2, .ms-stk h3 { font-family: 'Newsreader', Georgia, serif; font-weight: 200; margin: 0; letter-spacing: -0.025em; }
-.ms-stk .eyebrow {
-    display: flex; align-items: center; gap: 11px;
-    font-size: 9.5px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--muted);
-  }
-.ms-stk .ruled {
-    font-size: 9.5px; letter-spacing: 0.19em; text-transform: uppercase;
-    border-bottom: 1px solid currentColor; padding-bottom: 5px; white-space: nowrap; flex: 0 0 auto;
-  }
-.ms-stk .intro {
-    padding: clamp(44px, 6vw, 92px) clamp(18px, 5vw, 80px) clamp(26px, 3.4vw, 44px);
-    max-width: 1560px; margin: 0 auto;
-  }
-.ms-stk .intro h1 { font-size: clamp(38px, 6.2vw, 96px); line-height: 0.98; margin-top: 22px; }
-.ms-stk .intro .lede {
-    font-family: 'Newsreader', Georgia, serif;
-    font-size: clamp(19px, 2.2vw, 28px); line-height: 1.5; color: var(--body);
-    margin: 30px 0 0; max-width: 40ch; text-wrap: pretty;
-  }
-.ms-stk /* the flagship, .ms-stk stated before any map */
-  .flagship {
-    padding: 0 clamp(18px, 5vw, 80px) clamp(44px, 6vw, 88px);
-    max-width: 1560px; margin: 0 auto;
-  }
-.ms-stk .flagship-in {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: clamp(24px, 4vw, 72px);
-    border-top: 1px solid var(--ink); padding-top: clamp(24px, 3vw, 38px);
-    align-items: start;
-  }
-.ms-stk .flagship h2 { font-size: clamp(26px, 3.2vw, 42px); line-height: 1.08; }
-.ms-stk .flagship .addr {
-    display: flex; flex-direction: column; gap: 4px;
-    font-size: 15px; line-height: 1.85; color: var(--body);
-  }
-.ms-stk .flagship .meta { font-size: 13px; line-height: 1.9; color: var(--muted); }
-.ms-stk .flagship-col { display: flex; flex-direction: column; gap: 16px; }
-.ms-stk .atlas {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(280px, 380px);
-    gap: clamp(28px, 4vw, 72px);
-    align-items: start;
-    padding: 0 clamp(18px, 5vw, 80px) clamp(44px, 6vw, 88px);
-    max-width: 1560px; margin: 0 auto;
-  }
-@media (max-width: 1080px) {
-.ms-stk .atlas { grid-template-columns: minmax(0, 1fr); gap: clamp(22px, 3vw, 36px); }
-.ms-stk .mapwrap { height: clamp(320px, 44vh, 460px); }
-}
+{%- liquid
+  assign s = section.settings
+  assign countries = ''
+  for block in section.blocks
+    assign countries = countries | append: block.settings.country | append: '|'
+  endfor
+  assign n_countries = countries | split: '|' | uniq | size
+  assign regions = 'Europe,Middle East,Americas,Asia Pacific' | split: ','
+-%}
+<section class="ms-sl" data-ms-sl>
+  <header class="ms-sl__intro">
+    <div class="ms-sl__eyebrow">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 4.5 A7.5 7.5 0 1 0 12 19.5 A7.5 7.5 0 1 0 12 4.5" fill="none" stroke="#9A7B4F" stroke-width="1.2"/><path d="M4.5 12 H19.5" fill="none" stroke="#9A7B4F" stroke-width="1.2"/><path d="M12 4.5 C8.5 8 8.5 16 12 19.5 C15.5 16 15.5 8 12 4.5" fill="none" stroke="#9A7B4F" stroke-width="1.2"/></svg>
+      <span>{{ s.eyebrow }}</span>
+    </div>
+    <h1 class="ms-sl__title">{{ s.heading }}</h1>
+    <div class="ms-sl__introrow">
+      <p class="ms-sl__lede">{{ s.lede }}</p>
+      <p class="ms-sl__tally"><span>{{ section.blocks.size }}</span> {{ s.tally_places }} <span>{{ n_countries }}</span> {{ s.tally_countries }}</p>
+    </div>
+  </header>
 
-@media (max-width: 700px) {
-.ms-stk .mapwrap { height: 320px; }
-}
-.ms-stk .mapwrap {
-    position: relative;
-    display: flex; flex-direction: column;
-    background: var(--wash); border: 1px solid var(--rule);
-    height: var(--panel-h);
+  <div class="ms-sl__flag" id="atelier">
+    <div class="ms-sl__flagin">
+      <div>
+        <div class="ms-sl__label">{{ s.atelier_label }}</div>
+        <h2 class="ms-sl__flagtitle">{{ s.atelier_city }}</h2>
+      </div>
+      <div class="ms-sl__flagcol">
+        <p class="ms-sl__addrbig">{{ s.atelier_address | newline_to_br }}</p>
+        <div class="ms-sl__flaglinks">
+          <a class="ms-sl__ruled" href="{{ s.atelier_directions }}" target="_blank" rel="noopener">{{ s.directions_label }}</a>
+          <button type="button" class="ms-sl__ruled" data-ms-sl-atelier>{{ s.show_on_map }}</button>
+        </div>
+      </div>
+      <div class="ms-sl__flagcol">
+        <p class="ms-sl__meta">{{ s.atelier_hours | newline_to_br }}</p>
+        <a class="ms-sl__ruled" href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-enquiry="appointment">{{ s.book_label }}</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="ms-sl__atlas" data-ms-sl-atlas>
+    <aside class="ms-sl__panel" aria-label="{{ s.list_label | escape }}">
+      <div class="ms-sl__tools">
+        <label class="ms-sl__search">
+          <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.1"/><path d="M11 11l3.5 3.5" stroke="currentColor" stroke-width="1.1"/></svg>
+          <input type="search" placeholder="{{ s.search_placeholder | escape }}" aria-label="{{ s.search_placeholder | escape }}" data-ms-sl-q autocomplete="off">
+        </label>
+        <div class="ms-sl__types" role="group" aria-label="{{ s.type_label | escape }}">
+          <button type="button" data-ms-sl-type="" aria-pressed="true">{{ s.all_label }} <span data-n></span></button>
+          <button type="button" data-ms-sl-type="showroom" aria-pressed="false"><i class="ms-sl__mark is-showroom"></i>{{ s.showrooms_label }} <span data-n></span></button>
+          <button type="button" data-ms-sl-type="boutique" aria-pressed="false"><i class="ms-sl__mark is-boutique"></i>{{ s.boutiques_label }} <span data-n></span></button>
+          <button type="button" data-ms-sl-type="agent" aria-pressed="false"><i class="ms-sl__mark is-agent"></i>{{ s.agents_label }} <span data-n></span></button>
+        </div>
+        <p class="ms-sl__count" data-ms-sl-count aria-live="polite"></p>
+      </div>
+
+      <div class="ms-sl__list" data-ms-sl-list>
+        {%- for region in regions -%}
+          {%- assign in_region = 0 -%}
+          {%- for block in section.blocks -%}{%- if block.settings.region == region -%}{%- assign in_region = in_region | plus: 1 -%}{%- endif -%}{%- endfor -%}
+          {%- if in_region > 0 -%}
+          <div class="ms-sl__region" data-ms-sl-region="{{ region }}">
+            <h3 class="ms-sl__rhead">{{ region }}</h3>
+            {%- assign last_country = '' -%}
+            {%- for block in section.blocks -%}
+              {%- if block.settings.region != region -%}{%- continue -%}{%- endif -%}
+              {%- assign b = block.settings -%}
+              {%- if b.country != last_country -%}
+                <div class="ms-sl__country" data-ms-sl-country>{{ b.country }}</div>
+                {%- assign last_country = b.country -%}
+              {%- endif -%}
+              {%- liquid
+                case b.kind
+                  when 'atelier'
+                    assign kind_label = s.atelier_kind
+                  when 'boutique'
+                    assign kind_label = s.boutique_kind
+                  when 'agent'
+                    assign kind_label = s.agent_kind
+                  else
+                    assign kind_label = s.showroom_kind
+                endcase
+                assign search = b.name | append: ' ' | append: b.city | append: ' ' | append: b.country | append: ' ' | append: b.address | downcase | escape
+                assign dir = b.name | append: ', ' | append: b.address | append: ', ' | append: b.country | url_encode
+              -%}
+              <article class="ms-sl__item" data-ms-sl-item="{{ block.id }}" data-kind="{{ b.kind }}" data-search="{{ search }}" {{ block.shopify_attributes }}>
+                <button type="button" class="ms-sl__row" aria-expanded="false" aria-controls="ms-sl-{{ block.id }}">
+                  <i class="ms-sl__mark is-{{ b.kind }}" aria-hidden="true"></i>
+                  <span class="ms-sl__name">{{ b.name }}</span>
+                  <span class="ms-sl__kind">{{ kind_label }}</span>
+                  <span class="ms-sl__place">{{ b.city }}</span>
+                  <svg class="ms-sl__chev" viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M3 6l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.1"/></svg>
+                </button>
+                <div class="ms-sl__more" id="ms-sl-{{ block.id }}" hidden>
+                  {%- if b.contact != blank -%}<p class="ms-sl__who">{{ b.contact }}</p>{%- endif -%}
+                  {%- if b.address != blank -%}<p class="ms-sl__addr">{{ b.address | newline_to_br }}</p>{%- endif -%}
+                  {%- if b.note != blank -%}<p class="ms-sl__note">{{ b.note }}</p>{%- endif -%}
+                  <div class="ms-sl__reach">
+                    {%- if b.phone != blank -%}<a href="tel:{{ b.phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-' }}"><span>{{ s.tel_label }}</span>{{ b.phone }}</a>{%- endif -%}
+                    {%- if b.email != blank -%}<a href="mailto:{{ b.email }}"><span>{{ s.mail_label }}</span>{{ b.email }}</a>{%- endif -%}
+                    {%- if b.website != blank -%}<a href="{{ b.website }}" target="_blank" rel="noopener"><span>{{ s.web_label }}</span>{{ b.website | remove: 'https://' | remove: 'http://' | remove: 'www.' | remove_last: '/' }}</a>{%- endif -%}
+                  </div>
+                  <div class="ms-sl__acts">
+                    <a class="ms-sl__ruled" href="https://www.google.com/maps/dir/?api=1&destination={{ dir }}" target="_blank" rel="noopener">{{ s.directions_label }}</a>
+                    {%- if b.kind == 'atelier' -%}
+                      <a class="ms-sl__ruled" href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-enquiry="appointment">{{ s.book_label }}</a>
+                    {%- else -%}
+                      <a class="ms-sl__ruled" href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-enquiry="message" data-ms-note="{{ s.intro_note | replace: '[name]', b.name | replace: '[city]', b.city | escape }}">{{ s.intro_label }}</a>
+                    {%- endif -%}
+                    <button type="button" class="ms-sl__ruled ms-sl__tomap" data-ms-sl-tomap>{{ s.show_on_map }}</button>
+                  </div>
+                </div>
+              </article>
+            {%- endfor -%}
+          </div>
+          {%- endif -%}
+        {%- endfor -%}
+        <p class="ms-sl__none" data-ms-sl-none hidden>{{ s.no_results }}</p>
+      </div>
+    </aside>
+
+    <div class="ms-sl__map" data-ms-sl-map role="region" aria-label="{{ s.map_label | escape }}">
+      <svg class="ms-sl__svg" data-ms-sl-svg aria-hidden="true"><g data-ms-sl-world><path class="ms-sl__grat" data-ms-sl-grat></path><path class="ms-sl__land" data-ms-sl-land></path><path class="ms-sl__home" data-ms-sl-home></path><path class="ms-sl__borders" data-ms-sl-borders></path></g></svg>
+      <div class="ms-sl__pins" data-ms-sl-pins></div>
+      <div class="ms-sl__views" role="group" aria-label="{{ s.views_label | escape }}">
+        <button type="button" data-ms-sl-view="" aria-pressed="true">{{ s.world_label }}</button>
+        {%- for region in regions -%}
+          {%- assign in_region = 0 -%}
+          {%- for block in section.blocks -%}{%- if block.settings.region == region -%}{%- assign in_region = in_region | plus: 1 -%}{%- endif -%}{%- endfor -%}
+          {%- if in_region > 0 -%}<button type="button" data-ms-sl-view="{{ region }}" aria-pressed="false">{{ region }}</button>{%- endif -%}
+        {%- endfor -%}
+      </div>
+      <div class="ms-sl__zoom">
+        <button type="button" data-ms-sl-zoom="in" aria-label="Zoom in"><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="1.1"/></svg></button>
+        <button type="button" data-ms-sl-zoom="out" aria-label="Zoom out"><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M2 8h12" stroke="currentColor" stroke-width="1.1"/></svg></button>
+        <button type="button" data-ms-sl-zoom="fit" aria-label="Show every place"><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4" fill="none" stroke="currentColor" stroke-width="1.1"/></svg></button>
+      </div>
+      <div class="ms-sl__legend" aria-hidden="true">
+        <span><i class="ms-sl__mark is-atelier"></i>{{ s.atelier_kind }}</span>
+        <span><i class="ms-sl__mark is-showroom"></i>{{ s.showroom_kind }}</span>
+        <span data-legend="boutique"><i class="ms-sl__mark is-boutique"></i>{{ s.boutique_kind }}</span>
+        <span data-legend="agent"><i class="ms-sl__mark is-agent"></i>{{ s.agent_kind }}</span>
+      </div>
+      <div class="ms-sl__hint" data-ms-sl-hint aria-hidden="true"></div>
+      <div class="ms-sl__pop" data-ms-sl-pop hidden></div>
+    </div>
+  </div>
+
+  <div class="ms-sl__band">
+    <div class="ms-sl__bandin">
+      <div>
+        <div class="ms-sl__label">{{ s.band_label }}</div>
+        <h2 class="ms-sl__bandtitle">{{ s.band_heading }}</h2>
+      </div>
+      <div class="ms-sl__bandcol">
+        <p>{{ s.band_text }}</p>
+        <a class="ms-sl__ruled" href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-enquiry="appointment">{{ s.band_link }}</a>
+      </div>
+    </div>
+  </div>
+  <p class="ms-sl__partner">{{ s.partner_text }} <a href="{% render 'ms-link', to: 'enquire' %}?enquiry=partner#enquire">{{ s.partner_link }}</a></p>
+
+  <script type="application/json" data-ms-sl-data>[
+    {%- for block in section.blocks -%}
+      {%- assign lat = block.settings.lat | replace: ',', '.' | strip -%}
+      {%- assign lon = block.settings.lon | replace: ',', '.' | strip -%}
+      { "id": {{ block.id | json }}, "name": {{ block.settings.name | json }}, "city": {{ block.settings.city | json }}, "country": {{ block.settings.country | json }}, "region": {{ block.settings.region | json }}, "kind": {{ block.settings.kind | json }}, "lat": {{ lat | json }}, "lon": {{ lon | json }} }{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ]</script>
+</section>
+
+<style>
+  .ms-sl { --gut: clamp(18px, 5vw, 80px); --rule: #DDD6C9; --muted: #6E675C; --body: #4A443B; --gold: #9A7B4F; --ink: #17140F; --ivory: #FBF9F5; }
+  .ms-sl #atelier { scroll-margin-top: 96px; }
+  .ms-sl__label { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: var(--muted); }
+  .ms-sl__intro { max-width: 1560px; margin: 0 auto; padding: clamp(40px, 6vw, 96px) var(--gut) clamp(36px, 4vw, 64px); }
+  .ms-sl__eyebrow { display: flex; align-items: center; gap: 14px; font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: var(--muted); }
+  .ms-sl__title { font-family: Newsreader, Georgia, serif; font-size: clamp(46px, 7vw, 112px); line-height: 1; letter-spacing: -.045em; font-weight: 200; margin-top: clamp(20px, 2.4vw, 32px); }
+  .ms-sl__introrow { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px 60px; margin-top: clamp(22px, 2.6vw, 36px); }
+  .ms-sl__lede { font-family: Newsreader, Georgia, serif; font-size: clamp(19px, 1.9vw, 24px); line-height: 1.5; font-weight: 200; color: var(--body); max-width: 44ch; }
+  .ms-sl__tally { font-size: 11px; letter-spacing: .26em; text-transform: uppercase; color: var(--muted); }
+  .ms-sl__tally span { font-family: Newsreader, Georgia, serif; font-size: clamp(30px, 3vw, 42px); letter-spacing: -.02em; color: var(--ink); text-transform: none; vertical-align: -4px; margin: 0 4px 0 14px; }
+  .ms-sl__tally span:first-child { margin-left: 0; }
+
+  .ms-sl__flag { max-width: 1560px; margin: 0 auto; padding: 0 var(--gut); }
+  .ms-sl__flagin { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 4fr) minmax(0, 4fr); gap: clamp(24px, 4vw, 72px); border-top: 1px solid var(--ink); padding: clamp(22px, 2.6vw, 34px) 0 clamp(36px, 4vw, 56px); }
+  .ms-sl__flagtitle { font-family: Newsreader, Georgia, serif; font-size: clamp(34px, 3.6vw, 52px); letter-spacing: -.03em; font-weight: 200; line-height: 1; margin-top: 14px; }
+  .ms-sl__flagcol { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
+  .ms-sl__addrbig { font-family: Newsreader, Georgia, serif; font-size: clamp(18px, 1.6vw, 21px); line-height: 1.55; }
+  .ms-sl__meta { font-size: 13.5px; line-height: 1.85; color: var(--muted); }
+  .ms-sl__flaglinks { display: flex; flex-wrap: wrap; gap: 14px 26px; }
+  .ms-site .ms-sl__ruled, .ms-sl__ruled { display: inline-block; width: fit-content; background: none; border: 0; border-bottom: 1px solid currentColor; padding: 0 0 6px; font: inherit; font-size: 11px; letter-spacing: .26em; text-transform: uppercase; color: var(--ink); cursor: pointer; }
+
+  /* ── the atlas: list and map, one height ── */
+  .ms-sl__atlas { max-width: 1560px; margin: 0 auto clamp(64px, 8vw, 120px); padding: 0 var(--gut); display: grid; grid-template-columns: minmax(320px, 400px) minmax(0, 1fr); height: clamp(600px, 82vh, 880px); }
+  .ms-sl__panel { display: flex; flex-direction: column; min-height: 0; border: 1px solid var(--rule); border-right: 0; background: var(--ivory); }
+  .ms-sl__tools { flex: 0 0 auto; padding: 22px 24px 0; border-bottom: 1px solid var(--rule); }
+  .ms-sl__search { display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--rule); color: var(--muted); }
+  .ms-sl__search:focus-within { border-bottom-color: var(--ink); color: var(--ink); }
+  .ms-sl__search input { flex: 1; min-width: 0; border: 0; background: none; padding: 12px 0; font: inherit; font-size: 15px; font-weight: 300; color: var(--ink); outline: none; }
+  .ms-sl__search input::-webkit-search-cancel-button { filter: grayscale(1); }
+  .ms-sl__types { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+  .ms-sl__types button { display: inline-flex; align-items: center; gap: 8px; min-height: 34px; padding: 0 12px; border: 1px solid var(--rule); background: none; font: inherit; font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--body); cursor: pointer; transition: background .2s ease, color .2s ease, border-color .2s ease; }
+  .ms-sl__types button span { letter-spacing: 0; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .ms-sl__types button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--ivory); }
+  .ms-sl__types button[aria-pressed="true"] span { color: rgba(251, 249, 245, .6); }
+  .ms-sl__types button[aria-pressed="true"] .ms-sl__mark.is-showroom { background: var(--ivory); }
+  .ms-sl__types button[aria-pressed="true"] .ms-sl__mark.is-boutique, .ms-sl__types button[aria-pressed="true"] .ms-sl__mark.is-agent { box-shadow: inset 0 0 0 1.4px var(--ivory); }
+  .ms-sl__types button[hidden] { display: none; }
+  .ms-sl__count { font-size: 12px; color: var(--muted); padding: 14px 0 12px; }
+
+  .ms-sl__list { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 0 24px 24px; scrollbar-width: thin; scrollbar-color: #CFC6B6 transparent; }
+  .ms-sl__rhead { position: sticky; top: 0; z-index: 1; background: var(--ivory); font-family: Newsreader, Georgia, serif; font-size: 22px; letter-spacing: -.01em; font-weight: 200; padding: 20px 0 8px; border-bottom: 1px solid var(--ink); }
+  .ms-sl__country { font-size: 10.5px; letter-spacing: .26em; text-transform: uppercase; color: var(--gold); padding: 16px 0 2px; }
+  .ms-sl__item { border-bottom: 1px solid var(--rule); }
+  .ms-sl__row { display: grid; grid-template-columns: 12px minmax(0, 1fr) auto 14px; grid-template-areas: "mark name kind chev" ". place place ."; gap: 2px 12px; align-items: center; width: 100%; padding: 14px 0; background: none; border: 0; text-align: left; font: inherit; color: inherit; cursor: pointer; }
+  .ms-sl__row .ms-sl__mark { grid-area: mark; }
+  .ms-sl__name { grid-area: name; font-family: Newsreader, Georgia, serif; font-size: 18px; line-height: 1.25; transition: color .2s ease; }
+  .ms-sl__kind { grid-area: kind; font-size: 9.5px; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); }
+  .ms-sl__place { grid-area: place; font-size: 12.5px; color: var(--muted); }
+  .ms-sl__chev { grid-area: chev; color: var(--muted); transition: transform .3s ease; }
+  .ms-sl__row:hover .ms-sl__name { color: var(--gold); }
+  .ms-sl__item.is-open .ms-sl__chev { transform: rotate(180deg); }
+  .ms-sl__item.is-open .ms-sl__name { color: var(--ink); }
+  .ms-sl__item.is-open { background: linear-gradient(90deg, rgba(154, 123, 79, .07), transparent 70%); }
+  .ms-sl__row:focus-visible { outline: 1px solid var(--gold); outline-offset: -1px; }
+  .ms-sl__more { padding: 0 0 18px 24px; }
+  .ms-sl__who { font-family: Newsreader, Georgia, serif; font-size: 15px; font-style: italic; color: var(--body); }
+  .ms-sl__addr { font-size: 13.5px; line-height: 1.75; color: var(--body); margin-top: 6px; }
+  .ms-sl__note { font-size: 13px; line-height: 1.75; color: var(--muted); margin-top: 8px; }
+  .ms-sl__reach { display: flex; flex-direction: column; gap: 3px; margin-top: 12px; }
+  .ms-site .ms-sl__reach a { font-size: 13px; line-height: 1.6; color: var(--body); word-break: break-word; }
+  .ms-site .ms-sl__reach a:hover { color: var(--gold); }
+  .ms-sl__reach a span { display: inline-block; width: 46px; font-size: 9.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+  .ms-sl__acts { display: flex; flex-wrap: wrap; gap: 12px 22px; margin-top: 16px; }
+  .ms-sl__tomap { display: none !important; }
+  .ms-sl__none { font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 17px; color: var(--muted); padding: 28px 0; }
+  .ms-sl__item[hidden], .ms-sl__region[hidden], .ms-sl__country[hidden], .ms-sl [hidden] { display: none !important; }
+
+  /* markers */
+  .ms-sl__mark { display: inline-block; flex: 0 0 auto; width: 10px; height: 10px; border-radius: 50%; }
+  .ms-sl__mark.is-atelier { background: var(--gold); box-shadow: 0 0 0 2px var(--ivory), 0 0 0 3px var(--gold); width: 9px; height: 9px; margin: 0 1px; }
+  .ms-sl__mark.is-showroom { background: var(--ink); }
+  .ms-sl__mark.is-boutique { background: radial-gradient(circle, var(--ink) 0 2.2px, transparent 2.6px); box-shadow: inset 0 0 0 1.4px var(--ink); }
+  .ms-sl__mark.is-agent { box-shadow: inset 0 0 0 1.4px var(--ink); }
+
+  /* the map */
+  .ms-sl__map { position: relative; overflow: hidden; background: #EFE8DB; border: 1px solid var(--rule); user-select: none; -webkit-user-select: none; }
+  .ms-sl__svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: grab; touch-action: pan-x pan-y; }
+  .ms-sl__svg:active { cursor: grabbing; }
+  .ms-sl__grat { fill: none; stroke: rgba(23, 20, 15, .06); stroke-width: .6; vector-effect: non-scaling-stroke; }
+  .ms-sl__land { fill: #E2D6C1; }
+  .ms-sl__home { fill: #D6C6AA; }
+  .ms-sl__borders { fill: none; stroke: #F6F1E8; stroke-width: .8; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .ms-sl__pins { position: absolute; inset: 0; pointer-events: none; }
+  .ms-sl__pin { position: absolute; left: 0; top: 0; pointer-events: auto; width: 30px; height: 30px; margin: -15px 0 0 -15px; padding: 0; border: 0; background: none; cursor: pointer; display: flex; align-items: center; justify-content: center; will-change: transform; }
+  .ms-sl__pin .ms-sl__mark { width: 12px; height: 12px; transition: transform .25s ease; box-shadow: 0 0 0 2px rgba(251, 249, 245, .9); }
+  .ms-sl__pin .ms-sl__mark.is-boutique { box-shadow: inset 0 0 0 1.6px var(--ink), 0 0 0 2px rgba(251, 249, 245, .9); background-color: var(--ivory); }
+  .ms-sl__pin .ms-sl__mark.is-agent { box-shadow: inset 0 0 0 1.6px var(--ink), 0 0 0 2px rgba(251, 249, 245, .9); background: var(--ivory); }
+  .ms-sl__pin .ms-sl__mark.is-atelier { width: 12px; height: 12px; box-shadow: 0 0 0 2.5px var(--ivory), 0 0 0 3.5px var(--gold); }
+  .ms-sl__pin:hover .ms-sl__mark, .ms-sl__pin:focus-visible .ms-sl__mark { transform: scale(1.35); }
+  .ms-sl__pin:focus-visible { outline: none; }
+  .ms-sl__pin.is-on { z-index: 3; }
+  .ms-sl__pin.is-on .ms-sl__mark { transform: scale(1.45); }
+  .ms-sl__pin.is-on::before { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 1px solid var(--gold); animation: msSlPulse 2.4s ease-out infinite; }
+  @keyframes msSlPulse { 0% { transform: scale(.55); opacity: .9; } 100% { transform: scale(1.5); opacity: 0; } }
+  .ms-sl__tag { position: absolute; left: 50%; bottom: calc(100% + 2px); transform: translateX(-50%); white-space: nowrap; padding: 6px 10px 7px; background: var(--ink); color: var(--ivory); font-size: 12px; line-height: 1.2; pointer-events: none; opacity: 0; transition: opacity .2s ease; }
+  .ms-sl__tag em { display: block; font-style: normal; font-size: 9.5px; letter-spacing: .2em; text-transform: uppercase; color: rgba(251, 249, 245, .6); margin-top: 3px; }
+  .ms-sl__tag::after { content: ''; position: absolute; left: 50%; top: 100%; margin-left: -4px; border: 4px solid transparent; border-top-color: var(--ink); }
+  .ms-sl__pin:hover .ms-sl__tag, .ms-sl__pin:focus-visible .ms-sl__tag, .ms-sl__pin.is-on .ms-sl__tag { opacity: 1; }
+  .ms-sl__pin.is-cluster { width: 38px; height: 38px; margin: -19px 0 0 -19px; }
+  .ms-sl__pin.is-cluster b { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; background: var(--ink); color: var(--ivory); font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 14px; box-shadow: 0 0 0 4px rgba(23, 20, 15, .14), 0 0 0 2px rgba(251, 249, 245, .9); transition: transform .25s ease; font-variant-numeric: tabular-nums; }
+  .ms-sl__pin.is-cluster.has-atelier b { box-shadow: 0 0 0 2px var(--ivory), 0 0 0 3.5px var(--gold); }
+  .ms-sl__pin.is-cluster:hover b, .ms-sl__pin.is-cluster:focus-visible b { transform: scale(1.12); }
+
+  .ms-sl__views { position: absolute; top: 16px; left: 16px; display: flex; flex-wrap: wrap; gap: 4px; max-width: calc(100% - 90px); }
+  .ms-sl__views button, .ms-sl__zoom button { min-height: 34px; padding: 0 13px; border: 0; background: rgba(251, 249, 245, .94); box-shadow: 0 1px 0 rgba(23, 20, 15, .06); font: inherit; font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--body); cursor: pointer; transition: background .2s ease, color .2s ease; }
+  .ms-sl__views button[aria-pressed="true"] { background: var(--ink); color: var(--ivory); }
+  .ms-sl__zoom { position: absolute; right: 16px; bottom: 16px; display: flex; flex-direction: column; gap: 2px; }
+  .ms-sl__zoom button { width: 38px; min-height: 38px; padding: 0; display: flex; align-items: center; justify-content: center; color: var(--ink); }
+  .ms-sl__zoom button:hover, .ms-sl__views button:hover { background: var(--ivory); color: var(--ink); }
+  .ms-sl__views button[aria-pressed="true"]:hover { background: var(--ink); color: var(--ivory); }
+  .ms-sl__types button:hover { border-color: var(--ink); }
+  .ms-sl__legend { position: absolute; left: 16px; bottom: 16px; display: flex; flex-wrap: wrap; gap: 6px 16px; padding: 9px 14px; background: rgba(251, 249, 245, .9); font-size: 11.5px; color: var(--body); pointer-events: none; }
+  .ms-sl__legend span { display: inline-flex; align-items: center; gap: 8px; }
+  .ms-sl__hint { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); padding: 12px 18px; background: rgba(23, 20, 15, .82); color: var(--ivory); font-size: 13px; letter-spacing: .02em; pointer-events: none; opacity: 0; transition: opacity .3s ease; }
+  .ms-sl__hint.is-on { opacity: 1; }
+  .ms-sl__pop { position: absolute; z-index: 4; min-width: 240px; max-width: min(320px, calc(100% - 32px)); background: var(--ivory); box-shadow: 0 18px 50px rgba(23, 20, 15, .22); padding: 16px 18px 12px; }
+  .ms-sl__pop .ms-sl__label { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .ms-sl__pop .ms-sl__label button { background: none; border: 0; padding: 4px; cursor: pointer; color: var(--ink); }
+  .ms-sl__pop ul { list-style: none; margin: 8px 0 0; padding: 0; }
+  .ms-sl__pop li button { display: flex; align-items: center; gap: 12px; width: 100%; padding: 10px 0; border: 0; border-top: 1px solid var(--rule); background: none; text-align: left; font: inherit; cursor: pointer; color: var(--ink); }
+  .ms-sl__pop li button span { font-family: Newsreader, Georgia, serif; font-size: 16px; }
+  .ms-sl__pop li button em { margin-left: auto; font-style: normal; font-size: 9.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+  .ms-sl__pop li button:hover span { color: var(--gold); }
+
+  /* closing */
+  .ms-sl__band { background: var(--ink); color: var(--ivory); padding: clamp(64px, 9vw, 140px) var(--gut); }
+  .ms-sl__band .ms-sl__label { color: #B89A6E; }
+  .ms-sl__bandin { max-width: 1560px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(32px, 6vw, 110px); align-items: end; }
+  .ms-sl__bandtitle { font-family: Newsreader, Georgia, serif; font-size: clamp(34px, 4.6vw, 64px); line-height: 1.04; letter-spacing: -.03em; font-weight: 200; margin-top: 18px; }
+  .ms-sl__bandcol p { font-size: 15px; line-height: 1.95; color: rgba(251, 249, 245, .78); max-width: 48ch; }
+  .ms-sl__band .ms-sl__ruled { color: var(--ivory); margin-top: 24px; }
+  .ms-sl__partner { max-width: 60ch; margin: 0 auto; padding: clamp(44px, 5vw, 72px) var(--gut); text-align: center; font-size: 13.5px; line-height: 1.9; color: var(--muted); }
+  .ms-site .ms-sl__partner a { color: var(--ink); border-bottom: 1px solid currentColor; }
+
+  @media (max-width: 1080px) {
+    .ms-sl__flagin { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    .ms-sl__flagin > div:first-child { grid-column: 1 / -1; }
   }
-.ms-stk .mapwrap svg { display: block; flex: 1; width: 100%; min-height: 0; cursor: grab; touch-action: none; }
-.ms-stk .mapwrap svg:active { cursor: grabbing; }
-.ms-stk .mapzoom {
-    position: absolute; top: 12px; right: 12px; z-index: 2;
-    display: flex; flex-direction: column;
+  @media (max-width: 900px) {
+    .ms-sl__atlas { grid-template-columns: minmax(0, 1fr); height: auto; padding: 0; }
+    .ms-sl__map { order: -1; height: min(56vh, 440px); min-height: 340px; border-left: 0; border-right: 0; }
+    .ms-sl__panel { border: 0; }
+    .ms-sl__tools { padding: 18px var(--gut) 0; }
+    .ms-sl__list { overflow: visible; padding: 0 var(--gut) 12px; }
+    .ms-sl__rhead { top: 0; }
+    .ms-sl__tomap { display: inline-block !important; }
+    .ms-sl__legend { display: none; }
+    .ms-sl__views { top: 12px; left: 12px; right: 12px; max-width: none; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+    .ms-sl__views::-webkit-scrollbar { display: none; }
+    .ms-sl__views button { flex: 0 0 auto; }
+    .ms-sl__zoom { right: 12px; bottom: 12px; }
+    .ms-sl__bandin { grid-template-columns: minmax(0, 1fr); }
   }
-.ms-stk .mapzoom button {
-    width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;
-    background: var(--ivory); color: var(--ink);
-    border: 1px solid var(--rule); border-bottom: 0; border-radius: 0;
-    cursor: pointer; font-family: inherit; font-size: 13px; line-height: 1;
+  @media (max-width: 600px) {
+    .ms-sl__flagin { grid-template-columns: minmax(0, 1fr); }
+    .ms-sl__views button { padding: 0 10px; font-size: 10px; letter-spacing: .14em; }
   }
-.ms-stk .mapzoom button:last-child { border-bottom: 1px solid var(--rule); }
-.ms-stk .mapzoom button:hover { color: var(--bronze); }
-.ms-stk .land { fill: #E2D9C8; stroke: var(--ivory); stroke-width: 0.6; }
-.ms-stk .graticule { fill: none; stroke: #E4DCCD; stroke-width: 0.35; }
-.ms-stk .halo { fill: var(--bronze); opacity: 0.16; }
-.ms-stk .pin { stroke: var(--ivory); stroke-width: 1; cursor: pointer; transition: r 0.2s ease; }
-.ms-stk .pin.type-showroom { fill: var(--ink); }
-.ms-stk .pin.type-boutique { fill: var(--bronze); }
-.ms-stk .pin.type-agent { fill: none; stroke: var(--bronze); stroke-width: 1.6; }
-.ms-stk .pin.is-active { r: 8.5; }
-.ms-stk .pin.is-dim { opacity: 0.2; }
-.ms-stk .pinlabel {
-    font-family: 'Red Hat Text', sans-serif; font-size: 11px; font-weight: 400;
-    letter-spacing: 0.14em; text-transform: uppercase; fill: var(--ink);
-    pointer-events: none; opacity: 0;
-  }
-.ms-stk .pinlabel.is-shown { opacity: 1; }
-.ms-stk .legend {
-    display: flex; flex-wrap: wrap; gap: 18px 28px; align-items: center;
-    padding: 16px clamp(14px, 2vw, 22px);
-    border-top: 1px solid var(--rule);
-    font-size: 11px; letter-spacing: 0.06em; color: var(--muted);
-  }
-.ms-stk .legend span { display: flex; align-items: center; gap: 9px; }
-.ms-stk .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--bronze); flex: 0 0 auto; }
-.ms-stk .dot.ink { background: var(--ink); }
-.ms-stk .dot.hollow { background: transparent; box-shadow: inset 0 0 0 1.5px var(--bronze); }
-.ms-stk .facet { margin-bottom: 22px; }
-.ms-stk .facet-label {
-    font-size: 9.5px; letter-spacing: 0.26em; text-transform: uppercase;
-    color: var(--muted); margin-bottom: 11px;
-  }
-.ms-stk .facet-row { display: flex; flex-wrap: wrap; gap: 9px; }
-.ms-stk .facet-row button {
-    background: transparent; border: 1px solid var(--rule); border-radius: 0;
-    padding: 9px 15px; cursor: pointer;
-    font-family: inherit; font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--muted); transition: border-color 0.2s ease, color 0.2s ease;
-  }
-.ms-stk .facet-row button:hover { color: var(--ink); }
-.ms-stk .facet-row button[aria-pressed="true"] { border-color: var(--ink); color: var(--ink); }
-.ms-stk .count { font-size: 12px; color: var(--muted); margin: 0 0 18px; }
-.ms-stk .list {
-    position: relative; /* offsetTop of a row must be measured from the list */
-    display: flex; flex-direction: column;
-    max-height: var(--panel-h); min-height: 280px;
-    overflow-y: auto; overscroll-behavior: contain;
-    padding-right: 6px;
-    mask-image: linear-gradient(to bottom, #000 calc(100% - 28px), transparent);
-    -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 28px), transparent);
-  }
-.ms-stk .list::-webkit-scrollbar { width: 3px; }
-.ms-stk .list::-webkit-scrollbar-thumb { background: var(--rule); }
-@media (max-width: 700px) {
-.ms-stk .list { max-height: none; overflow: visible; mask-image: none; -webkit-mask-image: none; }
-}
-.ms-stk .region {
-    position: sticky; top: 0; z-index: 1; background: var(--ivory);
-    font-size: 9.5px; letter-spacing: 0.26em; text-transform: uppercase;
-    color: var(--muted); padding: 16px 0 8px;
-  }
-.ms-stk .row {
-    display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline;
-    gap: 6px 18px; width: 100%; text-align: left;
-    background: transparent; border: 0; border-top: 1px solid var(--rule);
-    padding: 11px 0; cursor: pointer; font-family: inherit; color: inherit;
-  }
-.ms-stk .row:last-child { border-bottom: 1px solid var(--rule); }
-.ms-stk .row:hover .city, .ms-stk .row[aria-pressed="true"] .city { color: var(--bronze); }
-.ms-stk .city { font-family: 'Newsreader', Georgia, serif; font-size: clamp(16px, 1.6vw, 19px); line-height: 1.25; }
-.ms-stk .kind {
-    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--muted); white-space: nowrap;
-  }
-.ms-stk .sub { grid-column: 1 / -1; font-size: 12.5px; color: var(--muted); }
-.ms-stk .detail {
-    border: 1px solid var(--ink); padding: clamp(20px, 2.6vw, 30px); margin-top: 30px;
-    display: flex; flex-direction: column; gap: 14px;
-  }
-.ms-stk .detail h3 { font-size: clamp(21px, 2.3vw, 27px); line-height: 1.2; }
-.ms-stk .detail p { margin: 0; font-size: 14px; line-height: 1.9; color: var(--body); }
-.ms-stk .detail .kind { color: var(--bronze); white-space: normal; }
-.ms-stk .band { background: var(--ink); color: var(--ivory); padding: clamp(60px, 9vw, 140px) clamp(18px, 5vw, 80px); }
-.ms-stk .band-in {
-    max-width: 1560px; margin: 0 auto;
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-    gap: clamp(32px, 6vw, 96px); align-items: end;
-  }
-.ms-stk .band h2 { font-size: clamp(28px, 4vw, 54px); line-height: 1.04; margin-top: 20px; }
-.ms-stk .band .eyebrow { color: rgba(251, 249, 245, 0.55); }
-.ms-stk .band p { font-size: 15px; line-height: 1.95; color: rgba(251, 249, 245, 0.78); max-width: 46ch; margin: 0; }
-.ms-stk .band .ruled { border-bottom-color: rgba(251, 249, 245, 0.55); width: fit-content; }
-.ms-stk .band a:hover { color: var(--ivory); }
-.ms-stk .band-col { display: flex; flex-direction: column; gap: 22px; }
-.ms-stk .note {
-    padding: clamp(28px, 4vw, 56px) clamp(18px, 5vw, 80px);
-    margin: 0 auto; max-width: 74ch;
-    border-top: 1px solid var(--rule);
-    font-size: 12.5px; line-height: 1.9; color: var(--muted);
-  }
-.ms-stk .atlas { align-items: stretch; }
-.ms-stk .atlas > div:last-child { display: flex; flex-direction: column; min-height: var(--panel-h); }
-.ms-stk .atlas .list { flex: 1 1 0; max-height: none; min-height: 150px; }
-.ms-stk .atlas .detail { flex: 0 0 auto; margin-top: 18px; }
-.ms-stk .detail .who { color: #17140F; font-family: 'Newsreader', Georgia, serif; font-size: 17px; line-height: 1.4; }
-.ms-stk .detail .who span { font-family: 'Red Hat Text', sans-serif; font-size: 13px; color: #8C8579; }
-.ms-stk .detail .reach { display: flex; flex-direction: column; gap: 4px; font-size: 13.5px; }
-.ms-stk .detail .reach a { color: #4A443B; }
-.ms-stk .detail .reach a:hover { color: #9A7B4F; }
-@media (max-width: 1080px) { .ms-stk .atlas > div:last-child { height: auto; } .ms-stk .atlas .list { max-height: 420px; } }
-@media (max-width: 700px) { .ms-stk .atlas .list { max-height: none; } }
-.ms-stk [hidden] { display: none !important; }
 </style>
-<div class="ms-stk"><section class="intro" style="padding-top: clamp(36px, 5vw, 72px);">
-<div class="eyebrow">
-<svg aria-hidden="true" height="22" style="display:block;flex:0 0 auto" viewbox="0 0 24 24" width="22">
-<path d="M12 4.5 A7.5 7.5 0 1 0 12 19.5 A7.5 7.5 0 1 0 12 4.5" fill="none" stroke="#9A7B4F" stroke-width="1.2"></path>
-<path d="M4.5 12 H19.5" fill="none" stroke="#9A7B4F" stroke-width="1.2"></path>
-<path d="M12 4.5 C8.5 8 8.5 16 12 19.5 C15.5 16 15.5 8 12 4.5" fill="none" stroke="#9A7B4F" stroke-width="1.2"></path>
-</svg>
-<span>{{ section.settings.t1 }}</span>
-</div>
-<h1>{{ section.settings.t2 }}</h1>
-<p class="lede">{{ section.settings.t3 }}</p>
-</section>
-<section class="flagship">
-<div class="flagship-in">
-<div>
-<div class="eyebrow" style="margin-bottom:14px;">{{ section.settings.t4 }}</div>
-<h2>{{ section.settings.t5 }}</h2>
-</div>
-<div class="flagship-col">
-<div class="addr">{{ section.settings.t6 }}</div>
-<a class="ruled" href="{{ section.settings.directions }}" rel="noopener" style="width:fit-content" target="_blank">{{ section.settings.t7 }}</a>
-</div>
-<div class="flagship-col">
-<p class="meta">{{ section.settings.t8 }}</p>
-<a class="ruled" data-ms-enquire="" href="/pages/contact" style="width:fit-content">{{ section.settings.t9 }}</a>
-</div>
-</div>
-</section>
-<div class="atlas">
-<div>
-<div class="mapwrap">
-<div class="mapzoom">
-<button aria-label="Zoom in" data-zoom="in" type="button">{{ section.settings.t10 }}</button>
-<button aria-label="Zoom out" data-zoom="out" type="button">{{ section.settings.t11 }}</button>
-<button aria-label="Reset the view" data-zoom="reset" type="button">{{ section.settings.t12 }}</button>
-</div>
-<svg aria-label="World map of Midsummer Milano showrooms, agents and resellers" id="map" role="img" viewbox="0 0 960 560"></svg>
-<div class="legend">{{ section.settings.t13 }}</div>
-</div>
-</div>
-<div>
-<div class="facet">
-<div class="facet-label">{{ section.settings.t14 }}</div>
-<div class="facet-row" id="types"></div>
-</div>
-<div class="facet">
-<div class="facet-label">{{ section.settings.t15 }}</div>
-<div class="facet-row" id="regions"></div>
-</div>
-<p class="count" id="count"></p>
-<div class="list" id="list"></div>
-<div class="detail" hidden="" id="detail"></div>
-</div>
-</div>
-<section class="band">
-<div class="band-in">
-<div>
-<div class="eyebrow">{{ section.settings.t16 }}</div>
-<h2>{{ section.settings.t17 }}</h2>
-</div>
-<div class="band-col">
-<p>{{ section.settings.t18 }}</p>
-<a class="ruled" data-ms-enquire="" href="/pages/contact">{{ section.settings.t19 }}</a>
-</div>
-</div>
-</section>
-<p class="note">{{ section.settings.t20 }}</p>
-</div>
+
 <script src="{{ 'ms-atlas-vendor.js' | asset_url }}" defer="defer"></script>
 <script>
   window.addEventListener('DOMContentLoaded', function () {
-  if (!window.d3 || !window.topojson) return;
-  var PLACES = [
-  {%- for block in section.blocks -%}
-    {%- assign lat = block.settings.lat | replace: ',', '.' | strip -%}
-    {%- assign lon = block.settings.lon | replace: ',', '.' | strip -%}
-    { city: {{ block.settings.city | json }}, country: {{ block.settings.country | json }}, region: {{ block.settings.region | json }}, type: {{ block.settings.type | json }}, lat: {{ lat | json }}, lon: {{ lon | json }}, note: {{ block.settings.note | json }}, name: {{ block.settings.name | json }}, contact: {{ block.settings.contact | json }}, address: {{ block.settings.address | json }}, phone: {{ block.settings.phone | json }}, email: {{ block.settings.email | json }}, website: {{ block.settings.website | json }} }{% unless forloop.last %},{% endunless %}
-  {%- endfor -%}
-  ].map(function (p) { p.lat = parseFloat(p.lat); p.lon = parseFloat(p.lon); return p; }).filter(function (p) { return isFinite(p.lat) && isFinite(p.lon); });
+    var root = document.querySelector('[data-ms-sl]');
+    if (!root) return;
+    var URL110 = {{ 'ms-world-110m.json' | asset_url | json }};
+    var URL50 = {{ 'ms-world-50m.json' | asset_url | json }};
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var KINDS = { atelier: {{ section.settings.atelier_kind | json }}, showroom: {{ section.settings.showroom_kind | json }}, boutique: {{ section.settings.boutique_kind | json }}, agent: {{ section.settings.agent_kind | json }} };
+    var T = { places: {{ section.settings.count_places | json }}, place: {{ section.settings.count_place | json }}, countries: {{ section.settings.count_countries | json }}, country: {{ section.settings.count_country | json }}, here: {{ section.settings.cluster_label | json }}, wheel: {{ section.settings.hint_wheel | json }}, touch: {{ section.settings.hint_touch | json }} };
 
+    var stores = JSON.parse(root.querySelector('[data-ms-sl-data]').textContent).map(function (p) {
+      p.lat = parseFloat(String(p.lat).replace(',', '.')); p.lon = parseFloat(String(p.lon).replace(',', '.'));
+      p.item = root.querySelector('[data-ms-sl-item="' + p.id + '"]');
+      return p;
+    }).filter(function (p) { return isFinite(p.lat) && isFinite(p.lon) && p.item; });
+    var byId = {}; stores.forEach(function (p) { byId[p.id] = p; });
 
-  var TYPES = ['All types'].concat(['Showroom', 'Boutique', 'Agent'].filter(function (t) { return PLACES.some(function (p) { return p.type === t; }); }));
-  var REGIONS = ['All regions'].concat(['Europe', 'Middle East', 'Americas', 'Asia Pacific'].filter(function (r) { return PLACES.some(function (p) { return p.region === r; }); }));
-  var fType = 'All types';
-  var fRegion = 'All regions';
-  var active = null;
+    var list = root.querySelector('[data-ms-sl-list]');
+    var mapEl = root.querySelector('[data-ms-sl-map]');
+    var pinsEl = root.querySelector('[data-ms-sl-pins]');
+    var pop = root.querySelector('[data-ms-sl-pop]');
+    var hint = root.querySelector('[data-ms-sl-hint]');
+    var q = root.querySelector('[data-ms-sl-q]');
+    var narrow = function () { return window.matchMedia('(max-width: 900px)').matches; };
+    var state = { type: '', text: '', sel: null };
 
-  var svg = d3.select('#map');
-  var W = 960, H = 560;
-  var projection = d3.geoNaturalEarth1().scale(205).translate([W / 2, H / 2 + 6]);
-  var path = d3.geoPath(projection);
-
-  // one transformed group holds everything, so zoom and pan move as a unit
-  var view = svg.append('g');
-  view.append('path').attr('class', 'graticule').attr('d', path(d3.geoGraticule10()));
-  var landLayer = view.append('g');
-  var pinLayer = view.append('g');
-
-  var EASE = 'transform .62s cubic-bezier(.22,1,.36,1)';
-
-  var zoom = d3.zoom()
-    .scaleExtent([1, 9])
-    .on('start', function (e) {
-      // a gesture must track the pointer exactly, so smoothing is off while dragging
-      if (e.sourceEvent) view.style('transition', 'none');
-    })
-    .on('zoom', function (e) {
-      var t = e.transform;
-      // CSS transform rather than the attribute, so the browser can animate it
-      view.style('transform', 'translate(' + t.x + 'px,' + t.y + 'px) scale(' + t.k + ')');
-      // markers and rules hold their drawn weight as the map scales,
-      // and follow the same easing so they do not snap ahead of the flight
-      var ease = e.sourceEvent ? 'none' : EASE;
-      pinLayer.selectAll('g')
-        .style('transition', ease)
-        .style('transform-origin', '0 0')
-        .style('transform', function (d) {
-          var p = projection([d.lon, d.lat]);
-          return 'translate(' + p[0] + 'px,' + p[1] + 'px) scale(' + (1 / t.k) + ')';
+    /* ── the list: filter, count, open one place at a time ── */
+    function shown(p) {
+      if (state.type && p.kind !== state.type && !(state.type === 'showroom' && p.kind === 'atelier')) return false;
+      if (state.text && p.item.getAttribute('data-search').indexOf(state.text) < 0) return false;
+      return true;
+    }
+    function refreshList() {
+      var vis = stores.filter(shown);
+      stores.forEach(function (p) { p.item.hidden = !shown(p); });
+      root.querySelectorAll('[data-ms-sl-region]').forEach(function (r) {
+        var any = false;
+        var heads = r.querySelectorAll('[data-ms-sl-country]');
+        heads.forEach(function (h) {
+          var n = h.nextElementSibling, has = false;
+          while (n && !n.hasAttribute('data-ms-sl-country')) { if (n.hasAttribute('data-ms-sl-item') && !n.hidden) has = true; n = n.nextElementSibling; }
+          h.hidden = !has; any = any || has;
         });
-      view.selectAll('.land').style('stroke-width', 0.6 / t.k);
-      view.select('.graticule').style('stroke-width', 0.35 / t.k);
-    });
-
-  view.style('transform-origin', '0 0');
-  svg.call(zoom);
-
-  // Programmatic flights are applied in one step and smoothed by CSS — the
-  // preview frame throttles requestAnimationFrame, which stalls JS tweens.
-  function glide(to) {
-    view.style('transition', EASE);
-    d3.select('#map').call(zoom.transform, to);
-  }
-
-  function flyTo(d, k) {
-    var scale = k || 3.4;
-    var p = projection([d.lon, d.lat]);
-    glide(d3.zoomIdentity.translate(W / 2 - p[0] * scale, H / 2 - p[1] * scale).scale(scale));
-  }
-  function flyHome() { glide(d3.zoomIdentity); }
-
-  document.querySelectorAll('.mapzoom button').forEach(function (b) {
-    b.addEventListener('click', function () {
-      var how = b.dataset.zoom;
-      if (how === 'reset') { flyHome(); return; }
-      var cur = d3.zoomTransform(d3.select('#map').node());
-      var k = Math.max(1, Math.min(9, cur.k * (how === 'in' ? 1.7 : 1 / 1.7)));
-      var cx = (W / 2 - cur.x) / cur.k, cy = (H / 2 - cur.y) / cur.k;
-      glide(d3.zoomIdentity.translate(W / 2 - cx * k, H / 2 - cy * k).scale(k));
-    });
-  });
-
-  d3.json({{ 'ms-world-110m.json' | asset_url | json }})
-    .then(function (topology) {
-      var countries = topojson.feature(topology, topology.objects.countries);
-      landLayer.selectAll('path').data(countries.features).join('path')
-        .attr('class', 'land').attr('d', path);
-    })
-    .catch(function () { /* markers still render without the land wash */ })
-    .finally(drawPins);
-
-  function drawPins() {
-    var g = pinLayer.selectAll('g').data(PLACES, function (d) { return d.city; }).join('g')
-      .attr('transform', function (d) {
-        var p = projection([d.lon, d.lat]);
-        return 'translate(' + p[0] + ',' + p[1] + ')';
+        r.hidden = !any;
       });
-
-    g.append('circle').attr('class', 'halo').attr('r', 14);
-    g.append('circle')
-      .attr('class', function (d) { return 'pin type-' + d.type.toLowerCase(); })
-      .attr('r', function (d) { return d.type === 'Showroom' ? 7 : 5.6; })
-      .on('click', function (e, d) { e.stopPropagation(); select(d.city); })
-      .on('mouseenter', function (e, d) {
-        d3.select(this.parentNode).select('.pinlabel').classed('is-shown', true);
-      })
-      .on('mouseleave', function (e, d) {
-        if (active !== d.city) d3.select(this.parentNode).select('.pinlabel').classed('is-shown', false);
-      })
-      .append('title').text(function (d) { return d.city + ' — ' + d.type; });
-    g.append('text').attr('class', 'pinlabel').attr('x', 13).attr('y', 4)
-      .text(function (d) { return d.city; });
-
-    paint();
-  }
-
-  function shown(d) {
-    return (fType === 'All types' || d.type === fType)
-      && (fRegion === 'All regions' || d.region === fRegion);
-  }
-
-  function paint() {
-    pinLayer.selectAll('g').each(function (d) {
-      var node = d3.select(this);
-      var dim = !shown(d);
-      node.select('.pin').classed('is-dim', dim).classed('is-active', active === d.city);
-      node.select('.halo').style('opacity', active === d.city ? 0.3 : (dim ? 0.03 : 0.16));
-      node.select('.pinlabel').classed('is-shown', active === d.city);
-    });
-
-    var visible = PLACES.filter(shown);
-    var countEl = document.getElementById('count');
-    countEl.textContent = visible.length === 1 ? '1 location' : visible.length + ' locations';
-
-    // filtering to one region frames that region rather than leaving the world wide
-    if (fRegion !== 'All regions' && !active && visible.length) {
-      var lons = visible.map(function (d) { return d.lon; });
-      var lats = visible.map(function (d) { return d.lat; });
-      var mid = { lon: (Math.min.apply(null, lons) + Math.max.apply(null, lons)) / 2,
-                  lat: (Math.min.apply(null, lats) + Math.max.apply(null, lats)) / 2 };
-      var spread = Math.max(Math.max.apply(null, lons) - Math.min.apply(null, lons), 1);
-      flyTo(mid, Math.max(1.4, Math.min(3.2, 150 / spread)));
+      var nc = {}; vis.forEach(function (p) { nc[p.country] = 1; });
+      var c = Object.keys(nc).length;
+      root.querySelector('[data-ms-sl-count]').textContent = vis.length + ' ' + (vis.length === 1 ? T.place : T.places) + ' · ' + c + ' ' + (c === 1 ? T.country : T.countries);
+      root.querySelector('[data-ms-sl-none]').hidden = vis.length > 0;
+      if (state.sel && !shown(state.sel)) select(null);
+      return vis;
     }
-
-    var byRegion = {};
-    visible.forEach(function (d) { (byRegion[d.region] = byRegion[d.region] || []).push(d); });
-
-    var list = document.getElementById('list');
-    list.innerHTML = '';
-    REGIONS.slice(1).forEach(function (r) {
-      if (!byRegion[r]) return;
-      var h = document.createElement('div');
-      h.className = 'region';
-      h.textContent = r;
-      list.appendChild(h);
-      byRegion[r].forEach(function (d) {
-        var row = document.createElement('button');
-        row.type = 'button';
-        row.className = 'row';
-        row.setAttribute('aria-pressed', active === d.city ? 'true' : 'false');
-        var city = document.createElement('span');
-        city.className = 'city';
-        city.textContent = d.city;
-        var kind = document.createElement('span');
-        kind.className = 'kind';
-        kind.textContent = d.type;
-        var sub = document.createElement('span');
-        sub.className = 'sub';
-        sub.textContent = d.country;
-        row.appendChild(city);
-        row.appendChild(kind);
-        row.appendChild(sub);
-        row.addEventListener('click', function () { select(d.city, true); });
-        list.appendChild(row);
-      });
-    });
-
-    var detail = document.getElementById('detail');
-    var entry = visible.filter(function (d) { return d.city === active; })[0];
-    if (!entry) { detail.hidden = true; detail.innerHTML = ''; return; }
-    detail.hidden = false;
-    var esc = function (t) { return String(t || '').replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); };
-    var lines = '';
-    if (entry.name) lines += '<p class="who">' + esc(entry.name) + (entry.contact ? '<br><span>' + esc(entry.contact) + '</span>' : '') + '</p>';
-    if (entry.address) lines += '<p>' + esc(entry.address).replace(/\n/g, '<br>') + '</p>';
-    if (entry.note) lines += '<p>' + esc(entry.note) + '</p>';
-    var links = '';
-    if (entry.phone) links += '<a href="tel:' + esc(entry.phone.replace(/[^+\d]/g, '')) + '">' + esc(entry.phone) + '</a>';
-    if (entry.email) links += '<a href="mailto:' + esc(entry.email) + '">' + esc(entry.email) + '</a>';
-    if (entry.website) links += '<a href="' + esc(entry.website) + '" target="_blank" rel="noopener">' + esc(entry.website.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')) + '</a>';
-    detail.innerHTML =
-      '<span class="kind">' + esc(entry.type) + (entry.city === {{ section.settings.atelier_city | json }} ? ' — the atelier' : '') + '</span>' +
-      '<h3>' + esc(entry.city) + ', ' + esc(entry.country) + '</h3>' + lines +
-      (links ? '<div class="reach">' + links + '</div>' : '') +
-      '<a class="ruled" style="width:fit-content;margin-top:6px" href="/pages/contact" data-ms-enquire>' +
-      (entry.city === {{ section.settings.atelier_city | json }} ? {{ section.settings.book_label | json }} : {{ section.settings.intro_label | json }}) + '</a>';
-  }
-
-  // selecting a place flies the map to it; deselecting returns to the world,
-  // and picking from the list scrolls that row into the middle of the column
-  function select(city, fromList) {
-    active = active === city ? null : city;
-    paint();
-    if (!active) { flyHome(); return; }
-    var d = PLACES.filter(function (x) { return x.city === active; })[0];
-    if (d) flyTo(d);
-    if (!fromList) {
-      var row = [].slice.call(document.querySelectorAll('#list .row'))
-        .filter(function (r) { return r.querySelector('.city').textContent === active; })[0];
-      var list = document.getElementById('list');
-      if (row && list) list.scrollTop = row.offsetTop - list.clientHeight / 2 + row.clientHeight / 2;
-    }
-  }
-
-  function facet(holder, values, get, set) {
-    values.forEach(function (v) {
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.textContent = v;
-      b.setAttribute('aria-pressed', get() === v ? 'true' : 'false');
+    root.querySelectorAll('[data-ms-sl-type]').forEach(function (b) {
+      var k = b.getAttribute('data-ms-sl-type');
+      var n = stores.filter(function (p) { return !k || p.kind === k || (k === 'showroom' && p.kind === 'atelier'); }).length;
+      b.querySelector('[data-n]').textContent = n;
+      if (k && !n) { b.hidden = true; var lg = root.querySelector('[data-legend="' + k + '"]'); if (lg) lg.hidden = true; }
       b.addEventListener('click', function () {
-        set(v);
-        var cur = PLACES.filter(function (d) { return d.city === active; })[0];
-        if (cur && !shown(cur)) active = null;
-        [].forEach.call(holder.children, function (c) {
-          c.setAttribute('aria-pressed', c.textContent === get() ? 'true' : 'false');
-        });
-        paint();
+        state.type = k;
+        root.querySelectorAll('[data-ms-sl-type]').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+        refreshList(); if (map) { map.layout(); map.fit(stores.filter(shown)); }
       });
-      holder.appendChild(b);
     });
-  }
+    var qt;
+    q.addEventListener('input', function () {
+      clearTimeout(qt);
+      qt = setTimeout(function () {
+        state.text = q.value.trim().toLowerCase();
+        var vis = refreshList();
+        if (map) { map.layout(); if (vis.length) map.fit(vis); }
+      }, 140);
+    });
 
-  facet(document.getElementById('types'), TYPES,
-    function () { return fType; }, function (v) { fType = v; });
-  facet(document.getElementById('regions'), REGIONS,
-    function () { return fRegion; }, function (v) { fRegion = v; });
+    function select(p, opts) {
+      opts = opts || {};
+      if (state.sel && state.sel !== p) {
+        state.sel.item.classList.remove('is-open');
+        state.sel.item.querySelector('.ms-sl__row').setAttribute('aria-expanded', 'false');
+        state.sel.item.querySelector('.ms-sl__more').hidden = true;
+      }
+      state.sel = p;
+      if (map) map.layout();
+      if (!p) return;
+      p.item.classList.add('is-open');
+      p.item.querySelector('.ms-sl__row').setAttribute('aria-expanded', 'true');
+      p.item.querySelector('.ms-sl__more').hidden = false;
+      if (opts.scrollList !== false) {
+        if (!narrow()) {
+          var top = p.item.offsetTop - list.offsetTop - 64;
+          list.scrollTo({ top: Math.max(0, top), behavior: reduce ? 'auto' : 'smooth' });
+        } else if (opts.fromMap) {
+          p.item.scrollIntoView({ block: 'start', behavior: reduce ? 'auto' : 'smooth' });
+        }
+      }
+      if (map && opts.fly !== false) map.flyTo(p);
+    }
+    list.addEventListener('click', function (e) {
+      var row = e.target.closest('.ms-sl__row');
+      if (row) {
+        var p = byId[row.closest('[data-ms-sl-item]').getAttribute('data-ms-sl-item')];
+        if (state.sel === p) { select(null); if (map) map.fit(stores.filter(shown)); return; }
+        select(p, { scrollList: false });
+        return;
+      }
+      if (e.target.closest('[data-ms-sl-tomap]')) {
+        mapEl.scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' });
+      }
+    });
+    root.querySelector('[data-ms-sl-atelier]').addEventListener('click', function () {
+      var a = stores.filter(function (p) { return p.kind === 'atelier'; })[0];
+      if (!a) return;
+      mapEl.scrollIntoView({ block: narrow() ? 'start' : 'center', behavior: reduce ? 'auto' : 'smooth' });
+      select(a);
+    });
+    refreshList();
 
-  paint();
+    /* ── the map ── */
+    var map = null;
+    if (!window.d3 || !window.topojson) return;
+    var d3 = window.d3, topo = window.topojson;
+    var svg = d3.select(root.querySelector('[data-ms-sl-svg]'));
+    var world = svg.select('[data-ms-sl-world]');
+    var W = 0, H = 0, K = 1, proj = d3.geoNaturalEarth1(), path = d3.geoPath(proj);
+    var land = null, borders = null, home = null, fine = false, loadingFine = false, t = d3.zoomIdentity;
+    var HOME = {}; stores.forEach(function (p) { HOME[p.country === 'United States' ? 'United States of America' : p.country] = 1; });
+    var KMAX = 220;
+    var zoom = d3.zoom().scaleExtent([1, KMAX]).filter(function (e) {
+      if (e.type === 'wheel') { if (e.ctrlKey || e.metaKey) return true; flash(T.wheel); return false; }
+      if (e.type === 'touchstart') { if (e.touches && e.touches.length > 1) return true; return false; }
+      return !e.button;
+    }).on('zoom', function (e) {
+      t = e.transform;
+      world.attr('transform', t);
+      if (!fine && t.k > 2.6) loadFine();
+      layout();
+    });
+    var flashT;
+    function flash(msg) { hint.textContent = msg; hint.classList.add('is-on'); clearTimeout(flashT); flashT = setTimeout(function () { hint.classList.remove('is-on'); }, 1300); }
+    mapEl.addEventListener('touchstart', function (e) { if (e.touches.length === 1 && !e.target.closest('button')) flash(T.touch); }, { passive: true });
 
+    function draw(topology) {
+      var obj = topology.objects.countries;
+      var all = topo.feature(topology, obj).features.filter(function (f) { return f.properties.name !== 'Antarctica'; });
+      land = { type: 'FeatureCollection', features: all };
+      home = { type: 'FeatureCollection', features: all.filter(function (f) { return HOME[f.properties.name]; }) };
+      borders = topo.mesh(topology, obj, function (a, b) { return a !== b; });
+    }
+    function paint() {
+      world.select('[data-ms-sl-grat]').attr('d', path(d3.geoGraticule10()));
+      world.select('[data-ms-sl-land]').attr('d', path(land));
+      world.select('[data-ms-sl-home]').attr('d', path(home));
+      world.select('[data-ms-sl-borders]').attr('d', path(borders));
+    }
+    function size() {
+      var r = mapEl.getBoundingClientRect();
+      W = Math.max(1, Math.round(r.width)); H = Math.max(1, Math.round(r.height));
+      svg.attr('viewBox', '0 0 ' + W + ' ' + H);
+      proj.fitExtent([[12, 12], [W - 12, H - 12]], land);
+      stores.forEach(function (p) { var xy = proj([p.lon, p.lat]); p.px = xy[0]; p.py = xy[1]; });
+      zoom.extent([[0, 0], [W, H]]).translateExtent([[-W * .25, -H * .25], [W * 1.25, H * 1.25]]);
+      paint();
+    }
+    function loadFine() {
+      if (loadingFine) return; loadingFine = true;
+      d3.json(URL50).then(function (topology) { draw(topology); fine = true; paint(); }).catch(function () {});
+    }
+
+    /* pins: one per place, gathered into clusters where they would touch */
+    var pinEls = {}, clusterEls = {};
+    function pinFor(p) {
+      if (pinEls[p.id]) return pinEls[p.id];
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'ms-sl__pin';
+      b.setAttribute('aria-label', p.name + ', ' + p.city + ' (' + KINDS[p.kind] + ')');
+      b.innerHTML = '<i class="ms-sl__mark is-' + p.kind + '"></i><span class="ms-sl__tag"></span>';
+      b.querySelector('.ms-sl__tag').innerHTML = esc(p.name) + '<em>' + esc(p.city) + '</em>';
+      b.addEventListener('click', function (e) { e.stopPropagation(); hidePop(); select(p, { fromMap: true }); });
+      pinsEl.appendChild(b); pinEls[p.id] = b; return b;
+    }
+    function esc(s) { return String(s || '').replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); }
+    function layout() {
+      if (!W) return;
+      var vis = stores.filter(shown);
+      var pts = vis.map(function (p) { return { p: p, x: t.applyX(p.px), y: t.applyY(p.py) }; });
+      var R = 30, groups = [], used = {};
+      pts.sort(function (a, b) { return (a.p.kind === 'atelier' ? -1 : 0) - (b.p.kind === 'atelier' ? -1 : 0); });
+      pts.forEach(function (a) {
+        if (used[a.p.id]) return;
+        var g = [a]; used[a.p.id] = 1;
+        if (a.p !== state.sel) pts.forEach(function (b) {
+          if (used[b.p.id] || b.p === state.sel) return;
+          if (Math.abs(a.x - b.x) < R && Math.abs(a.y - b.y) < R) { g.push(b); used[b.p.id] = 1; }
+        });
+        groups.push(g);
+      });
+      var live = {};
+      var off = function (x, y) { return x < -24 || y < -24 || x > W + 24 || y > H + 24; };
+      stores.forEach(function (p) { if (pinEls[p.id]) pinEls[p.id].hidden = true; });
+      groups.forEach(function (g) {
+        if (g.length === 1) {
+          if (off(g[0].x, g[0].y)) return;
+          var el = pinFor(g[0].p);
+          el.hidden = false;
+          el.style.transform = 'translate(' + g[0].x.toFixed(1) + 'px,' + g[0].y.toFixed(1) + 'px)';
+          el.classList.toggle('is-on', g[0].p === state.sel);
+          return;
+        }
+        var ids = g.map(function (a) { return a.p.id; }).sort().join(',');
+        var cx = 0, cy = 0; g.forEach(function (a) { cx += a.x; cy += a.y; }); cx /= g.length; cy /= g.length;
+        if (off(cx, cy)) return;
+        var c = clusterEls[ids];
+        if (!c) {
+          c = document.createElement('button'); c.type = 'button'; c.className = 'ms-sl__pin is-cluster';
+          c.innerHTML = '<b>' + g.length + '</b><span class="ms-sl__tag"></span>';
+          var cities = []; g.forEach(function (a) { if (cities.indexOf(a.p.city) < 0) cities.push(a.p.city); });
+          c.querySelector('.ms-sl__tag').innerHTML = esc(cities.slice(0, 3).join(' · ')) + (cities.length > 3 ? ' …' : '') + '<em>' + g.length + ' ' + esc(T.places) + '</em>';
+          c.setAttribute('aria-label', g.length + ' ' + T.places + ': ' + g.map(function (a) { return a.p.name; }).join(', '));
+          if (g.some(function (a) { return a.p.kind === 'atelier'; })) c.classList.add('has-atelier');
+          c._members = g.map(function (a) { return a.p; });
+          c.addEventListener('click', function (e) { e.stopPropagation(); openCluster(c); });
+          pinsEl.appendChild(c); clusterEls[ids] = c;
+        }
+        c.hidden = false; c._x = cx; c._y = cy;
+        c.style.transform = 'translate(' + cx.toFixed(1) + 'px,' + cy.toFixed(1) + 'px)';
+        live[ids] = 1;
+      });
+      Object.keys(clusterEls).forEach(function (k) { if (!live[k]) clusterEls[k].hidden = true; });
+      if (!pop.hidden && pop._cluster && pop._cluster.hidden) hidePop();
+    }
+
+    /* views */
+    function viewFor(list, maxK, pad) {
+      if (!list.length) return d3.zoomIdentity;
+      var x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+      list.forEach(function (p) { x0 = Math.min(x0, p.px); y0 = Math.min(y0, p.py); x1 = Math.max(x1, p.px); y1 = Math.max(y1, p.py); });
+      var padX = pad != null ? pad : (narrow() ? 60 : 110), padY = pad != null ? pad + 20 : (narrow() ? 70 : 110);
+      var k = Math.min((W - padX * 2) / Math.max(1, x1 - x0), (H - padY * 2) / Math.max(1, y1 - y0));
+      k = Math.max(1, Math.min(maxK || 60, k));
+      var cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
+      return d3.zoomIdentity.translate(W / 2 - k * cx, H / 2 - k * cy).scale(k);
+    }
+    function go(tr, ms) {
+      var dur = reduce ? 0 : (ms == null ? 1100 : ms);
+      if (!dur) svg.call(zoom.transform, tr); else svg.transition().duration(dur).call(zoom.transform, tr);
+    }
+    function fit(list) { go(viewFor(list && list.length ? list : stores, 40, list && list.length > 3 ? (narrow() ? 28 : 56) : null)); setView(''); }
+    function flyTo(p) {
+      var k = Math.max(t.k, 48);
+      go(d3.zoomIdentity.translate(W / 2 - k * p.px, H / 2 - k * p.py).scale(k));
+    }
+    function setView(v) { root.querySelectorAll('[data-ms-sl-view]').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-ms-sl-view') === v ? 'true' : 'false'); }); }
+    root.querySelectorAll('[data-ms-sl-view]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var v = b.getAttribute('data-ms-sl-view');
+        hidePop();
+        var vis = stores.filter(shown).filter(function (p) { return !v || p.region === v; });
+        if (!vis.length) vis = stores.filter(function (p) { return !v || p.region === v; });
+        go(viewFor(vis, vis.length === 1 ? 14 : 40)); setView(v);
+        if (v && !narrow()) { var r = root.querySelector('[data-ms-sl-region="' + v + '"]'); if (r && !r.hidden) list.scrollTo({ top: r.offsetTop - list.offsetTop, behavior: reduce ? 'auto' : 'smooth' }); }
+      });
+    });
+    root.querySelectorAll('[data-ms-sl-zoom]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var z = b.getAttribute('data-ms-sl-zoom');
+        hidePop();
+        if (z === 'fit') { select(null); fit(stores.filter(shown)); return; }
+        svg.transition().duration(reduce ? 0 : 450).call(zoom.scaleBy, z === 'in' ? 2 : .5);
+      });
+    });
+
+    /* clusters: zoom in until they part; places in the same street are listed instead */
+    function openCluster(c) {
+      var m = c._members;
+      var x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+      m.forEach(function (p) { x0 = Math.min(x0, p.px); y0 = Math.min(y0, p.py); x1 = Math.max(x1, p.px); y1 = Math.max(y1, p.py); });
+      var spread = Math.max(x1 - x0, y1 - y0);
+      if (spread * KMAX < 40 || t.k >= KMAX * .9) { showPop(c); return; }
+      hidePop();
+      go(viewFor(m, KMAX), 900);
+    }
+    function showPop(c) {
+      var m = c._members;
+      pop.innerHTML = '<div class="ms-sl__label"><span>' + esc(m.length + ' ' + T.here) + '</span><button type="button" aria-label="Close" data-x><svg viewBox="0 0 16 16" width="11" height="11"><path d="M1 1 L15 15 M15 1 L1 15" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></button></div><ul></ul>';
+      var ul = pop.querySelector('ul');
+      m.forEach(function (p) {
+        var li = document.createElement('li');
+        li.innerHTML = '<button type="button"><i class="ms-sl__mark is-' + p.kind + '"></i><span>' + esc(p.name) + '</span><em>' + esc(KINDS[p.kind]) + '</em></button>';
+        li.firstChild.addEventListener('click', function (e) { e.stopPropagation(); hidePop(); select(p, { fromMap: true, fly: false }); });
+        ul.appendChild(li);
+      });
+      pop.querySelector('[data-x]').addEventListener('click', function (e) { e.stopPropagation(); hidePop(); });
+      pop.hidden = false; pop._cluster = c;
+      var pw = pop.offsetWidth, ph = pop.offsetHeight;
+      var x = Math.min(Math.max(12, c._x - pw / 2), W - pw - 12), y = c._y - ph - 26;
+      if (y < 60) y = c._y + 28;
+      pop.style.left = x + 'px'; pop.style.top = Math.min(y, H - ph - 12) + 'px';
+    }
+    function hidePop() { pop.hidden = true; pop._cluster = null; }
+    mapEl.addEventListener('click', function (e) { if (!e.target.closest('.ms-sl__pop, .ms-sl__pin, button')) hidePop(); });
+
+    map = { layout: layout, fit: fit, flyTo: flyTo };
+    d3.json(URL110).then(function (topology) {
+      draw(topology);
+      size();
+      svg.call(zoom);
+      svg.style('touch-action', 'pan-x pan-y');
+      var start = viewFor(stores, 40, narrow() ? 28 : 56);
+      svg.call(zoom.transform, start);
+      layout();
+      if (location.hash === '#atelier') { var a = stores.filter(function (p) { return p.kind === 'atelier'; })[0]; if (a) setTimeout(function () { select(a, { scrollList: true }); }, 350); }
+      var rt;
+      if (window.ResizeObserver) new ResizeObserver(function () {
+        clearTimeout(rt);
+        rt = setTimeout(function () { var w0 = W, h0 = H; size(); if (W !== w0 || H !== h0) { if (state.sel) flyTo(state.sel); else svg.call(zoom.transform, viewFor(stores.filter(shown), 40)); } layout(); }, 120);
+      }).observe(mapEl);
+    }).catch(function () { mapEl.classList.add('is-failed'); });
   });
 </script>
+
 {% schema %}
 {
   "name": "Agents & resellers",
   "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Label", "default": "Showrooms, Agents & Resellers" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Where to find us." },
+    { "type": "textarea", "id": "lede", "label": "Introduction", "default": "The beds are made in Milano and can be lain on there. Elsewhere, a showroom, an agent or a reseller will receive you — by appointment, in a room, not a warehouse." },
+    { "type": "text", "id": "tally_places", "label": "Tally: places", "default": "places in" },
+    { "type": "text", "id": "tally_countries", "label": "Tally: countries", "default": "countries" },
+    { "type": "header", "content": "The atelier" },
+    { "type": "text", "id": "atelier_label", "label": "Label", "default": "The atelier" },
+    { "type": "text", "id": "atelier_city", "label": "City", "default": "Milano" },
+    { "type": "textarea", "id": "atelier_address", "label": "Address", "default": "Via Andegari, 4\n20121 Milano\nItaly" },
+    { "type": "textarea", "id": "atelier_hours", "label": "Hours", "default": "By appointment only.\nMonday to Friday, 09:00–12:00 and 13:00–18:00, Milan time.\nWe confirm your appointment by email." },
+    { "type": "url", "id": "atelier_directions", "label": "Directions", "default": "https://www.google.com/maps/dir/?api=1&destination=Via+Andegari%2C+4%2C+20121+Milano%2C+Italy" },
+    { "type": "text", "id": "book_label", "label": "Appointment link", "default": "Book an appointment" },
+    { "type": "header", "content": "List and map" },
+    { "type": "text", "id": "list_label", "label": "List label", "default": "Places" },
+    { "type": "text", "id": "map_label", "label": "Map label", "default": "Map of Midsummer Milano showrooms, agents and resellers" },
+    { "type": "text", "id": "search_placeholder", "label": "Search placeholder", "default": "Search a city, country or name" },
+    { "type": "text", "id": "type_label", "label": "Type filter label", "default": "Type" },
+    { "type": "text", "id": "all_label", "label": "All", "default": "All" },
+    { "type": "text", "id": "showrooms_label", "label": "Showrooms", "default": "Showrooms" },
+    { "type": "text", "id": "boutiques_label", "label": "Boutiques", "default": "Boutiques" },
+    { "type": "text", "id": "agents_label", "label": "Agents", "default": "Agents" },
+    { "type": "text", "id": "atelier_kind", "label": "Kind: atelier", "default": "The atelier" },
+    { "type": "text", "id": "showroom_kind", "label": "Kind: showroom", "default": "Showroom" },
+    { "type": "text", "id": "boutique_kind", "label": "Kind: boutique", "default": "Boutique" },
+    { "type": "text", "id": "agent_kind", "label": "Kind: agent", "default": "Agent" },
+    { "type": "text", "id": "count_places", "label": "Count: places", "default": "places" },
+    { "type": "text", "id": "count_place", "label": "Count: place", "default": "place" },
+    { "type": "text", "id": "count_countries", "label": "Count: countries", "default": "countries" },
+    { "type": "text", "id": "count_country", "label": "Count: country", "default": "country" },
+    { "type": "text", "id": "views_label", "label": "Map views label", "default": "Regions" },
+    { "type": "text", "id": "world_label", "label": "Whole world", "default": "World" },
+    { "type": "text", "id": "cluster_label", "label": "Places together", "default": "places here" },
+    { "type": "text", "id": "hint_wheel", "label": "Hint: zoom with the wheel", "default": "Hold Ctrl (⌘ on Mac) and scroll to zoom" },
+    { "type": "text", "id": "hint_touch", "label": "Hint: move on a phone", "default": "Use two fingers to move the map" },
+    { "type": "text", "id": "show_on_map", "label": "Show on map", "default": "Show on the map" },
+    { "type": "text", "id": "directions_label", "label": "Directions link", "default": "Directions" },
+    { "type": "text", "id": "intro_label", "label": "Partner link", "default": "Request an introduction" },
+    { "type": "text", "id": "intro_note", "label": "Introduction message", "info": "[name] and [city] are filled in.", "default": "Please introduce me to [name], [city]." },
+    { "type": "text", "id": "tel_label", "label": "Telephone", "default": "Tel" },
+    { "type": "text", "id": "mail_label", "label": "Email", "default": "Mail" },
+    { "type": "text", "id": "web_label", "label": "Website", "default": "Web" },
+    { "type": "text", "id": "no_results", "label": "Nothing found", "default": "No place matches. Write to us; the atelier comes to you." },
+    { "type": "header", "content": "Closing" },
+    { "type": "text", "id": "band_label", "label": "Label", "default": "Not on the map" },
+    { "type": "text", "id": "band_heading", "label": "Heading", "default": "Then we come to you." },
+    { "type": "textarea", "id": "band_text", "label": "Text", "default": "Where there is no showroom yet, the atelier handles the enquiry directly — specification by video, fabric samples by post, and white-glove delivery by our own team." },
+    { "type": "text", "id": "band_link", "label": "Link", "default": "Book a consultation" },
+    { "type": "text", "id": "partner_text", "label": "Partner note", "default": "To represent Midsummer Milano in your market, as a showroom or an agent, write to us." },
+    { "type": "text", "id": "partner_link", "label": "Partner link", "default": "Become a partner" }
+  ],
+  "blocks": [
     {
-      "type": "text",
-      "id": "t1",
-      "label": "Showrooms, Agents & Resellers",
-      "default": "Showrooms, Agents & Resellers"
-    },
-    {
-      "type": "text",
-      "id": "t2",
-      "label": "Where to find us.",
-      "default": "Where to find us."
-    },
-    {
-      "type": "textarea",
-      "id": "t3",
-      "label": "The beds are made in Milano and ca…",
-      "default": "The beds are made in Milano and can be lain on there. Elsewhere, an agent or a reseller will receive you — by appointment, in a room, not a warehouse."
-    },
-    {
-      "type": "text",
-      "id": "t4",
-      "label": "The atelier",
-      "default": "The atelier"
-    },
-    {
-      "type": "text",
-      "id": "t5",
-      "label": "Milano",
-      "default": "Milano"
-    },
-    {
-      "type": "html",
-      "id": "t6",
-      "label": "Via Andegari, 4 20121 Milano Italy",
-      "default": "<span>Via Andegari, 4</span>\n<span>20121 Milano</span>\n<span>Italy</span>"
-    },
-    {
-      "type": "text",
-      "id": "t7",
-      "label": "Directions",
-      "default": "Directions"
-    },
-    {
-      "type": "html",
-      "id": "t8",
-      "label": "By appointment only.Monday to Frid…",
-      "default": "By appointment only.<br/>Monday to Friday, 09:00–12:00 and 13:00–18:00, Milan time.<br/>We confirm your appointment by email."
-    },
-    {
-      "type": "text",
-      "id": "t9",
-      "label": "Book an appointment",
-      "default": "Book an appointment"
-    },
-    {
-      "type": "text",
-      "id": "t10",
-      "label": "+",
-      "default": "+"
-    },
-    {
-      "type": "text",
-      "id": "t11",
-      "label": "−",
-      "default": "−"
-    },
-    {
-      "type": "text",
-      "id": "t12",
-      "label": "○",
-      "default": "○"
-    },
-    {
-      "type": "html",
-      "id": "t13",
-      "label": "Showroom Agent Select a marker for…",
-      "default": "<span><i class=\"dot ink\"></i> Showroom</span>\n\n<span><i class=\"dot hollow\"></i> Agent</span>\n<span>Select a marker for details</span>"
-    },
-    {
-      "type": "text",
-      "id": "t14",
-      "label": "Type",
-      "default": "Type"
-    },
-    {
-      "type": "text",
-      "id": "t15",
-      "label": "Region",
-      "default": "Region"
-    },
-    {
-      "type": "text",
-      "id": "t16",
-      "label": "Not on the map",
-      "default": "Not on the map"
-    },
-    {
-      "type": "text",
-      "id": "t17",
-      "label": "Then we come to you.",
-      "default": "Then we come to you."
-    },
-    {
-      "type": "textarea",
-      "id": "t18",
-      "label": "Where there is no agent yet, the a…",
-      "default": "Where there is no agent yet, the atelier handles the enquiry directly — specification by video, fabric samples by post, and white-glove delivery by our own team."
-    },
-    {
-      "type": "text",
-      "id": "t19",
-      "label": "Book a consultation",
-      "default": "Book a consultation"
-    },
-    {
-      "type": "textarea",
-      "id": "t20",
-      "label": "Agent and reseller names are relea…",
-      "default": "Agent and reseller names are released on enquiry, so that each introduction is made by a person rather than a directory. To represent Midsummer-Milano in your market, write to us through the trade enquiry."
-    },
-    {
-      "type": "text",
-      "id": "directions",
-      "label": "Directions link",
-      "default": "https://www.google.com/maps/dir/?api=1&destination=Via+Andegari%2C+4%2C+20121+Milano%2C+Italy"
-    },
-    {
-      "type": "text",
-      "id": "atelier_city",
-      "label": "Atelier city",
-      "default": "Milano"
-    },
-    {
-      "type": "text",
-      "id": "book_label",
-      "label": "Atelier link",
-      "default": "Book an appointment"
-    },
-    {
-      "type": "text",
-      "id": "intro_label",
-      "label": "Partner link",
-      "default": "Request an introduction"
+      "type": "place",
+      "name": "Place",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Name", "default": "Showroom" },
+        { "type": "select", "id": "kind", "label": "Kind", "default": "showroom", "options": [ { "value": "atelier", "label": "The atelier" }, { "value": "showroom", "label": "Showroom" }, { "value": "boutique", "label": "Boutique" }, { "value": "agent", "label": "Agent" } ] },
+        { "type": "text", "id": "city", "label": "City", "default": "City" },
+        { "type": "text", "id": "country", "label": "Country", "default": "Italy" },
+        { "type": "select", "id": "region", "label": "Region", "default": "Europe", "options": [ { "value": "Europe", "label": "Europe" }, { "value": "Middle East", "label": "Middle East" }, { "value": "Americas", "label": "Americas" }, { "value": "Asia Pacific", "label": "Asia Pacific" } ] },
+        { "type": "text", "id": "contact", "label": "Contact person" },
+        { "type": "textarea", "id": "address", "label": "Address" },
+        { "type": "text", "id": "phone", "label": "Telephone" },
+        { "type": "text", "id": "email", "label": "Email" },
+        { "type": "text", "id": "website", "label": "Website" },
+        { "type": "text", "id": "lat", "label": "Latitude", "info": "Decimal degrees, e.g. 45.4685", "default": "45.4642" },
+        { "type": "text", "id": "lon", "label": "Longitude", "info": "Decimal degrees, e.g. 9.1897", "default": "9.19" },
+        { "type": "textarea", "id": "note", "label": "Note" }
+      ]
     }
   ],
   "max_blocks": 50,
-  "blocks": [
-    {
-      "type": "market",
-      "name": "Market",
-      "settings": [
-        {
-          "type": "text",
-          "id": "city",
-          "label": "City",
-          "default": "City"
-        },
-        {
-          "type": "text",
-          "id": "country",
-          "label": "Country",
-          "default": "Country"
-        },
-        {
-          "type": "select",
-          "id": "region",
-          "label": "Region",
-          "default": "Europe",
-          "options": [
-            {
-              "value": "Europe",
-              "label": "Europe"
-            },
-            {
-              "value": "Middle East",
-              "label": "Middle East"
-            },
-            {
-              "value": "Americas",
-              "label": "Americas"
-            },
-            {
-              "value": "Asia Pacific",
-              "label": "Asia Pacific"
-            }
-          ]
-        },
-        {
-          "type": "select",
-          "id": "type",
-          "label": "Type",
-          "default": "Agent",
-          "options": [
-            {
-              "value": "Showroom",
-              "label": "Showroom"
-            },
-            {
-              "value": "Boutique",
-              "label": "Boutique"
-            },
-            {
-              "value": "Agent",
-              "label": "Agent"
-            }
-          ]
-        },
-        {
-          "type": "text",
-          "id": "lat",
-          "label": "Latitude",
-          "default": "45.4642"
-        },
-        {
-          "type": "text",
-          "id": "lon",
-          "label": "Longitude",
-          "default": "9.19"
-        },
-        {
-          "type": "text",
-          "id": "name",
-          "label": "Name"
-        },
-        {
-          "type": "text",
-          "id": "contact",
-          "label": "Contact person"
-        },
-        {
-          "type": "textarea",
-          "id": "address",
-          "label": "Address"
-        },
-        {
-          "type": "text",
-          "id": "phone",
-          "label": "Telephone"
-        },
-        {
-          "type": "text",
-          "id": "email",
-          "label": "Email"
-        },
-        {
-          "type": "text",
-          "id": "website",
-          "label": "Website"
-        },
-        {
-          "type": "textarea",
-          "id": "note",
-          "label": "Note"
-        }
-      ]
-    }
-  ]
+  "presets": [ { "name": "Agents & resellers" } ]
 }
 {% endschema %}

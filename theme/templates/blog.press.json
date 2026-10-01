@@ -1,76 +1,18 @@
 /*
- * Midsummer Milano: built from the approved Atelier preview, one section per band.
- * Rendered with layout/ms.liquid, the preview's own type, colour and spacing.
+ * Midsummer Milano: a publication that wrote about Midsummer Milano: its mark, its pieces, and every other publication.
  */
 {
   "layout": "ms",
   "sections": {
     "s01": {
-      "type": "ms-home-01",
-      "settings": {}
-    },
-    "s02": {
-      "type": "ms-home-02",
-      "settings": {}
-    },
-    "s03": {
-      "type": "ms-home-03",
-      "settings": {}
-    },
-    "s04": {
-      "type": "ms-home-04",
-      "settings": {}
-    },
-    "s05": {
-      "type": "ms-home-05",
-      "settings": {}
-    },
-    "s06": {
-      "type": "ms-home-06",
-      "settings": {}
-    },
-    "s07": {
-      "type": "ms-home-07",
-      "settings": {}
-    },
-    "s08": {
-      "type": "ms-home-08",
-      "settings": {}
-    },
-    "s09": {
-      "type": "ms-home-09",
-      "settings": {}
-    },
-    "s10": {
-      "type": "ms-home-10",
-      "settings": {}
-    },
-    "s11": {
-      "type": "ms-home-11",
-      "settings": {}
-    },
-    "s12": {
-      "type": "ms-home-12",
-      "settings": {}
-    },
-    "s13": {
-      "type": "ms-home-13",
-      "settings": {}
-    },
-    "s14": {
-      "type": "ms-home-14",
-      "settings": {}
-    },
-    "s15": {
-      "type": "ms-home-15",
+      "type": "ms-press-blog",
       "settings": {},
       "blocks": {
         "publication_01": {
           "type": "publication",
           "settings": {
             "name": "Elle Decor",
-            "row": "1",
-            "link": "shopify://blogs/press-elle-decor",
+            "link": "/blogs/press-elle-decor",
             "logo_file": "ms-press-elle-decor.svg"
           }
         },
@@ -78,8 +20,7 @@
           "type": "publication",
           "settings": {
             "name": "Architectural Digest",
-            "row": "1",
-            "link": "shopify://blogs/press-architectural-digest",
+            "link": "/blogs/press-architectural-digest",
             "logo_file": "ms-press-architectural-digest.svg"
           }
         },
@@ -87,8 +28,7 @@
           "type": "publication",
           "settings": {
             "name": "Vanity Fair",
-            "row": "1",
-            "link": "shopify://blogs/press-vanity-fair",
+            "link": "/blogs/press-vanity-fair",
             "logo_file": "ms-press-vanity-fair.svg"
           }
         },
@@ -96,8 +36,7 @@
           "type": "publication",
           "settings": {
             "name": "Marie Claire Maison",
-            "row": "1",
-            "link": "shopify://blogs/press-marie-claire-maison",
+            "link": "/blogs/press-marie-claire-maison",
             "logo_file": "ms-press-marie-claire-maison.svg"
           }
         },
@@ -105,8 +44,7 @@
           "type": "publication",
           "settings": {
             "name": "Robb Report",
-            "row": "1",
-            "link": "shopify://blogs/press-robb-report",
+            "link": "/blogs/press-robb-report",
             "logo_file": "ms-press-robb-report.svg"
           }
         },
@@ -114,8 +52,7 @@
           "type": "publication",
           "settings": {
             "name": "AD Magazine",
-            "row": "1",
-            "link": "shopify://blogs/press-ad-magazine",
+            "link": "/blogs/press-ad-magazine",
             "logo_file": "ms-press-ad-magazine.svg"
           }
         },
@@ -123,8 +60,7 @@
           "type": "publication",
           "settings": {
             "name": "L Officiel",
-            "row": "1",
-            "link": "shopify://blogs/press-lofficiel",
+            "link": "/blogs/press-lofficiel",
             "logo_file": "ms-press-l-officiel.svg"
           }
         },
@@ -132,8 +68,7 @@
           "type": "publication",
           "settings": {
             "name": "Il Sole 24 Ore",
-            "row": "1",
-            "link": "shopify://blogs/press-il-sole-24-ore",
+            "link": "/blogs/press-il-sole-24-ore",
             "logo_file": "ms-press-il-sole-24-ore.svg"
           }
         },
@@ -141,8 +76,7 @@
           "type": "publication",
           "settings": {
             "name": "Villegiardini",
-            "row": "1",
-            "link": "shopify://blogs/press-villegiardini",
+            "link": "/blogs/press-villegiardini",
             "logo_file": "ms-press-villegiardini.svg"
           }
         },
@@ -150,8 +84,7 @@
           "type": "publication",
           "settings": {
             "name": "Salone del Mobile",
-            "row": "1",
-            "link": "shopify://blogs/press-salone-del-mobile",
+            "link": "/blogs/press-salone-del-mobile",
             "logo_file": "ms-press-salone-del-mobile.svg"
           }
         },
@@ -159,8 +92,7 @@
           "type": "publication",
           "settings": {
             "name": "Green Product Award",
-            "row": "1",
-            "link": "shopify://blogs/press-green-product-award",
+            "link": "/blogs/press-green-product-award",
             "logo_file": "ms-press-green-product-award.svg"
           }
         },
@@ -168,8 +100,7 @@
           "type": "publication",
           "settings": {
             "name": "Interior Design",
-            "row": "1",
-            "link": "shopify://blogs/press-interior-design",
+            "link": "/blogs/press-interior-design",
             "logo_file": "ms-press-interior-design.svg"
           }
         },
@@ -177,8 +108,7 @@
           "type": "publication",
           "settings": {
             "name": "Hospitality Design",
-            "row": "1",
-            "link": "shopify://blogs/press-hospitality-design",
+            "link": "/blogs/press-hospitality-design",
             "logo_file": "ms-press-hospitality-design.png"
           }
         },
@@ -186,8 +116,7 @@
           "type": "publication",
           "settings": {
             "name": "Interiors Monthly",
-            "row": "1",
-            "link": "shopify://blogs/press-interiors-monthly",
+            "link": "/blogs/press-interiors-monthly",
             "logo_file": "ms-press-interiors-monthly.png"
           }
         },
@@ -195,8 +124,7 @@
           "type": "publication",
           "settings": {
             "name": "Gaaf Goed",
-            "row": "2",
-            "link": "shopify://blogs/press-gaaf-goed",
+            "link": "/blogs/press-gaaf-goed",
             "logo_file": "ms-press-gaaf-goed.png"
           }
         },
@@ -204,8 +132,7 @@
           "type": "publication",
           "settings": {
             "name": "Glam Deko",
-            "row": "2",
-            "link": "shopify://blogs/press-glam-deko",
+            "link": "/blogs/press-glam-deko",
             "logo_file": "ms-press-glam-deko.png"
           }
         },
@@ -213,8 +140,7 @@
           "type": "publication",
           "settings": {
             "name": "Pekne Bydleni",
-            "row": "2",
-            "link": "shopify://blogs/press-pekne-bydleni",
+            "link": "/blogs/press-pekne-bydleni",
             "logo_file": "ms-press-pekne-bydleni.png"
           }
         },
@@ -222,8 +148,7 @@
           "type": "publication",
           "settings": {
             "name": "Lust und Leben",
-            "row": "2",
-            "link": "shopify://blogs/press-lust-leben",
+            "link": "/blogs/press-lust-leben",
             "logo_file": "ms-press-lust-und-leben.png"
           }
         },
@@ -231,8 +156,7 @@
           "type": "publication",
           "settings": {
             "name": "Bella",
-            "row": "2",
-            "link": "shopify://blogs/press-bella",
+            "link": "/blogs/press-bella",
             "logo_file": "ms-press-bella.png"
           }
         },
@@ -240,8 +164,7 @@
           "type": "publication",
           "settings": {
             "name": "RBC Style",
-            "row": "2",
-            "link": "shopify://blogs/press-rbc-style",
+            "link": "/blogs/press-rbc-style",
             "logo_file": "ms-press-rbc-style.png"
           }
         },
@@ -249,8 +172,7 @@
           "type": "publication",
           "settings": {
             "name": "Kommersant",
-            "row": "2",
-            "link": "shopify://blogs/press-kommersant",
+            "link": "/blogs/press-kommersant",
             "logo_file": "ms-press-kommersant.svg"
           }
         },
@@ -258,8 +180,7 @@
           "type": "publication",
           "settings": {
             "name": "The Symbol",
-            "row": "2",
-            "link": "shopify://blogs/press-the-symbol",
+            "link": "/blogs/press-the-symbol",
             "logo_file": "ms-press-the-symbol.svg"
           }
         },
@@ -267,8 +188,7 @@
           "type": "publication",
           "settings": {
             "name": "Chi E Chi",
-            "row": "2",
-            "link": "shopify://blogs/press-chi-echi",
+            "link": "/blogs/press-chi-echi",
             "logo_file": "ms-press-chi-e-chi.svg"
           }
         },
@@ -276,8 +196,7 @@
           "type": "publication",
           "settings": {
             "name": "Festival dell Etica",
-            "row": "2",
-            "link": "shopify://blogs/press-festival-delletica",
+            "link": "/blogs/press-festival-delletica",
             "logo_file": "ms-press-festival-dell-etica.svg"
           }
         },
@@ -285,8 +204,7 @@
           "type": "publication",
           "settings": {
             "name": "Home",
-            "row": "2",
-            "link": "shopify://blogs/press-home",
+            "link": "/blogs/press-home",
             "logo_file": "ms-press-home.png"
           }
         },
@@ -294,8 +212,7 @@
           "type": "publication",
           "settings": {
             "name": "You Trade",
-            "row": "2",
-            "link": "shopify://blogs/press-you-trade",
+            "link": "/blogs/press-you-trade",
             "logo_file": "ms-press-you-trade.png"
           }
         },
@@ -303,8 +220,7 @@
           "type": "publication",
           "settings": {
             "name": "Rent",
-            "row": "2",
-            "link": "shopify://blogs/press-rent",
+            "link": "/blogs/press-rent",
             "logo_file": "ms-press-rent.png"
           }
         }
@@ -338,33 +254,9 @@
         "publication_26",
         "publication_27"
       ]
-    },
-    "s16": {
-      "type": "ms-home-16",
-      "settings": {}
-    },
-    "s17": {
-      "type": "ms-home-17",
-      "settings": {}
     }
   },
   "order": [
-    "s01",
-    "s02",
-    "s03",
-    "s04",
-    "s05",
-    "s06",
-    "s07",
-    "s08",
-    "s09",
-    "s10",
-    "s11",
-    "s12",
-    "s13",
-    "s14",
-    "s15",
-    "s16",
-    "s17"
+    "s01"
   ]
 }

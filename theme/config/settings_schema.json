@@ -2232,5 +2232,79 @@
         "default": true
       }
     ]
+  },
+  {
+    "name": "Midsummer · Where links go",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Every menu and page link finds its page by the store's own handles. If a page has another handle, choose it here and every link to that place follows. A place the store does not have yet is left out of the menus until it exists."
+      },
+      {
+        "type": "url",
+        "id": "ms_link_story",
+        "label": "Our story"
+      },
+      {
+        "type": "url",
+        "id": "ms_link_handmade",
+        "label": "Handmade in Italy"
+      },
+      {
+        "type": "url",
+        "id": "ms_link_sleep_culture",
+        "label": "Sleep Culture"
+      },
+      {
+        "type": "url",
+        "id": "ms_link_materials",
+        "label": "Natural materials"
+      },
+      {
+        "type": "url",
+        "id": "ms_link_regen",
+        "label": "15 + 15 refurbishment"
+      },
+      {
+        "type": "url",
+        "id": "ms_link_sustain",
+        "label": "Sustainability"
+      },
+      {
+        "type": "url",
+        "id": "ms_link_quiz",
+        "label": "Find your Midsummer"
+      },
+      {
+        "type": "url",
+        "id": "ms_link_professionals",
+        "label": "Architects & interior designers"
+      },
+      {
+        "type": "url",
+        "id": "ms_link_hospitality",
+        "label": "Hospitality"
+      },
+      {
+        "type": "url",
+        "id": "ms_link_agents",
+        "label": "Agents & resellers"
+      },
+      {
+        "type": "url",
+        "id": "ms_link_faq",
+        "label": "Questions"
+      },
+      {
+        "type": "url",
+        "id": "ms_link_journal",
+        "label": "Journal"
+      },
+      {
+        "type": "url",
+        "id": "ms_link_enquire",
+        "label": "Enquiry page"
+      }
+    ]
   }
 ]

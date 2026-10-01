@@ -16,7 +16,15 @@ theme on the store's Atelier 4.1.5 export.
   `page.salone-2026`, `page.sleep-assesment`, `article.*`, `blog.collaborations` and the
   24 `product.*` templates) are kept, so every page and product switches over on its own.
 - **Links:** `snippets/ms-link.liquid` finds each destination by the store's real
-  handles and never leads to a 404.
+  handles and never leads to a 404. Menus use it in strict mode, so a missing page is left
+  out rather than sent to another title's page. Overrides are under Theme settings →
+  Midsummer · Where links go.
+- **Enquiries:** `sections/ms-enquire.liquid` (the enquiry page, on the Contact page) and
+  `sections/ms-enquiry-drawer.liquid` (the sheet); `assets/ms-site.js` rewrites both
+  forms for the seven enquiries.
+- **Agents & resellers:** `sections/ms-stockists.liquid`, with d3 in
+  `assets/ms-atlas-vendor.js` and the world in `assets/ms-world-110m.json` (fine detail,
+  `ms-world-50m.json`, loads on zoom).
 - **Header, footer and enquiry sheet:** `sections/ms-header.liquid` (the bar, five
   panels and the phone menu), `sections/ms-footer.liquid` and
   `sections/ms-enquiry-drawer.liquid`.
