@@ -6,16 +6,15 @@ photographs, the press logos and the map ship inside the theme.
 
 ## Start here: what you need to do
 
-1. **Upload and publish** `midsummer-milano-atelier.zip` (section 1).
-2. **Run the page script once** (section 3). It creates Architects & Interior Designers,
-   Hospitality, Handmade in Italy and Sleep Culture, and switches your existing **Contact**
-   and **Agents & Resellers** pages to the new theme's templates. Until it runs, those two
-   pages may still be set to a template from the old theme, which hides their new design.
-3. **Add one URL redirect:** Online Store → Navigation → URL redirects → Create, from
-   `/llms.txt` to `/?view=llms`.
+1. In **Online Store → Themes**, delete the Midsummer theme you uploaded before. Shopify
+   silently refused two of its sections (the Agents & Resellers map and the enquiry
+   page), so that copy can't show those pages. This version fixes it.
+2. **Add theme → Upload zip file** → `midsummer-milano-atelier.zip`, then **Preview**.
+   Every page opens from the menus, with nothing else to set up.
 
-Where the two landing pages are: **Showrooms** and **Enquiries** in the top bar, next to
-Book an appointment (on phones, in the menu), and in the Contact panel and the footer.
+Optional, for search engines: run the page script once (section 3). It gives your existing
+pages (Contact, Agents & Resellers, About, Handmade, FAQ) their new design at their own
+address, and creates Architects & Interior Designers, Hospitality and Sleep Culture.
 
 ## 1. Upload
 
@@ -91,8 +90,10 @@ them so they get their own address and appear in search engines.
 | Handmade in Italy | `handmade-in-italy` | `page.handmade-in-italy` |
 | Sleep Culture | `sleep-culture` | `page.sleep-culture` |
 
-**With the script** (`scripts/create_pages.py`), all four are created with their text and
-template in one go:
+**With the script** (`scripts/create_pages.py`): pages the store already has (under any
+address the theme knows, such as `italian-craftsmen-luxury-mattresses` for Handmade in Italy)
+are switched to their designed template and keep their text; only missing ones are created,
+so nothing is duplicated:
 
 1. In Shopify admin, go to Settings → Apps and sales channels → Develop apps → Create an
    app.
@@ -104,8 +105,8 @@ template in one go:
 SHOPIFY_STORE=your-store.myshopify.com SHOPIFY_ADMIN_TOKEN=shpat_... python3 scripts/create_pages.py
 ```
 
-Add `--dry-run` to see what it would do first. Pages that already exist are left alone;
-only a missing template is set. You can delete the app afterwards.
+Add `--dry-run` to see what it would do first. Nothing is deleted. You can delete the app
+afterwards.
 
 **By hand:** in **Online Store → Pages → Add page**, enter the title, set the handle
 under "Search engine listing", and choose the template on the right.

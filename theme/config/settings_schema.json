@@ -2315,37 +2315,37 @@
         "content": "Shown as icons in the footer, the Contact menu, the phone menu and the enquiry page. Leave a link empty to leave it out."
       },
       {
-        "type": "url",
+        "type": "text",
         "id": "ms_social_instagram",
         "label": "Instagram",
         "default": "https://www.instagram.com/midsummermilano/"
       },
       {
-        "type": "url",
+        "type": "text",
         "id": "ms_social_pinterest",
         "label": "Pinterest",
         "default": "https://it.pinterest.com/midsummermilanosocial/"
       },
       {
-        "type": "url",
+        "type": "text",
         "id": "ms_social_linkedin",
         "label": "LinkedIn",
         "default": "https://www.linkedin.com/company/midsummer-milano/"
       },
       {
-        "type": "url",
+        "type": "text",
         "id": "ms_social_whatsapp",
         "label": "WhatsApp",
         "default": "https://wa.me/message/CAC4ZAEYHOTHN1"
       },
       {
-        "type": "url",
+        "type": "text",
         "id": "ms_social_telegram",
         "label": "Telegram",
         "default": "https://t.me/midsummermilano"
       },
       {
-        "type": "url",
+        "type": "text",
         "id": "ms_social_vk",
         "label": "VK",
         "default": "https://vk.com/midsummermilano"

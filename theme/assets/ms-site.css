@@ -155,3 +155,11 @@ body[data-template="index"] :is([id$="__visit"], [id$="-visit"]) .ms-ch { paddin
 .ms-site a.ms-hlink { font-size: 10.5px; letter-spacing: .19em; text-transform: uppercase; color: inherit; white-space: nowrap; padding: 12px 0; background: linear-gradient(currentColor, currentColor) 0 calc(100% - 8px) / 0 1px no-repeat; transition: background-size .45s cubic-bezier(.2,.7,.2,1); }
 .ms-site a.ms-hlink:hover, .ms-site a.ms-hlink:focus-visible { background-size: 100% 1px; }
 @media (max-width: 1240px) { .ms-site a.ms-hlink { display: none; } }
+
+/* ── Our story: the house's bands one after another on the same ground, so each keeps half
+   the measure above and below, and two never stack into an empty stretch ── */
+:is(body[data-view="story"], body[data-view="ms-story"]) { --ms-sg: clamp(44px, 5vw, 84px); }
+:is(body[data-view="story"], body[data-view="ms-story"]) :is([id$="__s02"], [id$="-s02"]) > section { padding-top: calc(var(--ms-sg) * 1.6) !important; padding-bottom: var(--ms-sg) !important; }
+:is(body[data-view="story"], body[data-view="ms-story"]) :is([id$="__s03"], [id$="-s03"], [id$="__s04"], [id$="-s04"]) > section { padding-top: var(--ms-sg) !important; padding-bottom: var(--ms-sg) !important; }
+:is(body[data-view="story"], body[data-view="ms-story"]) :is([id$="__s05"], [id$="-s05"]) > section { padding-top: var(--ms-sg) !important; padding-bottom: calc(var(--ms-sg) * 1.6) !important; }
+:is(body[data-view="story"], body[data-view="ms-story"]) :is([id$="__s03"], [id$="-s03"]) > section > div { align-items: center !important; }

@@ -22,7 +22,7 @@
       assign ms_overlay = false
     endif
   -%}
-  <body class="ms-site{% if ms_overlay %} ms-overlay{% endif %}" data-template="{{ template.name }}">
+  <body class="ms-site{% if ms_overlay %} ms-overlay{% endif %}" data-template="{{ template.name }}" data-view="{{ template.suffix }}">
     <a class="ms-visually-hidden" href="#MainContent">Skip to content</a>
     <div id="ms-header-wrap">
       {% sections 'header-group' %}

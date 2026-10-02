@@ -33,18 +33,18 @@
     </div>
   </div>
   <div style="position: relative; min-height: 360px; background: rgb(241, 236, 227); overflow: hidden;">
-    <img data-ms-quiz-img alt="" width="1400" height="1750" src="https://midsummer-milano.com/cdn/shop/files/daria-litvinova-aF7x4gTJmQM-unsplash.jpg?v=1768469414&amp;width=1400" style="position: absolute; inset: 0px; width: 100%; height: 100%; object-fit: cover;">
+    <img data-ms-quiz-img alt="" loading="lazy" width="1400" height="1750" src="{{ 'ms-photo-my-dream-sleep.jpg' | asset_url }}" style="position: absolute; inset: 0px; width: 100%; height: 100%; object-fit: cover;">
   </div>
 </div>
 <script>
 (function () {
   var CDN = 'https://midsummer-milano.com/cdn/shop/';
   var QUESTIONS = [
-    { q: 'How do you sleep?', img: CDN + 'files/daria-litvinova-aF7x4gTJmQM-unsplash.jpg?v=1768469414&width=1400',
+    { q: 'How do you sleep?', img: {{ 'ms-photo-my-dream-sleep.jpg' | asset_url | json }},
       opts: [['On my side', 'Hips and shoulders need to sink a little.'], ['On my back', 'The lumbar curve needs to stay supported.'], ['On my front', 'A flatter, firmer surface keeps the neck neutral.'], ['It changes', 'A balanced surface that works in every position.']] },
     { q: 'What should the bed feel like?', img: CDN + 'files/Paisleydettaglio.jpg?v=1788246821&width=1400',
       opts: [['Enveloping', 'Softness first, with support underneath.'], ['Balanced', 'Neither soft nor firm — the most specified answer.'], ['Structured', 'Firm, resilient, close to the traditional Italian build.']] },
-    { q: 'How warm is the room at night?', img: CDN + 'files/hugo-ramos-erESYSKW2ms-unsplash.jpg?v=1683790561&width=1400',
+    { q: 'How warm is the room at night?', img: {{ 'ms-photo-drapes-fireplace.jpg' | asset_url | json }},
       opts: [['Warm', 'Coastal, southern, or a room that holds heat.'], ['Temperate', 'Four real seasons.'], ['Cold', 'Mountain, northern, or a house kept cool.']] },
     { q: 'What size are you working with?', img: CDN + 'files/Paisley.png?v=1777114994&width=1400',
       opts: [['Double', '160 × 200 cm'], ['Queen or King', '170–180 × 200 cm'], ['Made to measure', 'The wall decides, not the catalogue.']] },
