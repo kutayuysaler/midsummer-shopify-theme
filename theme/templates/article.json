@@ -8,9 +8,18 @@
     "s01": {
       "type": "ms-article",
       "settings": {}
+    },
+    "more": {
+      "type": "ms-article-rail",
+      "settings": {
+        "eyebrow": "From the Journal",
+        "heading": "More notes.",
+        "link_label": "All notes"
+      }
     }
   },
   "order": [
-    "s01"
+    "s01",
+    "more"
   ]
 }

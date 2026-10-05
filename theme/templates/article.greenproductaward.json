@@ -53,10 +53,19 @@
         "photo_04",
         "photo_05"
       ]
+    },
+    "more": {
+      "type": "ms-article-rail",
+      "settings": {
+        "eyebrow": "From the Journal",
+        "heading": "More notes.",
+        "link_label": "All notes"
+      }
     }
   },
   "order": [
     "s01",
-    "s02"
+    "s02",
+    "more"
   ]
 }

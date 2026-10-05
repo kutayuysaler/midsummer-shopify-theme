@@ -79,7 +79,7 @@
         var b = document.createElement('button');
         b.type = 'button';
         b.setAttribute('style', optStyle);
-        b.innerHTML = '<span style="font-family: Newsreader, Georgia, serif; font-size: clamp(20px, 2.2vw, 26px);"></span><span style="display: block; font-size: 13.5px; line-height: 1.8; color: #8C8579; margin-top: 6px;"></span>';
+        b.innerHTML = '<span style="font-family: Newsreader, Georgia, serif; font-size: clamp(20px, 2.2vw, 26px);"></span><span style="display: block; font-size: 13.5px; line-height: 1.8; color: #6E675C; margin-top: 6px;"></span>';
         b.children[0].textContent = o[0];
         b.children[1].textContent = o[1];
         b.addEventListener('click', function () { answers = answers.slice(0, qi).concat([o[0]]); qi++; render(); });

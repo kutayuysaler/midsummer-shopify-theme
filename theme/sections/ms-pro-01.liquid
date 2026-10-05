@@ -23,6 +23,7 @@
 <div style="padding-bottom: clamp(8px, 2vw, 32px);">
 <div style="font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: rgb(110, 103, 92);">{{ section.settings.t1 }}</div>
 <h1 style="font-family: Newsreader, Georgia, serif; font-size: clamp(34px, 5.6vw, 78px); line-height: 1; letter-spacing: -0.03em; font-weight: 200; margin-top: 16px; max-width: 16ch;">{{ section.settings.t2 }}</h1>
+{%- if section.settings.lead != blank -%}<p class="ms-hero-lead">{{ section.settings.lead }}</p>{%- endif -%}<div class="ms-hero-ctas"><a class="ms-hero-cta" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=trade' %}#enquire" data-ms-landing>{{ section.settings.cta }}</a><a class="ms-hero-link" href="{% render 'ms-link', to: 'agents' %}">{{ section.settings.cta2 }}</a></div>
 </div>
 </div>
 </section>
@@ -31,6 +32,9 @@
 {
   "name": "Professionals 01 · Trade ",
   "settings": [
+    { "type": "textarea", "id": "lead", "label": "Opening line", "default": "Specification support, the full Loro Piana Interiors palette and systems made to your drawing, with one person at the atelier from the first sketch to delivery." },
+    { "type": "text", "id": "cta", "label": "Button", "default": "Open a project file" },
+    { "type": "text", "id": "cta2", "label": "Second link", "default": "Agents & Resellers" },
     {
       "type": "image_picker",
       "id": "img1",

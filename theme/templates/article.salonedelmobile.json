@@ -14,10 +14,19 @@
         "video": "shopify://files/videos/Salone Del Mobile Page Video.mp4",
         "caption": "Salone del Mobile, at the atelier on Via Andegari."
       }
+    },
+    "more": {
+      "type": "ms-article-rail",
+      "settings": {
+        "eyebrow": "From the Journal",
+        "heading": "More notes.",
+        "link_label": "All notes"
+      }
     }
   },
   "order": [
     "s01",
-    "s02"
+    "s02",
+    "more"
   ]
 }

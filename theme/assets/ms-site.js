@@ -187,7 +187,7 @@
       var on = b.getAttribute('data-ms-tab') === t;
       b.setAttribute('aria-pressed', on ? 'true' : 'false');
       var dot = b.querySelector('[data-ms-dot]');
-      if (dot) { dot.style.background = on ? '#9A7B4F' : 'transparent'; dot.style.boxShadow = 'inset 0 0 0 1px ' + (on ? '#9A7B4F' : '#DDD6C9'); }
+      if (dot) { dot.style.background = on ? '#7E623B' : 'transparent'; dot.style.boxShadow = 'inset 0 0 0 1px ' + (on ? '#7E623B' : '#DDD6C9'); }
       var lab = b.querySelector('[data-ms-tablabel]');
       if (lab) lab.style.color = on ? '#17140F' : '#6E675C';
       if (b.hasAttribute('data-ms-chip')) {
