@@ -339,6 +339,40 @@
   })();
 </script>
 
+{%- comment -%} On a phone, once the buttons above have scrolled away, the proposal stays one tap away. {%- endcomment -%}
+<div class="ms-pm-bar" data-ms-pm-bar aria-hidden="true">
+  <div class="ms-pm-bar__name"><span>{{ product.title }}</span><small>{{ section.settings.bar_note }}</small></div>
+  <a href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-cta="product-proposal-bar" class="ms-pm-bar__cta" tabindex="-1">{{ section.settings.cta_primary }}</a>
+</div>
+<style>
+  .ms-pm-bar { display: none; }
+  @media (max-width: 900px) {
+    .ms-pm-bar { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 79; align-items: center; justify-content: space-between; gap: 14px; padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); background: rgba(251, 249, 245, .96); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-top: 1px solid #DDD6C9; transform: translateY(110%); transition: transform .45s cubic-bezier(.2,.7,.2,1); }
+    .ms-pm-bar.is-on { transform: none; }
+    .ms-pm-bar__name { display: flex; flex-direction: column; min-width: 0; }
+    .ms-pm-bar__name span { font-family: Newsreader, Georgia, serif; font-size: 19px; line-height: 1.1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .ms-pm-bar__name small { font-size: 11px; color: #6E675C; margin-top: 3px; }
+    .ms-site a.ms-pm-bar__cta { flex: 0 0 auto; display: inline-flex; align-items: center; min-height: 46px; padding: 0 18px; background: #17140F; color: #FBF9F5; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; }
+    body.ms-bar-on .ms-wa { bottom: calc(80px + env(safe-area-inset-bottom)) !important; }
+  }
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var bar = document.querySelector('[data-ms-pm-bar]'), cta = document.querySelector('.ms-pm__primary');
+  if (!bar || !cta || !('IntersectionObserver' in window)) return;
+  var foot = document.querySelector('[data-ms-footer]') || document.querySelector('footer');
+  var past = false, atFoot = false;
+  function set() {
+    var on = past && !atFoot;
+    bar.classList.toggle('is-on', on);
+    bar.setAttribute('aria-hidden', on ? 'false' : 'true');
+    bar.querySelector('a').tabIndex = on ? 0 : -1;
+    document.body.classList.toggle('ms-bar-on', on);
+  }
+  new IntersectionObserver(function (e) { past = !e[0].isIntersecting && e[0].boundingClientRect.top < 0; set(); }).observe(cta);
+  if (foot) new IntersectionObserver(function (e) { atFoot = e[0].isIntersecting; set(); }).observe(foot);
+});
+</script>
 {% schema %}
 {
   "name": "Product · The system",
@@ -347,6 +381,7 @@
     { "type": "text", "id": "eyebrow", "label": "Label when not in a collection", "default": "Midsummer Milano" },
     { "type": "text", "id": "price_label", "label": "Price label", "default": "Price" },
     { "type": "text", "id": "price_text", "label": "Price statement", "default": "On request. The specification sets it." },
+    { "type": "text", "id": "bar_note", "label": "Phone bar line", "default": "Made to order · price on request" },
     { "type": "text", "id": "cta_primary", "label": "First button", "default": "Request a proposal" },
     { "type": "text", "id": "cta_secondary", "label": "Second link", "default": "Book a private appointment" },
     { "type": "text", "id": "f1_label", "label": "Fact 1 label", "default": "Made" },

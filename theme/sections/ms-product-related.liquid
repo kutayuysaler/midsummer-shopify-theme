@@ -16,7 +16,7 @@
 <h2 style="font-family: Newsreader, Georgia, serif; font-size: clamp(26px, 3.2vw, 42px); letter-spacing: -0.02em;">{{ section.settings.heading }} {{ tier.title }}</h2>
 <a data-ms="cta" href="{{ tier.url }}" style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92);">{{ section.settings.link }}</a>
 </div>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: clamp(16px, 2.4vw, 36px);">
+<div class="ms-rel" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: clamp(16px, 2.4vw, 36px);">
 {%- assign shown = 0 -%}
 {%- for p in tier.products -%}
 {%- if p.id != product.id and shown < 4 -%}
@@ -27,6 +27,7 @@
 </div>
 </section>
 {%- endif -%}
+<style>@media (max-width: 700px) { .ms-site .ms-rel { display: flex !important; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-right: calc(-1 * clamp(18px, 5vw, 80px)); padding-right: clamp(18px, 5vw, 80px); } .ms-rel::-webkit-scrollbar { display: none; } .ms-rel > a { flex: 0 0 72%; scroll-snap-align: start; } }</style>
 {% schema %}
 {
   "name": "Product · Also in",
