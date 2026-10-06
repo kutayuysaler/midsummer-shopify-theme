@@ -170,7 +170,7 @@
   .ms-pm { padding: clamp(28px, 4vw, 64px) clamp(18px, 5vw, 80px) clamp(36px, 5vw, 72px); max-width: 1560px; margin: 0 auto; }
   .ms-pm__grid { display: grid; grid-template-columns: minmax(0, 8fr) minmax(340px, 4fr); gap: clamp(28px, 4vw, 80px); align-items: start; }
   /* the gallery: a slim rail of every photograph, a large stage that cross-fades, a fine line that counts */
-  .ms-pm__gallery { display: grid; grid-template-columns: 68px minmax(0, 1fr); gap: 16px; align-items: start; }
+  .ms-pm__gallery { display: grid; grid-template-columns: 68px minmax(0, 1fr); gap: 16px; align-items: start; position: sticky; top: 96px; }
   .ms-pm__gallery.is-single { grid-template-columns: minmax(0, 1fr); }
   .ms-pm__thumbs { display: flex; flex-direction: column; gap: 10px; max-height: min(calc(100vh - 128px), 980px); overflow-y: auto; scrollbar-width: none; padding: 3px; margin: -3px; }
   .ms-pm__thumbs::-webkit-scrollbar { display: none; }
@@ -179,7 +179,7 @@
   .ms-pm__thumb:hover { opacity: .8; }
   .ms-pm__thumb.is-on { opacity: 1; outline-color: #17140F; }
   .ms-pm__stage { position: relative; background: #F1ECE3; overflow: hidden; }
-  .ms-pm__track { position: relative; width: 100%; aspect-ratio: 4 / 5; max-height: min(calc(100vh - 128px), 980px); outline: none; }
+  .ms-pm__track { position: relative; width: 100%; aspect-ratio: 4 / 5; max-height: min(calc(100vh - 190px), 980px); outline: none; }
   .ms-pm__slide { position: absolute; inset: 0; opacity: 0; transition: opacity .9s cubic-bezier(.4,0,.2,1); }
   .ms-pm__slide.is-on { opacity: 1; z-index: 1; }
   .ms-pm__slide img { display: block; width: 100%; height: 100%; object-fit: cover; transform: scale(1.035); transition: transform 2.4s cubic-bezier(.2,.7,.2,1); }
@@ -256,7 +256,7 @@
 
   @media (max-width: 900px) {
     .ms-pm__grid { grid-template-columns: minmax(0, 1fr); gap: 30px; }
-    .ms-pm__gallery { grid-template-columns: minmax(0, 1fr); margin-inline: calc(-1 * clamp(18px, 5vw, 80px)); margin-top: calc(-1 * clamp(28px, 4vw, 64px)); }
+    .ms-pm__gallery { position: static; grid-template-columns: minmax(0, 1fr); margin-inline: calc(-1 * clamp(18px, 5vw, 80px)); margin-top: calc(-1 * clamp(28px, 4vw, 64px)); }
     .ms-pm__thumbs, .ms-pm__half, .ms-pm__zoom, .ms-pm__enl { display: none !important; }
     .ms-pm__track { display: flex; aspect-ratio: auto; max-height: none; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
     .ms-pm__track::-webkit-scrollbar { display: none; }

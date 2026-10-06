@@ -562,4 +562,17 @@ Every page was reviewed screen by screen at phone size (390 px), as a phone show
   "over a micro spring layer", the stages on Handmade in Italy) now speak of the result, not the
   build.
 
+## 17. Computer pass
+
+Every page was reviewed again screen by screen at 1440 × 900.
+
+- **Menu**: the Contact panel's first photograph was missing; every panel now shows its pictures.
+- **Product pages**: the photographs stay beside you while you read the details, sized to fit
+  the window.
+- **Steps** (the atelier visit, Sleep culture, Handmade in Italy): the steps you are not on are
+  dimmed less, so they stay readable.
+- **Home**: the opening words keep their contrast over the photograph.
+- **Footer**: the WhatsApp button no longer covers the last links.
+- **Spelling**: fibre throughout (Orange Fiber keeps its own name).
+
 See AUDIT.md for the homepage audit and what competitors have that is still to add.

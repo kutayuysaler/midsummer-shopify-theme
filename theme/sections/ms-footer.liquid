@@ -25,9 +25,10 @@
 </div>
 <div style="display: flex; flex-wrap: wrap; gap: 22px; justify-content: space-between; border-top: 1px solid rgb(221, 214, 201); margin-top: clamp(36px, 5vw, 80px); padding-top: 24px; font-size: 11px; letter-spacing: 0.04em; color: rgb(110, 103, 92);">
 <span>{{ section.settings.t25 }}</span>
-<div data-ms="footlegal" style="display: flex; flex-wrap: wrap; gap: 22px;"><a href="{% render 'ms-link', to: 'terms' %}" style="color: rgb(110, 103, 92);">{{ section.settings.t26 }}</a><a href="{% render 'ms-link', to: 'privacy' %}" style="color: rgb(110, 103, 92);">{{ section.settings.t27 }}</a><a href="{% render 'ms-link', to: 'privacy' %}#cookies" style="color: rgb(110, 103, 92);" data-ms-cookies="">{{ section.settings.t28 }}</a><span>{{ section.settings.t29 }}</span></div>
+<div data-ms="footlegal" class="ms-footlegal" style="display: flex; flex-wrap: wrap; gap: 22px;"><a href="{% render 'ms-link', to: 'terms' %}" style="color: rgb(110, 103, 92);">{{ section.settings.t26 }}</a><a href="{% render 'ms-link', to: 'privacy' %}" style="color: rgb(110, 103, 92);">{{ section.settings.t27 }}</a><a href="{% render 'ms-link', to: 'privacy' %}#cookies" style="color: rgb(110, 103, 92);" data-ms-cookies="">{{ section.settings.t28 }}</a><span>{{ section.settings.t29 }}</span></div>
 </div>
 </div></footer>
+<style>.ms-footlegal { padding-right: 76px; } @media (max-width: 600px) { .ms-footlegal { padding-right: 70px; } }</style>
 {% schema %}
 {
   "name": "MS · Footer",
