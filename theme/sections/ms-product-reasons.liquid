@@ -17,15 +17,21 @@
 <div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgb(126, 98, 59);">{{ section.settings.t11 }}</div>
 <h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">{{ section.settings.t12 }}</h3>
 <p style="font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 16px; max-width: 34ch;">{{ section.settings.t13 }}</p>
-<div style="display: flex; flex-wrap: wrap; gap: 9px; margin-top: 24px;">
-<span style="display: block; width: 26px; height: 26px; border-radius: 50%; background: rgb(196, 113, 74); box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Paisley"></span>
-<span style="display: block; width: 26px; height: 26px; border-radius: 50%; background: rgb(142, 134, 114); box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Kummel"></span>
-<span style="display: block; width: 26px; height: 26px; border-radius: 50%; background: rgb(169, 118, 75); box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Tawny"></span>
-<span style="display: block; width: 26px; height: 26px; border-radius: 50%; background: rgb(180, 85, 43); box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Burnt Orange"></span>
-<span style="display: block; width: 26px; height: 26px; border-radius: 50%; background: rgb(201, 188, 168); box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Earthy Neutral"></span>
-<span style="display: block; width: 26px; height: 26px; border-radius: 50%; background: rgb(94, 107, 79); box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Verdant Green"></span>
-<span style="display: block; width: 26px; height: 26px; border-radius: 50%; background: rgb(107, 126, 140); box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Muted Blue"></span>
-</div>
+<a href="{% render 'ms-link', to: 'loro' %}#palette" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 24px; color: inherit; text-decoration: none;" aria-label="See the whole palette">
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #EBE3DA url({{ 'ms-loro-09.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Ivory"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #BE986C url({{ 'ms-loro-08.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Camel"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #A07960 url({{ 'ms-loro-02.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Fawn"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #8B6122 url({{ 'ms-loro-07.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Ochre"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #852A1C url({{ 'ms-loro-12.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Rust"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #656338 url({{ 'ms-loro-06.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Olive"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #333E2F url({{ 'ms-loro-05.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Forest"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #636D75 url({{ 'ms-loro-20.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Slate"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #1F273E url({{ 'ms-loro-19.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Navy"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #A2B2B9 url({{ 'ms-loro-26.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Mist"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #720A18 url({{ 'ms-loro-14.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Bordeaux"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #BCAE9B url({{ 'ms-loro-23.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Sand"></span>
+<span style="font-size: 11px; letter-spacing: .22em; text-transform: uppercase; margin-left: 8px; border-bottom: 1px solid currentColor; padding-bottom: 4px;">The whole palette →</span>
+</a>
 </div>
 <div style="border-top: 1px solid rgb(23, 20, 15); padding-top: 22px;">
 <div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgb(126, 98, 59);">{{ section.settings.t14 }}</div>
@@ -139,8 +145,8 @@
     {
       "type": "text",
       "id": "t13",
-      "label": "Seven of the palette are shown her…",
-      "default": "Seven of the palette are shown here. The full range, and your own cloth, at consultation."
+      "label": "The palette line",
+      "default": "Thirty-nine cloths in the book, from plain cashmere to textured weaves. Your own cloth, at consultation."
     },
     {
       "type": "text",

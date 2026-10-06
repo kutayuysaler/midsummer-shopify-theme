@@ -1,6 +1,7 @@
 {%- comment -%}
   Notes from the journal: the newest articles, or only those on one subject (a tag).
-  Hidden when there is nothing to show.
+  Hidden when there is nothing to show. On a note, the notes either side are already offered beneath it,
+  so they are left out here when there are enough others.
 {%- endcomment -%}
 {%- liquid
   assign b = section.settings.blog
@@ -26,12 +27,32 @@
   assign want = section.settings.tag | downcase | strip
   assign shown = 0
   assign max = section.settings.limit
+  assign skip = ''
+  assign need = max | plus: 3
+  if current_url != '' and b != blank and b.articles_count >= need
+    assign prev_url = ''
+    assign take_next = false
+    for n in b.articles limit: 50
+      if take_next
+        assign skip = skip | append: '|' | append: n.url | append: '|'
+        break
+      endif
+      if n.url == current_url
+        if prev_url != ''
+          assign skip = skip | append: '|' | append: prev_url | append: '|'
+        endif
+        assign take_next = true
+      endif
+      assign prev_url = n.url
+    endfor
+  endif
 -%}
 {%- if b != blank and b.articles_count > 0 -%}
 {%- capture cards -%}
   {%- for article in b.articles limit: 50 -%}
     {%- if shown >= max -%}{%- break -%}{%- endif -%}
     {%- if current_url != '' and article.url == current_url -%}{%- continue -%}{%- endif -%}
+    {%- assign key = '|' | append: article.url | append: '|' -%}{%- if skip contains key -%}{%- continue -%}{%- endif -%}
     {%- if want != blank -%}
       {%- assign hit = false -%}
       {%- for t in article.tags -%}{%- assign tt = t | downcase -%}{%- if tt contains want -%}{%- assign hit = true -%}{%- endif -%}{%- endfor -%}

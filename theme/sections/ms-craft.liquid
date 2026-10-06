@@ -1,7 +1,8 @@
 {%- comment -%}
-  Inside a Midsummer bed, told with discretion: the three parts of a system and what each
-  does for the sleeper, the gestures of the hand, and nothing of the build itself. The exact
-  build of each system is shown at the atelier.
+  Inside a Midsummer bed, told with discretion. The three parts of a system are drawn as one bed;
+  choose a part and it lifts away from the others while the words beside it open on that part: what
+  it does for the sleeper, the choices it comes in, the fibres we tend to use. Nothing of the build
+  itself: the exact build of each system is shown at the atelier.
 {%- endcomment -%}
 {%- liquid
   assign s = section.settings
@@ -9,51 +10,115 @@
   if template.name == 'product' and product != blank and s.eyebrow_product != blank
     assign eyebrow = s.eyebrow_product | replace: '[name]', product.title
   endif
+  assign parts = 'topper,mattress,base' | split: ','
+  assign nums = 'I,II,III' | split: ','
 -%}
 <section class="ms-cr" data-ms-craft>
   <div class="ms-cr__in">
     <div class="ms-cr__top">
-      <div class="ms-cr__words">
-        <div class="ms-cr__eyebrow">{{ eyebrow }}</div>
-        <h2 class="ms-cr__title">{{ s.heading }}</h2>
-        {%- if s.text != blank -%}<p class="ms-cr__text">{{ s.text }}</p>{%- endif -%}
-        {%- if s.note != blank -%}<p class="ms-cr__note">{{ s.note }}</p>{%- endif -%}
-        <div class="ms-cr__links">
-          {%- if s.button != blank -%}<a class="ms-cr__btn" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=appointment' %}#enquire" data-ms-enquire>{{ s.button }}</a>{%- endif -%}
-          {%- if s.link_label != blank -%}<a class="ms-cr__link" href="{% render 'ms-link', to: s.link_place %}">{{ s.link_label }}<span aria-hidden="true">→</span></a>{%- endif -%}
+      <div class="ms-cr__left">
+        <div class="ms-cr__intro" data-cr-intro>
+          <div class="ms-cr__eyebrow">{{ eyebrow }}</div>
+          <h2 class="ms-cr__title">{{ s.heading }}</h2>
+          {%- if s.text != blank -%}<p class="ms-cr__text">{{ s.text }}</p>{%- endif -%}
+          <div class="ms-cr__pick">
+            {%- if s.hint != blank -%}<p class="ms-cr__hint">{{ s.hint }}</p>{%- endif -%}
+            <div class="ms-cr__picks" role="group" aria-label="{{ s.heading | escape }}">
+              {%- for p in parts -%}
+                {%- assign kt = 'part' | append: forloop.index | append: '_title' -%}
+                <button type="button" class="ms-cr__pk" data-cr-open="{{ p }}" aria-expanded="false" aria-controls="cr-{{ section.id }}-{{ p }}"><span>{{ nums[forloop.index0] }}</span>{{ s[kt] }}</button>
+              {%- endfor -%}
+            </div>
+          </div>
+          {%- if s.note != blank -%}<p class="ms-cr__note">{{ s.note }}</p>{%- endif -%}
+          <div class="ms-cr__links">
+            {%- if s.button != blank -%}<a class="ms-cr__btn" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=appointment' %}#enquire" data-ms-enquire>{{ s.button }}</a>{%- endif -%}
+            {%- if s.link_label != blank -%}<a class="ms-cr__link" href="{% render 'ms-link', to: s.link_place %}">{{ s.link_label }}<span aria-hidden="true">→</span></a>{%- endif -%}
+          </div>
         </div>
+
+        {%- for p in parts -%}
+          {%- liquid
+            assign i = forloop.index
+            assign kt = 'part' | append: i | append: '_title'
+            assign kl = 'part' | append: i | append: '_lead'
+            assign kp = 'part' | append: i | append: '_points'
+            assign kf = 'part' | append: i | append: '_fibres'
+            assign kll = 'part' | append: i | append: '_link_label'
+            assign places = 'materials,regen,loro' | split: ','
+            assign points = s[kp] | newline_to_br | split: '<br />'
+            assign fibres = s[kf] | split: ','
+          -%}
+          <div class="ms-cr__panel" id="cr-{{ section.id }}-{{ p }}" data-cr-panel="{{ p }}" role="region" aria-label="{{ s[kt] | escape }}" hidden>
+            <button type="button" class="ms-cr__back" data-cr-close><span aria-hidden="true">←</span> {{ s.back_label }}</button>
+            <div class="ms-cr__pnum">{{ nums[forloop.index0] }} <span>/ III</span></div>
+            <h3 class="ms-cr__ph">{{ s[kt] }}</h3>
+            {%- if s[kl] != blank -%}<p class="ms-cr__lead">{{ s[kl] }}</p>{%- endif -%}
+            {%- if s[kp] != blank -%}
+              <ul class="ms-cr__pts" role="list">
+                {%- for pt in points -%}{%- assign t = pt | strip -%}{%- if t != '' -%}<li>{{ t }}</li>{%- endif -%}{%- endfor -%}
+              </ul>
+            {%- endif -%}
+            {%- if s[kf] != blank -%}
+              <div class="ms-cr__fl">{{ s.fibres_label }}</div>
+              <ul class="ms-cr__fibres" role="list">
+                {%- for f in fibres -%}{%- assign fn = f | strip -%}{%- if fn != '' -%}<li><span class="ms-cr__fi">{% render 'ms-fibre-mark', name: fn, size: 34 %}</span>{{ fn }}</li>{%- endif -%}{%- endfor -%}
+              </ul>
+            {%- endif -%}
+            <div class="ms-cr__pnav">
+              {%- if s[kll] != blank -%}<a class="ms-cr__link" href="{% render 'ms-link', to: places[forloop.index0] %}">{{ s[kll] }}<span aria-hidden="true">→</span></a>{%- endif -%}
+              {%- unless forloop.last -%}<button type="button" class="ms-cr__next" data-cr-open="{{ parts[forloop.index] }}">{{ s.next_label }} <span aria-hidden="true">↓</span></button>{%- endunless -%}
+            </div>
+          </div>
+        {%- endfor -%}
       </div>
-      <div class="ms-cr__draw" aria-hidden="false"><svg class="ms-cr__svg" viewBox="0 0 560 420" role="img" aria-label="A Midsummer system: topper, mattress and base"><g class="ms-cr__slab" data-part="topper" tabindex="0" role="button" aria-label="The topper"><path class="ms-cr__face ms-cr__face--top" d="M40,128 L400,128 L529.9,53.0 L169.9,53.0 Z"/><path class="ms-cr__face" d="M40,128 L400,128 L400,150 L40,150 Z"/><path class="ms-cr__face ms-cr__face--side" d="M400,128 L529.9,53.0 L529.9,75.0 L400,150 Z"/><circle cx="143.3" cy="103.0" r="1.3" class="ms-cr__dot"/><circle cx="186.6" cy="78.0" r="1.3" class="ms-cr__dot"/><circle cx="203.3" cy="103.0" r="1.3" class="ms-cr__dot"/><circle cx="246.6" cy="78.0" r="1.3" class="ms-cr__dot"/><circle cx="263.3" cy="103.0" r="1.3" class="ms-cr__dot"/><circle cx="306.6" cy="78.0" r="1.3" class="ms-cr__dot"/><circle cx="323.3" cy="103.0" r="1.3" class="ms-cr__dot"/><circle cx="366.6" cy="78.0" r="1.3" class="ms-cr__dot"/><circle cx="383.3" cy="103.0" r="1.3" class="ms-cr__dot"/><circle cx="426.6" cy="78.0" r="1.3" class="ms-cr__dot"/><line x1="533.9" y1="66.0" x2="573.9" y2="66.0" class="ms-cr__lead"/><text x="581.9" y="70.0" class="ms-cr__num">I</text></g><g class="ms-cr__slab" data-part="mattress" tabindex="0" role="button" aria-label="The mattress"><path class="ms-cr__face ms-cr__face--top" d="M40,222 L400,222 L529.9,147.0 L169.9,147.0 Z"/><path class="ms-cr__face" d="M40,222 L400,222 L400,284 L40,284 Z"/><path class="ms-cr__face ms-cr__face--side" d="M400,222 L529.9,147.0 L529.9,209.0 L400,284 Z"/><line x1="533.9" y1="180.0" x2="573.9" y2="180.0" class="ms-cr__lead"/><text x="581.9" y="184.0" class="ms-cr__num">II</text></g><g class="ms-cr__slab" data-part="base" tabindex="0" role="button" aria-label="The base"><path class="ms-cr__face ms-cr__face--top" d="M40,330 L400,330 L529.9,255.0 L169.9,255.0 Z"/><path class="ms-cr__face" d="M40,330 L400,330 L400,380 L40,380 Z"/><path class="ms-cr__face ms-cr__face--side" d="M400,330 L529.9,255.0 L529.9,305.0 L400,380 Z"/><line x1="533.9" y1="282.0" x2="573.9" y2="282.0" class="ms-cr__lead"/><text x="581.9" y="286.0" class="ms-cr__num">III</text></g></svg></div>
+
+      <div class="ms-cr__draw">
+        <svg class="ms-cr__svg" viewBox="0 0 600 440" role="group" aria-label="{{ s.heading | escape }}">
+          {%- for p in parts -%}
+            {%- assign kt = 'part' | append: forloop.index | append: '_title' -%}
+            {%- case p -%}
+              {%- when 'topper' -%}{%- assign y = 128 -%}{%- assign h = 22 -%}
+              {%- when 'mattress' -%}{%- assign y = 222 -%}{%- assign h = 62 -%}
+              {%- else -%}{%- assign y = 330 -%}{%- assign h = 50 -%}
+            {%- endcase -%}
+            {%- assign yb = y | plus: h -%}{%- assign yt = y | minus: 75 -%}{%- assign ytb = yt | plus: h -%}{%- assign ym = y | minus: 37 -%}{%- assign yl = yt | plus: 13 -%}
+            <g class="ms-cr__slab" data-part="{{ p }}" tabindex="0" role="button" aria-label="{{ s[kt] | escape }}" aria-controls="cr-{{ section.id }}-{{ p }}" aria-expanded="false">
+              <path class="ms-cr__face ms-cr__face--top" d="M40,{{ y }} L400,{{ y }} L529.9,{{ yt }} L169.9,{{ yt }} Z"/>
+              <path class="ms-cr__face" d="M40,{{ y }} L400,{{ y }} L400,{{ yb }} L40,{{ yb }} Z"/>
+              <path class="ms-cr__face ms-cr__face--side" d="M400,{{ y }} L529.9,{{ yt }} L529.9,{{ ytb }} L400,{{ yb }} Z"/>
+              {%- if p == 'topper' -%}{%- for d in (0..5) -%}{%- assign dx = d | times: 60 | plus: 143 -%}<circle cx="{{ dx }}" cy="{{ ym }}" r="1.3" class="ms-cr__dot"/>{%- endfor -%}{%- endif -%}
+              {%- if p == 'mattress' -%}<path class="ms-cr__seam" d="M40,{{ y | plus: 31 }} L400,{{ y | plus: 31 }} L529.9,{{ yt | plus: 31 }}"/>{%- endif -%}
+              <circle class="ms-cr__pulse" cx="285" cy="{{ ym }}" r="5"/>
+              <circle class="ms-cr__spot" cx="285" cy="{{ ym }}" r="3"/>
+              <line x1="533.9" y1="{{ yl }}" x2="565" y2="{{ yl }}" class="ms-cr__lead"/>
+              <text x="572" y="{{ yl | plus: 5 }}" class="ms-cr__num">{{ nums[forloop.index0] }}</text>
+            </g>
+          {%- endfor -%}
+        </svg>
+      </div>
     </div>
+
     <div class="ms-cr__parts">
-      {%- for i in (1..3) -%}
+      {%- for p in parts -%}
         {%- liquid
+          assign i = forloop.index
           assign kt = 'part' | append: i | append: '_title'
           assign kx = 'part' | append: i | append: '_text'
           assign ki = 'part' | append: i | append: '_image'
           assign kf = 'part' | append: i | append: '_fallback'
-          case i
-            when 1
-              assign part = 'topper'
-              assign num = 'I'
-            when 2
-              assign part = 'mattress'
-              assign num = 'II'
-            else
-              assign part = 'base'
-              assign num = 'III'
-          endcase
         -%}
-        <div class="ms-cr__part" data-part="{{ part }}">
-          <div class="ms-cr__img"><img src="{% render 'ms-img', image: s[ki], fallback: s[kf], width: 1000 %}" alt="{{ s[kt] | escape }}" width="1000" height="1250" loading="lazy"></div>
-          <div class="ms-cr__pnum">{{ num }}</div>
-          <h3 class="ms-cr__ptitle">{{ s[kt] }}</h3>
-          <p class="ms-cr__ptext">{{ s[kx] }}</p>
-        </div>
+        <button type="button" class="ms-cr__part" data-part="{{ p }}" data-cr-open="{{ p }}" aria-controls="cr-{{ section.id }}-{{ p }}">
+          <span class="ms-cr__img"><img src="{% render 'ms-img', image: s[ki], fallback: s[kf], width: 1000 %}" alt="{{ s[kt] | escape }}" width="1000" height="1250" loading="lazy"></span>
+          <span class="ms-cr__cnum">{{ nums[forloop.index0] }}</span>
+          <span class="ms-cr__ptitle">{{ s[kt] }}</span>
+          <span class="ms-cr__ptext">{{ s[kx] }}</span>
+          <span class="ms-cr__more">{{ s.open_label }} <span aria-hidden="true">↑</span></span>
+        </button>
       {%- endfor -%}
     </div>
     <ul class="ms-cr__marks">
-      {%- for i in (1..5) -%}
+      {%- for i in (1..3) -%}
         {%- assign km = 'mark' | append: i -%}
         {%- if s[km] != blank -%}<li><span class="ms-cr__mk" aria-hidden="true"></span>{{ s[km] }}</li>{%- endif -%}
       {%- endfor -%}
@@ -61,59 +126,120 @@
   </div>
 </section>
 <style>
-  .ms-cr { background: #17140F; color: #FBF9F5; padding: clamp(80px, 10vw, 160px) clamp(18px, 5vw, 80px); }
+  .ms-cr { background: #17140F; color: #FBF9F5; padding: clamp(80px, 10vw, 160px) clamp(16px, 5vw, 80px); }
   .ms-cr__in { max-width: 1560px; margin: 0 auto; }
   .ms-cr__top { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(32px, 6vw, 120px); align-items: center; }
+  .ms-cr__left { display: grid; }
+  .ms-cr__left > * { grid-area: 1 / 1; }
+  .ms-cr__intro, .ms-cr__panel { transition: opacity .5s ease, transform .6s cubic-bezier(.2, .7, .2, 1); }
+  .ms-cr__intro.is-away { opacity: 0; transform: translateY(-12px); pointer-events: none; visibility: hidden; transition: opacity .35s ease, transform .5s ease, visibility 0s .35s; }
+  .ms-cr__panel[hidden] { display: block; opacity: 0; transform: translateY(14px); pointer-events: none; visibility: hidden; }
   .ms-cr__eyebrow { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: #C9A97A; }
   .ms-cr__title { font-family: Newsreader, Georgia, serif; font-weight: 200; font-size: clamp(36px, 4.4vw, 68px); line-height: 1.03; letter-spacing: -0.035em; margin-top: clamp(18px, 2vw, 28px); }
   .ms-site .ms-cr__text { font-size: 15.5px; line-height: 1.95; color: rgba(251, 249, 245, .76); margin-top: clamp(20px, 2.4vw, 30px); max-width: 48ch; }
-  .ms-site .ms-cr__note { font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 17px; line-height: 1.6; color: #E2CFAE; margin-top: 22px; max-width: 44ch; }
-  .ms-cr__links { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 30px; margin-top: clamp(28px, 3vw, 42px); }
+  .ms-cr__pick { margin-top: clamp(26px, 3vw, 38px); }
+  .ms-site .ms-cr__hint { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: rgba(251, 249, 245, .55); }
+  .ms-cr__picks { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .ms-cr__pk { display: inline-flex; align-items: baseline; gap: 10px; font: inherit; font-family: Newsreader, Georgia, serif; font-size: 18px; color: #FBF9F5; background: rgba(251, 249, 245, .04); border: 1px solid rgba(251, 249, 245, .22); padding: 11px 18px; cursor: pointer; transition: border-color .3s, background .3s; }
+  .ms-cr__pk span { font-size: 13px; color: #C9A97A; }
+  .ms-cr__pk:hover, .ms-cr__pk:focus-visible { border-color: #E2CFAE; background: rgba(201, 169, 122, .1); outline: none; }
+  .ms-site .ms-cr__note { font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 17px; line-height: 1.6; color: #E2CFAE; margin-top: 26px; max-width: 44ch; }
+  .ms-cr__links { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 30px; margin-top: clamp(26px, 3vw, 38px); }
   .ms-site a.ms-cr__btn { display: inline-flex; align-items: center; min-height: 52px; padding: 0 28px; background: #FBF9F5; color: #17140F; font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; }
   .ms-site a.ms-cr__link { display: inline-flex; gap: 12px; font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: #FBF9F5; border-bottom: 1px solid currentColor; padding-bottom: 6px; }
+  .ms-cr__back { font: inherit; font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: rgba(251, 249, 245, .7); background: none; border: 0; padding: 0; cursor: pointer; }
+  .ms-cr__back:hover { color: #FBF9F5; }
+  .ms-cr__pnum { font-family: Newsreader, Georgia, serif; font-size: 18px; color: #C9A97A; margin-top: clamp(22px, 3vw, 36px); }
+  .ms-cr__pnum span { color: rgba(201, 169, 122, .5); font-size: 14px; }
+  .ms-cr__ph { font-family: Newsreader, Georgia, serif; font-weight: 200; font-size: clamp(36px, 4vw, 60px); line-height: 1.03; letter-spacing: -0.03em; margin-top: 8px; }
+  .ms-site .ms-cr__lead { font-family: Newsreader, Georgia, serif; font-size: clamp(19px, 1.6vw, 23px); line-height: 1.45; color: #E2CFAE; margin-top: 18px; max-width: 34ch; }
+  .ms-cr__pts { list-style: none; margin: 22px 0 0; padding: 0; max-width: 52ch; }
+  .ms-cr__pts li { position: relative; padding: 12px 0 12px 26px; border-top: 1px solid rgba(251, 249, 245, .12); font-size: 14.5px; line-height: 1.75; color: rgba(251, 249, 245, .8); }
+  .ms-cr__pts li::before { content: ''; position: absolute; left: 0; top: 24px; width: 12px; height: 1px; background: #C9A97A; }
+  .ms-cr__fl { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: rgba(251, 249, 245, .55); margin-top: 24px; }
+  .ms-cr__fibres { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 10px; }
+  .ms-cr__fibres li { display: inline-flex; align-items: center; gap: 8px; padding: 4px 14px 4px 6px; border: 1px solid rgba(251, 249, 245, .16); border-radius: 999px; font-size: 13px; color: rgba(251, 249, 245, .86); }
+  .ms-cr__fi { color: #C9A97A; display: flex; }
+  .ms-cr__pnav { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 30px; margin-top: 28px; }
+  .ms-cr__next { font: inherit; font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: rgba(251, 249, 245, .7); background: none; border: 0; padding: 0; cursor: pointer; }
+  .ms-cr__next:hover { color: #FBF9F5; }
   .ms-cr__svg { width: 100%; height: auto; display: block; overflow: visible; }
-  .ms-cr__slab { cursor: pointer; outline: none; transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+  .ms-cr__slab { cursor: pointer; outline: none; transition: transform .8s cubic-bezier(.2, .8, .2, 1), opacity .5s ease; }
   .ms-cr__face { fill: rgba(251, 249, 245, .03); stroke: rgba(251, 249, 245, .5); stroke-width: 1; transition: fill .45s ease, stroke .45s ease; }
   .ms-cr__face--top { fill: rgba(251, 249, 245, .06); }
   .ms-cr__face--side { fill: rgba(251, 249, 245, .015); }
   .ms-cr__dot { fill: rgba(251, 249, 245, .45); }
+  .ms-cr__seam { fill: none; stroke: rgba(251, 249, 245, .25); stroke-dasharray: 2 4; }
   .ms-cr__lead { stroke: rgba(201, 169, 122, .55); stroke-width: 1; }
   .ms-cr__num { fill: #C9A97A; font-family: Newsreader, Georgia, serif; font-size: 18px; }
+  .ms-cr__spot { fill: #C9A97A; transition: opacity .3s; }
+  .ms-cr__pulse { fill: none; stroke: #C9A97A; transform-box: fill-box; transform-origin: center; animation: msCrPulse 2.4s ease-out infinite; }
+  .ms-cr__slab[data-part="mattress"] .ms-cr__pulse { animation-delay: .8s; }
+  .ms-cr__slab[data-part="base"] .ms-cr__pulse { animation-delay: 1.6s; }
+  @keyframes msCrPulse { 0% { transform: scale(.6); opacity: .9; } 100% { transform: scale(3.2); opacity: 0; } }
+  .ms-cr__slab:hover .ms-cr__face, .ms-cr__slab:focus-visible .ms-cr__face { stroke: #E2CFAE; }
+  /* a part chosen: the bed opens, the part lifts away and the others step back */
+  .ms-cr[data-open] .ms-cr__pulse, .ms-cr[data-open] .ms-cr__spot { opacity: 0; animation: none; }
+  .ms-cr[data-open] .ms-cr__slab { opacity: .32; }
+  .ms-cr[data-open] .ms-cr__slab.is-on { opacity: 1; }
+  .ms-cr[data-open] .ms-cr__slab[data-part="topper"] { transform: translateY(-22px); }
+  .ms-cr[data-open] .ms-cr__slab[data-part="base"] { transform: translateY(22px); }
+  .ms-cr[data-open="topper"] .ms-cr__slab[data-part="topper"] { transform: translate(-26px, -58px); }
+  .ms-cr[data-open="mattress"] .ms-cr__slab[data-part="mattress"] { transform: translate(-40px, -6px); }
+  .ms-cr[data-open="base"] .ms-cr__slab[data-part="base"] { transform: translate(-26px, 50px); }
   .ms-cr__slab.is-on .ms-cr__face { stroke: #E2CFAE; fill: rgba(201, 169, 122, .12); }
-  .ms-cr__slab.is-on .ms-cr__face--top { fill: rgba(201, 169, 122, .2); }
-  .ms-cr__slab[data-part="topper"].is-on { transform: translateY(-10px); }
-  .ms-cr__slab[data-part="base"].is-on { transform: translateY(8px); }
+  .ms-cr__slab.is-on .ms-cr__face--top { fill: rgba(201, 169, 122, .22); }
   .ms-cr__parts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(18px, 2.6vw, 44px); margin-top: clamp(56px, 7vw, 110px); }
-  .ms-cr__part { cursor: default; }
-  .ms-cr__img { aspect-ratio: 4 / 5; overflow: hidden; background: rgba(251, 249, 245, .05); }
-  .ms-cr__img img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: .82; transition: opacity .6s ease, transform 1.2s cubic-bezier(.2,.7,.2,1); }
+  .ms-cr__part { display: block; text-align: left; font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+  .ms-cr__img { display: block; aspect-ratio: 4 / 5; overflow: hidden; background: rgba(251, 249, 245, .05); }
+  .ms-cr__img img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: .82; transition: opacity .6s ease, transform 1.2s cubic-bezier(.2, .7, .2, 1); }
   .ms-cr__part.is-on .ms-cr__img img, .ms-cr__part:hover .ms-cr__img img { opacity: 1; transform: scale(1.03); }
-  .ms-cr__pnum { font-family: Newsreader, Georgia, serif; font-size: 15px; color: #C9A97A; margin-top: 22px; }
-  .ms-cr__ptitle { font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: clamp(24px, 2.2vw, 32px); letter-spacing: -0.02em; margin-top: 6px; }
-  .ms-site .ms-cr__ptext { font-size: 14.5px; line-height: 1.85; color: rgba(251, 249, 245, .72); margin-top: 12px; max-width: 40ch; }
+  .ms-cr__part:focus-visible { outline: 1px solid #E2CFAE; outline-offset: 6px; }
+  .ms-cr__cnum { display: block; font-family: Newsreader, Georgia, serif; font-size: 15px; color: #C9A97A; margin-top: 22px; }
+  .ms-cr__ptitle { display: block; font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: clamp(24px, 2.2vw, 32px); letter-spacing: -0.02em; margin-top: 6px; }
+  .ms-cr__ptext { display: block; font-size: 14.5px; line-height: 1.85; color: rgba(251, 249, 245, .72); margin-top: 12px; max-width: 40ch; }
+  .ms-cr__more { display: inline-block; margin-top: 16px; font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: #E2CFAE; border-bottom: 1px solid rgba(226, 207, 174, .5); padding-bottom: 5px; }
   .ms-cr__marks { list-style: none; margin: clamp(48px, 6vw, 88px) 0 0; padding: 26px 0 0; border-top: 1px solid rgba(251, 249, 245, .18); display: flex; flex-wrap: wrap; gap: 14px clamp(24px, 3.4vw, 56px); }
   .ms-cr__marks li { display: flex; align-items: center; gap: 12px; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: rgba(251, 249, 245, .82); }
   .ms-cr__mk { width: 18px; height: 1px; background: #C9A97A; display: inline-block; }
   @media (max-width: 900px) {
     .ms-cr__top { grid-template-columns: minmax(0, 1fr); }
-    .ms-cr__draw { max-width: 460px; }
-    .ms-cr__parts { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-right: calc(-1 * clamp(18px, 5vw, 80px)); padding-right: clamp(18px, 5vw, 80px); }
+    .ms-cr__draw { max-width: 460px; width: 100%; margin: 0 auto; order: -1; }
+    .ms-cr__parts { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-right: calc(-1 * clamp(16px, 5vw, 80px)); padding-right: clamp(16px, 5vw, 80px); }
     .ms-cr__parts::-webkit-scrollbar { display: none; }
     .ms-cr__part { flex: 0 0 78%; scroll-snap-align: start; }
     .ms-cr__marks { flex-direction: column; }
   }
+  @media (prefers-reduced-motion: reduce) { .ms-cr__pulse { animation: none; } .ms-cr__slab, .ms-cr__intro, .ms-cr__panel { transition: none; } }
 </style>
 <script>
 (function () {
   document.querySelectorAll('[data-ms-craft]:not([data-ms-craft-on])').forEach(function (root) {
     root.setAttribute('data-ms-craft-on', '');
-    function on(part) { root.querySelectorAll('[data-part]').forEach(function (el) { el.classList.toggle('is-on', el.getAttribute('data-part') === part); }); }
-    root.querySelectorAll('[data-part]').forEach(function (el) {
-      el.addEventListener('mouseenter', function () { on(el.getAttribute('data-part')); });
-      el.addEventListener('focus', function () { on(el.getAttribute('data-part')); });
-      el.addEventListener('click', function () { on(el.getAttribute('data-part')); });
+    var intro = root.querySelector('[data-cr-intro]');
+    var top = root.querySelector('.ms-cr__top');
+    function open(part, focus) {
+      if (part) root.setAttribute('data-open', part); else root.removeAttribute('data-open');
+      intro.classList.toggle('is-away', !!part);
+      root.querySelectorAll('[data-cr-panel]').forEach(function (p) { p.hidden = p.getAttribute('data-cr-panel') !== part; });
+      root.querySelectorAll('.ms-cr__slab, .ms-cr__part').forEach(function (el) { var on = el.getAttribute('data-part') === part; el.classList.toggle('is-on', on); if (el.hasAttribute('aria-expanded')) el.setAttribute('aria-expanded', on ? 'true' : 'false'); });
+      root.querySelectorAll('.ms-cr__pk').forEach(function (b) { b.setAttribute('aria-expanded', b.getAttribute('data-cr-open') === part ? 'true' : 'false'); });
+      var r = top.getBoundingClientRect();
+      if (r.top < -r.height * .35 || r.top > window.innerHeight * .55) top.scrollIntoView({ behavior: 'smooth', block: window.innerWidth > 900 ? 'center' : 'start' });
+      if (focus) { var t = part ? root.querySelector('[data-cr-panel="' + part + '"] .ms-cr__back') : root.querySelector('.ms-cr__pk'); if (t) setTimeout(function () { t.focus({ preventScroll: true }); }, 60); }
+    }
+    root.addEventListener('click', function (e) {
+      if (e.target.closest('[data-cr-close]')) { open(null, true); return; }
+      var o = e.target.closest('[data-cr-open]');
+      if (o) { open(o.getAttribute('data-cr-open'), e.detail === 0); return; }
+      var g = e.target.closest('.ms-cr__slab');
+      if (g) { var p = g.getAttribute('data-part'); open(root.getAttribute('data-open') === p ? null : p, false); }
     });
-    root.addEventListener('mouseleave', function () { on(''); });
+    root.addEventListener('keydown', function (e) {
+      var g = e.target.closest('.ms-cr__slab');
+      if (g && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); open(g.getAttribute('data-part'), true); }
+      if (e.key === 'Escape' && root.hasAttribute('data-open')) open(null, true);
+    });
   });
 })();
 </script>
@@ -122,34 +248,300 @@
 {
   "name": "Inside the bed",
   "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Label", "default": "Inside a Midsummer bed" },
-    { "type": "text", "id": "eyebrow_product", "label": "Label on a product page", "default": "Inside [name]", "info": "[name] becomes the product's name." },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Three parts, made as one." },
-    { "type": "textarea", "id": "text", "label": "Text", "default": "Every system is a topper, a mattress and a base, built together by the same two artisans and specified with you: size, firmness, fibres and cloth." },
-    { "type": "textarea", "id": "note", "label": "Note", "default": "The exact build of each system is shown at the atelier, with the fibres in your hands." },
-    { "type": "text", "id": "button", "label": "Button", "default": "See it at the atelier" },
-    { "type": "text", "id": "link_label", "label": "Link", "default": "Natural materials" },
-    { "type": "select", "id": "link_place", "label": "Link to", "default": "materials", "options": [{"value":"materials","label":"Natural materials"},{"value":"handmade","label":"Handmade in Italy"},{"value":"collections","label":"Compare the collections"},{"value":"icons","label":"Icons"},{"value":"regen","label":"Made to last"}] },
-    { "type": "header", "content": "The three parts" },
-    { "type": "text", "id": "part1_title", "label": "Part I", "default": "The topper" },
-    { "type": "textarea", "id": "part1_text", "label": "Part I text", "default": "The surface you feel first. Natural fibres chosen for the season, turned when the year turns." },
-    { "type": "image_picker", "id": "part1_image", "label": "Part I photograph" },
-    { "type": "text", "id": "part1_fallback", "label": "Part I photograph address", "default": "ms-photo-mattress-detail.jpg" },
-    { "type": "text", "id": "part2_title", "label": "Part II", "default": "The mattress" },
-    { "type": "textarea", "id": "part2_text", "label": "Part II text", "default": "The heart of the system. Support that follows the body through the night, finished by hand to the last stitch." },
-    { "type": "image_picker", "id": "part2_image", "label": "Part II photograph" },
-    { "type": "text", "id": "part2_fallback", "label": "Part II photograph address", "default": "ms-photo-tufting.jpg" },
-    { "type": "text", "id": "part3_title", "label": "Part III", "default": "The base" },
-    { "type": "textarea", "id": "part3_text", "label": "Part III text", "default": "The foundation, upholstered for your room in Loro Piana Interiors and made to carry the rest for thirty years." },
-    { "type": "image_picker", "id": "part3_image", "label": "Part III photograph" },
-    { "type": "text", "id": "part3_fallback", "label": "Part III photograph address", "default": "ms-photo-fabric-weave.jpg" },
-    { "type": "header", "content": "The hand" },
-    { "type": "text", "id": "mark1", "label": "Mark 1", "default": "Tufted by hand" },
-    { "type": "text", "id": "mark2", "label": "Mark 2", "default": "Borders stitched by hand" },
-    { "type": "text", "id": "mark3", "label": "Mark 3", "default": "Only natural fibres" },
-    { "type": "text", "id": "mark4", "label": "Mark 4", "default": "Loro Piana Interiors" },
-    { "type": "text", "id": "mark5", "label": "Mark 5", "default": "Regenerated at fifteen years" }
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Label",
+      "default": "Inside a Midsummer bed"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_product",
+      "label": "Label on a product page",
+      "default": "Inside [name]",
+      "info": "[name] becomes the product's name."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Three parts, made as one."
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "Every system is a topper, a mattress and a base, built together by the same two artisans and specified with you: size, firmness, fibres and cloth."
+    },
+    {
+      "type": "text",
+      "id": "hint",
+      "label": "Hint",
+      "default": "Open a part of the bed"
+    },
+    {
+      "type": "textarea",
+      "id": "note",
+      "label": "Note",
+      "default": "The exact build of each system is shown at the atelier, with the fibres in your hands."
+    },
+    {
+      "type": "text",
+      "id": "button",
+      "label": "Button",
+      "default": "See it at the atelier"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Link",
+      "default": "Natural materials"
+    },
+    {
+      "type": "select",
+      "id": "link_place",
+      "label": "Link to",
+      "default": "materials",
+      "options": [
+        {
+          "value": "materials",
+          "label": "Natural materials"
+        },
+        {
+          "value": "handmade",
+          "label": "Handmade in Italy"
+        },
+        {
+          "value": "collections",
+          "label": "Compare the collections"
+        },
+        {
+          "value": "icons",
+          "label": "Icons"
+        },
+        {
+          "value": "regen",
+          "label": "Made to last"
+        },
+        {
+          "value": "loro",
+          "label": "Loro Piana Interiors"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "back_label",
+      "label": "Back to the bed",
+      "default": "The whole bed"
+    },
+    {
+      "type": "text",
+      "id": "next_label",
+      "label": "Next part",
+      "default": "Next part"
+    },
+    {
+      "type": "text",
+      "id": "open_label",
+      "label": "Open a part (cards)",
+      "default": "Open"
+    },
+    {
+      "type": "text",
+      "id": "fibres_label",
+      "label": "Fibres label (opened parts)",
+      "default": "What we tend to use"
+    },
+    {
+      "type": "header",
+      "content": "Part I"
+    },
+    {
+      "type": "text",
+      "id": "part1_title",
+      "label": "Title",
+      "default": "The topper"
+    },
+    {
+      "type": "textarea",
+      "id": "part1_text",
+      "label": "Card text",
+      "default": "The surface you feel first. Natural fibres chosen for the season, turned when the year turns."
+    },
+    {
+      "type": "textarea",
+      "id": "part1_lead",
+      "label": "Opened: first line",
+      "default": "The surface you feel first, and the part that follows the seasons."
+    },
+    {
+      "type": "textarea",
+      "id": "part1_points",
+      "label": "Opened: points",
+      "info": "One per line.",
+      "default": "A summer face in linen and silk, a winter face in wool and cashmere: turned when the year turns, never replaced.\nFrom a fine topper over an existing bed to the full topper of a system, and Roma, with its own headboard.\nA removable covering in Loro Piana Interiors, embroidered on request."
+    },
+    {
+      "type": "text",
+      "id": "part1_fibres",
+      "label": "Fibres",
+      "info": "Separated by commas.",
+      "default": "Cashmere, Silk, Linen, Wool, Baby Alpaca, Yak Hair"
+    },
+    {
+      "type": "text",
+      "id": "part1_link_label",
+      "label": "Link",
+      "default": "Every fibre",
+      "info": "Leads to Natural materials."
+    },
+    {
+      "type": "image_picker",
+      "id": "part1_image",
+      "label": "Photograph"
+    },
+    {
+      "type": "text",
+      "id": "part1_fallback",
+      "label": "Photograph address",
+      "default": "ms-photo-mattress-detail.jpg"
+    },
+    {
+      "type": "header",
+      "content": "Part II"
+    },
+    {
+      "type": "text",
+      "id": "part2_title",
+      "label": "Title",
+      "default": "The mattress"
+    },
+    {
+      "type": "textarea",
+      "id": "part2_text",
+      "label": "Card text",
+      "default": "The heart of the system. Support that follows the body through the night, finished by hand to the last stitch."
+    },
+    {
+      "type": "textarea",
+      "id": "part2_lead",
+      "label": "Opened: first line",
+      "default": "The heart of the system: support that follows the body through the night."
+    },
+    {
+      "type": "textarea",
+      "id": "part2_points",
+      "label": "Opened: points",
+      "info": "One per line.",
+      "default": "A spring core built by hand, with natural fibres laid by hand around it.\nTufted and bordered by hand, by the same two artisans from the first gesture to the last stitch.\nIts feel is chosen with you, from enveloping to firm, and it is made to your size, round included.\nAt fifteen years it comes back to the atelier to be opened, cleaned and rebuilt for fifteen more."
+    },
+    {
+      "type": "text",
+      "id": "part2_fibres",
+      "label": "Fibres",
+      "info": "Separated by commas.",
+      "default": "Horsehair, Cheviot Wool, Cashmere, Organic Cotton, Baby Alpaca, Vegetable Horsehair"
+    },
+    {
+      "type": "text",
+      "id": "part2_link_label",
+      "label": "Link",
+      "default": "Made to last · 15 + 15",
+      "info": "Leads to Made to last."
+    },
+    {
+      "type": "image_picker",
+      "id": "part2_image",
+      "label": "Photograph"
+    },
+    {
+      "type": "text",
+      "id": "part2_fallback",
+      "label": "Photograph address",
+      "default": "ms-photo-tufting.jpg"
+    },
+    {
+      "type": "header",
+      "content": "Part III"
+    },
+    {
+      "type": "text",
+      "id": "part3_title",
+      "label": "Title",
+      "default": "The base"
+    },
+    {
+      "type": "textarea",
+      "id": "part3_text",
+      "label": "Card text",
+      "default": "The foundation, upholstered for your room in Loro Piana Interiors and made to carry the rest for thirty years."
+    },
+    {
+      "type": "textarea",
+      "id": "part3_lead",
+      "label": "Opened: first line",
+      "default": "The foundation, and the part of the bed the room sees."
+    },
+    {
+      "type": "textarea",
+      "id": "part3_points",
+      "label": "Opened: points",
+      "info": "One per line.",
+      "default": "Upholstered in Loro Piana Interiors, or in natural cloths, coloured linen among them.\nHeadboards drawn with you, in any height and line, without tooling charges.\nWith storage, in a slender profile, or round: the base follows the room.\nMade to carry the rest of the system for thirty years."
+    },
+    {
+      "type": "text",
+      "id": "part3_fibres",
+      "label": "Fibres",
+      "info": "Separated by commas.",
+      "default": "Loro Piana Interiors, Linen, Cotton"
+    },
+    {
+      "type": "text",
+      "id": "part3_link_label",
+      "label": "Link",
+      "default": "The whole palette",
+      "info": "Leads to Loro Piana Interiors."
+    },
+    {
+      "type": "image_picker",
+      "id": "part3_image",
+      "label": "Photograph"
+    },
+    {
+      "type": "text",
+      "id": "part3_fallback",
+      "label": "Photograph address",
+      "default": "ms-photo-fabric-weave.jpg"
+    },
+    {
+      "type": "header",
+      "content": "The hand"
+    },
+    {
+      "type": "text",
+      "id": "mark1",
+      "label": "Mark 1",
+      "default": "Tufted by hand"
+    },
+    {
+      "type": "text",
+      "id": "mark2",
+      "label": "Mark 2",
+      "default": "Borders stitched by hand"
+    },
+    {
+      "type": "text",
+      "id": "mark3",
+      "label": "Mark 3",
+      "default": "Only natural fibres"
+    }
   ],
-  "presets": [{ "name": "Inside the bed" }]
+  "presets": [
+    {
+      "name": "Inside the bed"
+    }
+  ]
 }
 {% endschema %}

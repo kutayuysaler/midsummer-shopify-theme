@@ -28,58 +28,392 @@
       "type": "ms-swatches",
       "settings": {
         "eyebrow": "The palette",
-        "heading": "Seven of the palette, shown here.",
-        "text": "<p>The full range, and your own cloth, at consultation. Each colour is seen and chosen against the bed at the atelier on Via Andegari.</p>",
-        "footnote": "Colours on screen are indicative; the cloth itself decides."
+        "heading": "The book, cloth by cloth.",
+        "text": "<p>Plain cloths of cashmere and wool, textured weaves, and the shades named in our collections. Choose a weave or a tone, open any cloth, and ask for it: the atelier on Via Andegari holds the full book, and sends samples by post.</p>",
+        "footnote": "Colours on screen are indicative and named here by tone; the atelier gives each cloth its reference, and the cloth itself decides."
       },
       "blocks": {
         "swatch_01": {
           "type": "swatch",
           "settings": {
-            "name": "Paisley",
-            "color": "#C4714A"
+            "name": "Blush",
+            "color": "#D3B8A8",
+            "family": "plain",
+            "tone": "neutral",
+            "image_fallback": "ms-loro-01.jpg"
           }
         },
         "swatch_02": {
           "type": "swatch",
           "settings": {
-            "name": "Kummel",
-            "color": "#8E8672"
+            "name": "Fawn",
+            "color": "#A07960",
+            "family": "plain",
+            "tone": "earth",
+            "image_fallback": "ms-loro-02.jpg"
           }
         },
         "swatch_03": {
           "type": "swatch",
           "settings": {
-            "name": "Tawny",
-            "color": "#A9764B"
+            "name": "Chestnut",
+            "color": "#442E24",
+            "family": "plain",
+            "tone": "earth",
+            "image_fallback": "ms-loro-03.jpg"
           }
         },
         "swatch_04": {
           "type": "swatch",
           "settings": {
-            "name": "Burnt Orange",
-            "color": "#B4552B"
+            "name": "Charcoal",
+            "color": "#23241E",
+            "family": "plain",
+            "tone": "neutral",
+            "image_fallback": "ms-loro-04.jpg"
           }
         },
         "swatch_05": {
           "type": "swatch",
           "settings": {
-            "name": "Earthy Neutral",
-            "color": "#C9BCA8"
+            "name": "Forest",
+            "color": "#333E2F",
+            "family": "plain",
+            "tone": "green",
+            "image_fallback": "ms-loro-05.jpg"
           }
         },
         "swatch_06": {
           "type": "swatch",
           "settings": {
-            "name": "Verdant Green",
-            "color": "#5E6B4F"
+            "name": "Olive",
+            "color": "#656338",
+            "family": "plain",
+            "tone": "green",
+            "image_fallback": "ms-loro-06.jpg"
           }
         },
         "swatch_07": {
           "type": "swatch",
           "settings": {
+            "name": "Ochre",
+            "color": "#8B6122",
+            "family": "plain",
+            "tone": "earth",
+            "image_fallback": "ms-loro-07.jpg"
+          }
+        },
+        "swatch_08": {
+          "type": "swatch",
+          "settings": {
+            "name": "Camel",
+            "color": "#BE986C",
+            "family": "plain",
+            "tone": "earth",
+            "image_fallback": "ms-loro-08.jpg"
+          }
+        },
+        "swatch_09": {
+          "type": "swatch",
+          "settings": {
+            "name": "Ivory",
+            "color": "#EBE3DA",
+            "family": "plain",
+            "tone": "neutral",
+            "image_fallback": "ms-loro-09.jpg"
+          }
+        },
+        "swatch_10": {
+          "type": "swatch",
+          "settings": {
+            "name": "Dove",
+            "color": "#C5B9B6",
+            "family": "plain",
+            "tone": "neutral",
+            "image_fallback": "ms-loro-10.jpg"
+          }
+        },
+        "swatch_11": {
+          "type": "swatch",
+          "settings": {
+            "name": "Espresso",
+            "color": "#3D302E",
+            "family": "plain",
+            "tone": "earth",
+            "image_fallback": "ms-loro-11.jpg"
+          }
+        },
+        "swatch_12": {
+          "type": "swatch",
+          "settings": {
+            "name": "Rust",
+            "color": "#852A1C",
+            "family": "plain",
+            "tone": "red",
+            "image_fallback": "ms-loro-12.jpg"
+          }
+        },
+        "swatch_13": {
+          "type": "swatch",
+          "settings": {
+            "name": "Scarlet",
+            "color": "#AB2221",
+            "family": "plain",
+            "tone": "red",
+            "image_fallback": "ms-loro-13.jpg"
+          }
+        },
+        "swatch_14": {
+          "type": "swatch",
+          "settings": {
+            "name": "Bordeaux",
+            "color": "#720A18",
+            "family": "plain",
+            "tone": "red",
+            "image_fallback": "ms-loro-14.jpg"
+          }
+        },
+        "swatch_15": {
+          "type": "swatch",
+          "settings": {
+            "name": "Oxblood",
+            "color": "#550113",
+            "family": "plain",
+            "tone": "red",
+            "image_fallback": "ms-loro-15.jpg"
+          }
+        },
+        "swatch_16": {
+          "type": "swatch",
+          "settings": {
+            "name": "Aubergine",
+            "color": "#331926",
+            "family": "plain",
+            "tone": "red",
+            "image_fallback": "ms-loro-16.jpg"
+          }
+        },
+        "swatch_17": {
+          "type": "swatch",
+          "settings": {
+            "name": "Ink",
+            "color": "#100F17",
+            "family": "plain",
+            "tone": "blue",
+            "image_fallback": "ms-loro-17.jpg"
+          }
+        },
+        "swatch_18": {
+          "type": "swatch",
+          "settings": {
+            "name": "Midnight",
+            "color": "#0E101E",
+            "family": "plain",
+            "tone": "blue",
+            "image_fallback": "ms-loro-18.jpg"
+          }
+        },
+        "swatch_19": {
+          "type": "swatch",
+          "settings": {
+            "name": "Navy",
+            "color": "#1F273E",
+            "family": "plain",
+            "tone": "blue",
+            "image_fallback": "ms-loro-19.jpg"
+          }
+        },
+        "swatch_20": {
+          "type": "swatch",
+          "settings": {
+            "name": "Slate",
+            "color": "#636D75",
+            "family": "plain",
+            "tone": "blue",
+            "image_fallback": "ms-loro-20.jpg"
+          }
+        },
+        "swatch_21": {
+          "type": "swatch",
+          "settings": {
+            "name": "Pearl",
+            "color": "#CFCBC5",
+            "family": "woven",
+            "tone": "neutral",
+            "image_fallback": "ms-loro-21.jpg"
+          }
+        },
+        "swatch_22": {
+          "type": "swatch",
+          "settings": {
+            "name": "Oat",
+            "color": "#CFC5B7",
+            "family": "woven",
+            "tone": "neutral",
+            "image_fallback": "ms-loro-22.jpg"
+          }
+        },
+        "swatch_23": {
+          "type": "swatch",
+          "settings": {
+            "name": "Sand",
+            "color": "#BCAE9B",
+            "family": "woven",
+            "tone": "neutral",
+            "image_fallback": "ms-loro-23.jpg"
+          }
+        },
+        "swatch_24": {
+          "type": "swatch",
+          "settings": {
+            "name": "Taupe",
+            "color": "#978278",
+            "family": "woven",
+            "tone": "earth",
+            "image_fallback": "ms-loro-24.jpg"
+          }
+        },
+        "swatch_25": {
+          "type": "swatch",
+          "settings": {
+            "name": "Eucalyptus",
+            "color": "#718788",
+            "family": "woven",
+            "tone": "blue",
+            "image_fallback": "ms-loro-25.jpg"
+          }
+        },
+        "swatch_26": {
+          "type": "swatch",
+          "settings": {
+            "name": "Mist",
+            "color": "#A2B2B9",
+            "family": "woven",
+            "tone": "blue",
+            "image_fallback": "ms-loro-26.jpg"
+          }
+        },
+        "swatch_27": {
+          "type": "swatch",
+          "settings": {
+            "name": "Indigo",
+            "color": "#292942",
+            "family": "woven",
+            "tone": "blue",
+            "image_fallback": "ms-loro-27.jpg"
+          }
+        },
+        "swatch_28": {
+          "type": "swatch",
+          "settings": {
+            "name": "Stone",
+            "color": "#A19893",
+            "family": "woven",
+            "tone": "neutral",
+            "image_fallback": "ms-loro-28.jpg"
+          }
+        },
+        "swatch_29": {
+          "type": "swatch",
+          "settings": {
+            "name": "Mulberry",
+            "color": "#382325",
+            "family": "woven",
+            "tone": "red",
+            "image_fallback": "ms-loro-29.jpg"
+          }
+        },
+        "swatch_30": {
+          "type": "swatch",
+          "settings": {
+            "name": "Claret",
+            "color": "#662023",
+            "family": "woven",
+            "tone": "red",
+            "image_fallback": "ms-loro-30.jpg"
+          }
+        },
+        "swatch_31": {
+          "type": "swatch",
+          "settings": {
+            "name": "Crimson",
+            "color": "#912021",
+            "family": "woven",
+            "tone": "red",
+            "image_fallback": "ms-loro-31.jpg"
+          }
+        },
+        "swatch_32": {
+          "type": "swatch",
+          "settings": {
+            "name": "Moss",
+            "color": "#5C523C",
+            "family": "woven",
+            "tone": "green",
+            "image_fallback": "ms-loro-32.jpg"
+          }
+        },
+        "swatch_33": {
+          "type": "swatch",
+          "settings": {
+            "name": "Paisley",
+            "color": "#C4714A",
+            "family": "named",
+            "tone": "earth"
+          }
+        },
+        "swatch_34": {
+          "type": "swatch",
+          "settings": {
+            "name": "Kummel",
+            "color": "#8E8672",
+            "family": "named",
+            "tone": "neutral"
+          }
+        },
+        "swatch_35": {
+          "type": "swatch",
+          "settings": {
+            "name": "Tawny",
+            "color": "#A9764B",
+            "family": "named",
+            "tone": "earth"
+          }
+        },
+        "swatch_36": {
+          "type": "swatch",
+          "settings": {
+            "name": "Burnt Orange",
+            "color": "#B4552B",
+            "family": "named",
+            "tone": "earth"
+          }
+        },
+        "swatch_37": {
+          "type": "swatch",
+          "settings": {
+            "name": "Earthy Neutral",
+            "color": "#C9BCA8",
+            "family": "named",
+            "tone": "neutral"
+          }
+        },
+        "swatch_38": {
+          "type": "swatch",
+          "settings": {
+            "name": "Verdant Green",
+            "color": "#5E6B4F",
+            "family": "named",
+            "tone": "green"
+          }
+        },
+        "swatch_39": {
+          "type": "swatch",
+          "settings": {
             "name": "Muted Blue",
-            "color": "#6B7E8C"
+            "color": "#6B7E8C",
+            "family": "named",
+            "tone": "blue"
           }
         }
       },
@@ -90,7 +424,39 @@
         "swatch_04",
         "swatch_05",
         "swatch_06",
-        "swatch_07"
+        "swatch_07",
+        "swatch_08",
+        "swatch_09",
+        "swatch_10",
+        "swatch_11",
+        "swatch_12",
+        "swatch_13",
+        "swatch_14",
+        "swatch_15",
+        "swatch_16",
+        "swatch_17",
+        "swatch_18",
+        "swatch_19",
+        "swatch_20",
+        "swatch_21",
+        "swatch_22",
+        "swatch_23",
+        "swatch_24",
+        "swatch_25",
+        "swatch_26",
+        "swatch_27",
+        "swatch_28",
+        "swatch_29",
+        "swatch_30",
+        "swatch_31",
+        "swatch_32",
+        "swatch_33",
+        "swatch_34",
+        "swatch_35",
+        "swatch_36",
+        "swatch_37",
+        "swatch_38",
+        "swatch_39"
       ]
     },
     "s04": {

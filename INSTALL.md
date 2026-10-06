@@ -518,4 +518,32 @@ them against how the beds are really made.
 - **Letters from the atelier**: newsletter on the home page and the Journal.
 - **Clients' words**: on the home page, hidden until you add quotes in the theme editor.
 
+## 15. New in this round: palette, the bed opened, fibres, notes
+
+- **The whole Loro Piana Interiors palette** on the Loro Piana Interiors page: 39 cloths. That is
+  32 photographed from your colour cards (Drive, *Loro Piana Interiors Color Scheme*: 20 plain
+  cloths and 12 textured weaves) plus the 7 shades named in the collections. Visitors filter by
+  weave and by tone, open any cloth large, and *Ask about this cloth* opens the enquiry with the
+  cloth's name already written. The cards carry no names, so the photographed cloths are named
+  here by tone (Blush, Camel, Bordeaux…). In the theme editor (Fabric palette → each Cloth) you
+  can rename them with the atelier's references, replace a photograph, or add cloths (up to 50).
+  Product pages show a row of these cloths, leading to the whole palette.
+- **Inside the bed, opened**: on the home page and every product page, select the topper, the
+  mattress or the base (in the drawing, the buttons or the photographs). The part lifts away and
+  the words beside it open on that part: what it does, the choices it comes in (seasonal faces,
+  Roma with its headboard, a removable Loro Piana Interiors covering embroidered on request;
+  storage, slender or round bases; headboards to your drawing), and the fibres we tend to use,
+  each with its mark. There are no layers, counts or heights, and nothing of the technique.
+  Every line can be edited in the theme editor (Inside the bed → Part I, II, III; points are
+  one per line, fibres are separated by commas).
+- **Drawn fibre marks**: each fibre now has its own drawing in one thin line, replacing the
+  letters: sheep for the wools, a goat for cashmere and mohair, a camelid for alpaca and vicuña,
+  a camel, a yak, a horse for horsehair, a cocoon for silk, a flax flower for linen, a cotton
+  boll, a palm for vegetable horsehair, corn for Ingeo™, an orange slice for Orange Fiber and a
+  hemp leaf. An unknown fibre gets a woven thread.
+- **The end of a Journal note**: the share line, then a sign-off from the atelier (book an
+  appointment, all notes, more on the same subject), then the previous and next notes with their
+  titles, pictures, subject and date. The empty boxes and the double underline are gone. *More
+  notes* leaves out those two neighbours when the Journal has enough other notes.
+
 See AUDIT.md for the homepage audit and what competitors have that is still to add.
