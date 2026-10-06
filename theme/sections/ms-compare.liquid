@@ -52,6 +52,7 @@
           </a>
         {%- endfor -%}
       </div>
+      <div class="ms-cmp__stick" aria-hidden="true"><span>{{ s.col1_name }}</span><span>{{ s.col2_name }}</span><span>{{ s.col3_name }}</span></div>
       {%- for block in section.blocks -%}
         {%- assign b = block.settings -%}
         <div class="ms-cmp__row{% if b.shared %} is-shared{% endif %}" role="row" {{ block.shopify_attributes }}>
@@ -140,6 +141,7 @@
   .ms-cmp__yes { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #7E623B; vertical-align: middle; }
   .ms-cmp__no { color: #A8A094; }
   .ms-cmp__mlabel { display: none; }
+  .ms-cmp__stick { display: none; }
   .ms-cmp__row--go { border-bottom: 0; padding-top: 26px; }
   .ms-site a.ms-cmp__go { display: inline-flex; gap: 10px; font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: #17140F; border-bottom: 1px solid currentColor; padding-bottom: 6px; }
   .ms-cmp__help { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px 48px; margin-top: clamp(56px, 7vw, 110px); padding: clamp(28px, 3.4vw, 48px); background: #F3EEE5; }
@@ -155,10 +157,11 @@
     .ms-cmp__row { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px 14px; }
     .ms-cmp__label { grid-column: 1 / -1; }
     .ms-cmp__row--cols .ms-cmp__label, .ms-cmp__row--go .ms-cmp__label { display: none; }
-    .ms-cmp__name { font-size: 20px; }
+    .ms-cmp__name, .ms-cmp__num { display: none; }
     .ms-cmp__line { display: none; }
     .ms-cmp__cell { font-size: 13.5px; }
-    .ms-site a.ms-cmp__go { font-size: 9.5px; letter-spacing: .14em; }
+    .ms-cmp__stick { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; position: sticky; top: 0; z-index: 2; background: rgba(251, 249, 245, .96); backdrop-filter: blur(6px); padding: 12px 0 10px; border-bottom: 1px solid #17140F; font-family: Newsreader, Georgia, serif; font-size: 17px; }
+    .ms-site a.ms-cmp__go { font-size: 9.5px; letter-spacing: .06em; gap: 6px; }
   }
 </style>
 

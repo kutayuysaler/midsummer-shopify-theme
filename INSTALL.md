@@ -546,4 +546,20 @@ them against how the beds are really made.
   titles, pictures, subject and date. The empty boxes and the double underline are gone. *More
   notes* leaves out those two neighbours when the Journal has enough other notes.
 
+## 16. Phone pass
+
+Every page was reviewed screen by screen at phone size (390 px), as a phone shows it.
+
+- **Questions & customer care**: the "Not here? Ask us directly" note no longer floats over the
+  questions on a phone (it stays beside them on a computer).
+- **Compare the collections**: on a phone the names Essentials · Signature · Icons stay pinned
+  above the table while you scroll the rows.
+- **Enquiry sheet**: on a phone the form gets the whole sheet (the atelier's address stays on
+  the enquiry page and in the footer).
+- **"Where to go from here" cards** and **search results**: two to a row on a phone instead of
+  one full-screen card each.
+- **Discretion**: the last mentions of spring layers ("Six spring layers over the Vivaldi core",
+  "over a micro spring layer", the stages on Handmade in Italy) now speak of the result, not the
+  build.
+
 See AUDIT.md for the homepage audit and what competitors have that is still to add.

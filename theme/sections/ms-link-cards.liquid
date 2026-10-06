@@ -39,6 +39,12 @@
   .ms-lc__line { font-size: 13.5px; line-height: 1.75; color: #4A443B; margin-top: 8px; }
   .ms-lc__go { align-self: flex-start; margin-top: 12px; font-size: 16px; color: #7E623B; transition: transform .45s cubic-bezier(.2,.7,.2,1); }
   .ms-lc__card:hover .ms-lc__go { transform: translateX(6px); }
+  @media (max-width: 700px) {
+    .ms-lc__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 14px; }
+    .ms-lc__img { aspect-ratio: 1; }
+    .ms-lc__name { font-size: 18px; margin-top: 12px; padding-right: 0; }
+    .ms-lc__line { font-size: 12.5px; line-height: 1.6; }
+  }
 </style>
 
 {% schema %}

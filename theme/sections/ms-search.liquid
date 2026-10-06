@@ -11,7 +11,7 @@
 {%- if search.performed -%}
 <section style="padding: 0px clamp(18px, 5vw, 80px) clamp(70px, 10vw, 150px); max-width: 1560px; margin: 0px auto;">
 {%- paginate search.results by 24 -%}
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: clamp(24px, 4vw, 48px);">
+<div class="ms-sr-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: clamp(24px, 4vw, 48px);">
 {%- for item in search.results -%}
 {%- liquid
   assign pic = nil
@@ -48,6 +48,7 @@
 {%- endpaginate -%}
 </section>
 {%- endif -%}
+<style>@media (max-width: 600px) { .ms-sr-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 24px 14px !important; } }</style>
 {% schema %}
 {
   "name": "Search",

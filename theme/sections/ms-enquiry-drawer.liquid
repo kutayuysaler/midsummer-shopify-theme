@@ -60,10 +60,11 @@
 <a data-ms="cta" href="{% render 'ms-link', to: 'enquire' %}" style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92);">{{ section.settings.t24 }}</a>
 </div>
 </div>{%- endform -%}</div>
-<footer style="flex: 0 0 auto; border-top: 1px solid rgb(221, 214, 201); background: rgb(241, 236, 227); padding: clamp(22px, 2.6vw, 32px) clamp(22px, 3.4vw, 48px); display: flex; flex-wrap: wrap; gap: 22px 44px;">
+<footer class="ms-sheet-foot" style="flex: 0 0 auto; border-top: 1px solid rgb(221, 214, 201); background: rgb(241, 236, 227); padding: clamp(22px, 2.6vw, 32px) clamp(22px, 3.4vw, 48px); display: flex; flex-wrap: wrap; gap: 22px 44px;">
 <div style="display: flex; flex-direction: column; gap: 7px;">{{ section.settings.t25 }}</div>
 <div style="display: flex; flex-direction: column; gap: 7px;">{{ section.settings.t26 }}</div>
 </footer></aside></div>
+<style>@media (max-width: 600px) { .ms-sheet-foot { display: none !important; } }</style>
 {% schema %}
 {
   "name": "Enquiry sheet",
