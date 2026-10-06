@@ -2,7 +2,7 @@
   assign ms_show = true
   if template.name == 'page'
     assign ms_show = false
-    assign ms_ours = 'agents-and-resellers,agents-resellers,collections,contact,download-the-dream,faq,find-your-midsummer,handmade-in-italy,hospitality,loro-piana-interiors,natural-materials,professionals,regeneration,salone-2026,sleep-assesment,sleep-culture,story,sustainability' | split: ','
+    assign ms_ours = 'agents-and-resellers,agents-resellers,atelier,collections,compare,contact,download-the-dream,faq,find-your-midsummer,handmade-in-italy,hospitality,loro-piana-interiors,natural-materials,professionals,regeneration,salone-2026,sleep-assesment,sleep-culture,story,sustainability' | split: ','
     if ms_ours contains template.suffix
       assign ms_show = true
     else
@@ -18,14 +18,23 @@
 -%}
 {%- if ms_show -%}
 <section style="padding: 0px clamp(18px, 5vw, 80px) clamp(70px, 10vw, 150px); max-width: 1560px; margin: 0px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(28px, 5vw, 88px); align-items: start;">
-<div data-dc-tpl="1137" style="max-width: 40ch;">
+<div data-dc-tpl="1137" style="max-width: 40ch; position: sticky; top: 120px;">
 <div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgb(110, 103, 92);">{{ section.settings.t1 }}</div>
 <p style="font-size: 15px; line-height: 1.95; color: rgb(74, 68, 59); margin-top: 16px;">{{ section.settings.t2 }}</p>
 <a data-ms="cta" data-ms-enquire="" href="{% render 'ms-link', to: 'contact' %}" style="display: inline-block; margin-top: 20px; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; border-bottom: 1px solid rgb(23, 20, 15); padding-bottom: 7px;">{{ section.settings.t3 }}</a>
 </div>
 <div>
+{%- assign topics = section.blocks | where: 'type', 'topic' -%}
+{%- if topics.size > 1 -%}
+<nav class="ms-faq-topics" aria-label="Topics">{%- for tb in topics -%}<a href="#{{ tb.settings.title | handleize }}">{{ tb.settings.title }}</a>{%- endfor -%}</nav>
+{%- endif -%}
+{%- assign opened = false -%}
 {%- for block in section.blocks -%}
-<details {{ block.shopify_attributes }}{% if forloop.first %} open{% endif %} style="border-top: 1px solid rgb(221, 214, 201);{% if forloop.last %} border-bottom: 1px solid rgb(221, 214, 201);{% endif %}">
+{%- if block.type == 'topic' -%}
+<h2 class="ms-faq-topic" id="{{ block.settings.title | handleize }}" {{ block.shopify_attributes }}>{{ block.settings.title }}</h2>
+{%- continue -%}
+{%- endif -%}
+<details {{ block.shopify_attributes }}{% unless opened %} open{% endunless %} style="border-top: 1px solid rgb(221, 214, 201);{% if forloop.last %} border-bottom: 1px solid rgb(221, 214, 201);{% endif %}">{%- assign opened = true -%}
 <summary style="display: flex; align-items: baseline; justify-content: space-between; gap: 24px; padding: 24px 0px; cursor: pointer; list-style: none;">
 <span style="font-family: Newsreader, Georgia, serif; font-size: clamp(18px, 1.9vw, 23px); line-height: 1.3;">{{ block.settings.question }}</span>
 <span aria-hidden="true" data-ms-sign style="flex: 0 0 auto; font-size: 15px; color: rgb(126, 98, 59); margin-top: 4px;"></span>
@@ -40,11 +49,19 @@
   #shopify-section-{{ section.id }} details [data-ms-sign]::after { content: '+'; }
   #shopify-section-{{ section.id }} details[open] [data-ms-sign]::after { content: '−'; }
   #shopify-section-{{ section.id }} details > div p { margin: 0; }
+  #shopify-section-{{ section.id }} details > div p + p { margin-top: 12px; }
+  #shopify-section-{{ section.id }} details > div a { color: #17140F; text-decoration: underline; text-underline-offset: 3px; }
+  .ms-faq-topics { display: flex; flex-wrap: wrap; gap: 8px 22px; padding-bottom: 22px; margin-bottom: 8px; }
+  .ms-site .ms-faq-topics a { font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: #6E675C; padding: 8px 0; border-bottom: 1px solid #DDD6C9; }
+  .ms-site .ms-faq-topics a:hover { color: #17140F; border-bottom-color: #17140F; }
+  .ms-faq-topic { font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: clamp(24px, 2.4vw, 32px); letter-spacing: -0.02em; margin: clamp(36px, 4vw, 56px) 0 14px; scroll-margin-top: 110px; }
+  .ms-faq-topic:first-of-type { margin-top: 12px; }
 </style>
 {%- if section.settings.schema -%}
 <script type="application/ld+json">
 {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
-{%- for block in section.blocks -%}
+{%- assign qs = section.blocks | where: 'type', 'question' -%}
+{%- for block in qs -%}
 {"@type": "Question", "name": {{ block.settings.question | json }}, "acceptedAnswer": {"@type": "Answer", "text": {{ block.settings.answer | strip_html | json }}}}{% unless forloop.last %},{% endunless %}
 {%- endfor -%}
 ]}
@@ -80,8 +97,9 @@
       "default": true
     }
   ],
-  "max_blocks": 30,
+  "max_blocks": 50,
   "blocks": [
+    { "type": "topic", "name": "Topic", "settings": [ { "type": "text", "id": "title", "label": "Topic" } ] },
     {
       "type": "question",
       "name": "Question",

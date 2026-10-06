@@ -1,0 +1,32 @@
+/*
+ * Midsummer Milano: the Icons collection, reachable whatever the store calls it (?view=ms-icons).
+ */
+{
+  "layout": "ms",
+  "sections": {
+    "s01": {
+      "type": "ms-banner",
+      "settings": {
+        "image_fallback": "ms-graded-arches.jpg",
+        "eyebrow": "Collection III",
+        "use_page_title": false,
+        "heading": "Icons",
+        "height": "tall",
+        "text": "The most important pieces we make: completely bespoke, fully upholstered in Loro Piana Interiors, with no detail overlooked."
+      }
+    },
+    "s02": {
+      "type": "ms-curated",
+      "settings": {
+        "tier": "icons",
+        "eyebrow": "The systems",
+        "heading": "Every one made to order.",
+        "text": "Each system is specified with you, at the atelier or by video: dimensions, firmness, fibres and cloth. Prices on request."
+      }
+    }
+  },
+  "order": [
+    "s01",
+    "s02"
+  ]
+}

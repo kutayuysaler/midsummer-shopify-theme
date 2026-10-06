@@ -1,0 +1,66 @@
+{%- comment -%}
+  The mark of a natural fibre: two letters in a ring, like a table of elements. The ring says
+  the family: solid for animal fibres, dashed for plant fibres, dotted for silk.
+  Usage: {% render 'ms-fibre-mark', name: 'Baby Alpaca', size: 40 %}
+{%- endcomment -%}
+{%- liquid
+  assign n = name | downcase | strip
+  assign fam = 'animal'
+  case n
+    when 'vicuña', 'vicuna'
+      assign ab = 'Vi'
+    when 'cashmere'
+      assign ab = 'Cs'
+    when 'baby alpaca', 'alpaca', 'alpaca wool'
+      assign ab = 'Al'
+    when 'cheviot wool', 'cheviot'
+      assign ab = 'Ch'
+    when 'falkland wool', 'falkland'
+      assign ab = 'Fk'
+    when 'merino', 'merino wool'
+      assign ab = 'Me'
+    when 'wool', 'wool felt'
+      assign ab = 'Wo'
+    when 'horsehair', 'horse hair'
+      assign ab = 'Hh'
+    when 'mohair'
+      assign ab = 'Mo'
+    when 'yak hair', 'yak'
+      assign ab = 'Yk'
+    when 'camel hair', 'camelhair', 'camel'
+      assign ab = 'Cm'
+    when 'silk'
+      assign ab = 'Si'
+      assign fam = 'silk'
+    when 'linen'
+      assign ab = 'Li'
+      assign fam = 'plant'
+    when 'cotton', 'organic cotton', 'cotton fabric'
+      assign ab = 'Co'
+      assign fam = 'plant'
+    when 'vegetable horsehair'
+      assign ab = 'Vh'
+      assign fam = 'plant'
+    when 'ingeo', 'ingeo™', 'linen and ingeo™', 'linen and ingeo'
+      assign ab = 'In'
+      assign fam = 'plant'
+    when 'orange fiber', 'orange fibre'
+      assign ab = 'Or'
+      assign fam = 'plant'
+    when 'hemp'
+      assign ab = 'He'
+      assign fam = 'plant'
+    else
+      assign ab = name | strip | slice: 0, 2 | capitalize
+  endcase
+  assign sz = size | default: 40
+  case fam
+    when 'plant'
+      assign dash = '3 2.4'
+    when 'silk'
+      assign dash = '0.6 2.4'
+    else
+      assign dash = ''
+  endcase
+-%}
+<svg class="ms-fm ms-fm--{{ fam }}" viewBox="0 0 40 40" width="{{ sz }}" height="{{ sz }}" aria-hidden="true" focusable="false"><circle cx="20" cy="20" r="18.5" fill="none" stroke="currentColor" stroke-width="1"{% if dash != '' %} stroke-dasharray="{{ dash }}" stroke-linecap="round"{% endif %}/><text x="20" y="25" text-anchor="middle" font-family="Newsreader, Georgia, serif" font-size="15" font-weight="300" fill="currentColor">{{ ab }}</text></svg>

@@ -34,6 +34,9 @@
   capture u_hosp
     render 'ms-link', to: 'hospitality'
   endcapture
+  capture u_atelier
+    render 'ms-link', to: 'atelier'
+  endcapture
   capture u_agents
     render 'ms-link', to: 'agents'
   endcapture
@@ -162,7 +165,7 @@
 {{ u_pro }}|{{ ss.mg_p1 }}|{{ ss.mg_p1_note }}|{{ 'ms-photo-fresco-bed.jpg' | asset_url }}|
 §{{ u_hosp }}|{{ ss.mg_p2 }}|{{ ss.mg_p2_note }}|{{ 'ms-photo-glass-house.jpg' | asset_url }}|
 §{{ u_portfolio }}|{{ ss.mg_p3 }}|{{ ss.mg_p3_note }}|{{ 'ms-graded-arches.jpg' | asset_url }}|
-§{{ u_partner }}#enquire|{{ ss.mg_p4 }}|{{ ss.mg_p4_note }}|{{ cdn }}Top_deserto_mobile5.jpg?width=900|landing
+§{{ u_partner }}#enquire|{{ ss.mg_p4 }}|{{ ss.mg_p4_note }}|{{ 'ms-photo-atelier-pure.jpg' | asset_url }}|landing
 §{{ u_trade }}#enquire|{{ ss.mg_p5 }}|{{ ss.mg_p5_note }}|{{ cdn }}Vicuna-mattress.jpg?width=900|landing
 {%- endcapture -%}
 {%- render 'ms-mega-panel', key: 'pro', no: '03', title: ss.t3, lede: ss.mg_pro_lede, items: items, feature: ss.mg_img_pro, foot: foot, cta1_url: u_agents, cta1_label: ss.mg_pro_cta1 -%}
@@ -176,11 +179,25 @@
       <p class="ms-mg__lede">{{ ss.mg_journal_lede }}</p>
       <ul class="ms-mg__minor" role="list">
         <li><a href="{{ u_journal }}">{{ ss.mg_all_notes }}</a></li>
-        {%- assign subjects = 'sleep,materials,design' | split: ',' -%}
-        {%- for t in subjects -%}
-          {%- capture tu -%}{% render 'ms-link', to: 'journal-tag', tag: t %}{%- endcapture -%}
-          {%- if tu != blank -%}<li><a href="{{ tu }}">{{ t | capitalize }}</a></li>{%- endif -%}
-        {%- endfor -%}
+        {%- comment -%} the Journal's subjects, the same list and the same filing as the Journal page {%- endcomment -%}
+        {%- if ms_blog -%}
+          {%- liquid
+            assign present = ''
+            for a in ms_blog.articles limit: 30
+              capture c
+                render 'ms-note-cat', a: a
+              endcapture
+              assign present = present | append: ',' | append: c
+            endfor
+            capture allcats
+              render 'ms-note-cat', list: true
+            endcapture
+            assign allcats = allcats | split: ','
+          -%}
+          {%- for k in allcats -%}
+            {%- if present contains k -%}<li><a href="{{ u_journal }}?cat={{ k }}">{% render 'ms-note-cat', label: k %}</a></li>{%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
         {%- if u_press != blank -%}<li><a href="{{ u_press }}">{{ ss.mg_press }}</a></li>{%- endif -%}
         {%- if u_collab != blank -%}<li><a href="{{ u_collab }}">{{ ss.mg_collab }}</a></li>{%- endif -%}
       </ul>
@@ -190,7 +207,8 @@
         {%- for a in ms_blog.articles limit: 3 -%}
           <a class="ms-mg__card ms-mg__card--note" href="{{ a.url }}" style="--i: {{ forloop.index }};">
             <span class="ms-mg__cimg">{%- if a.image -%}<img src="{{ a.image | image_url: width: 900 }}" alt="{{ a.title | escape }}" width="900" height="600" loading="lazy">{%- endif -%}</span>
-            <span class="ms-mg__ctag">{{ a.tags.first | default: ss.mg_note_label }}</span>
+            {%- capture ac -%}{% render 'ms-note-cat', a: a %}{%- endcapture -%}
+            <span class="ms-mg__ctag">{% if ac != '' %}{% render 'ms-note-cat', label: ac %}{% else %}{{ ss.mg_note_label }}{% endif %}</span>
             <span class="ms-mg__cname">{{ a.title }}</span>
           </a>
         {%- endfor -%}
@@ -210,9 +228,9 @@
 {%- capture items -%}
 {{ u_appointment }}#enquire|{{ ss.mg_c1 }}|{{ ss.mg_c1_note }}|{{ 'ms-photo-villa-doorway.jpg' | asset_url }}|landing
 §{{ u_agents }}|{{ ss.mg_c2 }}|{{ ss.mg_c2_note }}|{{ 'ms-graded-arches.jpg' | asset_url }}|
-§{{ u_agents }}#atelier|{{ ss.mg_c5 }}|{{ ss.mg_c5_note }}|{{ 'ms-photo-atelier-orange-bed.jpg' | asset_url }}|
-§{{ u_enquire }}#direct|{{ ss.mg_c3 }}|{{ ss.mg_c3_note }}|{{ cdn }}Paisley_IMG_4918_low_70960abc-6877-49b2-abc8-0bd379994114.jpg?width=900|landing
-{%- if settings.ms_social_whatsapp != blank -%}§{{ settings.ms_social_whatsapp }}|WhatsApp|{{ ss.mg_c4_note }}|{{ cdn }}Paisley_IMG_5161_low.jpg?width=900|external{%- endif -%}
+§{{ u_atelier }}|{{ ss.mg_c5 }}|{{ ss.mg_c5_note }}|{{ 'ms-photo-atelier-orange-bed.jpg' | asset_url }}|
+§{{ u_enquire }}#direct|{{ ss.mg_c3 }}|{{ ss.mg_c3_note }}|{{ 'ms-photo-linen-sheets.jpg' | asset_url }}|landing
+{%- if settings.ms_social_whatsapp != blank -%}§{{ settings.ms_social_whatsapp }}|WhatsApp|{{ ss.mg_c4_note }}|{{ 'ms-photo-atelier-sun.jpg' | asset_url }}|external{%- endif -%}
 §{{ u_faq }}|{{ ss.mg_c6 }}|{{ ss.mg_c6_note }}|{{ 'ms-graded-dune.jpg' | asset_url }}|
 {%- endcapture -%}
 {%- capture u_enq_cta -%}{{ u_enquire }}#enquire{%- endcapture -%}
@@ -246,7 +264,7 @@
   .ms-mg__n { font-size: 10.5px; letter-spacing: .14em; color: #7E623B; font-variant-numeric: tabular-nums; }
   .ms-mg__t { font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: clamp(21px, 1.85vw, 29px); line-height: 1.15; letter-spacing: -0.015em; transition: transform .45s cubic-bezier(.2,.7,.2,1), color .3s ease; }
   .ms-mg__d { font-size: 12.5px; line-height: 1.5; color: #6E675C; text-align: right; transition: color .3s ease; }
-  .ms-mg__item:hover .ms-mg__t, .ms-mg__item:focus-visible .ms-mg__t, .ms-mg__item.is-on .ms-mg__t { transform: translateX(10px); }
+  .ms-mg__item:hover .ms-mg__t, .ms-mg__item:focus-visible .ms-mg__t { transform: translateX(10px); }
   .ms-mg__list:hover .ms-mg__item:not(:hover) .ms-mg__t { color: #A39C90; }
   .ms-mg__item:hover .ms-mg__d, .ms-mg__item.is-on .ms-mg__d { color: #4A443B; }
   .ms-mg__fig { margin: 0; position: sticky; top: 0; animation: msMgIn .7s .12s cubic-bezier(.2,.7,.2,1) both; }

@@ -2,7 +2,7 @@
   assign ms_show = true
   if template.name == 'page'
     assign ms_show = false
-    assign ms_ours = 'agents-and-resellers,agents-resellers,collections,contact,download-the-dream,faq,find-your-midsummer,handmade-in-italy,hospitality,loro-piana-interiors,natural-materials,professionals,regeneration,salone-2026,sleep-assesment,sleep-culture,story,sustainability' | split: ','
+    assign ms_ours = 'agents-and-resellers,agents-resellers,atelier,collections,compare,contact,download-the-dream,faq,find-your-midsummer,handmade-in-italy,hospitality,loro-piana-interiors,natural-materials,professionals,regeneration,salone-2026,sleep-assesment,sleep-culture,story,sustainability' | split: ','
     if ms_ours contains template.suffix
       assign ms_show = true
     else
@@ -683,6 +683,35 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', msSlInit); else msSlInit();
   document.addEventListener('shopify:section:load', function () { setTimeout(msSlInit, 0); });
   })();
+</script>
+
+{%- comment -%} Every place, readable by search engines and AI assistants: where Midsummer beds can be seen. {%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": {{ section.settings.heading | strip_html | append: ' · Midsummer Milano' | json }},
+  "itemListElement": [
+    {%- for block in section.blocks -%}
+    {%- assign b = block.settings -%}
+    {
+      "@type": "ListItem",
+      "position": {{ forloop.index }},
+      "item": {
+        "@type": {% if b.kind == 'atelier' %}"FurnitureStore"{% else %}"LocalBusiness"{% endif %},
+        "name": {{ b.name | json }},
+        {%- if b.note != blank %}"description": {{ b.note | strip_html | json }},{% endif %}
+        "address": { "@type": "PostalAddress", "streetAddress": {{ b.address | default: '' | json }}, "addressLocality": {{ b.city | json }}, "addressCountry": {{ b.country | json }} },
+        {%- if b.lat != blank and b.lon != blank %}"geo": { "@type": "GeoCoordinates", "latitude": {{ b.lat | json }}, "longitude": {{ b.lon | json }} },{% endif %}
+        {%- if b.phone != blank %}"telephone": {{ b.phone | json }},{% endif %}
+        {%- if b.email != blank %}"email": {{ b.email | json }},{% endif %}
+        {%- if b.website != blank %}"url": {{ b.website | json }},{% endif %}
+        "brand": { "@type": "Brand", "name": "Midsummer Milano" }
+      }
+    }{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  ]
+}
 </script>
 {%- endif -%}
 {% schema %}

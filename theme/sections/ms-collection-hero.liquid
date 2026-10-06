@@ -9,10 +9,10 @@
       assign fallback = 'https://midsummer-milano.com/cdn/shop/files/dreamy_spiaggia.jpg?v=1627027099&width=1400'
     when 'icons'
       assign numeral = 'III'
-      assign fallback = 'https://midsummer-milano.com/cdn/shop/files/Top_deserto_mobile5.jpg?v=1683628697&width=1400'
+      assign fallback = 'ms-photo-atelier-pure.jpg' | asset_url
     else
       assign numeral = ''
-      assign fallback = 'https://midsummer-milano.com/cdn/shop/files/Top_deserto_mobile5.jpg?v=1683628697&width=1400'
+      assign fallback = 'ms-photo-atelier-pure.jpg' | asset_url
   endcase
 -%}
 <section style="position: relative; overflow: hidden; background: rgb(23, 20, 15);">

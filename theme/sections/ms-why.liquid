@@ -43,7 +43,10 @@
   .ms-why__intro { font-size: 15px; line-height: 1.95; color: #4A443B; max-width: 46ch; }
   .ms-why__table { margin-top: clamp(44px, 6vw, 96px); border-top: 1px solid #17140F; }
   .ms-why__row { display: grid; grid-template-columns: minmax(150px, 3fr) minmax(0, 5fr) minmax(0, 4fr); gap: clamp(18px, 3.4vw, 64px); align-items: baseline; padding: clamp(20px, 2.2vw, 32px) 0; border-bottom: 1px solid #DDD6C9; transition: background .4s ease; }
-  .ms-why__row:not(.ms-why__row--head):hover { background: linear-gradient(90deg, rgba(154, 123, 79, .07), transparent 70%); }
+  .ms-why__row { position: relative; }
+  .ms-why__row:not(.ms-why__row--head)::before { content: ''; position: absolute; inset: -1px calc(-1 * clamp(14px, 1.6vw, 28px)) 0; background: rgba(126, 98, 59, .07); opacity: 0; transition: opacity .45s ease; pointer-events: none; z-index: 0; }
+  .ms-why__row:not(.ms-why__row--head):hover::before { opacity: 1; }
+  .ms-why__row > * { position: relative; z-index: 1; }
   .ms-why__row--head { padding: 14px 0; border-bottom-color: #DDD6C9; font-size: 10.5px; letter-spacing: .26em; text-transform: uppercase; }
   .ms-why__us { color: #17140F; }
   .ms-why__them { color: #6E675C; }

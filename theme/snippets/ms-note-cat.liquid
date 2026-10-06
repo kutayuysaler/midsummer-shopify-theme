@@ -1,0 +1,106 @@
+{%- comment -%}
+  The Journal's subjects, one fixed list used everywhere (journal filters, notes, menu).
+  A note is placed by its tags first (a tag named like a subject wins), then by the words of
+  its title, then by its opening paragraphs. Nothing to set up: write the note, it files itself.
+    {% render 'ms-note-cat', a: article %}            → sleep | materials | craft | regen | projects | news | (blank)
+    {% render 'ms-note-cat', label: 'sleep' %}         → Sleep
+    {% render 'ms-note-cat', list: true %}             → sleep,materials,craft,regen,projects,news
+{%- endcomment -%}
+{%- liquid
+  assign keys = 'sleep,materials,craft,regen,projects,news'
+  if list
+    echo keys
+  elsif label != blank
+    case label
+      when 'sleep'
+        echo 'Sleep'
+      when 'materials'
+        echo 'Materials'
+      when 'craft'
+        echo 'Craft'
+      when 'regen'
+        echo 'Longevity'
+      when 'projects'
+        echo 'Projects'
+      when 'news'
+        echo 'News'
+    endcase
+  else
+  assign kw_projects = 'project,progett,hotel,villa,abbey,abbazia,residence,residenz,yacht,suite,interior design'
+  assign kw_regen = 'sustainab,sostenib,landfill,discarica,regenerat,rigener,circular,circolar,waste,rifiut,thirty million,15 + 15,15+15'
+  assign kw_materials = 'vicuñ,vicun,wool,lana ,cashmere,horsehair,crine,linen,lino ,silk,seta,alpaca,mohair,yak,fibre,fiber,fibra,cotton,cotone,loro piana,fabric,tessut'
+  assign kw_craft = 'artisan,artigian,handmade,by hand,a mano,atelier,craft,tufting,stitch,cucit,made in italy,maker,workshop,bottega'
+  assign kw_sleep = 'sleep,sonno,dorm,rest ,riposo,night,notte,dream,sogn,posture,postur,ergonom,temperature,insomn'
+  assign kw_news = 'salone,award,premio,press,stampa,exhibit,mostra,fair,fiera,event,collaborat,opening,launch,lancio'
+  assign order = 'projects,regen,materials,craft,sleep,news' | split: ','
+
+  assign found = ''
+  comment
+    1. a tag named like a subject
+  endcomment
+  for t in a.tags
+    assign tl = t | downcase | strip
+    case tl
+      when 'sleep', 'sonno', 'sleep science', 'rest'
+        assign found = 'sleep'
+      when 'materials', 'materiali', 'fibres', 'fibers', 'natural fibres'
+        assign found = 'materials'
+      when 'craft', 'artigianato', 'handmade', 'atelier'
+        assign found = 'craft'
+      when 'sustainability', 'sostenibilità', 'regeneration'
+        assign found = 'regen'
+      when 'projects', 'progetti', 'project', 'hospitality', 'portfolio'
+        assign found = 'projects'
+      when 'news', 'press', 'events', 'eventi'
+        assign found = 'news'
+    endcase
+    if found != ''
+      break
+    endif
+  endfor
+
+  comment
+    2. the title, then 3. the tags and the opening of the text
+  endcomment
+  if found == ''
+    assign title = a.title | downcase | append: ' '
+    assign rest = a.tags | join: ' ' | append: ' ' | append: a.excerpt_or_content | strip_html | downcase | slice: 0, 700 | append: ' '
+    for pass in (1..2)
+      if pass == 1
+        assign hay = title
+      else
+        assign hay = rest
+      endif
+      for k in order
+        case k
+          when 'projects'
+            assign words = kw_projects | split: ','
+          when 'regen'
+            assign words = kw_regen | split: ','
+          when 'materials'
+            assign words = kw_materials | split: ','
+          when 'craft'
+            assign words = kw_craft | split: ','
+          when 'sleep'
+            assign words = kw_sleep | split: ','
+          else
+            assign words = kw_news | split: ','
+        endcase
+        for w in words
+          if hay contains w
+            assign found = k
+            break
+          endif
+        endfor
+        if found != ''
+          break
+        endif
+      endfor
+      if found != ''
+        break
+      endif
+    endfor
+  endif
+  echo found
+  endif
+-%}

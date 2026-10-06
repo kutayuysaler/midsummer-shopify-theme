@@ -1,0 +1,32 @@
+/*
+ * Midsummer Milano: the Signature collection, reachable whatever the store calls it (?view=ms-signature).
+ */
+{
+  "layout": "ms",
+  "sections": {
+    "s01": {
+      "type": "ms-banner",
+      "settings": {
+        "image_fallback": "ms-graded-ochre-room.jpg",
+        "eyebrow": "Collection II",
+        "use_page_title": false,
+        "heading": "Signature",
+        "height": "tall",
+        "text": "Loro Piana Interiors fabrics over exclusive blends of precious natural fibres, designed for the highest comfort."
+      }
+    },
+    "s02": {
+      "type": "ms-curated",
+      "settings": {
+        "tier": "signature",
+        "eyebrow": "The systems",
+        "heading": "Every one made to order.",
+        "text": "Each system is specified with you, at the atelier or by video: dimensions, firmness, fibres and cloth. Prices on request."
+      }
+    }
+  },
+  "order": [
+    "s01",
+    "s02"
+  ]
+}

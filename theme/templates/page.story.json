@@ -37,6 +37,12 @@
     "s07": {
       "type": "ms-home-17",
       "settings": {}
+    },
+    "next": {
+      "type": "ms-next-read",
+      "settings": {
+        "current": "story"
+      }
     }
   },
   "order": [
@@ -46,6 +52,7 @@
     "s04",
     "s05",
     "s06",
-    "s07"
+    "s07",
+    "next"
   ]
 }

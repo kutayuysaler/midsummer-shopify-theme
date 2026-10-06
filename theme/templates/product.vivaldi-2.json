@@ -25,89 +25,11 @@
       "settings": {}
     },
     "s03": {
-      "type": "ms-product-build",
-      "settings": {},
-      "blocks": {
-        "layer_01": {
-          "type": "layer",
-          "settings": {
-            "name": "Camel hair",
-            "group": "Mattress",
-            "depth": "fine",
-            "texture": "alpaca",
-            "note": "Camel hair holds an even temperature and lets moisture through."
-          }
-        },
-        "layer_02": {
-          "type": "layer",
-          "settings": {
-            "name": "Silk",
-            "group": "Mattress",
-            "depth": "fine",
-            "texture": "silk",
-            "note": "Silk, next to the sleeper: it regulates temperature and moisture, cool in summer, soft in winter."
-          }
-        },
-        "layer_03": {
-          "type": "layer",
-          "settings": {
-            "name": "Wool",
-            "group": "Mattress",
-            "depth": "light",
-            "texture": "wool",
-            "note": "Wool, opened and laid by hand: it breathes, regulates temperature and recovers its shape."
-          }
-        },
-        "layer_04": {
-          "type": "layer",
-          "settings": {
-            "name": "Wool felt",
-            "group": "Mattress",
-            "depth": "fine",
-            "texture": "felt",
-            "note": "A wool felt that keeps the padding apart from the springs, so neither wears the other."
-          }
-        },
-        "layer_05": {
-          "type": "layer",
-          "settings": {
-            "name": "Two layers of pocket springs",
-            "group": "Mattress",
-            "depth": "foundation",
-            "texture": "springs",
-            "note": "Two layers of pocket springs, one above the other: support that answers in depth, not only at the surface."
-          }
-        },
-        "layer_06": {
-          "type": "layer",
-          "settings": {
-            "name": "Wool felt",
-            "group": "Mattress",
-            "depth": "fine",
-            "texture": "felt",
-            "note": "A wool felt that keeps the padding apart from the springs, so neither wears the other."
-          }
-        },
-        "layer_07": {
-          "type": "layer",
-          "settings": {
-            "name": "Wool, cotton and Ingeo™",
-            "group": "Mattress",
-            "depth": "light",
-            "texture": "wool",
-            "note": "Wool, opened and laid by hand: it breathes, regulates temperature and recovers its shape."
-          }
-        }
-      },
-      "block_order": [
-        "layer_01",
-        "layer_02",
-        "layer_03",
-        "layer_04",
-        "layer_05",
-        "layer_06",
-        "layer_07"
-      ]
+      "type": "ms-craft",
+      "settings": {
+        "link_label": "The fibres inside",
+        "link_place": "materials"
+      }
     },
     "s04": {
       "type": "ms-product-related",

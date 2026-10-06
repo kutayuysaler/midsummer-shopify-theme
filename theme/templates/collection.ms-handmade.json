@@ -92,8 +92,8 @@
         "heading": "Slow, by method.",
         "fallback_1": "ms-photo-seamstress.jpg",
         "caption_1": "The cloth, cut by hand at the atelier.",
-        "fallback_2": "ms-photo-artisan.jpg",
-        "caption_2": "Every system has its two artisans, start to finish."
+        "fallback_2": "ms-photo-tufting.jpg",
+        "caption_2": "Tufted by hand through the whole depth, so every fibre stays where it was laid."
       }
     },
     "s05": {
@@ -108,6 +108,12 @@
         "link_label": "Natural materials",
         "link_place": "materials"
       }
+    },
+    "next": {
+      "type": "ms-next-read",
+      "settings": {
+        "current": "handmade"
+      }
     }
   },
   "order": [
@@ -115,6 +121,7 @@
     "s02",
     "s03",
     "s04",
-    "s05"
+    "s05",
+    "next"
   ]
 }

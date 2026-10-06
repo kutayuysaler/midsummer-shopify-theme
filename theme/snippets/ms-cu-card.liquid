@@ -1,0 +1,8 @@
+{%- comment -%} One system in a collection grid. {%- endcomment -%}
+{%- if p != blank and p.url != blank -%}
+<a class="ms-cu__card" href="{{ p.url }}">
+  <span class="ms-cu__img">{%- if p.featured_media -%}<img src="{{ p.featured_media | image_url: width: 900 }}" alt="{{ p.featured_media.alt | default: p.title | escape }}" width="900" height="1125" loading="lazy">{%- endif -%}</span>
+  <span class="ms-cu__name">{{ p.title }}</span>
+  {%- if p.type != blank -%}<span class="ms-cu__type">{{ p.type }}</span>{%- endif -%}
+</a>
+{%- endif -%}

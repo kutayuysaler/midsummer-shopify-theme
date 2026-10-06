@@ -35,100 +35,11 @@
       "settings": {}
     },
     "s03": {
-      "type": "ms-product-build",
-      "settings": {},
-      "blocks": {
-        "layer_01": {
-          "type": "layer",
-          "settings": {
-            "name": "Linen",
-            "group": "Mattress",
-            "depth": "fine",
-            "texture": "cloth",
-            "note": "The cover, in natural linen and cotton, the face the sheets lie on."
-          }
-        },
-        "layer_02": {
-          "type": "layer",
-          "settings": {
-            "name": "Ingeo™",
-            "group": "Mattress",
-            "depth": "fine",
-            "texture": "cloth",
-            "note": "Ingeo™, a fibre made from plants, that keeps the surface cool and dry."
-          }
-        },
-        "layer_03": {
-          "type": "layer",
-          "settings": {
-            "name": "Cheviot wool",
-            "group": "Mattress",
-            "depth": "light",
-            "texture": "wool",
-            "note": "Cheviot wool, springy and breathing: it carries moisture away and keeps the temperature even."
-          }
-        },
-        "layer_04": {
-          "type": "layer",
-          "settings": {
-            "name": "Wool felt",
-            "group": "Mattress",
-            "depth": "fine",
-            "texture": "felt",
-            "note": "A wool felt that keeps the padding apart from the springs, so neither wears the other."
-          }
-        },
-        "layer_05": {
-          "type": "layer",
-          "settings": {
-            "name": "Two layers of pocket springs",
-            "group": "Mattress",
-            "depth": "foundation",
-            "texture": "springs",
-            "note": "Two layers of pocket springs, one above the other: support that answers in depth, not only at the surface."
-          }
-        },
-        "layer_06": {
-          "type": "layer",
-          "settings": {
-            "name": "Wool felt",
-            "group": "Mattress",
-            "depth": "fine",
-            "texture": "felt",
-            "note": "A wool felt that keeps the padding apart from the springs, so neither wears the other."
-          }
-        },
-        "layer_07": {
-          "type": "layer",
-          "settings": {
-            "name": "Cheviot wool",
-            "group": "Mattress",
-            "depth": "light",
-            "texture": "wool",
-            "note": "Cheviot wool, springy and breathing: it carries moisture away and keeps the temperature even."
-          }
-        },
-        "layer_08": {
-          "type": "layer",
-          "settings": {
-            "name": "Yak",
-            "group": "Mattress",
-            "depth": "fine",
-            "texture": "alpaca",
-            "note": "Yak down, as warm as cashmere and more resilient, for the winter side."
-          }
-        }
-      },
-      "block_order": [
-        "layer_01",
-        "layer_02",
-        "layer_03",
-        "layer_04",
-        "layer_05",
-        "layer_06",
-        "layer_07",
-        "layer_08"
-      ]
+      "type": "ms-craft",
+      "settings": {
+        "link_label": "The fibres inside",
+        "link_place": "materials"
+      }
     },
     "s04": {
       "type": "ms-product-related",

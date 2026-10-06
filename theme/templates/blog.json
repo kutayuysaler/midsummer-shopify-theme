@@ -12,10 +12,18 @@
     "s02": {
       "type": "ms-journal-list",
       "settings": {}
+    },
+    "letters": {
+      "type": "ms-letters",
+      "settings": {
+        "heading": "The Journal, by letter.",
+        "text": "A few letters a year: new notes, new systems, and the dates the atelier opens."
+      }
     }
   },
   "order": [
     "s01",
-    "s02"
+    "s02",
+    "letters"
   ]
 }

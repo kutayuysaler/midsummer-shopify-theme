@@ -1,0 +1,82 @@
+{%- comment -%}
+  The end of a Heritage & Craft page: the chapters of the house in order, the one being read
+  marked, and the previous and next ones as pictures to step into.
+{%- endcomment -%}
+{%- liquid
+  assign keys = 'story,handmade,sleep-culture,materials,loro,regen' | split: ','
+  assign cur = section.settings.current
+  assign idx = 0
+  for k in keys
+    if k == cur
+      assign idx = forloop.index0
+    endif
+  endfor
+  assign prev_i = idx | minus: 1
+  assign next_i = idx | plus: 1
+  if prev_i < 0
+    assign prev_i = keys.size | minus: 1
+  endif
+  if next_i >= keys.size
+    assign next_i = 0
+  endif
+  assign prev_k = keys[prev_i]
+  assign next_k = keys[next_i]
+-%}
+<nav class="ms-nr" aria-label="{{ section.settings.label | escape }}">
+  <div class="ms-nr__in">
+    <div class="ms-nr__eyebrow">{{ section.settings.label }}</div>
+    <ol class="ms-nr__chapters" role="list">
+      {%- for k in keys -%}
+        <li><a href="{% render 'ms-link', to: k %}"{% if k == cur %} aria-current="page"{% endif %}><span>{{ forloop.index | prepend: '0' }}</span>{% render 'ms-next-read-data', k: k, f: 'title' %}</a></li>
+      {%- endfor -%}
+    </ol>
+    <div class="ms-nr__pair">
+      {%- for k in (1..2) -%}
+        {%- if k == 1 -%}{%- assign key = prev_k -%}{%- assign dir = section.settings.prev -%}{%- else -%}{%- assign key = next_k -%}{%- assign dir = section.settings.next -%}{%- endif -%}
+        {%- capture img -%}{% render 'ms-next-read-data', k: key, f: 'image' %}{%- endcapture -%}
+        <a class="ms-nr__card{% if k == 2 %} is-next{% endif %}" href="{% render 'ms-link', to: key %}">
+          <span class="ms-nr__img"><img src="{{ img | asset_url }}" alt="" width="1200" height="800" loading="lazy"></span>
+          <span class="ms-nr__words">
+            <span class="ms-nr__dir">{% if k == 1 %}<span aria-hidden="true">←</span> {% endif %}{{ dir }}{% if k == 2 %} <span aria-hidden="true">→</span>{% endif %}</span>
+            <span class="ms-nr__title">{% render 'ms-next-read-data', k: key, f: 'title' %}</span>
+            <span class="ms-nr__line">{% render 'ms-next-read-data', k: key, f: 'line' %}</span>
+          </span>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</nav>
+<style>
+  .ms-nr { background: #F3EEE5; color: #17140F; padding: clamp(64px, 8vw, 120px) clamp(18px, 5vw, 80px); }
+  .ms-nr__in { max-width: 1560px; margin: 0 auto; }
+  .ms-nr__eyebrow { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: #7E623B; }
+  .ms-nr__chapters { list-style: none; margin: 22px 0 0; padding: 0 0 22px; display: flex; flex-wrap: wrap; gap: 8px 28px; border-bottom: 1px solid #DDD6C9; }
+  .ms-site .ms-nr__chapters a { display: inline-flex; gap: 10px; align-items: baseline; font-family: Newsreader, Georgia, serif; font-size: 18px; color: #6E675C; padding: 6px 0; transition: color .3s ease; }
+  .ms-nr__chapters a span { font-family: inherit; font-size: 12px; color: #7E623B; }
+  .ms-site .ms-nr__chapters a:hover, .ms-site .ms-nr__chapters a[aria-current="page"] { color: #17140F; }
+  .ms-site .ms-nr__chapters a[aria-current="page"] { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
+  .ms-nr__pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 2.4vw, 40px); margin-top: clamp(32px, 4vw, 56px); }
+  .ms-site .ms-nr__card { position: relative; display: block; color: #FBF9F5; overflow: hidden; aspect-ratio: 16 / 10; background: #17140F; }
+  .ms-nr__img, .ms-nr__img img { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .ms-nr__img img { object-fit: cover; opacity: .78; transition: transform 1.4s cubic-bezier(.2,.7,.2,1), opacity .6s ease; }
+  .ms-nr__card:hover .ms-nr__img img { transform: scale(1.04); opacity: .9; }
+  .ms-nr__words { position: absolute; left: 0; right: 0; bottom: 0; padding: clamp(20px, 2.6vw, 40px); background: linear-gradient(0deg, rgba(23, 20, 15, .7), rgba(23, 20, 15, 0)); display: flex; flex-direction: column; gap: 8px; }
+  .ms-nr__card.is-next .ms-nr__words { align-items: flex-end; text-align: right; }
+  .ms-nr__dir { font-size: 10.5px; letter-spacing: .24em; text-transform: uppercase; color: #E2CFAE; }
+  .ms-nr__title { font-family: Newsreader, Georgia, serif; font-weight: 200; font-size: clamp(28px, 3.2vw, 48px); line-height: 1.05; letter-spacing: -0.03em; }
+  .ms-nr__line { font-size: 14px; color: rgba(251, 249, 245, .82); }
+  @media (max-width: 760px) { .ms-nr__pair { grid-template-columns: minmax(0, 1fr); } .ms-nr__card { aspect-ratio: 4 / 3; } }
+</style>
+
+{% schema %}
+{
+  "name": "Heritage · Next read",
+  "settings": [
+    { "type": "select", "id": "current", "label": "This page", "default": "story", "options": [{"value":"story","label":"Our story"},{"value":"handmade","label":"Handmade in Italy"},{"value":"sleep-culture","label":"Sleep culture"},{"value":"materials","label":"Natural materials"},{"value":"loro","label":"Loro Piana Interiors"},{"value":"regen","label":"Made to last · 15 + 15"}] },
+    { "type": "text", "id": "label", "label": "Label", "default": "Heritage & Craft, in six chapters" },
+    { "type": "text", "id": "prev", "label": "Previous", "default": "Previous" },
+    { "type": "text", "id": "next", "label": "Next", "default": "Next" }
+  ],
+  "presets": [{ "name": "Heritage · Next read" }]
+}
+{% endschema %}

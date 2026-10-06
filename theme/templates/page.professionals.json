@@ -20,12 +20,131 @@
     "s04": {
       "type": "ms-pro-04",
       "settings": {}
+    },
+    "places": {
+      "type": "ms-link-cards",
+      "settings": {
+        "eyebrow": "For your specification",
+        "heading": "Everything you will need, in one house.",
+        "text": "The pages architects and interior designers use most when they specify a Midsummer system."
+      },
+      "blocks": {
+        "card_01": {
+          "type": "card",
+          "settings": {
+            "place": "collections",
+            "title": "The three collections",
+            "text": "Essentials, Signature and Icons side by side, to specify from.",
+            "image_fallback": "ms-graded-ochre-room.jpg"
+          }
+        },
+        "card_02": {
+          "type": "card",
+          "settings": {
+            "place": "loro",
+            "title": "Loro Piana Interiors",
+            "text": "The full palette, and your own cloth on request.",
+            "image_fallback": "ms-photo-teal-throw.jpg"
+          }
+        },
+        "card_03": {
+          "type": "card",
+          "settings": {
+            "place": "materials",
+            "title": "Natural materials",
+            "text": "What each fibre does, for your specification notes.",
+            "image_fallback": "ms-photo-cashmere-throw.jpg"
+          }
+        },
+        "card_04": {
+          "type": "card",
+          "settings": {
+            "place": "regen",
+            "title": "Made to last · 15 + 15",
+            "text": "Regeneration at fifteen years, for the life of the project.",
+            "image_fallback": "ms-photo-drapes-fireplace.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "card_01",
+        "card_02",
+        "card_03",
+        "card_04"
+      ]
+    },
+    "projects": {
+      "type": "ms-article-rail",
+      "settings": {
+        "blog_handle": "projects",
+        "eyebrow": "Projects",
+        "heading": "Where our beds went.",
+        "link_label": "All projects",
+        "limit": 4
+      }
+    },
+    "qa": {
+      "type": "ms-qa",
+      "settings": {
+        "tone": "sand",
+        "eyebrow": "Trade questions",
+        "heading": "Before you specify.",
+        "link_label": "Open a project file",
+        "link_place": "enquire"
+      },
+      "blocks": {
+        "qa_01": {
+          "type": "qa",
+          "settings": {
+            "q": "Do you work from our drawings?",
+            "a": "<p>Yes. Dimensions, heights and radii, round beds included, are worked to your drawing, with no tooling charge.</p>"
+          }
+        },
+        "qa_02": {
+          "type": "qa",
+          "settings": {
+            "q": "Can we specify our own fabric?",
+            "a": "<p>Yes. The full Loro Piana Interiors palette is available, and your own cloth (COM) on request.</p>"
+          }
+        },
+        "qa_03": {
+          "type": "qa",
+          "settings": {
+            "q": "What do you send for a specification?",
+            "a": "<p>Drawings, sections and material schedules for your set, fabric references from Loro Piana Interiors and samples of the natural fibres.</p>"
+          }
+        },
+        "qa_04": {
+          "type": "qa",
+          "settings": {
+            "q": "Who follows the project?",
+            "a": "<p>One person at the atelier, from the first specification to delivery and installation.</p>"
+          }
+        },
+        "qa_05": {
+          "type": "qa",
+          "settings": {
+            "q": "Where can our clients see the beds?",
+            "a": "<p>At the atelier in Milan, by appointment, or at our agents and resellers in Europe, the Americas and Asia.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "qa_01",
+        "qa_02",
+        "qa_03",
+        "qa_04",
+        "qa_05"
+      ]
     }
   },
   "order": [
     "s01",
     "s02",
     "s03",
-    "s04"
+    "s04",
+    "places",
+    "projects",
+    "qa"
   ]
 }

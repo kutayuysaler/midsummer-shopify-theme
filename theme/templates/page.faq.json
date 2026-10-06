@@ -13,6 +13,12 @@
       "type": "ms-faq-02",
       "settings": {},
       "blocks": {
+        "topic_00": {
+          "type": "topic",
+          "settings": {
+            "title": "The beds"
+          }
+        },
         "question_01": {
           "type": "question",
           "settings": {
@@ -23,91 +29,377 @@
         "question_02": {
           "type": "question",
           "settings": {
-            "question": "Can a bed be made to my dimensions?",
-            "answer": "<p>Yes. Dimensions, heights, fibres, fabric and comfort level are specification decisions rather than exceptions. Non-standard widths, heights and radii, including round, carry no tooling charge.</p>"
+            "question": "Which natural materials do you use?",
+            "answer": "<p>Baby alpaca, Cheviot wool, horsehair, vegetable horsehair, yak hair, mohair, cashmere, silk, linen, organic cotton and Orange Fiber. Vicuña is used in the Icons collection. Systems are upholstered in Loro Piana Interiors fabrics.</p>"
           }
         },
         "question_03": {
           "type": "question",
           "settings": {
-            "question": "Which natural materials do you use?",
-            "answer": "<p>Baby alpaca, Cheviot wool, horsehair, vegetable horsehair, yak hair, mohair, cashmere, silk, linen, organic cotton and Orange Fiber. Vicuña is used in the Icons collection. Systems are upholstered in Loro Piana Interiors fabrics.</p>"
+            "question": "How do the three collections differ?",
+            "answer": "<p>Essentials is the entry point — five systems, natural fibres, authentic artisan construction. Signature is the heart of the collection — seven systems in Loro Piana Interiors fabrics over spring architectures built for the highest comfort. Icons is the most important work we do — twelve systems, vicuña and cashmere, fully upholstered.</p>"
           }
         },
         "question_04": {
           "type": "question",
           "settings": {
-            "question": "What is the 15 + 15 service?",
-            "answer": "<p>Our regeneration service. At year fifteen the mattress returns to the Italian artisans who made it, and its comfort, integrity and life are restored for the fifteen years ahead, rather than the system being replaced.</p>"
+            "question": "Who founded Midsummer Milano?",
+            "answer": "<p>Midsummer Milano was founded in Milan by Chiara Mennini, an architect, around a question she kept asking: why is the bed, where we spend a third of our lives, treated as a technical product from a catalogue, when every other piece of a room is designed with care?</p>"
           }
         },
         "question_05": {
+          "type": "question",
+          "settings": {
+            "question": "Has Midsummer Milano won any awards?",
+            "answer": "<p>Yes. The Top System was awarded the Green Product Award 2025 in Berlin, for its plant-based materials and seasonal construction. The house has also been featured by publications including Il Sole 24 Ore and Kommersant, and at the Salone del Mobile in Milan.</p>"
+          }
+        },
+        "topic_06": {
+          "type": "topic",
+          "settings": {
+            "title": "Ordering"
+          }
+        },
+        "question_07": {
+          "type": "question",
+          "settings": {
+            "question": "How do I order a Midsummer bed?",
+            "answer": "<p>Book an appointment at the atelier in Milan or by video, or write to us from the enquiry page. The system is specified with you (size, height, firmness, fibres and cloth) and you receive a written proposal. The bed is made to order once the proposal is confirmed.</p>"
+          }
+        },
+        "question_08": {
+          "type": "question",
+          "settings": {
+            "question": "Can a bed be made to my dimensions?",
+            "answer": "<p>Yes. Dimensions, heights, fibres, fabric and comfort level are specification decisions rather than exceptions. Non-standard widths, heights and radii, including round, carry no tooling charge.</p>"
+          }
+        },
+        "question_09": {
           "type": "question",
           "settings": {
             "question": "Why are prices not shown?",
             "answer": "<p>Because every system is made to order, and the price follows the specification: dimensions, height, fibres, fabric and comfort level. We quote after the consultation. Price on request.</p>"
           }
         },
-        "question_06": {
-          "type": "question",
-          "settings": {
-            "question": "How do the three collections differ?",
-            "answer": "<p>Essentials is the entry point — five systems, natural fibres, authentic artisan construction. Signature is the heart of the collection — seven systems in Loro Piana Interiors fabrics over spring architectures built for the highest comfort. Icons is the most important work we do — twelve systems, six layers of springs, vicuña and cashmere, fully upholstered.</p>"
-          }
-        },
-        "question_07": {
+        "question_10": {
           "type": "question",
           "settings": {
             "question": "Can I try a bed before ordering?",
             "answer": "<p>Yes. Come and lie down at the atelier, Via Andegari 4, Milano, Monday to Friday, 09:00–12:00 and 13:00–18:00. We can also meet by video. Appointments are confirmed by email within one working day.</p>"
           }
         },
-        "question_08": {
+        "question_11": {
           "type": "question",
           "settings": {
-            "question": "Do you work with architects and interior designers?",
-            "answer": "<p>Yes. The project desk issues drawings, sections and material schedules for your set, gives access to the full Loro Piana Interiors palette with COM on request, and applies professional pricing, staged payments and white-glove installation.</p>"
+            "question": "Can I see the fibres and fabrics first?",
+            "answer": "<p>Yes: at the atelier, where the Loro Piana Interiors range can be chosen against the bed itself, or by post, with fibre and fabric samples sent ahead of a video consultation.</p>"
           }
         },
-        "question_09": {
-          "type": "question",
-          "settings": {
-            "question": "Do you supply hotels and contract projects?",
-            "answer": "<p>Yes. We supply hotels, branded residences and yachts with phased production aligned to floor handovers, fire-retardancy and contract certification prepared per market, housekeeping protocols per system, and the 15 + 15 service written into the agreement.</p>"
-          }
-        },
-        "question_10": {
+        "question_12": {
           "type": "question",
           "settings": {
             "question": "How long does delivery take?",
             "answer": "<p>Production and delivery windows are confirmed on enquiry, because each system is made to order. Delivery is white-glove: the bed is brought into the room, assembled and dressed by our own team.</p>"
           }
         },
-        "question_11": {
+        "question_13": {
+          "type": "question",
+          "settings": {
+            "question": "Do you deliver outside Italy?",
+            "answer": "<p>Yes, worldwide. Where there is no showroom near you, the atelier handles the enquiry directly: specification by video, fabric samples by post, and white-glove delivery by our own team.</p>"
+          }
+        },
+        "question_14": {
+          "type": "question",
+          "settings": {
+            "question": "Where can I see Midsummer beds outside Milan?",
+            "answer": "<p>At our showrooms, agents and resellers in Italy, San Marino, the United Kingdom, Poland, Russia, Canada, the United States and Hong Kong. The map on Agents &amp; Resellers shows each of them.</p>"
+          }
+        },
+        "topic_15": {
+          "type": "topic",
+          "settings": {
+            "title": "Sleep & comfort"
+          }
+        },
+        "question_16": {
+          "type": "question",
+          "settings": {
+            "question": "Which firmness is right for me?",
+            "answer": "<p>It depends on how you sleep. On your side, hips and shoulders need to sink a little; on your back, the lumbar curve needs support; on your front, a flatter, firmer surface keeps the neck neutral. The five questions of Find your Midsummer suggest a system, and at the atelier you choose by lying down.</p>"
+          }
+        },
+        "question_17": {
+          "type": "question",
+          "settings": {
+            "question": "Will a natural-fibre bed sleep too warm?",
+            "answer": "<p>No. Natural fibres breathe: wool and horsehair carry warmth and moisture away from the body, so the bed stays even through the night, in August as in January.</p>"
+          }
+        },
+        "question_18": {
+          "type": "question",
+          "settings": {
+            "question": "Does the bed have a winter and a summer side?",
+            "answer": "<p>Yes, where the system is padded for the seasons: wool and cashmere face the winter, linen and silk the summer. Turn it when the season changes.</p>"
+          }
+        },
+        "question_19": {
+          "type": "question",
+          "settings": {
+            "question": "Are the materials suitable for people with allergies?",
+            "answer": "<p>Several of the fibres we use are naturally hypoallergenic: alpaca, for example, contains no lanolin. If you have a specific allergy, tell us at the consultation and the specification is adapted.</p>"
+          }
+        },
+        "topic_20": {
+          "type": "topic",
+          "settings": {
+            "title": "Care & regeneration"
+          }
+        },
+        "question_21": {
           "type": "question",
           "settings": {
             "question": "How should I care for the system?",
             "answer": "<p>Rotate head to foot every three months for the first year, then twice yearly. Air the system when you change the linen. Loro Piana Interiors upholstery should be dry-cleaned by a specialist only; the atelier can arrange this.</p>"
           }
+        },
+        "question_22": {
+          "type": "question",
+          "settings": {
+            "question": "What is the 15 + 15 service?",
+            "answer": "<p>Our regeneration service. At year fifteen the mattress returns to the Italian artisans who made it, and its comfort, integrity and life are restored for the fifteen years ahead, rather than the system being replaced.</p>"
+          }
+        },
+        "question_23": {
+          "type": "question",
+          "settings": {
+            "question": "How do I arrange a regeneration?",
+            "answer": "<p>Write to us from the enquiry page with the name of your system and the year it was made. The atelier will tell you how and when the mattress returns to the artisans who made it, and when it comes home.</p>"
+          }
+        },
+        "topic_24": {
+          "type": "topic",
+          "settings": {
+            "title": "For professionals"
+          }
+        },
+        "question_25": {
+          "type": "question",
+          "settings": {
+            "question": "Do you work with architects and interior designers?",
+            "answer": "<p>Yes. The project desk issues drawings, sections and material schedules for your set, gives access to the full Loro Piana Interiors palette with COM on request, and applies professional pricing, staged payments and white-glove installation.</p>"
+          }
+        },
+        "question_26": {
+          "type": "question",
+          "settings": {
+            "question": "Do you supply hotels and contract projects?",
+            "answer": "<p>Yes. We supply hotels, branded residences and yachts with phased production aligned to floor handovers, fire-retardancy and contract certification prepared per market, housekeeping protocols per system, and the 15 + 15 service written into the agreement.</p>"
+          }
         }
       },
       "block_order": [
+        "topic_00",
         "question_01",
         "question_02",
         "question_03",
         "question_04",
         "question_05",
-        "question_06",
+        "topic_06",
         "question_07",
         "question_08",
         "question_09",
         "question_10",
-        "question_11"
+        "question_11",
+        "question_12",
+        "question_13",
+        "question_14",
+        "topic_15",
+        "question_16",
+        "question_17",
+        "question_18",
+        "question_19",
+        "topic_20",
+        "question_21",
+        "question_22",
+        "question_23",
+        "topic_24",
+        "question_25",
+        "question_26"
+      ]
+    },
+    "care": {
+      "type": "ms-guide",
+      "settings": {
+        "anchor": "looking-after",
+        "tone": "sand",
+        "eyebrow": "Care",
+        "heading": "Looking after a natural bed.",
+        "text": "A Midsummer system is made to last thirty years. A few habits keep it as it was made.",
+        "note": "At fifteen years, the artisans who made it take it back for fifteen more."
+      },
+      "blocks": {
+        "point_01": {
+          "type": "point",
+          "settings": {
+            "title": "Turn it",
+            "text": "Head to foot every three months in the first year, then twice a year."
+          }
+        },
+        "point_02": {
+          "type": "point",
+          "settings": {
+            "title": "With the season",
+            "text": "Where the system has a winter and a summer side, turn it when the season changes."
+          }
+        },
+        "point_03": {
+          "type": "point",
+          "settings": {
+            "title": "Let it breathe",
+            "text": "Air the bed whenever you change the linen. Natural fibres give back what they take in."
+          }
+        },
+        "point_04": {
+          "type": "point",
+          "settings": {
+            "title": "The cloth",
+            "text": "Loro Piana Interiors upholstery is dry-cleaned by a specialist only; the atelier can arrange it."
+          }
+        }
+      },
+      "block_order": [
+        "point_01",
+        "point_02",
+        "point_03",
+        "point_04"
+      ]
+    },
+    "sizes": {
+      "type": "ms-guide",
+      "settings": {
+        "anchor": "sizes",
+        "eyebrow": "Sizes",
+        "heading": "Standard sizes, and every other.",
+        "text": "The sizes most often specified. Any width, length or shape, round included, is made to order without tooling charges."
+      },
+      "blocks": {
+        "point_01": {
+          "type": "point",
+          "settings": {
+            "title": "Single",
+            "w": "100",
+            "l": "200"
+          }
+        },
+        "point_02": {
+          "type": "point",
+          "settings": {
+            "title": "Queen",
+            "w": "153",
+            "l": "203"
+          }
+        },
+        "point_03": {
+          "type": "point",
+          "settings": {
+            "title": "Small Double",
+            "w": "160",
+            "l": "200"
+          }
+        },
+        "point_04": {
+          "type": "point",
+          "settings": {
+            "title": "Double",
+            "w": "180",
+            "l": "200"
+          }
+        },
+        "point_05": {
+          "type": "point",
+          "settings": {
+            "title": "King",
+            "w": "193",
+            "l": "203"
+          }
+        },
+        "point_06": {
+          "type": "point",
+          "settings": {
+            "title": "Double Extra",
+            "w": "200",
+            "l": "200"
+          }
+        }
+      },
+      "block_order": [
+        "point_01",
+        "point_02",
+        "point_03",
+        "point_04",
+        "point_05",
+        "point_06"
+      ]
+    },
+    "places": {
+      "type": "ms-link-cards",
+      "settings": {
+        "tone": "sand",
+        "eyebrow": "Read on",
+        "heading": "Where to go from here."
+      },
+      "blocks": {
+        "card_01": {
+          "type": "card",
+          "settings": {
+            "place": "regen",
+            "title": "Made to last · 15 + 15",
+            "text": "What happens at fifteen years.",
+            "image_fallback": "ms-photo-drapes-fireplace.jpg"
+          }
+        },
+        "card_02": {
+          "type": "card",
+          "settings": {
+            "place": "collections",
+            "title": "Compare the collections",
+            "text": "Essentials, Signature and Icons side by side.",
+            "image_fallback": "ms-graded-ochre-room.jpg"
+          }
+        },
+        "card_03": {
+          "type": "card",
+          "settings": {
+            "place": "atelier",
+            "title": "The Milano atelier",
+            "text": "Come and lie down, by appointment.",
+            "image_fallback": "ms-photo-atelier-sun.jpg"
+          }
+        },
+        "card_04": {
+          "type": "card",
+          "settings": {
+            "place": "agents",
+            "title": "Agents & Resellers",
+            "text": "Where to see the beds near you.",
+            "image_fallback": "ms-photo-atelier-pure.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "card_01",
+        "card_02",
+        "card_03",
+        "card_04"
       ]
     }
   },
   "order": [
     "s01",
-    "s02"
+    "s02",
+    "care",
+    "sizes",
+    "places"
   ]
 }

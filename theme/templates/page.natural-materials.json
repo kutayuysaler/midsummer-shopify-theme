@@ -27,12 +27,19 @@
     "s03": {
       "type": "ms-materials-04",
       "settings": {}
+    },
+    "next": {
+      "type": "ms-next-read",
+      "settings": {
+        "current": "materials"
+      }
     }
   },
   "order": [
     "opening",
     "s01",
     "s02",
-    "s03"
+    "s03",
+    "next"
   ]
 }

@@ -19,12 +19,123 @@
     "s04": {
       "type": "ms-hosp-04",
       "settings": {}
+    },
+    "places": {
+      "type": "ms-link-cards",
+      "settings": {
+        "eyebrow": "For your programme",
+        "heading": "A bed your guests remember, for thirty years.",
+        "text": "What a hotel or residence project draws on."
+      },
+      "blocks": {
+        "card_01": {
+          "type": "card",
+          "settings": {
+            "place": "regen",
+            "title": "Regeneration in contract",
+            "text": "Fifteen years, then fifteen more, written into the agreement.",
+            "image_fallback": "ms-photo-drapes-fireplace.jpg"
+          }
+        },
+        "card_02": {
+          "type": "card",
+          "settings": {
+            "place": "collections",
+            "title": "The three collections",
+            "text": "One build for every room, from Essentials to Icons.",
+            "image_fallback": "ms-graded-arches.jpg"
+          }
+        },
+        "card_03": {
+          "type": "card",
+          "settings": {
+            "place": "handmade",
+            "title": "Handmade in Italy",
+            "text": "The same two artisans for every bed in the programme.",
+            "image_fallback": "ms-photo-seamstress-portrait.jpg"
+          }
+        },
+        "card_04": {
+          "type": "card",
+          "settings": {
+            "place": "agents",
+            "title": "Agents & Resellers",
+            "text": "Our partners near your project, wherever it is.",
+            "image_fallback": "ms-photo-atelier-pure.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "card_01",
+        "card_02",
+        "card_03",
+        "card_04"
+      ]
+    },
+    "projects": {
+      "type": "ms-article-rail",
+      "settings": {
+        "blog_handle": "projects",
+        "eyebrow": "Projects",
+        "heading": "Hotels and residences.",
+        "link_label": "All projects",
+        "limit": 4
+      }
+    },
+    "qa": {
+      "type": "ms-qa",
+      "settings": {
+        "tone": "sand",
+        "eyebrow": "Contract questions",
+        "heading": "Before you open.",
+        "link_label": "Start a hotel project",
+        "link_place": "enquire"
+      },
+      "blocks": {
+        "qa_01": {
+          "type": "qa",
+          "settings": {
+            "q": "Can you make beds for a whole hotel?",
+            "a": "<p>Yes. We make volume programmes to the room, by hand in Italy, with phased production aligned to your floor handovers and the same fibres across every key.</p>"
+          }
+        },
+        "qa_02": {
+          "type": "qa",
+          "settings": {
+            "q": "Are the beds suitable for contract use?",
+            "a": "<p>Fire-retardancy and contract certification are prepared for each market and documented for your file.</p>"
+          }
+        },
+        "qa_03": {
+          "type": "qa",
+          "settings": {
+            "q": "How are the beds maintained?",
+            "a": "<p>Each system comes with its housekeeping protocol, and we offer on-site rotation and care training for your team.</p>"
+          }
+        },
+        "qa_04": {
+          "type": "qa",
+          "settings": {
+            "q": "What happens at fifteen years?",
+            "a": "<p>The 15 + 15 service can be written into the agreement: the beds return to the atelier to be opened, cleaned and rebuilt, rather than replaced.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "qa_01",
+        "qa_02",
+        "qa_03",
+        "qa_04"
+      ]
     }
   },
   "order": [
     "s01",
     "s02",
     "s03",
-    "s04"
+    "s04",
+    "places",
+    "projects",
+    "qa"
   ]
 }

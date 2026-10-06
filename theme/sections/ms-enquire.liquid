@@ -2,7 +2,7 @@
   assign ms_show = true
   if template.name == 'page'
     assign ms_show = false
-    assign ms_ours = 'agents-and-resellers,agents-resellers,collections,contact,download-the-dream,faq,find-your-midsummer,handmade-in-italy,hospitality,loro-piana-interiors,natural-materials,professionals,regeneration,salone-2026,sleep-assesment,sleep-culture,story,sustainability' | split: ','
+    assign ms_ours = 'agents-and-resellers,agents-resellers,atelier,collections,compare,contact,download-the-dream,faq,find-your-midsummer,handmade-in-italy,hospitality,loro-piana-interiors,natural-materials,professionals,regeneration,salone-2026,sleep-assesment,sleep-culture,story,sustainability' | split: ','
     if ms_ours contains template.suffix
       assign ms_show = true
     else
@@ -27,7 +27,7 @@
 {%- liquid
   assign s = section.settings
   capture photo
-    render 'ms-img', image: s.image, fallback: 'ms-graded-paisley-red.jpg', width: 1600
+    render 'ms-img', image: s.image, fallback: 'ms-photo-atelier-sun.jpg', width: 1600
   endcapture
 -%}
 <section class="ms-eq" data-ms-enq-page>

@@ -17,9 +17,16 @@
           endif
           assign url = c.url
           if url == blank
-            capture url
-              render 'ms-link', to: 'collections'
-            endcapture
+            assign tiers = 'essentials,signature,icons' | split: ','
+            if tiers contains block.settings.handle
+              capture url
+                render 'ms-link', to: block.settings.handle
+              endcapture
+            else
+              capture url
+                render 'ms-link', to: 'collections'
+              endcapture
+            endif
           endif
           assign title = block.settings.title | default: c.title
         -%}

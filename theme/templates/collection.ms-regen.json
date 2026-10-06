@@ -35,6 +35,12 @@
     "s08": {
       "type": "ms-regen-05",
       "settings": {}
+    },
+    "next": {
+      "type": "ms-next-read",
+      "settings": {
+        "current": "regen"
+      }
     }
   },
   "order": [
@@ -45,6 +51,7 @@
     "s05",
     "s06",
     "s07",
-    "s08"
+    "s08",
+    "next"
   ]
 }

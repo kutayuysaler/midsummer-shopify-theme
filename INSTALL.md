@@ -496,3 +496,26 @@ Already done in the theme, with nothing to set:
 
 The step texts and figures written for the designed pages are a first draft; please check
 them against how the beds are really made.
+
+## 14. New in this round
+
+- **Compare the collections**: a real comparison of Essentials, Signature and Icons. Every
+  "Compare" and "Our beds" link opens it (your page *sleep-collections* opens in it, or a
+  stand-in address).
+- **Icons, Essentials and Signature** always open: the store's collection if it exists, or
+  the systems listed by product handle (snippets/ms-tier.liquid).
+- **The Milano atelier**: its own page (a store page with the handle *atelier* opens in it).
+- **Heritage & Craft**: every chapter ends with the previous and next chapters.
+- **Professionals and Hospitality**: places to go next, projects (from a blog with the handle
+  *projects*, hidden if there is none) and trade questions.
+- **Questions & customer care**: 22 answers in five topics, a care guide and a sizes guide.
+- **Journal**: notes are filed automatically into Sleep, Materials, Craft, Longevity, Projects
+  and News, by their tags, title and opening. The Journal page and the menu use the same list.
+  To force a subject, tag the note with it.
+- **Inside the bed** replaces the layer drawing on the home page and every product page: the
+  three parts and the hand, never the build.
+- **Fibre marks**: one coherent mark per fibre on product pages and the materials page.
+- **Letters from the atelier**: newsletter on the home page and the Journal.
+- **Clients' words**: on the home page, hidden until you add quotes in the theme editor.
+
+See AUDIT.md for the homepage audit and what competitors have that is still to add.

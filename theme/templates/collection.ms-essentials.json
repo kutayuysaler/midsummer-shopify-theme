@@ -1,0 +1,32 @@
+/*
+ * Midsummer Milano: the Essentials collection, reachable whatever the store calls it (?view=ms-essentials).
+ */
+{
+  "layout": "ms",
+  "sections": {
+    "s01": {
+      "type": "ms-banner",
+      "settings": {
+        "image_fallback": "ms-graded-bougainvillea.jpg",
+        "eyebrow": "Collection I",
+        "use_page_title": false,
+        "heading": "Essentials",
+        "height": "tall",
+        "text": "The entry into the Midsummer world: natural fibres, the same hand-built construction, clean lines."
+      }
+    },
+    "s02": {
+      "type": "ms-curated",
+      "settings": {
+        "tier": "essentials",
+        "eyebrow": "The systems",
+        "heading": "Every one made to order.",
+        "text": "Each system is specified with you, at the atelier or by video: dimensions, firmness, fibres and cloth. Prices on request."
+      }
+    }
+  },
+  "order": [
+    "s01",
+    "s02"
+  ]
+}

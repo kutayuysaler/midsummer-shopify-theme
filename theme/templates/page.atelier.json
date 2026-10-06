@@ -1,0 +1,161 @@
+/*
+ * Midsummer Milano: the Milano atelier (a store page with the handle atelier opens in it, or ?view=atelier).
+ */
+{
+  "layout": "ms",
+  "sections": {
+    "s01": {
+      "type": "ms-banner",
+      "settings": {
+        "image_fallback": "ms-photo-atelier-sun.jpg",
+        "eyebrow": "Via Andegari 4, Milano",
+        "use_page_title": false,
+        "heading": "The Milano atelier",
+        "height": "tall",
+        "text": "Where the beds can be lain on. By appointment, Monday to Friday."
+      }
+    },
+    "s02": {
+      "type": "ms-statement",
+      "settings": {
+        "eyebrow": "Visiting",
+        "use_content": false,
+        "heading": "Lie on the systems, touch the fibres, and leave with a proposal drawn for your room.",
+        "text": "<p>The atelier is at Via Andegari 4, 20121 Milano, a few steps from La Scala. It opens by appointment, Monday to Friday, 09:00–12:00 and 13:00–18:00, and every appointment is confirmed by email within one working day.</p><p>Wherever you are, the same conversation can happen by video: we send the fibres and the cloths ahead, and specify the system with you on screen.</p>"
+      }
+    },
+    "s03": {
+      "type": "ms-process",
+      "settings": {
+        "eyebrow": "Your visit",
+        "heading": "Four steps, at your pace.",
+        "ground": "#F4EFE5"
+      },
+      "blocks": {
+        "step_01": {
+          "type": "step",
+          "settings": {
+            "image_fallback": "ms-photo-atelier-blue-gold.jpg",
+            "title": "Book",
+            "text": "<p>Choose a morning or an afternoon, at the atelier or by video. A person replies within one working day.</p>"
+          }
+        },
+        "step_02": {
+          "type": "step",
+          "settings": {
+            "image_fallback": "ms-photo-atelier-pure.jpg",
+            "title": "Lie down",
+            "text": "<p>Essentials, Signature and Icons, made up as they would be at home. Take your time on each.</p>"
+          }
+        },
+        "step_03": {
+          "type": "step",
+          "settings": {
+            "image_fallback": "ms-photo-fabric-weave.jpg",
+            "title": "Touch",
+            "text": "<p>The natural fibres before they are laid, and the Loro Piana Interiors cloths against the bed.</p>"
+          }
+        },
+        "step_04": {
+          "type": "step",
+          "settings": {
+            "image_fallback": "ms-photo-atelier-orange-bed.jpg",
+            "title": "Specify",
+            "text": "<p>Size, firmness, fibres and cloth, written down with you. The proposal follows, drawn for your room.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "step_01",
+        "step_02",
+        "step_03",
+        "step_04"
+      ]
+    },
+    "s04": {
+      "type": "ms-image-pair",
+      "settings": {
+        "eyebrow": "In the rooms",
+        "heading": "Every bed made up, as it would be at home.",
+        "fallback_1": "ms-photo-atelier-parrots.jpg",
+        "caption_1": "The parrot room, with a Signature system.",
+        "fallback_2": "ms-photo-atelier-orange-bed.jpg",
+        "caption_2": "The blue-and-gold room, Via Andegari."
+      }
+    },
+    "s05": {
+      "type": "ms-qa",
+      "settings": {
+        "eyebrow": "Before you come",
+        "heading": "Visiting the atelier.",
+        "link_label": "Book a private appointment",
+        "link_place": "enquire"
+      },
+      "blocks": {
+        "qa_01": {
+          "type": "qa",
+          "settings": {
+            "q": "Do I need an appointment?",
+            "a": "<p>Yes. The atelier receives by appointment, Monday to Friday, 09:00–12:00 and 13:00–18:00, so that each visit has the rooms and the artisans’ attention to itself.</p>"
+          }
+        },
+        "qa_02": {
+          "type": "qa",
+          "settings": {
+            "q": "Can we meet by video instead?",
+            "a": "<p>Yes. We send the fibres and cloth samples ahead and specify the system with you on screen, wherever you are.</p>"
+          }
+        },
+        "qa_03": {
+          "type": "qa",
+          "settings": {
+            "q": "What should I bring?",
+            "a": "<p>The measurements of the room and of the bed you have in mind, a few photographs, and any fabric or colour references. Architects are welcome to bring drawings.</p>"
+          }
+        },
+        "qa_04": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I see the Loro Piana Interiors fabrics?",
+            "a": "<p>Yes. The range is at the atelier, to be chosen against the bed itself.</p>"
+          }
+        },
+        "qa_05": {
+          "type": "qa",
+          "settings": {
+            "q": "Is there somewhere nearer to me?",
+            "a": "<p>Midsummer beds can also be seen at showrooms, agents and resellers in Europe, the Americas and Asia. See Agents &amp; Resellers for the map.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "qa_01",
+        "qa_02",
+        "qa_03",
+        "qa_04",
+        "qa_05"
+      ]
+    },
+    "s06": {
+      "type": "ms-cta-band",
+      "settings": {
+        "tone": "ink",
+        "eyebrow": "Via Andegari 4, Milano",
+        "heading": "Come and lie down.",
+        "text": "<p>Monday to Friday, by appointment. Or by video, wherever you are.</p>",
+        "button": "Book a private appointment",
+        "button_enquire": true,
+        "link_label": "Agents & Resellers",
+        "link_place": "agents"
+      }
+    }
+  },
+  "order": [
+    "s01",
+    "s02",
+    "s03",
+    "s04",
+    "s05",
+    "s06"
+  ]
+}

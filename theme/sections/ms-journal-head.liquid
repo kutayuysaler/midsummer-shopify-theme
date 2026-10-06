@@ -3,13 +3,6 @@
 <div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgb(110, 103, 92);">{{ section.settings.t1 }}</div>
 <h1 style="font-family: Newsreader, Georgia, serif; font-size: clamp(38px, 5.6vw, 78px); line-height: 1; letter-spacing: -0.035em; margin-top: 20px;">{{ section.settings.t2 }}</h1>
 </div>
-<div style="display: flex; flex-wrap: wrap; gap: 22px; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92); padding-bottom: 10px;">
-<a href="{{ blog.url }}" style="{% if current_tags == blank %}color: rgb(23, 20, 15); border-bottom: 1px solid rgb(23, 20, 15); padding-bottom: 6px;{% else %}color: inherit;{% endif %}">{{ section.settings.all }}</a>
-{%- assign subjects = section.settings.tags | split: ',' -%}
-{%- for s in subjects -%}{%- assign t = s | strip -%}{%- assign tl = t | downcase -%}
-<a href="{{ blog.url }}/tagged/{{ t | handleize }}" style="{% if current_tags contains t or current_tags contains tl %}color: rgb(23, 20, 15); border-bottom: 1px solid rgb(23, 20, 15); padding-bottom: 6px;{% else %}color: inherit;{% endif %}">{{ t }}</a>
-{%- endfor -%}
-</div>
 </section>
 {% schema %}
 {

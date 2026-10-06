@@ -48,7 +48,7 @@
       opts: [['Warm', 'Coastal, southern, or a room that holds heat.'], ['Temperate', 'Four real seasons.'], ['Cold', 'Mountain, northern, or a house kept cool.']] },
     { q: 'What size are you working with?', img: CDN + 'files/Paisley.png?v=1777114994&width=1400',
       opts: [['Double', '160 × 200 cm'], ['Queen or King', '170–180 × 200 cm'], ['Made to measure', 'The wall decides, not the catalogue.']] },
-    { q: 'How far should the bespoke go?', img: CDN + 'files/Top_deserto_mobile5.jpg?v=1683628697&width=1400',
+    { q: 'How far should the bespoke go?', img: {{ 'ms-photo-teal-throw.jpg' | asset_url | json }},
       opts: [['The essentials, done properly', 'Natural fibres and honest construction.'], ['Loro Piana Interiors', 'Fabric chosen for the room, comfort chosen for you.'], ['Without limit', 'Six spring layers, vicuña, cashmere. No detail overlooked.']] }
   ];
   var RESULTS = {
@@ -56,7 +56,7 @@
     'Balanced': { 'The essentials, done properly': ['Amalfi', 'Essentials', 'Coloured linen, summer weight.'], 'Loro Piana Interiors': ['Vivaldi', 'Signature', 'The balanced build, most specified of all.'], 'Without limit': ['Bellini', 'Icons', 'Slender boxspring, balcony proportions.'] },
     'Structured': { 'The essentials, done properly': ['Capri', 'Essentials', 'Boxspring and mattress, in one clean line.'], 'Loro Piana Interiors': ['Brera', 'Signature', 'Structured support, Milanese proportion.'], 'Without limit': ['Top', 'Icons', 'The most complete system in the house.'] }
   };
-  var DONE_IMG = CDN + 'files/Paisley_IMG_5161_low.jpg?v=1777114994&width=1400';
+  var DONE_IMG = {{ 'ms-photo-atelier-pure.jpg' | asset_url | json }};
   var URLS = {};
   try { URLS = JSON.parse(document.querySelector('[data-ms-quiz-urls]').textContent); } catch (e) {}
   document.querySelectorAll('[data-ms-quiz]:not([data-ms-quiz-init])').forEach(function (root) {

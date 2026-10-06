@@ -1,0 +1,173 @@
+/*
+ * Midsummer Milano: the three collections compared, reachable before its page exists (?view=ms-compare).
+ */
+{
+  "layout": "ms",
+  "sections": {
+    "s01": {
+      "type": "ms-compare",
+      "settings": {},
+      "blocks": {
+        "row_01": {
+          "type": "row",
+          "settings": {
+            "label": "For",
+            "v1": "Natural fibres and honest construction, done properly.",
+            "v2": "Fabric chosen for the room, comfort chosen for you.",
+            "v3": "Without limit. No detail overlooked.",
+            "shared": false
+          }
+        },
+        "row_02": {
+          "type": "row",
+          "settings": {
+            "label": "Fibres",
+            "v1": "Natural fibres throughout",
+            "v2": "Precious blends: yak, camel hair, silk, cashmere",
+            "v3": "The rarest, vicuña and cashmere among them",
+            "shared": false
+          }
+        },
+        "row_03": {
+          "type": "row",
+          "settings": {
+            "label": "Cloth",
+            "v1": "Natural cloths, coloured linen among them",
+            "v2": "Loro Piana Interiors",
+            "v3": "Loro Piana Interiors, fully upholstered",
+            "shared": false
+          }
+        },
+        "row_04": {
+          "type": "row",
+          "settings": {
+            "label": "Made to measure",
+            "v1": "Made to your size",
+            "v2": "Your size and your cloth",
+            "v3": "Everything, to your drawing, round beds included",
+            "shared": false
+          }
+        },
+        "row_05": {
+          "type": "row",
+          "settings": {
+            "label": "Systems",
+            "v1": "Five",
+            "v2": "Seven",
+            "v3": "Twelve",
+            "shared": false
+          }
+        },
+        "row_06": {
+          "type": "row",
+          "settings": {
+            "label": "Handmade in Italy, by two artisans",
+            "v1": "yes",
+            "v2": "yes",
+            "v3": "yes",
+            "shared": true
+          }
+        },
+        "row_07": {
+          "type": "row",
+          "settings": {
+            "label": "Only natural fibres",
+            "v1": "yes",
+            "v2": "yes",
+            "v3": "yes",
+            "shared": true
+          }
+        },
+        "row_08": {
+          "type": "row",
+          "settings": {
+            "label": "Regenerated at fifteen years",
+            "v1": "yes",
+            "v2": "yes",
+            "v3": "yes",
+            "shared": true
+          }
+        },
+        "row_09": {
+          "type": "row",
+          "settings": {
+            "label": "Price",
+            "v1": "On request",
+            "v2": "On request",
+            "v3": "On request",
+            "shared": true
+          }
+        }
+      },
+      "block_order": [
+        "row_01",
+        "row_02",
+        "row_03",
+        "row_04",
+        "row_05",
+        "row_06",
+        "row_07",
+        "row_08",
+        "row_09"
+      ]
+    },
+    "s02": {
+      "type": "ms-qa",
+      "settings": {
+        "tone": "sand",
+        "eyebrow": "Choosing",
+        "heading": "Questions before choosing.",
+        "link_label": "Ask the atelier",
+        "link_place": "enquire"
+      },
+      "blocks": {
+        "qa_01": {
+          "type": "qa",
+          "settings": {
+            "q": "Which collection is right for me?",
+            "a": "<p>It depends on how you sleep and how far you want the bespoke to go. Essentials is natural comfort, done properly; Signature adds Loro Piana Interiors and precious fibres; Icons is the house without limits. The five questions of Find your Midsummer suggest a system, and at the atelier in Milan you can lie on all three.</p>"
+          }
+        },
+        "qa_02": {
+          "type": "qa",
+          "settings": {
+            "q": "Are Essentials made differently from Icons?",
+            "a": "<p>No. Every system, in every collection, is made by hand in Italy by the same two artisans, from natural fibres only. The collections differ in the cloth, the rarity of the fibres and how far each system is made to measure.</p>"
+          }
+        },
+        "qa_03": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I have a size that is not listed?",
+            "a": "<p>Yes. Every system is made to order: dimensions and heights are worked to your drawing, round beds included, without tooling charges.</p>"
+          }
+        },
+        "qa_04": {
+          "type": "qa",
+          "settings": {
+            "q": "Why are prices on request?",
+            "a": "<p>Because nothing is made before it is specified. Size, firmness, fibres and cloth are chosen with you, at the atelier or by video, and the system is quoted from that specification.</p>"
+          }
+        },
+        "qa_05": {
+          "type": "qa",
+          "settings": {
+            "q": "How long does a Midsummer bed last?",
+            "a": "<p>It is made to last and to be renewed: at fifteen years the atelier opens, cleans and rebuilds the mattress, by hand, for fifteen more.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "qa_01",
+        "qa_02",
+        "qa_03",
+        "qa_04",
+        "qa_05"
+      ]
+    }
+  },
+  "order": [
+    "s01",
+    "s02"
+  ]
+}

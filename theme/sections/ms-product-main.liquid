@@ -25,7 +25,7 @@
     render 'ms-product-note', title: product.title
   endcapture
   if product.handle contains 'paisley'
-    assign note = 'Loro Piana Interiors, over six layers of springs. The fabric leads; the springwork does the rest.'
+    assign note = 'Loro Piana Interiors, over a core built by hand. The fabric leads; the craft does the rest.'
   endif
   assign tagline = product.metafields.custom.subtitle.value | default: note
   if tagline == blank
@@ -131,7 +131,7 @@
               {%- for block in section.blocks -%}
                 <li class="ms-pm__fibre" {{ block.shopify_attributes }}>
                   <span class="ms-pm__ficon">
-                    {%- if block.settings.icon != blank -%}<img src="{{ block.settings.icon | image_url: width: 120 }}" alt="" width="44" height="44" loading="lazy">{%- endif -%}
+                    {%- render 'ms-fibre-mark', name: block.settings.name, size: 40 -%}
                   </span>
                   <span class="ms-pm__fname">{{ block.settings.name }}</span>
                   {%- if block.settings.note != blank -%}<span class="ms-pm__fnote">{{ block.settings.note }}</span>{%- endif -%}
@@ -229,7 +229,8 @@
   .ms-pm__fibre { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; column-gap: 16px; align-items: center; padding: 10px 0; border-top: 1px solid #ECE6DB; }
   .ms-pm__fibre:first-child { border-top: 0; }
   .ms-pm__ficon { width: 40px; height: 40px; background: #FBF9F5; isolation: isolate; display: flex; align-items: center; justify-content: center; }
-  .ms-site .ms-pm__ficon img { width: 40px; height: 40px; object-fit: contain; mix-blend-mode: multiply; filter: grayscale(1) contrast(1.35) brightness(1.06) !important; opacity: .85; }
+  .ms-pm__ficon { color: #7E623B; }
+  .ms-pm__ficon .ms-fm { display: block; }
   .ms-pm__fname { font-family: Newsreader, Georgia, serif; font-size: 17px; line-height: 1.25; }
   .ms-pm__fnote { font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; line-height: 1.5; color: #6E675C; text-align: right; }
   @media (max-width: 520px) {
@@ -405,7 +406,7 @@ document.addEventListener('DOMContentLoaded', function () {
       "name": "Fibre",
       "settings": [
         { "type": "text", "id": "name", "label": "Name", "default": "Cheviot Wool" },
-        { "type": "image_picker", "id": "icon", "label": "Drawing" },
+        { "type": "image_picker", "id": "icon", "label": "Drawing (not shown: every fibre carries the house mark)" },
         { "type": "text", "id": "note", "label": "Note" }
       ]
     }

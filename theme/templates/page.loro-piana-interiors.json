@@ -110,8 +110,7 @@
         "image_1": "shopify://shop_images/Paisleydettaglio.jpg",
         "fallback_1": "https://midsummer-milano.com/cdn/shop/files/Paisleydettaglio.jpg?v=1788246821&width=1400",
         "caption_1": "The seam is sewn by the same hands that opened the core.",
-        "image_2": "shopify://shop_images/Paisley_IMG_4918_low_70960abc-6877-49b2-abc8-0bd379994114.jpg",
-        "fallback_2": "https://midsummer-milano.com/cdn/shop/files/Paisley_IMG_4918_low_70960abc-6877-49b2-abc8-0bd379994114.jpg?v=1777114994&width=1400",
+        "fallback_2": "ms-photo-fabric-weave.jpg",
         "caption_2": "Headboard specified to the client's drawing, without additional tooling."
       }
     },
@@ -160,6 +159,12 @@
         "link_label": "Request the brochure",
         "link_enquire": true
       }
+    },
+    "next": {
+      "type": "ms-next-read",
+      "settings": {
+        "current": "loro"
+      }
     }
   },
   "order": [
@@ -169,6 +174,7 @@
     "s04",
     "s05",
     "s06",
-    "s07"
+    "s07",
+    "next"
   ]
 }

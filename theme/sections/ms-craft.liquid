@@ -1,0 +1,155 @@
+{%- comment -%}
+  Inside a Midsummer bed, told with discretion: the three parts of a system and what each
+  does for the sleeper, the gestures of the hand, and nothing of the build itself. The exact
+  build of each system is shown at the atelier.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign eyebrow = s.eyebrow
+  if template.name == 'product' and product != blank and s.eyebrow_product != blank
+    assign eyebrow = s.eyebrow_product | replace: '[name]', product.title
+  endif
+-%}
+<section class="ms-cr" data-ms-craft>
+  <div class="ms-cr__in">
+    <div class="ms-cr__top">
+      <div class="ms-cr__words">
+        <div class="ms-cr__eyebrow">{{ eyebrow }}</div>
+        <h2 class="ms-cr__title">{{ s.heading }}</h2>
+        {%- if s.text != blank -%}<p class="ms-cr__text">{{ s.text }}</p>{%- endif -%}
+        {%- if s.note != blank -%}<p class="ms-cr__note">{{ s.note }}</p>{%- endif -%}
+        <div class="ms-cr__links">
+          {%- if s.button != blank -%}<a class="ms-cr__btn" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=appointment' %}#enquire" data-ms-enquire>{{ s.button }}</a>{%- endif -%}
+          {%- if s.link_label != blank -%}<a class="ms-cr__link" href="{% render 'ms-link', to: s.link_place %}">{{ s.link_label }}<span aria-hidden="true">→</span></a>{%- endif -%}
+        </div>
+      </div>
+      <div class="ms-cr__draw" aria-hidden="false"><svg class="ms-cr__svg" viewBox="0 0 560 420" role="img" aria-label="A Midsummer system: topper, mattress and base"><g class="ms-cr__slab" data-part="topper" tabindex="0" role="button" aria-label="The topper"><path class="ms-cr__face ms-cr__face--top" d="M40,128 L400,128 L529.9,53.0 L169.9,53.0 Z"/><path class="ms-cr__face" d="M40,128 L400,128 L400,150 L40,150 Z"/><path class="ms-cr__face ms-cr__face--side" d="M400,128 L529.9,53.0 L529.9,75.0 L400,150 Z"/><circle cx="143.3" cy="103.0" r="1.3" class="ms-cr__dot"/><circle cx="186.6" cy="78.0" r="1.3" class="ms-cr__dot"/><circle cx="203.3" cy="103.0" r="1.3" class="ms-cr__dot"/><circle cx="246.6" cy="78.0" r="1.3" class="ms-cr__dot"/><circle cx="263.3" cy="103.0" r="1.3" class="ms-cr__dot"/><circle cx="306.6" cy="78.0" r="1.3" class="ms-cr__dot"/><circle cx="323.3" cy="103.0" r="1.3" class="ms-cr__dot"/><circle cx="366.6" cy="78.0" r="1.3" class="ms-cr__dot"/><circle cx="383.3" cy="103.0" r="1.3" class="ms-cr__dot"/><circle cx="426.6" cy="78.0" r="1.3" class="ms-cr__dot"/><line x1="533.9" y1="66.0" x2="573.9" y2="66.0" class="ms-cr__lead"/><text x="581.9" y="70.0" class="ms-cr__num">I</text></g><g class="ms-cr__slab" data-part="mattress" tabindex="0" role="button" aria-label="The mattress"><path class="ms-cr__face ms-cr__face--top" d="M40,222 L400,222 L529.9,147.0 L169.9,147.0 Z"/><path class="ms-cr__face" d="M40,222 L400,222 L400,284 L40,284 Z"/><path class="ms-cr__face ms-cr__face--side" d="M400,222 L529.9,147.0 L529.9,209.0 L400,284 Z"/><line x1="533.9" y1="180.0" x2="573.9" y2="180.0" class="ms-cr__lead"/><text x="581.9" y="184.0" class="ms-cr__num">II</text></g><g class="ms-cr__slab" data-part="base" tabindex="0" role="button" aria-label="The base"><path class="ms-cr__face ms-cr__face--top" d="M40,330 L400,330 L529.9,255.0 L169.9,255.0 Z"/><path class="ms-cr__face" d="M40,330 L400,330 L400,380 L40,380 Z"/><path class="ms-cr__face ms-cr__face--side" d="M400,330 L529.9,255.0 L529.9,305.0 L400,380 Z"/><line x1="533.9" y1="282.0" x2="573.9" y2="282.0" class="ms-cr__lead"/><text x="581.9" y="286.0" class="ms-cr__num">III</text></g></svg></div>
+    </div>
+    <div class="ms-cr__parts">
+      {%- for i in (1..3) -%}
+        {%- liquid
+          assign kt = 'part' | append: i | append: '_title'
+          assign kx = 'part' | append: i | append: '_text'
+          assign ki = 'part' | append: i | append: '_image'
+          assign kf = 'part' | append: i | append: '_fallback'
+          case i
+            when 1
+              assign part = 'topper'
+              assign num = 'I'
+            when 2
+              assign part = 'mattress'
+              assign num = 'II'
+            else
+              assign part = 'base'
+              assign num = 'III'
+          endcase
+        -%}
+        <div class="ms-cr__part" data-part="{{ part }}">
+          <div class="ms-cr__img"><img src="{% render 'ms-img', image: s[ki], fallback: s[kf], width: 1000 %}" alt="{{ s[kt] | escape }}" width="1000" height="1250" loading="lazy"></div>
+          <div class="ms-cr__pnum">{{ num }}</div>
+          <h3 class="ms-cr__ptitle">{{ s[kt] }}</h3>
+          <p class="ms-cr__ptext">{{ s[kx] }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+    <ul class="ms-cr__marks">
+      {%- for i in (1..5) -%}
+        {%- assign km = 'mark' | append: i -%}
+        {%- if s[km] != blank -%}<li><span class="ms-cr__mk" aria-hidden="true"></span>{{ s[km] }}</li>{%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+<style>
+  .ms-cr { background: #17140F; color: #FBF9F5; padding: clamp(80px, 10vw, 160px) clamp(18px, 5vw, 80px); }
+  .ms-cr__in { max-width: 1560px; margin: 0 auto; }
+  .ms-cr__top { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(32px, 6vw, 120px); align-items: center; }
+  .ms-cr__eyebrow { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: #C9A97A; }
+  .ms-cr__title { font-family: Newsreader, Georgia, serif; font-weight: 200; font-size: clamp(36px, 4.4vw, 68px); line-height: 1.03; letter-spacing: -0.035em; margin-top: clamp(18px, 2vw, 28px); }
+  .ms-site .ms-cr__text { font-size: 15.5px; line-height: 1.95; color: rgba(251, 249, 245, .76); margin-top: clamp(20px, 2.4vw, 30px); max-width: 48ch; }
+  .ms-site .ms-cr__note { font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 17px; line-height: 1.6; color: #E2CFAE; margin-top: 22px; max-width: 44ch; }
+  .ms-cr__links { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 30px; margin-top: clamp(28px, 3vw, 42px); }
+  .ms-site a.ms-cr__btn { display: inline-flex; align-items: center; min-height: 52px; padding: 0 28px; background: #FBF9F5; color: #17140F; font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; }
+  .ms-site a.ms-cr__link { display: inline-flex; gap: 12px; font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: #FBF9F5; border-bottom: 1px solid currentColor; padding-bottom: 6px; }
+  .ms-cr__svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .ms-cr__slab { cursor: pointer; outline: none; transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+  .ms-cr__face { fill: rgba(251, 249, 245, .03); stroke: rgba(251, 249, 245, .5); stroke-width: 1; transition: fill .45s ease, stroke .45s ease; }
+  .ms-cr__face--top { fill: rgba(251, 249, 245, .06); }
+  .ms-cr__face--side { fill: rgba(251, 249, 245, .015); }
+  .ms-cr__dot { fill: rgba(251, 249, 245, .45); }
+  .ms-cr__lead { stroke: rgba(201, 169, 122, .55); stroke-width: 1; }
+  .ms-cr__num { fill: #C9A97A; font-family: Newsreader, Georgia, serif; font-size: 18px; }
+  .ms-cr__slab.is-on .ms-cr__face { stroke: #E2CFAE; fill: rgba(201, 169, 122, .12); }
+  .ms-cr__slab.is-on .ms-cr__face--top { fill: rgba(201, 169, 122, .2); }
+  .ms-cr__slab[data-part="topper"].is-on { transform: translateY(-10px); }
+  .ms-cr__slab[data-part="base"].is-on { transform: translateY(8px); }
+  .ms-cr__parts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(18px, 2.6vw, 44px); margin-top: clamp(56px, 7vw, 110px); }
+  .ms-cr__part { cursor: default; }
+  .ms-cr__img { aspect-ratio: 4 / 5; overflow: hidden; background: rgba(251, 249, 245, .05); }
+  .ms-cr__img img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: .82; transition: opacity .6s ease, transform 1.2s cubic-bezier(.2,.7,.2,1); }
+  .ms-cr__part.is-on .ms-cr__img img, .ms-cr__part:hover .ms-cr__img img { opacity: 1; transform: scale(1.03); }
+  .ms-cr__pnum { font-family: Newsreader, Georgia, serif; font-size: 15px; color: #C9A97A; margin-top: 22px; }
+  .ms-cr__ptitle { font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: clamp(24px, 2.2vw, 32px); letter-spacing: -0.02em; margin-top: 6px; }
+  .ms-site .ms-cr__ptext { font-size: 14.5px; line-height: 1.85; color: rgba(251, 249, 245, .72); margin-top: 12px; max-width: 40ch; }
+  .ms-cr__marks { list-style: none; margin: clamp(48px, 6vw, 88px) 0 0; padding: 26px 0 0; border-top: 1px solid rgba(251, 249, 245, .18); display: flex; flex-wrap: wrap; gap: 14px clamp(24px, 3.4vw, 56px); }
+  .ms-cr__marks li { display: flex; align-items: center; gap: 12px; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: rgba(251, 249, 245, .82); }
+  .ms-cr__mk { width: 18px; height: 1px; background: #C9A97A; display: inline-block; }
+  @media (max-width: 900px) {
+    .ms-cr__top { grid-template-columns: minmax(0, 1fr); }
+    .ms-cr__draw { max-width: 460px; }
+    .ms-cr__parts { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-right: calc(-1 * clamp(18px, 5vw, 80px)); padding-right: clamp(18px, 5vw, 80px); }
+    .ms-cr__parts::-webkit-scrollbar { display: none; }
+    .ms-cr__part { flex: 0 0 78%; scroll-snap-align: start; }
+    .ms-cr__marks { flex-direction: column; }
+  }
+</style>
+<script>
+(function () {
+  document.querySelectorAll('[data-ms-craft]:not([data-ms-craft-on])').forEach(function (root) {
+    root.setAttribute('data-ms-craft-on', '');
+    function on(part) { root.querySelectorAll('[data-part]').forEach(function (el) { el.classList.toggle('is-on', el.getAttribute('data-part') === part); }); }
+    root.querySelectorAll('[data-part]').forEach(function (el) {
+      el.addEventListener('mouseenter', function () { on(el.getAttribute('data-part')); });
+      el.addEventListener('focus', function () { on(el.getAttribute('data-part')); });
+      el.addEventListener('click', function () { on(el.getAttribute('data-part')); });
+    });
+    root.addEventListener('mouseleave', function () { on(''); });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Inside the bed",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Label", "default": "Inside a Midsummer bed" },
+    { "type": "text", "id": "eyebrow_product", "label": "Label on a product page", "default": "Inside [name]", "info": "[name] becomes the product's name." },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Three parts, made as one." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Every system is a topper, a mattress and a base, built together by the same two artisans and specified with you: size, firmness, fibres and cloth." },
+    { "type": "textarea", "id": "note", "label": "Note", "default": "The exact build of each system is shown at the atelier, with the fibres in your hands." },
+    { "type": "text", "id": "button", "label": "Button", "default": "See it at the atelier" },
+    { "type": "text", "id": "link_label", "label": "Link", "default": "Natural materials" },
+    { "type": "select", "id": "link_place", "label": "Link to", "default": "materials", "options": [{"value":"materials","label":"Natural materials"},{"value":"handmade","label":"Handmade in Italy"},{"value":"collections","label":"Compare the collections"},{"value":"icons","label":"Icons"},{"value":"regen","label":"Made to last"}] },
+    { "type": "header", "content": "The three parts" },
+    { "type": "text", "id": "part1_title", "label": "Part I", "default": "The topper" },
+    { "type": "textarea", "id": "part1_text", "label": "Part I text", "default": "The surface you feel first. Natural fibres chosen for the season, turned when the year turns." },
+    { "type": "image_picker", "id": "part1_image", "label": "Part I photograph" },
+    { "type": "text", "id": "part1_fallback", "label": "Part I photograph address", "default": "ms-photo-mattress-detail.jpg" },
+    { "type": "text", "id": "part2_title", "label": "Part II", "default": "The mattress" },
+    { "type": "textarea", "id": "part2_text", "label": "Part II text", "default": "The heart of the system. Support that follows the body through the night, finished by hand to the last stitch." },
+    { "type": "image_picker", "id": "part2_image", "label": "Part II photograph" },
+    { "type": "text", "id": "part2_fallback", "label": "Part II photograph address", "default": "ms-photo-tufting.jpg" },
+    { "type": "text", "id": "part3_title", "label": "Part III", "default": "The base" },
+    { "type": "textarea", "id": "part3_text", "label": "Part III text", "default": "The foundation, upholstered for your room in Loro Piana Interiors and made to carry the rest for thirty years." },
+    { "type": "image_picker", "id": "part3_image", "label": "Part III photograph" },
+    { "type": "text", "id": "part3_fallback", "label": "Part III photograph address", "default": "ms-photo-fabric-weave.jpg" },
+    { "type": "header", "content": "The hand" },
+    { "type": "text", "id": "mark1", "label": "Mark 1", "default": "Tufted by hand" },
+    { "type": "text", "id": "mark2", "label": "Mark 2", "default": "Borders stitched by hand" },
+    { "type": "text", "id": "mark3", "label": "Mark 3", "default": "Only natural fibres" },
+    { "type": "text", "id": "mark4", "label": "Mark 4", "default": "Loro Piana Interiors" },
+    { "type": "text", "id": "mark5", "label": "Mark 5", "default": "Regenerated at fifteen years" }
+  ],
+  "presets": [{ "name": "Inside the bed" }]
+}
+{% endschema %}

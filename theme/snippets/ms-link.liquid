@@ -68,6 +68,10 @@
       assign tpl = 'hospitality'
       assign p = 'hospitality,hospitality-and-contract,contract,hotels'
       assign view = 'hospitality'
+    when 'atelier'
+      assign tpl = 'atelier'
+      assign p = 'atelier,the-atelier,milano-atelier,the-milano-atelier,showroom,visit-the-atelier'
+      assign view = 'atelier'
     when 'agents'
       assign tpl = 'agents-and-resellers'
       assign p = 'agents-and-resellers,agents-resellers,store-locator,stockists,where-to-find-us'
@@ -98,12 +102,14 @@
       assign b = 'projects,portfolio'
     when 'collaborations'
       assign b = 'collaborations'
-    when 'collections'
-      assign fb = routes.collections_url
+    when 'collections', 'compare'
+      assign tpl = 'compare'
+      assign p = 'sleep-collections,compare-the-collections,compare-collections'
+      assign view = 'compare'
     when 'essentials', 'signature', 'icons'
       assign c = to | append: ',' | append: to | append: '-collection,the-' | append: to
       assign kw = to
-      assign fb = routes.collections_url
+      assign view = to
     when 'mattresses'
       assign c = 'mattresses,mattress'
     when 'toppers'

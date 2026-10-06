@@ -35,8 +35,11 @@
       "settings": {}
     },
     "s03": {
-      "type": "ms-product-build",
-      "settings": {}
+      "type": "ms-craft",
+      "settings": {
+        "link_label": "The fibres inside",
+        "link_place": "materials"
+      }
     },
     "s04": {
       "type": "ms-product-related",

@@ -1,0 +1,27 @@
+{%- comment -%}
+  The systems of each collection, by their product handles (alternatives separated by |),
+  for when the store has no collection to list them. Usage: {% render 'ms-tier', tier: 'icons' %}
+  → a comma list of the handles that exist in the store.
+{%- endcomment -%}
+{%- liquid
+  case tier
+    when 'essentials'
+      assign list = 'essenziale,raffaello,amalfi,capri,thin-topper|topper-essentials|essentials-topper'
+    when 'signature'
+      assign list = 'bellagio,vivaldi-2|vivaldi,monteverdi,ultra-dry,dreamy-2|dreamy,brera,topper|signature-topper'
+    else
+      assign list = 'paisley,top-2|top,vicuna,giotto|giotto-round,bellini,storage,flora,dreamy-springs,my-dream,roma,topper-roma,vivaldi-plus'
+  endcase
+  assign out = ''
+  assign items = list | split: ','
+  for it in items
+    assign alts = it | split: '|'
+    for h in alts
+      if all_products[h].id != blank
+        assign out = out | append: h | append: ','
+        break
+      endif
+    endfor
+  endfor
+  echo out
+-%}

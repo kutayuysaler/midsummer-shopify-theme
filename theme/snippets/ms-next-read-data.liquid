@@ -1,0 +1,37 @@
+{%- comment -%} The six chapters of Heritage & Craft: title, line and picture. {%- endcomment -%}
+{%- liquid
+  case k
+    when 'story'
+      assign t = 'Our story'
+      assign l = 'A house of beds in Milan'
+      assign i = 'ms-photo-loft.jpg'
+    when 'handmade'
+      assign t = 'Handmade in Italy'
+      assign l = 'Two artisans, one bed'
+      assign i = 'ms-photo-seamstress-portrait.jpg'
+    when 'sleep-culture'
+      assign t = 'Sleep culture'
+      assign l = 'The art of sleeping well'
+      assign i = 'ms-photo-window-chair.jpg'
+    when 'materials'
+      assign t = 'Natural materials'
+      assign l = 'Wool, horsehair, silk, cashmere'
+      assign i = 'ms-photo-cashmere-throw.jpg'
+    when 'loro'
+      assign t = 'Loro Piana Interiors'
+      assign l = 'The fabrics we upholster in'
+      assign i = 'ms-photo-teal-throw.jpg'
+    else
+      assign t = 'Made to last · 15 + 15'
+      assign l = 'Regenerated at fifteen years'
+      assign i = 'ms-photo-drapes-fireplace.jpg'
+  endcase
+  case f
+    when 'title'
+      echo t
+    when 'line'
+      echo l
+    else
+      echo i
+  endcase
+-%}

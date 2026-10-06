@@ -84,6 +84,12 @@
         "link_label": "Book a private appointment",
         "link_enquire": true
       }
+    },
+    "next": {
+      "type": "ms-next-read",
+      "settings": {
+        "current": "sleep-culture"
+      }
     }
   },
   "order": [
@@ -91,6 +97,7 @@
     "s02",
     "s03",
     "s04",
-    "s05"
+    "s05",
+    "next"
   ]
 }
