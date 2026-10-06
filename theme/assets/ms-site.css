@@ -170,3 +170,9 @@ body[data-template="index"] :is([id$="__visit"], [id$="-visit"]) .ms-ch { paddin
 .ms-site a.ms-hero-cta { display: inline-flex; align-items: center; min-height: 48px; padding: 0 26px; background: #17140F; color: #FBF9F5; font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; transition: background .3s ease; }
 .ms-site a.ms-hero-cta:hover { background: #3A332A; }
 .ms-site a.ms-hero-link { font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: #17140F; border-bottom: 1px solid currentColor; padding-bottom: 6px; }
+
+/* ── small labels never break before their arrow; the footer's legal row sits on one line ── */
+.ms-site a[data-ms="cta"] { white-space: nowrap; }
+.ms-site [data-ms="footlegal"] { align-items: center; }
+.ms-site [data-ms="footlegal"] > * { display: inline-flex; align-items: center; min-height: 44px; margin: 0; }
+.ms-site [data-ms="footlegal"] > span { color: rgb(110, 103, 92); }
