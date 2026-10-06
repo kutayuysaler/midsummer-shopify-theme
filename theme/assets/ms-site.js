@@ -345,3 +345,40 @@
     document.addEventListener('shopify:section:load', function (e) { scan(e.target); });
   }
 })();
+
+/* ── rows without an orphan: on a tablet or a computer, a grid of cards whose last row would hold a single
+      card takes the nearest number of columns that leaves none alone (three and one become two and two) ── */
+(function () {
+  var MIN = 170;
+  function cards(g) {
+    return Array.prototype.filter.call(g.children, function (k) { var cs = getComputedStyle(k); return cs.display !== 'none' && cs.position !== 'absolute' && k.getBoundingClientRect().height > 40; });
+  }
+  function balance() {
+    var wide = window.innerWidth > 760;
+    document.querySelectorAll('[data-ms-balanced]').forEach(function (g) { g.style.gridTemplateColumns = g.getAttribute('data-ms-balanced'); g.removeAttribute('data-ms-balanced'); });
+    if (!wide) return;
+    document.querySelectorAll('main *').forEach(function (g) {
+      var cs = getComputedStyle(g);
+      if (cs.display !== 'grid' || g.querySelector('input, textarea, select') || g.closest('[data-ms-drawer], [data-ms-panel], [data-ms-menu]')) return;
+      var ks = cards(g); var n = ks.length; if (n < 3) return;
+      if (ks.some(function (k) { var c = getComputedStyle(k).gridColumnEnd; return c === '-1' || /span/.test(c) || /span/.test(getComputedStyle(k).gridColumnStart); })) return;
+      var cols = cs.gridTemplateColumns.split(' ').filter(Boolean).length;
+      if (cols < 2 || n <= cols || n % cols !== 1) return;
+      var gap = parseFloat(cs.columnGap) || 0, w = g.clientWidth;
+      var fits = function (c) { return (w - gap * (c - 1)) / c >= MIN; };
+      var pick = null;
+      [cols + 1, cols - 1, cols + 2, cols - 2].some(function (c) { if (c >= 2 && n % c !== 1 && (c < cols || fits(c))) { pick = c; return true; } return false; });
+      if (!pick) return;
+      g.setAttribute('data-ms-balanced', g.style.gridTemplateColumns || '');
+      g.style.gridTemplateColumns = 'repeat(' + pick + ', minmax(0, 1fr))';
+    });
+  }
+  var t = null;
+  function soon() { clearTimeout(t); t = setTimeout(balance, 120); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', soon); else soon();
+  window.addEventListener('load', soon);
+  window.addEventListener('resize', soon);
+  document.addEventListener('ms:balance', soon);
+  // filters (the Journal's subjects, the palette's weaves) change what is shown
+  document.addEventListener('click', function (e) { if (e.target.closest('button, [data-cat], [role="tab"]')) soon(); });
+})();

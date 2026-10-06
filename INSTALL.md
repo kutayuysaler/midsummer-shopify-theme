@@ -575,4 +575,17 @@ Every page was reviewed again screen by screen at 1440 × 900.
 - **Footer**: the WhatsApp button no longer covers the last links.
 - **Spelling**: fibre throughout (Orange Fiber keeps its own name).
 
+## 18. Tablet pass
+
+Every page was reviewed on a tablet held upright (768 × 1024) and on its side (1024 × 768).
+
+- **Header on an upright tablet**: the menu bar was cut off after "Professionals", so Journal
+  and Contact could not be reached. Upright tablets now open the menu from its button (as
+  phones do) and keep *Book an appointment* in the bar. On its side the full bar fits.
+- **No lonely cards**: rows of cards no longer end with a single card alone (three collections
+  as two and one, four notes as three and one). The site picks the nearest even layout by
+  itself, on tablets and computers, so this also holds when you add or remove cards.
+- **Questions & customer care**: on tablets the questions now use the full width, with the
+  "Not here?" note above them instead of a narrow empty column beside them.
+
 See AUDIT.md for the homepage audit and what competitors have that is still to add.

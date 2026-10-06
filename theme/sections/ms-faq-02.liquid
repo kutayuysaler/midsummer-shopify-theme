@@ -17,7 +17,7 @@
   endif
 -%}
 {%- if ms_show -%}
-<section style="padding: 0px clamp(18px, 5vw, 80px) clamp(70px, 10vw, 150px); max-width: 1560px; margin: 0px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(28px, 5vw, 88px); align-items: start;">
+<section class="ms-faq-wrap" style="padding: 0px clamp(18px, 5vw, 80px) clamp(70px, 10vw, 150px); max-width: 1560px; margin: 0px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(28px, 5vw, 88px); align-items: start;">
 <div data-dc-tpl="1137" class="ms-faq-side" style="max-width: 40ch;">
 <div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgb(110, 103, 92);">{{ section.settings.t1 }}</div>
 <p style="font-size: 15px; line-height: 1.95; color: rgb(74, 68, 59); margin-top: 16px;">{{ section.settings.t2 }}</p>
@@ -45,7 +45,8 @@
 </div>
 </section>
 <style>
-  @media (min-width: 900px) { .ms-faq-side { position: sticky; top: 120px; } }
+  @media (min-width: 1000px) { .ms-faq-side { position: sticky; top: 120px; } }
+  @media (max-width: 999px) { .ms-faq-wrap { grid-template-columns: minmax(0, 1fr) !important; } .ms-faq-side { max-width: 60ch !important; } }
   #shopify-section-{{ section.id }} summary::-webkit-details-marker { display: none; }
   #shopify-section-{{ section.id }} details [data-ms-sign]::after { content: '+'; }
   #shopify-section-{{ section.id }} details[open] [data-ms-sign]::after { content: '−'; }

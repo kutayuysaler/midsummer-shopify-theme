@@ -122,9 +122,18 @@ textarea.ms-field { resize: vertical; min-height: 0; line-height: 1.4; }
     text-transform: uppercase; color: #7E623B; margin-bottom: 5px;
   }
 }
-@media (min-width: 761px) {
+@media (min-width: 1024px) {
   [data-ms="menubtn"], [data-ms="grip"] { display: none !important; }
   [data-ms-menu] { display: none !important; }
+}
+/* tablets held upright: the menu opens from its button, the bar keeps the appointment */
+@media (min-width: 761px) and (max-width: 1023px) {
+  [data-ms="grip"] { display: none !important; }
+  [data-ms="nav"] { display: none !important; }
+  [data-ms-panel] { display: none !important; }
+  [data-ms="menubtn"] { display: flex !important; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; }
+  [data-ms="headrow"] { gap: 18px !important; padding-inline: 32px !important; }
+  [data-ms="headaction"] { margin-inline-start: auto; }
 }
 @media (min-width: 900px) and (max-width: 1120px) {
   [data-ms="nav"] { gap: 14px !important; margin-inline-start: 14px !important; }
@@ -176,3 +185,8 @@ body[data-template="index"] :is([id$="__visit"], [id$="-visit"]) .ms-ch { paddin
 .ms-site [data-ms="footlegal"] { align-items: center; }
 .ms-site [data-ms="footlegal"] > * { display: inline-flex; align-items: center; min-height: 44px; margin: 0; }
 .ms-site [data-ms="footlegal"] > span { color: rgb(110, 103, 92); }
+/* tablets: a row of three stays a row of three, never two and an orphan */
+@media (min-width: 761px) and (max-width: 1023px) {
+  [data-ms="rail"]:has(> :nth-child(3):last-child) { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 18px !important; }
+  [data-ms="rail"]:has(> :nth-child(4):last-child) { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+}
