@@ -11,7 +11,7 @@
 </div>
 <div data-ms="footcol" style="display: flex; flex-direction: column; gap: 12px; font-size: 13.5px; color: rgb(74, 68, 59);">
 <span style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92); margin-bottom: 6px;">{{ section.settings.t8 }}</span>
-<a href="{% render 'ms-link', to: 'story' %}">{{ section.settings.t9 }}</a><a href="{% render 'ms-link', to: 'handmade' %}">{{ section.settings.t10 }}</a><a href="{% render 'ms-link', to: 'materials' %}">{{ section.settings.t11 }}</a><a href="{% render 'ms-link', to: 'regen' %}">Made to last · 15 + 15</a>{%- capture ms_u1 -%}{% render 'ms-link', to: 'sleep-culture', strict: true %}{%- endcapture -%}{%- if ms_u1 != blank -%}<a data-ms-quiz-link="" href="{{ ms_u1 }}">{{ section.settings.t13 }}</a>{%- endif -%}
+<a href="{% render 'ms-link', to: 'story' %}">{{ section.settings.t9 }}</a><a href="{% render 'ms-link', to: 'handmade' %}">{{ section.settings.t10 }}</a><a href="{% render 'ms-link', to: 'materials' %}">{{ section.settings.t11 }}</a><a href="{% render 'ms-link', to: 'regen' %}">Made to last · 15 + 15</a>{%- capture ms_u1 -%}{% render 'ms-link', to: 'sleep-culture', strict: true %}{%- endcapture -%}{%- if ms_u1 != blank -%}<a data-ms-quiz-link="" href="{{ ms_u1 }}">{{ section.settings.t13 }}</a>{%- endif -%}<a href="{% render 'ms-link', to: 'facts' %}">{{ section.settings.facts_label }}</a>
 </div>
 <div data-ms="footcol" style="display: flex; flex-direction: column; gap: 12px; font-size: 13.5px; color: rgb(74, 68, 59);">
 <span style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92); margin-bottom: 6px;">{{ section.settings.t14 }}</span>
@@ -33,6 +33,12 @@
 {
   "name": "MS · Footer",
   "settings": [
+    {
+      "type": "text",
+      "id": "facts_label",
+      "label": "At a glance link",
+      "default": "At a glance"
+    },
     {
       "type": "image_picker",
       "id": "img1",

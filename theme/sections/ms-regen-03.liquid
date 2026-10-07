@@ -2,7 +2,7 @@
   assign ms_show = true
   if template.name == 'page'
     assign ms_show = false
-    assign ms_ours = 'agents-and-resellers,agents-resellers,atelier,collections,compare,contact,download-the-dream,faq,find-your-midsummer,handmade-in-italy,hospitality,loro-piana-interiors,natural-materials,professionals,regeneration,salone-2026,sleep-assesment,sleep-culture,story,sustainability' | split: ','
+    assign ms_ours = 'agents-and-resellers,agents-resellers,atelier,collections,compare,contact,download-the-dream,facts,faq,find-your-midsummer,handmade-in-italy,hospitality,loro-piana-interiors,natural-materials,professionals,regeneration,salone-2026,sleep-assesment,sleep-culture,story,sustainability' | split: ','
     if ms_ours contains template.suffix
       assign ms_show = true
     else
@@ -54,14 +54,14 @@
     {
       "type": "text",
       "id": "t4",
-      "label": "Check the springs.",
-      "default": "Check the springs."
+      "label": "Inspect the core.",
+      "default": "Inspect the core."
     },
     {
       "type": "textarea",
       "id": "t5",
-      "label": "Pocket by pocket. The integrity of…",
-      "default": "Pocket by pocket. The integrity of the spring core, the resilience of each individual coil and the condition of the wool felt that protects them."
+      "label": "Piece by piece. The integrity of…",
+      "default": "Piece by piece. The integrity of the core, its resilience, and the condition of every natural fibre."
     },
     {
       "type": "text",

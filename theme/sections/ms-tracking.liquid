@@ -9,7 +9,7 @@
   CTAs added later in the theme editor.
 
   Segments: private · architect-designer · hospitality · dealer · press
-  Events:   ms_enquiry_open · ms_enquiry_submit · ms_cta_click · ms_quiz_complete
+  Events:   ms_enquiry_open · ms_enquiry_submit · ms_cta_click · ms_quiz_complete · ms_ai_referral
 {%- endcomment -%}
 
 {%- if section.settings.enabled -%}
@@ -27,6 +27,32 @@
       if (DEBUG && window.console) console.log('[ms-track]', data);
     }
 
+    // Visits that begin in an AI assistant's answer (ChatGPT, Perplexity, Gemini, Claude,
+    // Copilot …), by referrer or utm_source: recorded once per visit as ms_ai_referral, and
+    // carried as ai_source on the enquiry events that follow, so GA4 can count the enquiries
+    // an AI answer started.
+    var AI_HOSTS = {{ section.settings.ai_sources | json }}.split(',').map(function (h) { return h.trim().toLowerCase(); }).filter(Boolean);
+    var AI_WORDS = ['chatgpt', 'openai', 'perplexity', 'gemini', 'claude', 'copilot', 'mistral', 'deepseek', 'grok'];
+    function aiFrom() {
+      var host = '', src = '';
+      try { host = document.referrer ? new URL(document.referrer).hostname.toLowerCase() : ''; } catch (e) {}
+      try { src = (new URLSearchParams(window.location.search).get('utm_source') || '').toLowerCase(); } catch (e) {}
+      for (var i = 0; i < AI_HOSTS.length; i++) {
+        var h = AI_HOSTS[i];
+        if (host && (host === h || host.slice(-(h.length + 1)) === '.' + h)) return h;
+      }
+      for (var j = 0; j < AI_WORDS.length; j++) if (src && src.indexOf(AI_WORDS[j]) > -1) return src;
+      return '';
+    }
+    var aiSource = '';
+    try { aiSource = window.sessionStorage.getItem('ms_ai_source') || ''; } catch (e) {}
+    if (!aiSource) {
+      aiSource = aiFrom();
+      if (aiSource) {
+        try { window.sessionStorage.setItem('ms_ai_source', aiSource); } catch (e) {}
+        push('ms_ai_referral', { ai_source: aiSource, landing_page: window.location.pathname, page_template: {{ template.name | json }} });
+      }
+    }
     // Segment is read from the page first, then the clicked element, then falls
     // back to private — so a CTA on the Hospitality page is attributed to
     // hospitality without anyone tagging the button.
@@ -79,6 +105,7 @@
     document.addEventListener('ms:enquiry-open', function (e) {
       var el = e.detail && e.detail.source;
       push('ms_enquiry_open', {
+        ai_source: aiSource,
         cta_label: el ? labelFor(el) : '',
         audience_segment: segmentFor(el),
         page_template: {{ template.name | json }},
@@ -94,6 +121,7 @@
       var mode = form.querySelector('[data-ms-enq-mode-field]');
       var type = form.querySelector('[name="contact[Enquiry type]"]');
       push('ms_enquiry_submit', {
+        ai_source: aiSource,
         enquiry_mode: mode ? mode.value : 'page form',
         enquiry_type: type ? type.value : '',
         audience_segment: segmentFor(form),
@@ -122,6 +150,7 @@
   "settings": [
     { "type": "paragraph", "content": "Pushes named events to window.dataLayer for every CTA this theme introduces, each carrying its audience segment. Add it to the footer group once. No app required; GTM or GA4 picks the events up." },
     { "type": "checkbox", "id": "enabled", "label": "Enabled", "default": true },
+    { "type": "textarea", "id": "ai_sources", "label": "AI assistants (referring sites)", "info": "Comma separated. A visit referred by one of these, or tagged utm_source=chatgpt.com and the like, fires ms_ai_referral once and adds ai_source to the enquiry events.", "default": "chatgpt.com, chat.openai.com, perplexity.ai, gemini.google.com, bard.google.com, claude.ai, copilot.microsoft.com, copilot.cloud.microsoft, chat.mistral.ai, chat.deepseek.com, grok.com, meta.ai, you.com, phind.com" },
     { "type": "checkbox", "id": "debug", "label": "Log events to the browser console", "info": "Turn on while configuring GA4, then off.", "default": false },
     { "type": "textarea", "id": "page_segments", "label": "Path to segment map", "info": "Comma separated path=segment pairs. First match wins; anything unmatched is private.", "default": "/pages/professionals=architect-designer, /pages/hospitality=hospitality, /pages/agents-and-resellers=dealer, /blogs/press=press" }
   ]

@@ -350,5 +350,45 @@
       "default_title": "Titolo predefinito",
       "sticky_add_to_cart": "Barra per l'aggiunta rapida al carrello"
     }
+  },
+  "ms": {
+    "home": {
+      "h1": "Letti e materassi artigianali di lusso, realizzati uno a uno.",
+      "lede": "Disegniamo sogni. Ogni letto è realizzato da due artigiani, dall’inizio alla fine.",
+      "cta": "Prenota un appuntamento privato",
+      "cta_note": "Nel nostro atelier di Milano o in videochiamata"
+    },
+    "product": {
+      "price_label": "Prezzo",
+      "price_from": "Da {{ price }}",
+      "price_text": "Su richiesta. Lo determina la specifica.",
+      "bar_note": "Su ordinazione · prezzo su richiesta",
+      "cta_primary": "Richiedi una proposta",
+      "cta_secondary": "Prenota un appuntamento privato",
+      "f1_label": "Realizzazione",
+      "f1_value": "A mano in Italia, da due artigiani, dall’inizio alla fine",
+      "f2_label": "Dimensioni",
+      "f2_value": "Qualsiasi misura, anche rotonda, senza costi di attrezzaggio",
+      "f3_label": "Servizio",
+      "f3_value": "Rigenerato a quindici anni, per altri quindici",
+      "cover_label": "Rivestimento",
+      "cover_value": "A scelta dal libro dei tessuti, Loro Piana Interiors compreso",
+      "comfort_label": "Comfort",
+      "comfort_value": "Definito con te, in atelier o in videochiamata",
+      "sizes_label": "Misure standard",
+      "height_label": "Altezza",
+      "lead_label": "Tempi di consegna",
+      "specs_label": "Specifiche",
+      "description_label": "Il sistema",
+      "fibres_label": "Fibre naturali",
+      "fibres_link": "Tutte le fibre",
+      "kind_system": "Sistema letto in fibre naturali, fatto a mano in Italia",
+      "kind_topper": "Topper in fibre naturali, fatto a mano in Italia",
+      "kind_boxspring": "Boxspring, fatto a mano in Italia",
+      "kind_boxspring_mattress": "Boxspring e materasso, fatti a mano in Italia",
+      "kind_storage": "Boxspring contenitore, fatto a mano in Italia",
+      "kind_round": "Sistema letto rotondo, su misura in Italia",
+      "kind_perfume": "Profumo per il letto e la biancheria"
+    }
   }
 }

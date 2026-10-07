@@ -17,6 +17,9 @@
     "s02": {
       "type": "ms-product-main",
       "settings": {
+        "kind": "perfume",
+        "cover_value": "",
+        "comfort_value": "",
         "f1_label": "Made",
         "f1_value": "Handcrafted in Italy through sustainable and artisanal production methods",
         "f2_label": "Ingredients",

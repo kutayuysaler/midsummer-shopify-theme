@@ -258,6 +258,9 @@
   if request.page_type == 'collection' and collection.handle == 'all'
     assign ms_noindex = true
   endif
+  if current_tags != blank
+    assign ms_noindex = true
+  endif
 -%}
 {%- if ms_noindex -%}
   <meta name="robots" content="noindex,follow">

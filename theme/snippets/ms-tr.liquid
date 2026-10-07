@@ -1,0 +1,16 @@
+{%- comment -%}
+  A setting's text in the visitor's language. While a setting still holds its English
+  default and the store is shown in another language, the theme's own translation
+  (locales/*.json, under "ms") is used instead, so an Italian or Russian page never opens
+  with an English heading. A translation entered in Translate & Adapt changes the setting
+  itself, and always wins.
+  Usage: {% render 'ms-tr', value: section.settings.t1, default: 'English default', key: 'ms.home.h1' %}
+{%- endcomment -%}
+{%- liquid
+  assign lang = request.locale.iso_code | slice: 0, 2
+  if lang != 'en' and value == default
+    echo key | t
+  else
+    echo value
+  endif
+-%}

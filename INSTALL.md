@@ -12,9 +12,11 @@ photographs, the press logos and the map ship inside the theme.
 2. **Add theme → Upload zip file** → `midsummer-milano-atelier.zip`, then **Preview**.
    Every page opens from the menus, with nothing else to set up.
 
-Optional, for search engines: run the page script once (section 3). It gives your existing
-pages (Contact, Agents & Resellers, About, Handmade, FAQ) their new design at their own
-address, and creates Architects & Interior Designers, Hospitality and Sleep Culture.
+Before launch, for search engines: run the page script once (section 3). It gives your
+existing pages (Contact, Agents & Resellers, About, Handmade, FAQ …) their new design at
+their own address, and creates the designed pages the store doesn't have yet (Architects &
+Interior Designers, Hospitality, Sleep Culture, The Atelier, Compare the collections, At a
+glance …). Then see **SEO-ROLLOUT.md** for the rest of the launch list.
 
 ## 1. Upload
 
@@ -89,6 +91,9 @@ them so they get their own address and appear in search engines.
 | Hospitality | `hospitality` | `page.hospitality` |
 | Handmade in Italy | `handmade-in-italy` | `page.handmade-in-italy` |
 | Sleep Culture | `sleep-culture` | `page.sleep-culture` |
+| The Atelier | `atelier` | `page.atelier` |
+| Compare the collections | `sleep-collections` | `page.compare` |
+| Midsummer Milano at a glance | `midsummer-milano-at-a-glance` | `page.facts` |
 
 **With the script** (`scripts/create_pages.py`): pages the store already has (under any
 address the theme knows, such as `italian-craftsmen-luxury-mattresses` for Handmade in Italy)
@@ -115,7 +120,7 @@ The designs:
 - **Professionals and Hospitality** also appear on the default template, so you can skip
   choosing a template for those two.
 - **Handmade in Italy:** the opening photograph and the page text, then *The making*: a
-  photograph held in place while five stages scroll past it (springs, fibres, tufting,
+  photograph held in place while five stages scroll past it (core, fibres, tufting,
   border, cloth). After that, two photographs and the invitation to the atelier.
 - **Sleep Culture:** the opening photograph and the page text, three things a good night
   is made of, the Journal's notes tagged *sleep*, and the quiz.
@@ -482,12 +487,13 @@ Already done in the theme, with nothing to set:
 - **Structured data (schema.org).** The house as an Organisation and shop, with the
   atelier's address, opening hours, map position, founder (Chiara Mennini), logo, contact
   point and every social profile from Theme settings. Also the website with site search,
-  breadcrumbs, each product (made in Italy, made to measure, price on request) and each
+  breadcrumbs, each product (its fibres, its specification, made to order in Italy) and each
   Journal article. The FAQ page is marked up as questions and answers.
 - **Speed and stability.** Every picture states its size, so nothing jumps while the page
   loads. Pictures below the first screen load only when reached, and the two fonts are
   preloaded.
-- **AI search (GEO).** `/?view=llms` is a plain summary of the house for ChatGPT,
+- **AI search (GEO).** *Midsummer Milano at a glance* (`page.facts`) is a plain fact sheet,
+  linked from the footer. `/?view=llms` is a plain summary of the house for ChatGPT,
   Perplexity, Gemini and Claude: who you are, the key facts, every collection and product
   with a line about it, the professional pages, and the press. It is built from the store
   live, so it never goes out of date. Add the redirect in **Start here**, step 4, so it
@@ -610,3 +616,35 @@ descriptions, search results) now speak of the result: "laid by hand", "hand-bui
 fibres only".
 
 See AUDIT.md for the homepage audit and what competitors have that is still to add.
+
+## 21. Search and AI search, before launch
+
+This round follows the AI Search Audit, the AI SEO review and the Search Console export.
+**SEO-ROLLOUT.md** has the full reading, the launch list, measurement and the decisions to
+make. In the theme:
+
+- **Product pages.** The heading says what the product is (*Vivaldi – Natural-fibre sleep
+  system, handmade in Italy*). To change it, use *Product · The system → What it is*, or the
+  product metafield `custom.kind`. The facts under the buttons are now the specification:
+  made, dimensions, standard sizes (from a Size option), upholstery, comfort, height and
+  lead time (metafields `custom.height`, `custom.lead_time`), service. Every bed has *Before
+  you order*, seven questions marked up for search. In a question, `[product]` becomes
+  the product's name. The question about price on request disappears when prices are
+  shown, and a product whose sizes have different prices then shows "From €…".
+- **Structured data.** Each product describes itself, with its fibres as materials. It gives
+  a price only when prices are shown. The organisation now has its founding year, VAT
+  number, award and map, under *Structured data* in the header. Turn off the structured
+  data of Avada SEO and SEOon Blog in App embeds, or every page carries it twice.
+- **Italian and Russian.** The home page's opening words and the product page's labels have
+  their own translations in the theme. Everything else is translated in Translate &
+  Adapt.
+- **Our story** ends with Recognition & press, the Green Product Award first, linked to the
+  award's page.
+- **At a glance**: a new fact sheet (`page.facts`), in the footer under the house's
+  pages. Every fact is a block you can edit.
+- **Measurement.** *Conversion tracking* now records visits from AI assistants
+  (`ms_ai_referral`) and adds `ai_source` to enquiries.
+- **Journal tag pages** are now kept out of search results, as intended.
+- **Discretion.** The last phrases that described the inside of the bed ("pocket by
+  pocket", "each individual coil", "from the springs up") now speak of the core and the
+  craft.

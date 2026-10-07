@@ -108,6 +108,24 @@
   {%- endif -%}
 </section>
 {%- endpaginate -%}
+{%- if blog.articles_count > 0 -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "@id": "{{ shop.url }}{{ blog.url }}#blog",
+  "name": {{ blog.title | json }},
+  "url": "{{ shop.url }}{{ blog.url }}",
+  "inLanguage": {{ request.locale.iso_code | json }},
+  "publisher": { "@id": "{{ shop.url }}/#organization" },
+  "blogPost": [
+    {%- for a in blog.articles limit: 20 -%}
+    { "@type": "BlogPosting", "headline": {{ a.title | strip_html | json }}, "url": "{{ shop.url }}{{ a.url }}", "datePublished": {{ a.published_at | date: '%Y-%m-%d' | json }} }{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  ]
+}
+</script>
+{%- endif -%}
 <style>
   /* subjects: one list, the same as the menu's; a note files itself (snippets/ms-note-cat.liquid) */
   .ms-jl__cats { display: flex; flex-wrap: wrap; gap: 10px 26px; padding-bottom: 22px; margin-bottom: 26px; border-bottom: 1px solid #DDD6C9; }

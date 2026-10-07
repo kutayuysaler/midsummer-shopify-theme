@@ -4,7 +4,7 @@
 <figure style="margin: 0px; display: flex; flex-direction: column; gap: clamp(20px, 2.4vw, 30px);">
 <div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(251, 249, 245, 0.55);">{{ section.settings.t1 }}</div>
 <blockquote style="margin: 0px; font-family: Newsreader, Georgia, serif; font-weight: 200; font-size: clamp(26px, 3.4vw, 46px); line-height: 1.22; letter-spacing: -0.025em; max-width: 24ch; text-wrap: pretty;">{{ section.settings.t2 }}</blockquote>
-<figcaption style="display: flex; flex-direction: column; gap: 7px; padding-top: clamp(14px, 1.8vw, 22px); border-top: 1px solid rgba(251, 249, 245, 0.35); width: fit-content; min-width: min(240px, 100%);">{{ section.settings.t3 }}</figcaption>
+<figcaption style="display: flex; flex-direction: column; gap: 7px; padding-top: clamp(14px, 1.8vw, 22px); border-top: 1px solid rgba(251, 249, 245, 0.35); width: fit-content; min-width: min(240px, 100%);">{{ section.settings.t3 }}{%- if section.settings.award_link != blank -%}<a href="{{ section.settings.award_link }}" target="_blank" rel="noopener" style="margin-top: 10px; width: fit-content; font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; color: #FBF9F5; border-bottom: 1px solid rgba(251, 249, 245, 0.6); padding-bottom: 3px;">{{ section.settings.award_link_label }} <span aria-hidden="true">→</span></a>{%- endif -%}</figcaption>
 </figure>
 </div>
 </section>
@@ -12,6 +12,18 @@
 {
   "name": "Home 08 · Recognition The",
   "settings": [
+    {
+      "type": "text",
+      "id": "award_link",
+      "label": "Award page (address)",
+      "default": "https://www.gp-award.com/en/produkte/top-bed-system"
+    },
+    {
+      "type": "text",
+      "id": "award_link_label",
+      "label": "Award link",
+      "default": "The award"
+    },
     {
       "type": "image_picker",
       "id": "img1",

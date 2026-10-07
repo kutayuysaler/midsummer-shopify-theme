@@ -1,5 +1,5 @@
 {%- comment -%}
-  Shopify's own rules, unchanged, plus a pointer to the plain summary for AI search (/llms.txt).
+  Shopify's own rules, unchanged, plus pointers to the house at a glance and the plain-text summary for AI search.
 {%- endcomment -%}
 {%- for group in robots.default_groups -%}
   {{- group.user_agent }}
@@ -11,4 +11,5 @@
   {%- endif %}
 
 {% endfor -%}
-# A plain summary of the house for AI assistants: {{ shop.url }}/llms.txt
+# About the house, in plain words: {{ shop.url }}/pages/midsummer-milano-at-a-glance
+# A plain-text summary for AI assistants: {{ shop.url }}/?view=llms

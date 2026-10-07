@@ -357,5 +357,45 @@
       "success_moderated": "Komentář odeslán, čeká na schválení",
       "success": "Komentář zveřejněn"
     }
+  },
+  "ms": {
+    "home": {
+      "h1": "Handmade luxury beds and mattresses, built one by one.",
+      "lede": "We design dreams. Every bed is made by two artisans, start to finish.",
+      "cta": "Book a private appointment",
+      "cta_note": "At our Milan atelier, or by video call"
+    },
+    "product": {
+      "price_label": "Price",
+      "price_from": "From {{ price }}",
+      "price_text": "On request. The specification sets it.",
+      "bar_note": "Made to order · price on request",
+      "cta_primary": "Request a proposal",
+      "cta_secondary": "Book a private appointment",
+      "f1_label": "Made",
+      "f1_value": "By hand in Italy, by two artisans, start to finish",
+      "f2_label": "Dimensions",
+      "f2_value": "Any size, including round, with no tooling charge",
+      "f3_label": "Service",
+      "f3_value": "Regenerated at fifteen years, for fifteen more",
+      "cover_label": "Upholstery",
+      "cover_value": "Chosen from the fabric book, Loro Piana Interiors included",
+      "comfort_label": "Comfort",
+      "comfort_value": "Set with you, at the atelier or by video",
+      "sizes_label": "Standard sizes",
+      "height_label": "Height",
+      "lead_label": "Lead time",
+      "specs_label": "Specifications",
+      "description_label": "About this system",
+      "fibres_label": "Natural fibres",
+      "fibres_link": "All the fibres",
+      "kind_system": "Natural-fibre sleep system, handmade in Italy",
+      "kind_topper": "Natural-fibre mattress topper, handmade in Italy",
+      "kind_boxspring": "Boxspring, handmade in Italy",
+      "kind_boxspring_mattress": "Boxspring and mattress, handmade in Italy",
+      "kind_storage": "Storage boxspring, handmade in Italy",
+      "kind_round": "Round sleep system, made to measure in Italy",
+      "kind_perfume": "Bed and linen perfume"
+    }
   }
 }

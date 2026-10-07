@@ -33,6 +33,131 @@
   endif
   assign images = product.media | where: 'media_type', 'image'
   assign n_images = images | size
+
+  # What the product is, said under its name and inside the H1, so the heading reads
+  # "Vivaldi, natural-fibre sleep system, handmade in Italy" rather than one word.
+  # Metafield custom.kind wins; otherwise the template's choice, in the visitor's language.
+  assign kind = product.metafields.custom.kind.value
+  if kind == blank
+    assign kind_key = section.settings.kind
+    if kind_key == 'auto'
+      assign lt = product.title | downcase
+      assign kind_key = 'system'
+      if lt contains 'topper'
+        assign kind_key = 'topper'
+      endif
+    endif
+    case kind_key
+      when 'system'
+        assign kind = 'ms.product.kind_system' | t
+      when 'topper'
+        assign kind = 'ms.product.kind_topper' | t
+      when 'boxspring'
+        assign kind = 'ms.product.kind_boxspring' | t
+      when 'boxspring_mattress'
+        assign kind = 'ms.product.kind_boxspring_mattress' | t
+      when 'storage'
+        assign kind = 'ms.product.kind_storage' | t
+      when 'round'
+        assign kind = 'ms.product.kind_round' | t
+      when 'perfume'
+        assign kind = 'ms.product.kind_perfume' | t
+      when 'custom'
+        assign kind = section.settings.kind_custom
+      else
+        assign kind = ''
+    endcase
+  endif
+
+  assign fibre_names = ''
+  for block in section.blocks
+    if block.settings.name != blank
+      assign fibre_names = fibre_names | append: block.settings.name | append: '|'
+    endif
+  endfor
+  assign fibre_list = fibre_names | split: '|'
+
+  assign ss = section.settings
+  capture t_price_label
+    render 'ms-tr', value: ss.price_label, default: 'Price', key: 'ms.product.price_label'
+  endcapture
+  capture t_price_text
+    render 'ms-tr', value: ss.price_text, default: 'On request. The specification sets it.', key: 'ms.product.price_text'
+  endcapture
+  capture t_bar
+    render 'ms-tr', value: ss.bar_note, default: 'Made to order · price on request', key: 'ms.product.bar_note'
+  endcapture
+  capture t_cta1
+    render 'ms-tr', value: ss.cta_primary, default: 'Request a proposal', key: 'ms.product.cta_primary'
+  endcapture
+  capture t_cta2
+    render 'ms-tr', value: ss.cta_secondary, default: 'Book a private appointment', key: 'ms.product.cta_secondary'
+  endcapture
+  capture t_f1l
+    render 'ms-tr', value: ss.f1_label, default: 'Made', key: 'ms.product.f1_label'
+  endcapture
+  capture t_f1v
+    render 'ms-tr', value: ss.f1_value, default: 'By hand in Italy, by two artisans, start to finish', key: 'ms.product.f1_value'
+  endcapture
+  capture t_f2l
+    render 'ms-tr', value: ss.f2_label, default: 'Dimensions', key: 'ms.product.f2_label'
+  endcapture
+  capture t_f2v
+    render 'ms-tr', value: ss.f2_value, default: 'Any size, including round, with no tooling charge', key: 'ms.product.f2_value'
+  endcapture
+  capture t_f3l
+    render 'ms-tr', value: ss.f3_label, default: 'Service', key: 'ms.product.f3_label'
+  endcapture
+  capture t_f3v
+    render 'ms-tr', value: ss.f3_value, default: 'Regenerated at fifteen years, for fifteen more', key: 'ms.product.f3_value'
+  endcapture
+  capture t_cover_l
+    render 'ms-tr', value: ss.cover_label, default: 'Upholstery', key: 'ms.product.cover_label'
+  endcapture
+  capture t_cover_v
+    render 'ms-tr', value: ss.cover_value, default: 'Chosen from the fabric book, Loro Piana Interiors included', key: 'ms.product.cover_value'
+  endcapture
+  capture t_comfort_l
+    render 'ms-tr', value: ss.comfort_label, default: 'Comfort', key: 'ms.product.comfort_label'
+  endcapture
+  assign comfort = product.metafields.custom.firmness.value
+  if comfort == blank
+    capture comfort
+      render 'ms-tr', value: ss.comfort_value, default: 'Set with you, at the atelier or by video', key: 'ms.product.comfort_value'
+    endcapture
+  endif
+  capture t_height
+    render 'ms-tr', value: ss.height_label, default: 'Height', key: 'ms.product.height_label'
+  endcapture
+  capture t_lead
+    render 'ms-tr', value: ss.lead_label, default: 'Lead time', key: 'ms.product.lead_label'
+  endcapture
+  capture t_specs
+    render 'ms-tr', value: ss.specs_label, default: 'Specifications', key: 'ms.product.specs_label'
+  endcapture
+  capture t_desc
+    render 'ms-tr', value: ss.description_label, default: 'About this system', key: 'ms.product.description_label'
+  endcapture
+  capture t_fib
+    render 'ms-tr', value: ss.fibres_label, default: 'Natural fibres', key: 'ms.product.fibres_label'
+  endcapture
+  capture t_fibl
+    render 'ms-tr', value: ss.fibres_link, default: 'All the fibres', key: 'ms.product.fibres_link'
+  endcapture
+  # the standard sizes, when the product offers them as a choice (Size, Misura, Dimensioni …)
+  assign sizes = ''
+  for option in product.options_with_values
+    assign on = option.name | downcase
+    if on contains 'size' or on contains 'misur' or on contains 'dimens' or on contains 'размер'
+      assign sizes = option.values | join: ' · '
+      break
+    endif
+  endfor
+  capture t_sizes
+    render 'ms-tr', value: ss.sizes_label, default: 'Standard sizes', key: 'ms.product.sizes_label'
+  endcapture
+  assign height = product.metafields.custom.height | metafield_text
+  assign lead = product.metafields.custom.lead_time | metafield_text
 -%}
 <section class="ms-pm" data-ms-pm>
   <div class="ms-pm__grid">
@@ -91,32 +216,37 @@
         <div class="ms-pm__eyebrow">
           {%- if tier -%}<a href="{{ tier.url }}">{{ tier.title }}</a> · {{ numeral }}{%- else -%}{{ product.type | default: section.settings.eyebrow }}{%- endif -%}
         </div>
-        <h1 class="ms-pm__title">{{ product.title }}</h1>
+        <h1 class="ms-pm__title">{{ product.title }}{% if kind != blank %}<span class="ms-pm__kind"><span class="ms-vh"> – </span>{{ kind }}</span>{% endif %}</h1>
         {%- if tagline != blank -%}<p class="ms-pm__tagline">{{ tagline }}</p>{%- endif -%}
 
         <div class="ms-pm__price">
-          <div class="ms-pm__label">{{ section.settings.price_label }}</div>
+          <div class="ms-pm__label">{{ t_price_label }}</div>
           {%- if settings.ms_show_prices -%}
-            <p class="ms-pm__price-text">{{ product.price | money }}</p>
+            <p class="ms-pm__price-text">{%- if product.price_varies -%}{%- assign from_price = product.price_min | money -%}{{ 'ms.product.price_from' | t: price: from_price }}{%- else -%}{{ product.price | money }}{%- endif -%}</p>
           {%- else -%}
-            <p class="ms-pm__price-text">{{ section.settings.price_text }}</p>
+            <p class="ms-pm__price-text">{{ t_price_text }}</p>
           {%- endif -%}
         </div>
 
         <div class="ms-pm__actions">
-          <a href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-cta="product-proposal" class="ms-pm__primary">{{ section.settings.cta_primary }}</a>
-          <a href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-cta="product-appointment" class="ms-pm__secondary">{{ section.settings.cta_secondary }}</a>
+          <a href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-cta="product-proposal" class="ms-pm__primary">{{ t_cta1 }}</a>
+          <a href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-cta="product-appointment" class="ms-pm__secondary">{{ t_cta2 }}</a>
         </div>
 
-        <dl class="ms-pm__facts">
-          <div><dt>{{ section.settings.f1_label }}</dt><dd>{{ section.settings.f1_value }}</dd></div>
-          <div><dt>{{ section.settings.f2_label }}</dt><dd>{{ section.settings.f2_value }}</dd></div>
-          <div><dt>{{ section.settings.f3_label }}</dt><dd>{{ section.settings.f3_value }}</dd></div>
+        <dl class="ms-pm__facts" aria-label="{{ t_specs | strip | escape }}">
+          <div><dt>{{ t_f1l }}</dt><dd>{{ t_f1v }}</dd></div>
+          <div><dt>{{ t_f2l }}</dt><dd>{{ t_f2v }}</dd></div>
+          {%- if sizes != blank -%}<div><dt>{{ t_sizes }}</dt><dd>{{ sizes }}</dd></div>{%- endif -%}
+          {%- if height != blank -%}<div><dt>{{ t_height }}</dt><dd>{{ height }}</dd></div>{%- endif -%}
+          {%- if ss.cover_value != blank -%}<div><dt>{{ t_cover_l }}</dt><dd>{{ t_cover_v }}</dd></div>{%- endif -%}
+          {%- if comfort != blank and ss.comfort_value != blank -%}<div><dt>{{ t_comfort_l }}</dt><dd>{{ comfort }}</dd></div>{%- endif -%}
+          {%- if lead != blank -%}<div><dt>{{ t_lead }}</dt><dd>{{ lead }}</dd></div>{%- endif -%}
+          <div><dt>{{ t_f3l }}</dt><dd>{{ t_f3v }}</dd></div>
         </dl>
 
         {%- if product.description != blank and section.settings.show_description -%}
           <details class="ms-pm__more" open>
-            <summary>{{ section.settings.description_label }}</summary>
+            <summary>{{ t_desc }}</summary>
             <div class="ms-pm__desc">{{ product.description }}</div>
           </details>
         {%- endif -%}
@@ -124,8 +254,8 @@
         {%- if section.blocks.size > 0 -%}
           <div class="ms-pm__fibres">
             <div class="ms-pm__fhead">
-              <span>{{ section.settings.fibres_label }}</span>
-              <a href="{% render 'ms-link', to: 'materials' %}">{{ section.settings.fibres_link }}</a>
+              <span>{{ t_fib }}</span>
+              <a href="{% render 'ms-link', to: 'materials' %}">{{ t_fibl }}</a>
             </div>
             <ul class="ms-pm__flist" role="list">
               {%- for block in section.blocks -%}
@@ -143,7 +273,7 @@
 
         {%- if section.settings.specs != blank -%}
           <details class="ms-pm__more ms-pm__specs" open>
-            <summary>{{ section.settings.specs_label }}</summary>
+            <summary>{{ t_specs }}</summary>
             <div class="ms-pm__desc">{{ section.settings.specs }}</div>
           </details>
         {%- endif -%}
@@ -165,6 +295,81 @@
     <div class="ms-pm__vcount" data-ms-pm-count></div>
   </div>
 </section>
+
+{%- comment -%}
+  The product for search engines and AI assistants, built from what the page shows: its name
+  and kind, its fibres as materials, the specification rows, made to order. A price is given
+  only when prices are shown on the site, so the data never says more than the page.
+{%- endcomment -%}
+{%- liquid
+  assign show_price = settings.ms_show_prices
+  if product.price == 0
+    assign show_price = false
+  endif
+  assign v1 = product.selected_or_first_available_variant
+-%}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "@id": "{{ shop.url }}{{ product.url }}#product",
+    "name": {{ product.title | json }},
+    {%- if kind != blank %}
+    "alternateName": {{ product.title | append: ', ' | append: kind | json }},
+    "category": {{ kind | json }},
+    {%- endif %}
+    "url": "{{ shop.url }}{{ product.url }}",
+    "description": {{ product.description | strip_html | strip_newlines | default: tagline | truncate: 600 | json }},
+    {%- if n_images > 0 %}
+    "image": [
+      {%- for media in images limit: 4 -%}
+        "https:{{ media | image_url: width: 1600 }}"{%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    ],
+    {%- endif %}
+    "brand": { "@type": "Brand", "name": {{ shop.name | json }} },
+    "manufacturer": { "@id": "{{ shop.url }}/#organization" },
+    {%- if v1.sku != blank %}
+    "sku": {{ v1.sku | json }},
+    {%- endif %}
+    {%- if fibre_list.size > 0 %}
+    "material": {{ fibre_list | join: ', ' | json }},
+    {%- endif %}
+    {%- if ss.award != blank %}
+    "award": {{ ss.award | json }},
+    {%- endif %}
+    "countryOfOrigin": { "@type": "Country", "name": "Italy" },
+    "additionalProperty": [
+      {%- if tier %}{ "@type": "PropertyValue", "name": "Collection", "value": {{ tier.title | append: ' (' | append: numeral | append: ')' | json }} },{% endif %}
+      { "@type": "PropertyValue", "name": {{ t_f1l | strip | json }}, "value": {{ t_f1v | strip | json }} },
+      { "@type": "PropertyValue", "name": {{ t_f2l | strip | json }}, "value": {{ t_f2v | strip | json }} },
+      {%- if sizes != blank %}{ "@type": "PropertyValue", "name": {{ t_sizes | strip | json }}, "value": {{ sizes | json }} },{% endif %}
+      {%- if height != blank %}{ "@type": "PropertyValue", "name": {{ t_height | strip | json }}, "value": {{ height | json }} },{% endif %}
+      {%- if ss.cover_value != blank %}{ "@type": "PropertyValue", "name": {{ t_cover_l | strip | json }}, "value": {{ t_cover_v | strip | json }} },{% endif %}
+      {%- if comfort != blank and ss.comfort_value != blank %}{ "@type": "PropertyValue", "name": {{ t_comfort_l | strip | json }}, "value": {{ comfort | strip | json }} },{% endif %}
+      {%- if lead != blank %}{ "@type": "PropertyValue", "name": {{ t_lead | strip | json }}, "value": {{ lead | json }} },{% endif %}
+      { "@type": "PropertyValue", "name": {{ t_f3l | strip | json }}, "value": {{ t_f3v | strip | json }} }
+    ]
+    {%- if show_price -%},
+    "offers": {
+      {%- if product.price_varies %}
+      "@type": "AggregateOffer",
+      "lowPrice": {{ product.price_min | divided_by: 100.0 | json }},
+      "highPrice": {{ product.price_max | divided_by: 100.0 | json }},
+      "offerCount": {{ product.variants.size }},
+      {%- else %}
+      "@type": "Offer",
+      "price": {{ product.price | divided_by: 100.0 | json }},
+      "itemCondition": "https://schema.org/NewCondition",
+      {%- endif %}
+      "priceCurrency": {{ cart.currency.iso_code | json }},
+      "availability": "https://schema.org/MadeToOrder",
+      "url": "{{ shop.url }}{{ product.url }}",
+      "seller": { "@id": "{{ shop.url }}/#organization" }
+    }
+    {%- endif %}
+  }
+</script>
 
 <style>
   .ms-pm { padding: clamp(28px, 4vw, 64px) clamp(18px, 5vw, 80px) clamp(36px, 5vw, 72px); max-width: 1560px; margin: 0 auto; }
@@ -205,6 +410,8 @@
   .ms-pm__eyebrow { font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: #6E675C; }
   .ms-pm__eyebrow a { color: inherit; }
   .ms-pm__title { font-family: Newsreader, Georgia, serif; font-size: clamp(46px, 5.6vw, 96px); line-height: 1; letter-spacing: -0.045em; font-weight: 200; margin-top: clamp(22px, 2.4vw, 36px); }
+  .ms-pm__kind { display: block; font-family: "Red Hat Text", system-ui, sans-serif; font-size: 11px; line-height: 1.7; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 400; color: #6E675C; margin-top: clamp(14px, 1.4vw, 20px); text-wrap: balance; }
+  .ms-vh { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .ms-pm__tagline { font-family: Newsreader, Georgia, serif; font-size: clamp(19px, 1.9vw, 25px); line-height: 1.45; letter-spacing: -0.015em; font-weight: 200; color: #4A443B; margin-top: clamp(18px, 2.2vw, 30px); max-width: 30ch; }
   .ms-pm__price { border-top: 1px solid #DDD6C9; margin-top: clamp(28px, 3.4vw, 44px); padding-top: 22px; }
   .ms-pm__label { font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: #6E675C; }
@@ -342,8 +549,8 @@
 
 {%- comment -%} On a phone, once the buttons above have scrolled away, the proposal stays one tap away. {%- endcomment -%}
 <div class="ms-pm-bar" data-ms-pm-bar aria-hidden="true">
-  <div class="ms-pm-bar__name"><span>{{ product.title }}</span><small>{{ section.settings.bar_note }}</small></div>
-  <a href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-cta="product-proposal-bar" class="ms-pm-bar__cta" tabindex="-1">{{ section.settings.cta_primary }}</a>
+  <div class="ms-pm-bar__name"><span>{{ product.title }}</span><small>{{ t_bar }}</small></div>
+  <a href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-cta="product-proposal-bar" class="ms-pm-bar__cta" tabindex="-1">{{ t_cta1 }}</a>
 </div>
 <style>
   .ms-pm-bar { display: none; }
@@ -380,6 +587,20 @@ document.addEventListener('DOMContentLoaded', function () {
   "settings": [
     { "type": "paragraph", "content": "The product photographs on one large stage, with a strip of every picture beneath; then the name, the line under it (metafield custom.subtitle) and the enquiry." },
     { "type": "text", "id": "eyebrow", "label": "Label when not in a collection", "default": "Midsummer Milano" },
+    { "type": "select", "id": "kind", "label": "What it is (said under the name, part of the page heading)", "default": "auto", "info": "A product metafield custom.kind (single line text) overrides this. Texts follow the store language; edit them under Edit default theme content, Ms.", "options": [
+      { "value": "auto", "label": "Automatic: sleep system, or topper when the name says so" },
+      { "value": "system", "label": "Natural-fibre sleep system" },
+      { "value": "topper", "label": "Mattress topper" },
+      { "value": "boxspring", "label": "Boxspring" },
+      { "value": "boxspring_mattress", "label": "Boxspring and mattress" },
+      { "value": "storage", "label": "Storage boxspring" },
+      { "value": "round", "label": "Round sleep system" },
+      { "value": "perfume", "label": "Bed perfume" },
+      { "value": "custom", "label": "My own text, below" },
+      { "value": "none", "label": "Nothing" }
+    ] },
+    { "type": "text", "id": "kind_custom", "label": "My own text" },
+    { "type": "text", "id": "award", "label": "Award (structured data)", "info": "A recognition of this system search engines can cite, e.g. Green Product Award 2025." },
     { "type": "text", "id": "price_label", "label": "Price label", "default": "Price" },
     { "type": "text", "id": "price_text", "label": "Price statement", "default": "On request. The specification sets it." },
     { "type": "text", "id": "bar_note", "label": "Phone bar line", "default": "Made to order · price on request" },
@@ -389,6 +610,13 @@ document.addEventListener('DOMContentLoaded', function () {
     { "type": "text", "id": "f1_value", "label": "Fact 1", "default": "By hand in Italy, by two artisans, start to finish" },
     { "type": "text", "id": "f2_label", "label": "Fact 2 label", "default": "Dimensions" },
     { "type": "text", "id": "f2_value", "label": "Fact 2", "default": "Any size, including round, with no tooling charge" },
+    { "type": "text", "id": "cover_label", "label": "Upholstery label", "default": "Upholstery" },
+    { "type": "text", "id": "cover_value", "label": "Upholstery", "default": "Chosen from the fabric book, Loro Piana Interiors included", "info": "Empty hides the row." },
+    { "type": "text", "id": "comfort_label", "label": "Comfort label", "default": "Comfort" },
+    { "type": "text", "id": "comfort_value", "label": "Comfort", "default": "Set with you, at the atelier or by video", "info": "A product metafield custom.firmness replaces it. Empty hides the row." },
+    { "type": "text", "id": "sizes_label", "label": "Standard sizes label (shown when the product has a Size option)", "default": "Standard sizes" },
+    { "type": "text", "id": "height_label", "label": "Height label (shown when the product has metafield custom.height)", "default": "Height" },
+    { "type": "text", "id": "lead_label", "label": "Lead time label (shown when the product has metafield custom.lead_time)", "default": "Lead time" },
     { "type": "text", "id": "f3_label", "label": "Fact 3 label", "default": "Service" },
     { "type": "text", "id": "f3_value", "label": "Fact 3", "default": "Regenerated at fifteen years, for fifteen more" },
     { "type": "checkbox", "id": "show_description", "label": "Show the product description", "default": true },

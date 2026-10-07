@@ -22,7 +22,7 @@
       "settings": {
         "eyebrow": "The method",
         "use_content": false,
-        "heading": "A Midsummer bed is not assembled. It is made, by the same two pairs of hands, from the first spring to the last stitch.",
+        "heading": "A Midsummer bed is not assembled. It is made, by the same two pairs of hands, from the core to the last stitch.",
         "text": "<p>Every piece is built by hand, from start to finish, by the same two Italian artisans: two or three full days of work for each mattress. It is not a marketing promise; it is a method.</p><p>Because one pair of hands follows the bed through every stage, nothing goes inside it that its makers did not choose and place themselves. And because they know it from the inside, the bed can come back to them at fifteen years to be opened, renewed and made ready for fifteen more.</p>"
       }
     },
@@ -31,7 +31,7 @@
       "settings": {
         "eyebrow": "The making",
         "heading": "Five stages, every one by hand.",
-        "text": "<p>The order in which a Midsummer bed comes together, from the springs up. Nothing is glued; everything can be reached again.</p>",
+        "text": "<p>How a Midsummer bed comes together, stage by stage. Nothing is glued; everything can be reached again.</p>",
         "ground": "#FBF9F5"
       },
       "blocks": {
@@ -39,7 +39,7 @@
           "type": "step",
           "settings": {
             "image_fallback": "ms-graded-ochre-room.jpg",
-            "title": "The springs",
+            "title": "The core",
             "text": "<p>The core is built by hand, so that the bed answers to the body that lies on it, at every point and in every position.</p>"
           }
         },

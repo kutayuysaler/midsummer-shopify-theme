@@ -1,0 +1,181 @@
+/*
+ * Midsummer Milano: Midsummer Milano at a glance (a store page with the handle midsummer-milano-at-a-glance opens in it, or ?view=facts).
+ */
+{
+  "layout": "ms",
+  "sections": {
+    "s01": {
+      "type": "ms-facts",
+      "settings": {
+        "text": "<p>The essentials about the house, in plain words, for clients, journalists and partners.</p>"
+      },
+      "blocks": {
+        "fact_01": {
+          "type": "fact",
+          "settings": {
+            "label": "The house",
+            "value": "<p>Midsummer Milano is a luxury bed and mattress house from Milan. Every piece is made to order, by hand in Italy, from natural fibres only.</p>",
+            "link_place": "story",
+            "link_label": "Our story"
+          }
+        },
+        "fact_02": {
+          "type": "fact",
+          "settings": {
+            "label": "Founded",
+            "value": "<p>In Milan, in 2014, by an architect who wanted the bed designed with the same care as every other piece of a room.</p>",
+            "link_place": "none",
+            "link_label": ""
+          }
+        },
+        "fact_03": {
+          "type": "fact",
+          "settings": {
+            "label": "What we make",
+            "value": "<p>Mattresses, mattress toppers, boxsprings and beds with headboards; duvets, pillows, blankets and throws.</p>",
+            "link_place": "collections",
+            "link_label": "Compare the collections"
+          }
+        },
+        "fact_04": {
+          "type": "fact",
+          "settings": {
+            "label": "Collections",
+            "value": "<p>Essentials, Signature and Icons. The same hands make all three; they differ in the cloth, the rarity of the fibres and how far the bespoke goes.</p>",
+            "link_place": "quiz",
+            "link_label": "Find your Midsummer"
+          }
+        },
+        "fact_05": {
+          "type": "fact",
+          "settings": {
+            "label": "Made",
+            "value": "<p>By hand in Italy, one by one, by two artisans, start to finish. Nothing is made before it is specified.</p>",
+            "link_place": "handmade",
+            "link_label": "Handmade in Italy"
+          }
+        },
+        "fact_06": {
+          "type": "fact",
+          "settings": {
+            "label": "Natural fibres",
+            "value": "<p>Baby alpaca, Cheviot wool, horsehair, vegetable horsehair, yak hair, mohair, cashmere, silk, linen, organic cotton and Orange Fiber; vicuña in the Icons collection.</p>",
+            "link_place": "materials",
+            "link_label": "Natural materials"
+          }
+        },
+        "fact_07": {
+          "type": "fact",
+          "settings": {
+            "label": "Fabrics",
+            "value": "<p>Loro Piana Interiors, chosen from the fabric book against the bed itself.</p>",
+            "link_place": "loro",
+            "link_label": "Loro Piana Interiors"
+          }
+        },
+        "fact_08": {
+          "type": "fact",
+          "settings": {
+            "label": "Made to measure",
+            "value": "<p>Any dimension, height or radius, round beds included, with no tooling charge. Size, firmness, fibres and cloth are chosen with you.</p>",
+            "link_place": "none",
+            "link_label": ""
+          }
+        },
+        "fact_09": {
+          "type": "fact",
+          "settings": {
+            "label": "Made to last",
+            "value": "<p>15 + 15: at fifteen years the mattress returns to the artisans who made it and is regenerated for fifteen more.</p>",
+            "link_place": "regen",
+            "link_label": "The 15 + 15 service"
+          }
+        },
+        "fact_10": {
+          "type": "fact",
+          "settings": {
+            "label": "Prices",
+            "value": "<p>On request. Each system is quoted from its specification, after a consultation at the atelier or by video.</p>",
+            "link_place": "none",
+            "link_label": ""
+          }
+        },
+        "fact_11": {
+          "type": "fact",
+          "settings": {
+            "label": "Atelier",
+            "value": "<p>Via Andegari 4, 20121 Milano, Italy. By appointment, Monday to Friday, 09:00–12:00 and 13:00–18:00, or by video call.</p>",
+            "link_place": "atelier",
+            "link_label": "The atelier"
+          }
+        },
+        "fact_12": {
+          "type": "fact",
+          "settings": {
+            "label": "Where to see the beds",
+            "value": "<p>Showrooms, agents and resellers in Italy, San Marino, the United Kingdom, Poland, Russia, Canada, the United States and Hong Kong.</p>",
+            "link_place": "agents",
+            "link_label": "Agents & Resellers"
+          }
+        },
+        "fact_13": {
+          "type": "fact",
+          "settings": {
+            "label": "Delivery",
+            "value": "<p>Worldwide. White-glove delivery by our own team: the bed is brought into the room, assembled and dressed.</p>",
+            "link_place": "none",
+            "link_label": ""
+          }
+        },
+        "fact_14": {
+          "type": "fact",
+          "settings": {
+            "label": "Clients",
+            "value": "<p>Private homes, architects and interior designers, hotels, villas and yachts.</p>",
+            "link_place": "professionals",
+            "link_label": "Professionals"
+          }
+        },
+        "fact_15": {
+          "type": "fact",
+          "settings": {
+            "label": "Recognition",
+            "value": "<p>Green Product Award 2025 for the Top system (<a href=\"https://www.gp-award.com/en/produkte/top-bed-system\" target=\"_blank\" rel=\"noopener\">the award</a>). Featured by Il Sole 24 Ore, Kommersant, Elle Decor and Architectural Digest; at the Salone del Mobile, Milan.</p>",
+            "link_place": "press",
+            "link_label": "Press"
+          }
+        },
+        "fact_16": {
+          "type": "fact",
+          "settings": {
+            "label": "Languages",
+            "value": "<p>Italian, English and Russian.</p>",
+            "link_place": "none",
+            "link_label": ""
+          }
+        }
+      },
+      "block_order": [
+        "fact_01",
+        "fact_02",
+        "fact_03",
+        "fact_04",
+        "fact_05",
+        "fact_06",
+        "fact_07",
+        "fact_08",
+        "fact_09",
+        "fact_10",
+        "fact_11",
+        "fact_12",
+        "fact_13",
+        "fact_14",
+        "fact_15",
+        "fact_16"
+      ]
+    }
+  },
+  "order": [
+    "s01"
+  ]
+}

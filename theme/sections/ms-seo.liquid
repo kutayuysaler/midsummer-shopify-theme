@@ -30,6 +30,16 @@
       {%- endif %}
       "image": "https:{{ 'ms-photo-atelier-blue-gold.jpg' | asset_url }}",
       "foundingLocation": { "@type": "Place", "name": "Milan, Italy" },
+      {%- if section.settings.founding_date != blank %}
+      "foundingDate": {{ section.settings.founding_date | json }},
+      {%- endif %}
+      {%- if section.settings.award != blank %}
+      "award": {{ section.settings.award | json }},
+      {%- endif %}
+      {%- if section.settings.vat_id != blank %}
+      "vatID": {{ section.settings.vat_id | json }},
+      {%- endif %}
+      "hasMap": "https://www.google.com/maps/search/?api=1&query={{ section.settings.street | append: ', ' | append: section.settings.postal_code | append: ' ' | append: section.settings.city | url_encode }}",
       {%- if section.settings.founder != blank %}
       "founder": { "@type": "Person", "name": {{ section.settings.founder | json }}, "jobTitle": "Founder" },
       {%- endif %}
@@ -99,7 +109,7 @@
       "sameAs": [
         {%- for profile in profiles -%}
           {%- assign pr = profile | strip -%}
-          {%- if pr contains 'http' -%}{{ sep }}{{ pr | json }}{%- assign sep = ',' -%}{%- endif -%}
+          {%- if pr contains 'http' -%}{%- unless pr contains 'wa.me' -%}{{ sep }}{{ pr | json }}{%- assign sep = ',' -%}{%- endunless -%}{%- endif -%}
         {%- endfor -%}
       ]
     }
@@ -210,7 +220,11 @@
   {%- endif -%}
 {%- endif -%}
 
-{%- if section.settings.enable_product and template.name == 'product' and product != blank -%}
+{%- comment -%}
+  Product pages built on "Product · The system" describe the product themselves, from their
+  fibres and specification. This one covers the booking product, on Atelier's own page.
+{%- endcomment -%}
+{%- if section.settings.enable_product and template.name == 'product' and template.suffix == 'appointment' and product != blank -%}
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -222,7 +236,7 @@
       {%- if product.featured_media -%}
       "image": [
         {%- for media in product.media limit: 4 -%}
-          "{{ media | image_url: width: 1600 }}"{%- unless forloop.last -%},{%- endunless -%}
+          "https:{{ media | image_url: width: 1600 }}"{%- unless forloop.last -%},{%- endunless -%}
         {%- endfor -%}
       ],
       {%- endif -%}
@@ -245,26 +259,18 @@
           "name": {{ section.settings.customisation_label | json }},
           "value": {{ section.settings.customisation_value | json }}
         }
-      ],
+      ]
+      {%- if settings.ms_show_prices and section.settings.price_on_request == false and product.price > 0 -%},
       "offers": {
         "@type": "Offer",
         "url": "{{ shop.url }}{{ product.url }}",
-        "availability": "https://schema.org/InStock",
+        "availability": "https://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
         "itemCondition": "https://schema.org/NewCondition",
-        "businessFunction": "http://purl.org/goodrelations/v1#Sell",
         "priceCurrency": "{{ cart.currency.iso_code }}",
-        {%- if section.settings.price_on_request or settings.ms_show_prices == false or product.price == 0 -%}
-        "priceSpecification": {
-          "@type": "PriceSpecification",
-          "priceCurrency": "{{ cart.currency.iso_code }}",
-          "valueAddedTaxIncluded": true,
-          "description": {{ section.settings.price_request_text | json }}
-        },
-        {%- else -%}
         "price": "{{ product.price | divided_by: 100.0 }}",
-        {%- endif -%}
         "seller": { "@id": "{{ shop.url }}/#organization" }
       }
+      {%- endif %}
     }
   </script>
 {%- endif -%}
@@ -325,10 +331,30 @@
       "default": "Chiara Mennini"
     },
     {
+      "type": "text",
+      "id": "founding_date",
+      "label": "Founding year",
+      "info": "Year the house was founded, e.g. 2014. Leave empty to omit.",
+      "default": "2014"
+    },
+    {
+      "type": "text",
+      "id": "award",
+      "label": "Award",
+      "info": "A third-party recognition search engines can cite.",
+      "default": "Green Product Award 2025, Top bed system"
+    },
+    {
+      "type": "text",
+      "id": "vat_id",
+      "label": "VAT number",
+      "default": "IT02282810999"
+    },
+    {
       "type": "textarea",
       "id": "description",
       "label": "Description",
-      "default": "Handmade luxury beds, mattresses and toppers, built one by one by two artisans in Italy from natural fibres and Loro Piana Interiors fabrics."
+      "default": "Handmade luxury beds, mattresses and toppers, built one by one by two artisans in Italy from natural fibres and Loro Piana Interiors fabrics. Atelier at Via Andegari 4, Milan, open by appointment."
     },
     {
       "type": "text",

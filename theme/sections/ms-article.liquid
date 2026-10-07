@@ -5,7 +5,11 @@
 <a class="ms-art-back" href="{{ blog.url }}"><span aria-hidden="true">←</span> {{ section.settings.all }}</a>
 <div style="display: flex; align-items: center; gap: 11px; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgb(110, 103, 92);"><svg aria-hidden="true" height="22" style="display: block; flex: 0 0 auto;" viewbox="0 0 24 24" width="22"><path d="M4 20 C4 11 11 4 20 4 C20 13 13 20 4 20 Z" fill="none" stroke="#7E623B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"></path><path d="M4 20 L16 8" fill="none" stroke="#7E623B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"></path></svg><span>{% if cat != blank %}<a href="{{ blog.url }}?cat={{ cat }}" style="color: inherit;">{{ kicker }}</a>{% else %}{{ kicker }}{% endif %}</span></div>
 <h1 style="font-family: Newsreader, Georgia, serif; font-size: clamp(32px, 5vw, 66px); line-height: 1.02; letter-spacing: -0.03em; margin-top: 18px;">{{ article.title }}</h1>
-<div style="font-size: 12.5px; letter-spacing: 0.1em; color: rgb(110, 103, 92); margin-top: 20px;">{{ article.published_at | date: '%-d %B %Y' }} · {{ minutes }} {{ section.settings.minutes }}</div>
+<div style="font-size: 12.5px; letter-spacing: 0.1em; color: rgb(110, 103, 92); margin-top: 20px;"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%-d %B %Y' }}</time>{%- liquid
+  assign ms_pub = article.published_at | date: '%s' | plus: 0
+  assign ms_upd = article.updated_at | date: '%s' | plus: 0
+  assign ms_gap = ms_upd | minus: ms_pub
+-%}{%- if ms_gap > 604800 %} · {{ section.settings.updated | default: 'Updated' }} <time datetime="{{ article.updated_at | date: '%Y-%m-%d' }}">{{ article.updated_at | date: '%-d %B %Y' }}</time>{%- endif %} · {{ minutes }} {{ section.settings.minutes }}</div>
 </section>
 {%- if article.image -%}
 <section style="padding: clamp(36px, 5vw, 64px) clamp(18px, 5vw, 80px) 0px; max-width: 1120px; margin: 0px auto;">
@@ -24,6 +28,41 @@
 </div>
 </section>
 {%- unless section.settings.end_after -%}{% render 'ms-article-end', s: section.settings, art: article, b: blog %}{%- endunless -%}
+{%- liquid
+  assign ld_img = article.image | default: blog.image
+  assign ld_desc = article.excerpt_or_content | strip_html | strip_newlines | truncate: 300
+  if article.metafields.global.description_tag != blank
+    assign ld_desc = article.metafields.global.description_tag
+  endif
+-%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "@id": "{{ shop.url }}{{ article.url }}#article",
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "{{ shop.url }}{{ article.url }}" },
+  "headline": {{ article.title | strip_html | truncate: 110 | json }},
+  "description": {{ ld_desc | json }},
+  {%- if ld_img %}
+  "image": [{{ ld_img | image_url: width: 1600 | prepend: 'https:' | json }}],
+  {%- endif %}
+  "datePublished": {{ article.published_at | date: '%Y-%m-%dT%H:%M:%S%z' | json }},
+  "dateModified": {{ article.updated_at | default: article.published_at | date: '%Y-%m-%dT%H:%M:%S%z' | json }},
+  "inLanguage": {{ request.locale.iso_code | json }},
+  {%- if article.author != blank %}
+  "author": { "@type": "Person", "name": {{ article.author | json }} },
+  {%- else %}
+  "author": { "@id": "{{ shop.url }}/#organization" },
+  {%- endif %}
+  "publisher": { "@id": "{{ shop.url }}/#organization" },
+  "isPartOf": { "@type": "Blog", "name": {{ blog.title | json }}, "url": "{{ shop.url }}{{ blog.url }}" },
+  {%- if kicker != blank %}
+  "articleSection": {{ kicker | strip | json }},
+  {%- endif %}
+  "keywords": {{ article.tags | join: ', ' | json }},
+  "wordCount": {{ words | json }}
+}
+</script>
 <div class="ms-read" aria-hidden="true"><span data-ms-read></span></div>
 <script>
   (function () {
@@ -114,6 +153,7 @@
     { "type": "text", "id": "share", "label": "Share label", "default": "Share" },
     { "type": "text", "id": "copy", "label": "Copy link label", "default": "Copy link" },
     { "type": "text", "id": "minutes", "label": "Reading time label", "default": "minute read" },
+    { "type": "text", "id": "updated", "label": "Updated label", "info": "Shown when a note was revised more than a week after it was published.", "default": "Updated" },
     { "type": "text", "id": "all", "label": "Back link", "default": "All notes" },
     { "type": "text", "id": "cta", "label": "Appointment link", "default": "Book a private appointment" },
     { "type": "text", "id": "more", "label": "More notes label", "default": "More notes" },

@@ -6,7 +6,9 @@
   "sections": {
     "s01": {
       "type": "ms-product-main",
-      "settings": {},
+      "settings": {
+        "award": "Green Product Award 2025"
+      },
       "blocks": {
         "fibre_01": {
           "type": "fibre",
@@ -69,6 +71,77 @@
       }
     },
     "s04": {
+      "type": "ms-qa",
+      "settings": {
+        "anchor": "questions",
+        "eyebrow": "Questions",
+        "heading": "Before you order.",
+        "link_label": "All questions",
+        "link_place": "faq"
+      },
+      "blocks": {
+        "qa_01": {
+          "type": "qa",
+          "settings": {
+            "q": "What is [product] made of?",
+            "a": "<p>[product] is made by hand in Italy from natural fibres: baby alpaca, cashmere, horsehair, mohair and yak hair. The cloth is chosen from the fabric book, Loro Piana Interiors included, and the system is made to order by two artisans, start to finish.</p>"
+          }
+        },
+        "qa_02": {
+          "type": "qa",
+          "settings": {
+            "q": "Can [product] be made to my dimensions?",
+            "a": "<p>Yes. Dimensions, heights, fibres, fabric and comfort level are specification decisions rather than exceptions. Non-standard widths, heights and radii, including round, carry no tooling charge.</p>"
+          }
+        },
+        "qa_03": {
+          "type": "qa",
+          "settings": {
+            "q": "How is the comfort chosen?",
+            "a": "<p>It depends on how you sleep. On your side, hips and shoulders need to sink a little; on your back, the lumbar curve needs support; on your front, a flatter, firmer surface keeps the neck neutral. The five questions of Find your Midsummer suggest a system, and at the atelier you choose by lying down.</p>"
+          }
+        },
+        "qa_04": {
+          "type": "qa",
+          "settings": {
+            "q": "Can I try [product] before ordering?",
+            "a": "<p>Yes. Come and lie down at the atelier, Via Andegari 4, Milano, Monday to Friday, 09:00–12:00 and 13:00–18:00. We can also meet by video. Appointments are confirmed by email within one working day.</p>"
+          }
+        },
+        "qa_05": {
+          "type": "qa",
+          "settings": {
+            "q": "How long does it take to make?",
+            "a": "<p>Production and delivery windows are confirmed on enquiry, because each system is made to order. Delivery is white-glove: the bed is brought into the room, assembled and dressed by our own team.</p>"
+          }
+        },
+        "qa_06": {
+          "type": "qa",
+          "settings": {
+            "q": "Why is the price on request?",
+            "when_hidden": true,
+            "a": "<p>Because every system is made to order, and the price follows the specification: dimensions, height, fibres, fabric and comfort level. We quote after the consultation.</p>"
+          }
+        },
+        "qa_07": {
+          "type": "qa",
+          "settings": {
+            "q": "What is the 15 + 15 service?",
+            "a": "<p>Our regeneration service. At year fifteen the mattress returns to the Italian artisans who made it, and its comfort, integrity and life are restored for the fifteen years ahead, rather than the system being replaced.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "qa_01",
+        "qa_02",
+        "qa_03",
+        "qa_04",
+        "qa_05",
+        "qa_06",
+        "qa_07"
+      ]
+    },
+    "s05": {
       "type": "ms-product-related",
       "settings": {}
     }
@@ -77,6 +150,7 @@
     "s01",
     "s02",
     "s03",
-    "s04"
+    "s04",
+    "s05"
   ]
 }

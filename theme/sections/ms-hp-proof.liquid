@@ -7,7 +7,11 @@
 {%- liquid
   assign s = section.settings
   assign n = 1
+  if s.show_award == false
+    assign n = 0
+  endif
   capture items
+    if s.show_award
     echo '<figure class="ms-pr__item is-on" data-ms-pr-item="0" aria-hidden="false">'
     if s.award_logo != blank
       assign alogo = s.award_logo
@@ -17,7 +21,12 @@
       echo '<div class="ms-pr__mark"><img src="' | append: alogo | append: '" alt="" width="200" height="56"></div>'
     endif
     echo '<p class="ms-pr__line">' | append: s.award | append: '</p>'
-    echo '<figcaption class="ms-pr__cap"><span>' | append: s.award_by | append: '</span></figcaption></figure>'
+    echo '<figcaption class="ms-pr__cap"><span>' | append: s.award_by | append: '</span>'
+    if s.award_link != blank
+      echo '<a href="' | append: s.award_link | append: '" target="_blank" rel="noopener">' | append: s.award_link_label | append: ' <span aria-hidden="true">→</span></a>'
+    endif
+    echo '</figcaption></figure>'
+    endif
   endcapture
   capture strip
     for block in section.blocks
@@ -50,7 +59,11 @@
           assign mark = '<div class="ms-pr__mark"><img src="' | append: src | append: '" alt="' | append: block.settings.name | append: '" width="200" height="56"></div>'
         endif
         capture one
-          echo '<figure class="ms-pr__item" data-ms-pr-item="' | append: n | append: '" aria-hidden="true">' | append: mark
+          if n == 0
+            echo '<figure class="ms-pr__item is-on" data-ms-pr-item="0" aria-hidden="false">' | append: mark
+          else
+            echo '<figure class="ms-pr__item" data-ms-pr-item="' | append: n | append: '" aria-hidden="true">' | append: mark
+          endif
           echo '<p class="ms-pr__line">' | append: line | append: '</p>'
           echo '<figcaption class="ms-pr__cap"><span>' | append: block.settings.name
           if when != blank
@@ -214,9 +227,12 @@
   "name": "Home · Recognition",
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Label", "default": "Recognition & press" },
+    { "type": "checkbox", "id": "show_award", "label": "Open with the award", "info": "Off where the page already tells the award, as Our story does.", "default": true },
     { "type": "textarea", "id": "award", "label": "First piece: the award", "default": "The Top System was awarded the Green Product Award 2025, in Berlin, for its plant-based materials and seasonal construction." },
     { "type": "text", "id": "award_by", "label": "Award line", "default": "Green Product Award · Berlin, 2025" },
     { "type": "text", "id": "award_logo", "label": "Award mark (file in the theme or an address)" },
+    { "type": "text", "id": "award_link", "label": "Award page (address)", "default": "https://www.gp-award.com/en/produkte/top-bed-system", "info": "The award's own page: a third-party citation search engines and AI assistants can follow." },
+    { "type": "text", "id": "award_link_label", "label": "Award link", "default": "The award" },
     { "type": "text", "id": "read_label", "label": "Read link", "default": "Read the piece" },
     { "type": "range", "id": "interval", "label": "Seconds per piece", "min": 4, "max": 12, "step": 1, "default": 6 },
     { "type": "text", "id": "press_label", "label": "Strip label", "default": "As featured in" },
