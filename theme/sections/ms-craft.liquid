@@ -9,11 +9,15 @@
   assign eyebrow = s.eyebrow
   if template.name == 'product' and product != blank and s.eyebrow_product != blank
     assign eyebrow = s.eyebrow_product | replace: '[name]', product.title
+    assign pt = product.title | downcase
+    if pt contains 'topper'
+      assign start = 'topper'
+    endif
   endif
   assign parts = 'topper,mattress,base' | split: ','
   assign nums = 'I,II,III' | split: ','
 -%}
-<section class="ms-cr" data-ms-craft>
+<section class="ms-cr" data-ms-craft{% if start %} data-cr-start="{{ start }}"{% endif %}>
   <div class="ms-cr__in">
     <div class="ms-cr__top">
       <div class="ms-cr__left">
@@ -218,12 +222,13 @@
     root.setAttribute('data-ms-craft-on', '');
     var intro = root.querySelector('[data-cr-intro]');
     var top = root.querySelector('.ms-cr__top');
-    function open(part, focus) {
+    function open(part, focus, still) {
       if (part) root.setAttribute('data-open', part); else root.removeAttribute('data-open');
       intro.classList.toggle('is-away', !!part);
       root.querySelectorAll('[data-cr-panel]').forEach(function (p) { p.hidden = p.getAttribute('data-cr-panel') !== part; });
       root.querySelectorAll('.ms-cr__slab, .ms-cr__part').forEach(function (el) { var on = el.getAttribute('data-part') === part; el.classList.toggle('is-on', on); if (el.hasAttribute('aria-expanded')) el.setAttribute('aria-expanded', on ? 'true' : 'false'); });
       root.querySelectorAll('.ms-cr__pk').forEach(function (b) { b.setAttribute('aria-expanded', b.getAttribute('data-cr-open') === part ? 'true' : 'false'); });
+      if (still) return;
       var r = top.getBoundingClientRect();
       if (r.top < -r.height * .35 || r.top > window.innerHeight * .55) top.scrollIntoView({ behavior: 'smooth', block: window.innerWidth > 900 ? 'center' : 'start' });
       if (focus) { var t = part ? root.querySelector('[data-cr-panel="' + part + '"] .ms-cr__back') : root.querySelector('.ms-cr__pk'); if (t) setTimeout(function () { t.focus({ preventScroll: true }); }, 60); }
@@ -240,6 +245,8 @@
       if (g && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); open(g.getAttribute('data-part'), true); }
       if (e.key === 'Escape' && root.hasAttribute('data-open')) open(null, true);
     });
+    // a topper's own page opens on the topper
+    if (root.getAttribute('data-cr-start')) open(root.getAttribute('data-cr-start'), false, true);
   });
 })();
 </script>

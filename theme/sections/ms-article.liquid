@@ -23,54 +23,7 @@
 <button type="button" data-ms-copy="{{ shop.url | append: article.url }}">{{ section.settings.copy | default: 'Copy link' }}</button>
 </div>
 </section>
-<aside class="ms-art-end" aria-label="{{ section.settings.end_label | escape }}">
-  <div class="ms-art-end__in">
-    <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" class="ms-art-end__leaf"><path d="M4 20 C4 11 11 4 20 4 C20 13 13 20 4 20 Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1"/><path d="M4 20 L16 8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1"/></svg>
-    <div class="ms-art-end__eyebrow">{{ section.settings.end_label }}</div>
-    <p class="ms-art-end__h">{{ section.settings.end_heading }}</p>
-    {%- if section.settings.end_text != blank -%}<p class="ms-art-end__t">{{ section.settings.end_text }}</p>{%- endif -%}
-    <div class="ms-art-end__links">
-      <a class="ms-art-end__btn" data-ms-enquire data-ms-cta="article-end" href="{% render 'ms-link', to: 'enquire' %}">{{ section.settings.cta }}</a>
-      <a class="ms-art-end__all" href="{{ blog.url }}"><span aria-hidden="true">←</span> {{ section.settings.all }}</a>
-      {%- if cat != blank -%}<a class="ms-art-end__all" href="{{ blog.url }}?cat={{ cat }}">{{ section.settings.same }} {{ kicker }}</a>{%- endif -%}
-    </div>
-  </div>
-</aside>
-{%- liquid
-  assign newer = nil
-  assign older = nil
-  assign found = false
-  assign last = nil
-  for a in blog.articles limit: 50
-    if found
-      assign older = a
-      break
-    endif
-    if a.url == article.url
-      assign found = true
-      assign newer = last
-    endif
-    assign last = a
-  endfor
--%}
-{%- if older or newer -%}
-<nav class="ms-art-nav{% unless older and newer %} is-solo{% endunless %}" aria-label="{{ section.settings.more | escape }}">
-  {%- for side in (1..2) -%}
-    {%- if side == 1 -%}{%- assign n = older -%}{%- assign lab = section.settings.older -%}{%- else -%}{%- assign n = newer -%}{%- assign lab = section.settings.newer -%}{%- endif -%}
-    {%- if n -%}
-      {%- capture ncat -%}{% render 'ms-note-cat', a: n %}{%- endcapture -%}{%- capture nkick -%}{% render 'ms-note-cat', label: ncat %}{%- endcapture -%}
-      <a class="ms-art-nav__a{% if side == 2 %} is-next{% endif %}" href="{{ n.url }}">
-        <span class="ms-art-nav__img">{%- if n.image -%}<img src="{{ n.image | image_url: width: 640 }}" alt="" width="640" height="480" loading="lazy">{%- else -%}<svg aria-hidden="true" width="34" height="34" viewBox="0 0 24 24"><path d="M4 20 C4 11 11 4 20 4 C20 13 13 20 4 20 Z" fill="none" stroke="#7E623B" stroke-width="1"/><path d="M4 20 L16 8" fill="none" stroke="#7E623B" stroke-width="1"/></svg>{%- endif -%}</span>
-        <span class="ms-art-nav__txt">
-          <span class="ms-art-nav__lab">{{ lab }}</span>
-          <em>{{ n.title }}</em>
-          <span class="ms-art-nav__meta">{% if nkick != blank %}{{ nkick }} · {% endif %}{{ n.published_at | date: '%-d %B %Y' }}</span>
-        </span>
-      </a>
-    {%- endif -%}
-  {%- endfor -%}
-</nav>
-{%- endif -%}
+{%- unless section.settings.end_after -%}{% render 'ms-article-end', s: section.settings, art: article, b: blog %}{%- endunless -%}
 <div class="ms-read" aria-hidden="true"><span data-ms-read></span></div>
 <script>
   (function () {
@@ -157,6 +110,7 @@
 {
   "name": "Journal note",
   "settings": [
+    { "type": "checkbox", "id": "end_after", "label": "End the note after the sections below", "info": "On when a Note ending section is added further down.", "default": false },
     { "type": "text", "id": "share", "label": "Share label", "default": "Share" },
     { "type": "text", "id": "copy", "label": "Copy link label", "default": "Copy link" },
     { "type": "text", "id": "minutes", "label": "Reading time label", "default": "minute read" },

@@ -6,7 +6,9 @@
   "sections": {
     "s01": {
       "type": "ms-article",
-      "settings": {}
+      "settings": {
+        "end_after": true
+      }
     },
     "s02": {
       "type": "ms-video-band",
@@ -22,11 +24,16 @@
         "heading": "More notes.",
         "link_label": "All notes"
       }
+    },
+    "end": {
+      "type": "ms-article-end",
+      "settings": {}
     }
   },
   "order": [
     "s01",
     "s02",
+    "end",
     "more"
   ]
 }

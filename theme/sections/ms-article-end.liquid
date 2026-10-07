@@ -1,0 +1,68 @@
+{%- comment -%} The end of a Journal note, placed after the note's own sections. {%- endcomment -%}
+{%- if template.name == 'article' -%}{% render 'ms-article-end', s: section.settings, art: article, b: blog %}{%- endif -%}
+{% schema %}
+{
+  "name": "Note ending",
+  "settings": [
+    {
+      "type": "text",
+      "id": "all",
+      "label": "Back link",
+      "default": "All notes"
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "Appointment link",
+      "default": "Book a private appointment"
+    },
+    {
+      "type": "text",
+      "id": "more",
+      "label": "More notes label",
+      "default": "More notes"
+    },
+    {
+      "type": "text",
+      "id": "same",
+      "label": "More on the subject",
+      "default": "More on"
+    },
+    {
+      "type": "text",
+      "id": "end_label",
+      "label": "Sign-off label",
+      "default": "From the atelier"
+    },
+    {
+      "type": "text",
+      "id": "end_heading",
+      "label": "Sign-off heading",
+      "default": "Continue the conversation in Milano."
+    },
+    {
+      "type": "textarea",
+      "id": "end_text",
+      "label": "Sign-off text",
+      "default": "Every note is written at the atelier on Via Andegari, where the beds can be lain on and the fibres held. Visit by appointment, or meet us by video."
+    },
+    {
+      "type": "text",
+      "id": "older",
+      "label": "Older note",
+      "default": "← Previous note"
+    },
+    {
+      "type": "text",
+      "id": "newer",
+      "label": "Newer note",
+      "default": "Next note →"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Note ending"
+    }
+  ]
+}
+{% endschema %}

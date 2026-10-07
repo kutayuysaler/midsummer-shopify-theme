@@ -1,0 +1,51 @@
+{%- comment -%} The end of a Journal note: a sign-off from the atelier, then the notes either side with their pictures.
+  Usage: {% render 'ms-article-end', s: section.settings, art: article, b: blog %} {%- endcomment -%}
+{%- capture cat -%}{% render 'ms-note-cat', a: art %}{%- endcapture -%}{%- capture kicker -%}{% render 'ms-note-cat', label: cat %}{%- endcapture -%}
+<aside class="ms-art-end" aria-label="{{ s.end_label | escape }}">
+  <div class="ms-art-end__in">
+    <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" class="ms-art-end__leaf"><path d="M4 20 C4 11 11 4 20 4 C20 13 13 20 4 20 Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1"/><path d="M4 20 L16 8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1"/></svg>
+    <div class="ms-art-end__eyebrow">{{ s.end_label }}</div>
+    <p class="ms-art-end__h">{{ s.end_heading }}</p>
+    {%- if s.end_text != blank -%}<p class="ms-art-end__t">{{ s.end_text }}</p>{%- endif -%}
+    <div class="ms-art-end__links">
+      <a class="ms-art-end__btn" data-ms-enquire data-ms-cta="article-end" href="{% render 'ms-link', to: 'enquire' %}">{{ s.cta }}</a>
+      <a class="ms-art-end__all" href="{{ b.url }}"><span aria-hidden="true">←</span> {{ s.all }}</a>
+      {%- if cat != blank -%}<a class="ms-art-end__all" href="{{ b.url }}?cat={{ cat }}">{{ s.same }} {{ kicker }}</a>{%- endif -%}
+    </div>
+  </div>
+</aside>
+{%- liquid
+  assign newer = nil
+  assign older = nil
+  assign found = false
+  assign last = nil
+  for x in b.articles limit: 50
+    if found
+      assign older = x
+      break
+    endif
+    if x.url == art.url
+      assign found = true
+      assign newer = last
+    endif
+    assign last = x
+  endfor
+-%}
+{%- if older or newer -%}
+<nav class="ms-art-nav{% unless older and newer %} is-solo{% endunless %}" aria-label="{{ s.more | escape }}">
+  {%- for side in (1..2) -%}
+    {%- if side == 1 -%}{%- assign n = older -%}{%- assign lab = s.older -%}{%- else -%}{%- assign n = newer -%}{%- assign lab = s.newer -%}{%- endif -%}
+    {%- if n -%}
+      {%- capture ncat -%}{% render 'ms-note-cat', a: n %}{%- endcapture -%}{%- capture nkick -%}{% render 'ms-note-cat', label: ncat %}{%- endcapture -%}
+      <a class="ms-art-nav__a{% if side == 2 %} is-next{% endif %}" href="{{ n.url }}">
+        <span class="ms-art-nav__img">{%- if n.image -%}<img src="{{ n.image | image_url: width: 640 }}" alt="" width="640" height="480" loading="lazy">{%- else -%}<svg aria-hidden="true" width="34" height="34" viewBox="0 0 24 24"><path d="M4 20 C4 11 11 4 20 4 C20 13 13 20 4 20 Z" fill="none" stroke="#7E623B" stroke-width="1"/><path d="M4 20 L16 8" fill="none" stroke="#7E623B" stroke-width="1"/></svg>{%- endif -%}</span>
+        <span class="ms-art-nav__txt">
+          <span class="ms-art-nav__lab">{{ lab }}</span>
+          <em>{{ n.title }}</em>
+          <span class="ms-art-nav__meta">{% if nkick != blank %}{{ nkick }} · {% endif %}{{ n.published_at | date: '%-d %B %Y' }}</span>
+        </span>
+      </a>
+    {%- endif -%}
+  {%- endfor -%}
+</nav>
+{%- endif -%}

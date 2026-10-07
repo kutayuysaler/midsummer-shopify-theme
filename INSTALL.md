@@ -588,4 +588,18 @@ Every page was reviewed on a tablet held upright (768 × 1024) and on its side (
 - **Questions & customer care**: on tablets the questions now use the full width, with the
   "Not here?" note above them instead of a narrow empty column beside them.
 
+## 19. Journal and product pages, again
+
+- **Notes with their own sections** (Salone del Mobile, Green Product Award, Sleep assessment):
+  the sign-off and the previous/next notes now come after the film, the gallery or the quiz,
+  so the note ends once. A new section, *Note ending*, carries it; on such a note, the
+  *Journal note* section has "End the note after the sections below" ticked. To give another
+  note its own sections, add them, then add *Note ending* below them and tick that box.
+- **Journal**: the mosaic's last row fills the width (two notes share it, a single note takes
+  the middle); the subjects keep a little space under a banner (Collaborations); "Older →"
+  stays clear of the WhatsApp button.
+- **Toppers**: on a product whose name contains "Topper", *Inside the bed* opens on the topper.
+- **The appointment product** (product.appointment) keeps the store's own layout, because it
+  is bought through the cart.
+
 See AUDIT.md for the homepage audit and what competitors have that is still to add.
