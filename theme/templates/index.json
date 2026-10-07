@@ -80,7 +80,7 @@
           "type": "row",
           "settings": {
             "label": "What is inside",
-            "ours": "Only natural fibres: wool, horsehair, silk, cashmere and linen, laid by hand over pocket springs.",
+            "ours": "Only natural fibres: wool, horsehair, silk, cashmere and linen, laid by hand.",
             "theirs": "Foams, latex and synthetic fillings, glued in layers."
           }
         },

@@ -602,4 +602,11 @@ Every page was reviewed on a tablet held upright (768 × 1024) and on its side (
 - **The appointment product** (product.appointment) keeps the store's own layout, because it
   is bought through the cart.
 
+## 20. Home page, again
+
+The home page was reviewed section by section on computer, tablet and phone; it holds
+together at every size. The remaining mentions of "pocket springs" (home, product
+descriptions, search results) now speak of the result: "laid by hand", "hand-built, natural
+fibres only".
+
 See AUDIT.md for the homepage audit and what competitors have that is still to add.
