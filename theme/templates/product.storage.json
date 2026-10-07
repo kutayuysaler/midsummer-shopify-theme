@@ -14,7 +14,6 @@
           "type": "fibre",
           "settings": {
             "name": "Cashmere",
-            "icon": "shopify://shop_images/cashmere2.png",
             "note": "Warmth without weight"
           }
         },
@@ -22,7 +21,6 @@
           "type": "fibre",
           "settings": {
             "name": "Cheviot Wool",
-            "icon": "shopify://shop_images/cheviot.png",
             "note": "Support · Temperature"
           }
         }

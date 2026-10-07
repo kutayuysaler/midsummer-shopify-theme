@@ -1,0 +1,29 @@
+{%- comment -%}
+  Safety net: if a product's template comes through empty (for instance a template Shopify
+  refused on upload), the layout draws the product here so the page is never blank.
+{%- endcomment -%}
+{%- if request.design_mode -%}<p style="max-width: 1400px; margin: 110px auto 0; padding: 14px 20px; background: #F4EFE5; font-size: 13px; color: #8B3A2B;">This product's template ({{ template.suffix | default: 'default' }}) came through empty, so a basic layout is shown. Shopify may have refused one of its sections on upload: check the upload warnings under Online Store → Themes.</p>{%- endif -%}
+<section class="ms-pf" data-ms-product-fallback>
+  <div class="ms-pf__media">
+    {%- for media in product.media limit: 6 -%}
+      {%- if media.media_type == 'image' -%}
+        <img src="{{ media | image_url: width: 1400 }}" alt="{{ media.alt | default: product.title | escape }}" width="{{ media.width }}" height="{{ media.height }}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+  <div class="ms-pf__info">
+    <h1 class="ms-pf__title">{{ product.title }}</h1>
+    {%- if product.description != blank -%}<div class="ms-pf__desc">{{ product.description }}</div>{%- endif -%}
+    <a class="ms-pf__cta" href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire>Request a proposal</a>
+  </div>
+</section>
+<style>
+  .ms-pf { max-width: 1400px; margin: 0 auto; padding: clamp(110px, 10vw, 150px) clamp(18px, 5vw, 80px) 80px; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(28px, 4vw, 72px); align-items: start; }
+  .ms-pf__media { display: grid; gap: 12px; }
+  .ms-pf__media img { width: 100%; height: auto; display: block; background: #F1ECE3; }
+  .ms-pf__info { position: sticky; top: 120px; }
+  .ms-pf__title { font-family: Newsreader, Georgia, serif; font-weight: 200; font-size: clamp(44px, 5vw, 84px); line-height: 1; letter-spacing: -0.04em; }
+  .ms-pf__desc { margin-top: 24px; font-size: 15px; line-height: 1.9; color: #4A443B; }
+  .ms-site a.ms-pf__cta { display: inline-flex; align-items: center; min-height: 56px; padding: 0 36px; margin-top: 30px; background: #17140F; color: #FBF9F5; font-size: 11px; letter-spacing: .26em; text-transform: uppercase; }
+  @media (max-width: 900px) { .ms-pf { grid-template-columns: minmax(0, 1fr); } .ms-pf__info { position: static; } }
+</style>

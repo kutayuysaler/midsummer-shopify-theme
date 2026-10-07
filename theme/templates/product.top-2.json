@@ -14,7 +14,6 @@
           "type": "fibre",
           "settings": {
             "name": "Baby Alpaca",
-            "icon": "shopify://shop_images/alpaca.png",
             "note": "Temperature · Hypoallergenic"
           }
         },
@@ -22,7 +21,6 @@
           "type": "fibre",
           "settings": {
             "name": "Cashmere",
-            "icon": "shopify://shop_images/cashmere2.png",
             "note": "Warmth without weight"
           }
         },
@@ -30,7 +28,6 @@
           "type": "fibre",
           "settings": {
             "name": "Horsehair",
-            "icon": "shopify://shop_images/horse.png",
             "note": "Support · Breathability"
           }
         },
@@ -38,7 +35,6 @@
           "type": "fibre",
           "settings": {
             "name": "Mohair",
-            "icon": "shopify://shop_images/mohair.png",
             "note": "Warmth without weight"
           }
         },
@@ -46,7 +42,6 @@
           "type": "fibre",
           "settings": {
             "name": "Yak Hair",
-            "icon": "shopify://shop_images/yak.png",
             "note": "Warmth · Softness"
           }
         }

@@ -12,7 +12,6 @@
           "type": "fibre",
           "settings": {
             "name": "Cheviot Wool",
-            "icon": "shopify://shop_images/cheviot.png",
             "note": "Support · Temperature"
           }
         }

@@ -12,7 +12,6 @@
           "type": "fibre",
           "settings": {
             "name": "Cashmere",
-            "icon": "shopify://shop_images/cashmere2.png",
             "note": "Warmth without weight"
           }
         }

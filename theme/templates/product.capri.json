@@ -14,7 +14,6 @@
           "type": "fibre",
           "settings": {
             "name": "Horsehair",
-            "icon": "shopify://shop_images/horse.png",
             "note": "Support · Breathability"
           }
         }

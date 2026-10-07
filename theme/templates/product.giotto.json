@@ -14,7 +14,6 @@
           "type": "fibre",
           "settings": {
             "name": "Horsehair",
-            "icon": "shopify://shop_images/horse.png",
             "note": "Support · Breathability"
           }
         },
@@ -22,7 +21,6 @@
           "type": "fibre",
           "settings": {
             "name": "Cheviot Wool",
-            "icon": "shopify://shop_images/cheviot.png",
             "note": "Support · Temperature"
           }
         }

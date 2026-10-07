@@ -11,8 +11,7 @@
         "fibre_01": {
           "type": "fibre",
           "settings": {
-            "name": "Camel Hair",
-            "icon": "shopify://shop_images/camel.png"
+            "name": "Camel Hair"
           }
         }
       },

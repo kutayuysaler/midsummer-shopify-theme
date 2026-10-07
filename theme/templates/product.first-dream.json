@@ -12,7 +12,6 @@
           "type": "fibre",
           "settings": {
             "name": "Baby Alpaca",
-            "icon": "shopify://shop_images/alpaca_0e64aea1-1a58-4fbc-a670-2ec761ad2229.png",
             "note": "Temperature · Hypoallergenic"
           }
         },
@@ -20,7 +19,6 @@
           "type": "fibre",
           "settings": {
             "name": "Horsehair",
-            "icon": "shopify://shop_images/horse.png",
             "note": "Support · Breathability"
           }
         }

@@ -12,7 +12,6 @@
           "type": "fibre",
           "settings": {
             "name": "Yak Hair",
-            "icon": "shopify://shop_images/yak.png",
             "note": "Warmth · Softness"
           }
         }

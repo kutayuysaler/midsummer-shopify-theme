@@ -11,15 +11,13 @@
         "fibre_01": {
           "type": "fibre",
           "settings": {
-            "name": "Falkland",
-            "icon": "shopify://shop_images/falkland.png"
+            "name": "Falkland"
           }
         },
         "fibre_02": {
           "type": "fibre",
           "settings": {
             "name": "Vicuña",
-            "icon": "shopify://shop_images/vicuna.png",
             "note": "Softness · Warmth"
           }
         }

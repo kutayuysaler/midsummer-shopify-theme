@@ -11,15 +11,13 @@
         "fibre_01": {
           "type": "fibre",
           "settings": {
-            "name": "Camel Hair",
-            "icon": "shopify://shop_images/camel.png"
+            "name": "Camel Hair"
           }
         },
         "fibre_02": {
           "type": "fibre",
           "settings": {
             "name": "Cheviot Wool",
-            "icon": "shopify://shop_images/cheviot.png",
             "note": "Support · Temperature"
           }
         }

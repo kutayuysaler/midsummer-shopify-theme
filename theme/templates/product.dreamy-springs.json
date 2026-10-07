@@ -11,15 +11,13 @@
         "fibre_01": {
           "type": "fibre",
           "settings": {
-            "name": "Camel Hair",
-            "icon": "shopify://shop_images/camel.png"
+            "name": "Camel Hair"
           }
         },
         "fibre_02": {
           "type": "fibre",
           "settings": {
             "name": "Horsehair",
-            "icon": "shopify://shop_images/horse.png",
             "note": "Support · Breathability"
           }
         },
@@ -27,7 +25,6 @@
           "type": "fibre",
           "settings": {
             "name": "Cashmere",
-            "icon": "shopify://shop_images/cashmere2.png",
             "note": "Warmth without weight"
           }
         }

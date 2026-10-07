@@ -12,7 +12,6 @@
           "type": "fibre",
           "settings": {
             "name": "Baby Alpaca",
-            "icon": "shopify://shop_images/alpaca.png",
             "note": "Temperature · Hypoallergenic"
           }
         }

@@ -30,6 +30,10 @@
     <main id="MainContent" role="main">
       <div aria-hidden="true" data-ms-sentinel style="width: 100%; height: 1px;"></div>
       {{ content_for_layout }}
+      {%- if template.name == 'product' and product != blank -%}
+        {%- assign ms_body = content_for_layout | strip_html | strip -%}
+        {%- if ms_body == blank -%}{%- render 'ms-product-fallback' -%}{%- endif -%}
+      {%- endif -%}
     </main>
     {% sections 'footer-group' %}
     {% section 'ms-enquiry-drawer' %}
