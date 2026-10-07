@@ -112,6 +112,9 @@
       assign view = 'compare'
     when 'essentials', 'signature', 'icons'
       assign c = to | append: ',' | append: to | append: '-collection,the-' | append: to
+      if to == 'icons'
+        assign c = 'icons,icon,icons-collection,the-icons'
+      endif
       assign kw = to
       assign view = to
     when 'mattresses'

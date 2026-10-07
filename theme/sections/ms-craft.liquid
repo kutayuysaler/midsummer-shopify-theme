@@ -66,7 +66,7 @@
             {%- if s[kf] != blank -%}
               <div class="ms-cr__fl">{{ s.fibres_label }}</div>
               <ul class="ms-cr__fibres" role="list">
-                {%- for f in fibres -%}{%- assign fn = f | strip -%}{%- if fn != '' -%}<li><span class="ms-cr__fi">{% render 'ms-fibre-mark', name: fn, size: 34 %}</span>{{ fn }}</li>{%- endif -%}{%- endfor -%}
+                {%- for f in fibres -%}{%- assign fn = f | strip -%}{%- if fn != '' -%}<li><span class="ms-cr__fi">{% render 'ms-fibre-mark', name: fn, size: 28 %}</span>{{ fn }}</li>{%- endif -%}{%- endfor -%}
               </ul>
             {%- endif -%}
             <div class="ms-cr__pnav">
@@ -162,7 +162,7 @@
   .ms-cr__pts li::before { content: ''; position: absolute; left: 0; top: 24px; width: 12px; height: 1px; background: #C9A97A; }
   .ms-cr__fl { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: rgba(251, 249, 245, .55); margin-top: 24px; }
   .ms-cr__fibres { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 10px; }
-  .ms-cr__fibres li { display: inline-flex; align-items: center; gap: 8px; padding: 4px 14px 4px 6px; border: 1px solid rgba(251, 249, 245, .16); border-radius: 999px; font-size: 13px; color: rgba(251, 249, 245, .86); }
+  .ms-cr__fibres li { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px 6px 12px; border: 1px solid rgba(251, 249, 245, .16); border-radius: 999px; font-size: 13px; color: rgba(251, 249, 245, .86); }
   .ms-cr__fi { color: #C9A97A; display: flex; }
   .ms-cr__pnav { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 30px; margin-top: 28px; }
   .ms-cr__next { font: inherit; font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: rgba(251, 249, 245, .7); background: none; border: 0; padding: 0; cursor: pointer; }

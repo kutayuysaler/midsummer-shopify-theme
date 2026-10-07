@@ -1,7 +1,7 @@
 {%- liquid
   assign tier = nil
   for c in product.collections
-    if c.handle == 'essentials' or c.handle == 'signature' or c.handle == 'icons'
+    if c.handle == 'essentials' or c.handle == 'signature' or c.handle == 'icons' or c.handle == 'icon'
       assign tier = c
       break
     endif

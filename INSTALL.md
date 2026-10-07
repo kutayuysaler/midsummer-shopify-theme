@@ -648,3 +648,24 @@ make. In the theme:
 - **Discretion.** The last phrases that described the inside of the bed ("pocket by
   pocket", "each individual coil", "from the springs up") now speak of the core and the
   craft.
+
+## 22. Feedback round: collections, map, notes, press
+
+- **Icons collection.** The store's Icons collection lives at `/collections/icon`; the theme
+  now recognises both spellings everywhere (tabs, numeral, header photograph, product pages).
+- **Collection pages** open on the house's photographs (Essentials: the glass house; Icons:
+  the arches; Signature keeps its own). The systems are listed under *What matters most to
+  you?* (temperature, support, softness, breathability, hypoallergenic), with a line on which
+  fibres answer each, and a *Compare* view that sets the systems side by side. Each system's
+  fibres come from its own product template; the qualities are those of Natural materials.
+- **Map** opens on Europe, around the atelier. Zooming in brings finer coastlines and borders
+  (Natural Earth 1:10m, `assets/ms-world-10m.json`), and sea and land are now told apart.
+- **Notes** open with the title, summary and photograph on one screen; the text runs in a
+  wider column beside *In this note* (made from the note's headings) and the share links.
+  Numbered lists become numbered cards, two by two.
+- **Press band** (home page) is still: one row of marks, the piece changing only when a mark
+  is pointed at. It no longer appears on Our story.
+- **Telegram and VK** show only on the Russian site (`/ru`); they stay in the structured data.
+- **Newsletter**: "Letters from the atelier, in your inbox."
+- **Fibre marks** have room inside the pills of *Inside the bed* and never lose a stroke.
+

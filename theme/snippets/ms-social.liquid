@@ -1,17 +1,20 @@
 {%- comment -%}
   The house's social accounts and WhatsApp, as small monochrome marks.
   Links come from Theme settings → Midsummer · Social and WhatsApp; an empty link is left out.
+  Telegram and VK appear only on the Russian site (/ru).
   Usage: {% render 'ms-social' %}   {% render 'ms-social', tone: 'light' %} (on dark grounds)
 {%- endcomment -%}
 {%- liquid
   assign nets = 'instagram,pinterest,linkedin,whatsapp,telegram,vk,facebook,youtube,tiktok' | split: ','
   assign names = 'Instagram,Pinterest,LinkedIn,WhatsApp,Telegram,VK,Facebook,YouTube,TikTok' | split: ','
+  assign ms_lang = request.locale.iso_code | slice: 0, 2
 -%}
 <ul class="ms-social{% if tone == 'light' %} is-light{% endif %}" role="list">
   {%- for n in nets -%}
     {%- assign key = 'ms_social_' | append: n -%}
     {%- assign url = settings[key] -%}
     {%- if url == blank -%}{%- continue -%}{%- endif -%}
+    {%- if n == 'telegram' or n == 'vk' -%}{%- if ms_lang != 'ru' -%}{%- continue -%}{%- endif -%}{%- endif -%}
     <li>
       <a href="{{ url }}" target="_blank" rel="noopener" aria-label="{{ names[forloop.index0] }}" title="{{ names[forloop.index0] }}"{% if n == 'whatsapp' %} data-ms-whatsapp{% endif %}>
         <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" focusable="false">

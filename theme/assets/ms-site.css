@@ -190,3 +190,6 @@ body[data-template="index"] :is([id$="__visit"], [id$="-visit"]) .ms-ch { paddin
   [data-ms="rail"]:has(> :nth-child(3):last-child) { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 18px !important; }
   [data-ms="rail"]:has(> :nth-child(4):last-child) { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
 }
+
+/* the drawn fibre marks never lose a stroke at their edges */
+.ms-site svg.ms-fm { overflow: visible; flex: 0 0 auto; max-width: none; }

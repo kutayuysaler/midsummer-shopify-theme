@@ -7,17 +7,29 @@
     when 'signature'
       assign numeral = 'II'
       assign fallback = 'https://midsummer-milano.com/cdn/shop/files/dreamy_spiaggia.jpg?v=1627027099&width=1400'
-    when 'icons'
+    when 'icons', 'icon'
       assign numeral = 'III'
       assign fallback = 'ms-photo-atelier-pure.jpg' | asset_url
     else
       assign numeral = ''
       assign fallback = 'ms-photo-atelier-pure.jpg' | asset_url
   endcase
+  assign tier_photo = ''
+  assign tier_pos = 'center'
+  case tier
+    when 'essentials'
+      assign tier_photo = 'ms-photo-glass-house.jpg' | asset_url
+      assign tier_pos = 'center 62%'
+    when 'icons', 'icon'
+      assign tier_photo = 'ms-graded-arches.jpg' | asset_url
+      assign tier_pos = 'center 64%'
+  endcase
 -%}
 <section style="position: relative; overflow: hidden; background: rgb(23, 20, 15);">
 {%- if section.settings.image != blank -%}
 <img alt="{{ collection.title | escape }}" width="2400" height="1100" src="{{ section.settings.image | image_url: width: 2400 }}" style="width: 100%; height: min(66vh, 640px); object-fit: cover; display: block;">
+{%- elsif tier_photo != blank -%}
+<img alt="{{ collection.title | escape }}" width="1920" height="1280" src="{{ tier_photo }}" style="width: 100%; height: min(66vh, 640px); object-fit: cover; object-position: {{ tier_pos }}; display: block;" fetchpriority="high">
 {%- elsif collection.image != blank -%}
 <img alt="{{ collection.title | escape }}" width="2400" height="1100" src="{{ collection.image | image_url: width: 2400 }}" style="width: 100%; height: min(66vh, 640px); object-fit: cover; display: block;">
 {%- else -%}

@@ -1,6 +1,5 @@
 /*
- * Midsummer Milano: built from the approved Atelier preview, one section per band.
- * Rendered with layout/ms.liquid, the preview's own type, colour and spacing.
+ * Midsummer Milano: a collection: its opening, its words, and its systems chosen by what matters to the sleeper.
  */
 {
   "layout": "ms",
@@ -14,7 +13,7 @@
       "settings": {}
     },
     "s03": {
-      "type": "ms-collection-grid",
+      "type": "ms-systems",
       "settings": {}
     }
   },

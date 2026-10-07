@@ -123,7 +123,6 @@
       <div class="ms-pr__label">{{ s.press_label }}</div>
       <div class="ms-pr__rail" data-ms-pr-rail>
         <ul class="ms-pr__run" role="list">{{ strip }}</ul>
-        <ul class="ms-pr__run" role="list" aria-hidden="true">{{ strip | replace: '<button', '<button tabindex="-1"' | replace: '<a href', '<a tabindex="-1" href' }}</ul>
       </div>
       {%- if press_url != blank and s.all_label != blank -%}<a class="ms-pr__all" href="{{ press_url }}">{{ s.all_label }} <span aria-hidden="true">→</span></a>{%- endif -%}
     </div>
@@ -169,6 +168,22 @@
     .ms-pr__rail { overflow-x: auto; }
     .ms-pr__item { transition: none; }
   }
+
+  /* quiet by design: no rotation, no moving line; a mark brings its piece forward when pointed at */
+  .ms-pr { padding-top: clamp(56px, 6vw, 96px); }
+  .ms-pr__count, .ms-pr__bar { display: none; }
+  .ms-pr__stage { min-height: clamp(150px, 13vw, 190px); margin-top: clamp(26px, 3vw, 40px); }
+  .ms-pr__mark { height: 30px; }
+  .ms-site .ms-pr .ms-pr__mark img { height: 26px; }
+  .ms-pr__line { font-size: clamp(20px, 1.9vw, 27px); line-height: 1.35; max-width: 34ch; margin-top: 16px; }
+  .ms-pr__cap { margin-top: 14px; }
+  .ms-pr__strip { margin-top: clamp(32px, 3.4vw, 48px); padding: 18px clamp(18px, 5vw, 80px) 22px; }
+  .ms-pr__rail { mask-image: none; -webkit-mask-image: none; justify-content: center; margin-top: 12px; }
+  .ms-pr__run { animation: none; flex: 1 1 auto; flex-wrap: wrap; justify-content: center; max-width: 1180px; }
+  .ms-pr__logo > * { width: auto; height: 48px; padding: 0 clamp(12px, 1.6vw, 22px); }
+  .ms-pr__run { flex-wrap: nowrap; overflow: hidden; }
+  .ms-pr__run > li:nth-child(n+9) { display: none; }
+  @media (max-width: 760px) { .ms-pr__run { flex-wrap: wrap; } .ms-pr__run > li:nth-child(n+7) { display: none; } .ms-pr__logo > * { height: 42px; } }
 </style>
 <script>
   (function () {
@@ -198,7 +213,7 @@
     }
     function schedule() {
       clearTimeout(timer);
-      if (reduce || paused || items.length < 2) return;
+      return; // no rotation: a piece changes only when its mark is pointed at or chosen
       timer = setTimeout(function () { show(at + 1); }, wait);
     }
     root.addEventListener('click', function (e) {

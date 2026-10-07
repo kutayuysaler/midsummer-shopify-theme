@@ -20,7 +20,7 @@
     when 'product'
       assign pic = item.featured_media
       for c in item.collections
-        if c.handle == 'essentials' or c.handle == 'signature' or c.handle == 'icons'
+        if c.handle == 'essentials' or c.handle == 'signature' or c.handle == 'icons' or c.handle == 'icon'
           assign sub = c.title
           break
         endif

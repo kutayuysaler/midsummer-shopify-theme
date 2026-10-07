@@ -359,7 +359,7 @@
     if (!wide) return;
     document.querySelectorAll('main *').forEach(function (g) {
       var cs = getComputedStyle(g);
-      if (cs.display !== 'grid' || g.querySelector('input, textarea, select') || g.closest('[data-ms-drawer], [data-ms-panel], [data-ms-menu]')) return;
+      if (cs.display !== 'grid' || g.querySelector('input, textarea, select') || g.closest('[data-ms-drawer], [data-ms-panel], [data-ms-menu], .ms-article-body')) return;
       var ks = cards(g); var n = ks.length; if (n < 3) return;
       if (ks.some(function (k) { var c = getComputedStyle(k).gridColumnEnd; return c === '-1' || /span/.test(c) || /span/.test(getComputedStyle(k).gridColumnStart); })) return;
       var cols = cs.gridTemplateColumns.split(' ').filter(Boolean).length;

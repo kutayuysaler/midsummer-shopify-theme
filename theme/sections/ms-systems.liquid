@@ -1,0 +1,269 @@
+{%- comment -%}
+  The systems of a collection, chosen by what matters to the sleeper. A row of needs
+  (temperature, support, softness, breathability, hypoallergenic) narrows the list and says, in
+  one line, which fibres answer it; a second view sets the systems side by side, fibre by fibre.
+  What each system is made of comes from its own product template (snippets/ms-system-facts),
+  and the qualities are those the Natural materials page gives each fibre.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign kh = collection.handle
+  if kh == 'icon'
+    assign kh = 'icons'
+  endif
+-%}
+<section class="ms-sy" data-ms-sy>
+  <div class="ms-sy__tabs">
+    {%- for h in (1..3) -%}
+      {%- case h -%}
+        {%- when 1 -%}{%- assign k = 'essentials' -%}{%- assign l = s.tab1 -%}
+        {%- when 2 -%}{%- assign k = 'signature' -%}{%- assign l = s.tab2 -%}
+        {%- else -%}{%- assign k = 'icons' -%}{%- assign l = s.tab3 -%}
+      {%- endcase -%}
+      <a href="{% render 'ms-link', to: k %}" class="ms-sy__tab{% if kh == k %} is-on{% endif %}"{% if kh == k %} aria-current="page"{% endif %}>{{ l }}</a>
+    {%- endfor -%}
+  </div>
+
+  <div class="ms-sy__bar">
+    <div class="ms-sy__needs" role="group" aria-label="{{ s.need_label | escape }}">
+      <span class="ms-sy__ask">{{ s.need_label }}</span>
+      <button type="button" class="is-on" data-need="" aria-pressed="true">{{ s.all_label }}</button>
+      <button type="button" data-need="temperature" aria-pressed="false">{{ s.temperature_label }}</button>
+      <button type="button" data-need="support" aria-pressed="false">{{ s.support_label }}</button>
+      <button type="button" data-need="softness" aria-pressed="false">{{ s.softness_label }}</button>
+      <button type="button" data-need="breathability" aria-pressed="false">{{ s.breathability_label }}</button>
+      <button type="button" data-need="hypoallergenic" aria-pressed="false">{{ s.hypoallergenic_label }}</button>
+    </div>
+    <div class="ms-sy__views" role="group" aria-label="{{ s.view_label | escape }}">
+      <button type="button" class="is-on" data-sy-view="grid" aria-pressed="true">{{ s.grid_label }}</button>
+      <button type="button" data-sy-view="table" aria-pressed="false">{{ s.compare_label }}</button>
+    </div>
+  </div>
+  <p class="ms-sy__hint" data-sy-hint aria-live="polite">{{ s.hint_all }}</p>
+  <template data-sy-hints>
+    <span data-k="">{{ s.hint_all }}</span>
+    <span data-k="temperature">{{ s.hint_temperature }}</span>
+    <span data-k="support">{{ s.hint_support }}</span>
+    <span data-k="softness">{{ s.hint_softness }}</span>
+    <span data-k="breathability">{{ s.hint_breathability }}</span>
+    <span data-k="hypoallergenic">{{ s.hint_hypoallergenic }}</span>
+  </template>
+
+  {%- paginate collection.products by 48 -%}
+  <div class="ms-sy__grid" data-sy-panel="grid">
+    {%- for product in collection.products -%}
+      {%- capture facts -%}{% render 'ms-system-facts', key: product.template_suffix, handle: product.handle, title: product.title %}{%- endcapture -%}
+      {%- assign fparts = facts | split: '~' -%}
+      {%- assign fibres = fparts[0] | split: ',' -%}
+      {%- assign quals = fparts[1] | strip -%}
+      {%- capture note -%}{% render 'ms-product-note', title: product.title %}{%- endcapture -%}
+      {%- assign sub = product.metafields.custom.subtitle.value | default: note -%}
+      <a href="{{ product.url }}" class="ms-sy__card" data-q="{{ quals }}">
+        {%- if product.featured_media -%}
+          <span class="ms-card__img">
+            <img alt="{{ product.featured_media.alt | default: product.title | escape }}" src="{{ product.featured_media | image_url: width: 900 }}" srcset="{{ product.featured_media | image_url: width: 600 }} 600w, {{ product.featured_media | image_url: width: 900 }} 900w" sizes="(max-width: 760px) 50vw, 25vw" loading="{% if forloop.index > 4 %}lazy{% else %}eager{% endif %}" width="900" height="1125">
+            {%- assign alt_media = product.media[1] -%}
+            {%- if alt_media and alt_media.media_type == 'image' -%}<img class="ms-card__alt" alt="" src="{{ alt_media | image_url: width: 900 }}" loading="lazy" width="900" height="1125">{%- endif -%}
+          </span>
+        {%- else -%}
+          <span class="ms-card__img ms-sy__blank"></span>
+        {%- endif -%}
+        <h2 class="ms-sy__name">{{ product.title }}</h2>
+        {%- if sub != blank -%}<p class="ms-sy__sub">{{ sub }}</p>{%- endif -%}
+        {%- if fibres.size > 0 and fparts[0] != blank -%}
+          <ul class="ms-sy__fibres" role="list">
+            {%- for f in fibres limit: 4 -%}<li>{% render 'ms-fibre-mark', name: f, size: 22 %}<span>{{ f }}</span></li>{%- endfor -%}
+          </ul>
+        {%- endif -%}
+        {%- if settings.ms_show_prices -%}<p class="ms-sy__price">{% if product.price_varies %}{%- assign from_price = product.price_min | money -%}{{ 'ms.product.price_from' | t: price: from_price }}{% else %}{{ product.price | money }}{% endif %}</p>{%- endif -%}
+      </a>
+    {%- else -%}
+      <p class="ms-sy__empty">{{ s.empty }}</p>
+    {%- endfor -%}
+  </div>
+
+  {%- if collection.products.size > 0 -%}
+  <div class="ms-sy__tablewrap" data-sy-panel="table" hidden>
+    <table class="ms-sy__table">
+      <thead>
+        <tr>
+          <th scope="col">{{ s.col_system }}</th>
+          <th scope="col">{{ s.col_fibres }}</th>
+          <th scope="col" data-col="temperature">{{ s.temperature_label }}</th>
+          <th scope="col" data-col="support">{{ s.support_label }}</th>
+          <th scope="col" data-col="softness">{{ s.softness_label }}</th>
+          <th scope="col" data-col="breathability">{{ s.breathability_label }}</th>
+          <th scope="col" data-col="hypoallergenic">{{ s.hypoallergenic_label }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {%- for product in collection.products -%}
+          {%- capture facts -%}{% render 'ms-system-facts', key: product.template_suffix, handle: product.handle, title: product.title %}{%- endcapture -%}
+          {%- assign fparts = facts | split: '~' -%}
+          {%- assign quals = fparts[1] | strip -%}
+          <tr data-q="{{ quals }}">
+            <th scope="row">
+              <a href="{{ product.url }}">
+                {%- if product.featured_media -%}<img src="{{ product.featured_media | image_url: width: 160 }}" alt="" width="64" height="80" loading="lazy">{%- endif -%}
+                <span>{{ product.title }}</span>
+              </a>
+            </th>
+            <td class="ms-sy__tf">{{ fparts[0] | replace: ',', ', ' | default: '–' }}</td>
+            {%- assign needs = 'temperature,support,softness,breathability,hypoallergenic' | split: ',' -%}
+            {%- for n in needs -%}
+              <td data-col="{{ n }}">{%- if quals contains n -%}<i class="ms-sy__dot" aria-label="{{ s.yes_label | escape }}"></i>{%- else -%}<span class="ms-sy__no" aria-hidden="true"></span>{%- endif -%}</td>
+            {%- endfor -%}
+          </tr>
+        {%- endfor -%}
+      </tbody>
+    </table>
+    <p class="ms-sy__note">{{ s.table_note }}</p>
+  </div>
+  {%- endif -%}
+
+  {%- if paginate.pages > 1 -%}
+    <nav class="ms-sy__pages">
+      {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">← {{ s.prev_label }}</a>{%- endif -%}
+      <span>{{ paginate.current_page }} / {{ paginate.pages }}</span>
+      {%- if paginate.next -%}<a href="{{ paginate.next.url }}">{{ s.next_label }} →</a>{%- endif -%}
+    </nav>
+  {%- endif -%}
+  {%- endpaginate -%}
+
+  <div class="ms-sy__help">
+    <p>{{ s.help_text }}</p>
+    <a href="{% render 'ms-link', to: 'quiz' %}" data-ms-quiz-link>{{ s.quiz_label }}<span aria-hidden="true"> →</span></a>
+    <a href="{% render 'ms-link', to: 'compare' %}">{{ s.compare_collections_label }}<span aria-hidden="true"> →</span></a>
+  </div>
+</section>
+
+<style>
+  .ms-card__img { position: relative; display: block; overflow: hidden; }
+  .ms-site img.ms-card__alt { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .7s ease, transform 1.4s cubic-bezier(.2,.7,.2,1); transform: scale(1.03); }
+  @media (hover: hover) { a:hover > .ms-card__img img.ms-card__alt { opacity: 1; transform: none; } }
+  .ms-sy { padding: 0 clamp(18px, 5vw, 80px) clamp(60px, 9vw, 140px); max-width: 1560px; margin: 0 auto; }
+  .ms-sy__tabs { display: flex; gap: 8px; flex-wrap: wrap; border-top: 1px solid #DDD6C9; padding-top: 22px; }
+  .ms-site .ms-sy__tab { padding: 13px 20px; font-size: 10.5px; letter-spacing: .24em; text-transform: uppercase; border: 1px solid #DDD6C9; color: #4A443B; }
+  .ms-site .ms-sy__tab.is-on, .ms-site .ms-sy__tab:hover { background: #17140F; border-color: #17140F; color: #FBF9F5; }
+  .ms-sy__bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px 28px; margin-top: clamp(28px, 3.4vw, 48px); padding-bottom: 18px; border-bottom: 1px solid #DDD6C9; }
+  .ms-sy__needs { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 4px; }
+  .ms-sy__ask { font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 18px; color: #17140F; margin-right: 14px; }
+  .ms-sy__needs button, .ms-sy__views button { background: none; border: 0; border-bottom: 1px solid transparent; padding: 8px 10px; font: inherit; font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: #6E675C; cursor: pointer; }
+  .ms-sy__needs button:hover, .ms-sy__views button:hover { color: #17140F; }
+  .ms-sy__needs button.is-on, .ms-sy__views button.is-on { color: #17140F; border-bottom-color: #17140F; }
+  .ms-sy__views { display: flex; gap: 2px; }
+  .ms-sy__hint { font-family: Newsreader, Georgia, serif; font-weight: 200; font-size: clamp(18px, 1.7vw, 22px); line-height: 1.5; color: #4A443B; max-width: 62ch; margin: 22px 0 clamp(30px, 3.6vw, 52px); min-height: 3em; }
+  .ms-sy__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: clamp(32px, 4vw, 64px) clamp(16px, 2.4vw, 36px); }
+  .ms-site .ms-sy__card { display: block; color: inherit; transition: opacity .45s ease; }
+  .ms-sy__card[hidden] { display: none; }
+  .ms-sy__card .ms-card__img img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; background: #F1ECE3; }
+  .ms-sy__blank { aspect-ratio: 4 / 5; background: #F1ECE3; }
+  .ms-sy__name { font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: clamp(21px, 2vw, 26px); letter-spacing: -0.015em; margin-top: 18px; }
+  .ms-sy__sub { font-size: 13.5px; line-height: 1.7; color: #6E675C; margin-top: 6px; max-width: 36ch; }
+  .ms-sy__fibres { list-style: none; margin: 14px 0 0; padding: 12px 0 0; border-top: 1px solid #ECE6DB; display: flex; flex-wrap: wrap; gap: 6px 14px; }
+  .ms-sy__fibres li { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #4A443B; }
+  .ms-sy__fibres .ms-fm { color: #7E623B; }
+  .ms-sy__price { font-size: 12.5px; letter-spacing: .08em; color: #6E675C; margin-top: 10px; }
+  .ms-sy__empty { font-size: 15px; line-height: 1.9; color: #4A443B; }
+  .ms-sy__tablewrap { overflow-x: auto; }
+  .ms-sy__table { width: 100%; border-collapse: collapse; min-width: 760px; }
+  .ms-sy__table th, .ms-sy__table td { text-align: left; padding: 14px 12px; border-bottom: 1px solid #ECE6DB; vertical-align: middle; }
+  .ms-sy__table thead th { font-weight: 400; font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: #6E675C; border-bottom-color: #17140F; }
+  .ms-sy__table thead th[data-col], .ms-sy__table td[data-col] { text-align: center; width: 10%; }
+  .ms-sy__table thead th.is-need, .ms-sy__table td.is-need { background: #F4EFE5; color: #17140F; }
+  .ms-sy__table tbody th a { display: flex; align-items: center; gap: 14px; color: #17140F; }
+  .ms-sy__table tbody th img { width: 48px; height: 60px; object-fit: cover; background: #F1ECE3; flex: 0 0 auto; }
+  .ms-sy__table tbody th span { font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: 19px; }
+  .ms-sy__table tr[hidden] { display: none; }
+  .ms-sy__tf { font-size: 13px; line-height: 1.6; color: #4A443B; max-width: 30ch; }
+  .ms-sy__dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #7E623B; }
+  .ms-sy__no { display: inline-block; width: 12px; height: 1px; background: #DDD6C9; vertical-align: middle; }
+  .ms-sy__note { font-size: 12.5px; line-height: 1.7; color: #6E675C; margin-top: 16px; max-width: 70ch; }
+  .ms-sy__pages { display: flex; gap: 22px; justify-content: center; margin-top: clamp(40px, 5vw, 72px); font-size: 11px; letter-spacing: .26em; text-transform: uppercase; }
+  .ms-sy__help { display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px 28px; margin-top: clamp(48px, 6vw, 88px); padding-top: 24px; border-top: 1px solid #DDD6C9; }
+  .ms-sy__help p { font-family: Newsreader, Georgia, serif; font-size: 19px; font-weight: 300; color: #17140F; margin: 0 auto 0 0; }
+  .ms-site .ms-sy__help a { font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: #17140F; border-bottom: 1px solid currentColor; padding-bottom: 3px; }
+  @media (max-width: 760px) {
+    .ms-sy__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 14px; }
+    .ms-sy__ask { flex: 1 0 100%; margin: 0 0 4px; }
+    .ms-sy__needs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: calc(-1 * clamp(18px, 5vw, 80px)); padding-inline: clamp(18px, 5vw, 80px); flex-wrap: wrap; }
+    .ms-sy__name { font-size: 19px; margin-top: 12px; }
+    .ms-sy__sub { font-size: 12.5px; }
+    .ms-sy__fibres li span { display: none; }
+    .ms-sy__help p { flex: 1 0 100%; }
+  }
+</style>
+<script>
+  (function () {
+    var root = document.currentScript.previousElementSibling.previousElementSibling;
+    if (!root || !root.hasAttribute('data-ms-sy')) root = document.querySelector('[data-ms-sy]');
+    if (!root) return;
+    var hint = root.querySelector('[data-sy-hint]');
+    var hints = {};
+    var tpl = root.querySelector('[data-sy-hints]');
+    if (tpl) Array.prototype.forEach.call(tpl.content.querySelectorAll('[data-k]'), function (n) { hints[n.getAttribute('data-k')] = n.textContent; });
+    var need = '';
+    function apply() {
+      root.querySelectorAll('[data-q]').forEach(function (el) {
+        var q = ' ' + el.getAttribute('data-q') + ' ';
+        el.hidden = !!need && q.indexOf(' ' + need + ' ') < 0;
+      });
+      root.querySelectorAll('[data-col]').forEach(function (c) { c.classList.toggle('is-need', !!need && c.getAttribute('data-col') === need); });
+      if (hint) hint.textContent = hints[need] || hints[''] || '';
+    }
+    root.querySelectorAll('[data-need]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        need = b.getAttribute('data-need');
+        root.querySelectorAll('[data-need]').forEach(function (x) { var on = x === b; x.classList.toggle('is-on', on); x.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+        apply();
+      });
+    });
+    root.querySelectorAll('[data-sy-view]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var v = b.getAttribute('data-sy-view');
+        root.querySelectorAll('[data-sy-view]').forEach(function (x) { var on = x === b; x.classList.toggle('is-on', on); x.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+        root.querySelectorAll('[data-sy-panel]').forEach(function (p) { p.hidden = p.getAttribute('data-sy-panel') !== v; });
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Collection · Systems",
+  "settings": [
+    { "type": "text", "id": "tab1", "label": "First collection", "default": "Essentials" },
+    { "type": "text", "id": "tab2", "label": "Second collection", "default": "Signature" },
+    { "type": "text", "id": "tab3", "label": "Third collection", "default": "Icons" },
+    { "type": "header", "content": "What matters most" },
+    { "type": "text", "id": "need_label", "label": "Question", "default": "What matters most to you?" },
+    { "type": "text", "id": "all_label", "label": "All", "default": "Everything" },
+    { "type": "text", "id": "temperature_label", "label": "Temperature", "default": "Temperature" },
+    { "type": "text", "id": "support_label", "label": "Support", "default": "Support" },
+    { "type": "text", "id": "softness_label", "label": "Softness", "default": "Softness" },
+    { "type": "text", "id": "breathability_label", "label": "Breathability", "default": "Breathability" },
+    { "type": "text", "id": "hypoallergenic_label", "label": "Hypoallergenic", "default": "Hypoallergenic" },
+    { "type": "textarea", "id": "hint_all", "label": "Line: everything", "default": "Every system is made to order. The fibres are where it starts; the comfort is set with you, at the atelier or by video." },
+    { "type": "textarea", "id": "hint_temperature", "label": "Line: temperature", "default": "If you run warm or cold: wool, alpaca, camel hair and cashmere carry warmth and moisture away, so the bed stays even through the night." },
+    { "type": "textarea", "id": "hint_support", "label": "Line: support", "default": "Horsehair and Cheviot wool hold their shape. On your back the lumbar curve needs support; on your front, a flatter, firmer surface keeps the neck neutral." },
+    { "type": "textarea", "id": "hint_softness", "label": "Line: softness", "default": "Yak hair, cashmere and vicuña give the surface its softness: for side sleepers, whose hips and shoulders need to sink a little." },
+    { "type": "textarea", "id": "hint_breathability", "label": "Line: breathability", "default": "Horsehair, vegetable horsehair and cotton keep air moving: for warm rooms and humid climates." },
+    { "type": "textarea", "id": "hint_hypoallergenic", "label": "Line: hypoallergenic", "default": "Alpaca contains no lanolin. Tell us about any allergy at the consultation, and the specification is adapted." },
+    { "type": "header", "content": "Compare" },
+    { "type": "text", "id": "view_label", "label": "Views label", "default": "View" },
+    { "type": "text", "id": "grid_label", "label": "Grid", "default": "Grid" },
+    { "type": "text", "id": "compare_label", "label": "Compare", "default": "Compare" },
+    { "type": "text", "id": "col_system", "label": "Column: system", "default": "System" },
+    { "type": "text", "id": "col_fibres", "label": "Column: fibres", "default": "Natural fibres" },
+    { "type": "text", "id": "yes_label", "label": "Dot meaning", "default": "Yes" },
+    { "type": "textarea", "id": "table_note", "label": "Note under the table", "default": "Each dot is a quality of the fibres inside that system, as described on Natural materials. Size, firmness and cloth are chosen with you." },
+    { "type": "header", "content": "Help" },
+    { "type": "text", "id": "help_text", "label": "Line", "default": "Not sure where to start?" },
+    { "type": "text", "id": "quiz_label", "label": "Quiz link", "default": "Five questions" },
+    { "type": "text", "id": "compare_collections_label", "label": "Compare link", "default": "Compare the collections" },
+    { "type": "text", "id": "prev_label", "label": "Previous", "default": "Previous" },
+    { "type": "text", "id": "next_label", "label": "Next", "default": "Next" },
+    { "type": "text", "id": "empty", "label": "When empty", "default": "The systems in this collection are shown at the atelier. Ask us for the catalogue." }
+  ]
+}
+{% endschema %}

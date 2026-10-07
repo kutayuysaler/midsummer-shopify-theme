@@ -1,32 +1,44 @@
 {%- capture cat -%}{% render 'ms-note-cat', a: article %}{%- endcapture -%}{%- capture kicker -%}{% render 'ms-note-cat', label: cat %}{%- endcapture -%}{%- if kicker == blank -%}{%- assign kicker = blog.title -%}{%- endif -%}
 {%- assign words = article.content | strip_html | split: ' ' | size -%}
 {%- assign minutes = words | divided_by: 200 | at_least: 1 -%}
-<section style="padding: clamp(60px, 9vw, 140px) clamp(18px, 5vw, 80px) 0px; max-width: 820px; margin: 0px auto;">
-<a class="ms-art-back" href="{{ blog.url }}"><span aria-hidden="true">←</span> {{ section.settings.all }}</a>
-<div style="display: flex; align-items: center; gap: 11px; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgb(110, 103, 92);"><svg aria-hidden="true" height="22" style="display: block; flex: 0 0 auto;" viewbox="0 0 24 24" width="22"><path d="M4 20 C4 11 11 4 20 4 C20 13 13 20 4 20 Z" fill="none" stroke="#7E623B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"></path><path d="M4 20 L16 8" fill="none" stroke="#7E623B" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"></path></svg><span>{% if cat != blank %}<a href="{{ blog.url }}?cat={{ cat }}" style="color: inherit;">{{ kicker }}</a>{% else %}{{ kicker }}{% endif %}</span></div>
-<h1 style="font-family: Newsreader, Georgia, serif; font-size: clamp(32px, 5vw, 66px); line-height: 1.02; letter-spacing: -0.03em; margin-top: 18px;">{{ article.title }}</h1>
-<div style="font-size: 12.5px; letter-spacing: 0.1em; color: rgb(110, 103, 92); margin-top: 20px;"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%-d %B %Y' }}</time>{%- liquid
+{%- liquid
   assign ms_pub = article.published_at | date: '%s' | plus: 0
   assign ms_upd = article.updated_at | date: '%s' | plus: 0
   assign ms_gap = ms_upd | minus: ms_pub
--%}{%- if ms_gap > 604800 %} · {{ section.settings.updated | default: 'Updated' }} <time datetime="{{ article.updated_at | date: '%Y-%m-%d' }}">{{ article.updated_at | date: '%-d %B %Y' }}</time>{%- endif %} · {{ minutes }} {{ section.settings.minutes }}</div>
+  assign dek = article.excerpt | strip_html | strip | truncate: 260
+-%}
+<section class="ms-art-hero{% unless article.image %} is-plain{% endunless %}">
+  <div class="ms-art-hero__txt">
+    <a class="ms-art-back" href="{{ blog.url }}"><span aria-hidden="true">←</span> {{ section.settings.all }}</a>
+    <div class="ms-art-kicker"><svg aria-hidden="true" height="20" viewBox="0 0 24 24" width="20"><path d="M4 20 C4 11 11 4 20 4 C20 13 13 20 4 20 Z" fill="none" stroke="currentColor" stroke-width="1.1"></path><path d="M4 20 L14 10" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg>{{ kicker }}</div>
+    <h1 class="ms-art-title">{{ article.title }}</h1>
+    {%- if dek != blank -%}<p class="ms-art-dek">{{ dek }}</p>{%- endif -%}
+    <div class="ms-art-meta"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%-d %B %Y' }}</time>{%- if ms_gap > 604800 %}<span>{{ section.settings.updated | default: 'Updated' }} <time datetime="{{ article.updated_at | date: '%Y-%m-%d' }}">{{ article.updated_at | date: '%-d %B %Y' }}</time></span>{%- endif %}<span>{{ minutes }} {{ section.settings.minutes }}</span></div>
+  </div>
+  {%- if article.image -%}
+  <figure class="ms-art-hero__img">
+    <img alt="{{ article.image.alt | default: article.title | escape }}" src="{{ article.image | image_url: width: 1800 }}" srcset="{{ article.image | image_url: width: 900 }} 900w, {{ article.image | image_url: width: 1400 }} 1400w, {{ article.image | image_url: width: 2000 }} 2000w" sizes="(max-width: 1000px) 100vw, 56vw" width="1800" height="2250" fetchpriority="high">
+  </figure>
+  {%- endif -%}
 </section>
-{%- if article.image -%}
-<section style="padding: clamp(36px, 5vw, 64px) clamp(18px, 5vw, 80px) 0px; max-width: 1120px; margin: 0px auto;">
-<img alt="{{ article.image.alt | escape }}" src="{{ article.image | image_url: width: 2200 }}" srcset="{{ article.image | image_url: width: 1100 }} 1100w, {{ article.image | image_url: width: 2200 }} 2200w" sizes="(max-width: 1120px) 100vw, 1120px" width="2200" height="1238" style="width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover;">
-</section>
-{%- endif -%}
-<section class="ms-article-body" style="padding: clamp(40px, 6vw, 72px) clamp(18px, 5vw, 80px) clamp(48px, 6vw, 88px); max-width: 820px; margin: 0px auto; display: flex; flex-direction: column; gap: 24px; font-size: 16px; line-height: 1.95; color: rgb(74, 68, 59);">
+<div class="ms-art-layout">
+  <aside class="ms-art-aside">
+    <div class="ms-art-aside__in">
+      <nav class="ms-art-toc" data-ms-toc hidden aria-label="{{ section.settings.toc | default: 'In this note' | escape }}"><span>{{ section.settings.toc | default: 'In this note' }}</span><ol></ol></nav>
+      <div class="ms-art-share" aria-label="Share">
+        <span>{{ section.settings.share | default: 'Share' }}</span>
+        <a href="https://wa.me/?text={{ article.title | url_encode }}%20{{ shop.url | append: article.url | url_encode }}" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ shop.url | append: article.url | url_encode }}" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://pinterest.com/pin/create/button/?url={{ shop.url | append: article.url | url_encode }}{% if article.image %}&media={{ article.image | image_url: width: 1600 | prepend: 'https:' | url_encode }}{% endif %}&description={{ article.title | url_encode }}" target="_blank" rel="noopener">Pinterest</a>
+        <a href="mailto:?subject={{ article.title | url_encode }}&body={{ shop.url | append: article.url | url_encode }}">Email</a>
+        <button type="button" data-ms-copy="{{ shop.url | append: article.url }}">{{ section.settings.copy | default: 'Copy link' }}</button>
+      </div>
+    </div>
+  </aside>
+  <div class="ms-article-body">
 {{ article.content }}
-<div class="ms-art-share" aria-label="Share">
-<span>{{ section.settings.share | default: 'Share' }}</span>
-<a href="https://wa.me/?text={{ article.title | url_encode }}%20{{ shop.url | append: article.url | url_encode }}" target="_blank" rel="noopener">WhatsApp</a>
-<a href="https://www.linkedin.com/sharing/share-offsite/?url={{ shop.url | append: article.url | url_encode }}" target="_blank" rel="noopener">LinkedIn</a>
-<a href="https://pinterest.com/pin/create/button/?url={{ shop.url | append: article.url | url_encode }}{% if article.image %}&media={{ article.image | image_url: width: 1600 | prepend: 'https:' | url_encode }}{% endif %}&description={{ article.title | url_encode }}" target="_blank" rel="noopener">Pinterest</a>
-<a href="mailto:?subject={{ article.title | url_encode }}&body={{ shop.url | append: article.url | url_encode }}">Email</a>
-<button type="button" data-ms-copy="{{ shop.url | append: article.url }}">{{ section.settings.copy | default: 'Copy link' }}</button>
+  </div>
 </div>
-</section>
 {%- unless section.settings.end_after -%}{% render 'ms-article-end', s: section.settings, art: article, b: blog %}{%- endunless -%}
 {%- liquid
   assign ld_img = article.image | default: blog.image
@@ -145,12 +157,87 @@
   .ms-article-body ul, .ms-article-body ol { padding-left: 1.2em; }
   .ms-article-body blockquote { font-family: Newsreader, Georgia, serif; font-style: italic; font-size: clamp(19px, 2.2vw, 24px); line-height: 1.5; color: #17140F; border-left: 1px solid #7E623B; padding-left: 24px; }
 </style>
+<style>
+  /* the note, reimagined: one opening screen, a generous column, a quiet rail */
+  .ms-art-hero { max-width: 1440px; margin: 0 auto; padding: clamp(104px, 10vw, 150px) clamp(18px, 5vw, 80px) 0; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(32px, 5vw, 96px); align-items: center; }
+  .ms-art-hero.is-plain { grid-template-columns: minmax(0, 1fr); max-width: 980px; }
+  .ms-site .ms-art-hero a.ms-art-back { margin-bottom: clamp(22px, 2.6vw, 34px); }
+  .ms-art-kicker { display: flex; align-items: center; gap: 11px; font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: #7E623B; }
+  .ms-site .ms-art-title { font-family: Newsreader, Georgia, serif; font-weight: 200; font-size: clamp(38px, 4.6vw, 74px); line-height: 1.02; letter-spacing: -0.035em; color: #17140F; margin-top: 18px; text-wrap: balance; }
+  .ms-art-dek { font-family: Newsreader, Georgia, serif; font-style: italic; font-weight: 300; font-size: clamp(19px, 1.7vw, 23px); line-height: 1.5; color: #4A443B; margin-top: clamp(18px, 2vw, 26px); max-width: 40ch; }
+  .ms-art-meta { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: clamp(22px, 2.4vw, 32px); padding-top: 18px; border-top: 1px solid #DDD6C9; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #6E675C; max-width: 460px; }
+  .ms-art-hero__img { margin: 0; }
+  .ms-art-hero__img img { display: block; width: 100%; height: min(78vh, 820px); object-fit: cover; background: #EDE6D9; }
+  .ms-art-layout { max-width: 1240px; margin: 0 auto; padding: clamp(56px, 7vw, 110px) clamp(18px, 5vw, 80px) clamp(48px, 6vw, 96px); display: grid; grid-template-columns: 200px minmax(0, 760px); gap: clamp(40px, 6vw, 110px); justify-content: center; align-items: start; }
+  .ms-art-aside { position: sticky; top: 120px; }
+  .ms-art-toc span { display: block; font-size: 10.5px; letter-spacing: .26em; text-transform: uppercase; color: #7E623B; padding-bottom: 12px; border-bottom: 1px solid #DDD6C9; }
+  .ms-art-toc ol { list-style: none; margin: 0; padding: 0; counter-reset: t; }
+  .ms-art-toc li { counter-increment: t; border-bottom: 1px solid #ECE6DB; }
+  .ms-site .ms-art-toc a { display: grid; grid-template-columns: 22px 1fr; padding: 10px 0; font-size: 13px; line-height: 1.45; color: #6E675C; text-decoration: none; transition: color .3s ease; }
+  .ms-art-toc a::before { content: counter(t, decimal-leading-zero); font-family: Newsreader, Georgia, serif; font-size: 12px; color: #B5AA97; }
+  .ms-site .ms-art-toc a:hover, .ms-site .ms-art-toc a.is-on { color: #17140F; }
+  .ms-art-aside .ms-art-share { flex-direction: column; align-items: flex-start; gap: 2px; margin-top: 30px; padding-top: 0; border-top: 0; }
+  .ms-art-aside .ms-art-share span { padding-bottom: 8px; }
+  .ms-site .ms-article-body { max-width: none !important; padding: 0 !important; margin: 0 !important; display: flex; flex-direction: column; gap: 22px; font-size: 18px !important; line-height: 1.85 !important; color: #2E2A24 !important; }
+  .ms-site .ms-article-body > * { margin: 0; }
+  .ms-site .ms-article-body h2 { font-size: clamp(28px, 2.8vw, 38px); line-height: 1.15; margin-top: 28px; padding-top: 28px; border-top: 1px solid #DDD6C9; scroll-margin-top: 110px; }
+  .ms-site .ms-article-body h2:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+  .ms-site .ms-article-body h3 { font-size: clamp(21px, 2vw, 25px); margin-top: 10px; scroll-margin-top: 110px; }
+  .ms-site .ms-article-body img { max-height: none; width: 100% !important; margin: 8px 0 !important; }
+  .ms-site .ms-article-body ul { list-style: none; padding: 0; display: grid; gap: 10px; }
+  .ms-site .ms-article-body ul > li { position: relative; padding-left: 26px; }
+  .ms-site .ms-article-body ul > li::before { content: ''; position: absolute; left: 0; top: .9em; width: 14px; height: 1px; background: #7E623B; }
+  .ms-site .ms-article-body ol { list-style: none; padding: 0; counter-reset: n; display: grid; gap: 12px; }
+  .ms-site .ms-article-body ol > li { counter-increment: n; position: relative; padding: 20px 22px 20px 64px; background: #F4EFE5; line-height: 1.7; }
+  .ms-site .ms-article-body ol > li::before { content: counter(n); position: absolute; left: 22px; top: 14px; font-family: Newsreader, Georgia, serif; font-weight: 200; font-size: 32px; line-height: 1; color: #7E623B; }
+  .ms-site .ms-article-body ol:has(> li:nth-child(4)) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ms-site .ms-article-body ol:has(> li:nth-child(4)) > li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .ms-site .ms-article-body ol > li strong:first-child, .ms-site .ms-article-body ol > li b:first-child { display: block; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 19px; color: #17140F; margin-bottom: 4px; }
+  .ms-site .ms-article-body p > strong:first-child { color: #17140F; font-weight: 500; }
+  @media (max-width: 1000px) {
+    .ms-art-hero { grid-template-columns: minmax(0, 1fr); padding-top: clamp(96px, 14vw, 120px); }
+    .ms-art-hero__img { order: -1; margin: 0 calc(-1 * clamp(18px, 5vw, 80px)); }
+    .ms-art-hero__img img { height: auto; aspect-ratio: 4 / 3; }
+    .ms-art-layout { grid-template-columns: minmax(0, 1fr); padding-top: 44px; }
+    .ms-art-aside { position: static; order: 2; }
+    .ms-art-toc { display: none; }
+    .ms-art-aside .ms-art-share { flex-direction: row; flex-wrap: wrap; gap: 8px 20px; margin-top: 0; padding-top: 22px; border-top: 1px solid #DDD6C9; }
+    .ms-site .ms-article-body { font-size: 17px !important; }
+  }
+  @media (max-width: 640px) {
+    .ms-site .ms-article-body ol:has(> li:nth-child(4)) { grid-template-columns: minmax(0, 1fr); }
+    .ms-art-hero__img { order: 0; }
+  }
+</style>
+<script>
+  (function () {
+    var body = document.querySelector('.ms-article-body'), nav = document.querySelector('[data-ms-toc]');
+    if (!body || !nav) return;
+    var hs = Array.prototype.slice.call(body.querySelectorAll('h2'));
+    if (hs.length < 2) return;
+    var ol = nav.querySelector('ol'), links = [];
+    hs.forEach(function (h, i) {
+      if (!h.id) h.id = 'part-' + (i + 1);
+      var li = document.createElement('li'), a = document.createElement('a');
+      a.href = '#' + h.id; a.textContent = h.textContent.trim();
+      li.appendChild(a); ol.appendChild(li); links.push(a);
+    });
+    nav.hidden = false;
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { var i = hs.indexOf(e.target); links.forEach(function (l, k) { l.classList.toggle('is-on', k === i); }); } });
+      }, { rootMargin: '-20% 0px -70% 0px' });
+      hs.forEach(function (h) { io.observe(h); });
+    }
+  })();
+</script>
 {% schema %}
 {
   "name": "Journal note",
   "settings": [
     { "type": "checkbox", "id": "end_after", "label": "End the note after the sections below", "info": "On when a Note ending section is added further down.", "default": false },
     { "type": "text", "id": "share", "label": "Share label", "default": "Share" },
+    { "type": "text", "id": "toc", "label": "Contents label", "default": "In this note" },
     { "type": "text", "id": "copy", "label": "Copy link label", "default": "Copy link" },
     { "type": "text", "id": "minutes", "label": "Reading time label", "default": "minute read" },
     { "type": "text", "id": "updated", "label": "Updated label", "info": "Shown when a note was revised more than a week after it was published.", "default": "Updated" },
