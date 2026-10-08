@@ -791,3 +791,30 @@ the atelier. Everything shown can also be edited in the theme editor.
   the credit shown, up to 75,000 map views a month; another address can be set under
   *Agents & Resellers → Detailed map tiles*.
 
+
+## 28. Site audit
+
+Every template was rendered and checked at desktop (1440px) and phone (390px) widths for:
+script errors, missing files, sideways scrolling, one H1 per page, images without text,
+links and buttons without a name, structured data that does not parse, duplicate IDs,
+in-page links to nothing, and Liquid or template text showing through. All 78 pages pass.
+The theme check reports 0 errors, the strict Liquid parse 0 errors across 116 files, and the
+111 interaction tests all pass.
+
+The audit also read every page's words. What it changed:
+
+- **No springs or layers in the words.** The FAQ, Story and home page said *the same two hands
+  that open the spring core sew the final seam*; they now say *the same two hands that begin
+  the bed sew its final seam*. *The depth of the spring architecture* (Collections) and *Every
+  layer is reachable* (Regeneration, Sustainability) are gone. So are the Finder's Raffaello
+  answer (*over a hand-sewn spring core*) and two defaults (an unused comparison table, the
+  craft section's fallback text). *Dreamy Springs* stays: it is the product's name.
+- **Signature is not all Loro Piana Interiors.** The menu's Signature line, the home page's
+  Signature collection and the FAQ said Signature is made *in Loro Piana Interiors fabrics*.
+  Several Signature systems are made in natural linen and cotton, so these now say *precious
+  natural fibres, in natural linen or Loro Piana Interiors*, as the collection page already did.
+
+Four templates cannot be rendered outside Shopify: the cart and the appointment product page
+use Shopify's `content_for` tag, and `llms.txt` and `robots.txt` are text files. They are
+Atelier's own and were not changed. Page titles and descriptions come from the layout, which
+is checked through the theme check and the SEO tests rather than these renders.
