@@ -18,12 +18,42 @@
             {%- liquid
               assign w = b.w | times: 1.0
               assign l = b.l | times: 1.0
-              assign dw = w | divided_by: 210.0 | times: 64 | round
-              assign dl = l | divided_by: 210.0 | times: 80 | round
               assign wi = w | divided_by: 2.54 | round
               assign li = l | divided_by: 2.54 | round
+              # the bed seen from above, to one scale for every size: headboard, pillows, a turned-down cover
+              assign vw = w | plus: 16
+              assign vh = l | plus: 30
+              assign pw = w | divided_by: 2.0 | minus: 10
+              assign two = true
+              if w < 130
+                assign pw = w | minus: 22
+                assign two = false
+              endif
+              assign p2x = w | divided_by: 2.0 | plus: 4
+              assign fy = l | times: 0.36
+              assign fh = l | minus: fy
+              assign w1 = w | plus: 2
+              assign w3 = w | times: 0.3
+              assign w7 = w | times: 0.7
+              assign wm = w | minus: 8
+              assign c1 = w | times: 0.25
+              assign c2 = w | times: 0.5
+              assign c3 = w | times: 0.75
+              assign sw = vw | times: 0.62 | round
+              assign sh = vh | times: 0.62 | round
             -%}
-            <span class="ms-gd__draw" aria-hidden="true"><span style="width: {{ dw }}px; height: {{ dl }}px;"><i></i><i></i></span></span>
+            <span class="ms-gd__draw" aria-hidden="true">
+              <svg viewBox="-8 -22 {{ vw }} {{ vh }}" width="{{ sw }}" height="{{ sh }}">
+                <rect class="ms-gd__shade" x="3" y="5" width="{{ w }}" height="{{ l }}" rx="14"/>
+                <rect class="ms-gd__hb" x="-5" y="-19" width="{{ w | plus: 10 }}" height="16" rx="8"/>
+                <path class="ms-gd__ch" d="M{{ c1 }},-16v10M{{ c2 }},-16v10M{{ c3 }},-16v10"/>
+                <rect class="ms-gd__mat" x="0" y="0" width="{{ w }}" height="{{ l }}" rx="12"/>
+                <rect class="ms-gd__pil" x="7" y="7" width="{{ pw }}" height="27" rx="13"/>
+                {%- if two -%}<rect class="ms-gd__pil" x="{{ p2x }}" y="7" width="{{ pw }}" height="27" rx="13"/>{%- endif -%}
+                <path class="ms-gd__cover" d="M-2,{{ fy | plus: 10 }} C{{ w3 }},{{ fy | plus: 4 }} {{ w7 }},{{ fy | plus: 14 }} {{ w1 }},{{ fy | plus: 8 }} L{{ w1 }},{{ l | minus: 10 }} Q{{ w1 }},{{ l | plus: 2 }} {{ wm }},{{ l | plus: 2 }} L8,{{ l | plus: 2 }} Q-2,{{ l | plus: 2 }} -2,{{ l | minus: 10 }} Z"/>
+                <path class="ms-gd__fold" d="M-2,{{ fy | plus: 4 }} Q-2,{{ fy | minus: 2 }} 8,{{ fy | minus: 2 }} L{{ wm }},{{ fy | minus: 2 }} Q{{ w1 }},{{ fy | minus: 2 }} {{ w1 }},{{ fy | plus: 4 }} L{{ w1 }},{{ fy | plus: 8 }} C{{ w7 }},{{ fy | plus: 14 }} {{ w3 }},{{ fy | plus: 4 }} -2,{{ fy | plus: 10 }} Z"/>
+              </svg>
+            </span>
             <span class="ms-gd__name">{{ b.title }}</span>
             <span class="ms-gd__dims">{{ b.w }} × {{ b.l }} cm</span>
             <span class="ms-gd__in2">{{ wi }} × {{ li }} in</span>
@@ -53,11 +83,17 @@
   .ms-gd__dims { font-size: 14px; color: #2F2B25; }
   .ms-gd__in2 { font-size: 12px; color: #6E675C; letter-spacing: .04em; }
   .ms-gd__list:has(.ms-gd__draw) { grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)); }
-  .ms-gd__draw { height: 92px; display: flex; align-items: flex-end; margin-bottom: 8px; }
-  .ms-gd__draw > span { position: relative; display: block; border: 1px solid #17140F; background: #EFE9DE; }
-  .ms-gd__draw i { position: absolute; top: 5px; width: calc(50% - 7px); height: 10px; border: 1px solid rgba(23, 20, 15, .5); background: #FBF9F5; }
-  .ms-gd__draw i:first-child { left: 4px; }
-  .ms-gd__draw i:last-child { right: 4px; }
+  .ms-gd__draw { height: 160px; display: flex; align-items: flex-end; margin-bottom: 10px; }
+  .ms-gd__draw svg { display: block; overflow: visible; }
+  .ms-gd__shade { fill: rgba(110, 60, 40, .1); }
+  .ms-gd__hb { fill: #C98E76; }
+  .ms-gd__ch { fill: none; stroke: rgba(255, 236, 226, .55); stroke-width: 1; vector-effect: non-scaling-stroke; }
+  .ms-gd__mat { fill: #FAF3EC; stroke: rgba(122, 69, 50, .35); stroke-width: 1; vector-effect: non-scaling-stroke; }
+  .ms-gd__pil { fill: #FFFFFF; stroke: rgba(122, 69, 50, .3); stroke-width: 1; vector-effect: non-scaling-stroke; }
+  .ms-gd__cover { fill: #E8C7B7; stroke: rgba(122, 69, 50, .3); stroke-width: 1; vector-effect: non-scaling-stroke; }
+  .ms-gd__fold { fill: #F2DCD0; stroke: rgba(122, 69, 50, .3); stroke-width: 1; vector-effect: non-scaling-stroke; }
+  .ms-gd__item:hover .ms-gd__cover { fill: #DFB6A2; }
+  .ms-gd__cover, .ms-gd__hb { transition: fill .4s ease; }
   .ms-site .ms-gd__note { font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 18px; color: #4A443B; margin-top: clamp(28px, 3vw, 44px); }
 </style>
 

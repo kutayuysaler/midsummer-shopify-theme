@@ -150,7 +150,7 @@
   "settings": [
     { "type": "paragraph", "content": "Pushes named events to window.dataLayer for every CTA this theme introduces, each carrying its audience segment. Add it to the footer group once. No app required; GTM or GA4 picks the events up." },
     { "type": "checkbox", "id": "enabled", "label": "Enabled", "default": true },
-    { "type": "textarea", "id": "ai_sources", "label": "AI assistants (referring sites)", "info": "Comma separated. A visit referred by one of these, or tagged utm_source=chatgpt.com and the like, fires ms_ai_referral once and adds ai_source to the enquiry events.", "default": "chatgpt.com, chat.openai.com, perplexity.ai, gemini.google.com, bard.google.com, claude.ai, copilot.microsoft.com, copilot.cloud.microsoft, chat.mistral.ai, chat.deepseek.com, grok.com, meta.ai, you.com, phind.com" },
+    { "type": "textarea", "id": "ai_sources", "label": "AI assistants (referring sites)", "info": "Comma separated. Visits from these fire ms_ai_referral.", "default": "chatgpt.com, chat.openai.com, perplexity.ai, gemini.google.com, bard.google.com, claude.ai, copilot.microsoft.com, copilot.cloud.microsoft, chat.mistral.ai, chat.deepseek.com, grok.com, meta.ai, you.com, phind.com" },
     { "type": "checkbox", "id": "debug", "label": "Log events to the browser console", "info": "Turn on while configuring GA4, then off.", "default": false },
     { "type": "textarea", "id": "page_segments", "label": "Path to segment map", "info": "Comma separated path=segment pairs. First match wins; anything unmatched is private.", "default": "/pages/professionals=architect-designer, /pages/hospitality=hospitality, /pages/agents-and-resellers=dealer, /blogs/press=press" }
   ]

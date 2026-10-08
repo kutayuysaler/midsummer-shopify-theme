@@ -669,3 +669,20 @@ make. In the theme:
 - **Newsletter**: "Letters from the atelier, in your inbox."
 - **Fibre marks** have room inside the pills of *Inside the bed* and never lose a stroke.
 
+## 23. Product pages, the bed and the sizes
+
+- **Product pages opened the 404 page.** Shopify drops a section whose settings break its
+  upload limits, and with it every template that uses it; for product pages that left no
+  template at all, so Shopify showed the 404 page. The product section's new labels were
+  longer than anything Shopify had accepted from this theme (up to 71 characters); they are
+  now short, and `tools/validate.py` refuses any label over 55 characters from now on. If a
+  product template ever comes through empty again, the layout still draws the product
+  (photographs, name, description, enquiry), and in the theme editor names the template.
+- **Fibre marks.** The horse, goat and yak are drawn whole, like the sheep, alpaca and camel,
+  and all face the same way.
+- **Inside the bed** sits on the house's salmon (#E8C7B7) instead of black: the topper
+  quilted, the mattress tufted with its borders stitched and piped, the base upholstered on
+  wooden feet, each piece shaded as cloth. Choosing a part still lifts it away.
+- **Sizes** are drawn as made beds seen from above, to one scale: an upholstered headboard,
+  soft pillows (one on a single), and a turned-down cover in the house's salmon.
+
