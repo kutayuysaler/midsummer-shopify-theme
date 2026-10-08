@@ -1,5 +1,5 @@
 /*
- * Midsummer Milano: Loro Piana Interiors, the fabrics the systems are upholstered in.
+ * Midsummer Milano: Loro Piana Interiors, the cloths the systems are made in.
  */
 {
   "layout": "ms",
@@ -12,7 +12,7 @@
         "use_page_title": false,
         "heading": "Loro Piana Interiors",
         "height": "tall",
-        "text": "The fabric leads; the springwork does the rest."
+        "text": "The cloths our systems are made in, colour by colour."
       }
     },
     "s02": {
@@ -20,443 +20,478 @@
       "settings": {
         "eyebrow": "Loro Piana Interiors",
         "use_content": false,
-        "heading": "We upholster our systems in Loro Piana Interiors fabrics, which change with the seasons as our needs do.",
-        "text": "<p>Exclusive blends of precious natural fibres, yak, camel hair, silk and cashmere, over spring architectures designed for the highest comfort. Every Signature and Icons system is upholstered in them, and the cloth is chosen for the room at consultation.</p>"
+        "heading": "Where a system calls for it, we make it in Loro Piana Interiors: linen for summer, wool and cashmere for winter.",
+        "text": "<p>Mystic River, Connemara, Altai, Wish, Cardi, Ely’s Harbour, Bangor and Shadan: each chosen for the system it dresses, each in its own colours. The others are covered in natural linen and cotton.</p>"
       }
     },
     "s03": {
-      "type": "ms-swatches",
+      "type": "ms-lp-fabrics",
       "settings": {
-        "eyebrow": "The palette",
-        "heading": "The book, cloth by cloth.",
-        "text": "<p>Plain cloths of cashmere and wool, textured weaves, and the shades named in our collections. Choose a weave or a tone, open any cloth, and ask for it: the atelier on Via Andegari holds the full book, and sends samples by post.</p>",
-        "footnote": "Colours on screen are indicative and named here by tone; the atelier gives each cloth its reference, and the cloth itself decides."
+        "eyebrow": "The cloths",
+        "heading": "The cloths our systems are made in.",
+        "text": "<p>Every cloth here is on one of our systems, with the colours we make it in. Choose a colour to see it larger, and ask for it: the atelier on Via Andegari holds the cards, and sends samples by post.</p>",
+        "footnote": "Colours on screen are indicative: the Mystic River colours are photographed, the others taken from the Loro Piana Interiors cards at the atelier. Other Loro Piana Interiors cloths, and your own, on request."
       },
       "blocks": {
-        "swatch_01": {
-          "type": "swatch",
+        "fabric_01": {
+          "type": "fabric",
           "settings": {
-            "name": "Blush",
-            "color": "#D3B8A8",
-            "family": "plain",
-            "tone": "neutral",
-            "image_fallback": "ms-loro-01.jpg"
+            "name": "Mystic River",
+            "anchor": "mystic-river",
+            "code": "AL2040",
+            "composition": "64% linen, 36% cotton",
+            "systems": "Roma, Topper Roma, Capri, Dreamy and Storage; Dreamy Springs on request.",
+            "text": "A linen and cotton with a soft, nubbed hand, heavy enough to hold the line of a mattress. The cloth we use most, in twelve colours.",
+            "texture": "linen",
+            "color": "#E2DACE"
           }
         },
-        "swatch_02": {
-          "type": "swatch",
+        "colour_02": {
+          "type": "colour",
           "settings": {
-            "name": "Fawn",
-            "color": "#A07960",
-            "family": "plain",
-            "tone": "earth",
-            "image_fallback": "ms-loro-02.jpg"
+            "name": "2 Biancore",
+            "color": "#CFCBC6",
+            "image_fallback": "ms-lp-my-01.jpg",
+            "large_fallback": "ms-lp-my-01-l.jpg"
           }
         },
-        "swatch_03": {
-          "type": "swatch",
+        "colour_03": {
+          "type": "colour",
           "settings": {
-            "name": "Chestnut",
-            "color": "#442E24",
-            "family": "plain",
-            "tone": "earth",
-            "image_fallback": "ms-loro-03.jpg"
+            "name": "3 Light Zen",
+            "color": "#CFC4B7",
+            "image_fallback": "ms-lp-my-02.jpg",
+            "large_fallback": "ms-lp-my-02-l.jpg"
           }
         },
-        "swatch_04": {
-          "type": "swatch",
+        "colour_04": {
+          "type": "colour",
           "settings": {
-            "name": "Charcoal",
-            "color": "#23241E",
-            "family": "plain",
-            "tone": "neutral",
-            "image_fallback": "ms-loro-04.jpg"
+            "name": "4 Zen",
+            "color": "#BCAF9C",
+            "image_fallback": "ms-lp-my-03.jpg",
+            "large_fallback": "ms-lp-my-03-l.jpg"
           }
         },
-        "swatch_05": {
-          "type": "swatch",
+        "colour_05": {
+          "type": "colour",
           "settings": {
-            "name": "Forest",
-            "color": "#333E2F",
-            "family": "plain",
-            "tone": "green",
-            "image_fallback": "ms-loro-05.jpg"
+            "name": "5 Taupe",
+            "color": "#988278",
+            "image_fallback": "ms-lp-my-04.jpg",
+            "large_fallback": "ms-lp-my-04-l.jpg"
           }
         },
-        "swatch_06": {
-          "type": "swatch",
+        "colour_06": {
+          "type": "colour",
           "settings": {
-            "name": "Olive",
-            "color": "#656338",
-            "family": "plain",
-            "tone": "green",
-            "image_fallback": "ms-loro-06.jpg"
+            "name": "6 Granello di Pepe",
+            "color": "#392325",
+            "image_fallback": "ms-lp-my-05.jpg",
+            "large_fallback": "ms-lp-my-05-l.jpg"
           }
         },
-        "swatch_07": {
-          "type": "swatch",
+        "colour_07": {
+          "type": "colour",
           "settings": {
-            "name": "Ochre",
-            "color": "#8B6122",
-            "family": "plain",
-            "tone": "earth",
-            "image_fallback": "ms-loro-07.jpg"
+            "name": "8 Rosso Terra",
+            "color": "#672022",
+            "image_fallback": "ms-lp-my-06.jpg",
+            "large_fallback": "ms-lp-my-06-l.jpg"
           }
         },
-        "swatch_08": {
-          "type": "swatch",
+        "colour_08": {
+          "type": "colour",
           "settings": {
-            "name": "Camel",
-            "color": "#BE986C",
-            "family": "plain",
-            "tone": "earth",
-            "image_fallback": "ms-loro-08.jpg"
+            "name": "9 Gensola",
+            "color": "#902121",
+            "image_fallback": "ms-lp-my-07.jpg",
+            "large_fallback": "ms-lp-my-07-l.jpg"
           }
         },
-        "swatch_09": {
-          "type": "swatch",
+        "colour_09": {
+          "type": "colour",
           "settings": {
-            "name": "Ivory",
-            "color": "#EBE3DA",
-            "family": "plain",
-            "tone": "neutral",
-            "image_fallback": "ms-loro-09.jpg"
+            "name": "15 Muschio",
+            "color": "#5C533D",
+            "image_fallback": "ms-lp-my-08.jpg",
+            "large_fallback": "ms-lp-my-08-l.jpg"
           }
         },
-        "swatch_10": {
-          "type": "swatch",
+        "colour_10": {
+          "type": "colour",
           "settings": {
-            "name": "Dove",
-            "color": "#C5B9B6",
-            "family": "plain",
-            "tone": "neutral",
-            "image_fallback": "ms-loro-10.jpg"
+            "name": "16 Malachite",
+            "color": "#718688",
+            "image_fallback": "ms-lp-my-09.jpg",
+            "large_fallback": "ms-lp-my-09-l.jpg"
           }
         },
-        "swatch_11": {
-          "type": "swatch",
+        "colour_11": {
+          "type": "colour",
           "settings": {
-            "name": "Espresso",
-            "color": "#3D302E",
-            "family": "plain",
-            "tone": "earth",
-            "image_fallback": "ms-loro-11.jpg"
-          }
-        },
-        "swatch_12": {
-          "type": "swatch",
-          "settings": {
-            "name": "Rust",
-            "color": "#852A1C",
-            "family": "plain",
-            "tone": "red",
-            "image_fallback": "ms-loro-12.jpg"
-          }
-        },
-        "swatch_13": {
-          "type": "swatch",
-          "settings": {
-            "name": "Scarlet",
-            "color": "#AB2221",
-            "family": "plain",
-            "tone": "red",
-            "image_fallback": "ms-loro-13.jpg"
-          }
-        },
-        "swatch_14": {
-          "type": "swatch",
-          "settings": {
-            "name": "Bordeaux",
-            "color": "#720A18",
-            "family": "plain",
-            "tone": "red",
-            "image_fallback": "ms-loro-14.jpg"
-          }
-        },
-        "swatch_15": {
-          "type": "swatch",
-          "settings": {
-            "name": "Oxblood",
-            "color": "#550113",
-            "family": "plain",
-            "tone": "red",
-            "image_fallback": "ms-loro-15.jpg"
-          }
-        },
-        "swatch_16": {
-          "type": "swatch",
-          "settings": {
-            "name": "Aubergine",
-            "color": "#331926",
-            "family": "plain",
-            "tone": "red",
-            "image_fallback": "ms-loro-16.jpg"
-          }
-        },
-        "swatch_17": {
-          "type": "swatch",
-          "settings": {
-            "name": "Ink",
-            "color": "#100F17",
-            "family": "plain",
-            "tone": "blue",
-            "image_fallback": "ms-loro-17.jpg"
-          }
-        },
-        "swatch_18": {
-          "type": "swatch",
-          "settings": {
-            "name": "Midnight",
-            "color": "#0E101E",
-            "family": "plain",
-            "tone": "blue",
-            "image_fallback": "ms-loro-18.jpg"
-          }
-        },
-        "swatch_19": {
-          "type": "swatch",
-          "settings": {
-            "name": "Navy",
-            "color": "#1F273E",
-            "family": "plain",
-            "tone": "blue",
-            "image_fallback": "ms-loro-19.jpg"
-          }
-        },
-        "swatch_20": {
-          "type": "swatch",
-          "settings": {
-            "name": "Slate",
-            "color": "#636D75",
-            "family": "plain",
-            "tone": "blue",
-            "image_fallback": "ms-loro-20.jpg"
-          }
-        },
-        "swatch_21": {
-          "type": "swatch",
-          "settings": {
-            "name": "Pearl",
-            "color": "#CFCBC5",
-            "family": "woven",
-            "tone": "neutral",
-            "image_fallback": "ms-loro-21.jpg"
-          }
-        },
-        "swatch_22": {
-          "type": "swatch",
-          "settings": {
-            "name": "Oat",
-            "color": "#CFC5B7",
-            "family": "woven",
-            "tone": "neutral",
-            "image_fallback": "ms-loro-22.jpg"
-          }
-        },
-        "swatch_23": {
-          "type": "swatch",
-          "settings": {
-            "name": "Sand",
-            "color": "#BCAE9B",
-            "family": "woven",
-            "tone": "neutral",
-            "image_fallback": "ms-loro-23.jpg"
-          }
-        },
-        "swatch_24": {
-          "type": "swatch",
-          "settings": {
-            "name": "Taupe",
-            "color": "#978278",
-            "family": "woven",
-            "tone": "earth",
-            "image_fallback": "ms-loro-24.jpg"
-          }
-        },
-        "swatch_25": {
-          "type": "swatch",
-          "settings": {
-            "name": "Eucalyptus",
-            "color": "#718788",
-            "family": "woven",
-            "tone": "blue",
-            "image_fallback": "ms-loro-25.jpg"
-          }
-        },
-        "swatch_26": {
-          "type": "swatch",
-          "settings": {
-            "name": "Mist",
+            "name": "17 Polvere",
             "color": "#A2B2B9",
-            "family": "woven",
-            "tone": "blue",
-            "image_fallback": "ms-loro-26.jpg"
+            "image_fallback": "ms-lp-my-10.jpg",
+            "large_fallback": "ms-lp-my-10-l.jpg"
           }
         },
-        "swatch_27": {
-          "type": "swatch",
+        "colour_12": {
+          "type": "colour",
           "settings": {
-            "name": "Indigo",
+            "name": "20 Serenata",
             "color": "#292942",
-            "family": "woven",
-            "tone": "blue",
-            "image_fallback": "ms-loro-27.jpg"
+            "image_fallback": "ms-lp-my-11.jpg",
+            "large_fallback": "ms-lp-my-11-l.jpg"
           }
         },
-        "swatch_28": {
-          "type": "swatch",
+        "colour_13": {
+          "type": "colour",
           "settings": {
-            "name": "Stone",
-            "color": "#A19893",
-            "family": "woven",
-            "tone": "neutral",
-            "image_fallback": "ms-loro-28.jpg"
+            "name": "22 Grey Dune",
+            "color": "#A19793",
+            "image_fallback": "ms-lp-my-12.jpg",
+            "large_fallback": "ms-lp-my-12-l.jpg"
           }
         },
-        "swatch_29": {
-          "type": "swatch",
+        "fabric_14": {
+          "type": "fabric",
           "settings": {
-            "name": "Mulberry",
-            "color": "#382325",
-            "family": "woven",
-            "tone": "red",
-            "image_fallback": "ms-loro-29.jpg"
+            "name": "Connemara",
+            "anchor": "connemara",
+            "code": "AL2008",
+            "composition": "100% linen",
+            "systems": "Top, Giotto Round and Brera, and the two-tone Capri and Dreamy.",
+            "text": "A pure linen with a clear, even weave, cool to the touch and quick to breathe.",
+            "texture": "linen",
+            "color": "#E2DACE"
           }
         },
-        "swatch_30": {
-          "type": "swatch",
+        "colour_15": {
+          "type": "colour",
           "settings": {
-            "name": "Claret",
-            "color": "#662023",
-            "family": "woven",
-            "tone": "red",
-            "image_fallback": "ms-loro-30.jpg"
+            "name": "1 Dark Indigo",
+            "color": "#2E2A39",
+            "image_fallback": "ms-lp-co-01.jpg"
           }
         },
-        "swatch_31": {
-          "type": "swatch",
+        "colour_16": {
+          "type": "colour",
           "settings": {
-            "name": "Crimson",
-            "color": "#912021",
-            "family": "woven",
-            "tone": "red",
-            "image_fallback": "ms-loro-31.jpg"
+            "name": "2 Indaco Oxus",
+            "color": "#525C9B",
+            "image_fallback": "ms-lp-co-02.jpg"
           }
         },
-        "swatch_32": {
-          "type": "swatch",
+        "colour_17": {
+          "type": "colour",
           "settings": {
-            "name": "Moss",
-            "color": "#5C523C",
-            "family": "woven",
-            "tone": "green",
-            "image_fallback": "ms-loro-32.jpg"
+            "name": "5 Zen",
+            "color": "#B8A18F",
+            "image_fallback": "ms-lp-co-03.jpg"
           }
         },
-        "swatch_33": {
-          "type": "swatch",
+        "colour_18": {
+          "type": "colour",
           "settings": {
-            "name": "Paisley",
-            "color": "#C4714A",
-            "family": "named",
-            "tone": "earth"
+            "name": "6 Biancore",
+            "color": "#EAE6E5",
+            "image_fallback": "ms-lp-co-04.jpg"
           }
         },
-        "swatch_34": {
-          "type": "swatch",
+        "colour_19": {
+          "type": "colour",
           "settings": {
-            "name": "Kummel",
-            "color": "#8E8672",
-            "family": "named",
-            "tone": "neutral"
+            "name": "8 Dark Zen",
+            "color": "#66575B",
+            "image_fallback": "ms-lp-co-05.jpg"
           }
         },
-        "swatch_35": {
-          "type": "swatch",
+        "colour_20": {
+          "type": "colour",
           "settings": {
-            "name": "Tawny",
-            "color": "#A9764B",
-            "family": "named",
-            "tone": "earth"
+            "name": "10 Malachite",
+            "color": "#6E7E8E",
+            "image_fallback": "ms-lp-co-06.jpg"
           }
         },
-        "swatch_36": {
-          "type": "swatch",
+        "colour_21": {
+          "type": "colour",
           "settings": {
-            "name": "Burnt Orange",
-            "color": "#B4552B",
-            "family": "named",
-            "tone": "earth"
+            "name": "12 Sassicaia",
+            "color": "#5F2F31",
+            "image_fallback": "ms-lp-co-07.jpg"
           }
         },
-        "swatch_37": {
-          "type": "swatch",
+        "colour_22": {
+          "type": "colour",
           "settings": {
-            "name": "Earthy Neutral",
-            "color": "#C9BCA8",
-            "family": "named",
-            "tone": "neutral"
+            "name": "14 Cowes",
+            "color": "#822823",
+            "image_fallback": "ms-lp-co-08.jpg"
           }
         },
-        "swatch_38": {
-          "type": "swatch",
+        "colour_23": {
+          "type": "colour",
           "settings": {
-            "name": "Verdant Green",
-            "color": "#5E6B4F",
-            "family": "named",
-            "tone": "green"
+            "name": "16 Camargue",
+            "color": "#AB7F5A",
+            "image_fallback": "ms-lp-co-09.jpg"
           }
         },
-        "swatch_39": {
-          "type": "swatch",
+        "fabric_24": {
+          "type": "fabric",
           "settings": {
-            "name": "Muted Blue",
-            "color": "#6B7E8C",
-            "family": "named",
-            "tone": "blue"
+            "name": "Altai",
+            "anchor": "altai",
+            "code": "A4668RS · A3668RS",
+            "composition": "90% virgin wool, 10% cashmere",
+            "systems": "Brera; the Flora topper on request.",
+            "text": "Wool and cashmere, dense and warm: plain, or mélange in its three last colours. It edges the winter side of Brera.",
+            "texture": "wool",
+            "color": "#C9B8A6"
+          }
+        },
+        "colour_25": {
+          "type": "colour",
+          "settings": {
+            "name": "11 Shaded White",
+            "color": "#F4F3F0",
+            "image_fallback": "ms-lp-al-01.jpg"
+          }
+        },
+        "colour_26": {
+          "type": "colour",
+          "settings": {
+            "name": "15 Midnight",
+            "color": "#191A2F",
+            "image_fallback": "ms-lp-al-02.jpg"
+          }
+        },
+        "colour_27": {
+          "type": "colour",
+          "settings": {
+            "name": "21 Eucalyptus",
+            "color": "#858893",
+            "image_fallback": "ms-lp-al-03.jpg"
+          }
+        },
+        "colour_28": {
+          "type": "colour",
+          "settings": {
+            "name": "24 Diaspro",
+            "color": "#6D2024",
+            "image_fallback": "ms-lp-al-04.jpg"
+          }
+        },
+        "colour_29": {
+          "type": "colour",
+          "settings": {
+            "name": "25 Rosso Lacca",
+            "color": "#91181F",
+            "image_fallback": "ms-lp-al-05.jpg"
+          }
+        },
+        "colour_30": {
+          "type": "colour",
+          "settings": {
+            "name": "26 Granato",
+            "color": "#2E1B1C",
+            "image_fallback": "ms-lp-al-06.jpg"
+          }
+        },
+        "colour_31": {
+          "type": "colour",
+          "settings": {
+            "name": "28 Cammello",
+            "color": "#AC8B7A",
+            "image_fallback": "ms-lp-al-07.jpg"
+          }
+        },
+        "colour_32": {
+          "type": "colour",
+          "settings": {
+            "name": "37 Paprika",
+            "color": "#A03604",
+            "image_fallback": "ms-lp-al-08.jpg"
+          }
+        },
+        "colour_33": {
+          "type": "colour",
+          "settings": {
+            "name": "38 Henné",
+            "color": "#49201E",
+            "image_fallback": "ms-lp-al-09.jpg"
+          }
+        },
+        "colour_34": {
+          "type": "colour",
+          "settings": {
+            "name": "45 Polvere",
+            "color": "#8184A5",
+            "image_fallback": "ms-lp-al-10.jpg"
+          }
+        },
+        "colour_35": {
+          "type": "colour",
+          "settings": {
+            "name": "46 Lovat",
+            "color": "#54646C",
+            "image_fallback": "ms-lp-al-11.jpg"
+          }
+        },
+        "colour_36": {
+          "type": "colour",
+          "settings": {
+            "name": "47 Green Blue",
+            "color": "#29374C",
+            "image_fallback": "ms-lp-al-12.jpg"
+          }
+        },
+        "colour_37": {
+          "type": "colour",
+          "settings": {
+            "name": "51 Pergamena",
+            "color": "#EAE0D6",
+            "image_fallback": "ms-lp-al-13.jpg"
+          }
+        },
+        "colour_38": {
+          "type": "colour",
+          "settings": {
+            "name": "1 Biancore",
+            "color": "#CCBCAC",
+            "image_fallback": "ms-lp-al-14.jpg"
+          }
+        },
+        "colour_39": {
+          "type": "colour",
+          "settings": {
+            "name": "2 Natural Brown",
+            "color": "#AA9589",
+            "image_fallback": "ms-lp-al-15.jpg"
+          }
+        },
+        "colour_40": {
+          "type": "colour",
+          "settings": {
+            "name": "7 Light Marengo",
+            "color": "#76737C",
+            "image_fallback": "ms-lp-al-16.jpg"
+          }
+        },
+        "fabric_41": {
+          "type": "fabric",
+          "settings": {
+            "name": "Wish",
+            "anchor": "wish",
+            "code": "A702384RS",
+            "composition": "Bouclé of virgin wool and cashmere",
+            "systems": "Bellini; the base of Flora.",
+            "text": "A bouclé of wool and cashmere, soft and deep, its loops catching the light. It dresses Bellini, and the base of Flora.",
+            "texture": "boucle",
+            "color": "#CDBEAA"
+          }
+        },
+        "fabric_42": {
+          "type": "fabric",
+          "settings": {
+            "name": "Cardi",
+            "anchor": "cardi",
+            "composition": "Wool and cashmere",
+            "systems": "Flora.",
+            "text": "Wool and cashmere with a woven design, on the winter face of the Flora topper; the summer face is linen and cotton.",
+            "texture": "wool",
+            "color": "#C9B8A6"
+          }
+        },
+        "fabric_43": {
+          "type": "fabric",
+          "settings": {
+            "name": "Ely’s Harbour",
+            "anchor": "elys-harbour",
+            "code": "A6801RS",
+            "composition": "60% linen, 40% cashmere",
+            "systems": "Top: the winter side of the mattress and of the topper.",
+            "text": "Linen and cashmere: the freshness of linen with the warmth of cashmere, on the winter side of Top.",
+            "texture": "linen",
+            "color": "#E2DACE"
+          }
+        },
+        "fabric_44": {
+          "type": "fabric",
+          "settings": {
+            "name": "Bangor",
+            "anchor": "bangor",
+            "code": "AL2025",
+            "composition": "100% linen",
+            "systems": "Top and Giotto Round: the topper.",
+            "text": "A fine pure linen for the surface you sleep on in summer.",
+            "texture": "linen",
+            "color": "#E2DACE"
+          }
+        },
+        "fabric_45": {
+          "type": "fabric",
+          "settings": {
+            "name": "Shadan",
+            "anchor": "shadan",
+            "code": "AL2075RS",
+            "composition": "100% linen",
+            "systems": "Paisley.",
+            "text": "A linen woven with a paisley, from the Paisley book. On Paisley it covers the topper, with Katai, a pure silk (AS1005), on the base.",
+            "texture": "linen",
+            "color": "#E2DACE",
+            "image_fallback": "ms-lp-shadan-l.jpg"
           }
         }
       },
       "block_order": [
-        "swatch_01",
-        "swatch_02",
-        "swatch_03",
-        "swatch_04",
-        "swatch_05",
-        "swatch_06",
-        "swatch_07",
-        "swatch_08",
-        "swatch_09",
-        "swatch_10",
-        "swatch_11",
-        "swatch_12",
-        "swatch_13",
-        "swatch_14",
-        "swatch_15",
-        "swatch_16",
-        "swatch_17",
-        "swatch_18",
-        "swatch_19",
-        "swatch_20",
-        "swatch_21",
-        "swatch_22",
-        "swatch_23",
-        "swatch_24",
-        "swatch_25",
-        "swatch_26",
-        "swatch_27",
-        "swatch_28",
-        "swatch_29",
-        "swatch_30",
-        "swatch_31",
-        "swatch_32",
-        "swatch_33",
-        "swatch_34",
-        "swatch_35",
-        "swatch_36",
-        "swatch_37",
-        "swatch_38",
-        "swatch_39"
+        "fabric_01",
+        "colour_02",
+        "colour_03",
+        "colour_04",
+        "colour_05",
+        "colour_06",
+        "colour_07",
+        "colour_08",
+        "colour_09",
+        "colour_10",
+        "colour_11",
+        "colour_12",
+        "colour_13",
+        "fabric_14",
+        "colour_15",
+        "colour_16",
+        "colour_17",
+        "colour_18",
+        "colour_19",
+        "colour_20",
+        "colour_21",
+        "colour_22",
+        "colour_23",
+        "fabric_24",
+        "colour_25",
+        "colour_26",
+        "colour_27",
+        "colour_28",
+        "colour_29",
+        "colour_30",
+        "colour_31",
+        "colour_32",
+        "colour_33",
+        "colour_34",
+        "colour_35",
+        "colour_36",
+        "colour_37",
+        "colour_38",
+        "colour_39",
+        "colour_40",
+        "fabric_41",
+        "fabric_42",
+        "fabric_43",
+        "fabric_44",
+        "fabric_45"
       ]
     },
     "s04": {
@@ -464,18 +499,18 @@
       "settings": {
         "tone": "stone",
         "eyebrow": "Seasonal upholstery",
-        "heading": "Dressed twice a year, without anything being replaced.",
-        "text": "<p>Loro Piana Interiors on one face, linen and silk on the other. The upholstery is turned when the season changes, so the same bed is dressed for winter and for summer.</p>"
+        "heading": "Dressed for both seasons.",
+        "text": "<p>On Flora and Top, wool and cashmere dress the winter face and linen the summer face, so the bed is turned when the season changes, not replaced.</p>"
       }
     },
     "s05": {
       "type": "ms-image-pair",
       "settings": {
         "eyebrow": "Paisley",
-        "heading": "Shadan, in silk and linen.",
+        "heading": "Shadan linen and Katai silk.",
         "image_1": "shopify://shop_images/Paisleydettaglio.jpg",
         "fallback_1": "https://midsummer-milano.com/cdn/shop/files/Paisleydettaglio.jpg?v=1788246821&width=1400",
-        "caption_1": "The seam is sewn by the same hands that opened the core.",
+        "caption_1": "Shadan, a paisley linen by Loro Piana Interiors, on the topper of Paisley.",
         "fallback_2": "ms-photo-fabric-weave.jpg",
         "caption_2": "Headboard specified to the client's drawing, without additional tooling."
       }
@@ -484,34 +519,45 @@
       "type": "ms-collection-cards",
       "settings": {
         "eyebrow": "Where you will find it",
-        "heading": "Signature and Icons",
-        "link_label": "All twenty-four →"
+        "heading": "Across the three collections",
+        "link_label": "Compare the collections →"
       },
       "blocks": {
         "collection_01": {
+          "type": "collection",
+          "settings": {
+            "handle": "essentials",
+            "title": "Essentials",
+            "numeral": "I",
+            "image_fallback": "ms-photo-glass-house.jpg",
+            "text": "Capri, in Mystic River, or two-tone with Connemara."
+          }
+        },
+        "collection_02": {
           "type": "collection",
           "settings": {
             "handle": "signature",
             "title": "Signature",
             "numeral": "II",
             "image_fallback": "ms-graded-ochre-room.jpg",
-            "text": "Loro Piana Interiors fabrics over spring architectures designed for the highest comfort. Seven systems."
+            "text": "Dreamy in Mystic River; Brera in Connemara, edged in Altai."
           }
         },
-        "collection_02": {
+        "collection_03": {
           "type": "collection",
           "settings": {
             "handle": "icons",
             "title": "Icons",
             "numeral": "III",
             "image_fallback": "ms-graded-arches.jpg",
-            "text": "Fully upholstered in Loro Piana Interiors. Twelve systems, completely bespoke."
+            "text": "Roma, Storage, Flora, Bellini, Top, Giotto Round and Paisley, each in its own cloth."
           }
         }
       },
       "block_order": [
         "collection_01",
-        "collection_02"
+        "collection_02",
+        "collection_03"
       ]
     },
     "s07": {
@@ -519,7 +565,7 @@
       "settings": {
         "eyebrow": "The atelier",
         "heading": "See the cloths in Milano.",
-        "text": "<p>The Loro Piana Interiors range is at the atelier on Via Andegari. Choose it against the bed, or ask us for samples by post.</p>",
+        "text": "<p>The Loro Piana Interiors cards are at the atelier on Via Andegari. Choose against the bed, or ask us for samples by post.</p>",
         "button": "Book a private appointment",
         "button_enquire": true,
         "link_label": "Request the brochure",

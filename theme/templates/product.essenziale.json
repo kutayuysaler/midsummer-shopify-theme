@@ -6,18 +6,36 @@
   "sections": {
     "s01": {
       "type": "ms-product-main",
-      "settings": {},
+      "settings": {
+        "cover_value": "100% cotton"
+      },
       "blocks": {
         "fibre_01": {
           "type": "fibre",
           "settings": {
-            "name": "Cheviot Wool",
+            "name": "Wool",
             "note": "Support · Temperature"
+          }
+        },
+        "fibre_02": {
+          "type": "fibre",
+          "settings": {
+            "name": "Linen",
+            "note": "Breathability · Freshness"
+          }
+        },
+        "fibre_03": {
+          "type": "fibre",
+          "settings": {
+            "name": "Ingeo",
+            "note": "Breathability · Freshness"
           }
         }
       },
       "block_order": [
-        "fibre_01"
+        "fibre_01",
+        "fibre_02",
+        "fibre_03"
       ]
     },
     "s02": {
@@ -45,7 +63,7 @@
           "type": "qa",
           "settings": {
             "q": "What is [product] made of?",
-            "a": "<p>[product] is made by hand in Italy from natural fibres: Cheviot wool. The cloth is chosen from the fabric book, Loro Piana Interiors included, and the system is made to order by two artisans, start to finish.</p>"
+            "a": "<p>[product] is made by hand in Italy from natural fibres: wool, linen and Ingeo. Its cover is pure cotton. It is made to order by two artisans, start to finish.</p>"
           }
         },
         "qa_02": {

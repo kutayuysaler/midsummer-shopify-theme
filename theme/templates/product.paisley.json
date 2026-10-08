@@ -6,7 +6,9 @@
   "sections": {
     "s01": {
       "type": "ms-product-main",
-      "settings": {},
+      "settings": {
+        "cover_value": "Loro Piana Interiors Shadan linen and Katai silk"
+      },
       "blocks": {
         "fibre_01": {
           "type": "fibre",
@@ -21,11 +23,27 @@
             "name": "Cheviot Wool",
             "note": "Support · Temperature"
           }
+        },
+        "fibre_03": {
+          "type": "fibre",
+          "settings": {
+            "name": "Silk",
+            "note": "Temperature · Softness"
+          }
+        },
+        "fibre_04": {
+          "type": "fibre",
+          "settings": {
+            "name": "Linen",
+            "note": "Breathability · Freshness"
+          }
         }
       },
       "block_order": [
         "fibre_01",
-        "fibre_02"
+        "fibre_02",
+        "fibre_03",
+        "fibre_04"
       ]
     },
     "s02": {
@@ -53,7 +71,7 @@
           "type": "qa",
           "settings": {
             "q": "What is [product] made of?",
-            "a": "<p>[product] is made by hand in Italy from natural fibres: baby alpaca and Cheviot wool. The cloth is chosen from the fabric book, Loro Piana Interiors included, and the system is made to order by two artisans, start to finish.</p>"
+            "a": "<p>[product] is made by hand in Italy from natural fibres: baby alpaca, Cheviot wool, silk and linen. It is upholstered in Loro Piana Interiors: Shadan, a paisley linen, on the topper, and Katai silk on the base. It is made to order by two artisans, start to finish.</p>"
           }
         },
         "qa_02": {

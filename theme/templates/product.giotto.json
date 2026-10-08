@@ -7,6 +7,7 @@
     "s01": {
       "type": "ms-product-main",
       "settings": {
+        "cover_value": "Loro Piana Interiors Connemara and Bangor linen",
         "kind": "round"
       },
       "blocks": {
@@ -23,11 +24,27 @@
             "name": "Cheviot Wool",
             "note": "Support · Temperature"
           }
+        },
+        "fibre_03": {
+          "type": "fibre",
+          "settings": {
+            "name": "Linen",
+            "note": "Breathability · Freshness"
+          }
+        },
+        "fibre_04": {
+          "type": "fibre",
+          "settings": {
+            "name": "Silk",
+            "note": "Temperature · Softness"
+          }
         }
       },
       "block_order": [
         "fibre_01",
-        "fibre_02"
+        "fibre_02",
+        "fibre_03",
+        "fibre_04"
       ]
     },
     "s02": {
@@ -55,7 +72,7 @@
           "type": "qa",
           "settings": {
             "q": "What is [product] made of?",
-            "a": "<p>[product] is made by hand in Italy from natural fibres: horsehair and Cheviot wool. The cloth is chosen from the fabric book, Loro Piana Interiors included, and the system is made to order by two artisans, start to finish.</p>"
+            "a": "<p>[product] is made by hand in Italy from natural fibres: horsehair, Cheviot wool, linen and silk. It is upholstered in Loro Piana Interiors Connemara and Bangor linen. It is made to order by two artisans, start to finish.</p>"
           }
         },
         "qa_02": {

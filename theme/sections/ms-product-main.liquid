@@ -24,9 +24,6 @@
   capture note
     render 'ms-product-note', title: product.title
   endcapture
-  if product.handle contains 'paisley'
-    assign note = 'Loro Piana Interiors, over a core built by hand. The fabric leads; the craft does the rest.'
-  endif
   assign tagline = product.metafields.custom.subtitle.value | default: note
   if tagline == blank
     assign tagline = product.description | strip_html | truncatewords: 22
@@ -115,7 +112,7 @@
     render 'ms-tr', value: ss.cover_label, default: 'Upholstery', key: 'ms.product.cover_label'
   endcapture
   capture t_cover_v
-    render 'ms-tr', value: ss.cover_value, default: 'Chosen from the fabric book, Loro Piana Interiors included', key: 'ms.product.cover_value'
+    render 'ms-tr', value: ss.cover_value, default: 'Natural cloths, chosen with you', key: 'ms.product.cover_value'
   endcapture
   capture t_comfort_l
     render 'ms-tr', value: ss.comfort_label, default: 'Comfort', key: 'ms.product.comfort_label'
@@ -628,7 +625,7 @@ document.addEventListener('DOMContentLoaded', function () {
     { "type": "text", "id": "f2_label", "label": "Fact 2 label", "default": "Dimensions" },
     { "type": "text", "id": "f2_value", "label": "Fact 2", "default": "Any size, including round, with no tooling charge" },
     { "type": "text", "id": "cover_label", "label": "Upholstery label", "default": "Upholstery" },
-    { "type": "text", "id": "cover_value", "label": "Upholstery", "default": "Chosen from the fabric book, Loro Piana Interiors included", "info": "Empty hides the row." },
+    { "type": "text", "id": "cover_value", "label": "Upholstery", "default": "Natural cloths, chosen with you", "info": "Empty hides the row." },
     { "type": "text", "id": "comfort_label", "label": "Comfort label", "default": "Comfort" },
     { "type": "text", "id": "comfort_value", "label": "Comfort", "default": "Set with you, at the atelier or by video", "info": "Metafield custom.firmness replaces it." },
     { "type": "text", "id": "sizes_label", "label": "Standard sizes label", "default": "Standard sizes" },

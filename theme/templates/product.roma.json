@@ -6,7 +6,9 @@
   "sections": {
     "s01": {
       "type": "ms-product-main",
-      "settings": {},
+      "settings": {
+        "cover_value": "Loro Piana Interiors Mystic River, edged in Midsummer pink"
+      },
       "blocks": {
         "fibre_01": {
           "type": "fibre",
@@ -14,10 +16,50 @@
             "name": "Horsehair",
             "note": "Support · Breathability"
           }
+        },
+        "fibre_02": {
+          "type": "fibre",
+          "settings": {
+            "name": "Silk",
+            "note": "Temperature · Softness"
+          }
+        },
+        "fibre_03": {
+          "type": "fibre",
+          "settings": {
+            "name": "Falkland Wool",
+            "note": "Support · Temperature"
+          }
+        },
+        "fibre_04": {
+          "type": "fibre",
+          "settings": {
+            "name": "Linen",
+            "note": "Breathability · Freshness"
+          }
+        },
+        "fibre_05": {
+          "type": "fibre",
+          "settings": {
+            "name": "Cotton",
+            "note": "Breathability"
+          }
+        },
+        "fibre_06": {
+          "type": "fibre",
+          "settings": {
+            "name": "Ingeo",
+            "note": "Breathability · Freshness"
+          }
         }
       },
       "block_order": [
-        "fibre_01"
+        "fibre_01",
+        "fibre_02",
+        "fibre_03",
+        "fibre_04",
+        "fibre_05",
+        "fibre_06"
       ]
     },
     "s02": {
@@ -45,7 +87,7 @@
           "type": "qa",
           "settings": {
             "q": "What is [product] made of?",
-            "a": "<p>[product] is made by hand in Italy from natural fibres: horsehair. The cloth is chosen from the fabric book, Loro Piana Interiors included, and the system is made to order by two artisans, start to finish.</p>"
+            "a": "<p>[product] is made by hand in Italy from natural fibres: horsehair, silk, Falkland wool, linen, cotton and Ingeo. It is upholstered in Loro Piana Interiors Mystic River, a linen and cotton, and edged in Midsummer pink. It is made to order by two artisans, start to finish.</p>"
           }
         },
         "qa_02": {

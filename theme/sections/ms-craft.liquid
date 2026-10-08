@@ -14,6 +14,20 @@
       assign start = 'topper'
     endif
   endif
+  # on a system's page, Loro Piana Interiors is named only if the system is made in it
+  assign lp_free = false
+  assign lp_anchor = ''
+  if template.name == 'product'
+    capture lp_has
+      render 'ms-product-cloth', key: template.suffix, handle: product.handle, part: 'lp'
+    endcapture
+    capture lp_anchor
+      render 'ms-product-cloth', key: template.suffix, handle: product.handle, part: 'anchor'
+    endcapture
+    if lp_has == blank
+      assign lp_free = true
+    endif
+  endif
   assign parts = 'topper,mattress,base' | split: ','
   assign nums = 'I,II,III' | split: ','
 -%}
@@ -60,17 +74,32 @@
             {%- if s[kl] != blank -%}<p class="ms-cr__lead">{{ s[kl] }}</p>{%- endif -%}
             {%- if s[kp] != blank -%}
               <ul class="ms-cr__pts" role="list">
-                {%- for pt in points -%}{%- assign t = pt | strip -%}{%- if t != '' -%}<li>{{ t }}</li>{%- endif -%}{%- endfor -%}
+                {%- for pt in points -%}
+                  {%- assign t = pt | strip -%}
+                  {%- if lp_free -%}{%- assign t = t | replace: 'Loro Piana Interiors, or in ', '' -%}{%- if t contains 'Loro Piana' -%}{%- assign t = '' -%}{%- endif -%}{%- endif -%}
+                  {%- if t != '' -%}<li>{{ t }}</li>{%- endif -%}
+                {%- endfor -%}
               </ul>
             {%- endif -%}
             {%- if s[kf] != blank -%}
               <div class="ms-cr__fl">{{ s.fibres_label }}</div>
               <ul class="ms-cr__fibres" role="list">
-                {%- for f in fibres -%}{%- assign fn = f | strip -%}{%- if fn != '' -%}<li><span class="ms-cr__fi">{% render 'ms-fibre-mark', name: fn, size: 28 %}</span>{{ fn }}</li>{%- endif -%}{%- endfor -%}
+                {%- for f in fibres -%}{%- assign fn = f | strip -%}{%- if lp_free and fn contains 'Loro Piana' -%}{%- assign fn = '' -%}{%- endif -%}{%- if fn != '' -%}<li><span class="ms-cr__fi">{% render 'ms-fibre-mark', name: fn, size: 28 %}</span>{{ fn }}</li>{%- endif -%}{%- endfor -%}
               </ul>
             {%- endif -%}
             <div class="ms-cr__pnav">
-              {%- if s[kll] != blank -%}<a class="ms-cr__link" href="{% render 'ms-link', to: places[forloop.index0] %}">{{ s[kll] }}<span aria-hidden="true">→</span></a>{%- endif -%}
+              {%- liquid
+                assign place = places[forloop.index0]
+                assign show_link = true
+                if place == 'loro' and lp_free
+                  assign show_link = false
+                endif
+                assign hash = ''
+                if place == 'loro' and lp_anchor != blank
+                  assign hash = '#' | append: lp_anchor
+                endif
+              -%}
+              {%- if s[kll] != blank and show_link -%}<a class="ms-cr__link" href="{% render 'ms-link', to: place %}{{ hash }}">{{ s[kll] }}<span aria-hidden="true">→</span></a>{%- endif -%}
               {%- unless forloop.last -%}<button type="button" class="ms-cr__next" data-cr-open="{{ parts[forloop.index] }}">{{ s.next_label }} <span aria-hidden="true">↓</span></button>{%- endunless -%}
             </div>
           </div>
@@ -99,7 +128,7 @@
           <span class="ms-cr__img"><img src="{% render 'ms-img', image: s[ki], fallback: s[kf], width: 1000 %}" alt="{{ s[kt] | escape }}" width="1000" height="1250" loading="lazy"></span>
           <span class="ms-cr__cnum">{{ nums[forloop.index0] }}</span>
           <span class="ms-cr__ptitle">{{ s[kt] }}</span>
-          <span class="ms-cr__ptext">{{ s[kx] }}</span>
+          <span class="ms-cr__ptext">{% if lp_free %}{{ s[kx] | replace: ' in Loro Piana Interiors', '' }}{% else %}{{ s[kx] }}{% endif %}</span>
           <span class="ms-cr__more">{{ s.open_label }} <span aria-hidden="true">↑</span></span>
         </button>
       {%- endfor -%}
@@ -499,7 +528,7 @@
       "type": "text",
       "id": "part3_link_label",
       "label": "Link",
-      "default": "The whole palette",
+      "default": "The Loro Piana Interiors cloths",
       "info": "Leads to Loro Piana Interiors."
     },
     {

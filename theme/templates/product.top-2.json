@@ -7,42 +7,64 @@
     "s01": {
       "type": "ms-product-main",
       "settings": {
+        "cover_value": "Loro Piana Interiors Connemara, Ely’s Harbour and Bangor",
         "award": "Green Product Award 2025"
       },
       "blocks": {
         "fibre_01": {
           "type": "fibre",
           "settings": {
-            "name": "Baby Alpaca",
-            "note": "Temperature · Hypoallergenic"
+            "name": "Cashmere",
+            "note": "Warmth without weight"
           }
         },
         "fibre_02": {
           "type": "fibre",
           "settings": {
-            "name": "Cashmere",
-            "note": "Warmth without weight"
+            "name": "Baby Alpaca",
+            "note": "Temperature · Hypoallergenic"
           }
         },
         "fibre_03": {
-          "type": "fibre",
-          "settings": {
-            "name": "Horsehair",
-            "note": "Support · Breathability"
-          }
-        },
-        "fibre_04": {
           "type": "fibre",
           "settings": {
             "name": "Mohair",
             "note": "Warmth without weight"
           }
         },
-        "fibre_05": {
+        "fibre_04": {
           "type": "fibre",
           "settings": {
             "name": "Yak Hair",
             "note": "Warmth · Softness"
+          }
+        },
+        "fibre_05": {
+          "type": "fibre",
+          "settings": {
+            "name": "Horsehair",
+            "note": "Support · Breathability"
+          }
+        },
+        "fibre_06": {
+          "type": "fibre",
+          "settings": {
+            "name": "Silk",
+            "note": "Temperature · Softness"
+          }
+        },
+        "fibre_07": {
+          "type": "fibre",
+          "settings": {
+            "name": "Linen",
+            "note": "Breathability · Freshness"
+          }
+        },
+        "fibre_08": {
+          "type": "fibre",
+          "settings": {
+            "name": "Cheviot Wool",
+            "note": "Support · Temperature"
           }
         }
       },
@@ -51,7 +73,10 @@
         "fibre_02",
         "fibre_03",
         "fibre_04",
-        "fibre_05"
+        "fibre_05",
+        "fibre_06",
+        "fibre_07",
+        "fibre_08"
       ]
     },
     "s02": {
@@ -79,7 +104,7 @@
           "type": "qa",
           "settings": {
             "q": "What is [product] made of?",
-            "a": "<p>[product] is made by hand in Italy from natural fibres: baby alpaca, cashmere, horsehair, mohair and yak hair. The cloth is chosen from the fabric book, Loro Piana Interiors included, and the system is made to order by two artisans, start to finish.</p>"
+            "a": "<p>[product] is made by hand in Italy from natural fibres: cashmere, baby alpaca, mohair, yak hair, horsehair, silk, linen and Cheviot wool. It is upholstered in three Loro Piana Interiors cloths: Connemara linen, Ely’s Harbour linen and cashmere, and Bangor linen. It is made to order by two artisans, start to finish.</p>"
           }
         },
         "qa_02": {

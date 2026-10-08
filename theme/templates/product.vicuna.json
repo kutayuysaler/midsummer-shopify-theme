@@ -6,25 +6,60 @@
   "sections": {
     "s01": {
       "type": "ms-product-main",
-      "settings": {},
+      "settings": {
+        "cover_value": "Raw linen and cotton, or a Loro Piana Interiors cloth"
+      },
       "blocks": {
         "fibre_01": {
-          "type": "fibre",
-          "settings": {
-            "name": "Falkland"
-          }
-        },
-        "fibre_02": {
           "type": "fibre",
           "settings": {
             "name": "Vicuña",
             "note": "Softness · Warmth"
           }
+        },
+        "fibre_02": {
+          "type": "fibre",
+          "settings": {
+            "name": "Cashmere",
+            "note": "Warmth without weight"
+          }
+        },
+        "fibre_03": {
+          "type": "fibre",
+          "settings": {
+            "name": "Falkland Wool",
+            "note": "Support · Temperature"
+          }
+        },
+        "fibre_04": {
+          "type": "fibre",
+          "settings": {
+            "name": "Horsehair",
+            "note": "Support · Breathability"
+          }
+        },
+        "fibre_05": {
+          "type": "fibre",
+          "settings": {
+            "name": "Silk",
+            "note": "Temperature · Softness"
+          }
+        },
+        "fibre_06": {
+          "type": "fibre",
+          "settings": {
+            "name": "Linen",
+            "note": "Breathability · Freshness"
+          }
         }
       },
       "block_order": [
         "fibre_01",
-        "fibre_02"
+        "fibre_02",
+        "fibre_03",
+        "fibre_04",
+        "fibre_05",
+        "fibre_06"
       ]
     },
     "s02": {
@@ -52,7 +87,7 @@
           "type": "qa",
           "settings": {
             "q": "What is [product] made of?",
-            "a": "<p>[product] is made by hand in Italy from natural fibres: Falkland wool and vicuña. The cloth is chosen from the fabric book, Loro Piana Interiors included, and the system is made to order by two artisans, start to finish.</p>"
+            "a": "<p>[product] is made by hand in Italy from natural fibres: vicuña, cashmere, Falkland wool, horsehair, silk and linen. It is covered in raw linen and cotton, or in a Loro Piana Interiors cloth chosen with you. It is made to order by two artisans, start to finish.</p>"
           }
         },
         "qa_02": {

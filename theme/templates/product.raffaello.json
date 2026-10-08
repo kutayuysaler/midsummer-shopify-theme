@@ -6,7 +6,9 @@
   "sections": {
     "s01": {
       "type": "ms-product-main",
-      "settings": {},
+      "settings": {
+        "cover_value": "Cotton"
+      },
       "blocks": {
         "fibre_01": {
           "type": "fibre",
@@ -14,10 +16,34 @@
             "name": "Baby Alpaca",
             "note": "Temperature · Hypoallergenic"
           }
+        },
+        "fibre_02": {
+          "type": "fibre",
+          "settings": {
+            "name": "Wool",
+            "note": "Support · Temperature"
+          }
+        },
+        "fibre_03": {
+          "type": "fibre",
+          "settings": {
+            "name": "Cotton",
+            "note": "Breathability"
+          }
+        },
+        "fibre_04": {
+          "type": "fibre",
+          "settings": {
+            "name": "Ingeo",
+            "note": "Breathability · Freshness"
+          }
         }
       },
       "block_order": [
-        "fibre_01"
+        "fibre_01",
+        "fibre_02",
+        "fibre_03",
+        "fibre_04"
       ]
     },
     "s02": {
@@ -45,7 +71,7 @@
           "type": "qa",
           "settings": {
             "q": "What is [product] made of?",
-            "a": "<p>[product] is made by hand in Italy from natural fibres: baby alpaca. The cloth is chosen from the fabric book, Loro Piana Interiors included, and the system is made to order by two artisans, start to finish.</p>"
+            "a": "<p>[product] is made by hand in Italy from natural fibres: baby alpaca, wool, cotton and Ingeo. Its cover is cotton. It is made to order by two artisans, start to finish.</p>"
           }
         },
         "qa_02": {

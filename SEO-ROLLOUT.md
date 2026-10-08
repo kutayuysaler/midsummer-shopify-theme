@@ -67,10 +67,10 @@ Already done in the theme (nothing to do):
   Mailchimp. Turned off: Avada SEO Suite and SEOon Blog, whose structured data would repeat
   the theme's. If you rely on another Avada or SEOon feature, turn its embed back on and
   switch off only its structured data / JSON-LD in the app.
-- **Fibres** are now listed for Amalfi (linen), Monteverdi (cashmere, camel hair) and Ultra
-  Dry (vegetable horsehair), on the page, in *Before you order* and in the structured
-  data. **Bellini** still has none: tell me its fibres, or add them in the theme editor
-  (*Product · The system → Add Fibre*).
+- **Fibres and cloth** of every system now come from the 2026 catalogue and the August 2026
+  price lists: the page, *Before you order* and the structured data name the same fibres, and
+  the Upholstery line says what the system is covered in. Loro Piana Interiors is named only
+  on the systems made in it (INSTALL.md §26).
 - **Founding year 2014** is kept, as in the audit.
 
 In Shopify, in this order:
@@ -193,4 +193,4 @@ official site, and MOHD lists products (Vivaldi, Bellagio) the site does not sho
    them.
 4. **Map tiles:** OpenStreetMap, with its credit (INSTALL.md §24).
 5. **Still with the house:** a final read of the product questions, the fact sheet and the
-   translations by someone at the house, and Bellini's fibres.
+   translations by someone at the house.

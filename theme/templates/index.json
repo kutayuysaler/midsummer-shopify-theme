@@ -57,7 +57,7 @@
         "numeral": "03",
         "eyebrow": "Natural fibres · Loro Piana Interiors",
         "heading": "Only what nature makes. Dressed in Loro Piana Interiors.",
-        "text": "Wool, cashmere, silk, horsehair, linen and Ingeo, chosen because they breathe, last and age well, are laid by hand where each does its work. Every Signature and Icons system is then upholstered in Loro Piana Interiors, the cloth chosen for the room.",
+        "text": "Wool, cashmere, silk, horsehair, linen and Ingeo, chosen because they breathe, last and age well, are laid by hand where each does its work. Many systems are then made in Loro Piana Interiors cloths, chosen for the room; the others in natural linen and cotton.",
         "link_label": "Natural materials",
         "link_place": "materials"
       }
@@ -104,7 +104,7 @@
           "type": "row",
           "settings": {
             "label": "What it is dressed in",
-            "ours": "Loro Piana Interiors fabrics, chosen for the room.",
+            "ours": "Natural linen and cotton, or Loro Piana Interiors, chosen for the room.",
             "theirs": "The house ticking."
           }
         },

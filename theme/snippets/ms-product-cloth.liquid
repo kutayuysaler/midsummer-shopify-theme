@@ -1,0 +1,287 @@
+{%- comment -%}
+  What a system is dressed in, for its own page: part 'lp' gives the Loro Piana Interiors cloths it is
+  made in (empty when it is made in none), 'anchor' the cloth's place on the Loro Piana Interiors
+  page, 'reason' the cloth column of the product page. Found by the product's template, then by its
+  handle. Generated from bin/lp_data.py (the house's catalogue and price lists).
+{%- endcomment -%}
+{%- liquid
+  assign k = key | default: handle
+  assign keys = 'essenziale|raffaello|amalfi|bellagio|vivaldi,vivaldi-2|vivaldi-plus|monteverdi|ultra-dry|my-dream|first-dream|capri|dreamy,dreamy-2|brera|roma|topper-roma|storage|dreamy-springs|bellini|flora|top,top-2|giotto|paisley|vicuna' | split: '|'
+  assign hit = ''
+  for group in keys
+    assign ks = group | split: ','
+    if ks contains k
+      assign hit = ks.first
+    endif
+  endfor
+  if hit == ''
+    for group in keys
+      assign ks = group | split: ','
+      if ks contains handle
+        assign hit = ks.first
+      endif
+    endfor
+  endif
+-%}
+{%- case hit -%}
+{%- when 'essenziale' -%}{%- case part -%}{%- when 'lp' -%}{%- when 'anchor' -%}{%- when 'reason' -%}
+<h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">Dressed in natural cloth.</h3>
+<p style="font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 16px; max-width: 34ch;">Its cover is pure cotton. Another cloth on request, chosen with you at the atelier.</p>
+<a href="{% render 'ms-link', to: 'materials' %}" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 24px; color: inherit; text-decoration: none;">
+<span style="font-size: 11px; letter-spacing: .22em; text-transform: uppercase; margin-left: 0; border-bottom: 1px solid currentColor; padding-bottom: 4px;">The fibres inside →</span>
+</a>
+{%- endcase -%}
+{%- when 'raffaello' -%}{%- case part -%}{%- when 'lp' -%}{%- when 'anchor' -%}{%- when 'reason' -%}
+<h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">Dressed in natural cloth.</h3>
+<p style="font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 16px; max-width: 34ch;">Its cover is cotton. Another cloth on request, chosen with you at the atelier.</p>
+<a href="{% render 'ms-link', to: 'materials' %}" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 24px; color: inherit; text-decoration: none;">
+<span style="font-size: 11px; letter-spacing: .22em; text-transform: uppercase; margin-left: 0; border-bottom: 1px solid currentColor; padding-bottom: 4px;">The fibres inside →</span>
+</a>
+{%- endcase -%}
+{%- when 'amalfi' -%}{%- case part -%}{%- when 'lp' -%}{%- when 'anchor' -%}{%- when 'reason' -%}
+<h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">Dressed in natural cloth.</h3>
+<p style="font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 16px; max-width: 34ch;">It is covered in linen and cotton, in four colours. Another cloth on request, chosen with you at the atelier.</p>
+<a href="{% render 'ms-link', to: 'materials' %}" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 24px; color: inherit; text-decoration: none;">
+<span style="font-size: 11px; letter-spacing: .22em; text-transform: uppercase; margin-left: 0; border-bottom: 1px solid currentColor; padding-bottom: 4px;">The fibres inside →</span>
+</a>
+{%- endcase -%}
+{%- when 'bellagio' -%}{%- case part -%}{%- when 'lp' -%}{%- when 'anchor' -%}{%- when 'reason' -%}
+<h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">Dressed in natural cloth.</h3>
+<p style="font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 16px; max-width: 34ch;">It is covered in raw linen and cotton, edged in orange. Another cloth on request, chosen with you at the atelier.</p>
+<a href="{% render 'ms-link', to: 'materials' %}" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 24px; color: inherit; text-decoration: none;">
+<span style="font-size: 11px; letter-spacing: .22em; text-transform: uppercase; margin-left: 0; border-bottom: 1px solid currentColor; padding-bottom: 4px;">The fibres inside →</span>
+</a>
+{%- endcase -%}
+{%- when 'vivaldi' -%}{%- case part -%}{%- when 'lp' -%}{%- when 'anchor' -%}{%- when 'reason' -%}
+<h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">Dressed in natural cloth.</h3>
+<p style="font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 16px; max-width: 34ch;">It is covered in linen and cotton. Another cloth on request, chosen with you at the atelier.</p>
+<a href="{% render 'ms-link', to: 'materials' %}" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 24px; color: inherit; text-decoration: none;">
+<span style="font-size: 11px; letter-spacing: .22em; text-transform: uppercase; margin-left: 0; border-bottom: 1px solid currentColor; padding-bottom: 4px;">The fibres inside →</span>
+</a>
+{%- endcase -%}
+{%- when 'vivaldi-plus' -%}{%- case part -%}{%- when 'lp' -%}{%- when 'anchor' -%}{%- when 'reason' -%}
+<h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">Dressed in natural cloth.</h3>
+<p style="font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 16px; max-width: 34ch;">It is covered in linen and cotton. Another cloth on request, chosen with you at the atelier.</p>
+<a href="{% render 'ms-link', to: 'materials' %}" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 24px; color: inherit; text-decoration: none;">
+<span style="font-size: 11px; letter-spacing: .22em; text-transform: uppercase; margin-left: 0; border-bottom: 1px solid currentColor; padding-bottom: 4px;">The fibres inside →</span>
+</a>
+{%- endcase -%}
+{%- when 'monteverdi' -%}{%- case part -%}{%- when 'lp' -%}{%- when 'anchor' -%}{%- when 'reason' -%}
+<h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">Dressed in natural cloth.</h3>
+<p style="font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 16px; max-width: 34ch;">No animal fibre is used: it is covered in raw recycled linen and cotton. Another cloth on request, chosen with you at the atelier.</p>
+<a href="{% render 'ms-link', to: 'materials' %}" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 24px; color: inherit; text-decoration: none;">
+<span style="font-size: 11px; letter-spacing: .22em; text-transform: uppercase; margin-left: 0; border-bottom: 1px solid currentColor; padding-bottom: 4px;">The fibres inside →</span>
+</a>
+{%- endcase -%}
+{%- when 'ultra-dry' -%}{%- case part -%}{%- when 'lp' -%}{%- when 'anchor' -%}{%- when 'reason' -%}
+<h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">Dressed in natural cloth.</h3>
+<p style="font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 16px; max-width: 34ch;">It is covered in raw linen and cotton. Another cloth on request, chosen with you at the atelier.</p>
+<a href="{% render 'ms-link', to: 'materials' %}" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 24px; color: inherit; text-decoration: none;">
+<span style="font-size: 11px; letter-spacing: .22em; text-transform: uppercase; margin-left: 0; border-bottom: 1px solid currentColor; padding-bottom: 4px;">The fibres inside →</span>
+</a>
+{%- endcase -%}
+{%- when 'my-dream' -%}{%- case part -%}{%- when 'lp' -%}{%- when 'anchor' -%}{%- when 'reason' -%}
+<h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">Dressed in natural cloth.</h3>
+<p style="font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 16px; max-width: 34ch;">Its cover is viscose. Another cloth on request, chosen with you at the atelier.</p>
+<a href="{% render 'ms-link', to: 'materials' %}" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 24px; color: inherit; text-decoration: none;">
+<span style="font-size: 11px; letter-spacing: .22em; text-transform: uppercase; margin-left: 0; border-bottom: 1px solid currentColor; padding-bottom: 4px;">The fibres inside →</span>
+</a>
+{%- endcase -%}
+{%- when 'first-dream' -%}{%- case part -%}{%- when 'lp' -%}{%- when 'anchor' -%}{%- when 'reason' -%}
+<h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">Dressed in natural cloth.</h3>
+<p style="font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 16px; max-width: 34ch;">It is edged with a ribbon in caramel or pink. Another cloth on request, chosen with you at the atelier.</p>
+<a href="{% render 'ms-link', to: 'materials' %}" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 24px; color: inherit; text-decoration: none;">
+<span style="font-size: 11px; letter-spacing: .22em; text-transform: uppercase; margin-left: 0; border-bottom: 1px solid currentColor; padding-bottom: 4px;">The fibres inside →</span>
+</a>
+{%- endcase -%}
+{%- when 'capri' -%}{%- case part -%}{%- when 'lp' -%}Mystic River, Connemara{%- when 'anchor' -%}mystic-river{%- when 'reason' -%}
+<h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">In Loro Piana Interiors Mystic River and Connemara.</h3>
+<p style="font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 16px; max-width: 34ch;">Or two-tone: natural linen and cotton, with Connemara or Mystic River.</p>
+<a href="{% render 'ms-link', to: 'loro' %}#mystic-river" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 24px; color: inherit; text-decoration: none;">
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #CFCBC6 url({{ 'ms-lp-my-01.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Biancore"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #CFC4B7 url({{ 'ms-lp-my-02.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Light Zen"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #BCAF9C url({{ 'ms-lp-my-03.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Zen"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #988278 url({{ 'ms-lp-my-04.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Taupe"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #392325 url({{ 'ms-lp-my-05.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Granello di Pepe"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #672022 url({{ 'ms-lp-my-06.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Rosso Terra"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #902121 url({{ 'ms-lp-my-07.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Gensola"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #5C533D url({{ 'ms-lp-my-08.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Muschio"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #718688 url({{ 'ms-lp-my-09.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Malachite"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #A2B2B9 url({{ 'ms-lp-my-10.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Polvere"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #292942 url({{ 'ms-lp-my-11.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Serenata"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #A19793 url({{ 'ms-lp-my-12.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Grey Dune"></span>
+<span style="font-size: 11px; letter-spacing: .22em; text-transform: uppercase; margin-left: 8px; border-bottom: 1px solid currentColor; padding-bottom: 4px;">The Mystic River colours →</span>
+</a>
+{%- endcase -%}
+{%- when 'dreamy' -%}{%- case part -%}{%- when 'lp' -%}Mystic River, Connemara{%- when 'anchor' -%}mystic-river{%- when 'reason' -%}
+<h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">In Loro Piana Interiors Mystic River and Connemara.</h3>
+<p style="font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 16px; max-width: 34ch;">Or two-tone: natural linen and cotton, with Connemara or Mystic River.</p>
+<a href="{% render 'ms-link', to: 'loro' %}#mystic-river" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 24px; color: inherit; text-decoration: none;">
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #CFCBC6 url({{ 'ms-lp-my-01.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Biancore"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #CFC4B7 url({{ 'ms-lp-my-02.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Light Zen"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #BCAF9C url({{ 'ms-lp-my-03.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Zen"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #988278 url({{ 'ms-lp-my-04.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Taupe"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #392325 url({{ 'ms-lp-my-05.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Granello di Pepe"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #672022 url({{ 'ms-lp-my-06.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Rosso Terra"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #902121 url({{ 'ms-lp-my-07.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Gensola"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #5C533D url({{ 'ms-lp-my-08.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Muschio"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #718688 url({{ 'ms-lp-my-09.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Malachite"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #A2B2B9 url({{ 'ms-lp-my-10.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Polvere"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #292942 url({{ 'ms-lp-my-11.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Serenata"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #A19793 url({{ 'ms-lp-my-12.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Grey Dune"></span>
+<span style="font-size: 11px; letter-spacing: .22em; text-transform: uppercase; margin-left: 8px; border-bottom: 1px solid currentColor; padding-bottom: 4px;">The Mystic River colours →</span>
+</a>
+{%- endcase -%}
+{%- when 'brera' -%}{%- case part -%}{%- when 'lp' -%}Connemara, Altai{%- when 'anchor' -%}connemara{%- when 'reason' -%}
+<h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">In Loro Piana Interiors Connemara and Altai.</h3>
+<p style="font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 16px; max-width: 34ch;">Connemara linen, with the winter side of the mattress edged in Altai wool and cashmere.</p>
+<a href="{% render 'ms-link', to: 'loro' %}#connemara" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 24px; color: inherit; text-decoration: none;">
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #2E2A39 url({{ 'ms-lp-co-01.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Dark Indigo"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #525C9B url({{ 'ms-lp-co-02.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Indaco Oxus"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #B8A18F url({{ 'ms-lp-co-03.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Zen"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #EAE6E5 url({{ 'ms-lp-co-04.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Biancore"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #66575B url({{ 'ms-lp-co-05.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Dark Zen"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #6E7E8E url({{ 'ms-lp-co-06.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Malachite"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #5F2F31 url({{ 'ms-lp-co-07.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Sassicaia"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #822823 url({{ 'ms-lp-co-08.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Cowes"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #AB7F5A url({{ 'ms-lp-co-09.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Camargue"></span>
+<span style="font-size: 11px; letter-spacing: .22em; text-transform: uppercase; margin-left: 8px; border-bottom: 1px solid currentColor; padding-bottom: 4px;">The Connemara colours →</span>
+</a>
+{%- endcase -%}
+{%- when 'roma' -%}{%- case part -%}{%- when 'lp' -%}Mystic River{%- when 'anchor' -%}mystic-river{%- when 'reason' -%}
+<h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">In Loro Piana Interiors Mystic River.</h3>
+<p style="font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 16px; max-width: 34ch;">A linen and cotton with a soft, nubbed hand, heavy enough to hold the line of a mattress. The cloth we use most, in twelve colours.</p>
+<a href="{% render 'ms-link', to: 'loro' %}#mystic-river" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 24px; color: inherit; text-decoration: none;">
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #CFCBC6 url({{ 'ms-lp-my-01.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Biancore"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #CFC4B7 url({{ 'ms-lp-my-02.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Light Zen"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #BCAF9C url({{ 'ms-lp-my-03.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Zen"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #988278 url({{ 'ms-lp-my-04.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Taupe"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #392325 url({{ 'ms-lp-my-05.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Granello di Pepe"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #672022 url({{ 'ms-lp-my-06.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Rosso Terra"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #902121 url({{ 'ms-lp-my-07.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Gensola"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #5C533D url({{ 'ms-lp-my-08.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Muschio"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #718688 url({{ 'ms-lp-my-09.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Malachite"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #A2B2B9 url({{ 'ms-lp-my-10.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Polvere"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #292942 url({{ 'ms-lp-my-11.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Serenata"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #A19793 url({{ 'ms-lp-my-12.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Grey Dune"></span>
+<span style="font-size: 11px; letter-spacing: .22em; text-transform: uppercase; margin-left: 8px; border-bottom: 1px solid currentColor; padding-bottom: 4px;">The Mystic River colours →</span>
+</a>
+{%- endcase -%}
+{%- when 'topper-roma' -%}{%- case part -%}{%- when 'lp' -%}Mystic River{%- when 'anchor' -%}mystic-river{%- when 'reason' -%}
+<h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">In Loro Piana Interiors Mystic River.</h3>
+<p style="font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 16px; max-width: 34ch;">A linen and cotton with a soft, nubbed hand, heavy enough to hold the line of a mattress. The cloth we use most, in twelve colours.</p>
+<a href="{% render 'ms-link', to: 'loro' %}#mystic-river" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 24px; color: inherit; text-decoration: none;">
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #CFCBC6 url({{ 'ms-lp-my-01.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Biancore"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #CFC4B7 url({{ 'ms-lp-my-02.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Light Zen"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #BCAF9C url({{ 'ms-lp-my-03.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Zen"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #988278 url({{ 'ms-lp-my-04.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Taupe"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #392325 url({{ 'ms-lp-my-05.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Granello di Pepe"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #672022 url({{ 'ms-lp-my-06.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Rosso Terra"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #902121 url({{ 'ms-lp-my-07.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Gensola"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #5C533D url({{ 'ms-lp-my-08.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Muschio"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #718688 url({{ 'ms-lp-my-09.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Malachite"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #A2B2B9 url({{ 'ms-lp-my-10.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Polvere"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #292942 url({{ 'ms-lp-my-11.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Serenata"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #A19793 url({{ 'ms-lp-my-12.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Grey Dune"></span>
+<span style="font-size: 11px; letter-spacing: .22em; text-transform: uppercase; margin-left: 8px; border-bottom: 1px solid currentColor; padding-bottom: 4px;">The Mystic River colours →</span>
+</a>
+{%- endcase -%}
+{%- when 'storage' -%}{%- case part -%}{%- when 'lp' -%}Mystic River{%- when 'anchor' -%}mystic-river{%- when 'reason' -%}
+<h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">In Loro Piana Interiors Mystic River.</h3>
+<p style="font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 16px; max-width: 34ch;">A linen and cotton with a soft, nubbed hand, heavy enough to hold the line of a mattress. The cloth we use most, in twelve colours.</p>
+<a href="{% render 'ms-link', to: 'loro' %}#mystic-river" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 24px; color: inherit; text-decoration: none;">
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #CFCBC6 url({{ 'ms-lp-my-01.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Biancore"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #CFC4B7 url({{ 'ms-lp-my-02.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Light Zen"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #BCAF9C url({{ 'ms-lp-my-03.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Zen"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #988278 url({{ 'ms-lp-my-04.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Taupe"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #392325 url({{ 'ms-lp-my-05.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Granello di Pepe"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #672022 url({{ 'ms-lp-my-06.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Rosso Terra"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #902121 url({{ 'ms-lp-my-07.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Gensola"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #5C533D url({{ 'ms-lp-my-08.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Muschio"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #718688 url({{ 'ms-lp-my-09.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Malachite"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #A2B2B9 url({{ 'ms-lp-my-10.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Polvere"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #292942 url({{ 'ms-lp-my-11.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Serenata"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #A19793 url({{ 'ms-lp-my-12.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Grey Dune"></span>
+<span style="font-size: 11px; letter-spacing: .22em; text-transform: uppercase; margin-left: 8px; border-bottom: 1px solid currentColor; padding-bottom: 4px;">The Mystic River colours →</span>
+</a>
+{%- endcase -%}
+{%- when 'dreamy-springs' -%}{%- case part -%}{%- when 'lp' -%}Mystic River{%- when 'anchor' -%}mystic-river{%- when 'reason' -%}
+<h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">In Loro Piana Interiors Mystic River.</h3>
+<p style="font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 16px; max-width: 34ch;">In natural linen and cotton, or in Mystic River, a linen and cotton in twelve colours.</p>
+<a href="{% render 'ms-link', to: 'loro' %}#mystic-river" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 24px; color: inherit; text-decoration: none;">
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #CFCBC6 url({{ 'ms-lp-my-01.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Biancore"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #CFC4B7 url({{ 'ms-lp-my-02.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Light Zen"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #BCAF9C url({{ 'ms-lp-my-03.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Zen"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #988278 url({{ 'ms-lp-my-04.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Taupe"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #392325 url({{ 'ms-lp-my-05.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Granello di Pepe"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #672022 url({{ 'ms-lp-my-06.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Rosso Terra"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #902121 url({{ 'ms-lp-my-07.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Gensola"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #5C533D url({{ 'ms-lp-my-08.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Muschio"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #718688 url({{ 'ms-lp-my-09.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Malachite"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #A2B2B9 url({{ 'ms-lp-my-10.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Polvere"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #292942 url({{ 'ms-lp-my-11.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Serenata"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #A19793 url({{ 'ms-lp-my-12.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Grey Dune"></span>
+<span style="font-size: 11px; letter-spacing: .22em; text-transform: uppercase; margin-left: 8px; border-bottom: 1px solid currentColor; padding-bottom: 4px;">The Mystic River colours →</span>
+</a>
+{%- endcase -%}
+{%- when 'bellini' -%}{%- case part -%}{%- when 'lp' -%}Wish{%- when 'anchor' -%}wish{%- when 'reason' -%}
+<h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">In Loro Piana Interiors Wish.</h3>
+<p style="font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 16px; max-width: 34ch;">Wish, a bouclé of wool and cashmere, soft and deep, on the whole bed.</p>
+<a href="{% render 'ms-link', to: 'loro' %}#wish" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 24px; color: inherit; text-decoration: none;">
+<span style="font-size: 11px; letter-spacing: .22em; text-transform: uppercase; margin-left: 0; border-bottom: 1px solid currentColor; padding-bottom: 4px;">See Wish →</span>
+</a>
+{%- endcase -%}
+{%- when 'flora' -%}{%- case part -%}{%- when 'lp' -%}Cardi, Wish{%- when 'anchor' -%}wish{%- when 'reason' -%}
+<h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">In Loro Piana Interiors Cardi and Wish.</h3>
+<p style="font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 16px; max-width: 34ch;">Cardi on the winter face of the topper, Wish bouclé on the base: both wool and cashmere, with linen for summer.</p>
+<a href="{% render 'ms-link', to: 'loro' %}#cardi" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 24px; color: inherit; text-decoration: none;">
+<span style="font-size: 11px; letter-spacing: .22em; text-transform: uppercase; margin-left: 0; border-bottom: 1px solid currentColor; padding-bottom: 4px;">See Cardi and Wish →</span>
+</a>
+{%- endcase -%}
+{%- when 'top' -%}{%- case part -%}{%- when 'lp' -%}Connemara, Ely’s Harbour, Bangor{%- when 'anchor' -%}connemara{%- when 'reason' -%}
+<h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">In Loro Piana Interiors Connemara, Ely’s Harbour and Bangor.</h3>
+<p style="font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 16px; max-width: 34ch;">Connemara linen on the base and the summer side, Ely’s Harbour linen and cashmere for winter, Bangor linen on the topper.</p>
+<a href="{% render 'ms-link', to: 'loro' %}#connemara" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 24px; color: inherit; text-decoration: none;">
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #2E2A39 url({{ 'ms-lp-co-01.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Dark Indigo"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #525C9B url({{ 'ms-lp-co-02.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Indaco Oxus"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #B8A18F url({{ 'ms-lp-co-03.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Zen"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #EAE6E5 url({{ 'ms-lp-co-04.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Biancore"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #66575B url({{ 'ms-lp-co-05.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Dark Zen"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #6E7E8E url({{ 'ms-lp-co-06.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Malachite"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #5F2F31 url({{ 'ms-lp-co-07.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Sassicaia"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #822823 url({{ 'ms-lp-co-08.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Cowes"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #AB7F5A url({{ 'ms-lp-co-09.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Camargue"></span>
+<span style="font-size: 11px; letter-spacing: .22em; text-transform: uppercase; margin-left: 8px; border-bottom: 1px solid currentColor; padding-bottom: 4px;">The Connemara colours →</span>
+</a>
+{%- endcase -%}
+{%- when 'giotto' -%}{%- case part -%}{%- when 'lp' -%}Connemara, Bangor{%- when 'anchor' -%}connemara{%- when 'reason' -%}
+<h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">In Loro Piana Interiors Connemara and Bangor.</h3>
+<p style="font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 16px; max-width: 34ch;">Connemara linen on the base and the mattress, Bangor linen on the topper.</p>
+<a href="{% render 'ms-link', to: 'loro' %}#connemara" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 24px; color: inherit; text-decoration: none;">
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #2E2A39 url({{ 'ms-lp-co-01.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Dark Indigo"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #525C9B url({{ 'ms-lp-co-02.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Indaco Oxus"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #B8A18F url({{ 'ms-lp-co-03.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Zen"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #EAE6E5 url({{ 'ms-lp-co-04.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Biancore"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #66575B url({{ 'ms-lp-co-05.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Dark Zen"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #6E7E8E url({{ 'ms-lp-co-06.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Malachite"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #5F2F31 url({{ 'ms-lp-co-07.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Sassicaia"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #822823 url({{ 'ms-lp-co-08.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Cowes"></span>
+<span style="display: block; width: 30px; height: 30px; border-radius: 50%; background: #AB7F5A url({{ 'ms-lp-co-09.jpg' | asset_url }}) center / cover; box-shadow: rgba(23, 20, 15, 0.14) 0px 0px 0px 1px inset;" title="Camargue"></span>
+<span style="font-size: 11px; letter-spacing: .22em; text-transform: uppercase; margin-left: 8px; border-bottom: 1px solid currentColor; padding-bottom: 4px;">The Connemara colours →</span>
+</a>
+{%- endcase -%}
+{%- when 'paisley' -%}{%- case part -%}{%- when 'lp' -%}Shadan{%- when 'anchor' -%}shadan{%- when 'reason' -%}
+<h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">In Loro Piana Interiors Shadan.</h3>
+<p style="font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 16px; max-width: 34ch;">Shadan, a paisley linen, on the topper; Katai, a pure silk, on the base and the mattress border.</p>
+<a href="{% render 'ms-link', to: 'loro' %}#shadan" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 24px; color: inherit; text-decoration: none;">
+<span style="font-size: 11px; letter-spacing: .22em; text-transform: uppercase; margin-left: 0; border-bottom: 1px solid currentColor; padding-bottom: 4px;">See Shadan →</span>
+</a>
+{%- endcase -%}
+{%- when 'vicuna' -%}{%- case part -%}{%- when 'lp' -%}Loro Piana Interiors{%- when 'anchor' -%}fabrics{%- when 'reason' -%}
+<h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">In linen and cotton, or Loro Piana Interiors.</h3>
+<p style="font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 16px; max-width: 34ch;">In raw linen and cotton, or in a Loro Piana Interiors cloth chosen with you.</p>
+<a href="{% render 'ms-link', to: 'loro' %}#fabrics" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 24px; color: inherit; text-decoration: none;">
+<span style="font-size: 11px; letter-spacing: .22em; text-transform: uppercase; margin-left: 0; border-bottom: 1px solid currentColor; padding-bottom: 4px;">The Loro Piana Interiors cloths →</span>
+</a>
+{%- endcase -%}
+{%- endcase -%}

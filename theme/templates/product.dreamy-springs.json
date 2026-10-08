@@ -6,33 +6,60 @@
   "sections": {
     "s01": {
       "type": "ms-product-main",
-      "settings": {},
+      "settings": {
+        "cover_value": "Natural linen and cotton, or Loro Piana Interiors Mystic River"
+      },
       "blocks": {
         "fibre_01": {
           "type": "fibre",
           "settings": {
-            "name": "Camel Hair"
+            "name": "Cashmere",
+            "note": "Warmth without weight"
           }
         },
         "fibre_02": {
+          "type": "fibre",
+          "settings": {
+            "name": "Camel Hair",
+            "note": "Warmth · Temperature"
+          }
+        },
+        "fibre_03": {
           "type": "fibre",
           "settings": {
             "name": "Horsehair",
             "note": "Support · Breathability"
           }
         },
-        "fibre_03": {
+        "fibre_04": {
           "type": "fibre",
           "settings": {
-            "name": "Cashmere",
-            "note": "Warmth without weight"
+            "name": "Cheviot Wool",
+            "note": "Support · Temperature"
+          }
+        },
+        "fibre_05": {
+          "type": "fibre",
+          "settings": {
+            "name": "Linen",
+            "note": "Breathability · Freshness"
+          }
+        },
+        "fibre_06": {
+          "type": "fibre",
+          "settings": {
+            "name": "Ingeo",
+            "note": "Breathability · Freshness"
           }
         }
       },
       "block_order": [
         "fibre_01",
         "fibre_02",
-        "fibre_03"
+        "fibre_03",
+        "fibre_04",
+        "fibre_05",
+        "fibre_06"
       ]
     },
     "s02": {
@@ -60,7 +87,7 @@
           "type": "qa",
           "settings": {
             "q": "What is [product] made of?",
-            "a": "<p>[product] is made by hand in Italy from natural fibres: camel hair, horsehair and cashmere. The cloth is chosen from the fabric book, Loro Piana Interiors included, and the system is made to order by two artisans, start to finish.</p>"
+            "a": "<p>[product] is made by hand in Italy from natural fibres: cashmere, camel hair, horsehair, Cheviot wool, linen and Ingeo. It is covered in natural linen and cotton, or upholstered in Loro Piana Interiors Mystic River. It is made to order by two artisans, start to finish.</p>"
           }
         },
         "qa_02": {

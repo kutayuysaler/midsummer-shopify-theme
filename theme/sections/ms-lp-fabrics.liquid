@@ -1,0 +1,286 @@
+{%- comment -%}
+  The Loro Piana Interiors cloths our systems are made in, one after the other, as the atelier's
+  colour cards show them: the cloth, its article and composition, the systems it dresses, and its
+  colours by name. A Fabric block opens a cloth; the Colour blocks after it are its palette.
+  Choose a colour and the large specimen follows; ask about it and the enquiry opens with the
+  cloth and the colour already written.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign n_fab = 0
+  for b in section.blocks
+    if b.type == 'fabric'
+      assign n_fab = n_fab | plus: 1
+    endif
+  endfor
+-%}
+<section class="ms-lf" id="{{ s.anchor | default: 'fabrics' }}" data-ms-lf>
+  <div class="ms-lf__in">
+    <header class="ms-lf__head">
+      <div>
+        {%- if s.eyebrow != blank -%}<div class="ms-lf__eyebrow">{{ s.eyebrow }}</div>{%- endif -%}
+        <h2 class="ms-lf__heading">{{ s.heading }}</h2>
+      </div>
+      {%- if s.text != blank -%}<div class="ms-lf__text">{{ s.text }}</div>{%- endif -%}
+    </header>
+
+    {%- if n_fab > 1 -%}
+      <nav class="ms-lf__nav" aria-label="{{ s.nav_label | escape }}">
+        {%- for b in section.blocks -%}
+          {%- if b.type == 'fabric' -%}
+            {%- liquid
+              assign start = forloop.index
+              assign nc = 0
+              for c in section.blocks offset: start
+                if c.type == 'fabric'
+                  break
+                endif
+                assign nc = nc | plus: 1
+              endfor
+              assign anchor = b.settings.anchor | default: b.settings.name | handleize
+            -%}
+            <a class="ms-lf__tab" href="#{{ anchor }}">{{ b.settings.name }}{% if nc > 0 %}<sup>{{ nc }}</sup>{% endif %}</a>
+          {%- endif -%}
+        {%- endfor -%}
+      </nav>
+    {%- endif -%}
+
+    {%- assign open = false -%}
+    {%- assign fab_n = 0 -%}
+    {%- for b in section.blocks -%}
+      {%- if b.type == 'fabric' -%}
+        {%- if open -%}</ul>{% if no_colours %}{{ none_html }}{% endif %}</div></article>{%- endif -%}
+        {%- liquid
+          assign open = true
+          assign fab_n = fab_n | plus: 1
+          assign fs = b.settings
+          assign cloth = fs.name
+          assign anchor = fs.anchor | default: fs.name | handleize
+          assign first = section.blocks[forloop.index]
+          assign no_colours = true
+          if first and first.type == 'colour'
+            assign no_colours = false
+          endif
+          assign big_color = fs.color
+          assign big_img = ''
+          assign cap = s.no_palette_caption
+          if no_colours
+            if fs.image != blank
+              assign big_img = fs.image | image_url: width: 900
+            elsif fs.image_fallback != blank
+              assign big_img = fs.image_fallback | asset_url
+            endif
+          else
+            assign big_color = first.settings.color
+            assign cap = first.settings.name
+            if first.settings.image != blank
+              assign big_img = first.settings.image | image_url: width: 900
+            elsif first.settings.large_fallback != blank
+              assign big_img = first.settings.large_fallback | asset_url
+            endif
+          endif
+          assign note = s.ask_note | replace: '[cloth]', cloth | replace: '[colour]', cap
+          if no_colours
+            assign note = s.ask_cloth_note | replace: '[cloth]', cloth
+          endif
+          capture none_html
+            echo '<p class="ms-lf__none">' | append: s.no_palette | append: '</p>'
+          endcapture
+        -%}
+        <article class="ms-lf__fab{% if no_colours %} is-plain{% endif %}" id="{{ anchor }}" data-lf data-lf-cloth="{{ cloth | escape }}" {{ b.shopify_attributes }}>
+          <figure class="ms-lf__view">
+            <div class="ms-lf__big ms-lf__big--{{ fs.texture | default: 'linen' }}{% if big_img != '' %} has-img{% endif %}" data-lf-big role="img" aria-label="{{ cloth | escape }}{% unless no_colours %}, {{ cap | escape }}{% endunless %}"
+              style="background-color: {{ big_color }};{% if big_img != '' %} background-image: url({{ big_img }});{% endif %}"></div>
+            <figcaption class="ms-lf__cap">
+              <span class="ms-lf__capn" data-lf-cname>{{ cap }}</span>
+              {%- if s.ask_label != blank -%}
+                <a class="ms-lf__ask" href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-cta="lp-colour" data-lf-ask data-ms-note="{{ note | escape }}">{% if no_colours %}{{ s.ask_cloth_label }}{% else %}{{ s.ask_label }}{% endif %}</a>
+              {%- endif -%}
+            </figcaption>
+          </figure>
+          <div class="ms-lf__body">
+            <div class="ms-lf__num">{{ fab_n | prepend: '0' | slice: -2, 2 }}</div>
+            <h3 class="ms-lf__name">{{ cloth }}</h3>
+            <dl class="ms-lf__facts">
+              {%- if fs.code != blank -%}<div><dt>{{ s.code_label }}</dt><dd>{{ fs.code }}</dd></div>{%- endif -%}
+              {%- if fs.composition != blank -%}<div><dt>{{ s.comp_label }}</dt><dd>{{ fs.composition }}</dd></div>{%- endif -%}
+              {%- if fs.systems != blank -%}<div><dt>{{ s.systems_label }}</dt><dd>{{ fs.systems }}</dd></div>{%- endif -%}
+            </dl>
+            {%- if fs.text != blank -%}<p class="ms-lf__desc">{{ fs.text }}</p>{%- endif -%}
+            <ul class="ms-lf__grid" role="list" aria-label="{{ s.palette_label | escape }}: {{ cloth | escape }}">
+      {%- elsif b.type == 'colour' and open -%}
+        {%- liquid
+          assign cs = b.settings
+          assign img_l = ''
+          if cs.image != blank
+            assign thumb = cs.image | image_url: width: 240
+            assign img_l = cs.image | image_url: width: 900
+          elsif cs.image_fallback != blank
+            assign thumb = cs.image_fallback | asset_url
+            if cs.large_fallback != blank
+              assign img_l = cs.large_fallback | asset_url
+            endif
+          else
+            assign thumb = ''
+          endif
+          assign is_first = false
+          assign prev_i = forloop.index0 | minus: 1
+          if section.blocks[prev_i].type == 'fabric'
+            assign is_first = true
+          endif
+        -%}
+              <li {{ b.shopify_attributes }}>
+                <button type="button" class="ms-lf__chip{% if is_first %} is-sel{% endif %}" aria-pressed="{{ is_first }}"
+                  data-name="{{ cs.name | escape }}" data-color="{{ cs.color }}" data-img="{{ img_l }}">
+                  <span class="ms-lf__sw" style="background-color: {{ cs.color }};{% if thumb != '' %} background-image: url({{ thumb }});{% endif %}"></span>
+                  <span class="ms-lf__cn">{{ cs.name }}</span>
+                </button>
+              </li>
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if open -%}</ul>{% if no_colours %}{{ none_html }}{% endif %}</div></article>{%- endif -%}
+
+    {%- if s.footnote != blank -%}<p class="ms-lf__foot">{{ s.footnote }}</p>{%- endif -%}
+  </div>
+</section>
+<style>
+  .ms-lf { background: #F4EFE5; color: #17140F; padding: clamp(72px, 10vw, 160px) clamp(16px, 5vw, 80px); }
+  .ms-lf__in { max-width: 1440px; margin: 0 auto; }
+  .ms-lf__head { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: clamp(24px, 5vw, 96px); align-items: end; }
+  .ms-lf__eyebrow { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: #6E675C; }
+  .ms-lf__heading { font-family: Newsreader, Georgia, serif; font-size: clamp(28px, 3.6vw, 52px); line-height: 1.08; letter-spacing: -.025em; font-weight: 200; margin-top: 18px; max-width: 18ch; }
+  .ms-lf__text { font-size: 15px; line-height: 1.95; color: #4A443B; max-width: 54ch; }
+  .ms-lf__text p { margin: 0; }
+  .ms-lf__nav { display: flex; flex-wrap: wrap; gap: 6px 8px; margin-top: clamp(36px, 4vw, 56px); padding: 16px 0; border-top: 1px solid rgba(23, 20, 15, .14); border-bottom: 1px solid rgba(23, 20, 15, .14); }
+  .ms-site a.ms-lf__tab { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #4A443B; border: 1px solid rgba(23, 20, 15, .18); padding: 10px 16px; text-decoration: none; transition: background .3s, color .3s, border-color .3s; }
+  .ms-site a.ms-lf__tab:hover, .ms-site a.ms-lf__tab:focus-visible { background: #17140F; color: #FBF9F5; border-color: #17140F; }
+  .ms-lf__tab sup { font-size: 9px; margin-left: 4px; opacity: .7; }
+  .ms-lf__fab { display: grid; grid-template-columns: minmax(240px, 5fr) minmax(0, 7fr); gap: clamp(28px, 5vw, 88px); align-items: start; padding: clamp(48px, 6vw, 96px) 0; border-bottom: 1px solid rgba(23, 20, 15, .12); scroll-margin-top: 90px; }
+  .ms-lf__fab:last-of-type { border-bottom: 0; }
+  .ms-lf__view { position: sticky; top: 110px; margin: 0; }
+  .ms-lf__big { position: relative; aspect-ratio: 1; background-size: cover; background-position: center; box-shadow: inset 0 0 0 1px rgba(23, 20, 15, .14); transition: background-color .5s; overflow: hidden; }
+  .ms-lf__big::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: url({{ 'ms-lp-weave.jpg' | asset_url }}) center / cover; mix-blend-mode: overlay; opacity: .75; }
+  .ms-lf__big.has-img::after { display: none; }
+  .ms-lf__big--wool::after { background-image: url({{ 'ms-lp-wool.jpg' | asset_url }}); opacity: .8; }
+  .ms-lf__big--boucle::after { background-image: url({{ 'ms-lp-wool.jpg' | asset_url }}); background-size: 55%; background-repeat: repeat; opacity: .9; }
+  .ms-lf__big.is-swap { animation: msLfIn .55s cubic-bezier(.22, 1, .36, 1); }
+  @keyframes msLfIn { from { opacity: .4; transform: scale(.985); } to { opacity: 1; transform: none; } }
+  .ms-lf__cap { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 10px 20px; padding-top: 16px; }
+  .ms-lf__capn { font-family: Newsreader, Georgia, serif; font-size: clamp(20px, 1.9vw, 26px); font-weight: 300; letter-spacing: -.01em; }
+  .ms-site a.ms-lf__ask { font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: #17140F; text-decoration: none; border-bottom: 1px solid #17140F; padding-bottom: 5px; }
+  .ms-site a.ms-lf__ask:hover { opacity: .65; }
+  .ms-lf__num { font-size: 11px; letter-spacing: .24em; color: #7E623B; }
+  .ms-lf__name { font-family: Newsreader, Georgia, serif; font-size: clamp(34px, 4vw, 58px); line-height: 1.02; letter-spacing: -.03em; font-weight: 200; margin-top: 10px; }
+  .ms-lf__facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px 28px; margin: clamp(20px, 2.4vw, 30px) 0 0; padding: 18px 0; border-top: 1px solid rgba(23, 20, 15, .16); border-bottom: 1px solid rgba(23, 20, 15, .16); }
+  .ms-lf__facts dt { font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: #6E675C; }
+  .ms-lf__facts dd { margin: 6px 0 0; font-size: 14.5px; line-height: 1.6; color: #2E2A24; }
+  .ms-site .ms-lf__desc { font-size: 15px; line-height: 1.9; color: #4A443B; margin-top: 20px; max-width: 56ch; }
+  .ms-lf__grid { list-style: none; margin: clamp(26px, 3vw, 38px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 22px 14px; }
+  .ms-lf__grid:empty { display: none; }
+  .ms-lf__chip { display: block; width: 100%; font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; text-align: left; }
+  .ms-lf__sw { --z: 6px; display: block; aspect-ratio: 3 / 2; background-size: cover; background-position: center;
+    -webkit-mask: conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) top / var(--z) 51% repeat-x, conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / var(--z) 51% repeat-x;
+    mask: conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) top / var(--z) 51% repeat-x, conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / var(--z) 51% repeat-x;
+    transition: transform .45s cubic-bezier(.22, 1, .36, 1), filter .3s; }
+  .ms-lf__chip:hover .ms-lf__sw { transform: translateY(-3px); filter: drop-shadow(0 8px 10px rgba(23, 20, 15, .22)); }
+  .ms-lf__cn { display: block; margin-top: 9px; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: #6E675C; line-height: 1.4; }
+  .ms-lf__chip.is-sel .ms-lf__cn { color: #17140F; }
+  .ms-lf__chip.is-sel .ms-lf__cn::before { content: ''; display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: #17140F; margin-right: 6px; vertical-align: 2px; }
+  .ms-lf__chip:focus-visible { outline: 2px solid #17140F; outline-offset: 4px; }
+  .ms-lf__none { font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 17px; line-height: 1.6; color: #6E675C; margin-top: 22px; max-width: 46ch; }
+  .ms-lf__foot { font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 17px; color: #6E675C; margin-top: clamp(28px, 4vw, 48px); max-width: 70ch; }
+  @media (max-width: 860px) {
+    .ms-lf__nav { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-left: -16px; margin-right: -16px; padding-left: 16px; padding-right: 16px; }
+    .ms-lf__nav::-webkit-scrollbar { display: none; }
+    .ms-site a.ms-lf__tab { flex: none; padding: 9px 13px; }
+    .ms-lf__fab { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+    .ms-lf__view { position: relative; top: 0; }
+    .ms-lf__big { aspect-ratio: 16 / 10; }
+    .ms-lf__grid { grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 16px 10px; }
+    .ms-lf__cn { font-size: 9px; letter-spacing: .1em; }
+  }
+  @media (prefers-reduced-motion: reduce) { .ms-lf__big.is-swap { animation: none; } .ms-lf__sw { transition: none; } }
+</style>
+<script>
+  (function () {
+    var root = document.currentScript && document.currentScript.previousElementSibling && document.currentScript.previousElementSibling.previousElementSibling;
+    if (!root || !root.matches('[data-ms-lf]')) root = document.querySelector('[data-ms-lf]:not([data-lf-ready])');
+    if (!root) return;
+    root.setAttribute('data-lf-ready', '');
+    var tpl = {{ section.settings.ask_note | json }};
+    root.addEventListener('click', function (e) {
+      var c = e.target.closest('.ms-lf__chip');
+      if (!c) return;
+      var fab = c.closest('[data-lf]'), big = fab.querySelector('[data-lf-big]'), nm = fab.querySelector('[data-lf-cname]'), ask = fab.querySelector('[data-lf-ask]');
+      fab.querySelectorAll('.ms-lf__chip.is-sel').forEach(function (x) { x.classList.remove('is-sel'); x.setAttribute('aria-pressed', 'false'); });
+      c.classList.add('is-sel'); c.setAttribute('aria-pressed', 'true');
+      var img = c.getAttribute('data-img'), name = c.getAttribute('data-name');
+      big.style.backgroundColor = c.getAttribute('data-color');
+      big.style.backgroundImage = img ? 'url(' + img + ')' : 'none';
+      big.classList.toggle('has-img', !!img);
+      big.setAttribute('aria-label', fab.getAttribute('data-lf-cloth') + ', ' + name);
+      big.classList.remove('is-swap'); void big.offsetWidth; big.classList.add('is-swap');
+      nm.textContent = name;
+      if (ask && tpl) ask.setAttribute('data-ms-note', tpl.replace('[cloth]', fab.getAttribute('data-lf-cloth')).replace('[colour]', name));
+      if (window.matchMedia('(max-width: 860px)').matches && big.getBoundingClientRect().top < 0) big.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  })();
+</script>
+{% schema %}
+{
+  "name": "Loro Piana cloths",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Anchor (for links to this part)", "default": "fabrics" },
+    { "type": "text", "id": "eyebrow", "label": "Label", "default": "The cloths" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "The cloths our systems are made in." },
+    { "type": "richtext", "id": "text", "label": "Text" },
+    { "type": "text", "id": "nav_label", "label": "Cloth list name (for screen readers)", "default": "The cloths" },
+    { "type": "header", "content": "Labels" },
+    { "type": "text", "id": "code_label", "label": "Article", "default": "Article" },
+    { "type": "text", "id": "comp_label", "label": "Composition", "default": "Composition" },
+    { "type": "text", "id": "systems_label", "label": "Systems", "default": "On our systems" },
+    { "type": "text", "id": "palette_label", "label": "Palette", "default": "Palette" },
+    { "type": "text", "id": "no_palette", "label": "When a cloth has no colours listed", "default": "Its colours are at the atelier, to be chosen against the bed." },
+    { "type": "text", "id": "no_palette_caption", "label": "Caption when a cloth has no colours listed", "default": "Colours at the atelier" },
+    { "type": "header", "content": "Enquiry" },
+    { "type": "text", "id": "ask_label", "label": "Ask about a colour", "default": "Ask about this colour" },
+    { "type": "text", "id": "ask_note", "label": "Message it starts", "info": "[cloth] and [colour] become the cloth's and the colour's names.", "default": "I would like to see Loro Piana Interiors [cloth] in [colour]." },
+    { "type": "text", "id": "ask_cloth_label", "label": "Ask about a cloth without colours", "default": "Ask to see it" },
+    { "type": "text", "id": "ask_cloth_note", "label": "Message it starts (cloth)", "info": "[cloth] becomes the cloth's name.", "default": "I would like to see the colours of Loro Piana Interiors [cloth]." },
+    { "type": "text", "id": "footnote", "label": "Footnote" }
+  ],
+  "blocks": [
+    {
+      "type": "fabric",
+      "name": "Cloth",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Name", "default": "Cloth" },
+        { "type": "text", "id": "anchor", "label": "Anchor", "info": "Product pages link here, as #mystic-river. Empty: made from the name." },
+        { "type": "text", "id": "code", "label": "Article" },
+        { "type": "text", "id": "composition", "label": "Composition" },
+        { "type": "text", "id": "systems", "label": "On our systems" },
+        { "type": "textarea", "id": "text", "label": "Text" },
+        { "type": "select", "id": "texture", "label": "Weave, when only a colour is shown", "default": "linen", "options": [
+          { "value": "linen", "label": "Linen" }, { "value": "wool", "label": "Wool" }, { "value": "boucle", "label": "Bouclé" }
+        ] },
+        { "type": "color", "id": "color", "label": "Colour, when it has no colours listed", "default": "#D9CDBE" },
+        { "type": "image_picker", "id": "image", "label": "Photograph, when it has no colours listed" },
+        { "type": "text", "id": "image_fallback", "label": "Theme photograph (file name)" }
+      ]
+    },
+    {
+      "type": "colour",
+      "name": "Colour",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Name", "default": "Colour", "info": "As on the cloth's card, with its number: 4 Zen." },
+        { "type": "color", "id": "color", "label": "Colour", "default": "#C9BCA8" },
+        { "type": "image_picker", "id": "image", "label": "Photograph of the colour" },
+        { "type": "text", "id": "image_fallback", "label": "Theme photograph (file name)" },
+        { "type": "text", "id": "large_fallback", "label": "Large theme photograph (file name)" }
+      ]
+    }
+  ],
+  "max_blocks": 50,
+  "presets": [ { "name": "Loro Piana cloths" } ]
+}
+{% endschema %}

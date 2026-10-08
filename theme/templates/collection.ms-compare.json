@@ -32,9 +32,9 @@
           "type": "row",
           "settings": {
             "label": "Cloth",
-            "v1": "Natural cloths, coloured linen among them",
-            "v2": "Loro Piana Interiors",
-            "v3": "Loro Piana Interiors, fully upholstered",
+            "v1": "Cotton, or linen and cotton; Capri in Loro Piana Interiors Mystic River",
+            "v2": "Raw linen and cotton; Dreamy and Brera in Loro Piana Interiors",
+            "v3": "Loro Piana Interiors on most systems",
             "shared": false
           }
         },
@@ -125,7 +125,7 @@
           "type": "qa",
           "settings": {
             "q": "Which collection is right for me?",
-            "a": "<p>It depends on how you sleep and how far you want the bespoke to go. Essentials is natural comfort, done properly; Signature adds Loro Piana Interiors and precious fibres; Icons is the house without limits. The five questions of Find your Midsummer suggest a system, and at the atelier in Milan you can lie on all three.</p>"
+            "a": "<p>It depends on how you sleep and how far you want the bespoke to go. Essentials is natural comfort, done properly; Signature adds precious fibres, and Loro Piana Interiors on Dreamy and Brera; Icons is the house without limits. The five questions of Find your Midsummer suggest a system, and at the atelier in Milan you can lie on all three.</p>"
           }
         },
         "qa_02": {

@@ -712,5 +712,52 @@ left in Shopify, in order.
 - **App embeds come preset**, as on the live theme. Turned on: Tipo Appointment, Appointo and
   Mailchimp. Turned off: Avada SEO Suite and SEOon Blog, whose structured data repeated the
   theme's.
-- **Fibres** for Amalfi (linen), Monteverdi (cashmere, camel hair) and Ultra Dry (vegetable
-  horsehair) are now in their templates. Bellini still needs its own.
+- **Fibres**: every system's fibres now come from the house's catalogue (section 26).
+
+## 26. Loro Piana Interiors, cloth by cloth, and every system's fibres
+
+The sources are the 2026 catalogue (composition and fittings of every system), the price lists
+of August 2026 (the cloth of every system), the Essenziale and First Dream sheets, Loro Piana
+Interiors' 2026 trade list (article and composition) and the Loro Piana Interiors cards kept at
+the atelier. Everything shown can also be edited in the theme editor.
+
+- **The Loro Piana Interiors page** now shows the cloths our systems are actually made in, one
+  after the other: Mystic River, Connemara, Altai, Wish, Cardi, Ely’s Harbour, Bangor and Shadan.
+  Each one shows its article and composition, the systems it dresses, and its colours by name,
+  with their numbers as on the cards:
+  - Mystic River: 12 colours, photographed.
+  - Connemara: 9 colours, from the card at the atelier.
+  - Altai: 13 plain colours and 3 mélange, from the card at the atelier.
+
+  Choose a colour and the large sample follows; *Ask about this colour* opens the enquiry with
+  the cloth and the colour already written. The old palette, 39 unnamed cloths, is gone.
+- **Wish, Cardi, Ely’s Harbour and Bangor** have no colour card in Drive or Dropbox, so they show
+  *Colours at the atelier*. To add their colours, edit the page (*Loro Piana cloths* section):
+  add **Colour** blocks right after the cloth, each with its name and number as on the card
+  ("4 Zen"), its colour and, ideally, a photograph.
+- **Every product page** says what that system is dressed in. Systems made in Loro Piana
+  Interiors name the cloth, show its own colours and link to it on the Loro Piana Interiors
+  page:
+  - Capri, Dreamy, Roma, Topper Roma and Storage: Mystic River.
+  - Brera: Connemara, edged in Altai.
+  - Top: Connemara, Ely’s Harbour and Bangor.
+  - Giotto Round: Connemara and Bangor.
+  - Flora: Cardi and Wish.
+  - Bellini: Wish.
+  - Paisley: Shadan and Katai silk.
+  - Dreamy Springs and Vicuña: offered in it on request.
+
+  The other systems name their natural cloth (cotton, linen and cotton, raw linen and cotton,
+  viscose for My Dream) and say nothing about Loro Piana Interiors. This applies to the
+  Upholstery line, the line under the name, *Before you order*, the cloth column and *Inside
+  the bed*.
+- **Fibres** follow the catalogue on every system. The biggest corrections:
+  - **Monteverdi** is the house's fully plant-based mattress (vegetable horsehair, linen and
+    Ingeo), not cashmere and camel hair.
+  - **Topper Roma** is cashmere, mohair, silk, Falkland wool, linen and Ingeo, not yak.
+  - **Vivaldi Plus** is cashmere and silk, without camel hair.
+  - **Flora**'s cashmere is in its cloth; its padding is yak, horsehair, Cheviot wool, silk,
+    linen and Orange Fiber.
+- **Collections**: Signature and Icons are no longer described as "fully upholstered in Loro
+  Piana Interiors". Several of their systems are covered in natural linen and cotton.
+

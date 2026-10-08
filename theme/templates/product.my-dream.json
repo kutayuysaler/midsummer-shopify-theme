@@ -6,16 +6,25 @@
   "sections": {
     "s01": {
       "type": "ms-product-main",
-      "settings": {},
+      "settings": {
+        "cover_value": "Viscose"
+      },
       "blocks": {
         "fibre_01": {
           "type": "fibre",
           "settings": {
-            "name": "Baby Alpaca",
+            "name": "Alpaca",
             "note": "Temperature · Hypoallergenic"
           }
         },
         "fibre_02": {
+          "type": "fibre",
+          "settings": {
+            "name": "Silk",
+            "note": "Temperature · Softness"
+          }
+        },
+        "fibre_03": {
           "type": "fibre",
           "settings": {
             "name": "Cheviot Wool",
@@ -25,7 +34,8 @@
       },
       "block_order": [
         "fibre_01",
-        "fibre_02"
+        "fibre_02",
+        "fibre_03"
       ]
     },
     "s02": {
@@ -53,7 +63,7 @@
           "type": "qa",
           "settings": {
             "q": "What is [product] made of?",
-            "a": "<p>[product] is made by hand in Italy from natural fibres: baby alpaca and Cheviot wool. The cloth is chosen from the fabric book, Loro Piana Interiors included, and the system is made to order by two artisans, start to finish.</p>"
+            "a": "<p>[product] is made by hand in Italy from natural fibres: alpaca, silk and Cheviot wool. Its cover is viscose. It is made to order by two artisans, start to finish.</p>"
           }
         },
         "qa_02": {
