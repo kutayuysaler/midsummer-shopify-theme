@@ -658,8 +658,7 @@ make. In the theme:
   you?* (temperature, support, softness, breathability, hypoallergenic), with a line on which
   fibres answer each, and a *Compare* view that sets the systems side by side. Each system's
   fibres come from its own product template; the qualities are those of Natural materials.
-- **Map** opens on Europe, around the atelier. Zooming in brings finer coastlines and borders
-  (Natural Earth 1:10m, `assets/ms-world-10m.json`), and sea and land are now told apart.
+- **Map**: see section 24 (the changes described here first only reached the theme there).
 - **Notes** open with the title, summary and photograph on one screen; the text runs in a
   wider column beside *In this note* (made from the note's headings) and the share links.
   Numbered lists become numbered cards, two by two.
@@ -685,4 +684,20 @@ make. In the theme:
   wooden feet, each piece shaded as cloth. Choosing a part still lifts it away.
 - **Sizes** are drawn as made beds seen from above, to one scale: an upholstered headboard,
   soft pillows (one on a single), and a turned-down cover in the house's salmon.
+
+## 24. The map, with real detail
+
+- The map opens on **Europe**, around the atelier; World, Americas and Asia Pacific are one
+  tap away.
+- As you come closer, a **detailed map** fades in under the pins: cities, streets and place
+  names from OpenStreetMap, toned to the house's sepia. Choosing a place in the list flies
+  the map to street level. The drawn map stays for the world view, and stays in place if the
+  detailed map cannot load.
+- Sea and land are told apart, the projection never moves the pins, and a country drawn
+  inside-out no longer floods the sea.
+- **Map tiles.** *Agents & Resellers → Detailed map tiles* holds the tile address
+  (`https://tile.openstreetmap.org/{z}/{x}/{y}.png`) and its credit. OpenStreetMap's tiles
+  are free with the credit shown, for normal traffic. If the site grows busy, or you prefer
+  a styled map, a provider such as MapTiler or Stadia gives an address with a key; paste it
+  there and update the credit. Leave it empty to keep only the drawn map.
 

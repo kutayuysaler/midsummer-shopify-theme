@@ -149,6 +149,7 @@
     </aside>
 
     <div class="ms-sl__map" data-ms-sl-map role="region" aria-label="{{ s.map_label | escape }}">
+      <div class="ms-sl__tiles" data-ms-sl-tiles aria-hidden="true"></div>
       <svg class="ms-sl__svg" data-ms-sl-svg aria-hidden="true"><g data-ms-sl-world><path class="ms-sl__grat" data-ms-sl-grat></path><path class="ms-sl__land" data-ms-sl-land></path><path class="ms-sl__home" data-ms-sl-home></path><path class="ms-sl__borders" data-ms-sl-borders></path></g></svg>
       <div class="ms-sl__pins" data-ms-sl-pins></div>
       <div class="ms-sl__views" role="group" aria-label="{{ s.views_label | escape }}">
@@ -171,6 +172,7 @@
         <span data-legend="agent"><i class="ms-sl__mark is-agent"></i>{{ s.agent_kind }}</span>
       </div>
       <div class="ms-sl__hint" data-ms-sl-hint aria-hidden="true"></div>
+      {%- if s.tiles_url != blank and s.tiles_credit != blank -%}<a class="ms-sl__credit" data-ms-sl-credit href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">{{ s.tiles_credit }}</a>{%- endif -%}
       <div class="ms-sl__pop" data-ms-sl-pop hidden></div>
     </div>
   </div>
@@ -274,14 +276,20 @@
   .ms-sl__mark.is-agent { box-shadow: inset 0 0 0 1.4px var(--ink); }
 
   /* the map */
-  .ms-sl__map { position: relative; overflow: hidden; background: #EFE8DB; border: 1px solid var(--rule); user-select: none; -webkit-user-select: none; }
+  .ms-sl__map { position: relative; overflow: hidden; background: #F3EDE3; border: 1px solid var(--rule); user-select: none; -webkit-user-select: none; }
   .ms-sl__svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: grab; touch-action: pan-x pan-y; }
   .ms-sl__svg:active { cursor: grabbing; }
   .ms-sl__grat { fill: none; stroke: rgba(23, 20, 15, .06); stroke-width: .6; vector-effect: non-scaling-stroke; }
-  .ms-sl__land { fill: #E2D6C1; }
-  .ms-sl__home { fill: #D6C6AA; }
+  .ms-sl__land { fill: #E4D8C3; stroke: rgba(126, 98, 59, .38); stroke-width: .7; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .ms-sl__home { fill: #D8C8AC; stroke: rgba(126, 98, 59, .38); stroke-width: .7; vector-effect: non-scaling-stroke; }
   .ms-sl__borders { fill: none; stroke: #F6F1E8; stroke-width: .8; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
   .ms-sl__pins { position: absolute; inset: 0; pointer-events: none; }
+  .ms-sl__svg { z-index: 1; }
+  .ms-sl__tiles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; opacity: 0; transition: opacity .35s ease; filter: grayscale(1) sepia(.32) saturate(.9) contrast(.94) brightness(1.03); }
+  .ms-site .ms-sl__tiles img.ms-sl__tile { position: absolute; left: 0; top: 0; max-width: none; transform-origin: 0 0; opacity: 0; transition: opacity .3s ease; user-select: none; -webkit-user-drag: none; }
+  .ms-site .ms-sl__tiles img.ms-sl__tile.is-on { opacity: 1; }
+  .ms-site a.ms-sl__credit { position: absolute; right: 64px; bottom: 16px; z-index: 3; font-size: 10px; letter-spacing: .02em; color: #6E675C; background: rgba(251, 249, 245, .82); padding: 3px 7px; opacity: 0; pointer-events: none; transition: opacity .3s ease; }
+  .ms-site a.ms-sl__credit.is-on { opacity: 1; pointer-events: auto; }
   .ms-sl__pin { position: absolute; left: 0; top: 0; pointer-events: auto; width: 30px; height: 30px; margin: -15px 0 0 -15px; padding: 0; border: 0; background: none; cursor: pointer; display: flex; align-items: center; justify-content: center; will-change: transform; }
   .ms-sl__pin .ms-sl__mark { width: 12px; height: 12px; transition: transform .25s ease; box-shadow: 0 0 0 2px rgba(251, 249, 245, .9); }
   .ms-sl__pin .ms-sl__mark.is-boutique { box-shadow: inset 0 0 0 1.6px var(--ink), 0 0 0 2px rgba(251, 249, 245, .9); background-color: var(--ivory); }
@@ -484,10 +492,14 @@
     var d3 = window.d3, topo = window.topojson;
     var svg = d3.select(root.querySelector('[data-ms-sl-svg]'));
     var world = svg.select('[data-ms-sl-world]');
-    var W = 0, H = 0, K = 1, proj = d3.geoNaturalEarth1(), path = d3.geoPath(proj);
+    var W = 0, H = 0, K = 1, proj = (d3.geoMercator || d3.geoNaturalEarth1)(), path = d3.geoPath(proj);
     var land = null, borders = null, home = null, fine = false, loadingFine = false, t = d3.zoomIdentity;
     var HOME = {}; stores.forEach(function (p) { HOME[p.country === 'United States' ? 'United States of America' : p.country] = 1; });
-    var KMAX = 220;
+    var KMAX = 220, homeView = null, touched = false, fitLand = null;
+    var TILES = {{ s.tiles_url | json }}, tilesEl = root.querySelector('[data-ms-sl-tiles]'), creditEl = root.querySelector('[data-ms-sl-credit]');
+    var tileImgs = {}, tileTick = null, tilesOK = false, TK0 = 2.2, TK1 = 4.5;
+    ['pointerdown', 'wheel', 'keydown'].forEach(function (ev) { mapEl.addEventListener(ev, function () { touched = true; }, { passive: true }); });
+    function kForZoom(z) { return 256 * Math.pow(2, z) / (2 * Math.PI * proj.scale()); }
     var zoom = d3.zoom().scaleExtent([1, KMAX]).filter(function (e) {
       if (e.type === 'wheel') { if (e.ctrlKey || e.metaKey) return true; flash(T.wheel); return false; }
       if (e.type === 'touchstart') { if (e.touches && e.touches.length > 1) return true; return false; }
@@ -496,16 +508,26 @@
       t = e.transform;
       world.attr('transform', t);
       if (!fine && t.k > 2.6) loadFine();
+      if (!tileTick) tileTick = requestAnimationFrame(function () { tileTick = null; tiles(); });
       layout();
     });
     var flashT;
     function flash(msg) { hint.textContent = msg; hint.classList.add('is-on'); clearTimeout(flashT); flashT = setTimeout(function () { hint.classList.remove('is-on'); }, 1300); }
     mapEl.addEventListener('touchstart', function (e) { if (e.touches.length === 1 && !e.target.closest('button')) flash(T.touch); }, { passive: true });
 
+    var areaPath = d3.geoPath(d3.geoNaturalEarth1()), sphereA = areaPath.area({ type: 'Sphere' });
+    function rewind(f) {
+      var g = f.geometry; if (!g) return f;
+      var polys = g.type === 'Polygon' ? [g.coordinates] : g.type === 'MultiPolygon' ? g.coordinates : [];
+      polys.forEach(function (poly) { poly.forEach(function (ring) { ring.reverse(); }); });
+      return f;
+    }
+    function mend(f) { if (areaPath.area(f) > sphereA * .5) rewind(f); return f; }
     function draw(topology) {
       var obj = topology.objects.countries;
-      var all = topo.feature(topology, obj).features.filter(function (f) { return f.properties.name !== 'Antarctica'; });
+      var all = topo.feature(topology, obj).features.filter(function (f) { return f.properties.name !== 'Antarctica'; }).map(mend).filter(function (f) { return areaPath.area(f) < sphereA * .5; });
       land = { type: 'FeatureCollection', features: all };
+      if (!fitLand) fitLand = land;
       home = { type: 'FeatureCollection', features: all.filter(function (f) { return HOME[f.properties.name]; }) };
       borders = topo.mesh(topology, obj, function (a, b) { return a !== b; });
     }
@@ -519,10 +541,60 @@
       var r = mapEl.getBoundingClientRect();
       W = Math.max(1, Math.round(r.width)); H = Math.max(1, Math.round(r.height));
       svg.attr('viewBox', '0 0 ' + W + ' ' + H);
-      proj.fitExtent([[12, 12], [W - 12, H - 12]], land);
+      proj.fitExtent([[12, 12], [W - 12, H - 12]], fitLand || land);
+      KMAX = Math.max(60, kForZoom(18));
+      zoom.scaleExtent([1, KMAX]);
       stores.forEach(function (p) { var xy = proj([p.lon, p.lat]); p.px = xy[0]; p.py = xy[1]; });
       zoom.extent([[0, 0], [W, H]]).translateExtent([[-W * .25, -H * .25], [W * 1.25, H * 1.25]]);
       paint();
+      tiles();
+    }
+    /* the detailed map: OpenStreetMap tiles under the drawing, toned to the house's palette,
+       fading in as you come closer; the drawing fades out, the pins stay */
+    function tiles() {
+      if (!tilesEl || !TILES || !W) return;
+      var fade = Math.max(0, Math.min(1, (t.k - TK0) / (TK1 - TK0)));
+      tilesEl.style.opacity = fade;
+      // the drawing steps back only once the detailed map has arrived
+      world.style('opacity', tilesOK ? 1 - fade * .9 : 1);
+      if (creditEl) creditEl.classList.toggle('is-on', fade > 0 && tilesOK);
+      if (fade <= 0) return;
+      var s0 = proj.scale(), tr = proj.translate(), size = 2 * Math.PI * s0 * t.k;
+      var z = Math.max(1, Math.min(18, Math.round(Math.log(size / 256) / Math.LN2)));
+      var n = Math.pow(2, z), x0 = t.x + t.k * (tr[0] - Math.PI * s0), y0 = t.y + t.k * (tr[1] - Math.PI * s0);
+      function place(img, zz, i, j) {
+        var T = size / Math.pow(2, zz);
+        img.style.transform = 'translate(' + (x0 + i * T).toFixed(1) + 'px,' + (y0 + j * T).toFixed(1) + 'px)';
+        img.style.width = img.style.height = (T + .6).toFixed(1) + 'px';
+        return T;
+      }
+      var T = size / n, want = {}, missing = 0;
+      var i0 = Math.floor(-x0 / T), i1 = Math.floor((W - x0) / T), j0 = Math.max(0, Math.floor(-y0 / T)), j1 = Math.min(n - 1, Math.floor((H - y0) / T));
+      for (var j = j0; j <= j1; j++) for (var i = i0; i <= i1; i++) {
+        var key = z + '/' + i + '/' + j; want[key] = 1;
+        var img = tileImgs[key];
+        if (!img) {
+          img = document.createElement('img');
+          img.alt = ''; img.decoding = 'async'; img.draggable = false; img.className = 'ms-sl__tile';
+          var ii = ((i % n) + n) % n;
+          img.onload = function () { this.classList.add('is-on'); tilesOK = true; if (!tileTick) tileTick = requestAnimationFrame(function () { tileTick = null; tiles(); }); };
+          img.src = TILES.replace('{z}', z).replace('{x}', ii).replace('{y}', j).replace('{s}', 'abc'.charAt((ii + j) % 3)).replace('{r}', (window.devicePixelRatio || 1) > 1.5 ? '@2x' : '');
+          tilesEl.appendChild(img); tileImgs[key] = img;
+        }
+        img.style.zIndex = 2;
+        place(img, z, i, j);
+        if (!img.classList.contains('is-on')) missing++;
+      }
+      Object.keys(tileImgs).forEach(function (key) {
+        if (want[key]) return;
+        var a = key.split('/'), zz = +a[0], img = tileImgs[key];
+        // tiles of the zoom before stay underneath until the new ones have arrived
+        if (missing && zz !== z && Math.abs(zz - z) <= 2) {
+          var Tz = place(img, zz, +a[1], +a[2]), x = x0 + +a[1] * Tz, y = y0 + +a[2] * Tz;
+          if (x < W && y < H && x + Tz > 0 && y + Tz > 0) { img.style.zIndex = 1; return; }
+        }
+        img.remove(); delete tileImgs[key];
+      });
     }
     function loadFine() {
       if (loadingFine) return; loadingFine = true;
@@ -609,7 +681,7 @@
     }
     function fit(list) { go(viewFor(list && list.length ? list : stores, 40, list && list.length > 3 ? (narrow() ? 28 : 56) : null)); setView(''); }
     function flyTo(p) {
-      var k = Math.max(t.k, 48);
+      var k = Math.max(t.k, kForZoom(14));
       go(d3.zoomIdentity.translate(W / 2 - k * p.px, H / 2 - k * p.py).scale(k));
     }
     function setView(v) { root.querySelectorAll('[data-ms-sl-view]').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-ms-sl-view') === v ? 'true' : 'false'); }); }
@@ -669,14 +741,20 @@
       size();
       svg.call(zoom);
       svg.style('touch-action', 'pan-x pan-y');
-      var start = viewFor(stores, 40, narrow() ? 28 : 56);
+      /* open on the atelier's own region (Europe), the other regions one tap away */
+      var at0 = stores.filter(function (p) { return p.kind === 'atelier'; })[0];
+      var reg0 = at0 && at0.region ? stores.filter(function (p) { return p.region === at0.region; }) : [];
+      homeView = function () { return reg0.length > 1 ? viewFor(reg0, 12, narrow() ? 24 : 48) : viewFor(stores, 40, narrow() ? 28 : 56); };
+      var start = homeView();
       svg.call(zoom.transform, start);
+      if (reg0.length > 1) setView(at0.region);
+      if (start.k > 2.6) loadFine();
       layout();
       if (location.hash === '#atelier') { var a = stores.filter(function (p) { return p.kind === 'atelier'; })[0]; if (a) setTimeout(function () { select(a, { scrollList: true }); }, 350); }
       var rt;
       if (window.ResizeObserver) new ResizeObserver(function () {
         clearTimeout(rt);
-        rt = setTimeout(function () { var w0 = W, h0 = H; size(); if (W !== w0 || H !== h0) { if (state.sel) flyTo(state.sel); else svg.call(zoom.transform, viewFor(stores.filter(shown), 40)); } layout(); }, 120);
+        rt = setTimeout(function () { var w0 = W, h0 = H; size(); if (W !== w0 || H !== h0) { if (state.sel) flyTo(state.sel); else if (!touched) svg.call(zoom.transform, homeView()); else svg.call(zoom.transform, viewFor(stores.filter(shown), 40)); } layout(); }, 120);
       }).observe(mapEl);
     }).catch(function (err) { mapEl.classList.add('is-failed'); if (window.console) console.error('[agents map]', err); });
   };
@@ -733,6 +811,8 @@
     { "type": "header", "content": "List and map" },
     { "type": "text", "id": "list_label", "label": "List label", "default": "Places" },
     { "type": "text", "id": "map_label", "label": "Map label", "default": "Map of Midsummer Milano showrooms, agents and resellers" },
+    { "type": "text", "id": "tiles_url", "label": "Detailed map tiles (address)", "default": "https://tile.openstreetmap.org/{z}/{x}/{y}.png", "info": "Shown as you zoom in. Empty keeps the drawn map only." },
+    { "type": "text", "id": "tiles_credit", "label": "Map tiles credit", "default": "© OpenStreetMap contributors" },
     { "type": "text", "id": "search_placeholder", "label": "Search placeholder", "default": "Search a city, country or name" },
     { "type": "text", "id": "type_label", "label": "Type filter label", "default": "Type" },
     { "type": "text", "id": "all_label", "label": "All", "default": "All" },
