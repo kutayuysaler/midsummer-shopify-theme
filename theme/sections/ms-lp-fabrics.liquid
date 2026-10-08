@@ -1,9 +1,10 @@
 {%- comment -%}
-  The Loro Piana Interiors cloths our systems are made in, one after the other, as the atelier's
-  colour cards show them: the cloth, its article and composition, the systems it dresses, and its
-  colours by name. A Fabric block opens a cloth; the Colour blocks after it are its palette.
-  Choose a colour and the large specimen follows; ask about it and the enquiry opens with the
-  cloth and the colour already written.
+  The Loro Piana Interiors cloths our systems are made in, one at a time, as the atelier's colour
+  cards show them: the cloth, its article and composition, the systems it dresses, and its colours
+  by name. A row of cloths above chooses which one is shown (a link to #mystic-river opens it); without
+  script every cloth shows, one after the other. A Fabric block opens a cloth; the Colour blocks
+  after it are its palette. Choose a colour and the specimen follows; ask about it and the enquiry
+  opens with the cloth and the colour already written.
 {%- endcomment -%}
 {%- liquid
   assign s = section.settings
@@ -25,10 +26,12 @@
     </header>
 
     {%- if n_fab > 1 -%}
-      <nav class="ms-lf__nav" aria-label="{{ s.nav_label | escape }}">
+      <div class="ms-lf__tabs" role="tablist" aria-label="{{ s.nav_label | escape }}">
+        {%- assign tab_n = 0 -%}
         {%- for b in section.blocks -%}
           {%- if b.type == 'fabric' -%}
             {%- liquid
+              assign tab_n = tab_n | plus: 1
               assign start = forloop.index
               assign nc = 0
               for c in section.blocks offset: start
@@ -39,10 +42,10 @@
               endfor
               assign anchor = b.settings.anchor | default: b.settings.name | handleize
             -%}
-            <a class="ms-lf__tab" href="#{{ anchor }}">{{ b.settings.name }}{% if nc > 0 %}<sup>{{ nc }}</sup>{% endif %}</a>
+            <a class="ms-lf__tab{% if tab_n == 1 %} is-on{% endif %}" role="tab" id="lf-tab-{{ anchor }}" href="#{{ anchor }}" aria-controls="{{ anchor }}" aria-selected="{% if tab_n == 1 %}true{% else %}false{% endif %}">{{ b.settings.name }}{% if nc > 0 %}<sup>{{ nc }}</sup>{% endif %}</a>
           {%- endif -%}
         {%- endfor -%}
-      </nav>
+      </div>
     {%- endif -%}
 
     {%- assign open = false -%}
@@ -87,7 +90,7 @@
             echo '<p class="ms-lf__none">' | append: s.no_palette | append: '</p>'
           endcapture
         -%}
-        <article class="ms-lf__fab{% if no_colours %} is-plain{% endif %}" id="{{ anchor }}" data-lf data-lf-cloth="{{ cloth | escape }}" {{ b.shopify_attributes }}>
+        <article class="ms-lf__fab{% if no_colours %} is-plain{% endif %}{% if fab_n == 1 %} is-on{% endif %}" id="{{ anchor }}" role="tabpanel" aria-labelledby="lf-tab-{{ anchor }}" data-lf data-lf-cloth="{{ cloth | escape }}" {{ b.shopify_attributes }}>
           <figure class="ms-lf__view">
             <div class="ms-lf__big ms-lf__big--{{ fs.texture | default: 'linen' }}{% if big_img != '' %} has-img{% endif %}" data-lf-big role="img" aria-label="{{ cloth | escape }}{% unless no_colours %}, {{ cap | escape }}{% endunless %}"
               style="background-color: {{ big_color }};{% if big_img != '' %} background-image: url({{ big_img }});{% endif %}"></div>
@@ -144,20 +147,26 @@
   </div>
 </section>
 <style>
-  .ms-lf { background: #F4EFE5; color: #17140F; padding: clamp(72px, 10vw, 160px) clamp(16px, 5vw, 80px); }
-  .ms-lf__in { max-width: 1440px; margin: 0 auto; }
-  .ms-lf__head { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: clamp(24px, 5vw, 96px); align-items: end; }
+  .ms-lf { background: #F4EFE5; color: #17140F; padding: clamp(64px, 8vw, 120px) clamp(16px, 5vw, 80px); }
+  .ms-lf__in { max-width: 1320px; margin: 0 auto; }
+  .ms-lf__head { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: clamp(20px, 4vw, 80px); align-items: end; }
   .ms-lf__eyebrow { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: #6E675C; }
-  .ms-lf__heading { font-family: Newsreader, Georgia, serif; font-size: clamp(28px, 3.6vw, 52px); line-height: 1.08; letter-spacing: -.025em; font-weight: 200; margin-top: 18px; max-width: 18ch; }
-  .ms-lf__text { font-size: 15px; line-height: 1.95; color: #4A443B; max-width: 54ch; }
+  .ms-lf__heading { font-family: Newsreader, Georgia, serif; font-size: clamp(28px, 3.2vw, 46px); line-height: 1.08; letter-spacing: -.025em; font-weight: 200; margin-top: 16px; max-width: 18ch; }
+  .ms-lf__text { font-size: 14.5px; line-height: 1.9; color: #4A443B; max-width: 56ch; }
   .ms-lf__text p { margin: 0; }
-  .ms-lf__nav { display: flex; flex-wrap: wrap; gap: 6px 8px; margin-top: clamp(36px, 4vw, 56px); padding: 16px 0; border-top: 1px solid rgba(23, 20, 15, .14); border-bottom: 1px solid rgba(23, 20, 15, .14); }
-  .ms-site a.ms-lf__tab { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #4A443B; border: 1px solid rgba(23, 20, 15, .18); padding: 10px 16px; text-decoration: none; transition: background .3s, color .3s, border-color .3s; }
-  .ms-site a.ms-lf__tab:hover, .ms-site a.ms-lf__tab:focus-visible { background: #17140F; color: #FBF9F5; border-color: #17140F; }
-  .ms-lf__tab sup { font-size: 9px; margin-left: 4px; opacity: .7; }
-  .ms-lf__fab { display: grid; grid-template-columns: minmax(240px, 5fr) minmax(0, 7fr); gap: clamp(28px, 5vw, 88px); align-items: start; padding: clamp(48px, 6vw, 96px) 0; border-bottom: 1px solid rgba(23, 20, 15, .12); scroll-margin-top: 90px; }
-  .ms-lf__fab:last-of-type { border-bottom: 0; }
-  .ms-lf__view { position: sticky; top: 110px; margin: 0; }
+  .ms-lf__tabs { display: flex; flex-wrap: wrap; gap: 0 clamp(14px, 2.4vw, 34px); margin-top: clamp(28px, 3.5vw, 48px); border-bottom: 1px solid rgba(23, 20, 15, .16); }
+  .ms-site a.ms-lf__tab { position: relative; padding: 14px 0 15px; font-family: Newsreader, Georgia, serif; font-size: clamp(16px, 1.45vw, 20px); font-weight: 300; letter-spacing: -.005em; color: #6E675C; text-decoration: none; transition: color .3s; white-space: nowrap; }
+  .ms-site a.ms-lf__tab::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: #17140F; transform: scaleX(0); transform-origin: left; transition: transform .45s cubic-bezier(.22, 1, .36, 1); }
+  .ms-site a.ms-lf__tab:hover, .ms-site a.ms-lf__tab.is-on { color: #17140F; }
+  .ms-site a.ms-lf__tab.is-on::after { transform: none; }
+  .ms-lf__tab sup { font-family: inherit; font-size: 10px; margin-left: 3px; color: #7E623B; }
+  .ms-lf__tab:focus-visible { outline: 2px solid #17140F; outline-offset: 4px; }
+  .ms-lf__fab { display: grid; grid-template-columns: minmax(220px, 380px) minmax(0, 1fr); gap: clamp(24px, 4.5vw, 72px); align-items: start; padding: clamp(32px, 4vw, 56px) 0; border-bottom: 1px solid rgba(23, 20, 15, .12); scroll-margin-top: 110px; }
+  .ms-lf.is-tabbed .ms-lf__fab { border-bottom: 0; padding-bottom: 0; }
+  .ms-lf.is-tabbed .ms-lf__fab:not(.is-on) { display: none; }
+  .ms-lf.is-tabbed .ms-lf__fab.is-on { animation: msLfPanel .5s cubic-bezier(.22, 1, .36, 1); }
+  @keyframes msLfPanel { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .ms-lf__view { margin: 0; }
   .ms-lf__big { position: relative; aspect-ratio: 1; background-size: cover; background-position: center; box-shadow: inset 0 0 0 1px rgba(23, 20, 15, .14); transition: background-color .5s; overflow: hidden; }
   .ms-lf__big::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: url({{ 'ms-lp-weave.jpg' | asset_url }}) center / cover; mix-blend-mode: overlay; opacity: .75; }
   .ms-lf__big.has-img::after { display: none; }
@@ -165,41 +174,43 @@
   .ms-lf__big--boucle::after { background-image: url({{ 'ms-lp-wool.jpg' | asset_url }}); background-size: 55%; background-repeat: repeat; opacity: .9; }
   .ms-lf__big.is-swap { animation: msLfIn .55s cubic-bezier(.22, 1, .36, 1); }
   @keyframes msLfIn { from { opacity: .4; transform: scale(.985); } to { opacity: 1; transform: none; } }
-  .ms-lf__cap { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 10px 20px; padding-top: 16px; }
-  .ms-lf__capn { font-family: Newsreader, Georgia, serif; font-size: clamp(20px, 1.9vw, 26px); font-weight: 300; letter-spacing: -.01em; }
+  .ms-lf__cap { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 18px; padding-top: 14px; }
+  .ms-lf__capn { font-family: Newsreader, Georgia, serif; font-size: clamp(18px, 1.6vw, 22px); font-weight: 300; letter-spacing: -.01em; }
   .ms-site a.ms-lf__ask { font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: #17140F; text-decoration: none; border-bottom: 1px solid #17140F; padding-bottom: 5px; }
   .ms-site a.ms-lf__ask:hover { opacity: .65; }
   .ms-lf__num { font-size: 11px; letter-spacing: .24em; color: #7E623B; }
-  .ms-lf__name { font-family: Newsreader, Georgia, serif; font-size: clamp(34px, 4vw, 58px); line-height: 1.02; letter-spacing: -.03em; font-weight: 200; margin-top: 10px; }
-  .ms-lf__facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px 28px; margin: clamp(20px, 2.4vw, 30px) 0 0; padding: 18px 0; border-top: 1px solid rgba(23, 20, 15, .16); border-bottom: 1px solid rgba(23, 20, 15, .16); }
-  .ms-lf__facts dt { font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: #6E675C; }
-  .ms-lf__facts dd { margin: 6px 0 0; font-size: 14.5px; line-height: 1.6; color: #2E2A24; }
-  .ms-site .ms-lf__desc { font-size: 15px; line-height: 1.9; color: #4A443B; margin-top: 20px; max-width: 56ch; }
-  .ms-lf__grid { list-style: none; margin: clamp(26px, 3vw, 38px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 22px 14px; }
+  .ms-lf__name { font-family: Newsreader, Georgia, serif; font-size: clamp(30px, 3.2vw, 46px); line-height: 1.02; letter-spacing: -.03em; font-weight: 200; margin-top: 8px; }
+  .ms-lf__facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px 24px; margin: clamp(16px, 2vw, 24px) 0 0; padding: 14px 0; border-top: 1px solid rgba(23, 20, 15, .16); border-bottom: 1px solid rgba(23, 20, 15, .16); }
+  .ms-lf__facts dt { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: #6E675C; }
+  .ms-lf__facts dd { margin: 5px 0 0; font-size: 14px; line-height: 1.55; color: #2E2A24; }
+  .ms-site .ms-lf__desc { font-size: 14.5px; line-height: 1.8; color: #4A443B; margin-top: 16px; max-width: 60ch; }
+  .ms-lf__grid { list-style: none; margin: clamp(20px, 2.4vw, 28px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); gap: 16px 12px; }
   .ms-lf__grid:empty { display: none; }
   .ms-lf__chip { display: block; width: 100%; font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; text-align: left; }
-  .ms-lf__sw { --z: 6px; display: block; aspect-ratio: 3 / 2; background-size: cover; background-position: center;
+  .ms-lf__sw { --z: 5px; display: block; aspect-ratio: 3 / 2; background-size: cover; background-position: center;
     -webkit-mask: conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) top / var(--z) 51% repeat-x, conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / var(--z) 51% repeat-x;
     mask: conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) top / var(--z) 51% repeat-x, conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / var(--z) 51% repeat-x;
     transition: transform .45s cubic-bezier(.22, 1, .36, 1), filter .3s; }
-  .ms-lf__chip:hover .ms-lf__sw { transform: translateY(-3px); filter: drop-shadow(0 8px 10px rgba(23, 20, 15, .22)); }
-  .ms-lf__cn { display: block; margin-top: 9px; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: #6E675C; line-height: 1.4; }
+  .ms-lf__chip:hover .ms-lf__sw { transform: translateY(-2px); filter: drop-shadow(0 6px 8px rgba(23, 20, 15, .22)); }
+  .ms-lf__cn { display: block; margin-top: 7px; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: #6E675C; line-height: 1.35; }
   .ms-lf__chip.is-sel .ms-lf__cn { color: #17140F; }
-  .ms-lf__chip.is-sel .ms-lf__cn::before { content: ''; display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: #17140F; margin-right: 6px; vertical-align: 2px; }
+  .ms-lf__chip.is-sel .ms-lf__cn::before { content: ''; display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: #17140F; margin-right: 5px; vertical-align: 2px; }
   .ms-lf__chip:focus-visible { outline: 2px solid #17140F; outline-offset: 4px; }
-  .ms-lf__none { font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 17px; line-height: 1.6; color: #6E675C; margin-top: 22px; max-width: 46ch; }
-  .ms-lf__foot { font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 17px; color: #6E675C; margin-top: clamp(28px, 4vw, 48px); max-width: 70ch; }
+  .ms-lf__none { font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 17px; line-height: 1.6; color: #6E675C; margin-top: 18px; max-width: 46ch; }
+  .ms-lf__step { display: flex; justify-content: flex-end; margin-top: clamp(20px, 2.4vw, 30px); }
+  .ms-lf__next { font: inherit; font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: #17140F; background: none; border: 0; border-bottom: 1px solid currentColor; padding: 0 0 5px; cursor: pointer; }
+  .ms-lf__next:hover { opacity: .65; }
+  .ms-lf__foot { font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 15px; color: #6E675C; margin-top: clamp(24px, 3vw, 40px); max-width: 80ch; }
   @media (max-width: 860px) {
-    .ms-lf__nav { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-left: -16px; margin-right: -16px; padding-left: 16px; padding-right: 16px; }
-    .ms-lf__nav::-webkit-scrollbar { display: none; }
-    .ms-site a.ms-lf__tab { flex: none; padding: 9px 13px; }
-    .ms-lf__fab { grid-template-columns: minmax(0, 1fr); gap: 22px; }
-    .ms-lf__view { position: relative; top: 0; }
-    .ms-lf__big { aspect-ratio: 16 / 10; }
-    .ms-lf__grid { grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 16px 10px; }
-    .ms-lf__cn { font-size: 9px; letter-spacing: .1em; }
+    .ms-lf__tabs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-left: -16px; margin-right: -16px; padding: 0 16px; gap: 0 22px; }
+    .ms-lf__tabs::-webkit-scrollbar { display: none; }
+    .ms-site a.ms-lf__tab { flex: none; font-size: 16px; }
+    .ms-lf__fab { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+    .ms-lf__big { aspect-ratio: 16 / 9; }
+    .ms-lf__grid { grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); gap: 14px 9px; }
+    .ms-lf__cn { font-size: 8.5px; letter-spacing: .08em; }
   }
-  @media (prefers-reduced-motion: reduce) { .ms-lf__big.is-swap { animation: none; } .ms-lf__sw { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .ms-lf__big.is-swap, .ms-lf.is-tabbed .ms-lf__fab.is-on { animation: none; } .ms-lf__sw { transition: none; } }
 </style>
 <script>
   (function () {
@@ -207,7 +218,39 @@
     if (!root || !root.matches('[data-ms-lf]')) root = document.querySelector('[data-ms-lf]:not([data-lf-ready])');
     if (!root) return;
     root.setAttribute('data-lf-ready', '');
-    var tpl = {{ section.settings.ask_note | json }};
+    var tpl = {{ section.settings.ask_note | json }}, nextTpl = {{ section.settings.next_label | json }};
+    var tabs = [].slice.call(root.querySelectorAll('.ms-lf__tab')), fabs = [].slice.call(root.querySelectorAll('[data-lf]'));
+    /* one cloth at a time: the row above chooses it, a link to #its-name opens it */
+    function open(id, focus) {
+      var hit = fabs.filter(function (f) { return f.id === id; })[0];
+      if (!hit) return false;
+      fabs.forEach(function (f) { f.classList.toggle('is-on', f === hit); });
+      tabs.forEach(function (t) { var on = t.getAttribute('aria-controls') === id; t.classList.toggle('is-on', on); t.setAttribute('aria-selected', on ? 'true' : 'false'); t.tabIndex = on ? 0 : -1; if (on && focus) t.focus(); if (on && t.scrollIntoView && t.parentNode.scrollWidth > t.parentNode.clientWidth) t.parentNode.scrollLeft = t.offsetLeft - 16; });
+      return true;
+    }
+    if (tabs.length > 1) {
+      root.classList.add('is-tabbed');
+      fabs.forEach(function (f, i) {
+        var nx = fabs[(i + 1) % fabs.length], w = document.createElement('div');
+        w.className = 'ms-lf__step';
+        w.innerHTML = '<button type="button" class="ms-lf__next"></button>';
+        w.firstChild.textContent = (nextTpl || 'Next: [cloth]').replace('[cloth]', nx.getAttribute('data-lf-cloth')) + ' →';
+        w.firstChild.addEventListener('click', function () { open(nx.id); history.replaceState(null, '', '#' + nx.id); root.querySelector('.ms-lf__tabs').scrollIntoView({ behavior: 'smooth', block: 'nearest' }); });
+        f.querySelector('.ms-lf__body').appendChild(w);
+      });
+      tabs.forEach(function (t, i) {
+        t.tabIndex = t.classList.contains('is-on') ? 0 : -1;
+        t.addEventListener('click', function (e) { e.preventDefault(); var id = t.getAttribute('aria-controls'); open(id); history.replaceState(null, '', '#' + id); });
+        t.addEventListener('keydown', function (e) {
+          var k = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+          if (!k) return; e.preventDefault();
+          var n = tabs[(i + k + tabs.length) % tabs.length]; open(n.getAttribute('aria-controls'), true);
+        });
+      });
+      var fromHash = function () { var id = decodeURIComponent((location.hash || '').slice(1)); if (id && open(id)) root.scrollIntoView({ block: 'start' }); };
+      fromHash();
+      window.addEventListener('hashchange', fromHash);
+    }
     root.addEventListener('click', function (e) {
       var c = e.target.closest('.ms-lf__chip');
       if (!c) return;
@@ -245,6 +288,7 @@
     { "type": "header", "content": "Enquiry" },
     { "type": "text", "id": "ask_label", "label": "Ask about a colour", "default": "Ask about this colour" },
     { "type": "text", "id": "ask_note", "label": "Message it starts", "info": "[cloth] and [colour] become the cloth's and the colour's names.", "default": "I would like to see Loro Piana Interiors [cloth] in [colour]." },
+    { "type": "text", "id": "next_label", "label": "Next cloth", "info": "[cloth] becomes the next cloth's name.", "default": "Next: [cloth]" },
     { "type": "text", "id": "ask_cloth_label", "label": "Ask about a cloth without colours", "default": "Ask to see it" },
     { "type": "text", "id": "ask_cloth_note", "label": "Message it starts (cloth)", "info": "[cloth] becomes the cloth's name.", "default": "I would like to see the colours of Loro Piana Interiors [cloth]." },
     { "type": "text", "id": "footnote", "label": "Footnote" }

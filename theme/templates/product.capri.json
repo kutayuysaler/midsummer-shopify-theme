@@ -55,7 +55,21 @@
       "type": "ms-craft",
       "settings": {
         "link_label": "The fibres inside",
-        "link_place": "materials"
+        "link_place": "materials",
+        "text": "[name] is made as one: topper, mattress and base, by the same two artisans, and specified with you.",
+        "fibres_label": "Its fibres",
+        "part1_lead": "Silk and Cheviot wool: the soft surface of the system.",
+        "part1_text": "Silk and Cheviot wool: the soft surface of the system.",
+        "part1_points": "Upholstered in the cloth of the bed.",
+        "part1_fibres": "Silk, Cheviot Wool",
+        "part2_lead": "Base and mattress are a single piece, padded with linen, Cheviot wool and horsehair.",
+        "part2_text": "Base and mattress are a single piece, padded with linen, Cheviot wool and horsehair.",
+        "part2_points": "Our most compact system: one clean line from the floor to the topper.\nIts feel is chosen with you, from soft to firm.",
+        "part2_fibres": "Horsehair, Linen, Cheviot Wool",
+        "part3_lead": "Upholstered in Loro Piana Interiors Mystic River, or two-tone.",
+        "part3_text": "Upholstered in Loro Piana Interiors Mystic River, or two-tone.",
+        "part3_points": "All in Mystic River, in any of its twelve colours.\nOr two-tone: natural linen and cotton with Connemara or Mystic River.\nSplit in two on request, for the wider sizes.",
+        "part3_fibres": ""
       }
     },
     "s04": {

@@ -70,7 +70,21 @@
       "type": "ms-craft",
       "settings": {
         "link_label": "The fibres inside",
-        "link_place": "materials"
+        "link_place": "materials",
+        "text": "[name] is the heart of the bed; a topper and a Midsummer boxspring complete it.",
+        "fibres_label": "Its fibres",
+        "part1_lead": "A Vicuña topper on request: vicuña, silk and Cheviot wool.",
+        "part1_text": "A Vicuña topper on request: vicuña, silk and Cheviot wool.",
+        "part1_points": "To bring the same fibre to the surface of the bed.",
+        "part1_fibres": "Vicuña, Silk, Cheviot Wool",
+        "part2_lead": "Vicuña, cashmere, Falkland wool and horsehair for winter; linen, silk, Ingeo, Falkland wool and horsehair for summer.",
+        "part2_text": "Vicuña, cashmere, Falkland wool and horsehair for winter; linen, silk, Ingeo, Falkland wool and horsehair for summer.",
+        "part2_points": "Vicuña is finer than the finest cashmere, from a small wild camelid of the Andes.\nCovered in raw linen and cotton, edged with a vicuña-coloured ribbon and tufted by hand; or in a Loro Piana Interiors linen.",
+        "part2_fibres": "Vicuña, Cashmere, Falkland Wool, Horsehair, Silk, Linen",
+        "part3_lead": "Made to rest on a Midsummer boxspring.",
+        "part3_text": "Made to rest on a Midsummer boxspring.",
+        "part3_points": "Made by the same artisans, to the size of the mattress.\nDressed in natural cloth, with a headboard drawn with you if you wish.",
+        "part3_fibres": "Cheviot Wool"
       }
     },
     "s04": {

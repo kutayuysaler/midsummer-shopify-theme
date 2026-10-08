@@ -54,7 +54,21 @@
       "type": "ms-craft",
       "settings": {
         "link_label": "The fibres inside",
-        "link_place": "materials"
+        "link_place": "materials",
+        "text": "[name] is made as one: topper, mattress and base, by the same two artisans, and specified with you.",
+        "fibres_label": "Its fibres",
+        "part1_lead": "Cheviot wool and silk for winter; Cheviot wool and linen for summer.",
+        "part1_text": "Cheviot wool and silk for winter; Cheviot wool and linen for summer.",
+        "part1_points": "Upholstered in Loro Piana Interiors Shadan, a paisley linen.",
+        "part1_fibres": "Silk, Cheviot Wool, Linen",
+        "part2_lead": "Cheviot wool and baby alpaca for winter; Cheviot wool and linen for summer.",
+        "part2_text": "Cheviot wool and baby alpaca for winter; Cheviot wool and linen for summer.",
+        "part2_points": "Its border in Katai silk.",
+        "part2_fibres": "Baby Alpaca, Cheviot Wool, Linen",
+        "part3_lead": "Linen and Cheviot wool, upholstered in Loro Piana Interiors Katai silk.",
+        "part3_text": "Linen and Cheviot wool, upholstered in Loro Piana Interiors Katai silk.",
+        "part3_points": "With or without a headboard.",
+        "part3_fibres": "Linen, Cheviot Wool"
       }
     },
     "s04": {

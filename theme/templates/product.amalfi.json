@@ -54,7 +54,21 @@
       "type": "ms-craft",
       "settings": {
         "link_label": "The fibres inside",
-        "link_place": "materials"
+        "link_place": "materials",
+        "text": "[name] is made as one: topper, mattress and base, by the same two artisans, and specified with you.",
+        "fibres_label": "Its fibres",
+        "part1_lead": "Optional: a low or medium topper, in the same colour and cloth.",
+        "part1_text": "Optional: a low or medium topper, in the same colour and cloth.",
+        "part1_points": "Silk, wool and linen, with a summer and a winter face.",
+        "part1_fibres": "Silk, Cheviot Wool, Linen",
+        "part2_lead": "Silk and Cheviot wool for winter; Cheviot wool, cotton and Ingeo for summer.",
+        "part2_text": "Silk and Cheviot wool for winter; Cheviot wool, cotton and Ingeo for summer.",
+        "part2_points": "Covered in linen and cotton, in four colours.\nMade as one with its base, to the same measure.",
+        "part2_fibres": "Silk, Cheviot Wool, Cotton, Ingeo",
+        "part3_lead": "A soft base, padded with wool felt.",
+        "part3_text": "A soft base, padded with wool felt.",
+        "part3_points": "Dressed in the same linen and cotton as the mattress.",
+        "part3_fibres": "Wool"
       }
     },
     "s04": {

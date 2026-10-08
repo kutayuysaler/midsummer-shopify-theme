@@ -47,7 +47,21 @@
       "type": "ms-craft",
       "settings": {
         "link_label": "The fibres inside",
-        "link_place": "materials"
+        "link_place": "materials",
+        "text": "[name] is made as one: topper, mattress and base, by the same two artisans, and specified with you.",
+        "fibres_label": "Its fibres",
+        "part1_lead": "Optional: a Midsummer topper to finish the bed.",
+        "part1_text": "Optional: a Midsummer topper to finish the bed.",
+        "part1_points": "Three heights, with a summer and a winter face.\nMade to sit on the mattress without changing its feel.",
+        "part1_fibres": "Silk, Cheviot Wool, Linen",
+        "part2_lead": "Cheviot wool, silk and cashmere.",
+        "part2_text": "Cheviot wool, silk and cashmere.",
+        "part2_points": "Upholstered in Loro Piana Interiors Mystic River, to match its base.",
+        "part2_fibres": "Cashmere, Silk, Cheviot Wool",
+        "part3_lead": "A slender base that holds two or four upholstered drawers.",
+        "part3_text": "A slender base that holds two or four upholstered drawers.",
+        "part3_points": "Cheviot wool on top; the drawers in the same Mystic River.",
+        "part3_fibres": "Cheviot Wool"
       }
     },
     "s04": {

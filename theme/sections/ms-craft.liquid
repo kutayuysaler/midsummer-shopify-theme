@@ -38,7 +38,7 @@
         <div class="ms-cr__intro" data-cr-intro>
           <div class="ms-cr__eyebrow">{{ eyebrow }}</div>
           <h2 class="ms-cr__title">{{ s.heading }}</h2>
-          {%- if s.text != blank -%}<p class="ms-cr__text">{{ s.text }}</p>{%- endif -%}
+          {%- if s.text != blank -%}<p class="ms-cr__text">{% if product != blank %}{{ s.text | replace: '[name]', product.title }}{% else %}{{ s.text }}{% endif %}</p>{%- endif -%}
           <div class="ms-cr__pick">
             {%- if s.hint != blank -%}<p class="ms-cr__hint">{{ s.hint }}</p>{%- endif -%}
             <div class="ms-cr__picks" role="group" aria-label="{{ s.heading | escape }}">
@@ -142,7 +142,7 @@
   </div>
 </section>
 <style>
-  .ms-cr { background: linear-gradient(165deg, #F2D9CC 0%, #E8C7B7 50%, #DEB6A3 100%); color: #2A1F19; padding: clamp(80px, 10vw, 160px) clamp(16px, 5vw, 80px); }
+  .ms-cr { background: linear-gradient(165deg, #E4D3C8 0%, #DCC7BA 55%, #D2BAAA 100%); color: #2A1F19; padding: clamp(80px, 10vw, 160px) clamp(16px, 5vw, 80px); }
   .ms-cr__in { max-width: 1560px; margin: 0 auto; }
   .ms-cr__top { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(32px, 6vw, 120px); align-items: center; }
   .ms-cr__left { display: grid; }
@@ -150,14 +150,14 @@
   .ms-cr__intro, .ms-cr__panel { transition: opacity .5s ease, transform .6s cubic-bezier(.2, .7, .2, 1); }
   .ms-cr__intro.is-away { opacity: 0; transform: translateY(-12px); pointer-events: none; visibility: hidden; transition: opacity .35s ease, transform .5s ease, visibility 0s .35s; }
   .ms-cr__panel[hidden] { display: block; opacity: 0; transform: translateY(14px); pointer-events: none; visibility: hidden; }
-  .ms-cr__eyebrow { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: #9A5B43; }
+  .ms-cr__eyebrow { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: #7A4532; }
   .ms-cr__title { font-family: Newsreader, Georgia, serif; font-weight: 200; font-size: clamp(36px, 4.4vw, 68px); line-height: 1.03; letter-spacing: -0.035em; margin-top: clamp(18px, 2vw, 28px); }
   .ms-site .ms-cr__text { font-size: 15.5px; line-height: 1.95; color: rgba(42, 31, 25, .76); margin-top: clamp(20px, 2.4vw, 30px); max-width: 48ch; }
   .ms-cr__pick { margin-top: clamp(26px, 3vw, 38px); }
-  .ms-site .ms-cr__hint { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: rgba(42, 31, 25, .55); }
+  .ms-site .ms-cr__hint { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: rgba(42, 31, 25, .72); }
   .ms-cr__picks { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
   .ms-cr__pk { display: inline-flex; align-items: baseline; gap: 10px; font: inherit; font-family: Newsreader, Georgia, serif; font-size: 18px; color: #2A1F19; background: rgba(42, 31, 25, .04); border: 1px solid rgba(42, 31, 25, .22); padding: 11px 18px; cursor: pointer; transition: border-color .3s, background .3s; }
-  .ms-cr__pk span { font-size: 13px; color: #9A5B43; }
+  .ms-cr__pk span { font-size: 13px; color: #7A4532; }
   .ms-cr__pk:hover, .ms-cr__pk:focus-visible { border-color: #7A4532; background: rgba(154, 91, 67, .1); outline: none; }
   .ms-site .ms-cr__note { font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 17px; line-height: 1.6; color: #7A4532; margin-top: 26px; max-width: 44ch; }
   .ms-cr__links { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 30px; margin-top: clamp(26px, 3vw, 38px); }
@@ -165,17 +165,17 @@
   .ms-site a.ms-cr__link { display: inline-flex; gap: 12px; font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: #2A1F19; border-bottom: 1px solid currentColor; padding-bottom: 6px; }
   .ms-cr__back { font: inherit; font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: rgba(42, 31, 25, .7); background: none; border: 0; padding: 0; cursor: pointer; }
   .ms-cr__back:hover { color: #2A1F19; }
-  .ms-cr__pnum { font-family: Newsreader, Georgia, serif; font-size: 18px; color: #9A5B43; margin-top: clamp(22px, 3vw, 36px); }
-  .ms-cr__pnum span { color: rgba(154, 91, 67, .5); font-size: 14px; }
+  .ms-cr__pnum { font-family: Newsreader, Georgia, serif; font-size: 18px; color: #7A4532; margin-top: clamp(22px, 3vw, 36px); }
+  .ms-cr__pnum span { color: rgba(122, 69, 50, .6); font-size: 14px; }
   .ms-cr__ph { font-family: Newsreader, Georgia, serif; font-weight: 200; font-size: clamp(36px, 4vw, 60px); line-height: 1.03; letter-spacing: -0.03em; margin-top: 8px; }
   .ms-site .ms-cr__lead { font-family: Newsreader, Georgia, serif; font-size: clamp(19px, 1.6vw, 23px); line-height: 1.45; color: #7A4532; margin-top: 18px; max-width: 34ch; }
   .ms-cr__pts { list-style: none; margin: 22px 0 0; padding: 0; max-width: 52ch; }
   .ms-cr__pts li { position: relative; padding: 12px 0 12px 26px; border-top: 1px solid rgba(42, 31, 25, .12); font-size: 14.5px; line-height: 1.75; color: rgba(42, 31, 25, .8); }
   .ms-cr__pts li::before { content: ''; position: absolute; left: 0; top: 24px; width: 12px; height: 1px; background: #9A5B43; }
-  .ms-cr__fl { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: rgba(42, 31, 25, .55); margin-top: 24px; }
+  .ms-cr__fl { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: rgba(42, 31, 25, .72); margin-top: 24px; }
   .ms-cr__fibres { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 10px; }
   .ms-cr__fibres li { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px 6px 12px; border: 1px solid rgba(42, 31, 25, .16); border-radius: 999px; font-size: 13px; color: rgba(42, 31, 25, .86); }
-  .ms-cr__fi { color: #9A5B43; display: flex; }
+  .ms-cr__fi { color: #7A4532; display: flex; }
   .ms-cr__pnav { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 30px; margin-top: 28px; }
   .ms-cr__next { font: inherit; font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: rgba(42, 31, 25, .7); background: none; border: 0; padding: 0; cursor: pointer; }
   .ms-cr__next:hover { color: #2A1F19; }
@@ -208,7 +208,7 @@
   .ms-cr__img img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: .94; transition: opacity .6s ease, transform 1.2s cubic-bezier(.2, .7, .2, 1); }
   .ms-cr__part.is-on .ms-cr__img img, .ms-cr__part:hover .ms-cr__img img { opacity: 1; transform: scale(1.03); }
   .ms-cr__part:focus-visible { outline: 1px solid #7A4532; outline-offset: 6px; }
-  .ms-cr__cnum { display: block; font-family: Newsreader, Georgia, serif; font-size: 15px; color: #9A5B43; margin-top: 22px; }
+  .ms-cr__cnum { display: block; font-family: Newsreader, Georgia, serif; font-size: 15px; color: #7A4532; margin-top: 22px; }
   .ms-cr__ptitle { display: block; font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: clamp(24px, 2.2vw, 32px); letter-spacing: -0.02em; margin-top: 6px; }
   .ms-cr__ptext { display: block; font-size: 14.5px; line-height: 1.85; color: rgba(42, 31, 25, .72); margin-top: 12px; max-width: 40ch; }
   .ms-cr__more { display: inline-block; margin-top: 16px; font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: #7A4532; border-bottom: 1px solid rgba(226, 207, 174, .5); padding-bottom: 5px; }
@@ -468,7 +468,7 @@
       "id": "part2_fibres",
       "label": "Fibres",
       "info": "Separated by commas.",
-      "default": "Horsehair, Cheviot Wool, Cashmere, Organic Cotton, Baby Alpaca, Vegetable Horsehair"
+      "default": "Horsehair, Cheviot Wool, Cashmere, Cotton, Baby Alpaca, Vegetable Horsehair"
     },
     {
       "type": "text",

@@ -79,7 +79,21 @@
       "type": "ms-craft",
       "settings": {
         "link_label": "The fibres inside",
-        "link_place": "materials"
+        "link_place": "materials",
+        "text": "[name] is made as one: topper, mattress and base, by the same two artisans, and specified with you.",
+        "fibres_label": "Its fibres",
+        "part1_lead": "Silk and Cheviot wool for winter; Cheviot wool and Orange Fiber for summer.",
+        "part1_text": "Silk and Cheviot wool for winter; Cheviot wool and Orange Fiber for summer.",
+        "part1_points": "Orange Fiber is made from Sicilian orange peel: light, breathable and naturally fresh.\nEdged with a grosgrain ribbon.",
+        "part1_fibres": "Silk, Cheviot Wool, Orange Fiber",
+        "part2_lead": "Silk, Cheviot wool and horsehair for winter; linen, Ingeo, cotton, Falkland wool and horsehair for summer.",
+        "part2_text": "Silk, Cheviot wool and horsehair for winter; linen, Ingeo, cotton, Falkland wool and horsehair for summer.",
+        "part2_points": "Its feel is chosen with you, from soft to firm.",
+        "part2_fibres": "Silk, Horsehair, Cheviot Wool, Falkland Wool, Linen, Cotton",
+        "part3_lead": "Cheviot wool and linen, upholstered in Loro Piana Interiors Wish.",
+        "part3_text": "Cheviot wool and linen, upholstered in Loro Piana Interiors Wish.",
+        "part3_points": "Wish is a bouclé of wool and cashmere: it gives the slender base its texture and warmth.",
+        "part3_fibres": "Cheviot Wool, Linen"
       }
     },
     "s04": {

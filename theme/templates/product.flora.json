@@ -70,7 +70,21 @@
       "type": "ms-craft",
       "settings": {
         "link_label": "The fibres inside",
-        "link_place": "materials"
+        "link_place": "materials",
+        "text": "[name] is made as one: topper, mattress and base, by the same two artisans, and specified with you.",
+        "fibres_label": "Its fibres",
+        "part1_lead": "Cheviot wool and horsehair for winter; Cheviot wool, silk and Orange Fiber for summer.",
+        "part1_text": "Cheviot wool and horsehair for winter; Cheviot wool, silk and Orange Fiber for summer.",
+        "part1_points": "Its winter face in Loro Piana Interiors Cardi, wool and cashmere; its summer face in linen and cotton.",
+        "part1_fibres": "Horsehair, Cheviot Wool, Silk, Orange Fiber",
+        "part2_lead": "Yak and Cheviot wool for winter; Cheviot wool, linen and Orange Fiber for summer.",
+        "part2_text": "Yak and Cheviot wool for winter; Cheviot wool, linen and Orange Fiber for summer.",
+        "part2_points": "Its feel is chosen with you, from soft to firm.",
+        "part2_fibres": "Yak Hair, Cheviot Wool, Linen, Orange Fiber",
+        "part3_lead": "Linen and Cheviot wool, upholstered in Loro Piana Interiors Wish bouclé.",
+        "part3_text": "Linen and Cheviot wool, upholstered in Loro Piana Interiors Wish bouclé.",
+        "part3_points": "Wool and cashmere, soft and deep.",
+        "part3_fibres": "Linen, Cheviot Wool"
       }
     },
     "s04": {

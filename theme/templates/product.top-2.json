@@ -87,7 +87,21 @@
       "type": "ms-craft",
       "settings": {
         "link_label": "The fibres inside",
-        "link_place": "materials"
+        "link_place": "materials",
+        "text": "[name] is made as one: topper, mattress and base, by the same two artisans, and specified with you.",
+        "fibres_label": "Its fibres",
+        "part1_lead": "Yak and Cheviot wool for winter; Cheviot wool and linen for summer.",
+        "part1_text": "Yak and Cheviot wool for winter; Cheviot wool and linen for summer.",
+        "part1_points": "Ely’s Harbour linen and cashmere on the winter face, Bangor linen on the summer face.",
+        "part1_fibres": "Yak Hair, Cheviot Wool, Linen",
+        "part2_lead": "Cashmere, baby alpaca, mohair, horsehair and Cheviot wool for winter; linen, silk, Cheviot wool and horsehair for summer.",
+        "part2_text": "Cashmere, baby alpaca, mohair, horsehair and Cheviot wool for winter; linen, silk, Cheviot wool and horsehair for summer.",
+        "part2_points": "Ely’s Harbour on the winter side, Connemara linen on the summer side.\nIts feel is chosen with you, from soft to firm.",
+        "part2_fibres": "Cashmere, Baby Alpaca, Mohair, Horsehair, Silk, Linen, Cheviot Wool",
+        "part3_lead": "Cheviot wool, fully upholstered in Connemara linen.",
+        "part3_text": "Cheviot wool, fully upholstered in Connemara linen.",
+        "part3_points": "No wood or metal shows: even the legs are covered in cloth.",
+        "part3_fibres": "Cheviot Wool"
       }
     },
     "s04": {

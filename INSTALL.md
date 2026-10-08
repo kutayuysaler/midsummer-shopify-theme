@@ -762,3 +762,32 @@ the atelier. Everything shown can also be edited in the theme editor.
 - **Collections**: Signature and Icons are no longer described as "fully upholstered in Loro
   Piana Interiors". Several of their systems are covered in natural linen and cotton.
 
+## 27. Calmer colours, each bed's own inside, the cloths at a glance, a quieter map
+
+- **Inside the bed** sits on a muted clay-rose (from the house's salmon, quieter), with the
+  small labels a shade deeper so they stay readable.
+- **On every product page, Inside the bed now describes that system**:
+  - The intro says whether it is a complete system, a mattress or a topper.
+  - The topper, the mattress and the base each give their own fibres for winter and summer,
+    their cloth, and what can be seen (ribbons, hand stitching, drawers, leather legs).
+  - A mattress sold on its own shows the topper and the boxspring as what completes it.
+  - Nothing of the build is named: no springs, no layers.
+
+  All of it comes from the 2026 catalogue and the Models & Layers sheets, and can be edited
+  per product template in the theme editor.
+- **Collection pages**:
+  - Vicuña's name shows correctly.
+  - *What matters most to you?* now reads each system by its three defining fibres, so
+    the filters tell the systems apart again.
+  - The fibres shown are the catalogue's; the Models & Layers sheets (Raffaello, Vivaldi,
+    Vivaldi Plus, Bellagio, Flora, Top, Vicuña) agree with it.
+- **Loro Piana Interiors** shows one cloth at a time, so the eight cloths fit on one screen.
+  A row of names on top chooses the cloth, and *Next* moves along. Links from product pages
+  (`#mystic-river`, `#connemara` …) open the right cloth directly. Without script, every cloth
+  shows, one after the other.
+- **The map, zoomed in**, now uses CARTO's light *Positron* map (from OpenStreetMap) laid in
+  grey on the house's cream, sharp on retina screens. The drawn map gives way entirely once
+  the detailed one has arrived, so the two never blur together. CARTO's maps are free with
+  the credit shown, up to 75,000 map views a month; another address can be set under
+  *Agents & Resellers → Detailed map tiles*.
+

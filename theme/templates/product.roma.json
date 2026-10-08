@@ -70,7 +70,21 @@
       "type": "ms-craft",
       "settings": {
         "link_label": "The fibres inside",
-        "link_place": "materials"
+        "link_place": "materials",
+        "text": "[name] is the heart of the bed; a topper and a Midsummer boxspring complete it.",
+        "fibres_label": "Its fibres",
+        "part1_lead": "Two Roma toppers, one for each season.",
+        "part1_text": "Two Roma toppers, one for each season.",
+        "part1_points": "Winter: cashmere, silk, mohair and Falkland wool.\nSummer: silk, linen, Ingeo and Falkland wool.",
+        "part1_fibres": "Cashmere, Mohair, Silk, Falkland Wool, Linen",
+        "part2_lead": "Silk, Falkland wool and horsehair for winter; linen, Ingeo, cotton, Falkland wool and horsehair for summer.",
+        "part2_text": "Silk, Falkland wool and horsehair for winter; linen, Ingeo, cotton, Falkland wool and horsehair for summer.",
+        "part2_points": "Upholstered in Loro Piana Interiors Mystic River, edged with the Midsummer pink ribbon.\nIts sides stitched by hand.",
+        "part2_fibres": "Horsehair, Silk, Falkland Wool, Linen, Cotton",
+        "part3_lead": "A Midsummer boxspring in Mystic River to match.",
+        "part3_text": "A Midsummer boxspring in Mystic River to match.",
+        "part3_points": "With its own headboard, drawn with you, on request.",
+        "part3_fibres": "Cheviot Wool"
       }
     },
     "s04": {

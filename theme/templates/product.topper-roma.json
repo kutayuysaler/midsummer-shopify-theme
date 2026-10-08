@@ -71,7 +71,21 @@
       "type": "ms-craft",
       "settings": {
         "link_label": "The fibres inside",
-        "link_place": "materials"
+        "link_place": "materials",
+        "text": "[name] is the surface of the bed, made to sit on the mattress beneath it.",
+        "fibres_label": "Its fibres",
+        "part1_lead": "Two faces: cashmere, silk, mohair and Cheviot wool for winter; silk, linen, Ingeo and Falkland wool for summer.",
+        "part1_text": "Two faces: cashmere, silk, mohair and Cheviot wool for winter; silk, linen, Ingeo and Falkland wool for summer.",
+        "part1_points": "Upholstered in Loro Piana Interiors Mystic River.\nSoft or medium, to sit on the mattress beneath it.",
+        "part1_fibres": "Cashmere, Mohair, Silk, Cheviot Wool, Falkland Wool, Linen",
+        "part2_lead": "Made to sit on the mattress beneath it.",
+        "part2_text": "Made to sit on the mattress beneath it.",
+        "part2_points": "On a Midsummer mattress, or on any good mattress you already sleep on.",
+        "part2_fibres": "",
+        "part3_lead": "Made to rest on a Midsummer boxspring.",
+        "part3_text": "Made to rest on a Midsummer boxspring.",
+        "part3_points": "Made by the same artisans, to the size of the mattress.\nDressed in natural cloth, with a headboard drawn with you if you wish.",
+        "part3_fibres": "Cheviot Wool"
       }
     },
     "s04": {

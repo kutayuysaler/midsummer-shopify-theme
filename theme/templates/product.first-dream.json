@@ -70,7 +70,21 @@
       "type": "ms-craft",
       "settings": {
         "link_label": "The fibres inside",
-        "link_place": "materials"
+        "link_place": "materials",
+        "text": "[name] is the heart of the bed; a topper and a Midsummer boxspring complete it.",
+        "fibres_label": "Its fibres",
+        "part1_lead": "Optional: a Midsummer topper to finish the bed.",
+        "part1_text": "Optional: a Midsummer topper to finish the bed.",
+        "part1_points": "Three heights, with a summer and a winter face.\nMade to sit on the mattress without changing its feel.",
+        "part1_fibres": "Silk, Cheviot Wool, Linen",
+        "part2_lead": "Cheviot wool, cashmere and baby alpaca for winter; Cheviot wool, Ingeo, linen and silk for summer.",
+        "part2_text": "Cheviot wool, cashmere and baby alpaca for winter; Cheviot wool, Ingeo, linen and silk for summer.",
+        "part2_points": "The first of the Dream series, made to follow the natural curves of the spine.\nEdged with a ribbon in caramel or pink.",
+        "part2_fibres": "Baby Alpaca, Cashmere, Silk, Linen, Cheviot Wool, Ingeo",
+        "part3_lead": "Made to rest on a Midsummer boxspring.",
+        "part3_text": "Made to rest on a Midsummer boxspring.",
+        "part3_points": "Made by the same artisans, to the size of the mattress.\nDressed in natural cloth, with a headboard drawn with you if you wish.",
+        "part3_fibres": "Cheviot Wool"
       }
     },
     "s04": {

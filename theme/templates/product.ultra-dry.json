@@ -78,7 +78,21 @@
       "type": "ms-craft",
       "settings": {
         "link_label": "The fibres inside",
-        "link_place": "materials"
+        "link_place": "materials",
+        "text": "[name] is the heart of the bed; a topper and a Midsummer boxspring complete it.",
+        "fibres_label": "Its fibres",
+        "part1_lead": "A winter topper in Cheviot wool and cashmere, on request.",
+        "part1_text": "A winter topper in Cheviot wool and cashmere, on request.",
+        "part1_points": "Soft or medium, to warm the bed in the cold months.",
+        "part1_fibres": "Cashmere, Cheviot Wool",
+        "part2_lead": "Two mattresses, one for each climate.",
+        "part2_text": "Two mattresses, one for each climate.",
+        "part2_points": "Summer: vegetable horsehair, linen, cotton and Ingeo, to stay dry in humid air.\nWinter: Cheviot wool, silk and cashmere.\nCovered in raw linen and cotton.",
+        "part2_fibres": "Vegetable Horsehair, Linen, Cotton, Ingeo, Cashmere, Silk, Cheviot Wool",
+        "part3_lead": "Made to rest on a Midsummer boxspring.",
+        "part3_text": "Made to rest on a Midsummer boxspring.",
+        "part3_points": "Made by the same artisans, to the size of the mattress.\nDressed in natural cloth, with a headboard drawn with you if you wish.",
+        "part3_fibres": "Cheviot Wool"
       }
     },
     "s04": {

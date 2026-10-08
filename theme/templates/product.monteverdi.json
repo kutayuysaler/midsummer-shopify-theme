@@ -46,7 +46,21 @@
       "type": "ms-craft",
       "settings": {
         "link_label": "The fibres inside",
-        "link_place": "materials"
+        "link_place": "materials",
+        "text": "[name] is the heart of the bed; a topper and a Midsummer boxspring complete it.",
+        "fibres_label": "Its fibres",
+        "part1_lead": "Optional: a Midsummer topper to finish the bed.",
+        "part1_text": "Optional: a Midsummer topper to finish the bed.",
+        "part1_points": "Three heights, with a summer and a winter face.\nMade to sit on the mattress without changing its feel.",
+        "part1_fibres": "Silk, Cheviot Wool, Linen",
+        "part2_lead": "Fully plant-based: vegetable horsehair, linen and Ingeo, and no animal fibre.",
+        "part2_text": "Fully plant-based: vegetable horsehair, linen and Ingeo, and no animal fibre.",
+        "part2_points": "Vegetable horsehair gives structure and lets the air move freely; linen keeps it fresh and light.\nCovered in raw recycled linen and cotton.",
+        "part2_fibres": "Vegetable Horsehair, Linen, Ingeo",
+        "part3_lead": "Made to rest on a Midsummer boxspring.",
+        "part3_text": "Made to rest on a Midsummer boxspring.",
+        "part3_points": "Made by the same artisans, to the size of the mattress, and dressed in natural cloth.",
+        "part3_fibres": ""
       }
     },
     "s04": {

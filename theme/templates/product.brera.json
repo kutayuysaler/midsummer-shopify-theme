@@ -54,7 +54,21 @@
       "type": "ms-craft",
       "settings": {
         "link_label": "The fibres inside",
-        "link_place": "materials"
+        "link_place": "materials",
+        "text": "[name] is made as one: topper, mattress and base, by the same two artisans, and specified with you.",
+        "fibres_label": "Its fibres",
+        "part1_lead": "Brera needs no separate topper: its slim mattress is soft enough to be one.",
+        "part1_text": "Brera needs no separate topper: its slim mattress is soft enough to be one.",
+        "part1_points": "Light, and easy to turn with the seasons.",
+        "part1_fibres": "",
+        "part2_lead": "Wool and yak for winter; wool, cotton and Ingeo for summer.",
+        "part2_text": "Wool and yak for winter; wool, cotton and Ingeo for summer.",
+        "part2_points": "Upholstered in Loro Piana Interiors Connemara linen.\nIts winter side edged in Altai wool and cashmere.",
+        "part2_fibres": "Yak Hair, Wool, Cotton, Ingeo",
+        "part3_lead": "Our slimmest boxspring, padded with wool, on natural leather legs.",
+        "part3_text": "Our slimmest boxspring, padded with wool, on natural leather legs.",
+        "part3_points": "A headboard on request, in Connemara linen with natural leather straps.",
+        "part3_fibres": "Wool"
       }
     },
     "s04": {

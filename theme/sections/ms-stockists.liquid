@@ -285,8 +285,8 @@
   .ms-sl__borders { fill: none; stroke: #F6F1E8; stroke-width: .8; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
   .ms-sl__pins { position: absolute; inset: 0; pointer-events: none; }
   .ms-sl__svg { z-index: 1; }
-  .ms-sl__tiles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; opacity: 0; transition: opacity .35s ease; filter: grayscale(1) sepia(.32) saturate(.9) contrast(.94) brightness(1.03); }
-  .ms-site .ms-sl__tiles img.ms-sl__tile { position: absolute; left: 0; top: 0; max-width: none; transform-origin: 0 0; opacity: 0; transition: opacity .3s ease; user-select: none; -webkit-user-drag: none; }
+  .ms-sl__tiles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; opacity: 0; transition: opacity .35s ease; background: #F3EDE3; isolation: isolate; }
+  .ms-site .ms-sl__tiles img.ms-sl__tile { position: absolute; left: 0; top: 0; max-width: none; transform-origin: 0 0; opacity: 0; transition: opacity .3s ease; user-select: none; -webkit-user-drag: none; filter: grayscale(1) contrast(1.04); mix-blend-mode: multiply; }
   .ms-site .ms-sl__tiles img.ms-sl__tile.is-on { opacity: 1; }
   .ms-site a.ms-sl__credit { position: absolute; right: 64px; bottom: 16px; z-index: 3; font-size: 10px; letter-spacing: .02em; color: #6E675C; background: rgba(251, 249, 245, .82); padding: 3px 7px; opacity: 0; pointer-events: none; transition: opacity .3s ease; }
   .ms-site a.ms-sl__credit.is-on { opacity: 1; pointer-events: auto; }
@@ -549,14 +549,14 @@
       paint();
       tiles();
     }
-    /* the detailed map: OpenStreetMap tiles under the drawing, toned to the house's palette,
-       fading in as you come closer; the drawing fades out, the pins stay */
+    /* the detailed map: a quiet, light map (CARTO Positron, from OpenStreetMap) laid in grey on the
+       house's cream, fading in as you come closer; the drawing gives way entirely, the pins stay */
     function tiles() {
       if (!tilesEl || !TILES || !W) return;
       var fade = Math.max(0, Math.min(1, (t.k - TK0) / (TK1 - TK0)));
       tilesEl.style.opacity = fade;
       // the drawing steps back only once the detailed map has arrived
-      world.style('opacity', tilesOK ? 1 - fade * .9 : 1);
+      world.style('opacity', tilesOK ? 1 - fade : 1);
       if (creditEl) creditEl.classList.toggle('is-on', fade > 0 && tilesOK);
       if (fade <= 0) return;
       var s0 = proj.scale(), tr = proj.translate(), size = 2 * Math.PI * s0 * t.k;
@@ -811,8 +811,8 @@
     { "type": "header", "content": "List and map" },
     { "type": "text", "id": "list_label", "label": "List label", "default": "Places" },
     { "type": "text", "id": "map_label", "label": "Map label", "default": "Map of Midsummer Milano showrooms, agents and resellers" },
-    { "type": "text", "id": "tiles_url", "label": "Detailed map tiles (address)", "default": "https://tile.openstreetmap.org/{z}/{x}/{y}.png", "info": "Shown as you zoom in. Empty keeps the drawn map only." },
-    { "type": "text", "id": "tiles_credit", "label": "Map tiles credit", "default": "© OpenStreetMap contributors" },
+    { "type": "text", "id": "tiles_url", "label": "Detailed map tiles (address)", "default": "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", "info": "Shown as you zoom in, laid in grey on cream. Empty keeps the drawn map only." },
+    { "type": "text", "id": "tiles_credit", "label": "Map tiles credit", "default": "© OpenStreetMap contributors © CARTO" },
     { "type": "text", "id": "search_placeholder", "label": "Search placeholder", "default": "Search a city, country or name" },
     { "type": "text", "id": "type_label", "label": "Type filter label", "default": "Type" },
     { "type": "text", "id": "all_label", "label": "All", "default": "All" },

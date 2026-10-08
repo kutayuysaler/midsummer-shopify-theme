@@ -62,7 +62,21 @@
       "type": "ms-craft",
       "settings": {
         "link_label": "The fibres inside",
-        "link_place": "materials"
+        "link_place": "materials",
+        "text": "[name] is made as one: topper, mattress and base, by the same two artisans, and specified with you.",
+        "fibres_label": "Its fibres",
+        "part1_lead": "Cheviot wool and horsehair for winter; Cheviot wool, silk and linen for summer.",
+        "part1_text": "Cheviot wool and horsehair for winter; Cheviot wool, silk and linen for summer.",
+        "part1_points": "Capitonné, for an enveloping comfort.",
+        "part1_fibres": "Horsehair, Cheviot Wool, Silk, Linen",
+        "part2_lead": "Cheviot wool, camel hair and silk.",
+        "part2_text": "Cheviot wool, camel hair and silk.",
+        "part2_points": "Its feel is chosen with you, from soft to firm.",
+        "part2_fibres": "Camel Hair, Cheviot Wool, Silk",
+        "part3_lead": "Silk and Cheviot wool, upholstered in Loro Piana Interiors Mystic River.",
+        "part3_text": "Silk and Cheviot wool, upholstered in Loro Piana Interiors Mystic River.",
+        "part3_points": "All in Mystic River, or two-tone with natural linen and cotton.\nA headboard to match, on request.",
+        "part3_fibres": "Silk, Cheviot Wool"
       }
     },
     "s04": {
