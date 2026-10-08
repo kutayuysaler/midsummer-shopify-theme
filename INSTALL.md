@@ -742,7 +742,8 @@ the atelier. Everything shown can also be edited in the theme editor.
   - Brera: Connemara, edged in Altai.
   - Top: Connemara, Ely’s Harbour and Bangor.
   - Giotto Round: Connemara and Bangor.
-  - Flora: Cardi and Wish.
+  - Flora: Cardi (Loro Piana Interiors' Fiore di Cardo, A702050RS, 90% virgin wool, 10%
+    cashmere) and Wish.
   - Bellini: Wish.
   - Paisley: Shadan and Katai silk.
   - Dreamy Springs and Vicuña: offered in it on request.

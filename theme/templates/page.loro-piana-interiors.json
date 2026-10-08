@@ -398,9 +398,10 @@
           "settings": {
             "name": "Cardi",
             "anchor": "cardi",
-            "composition": "Wool and cashmere",
-            "systems": "Flora.",
-            "text": "Wool and cashmere with a woven design, on the winter face of the Flora topper; the summer face is linen and cotton.",
+            "code": "Fiore di Cardo, A702050RS",
+            "composition": "90% virgin wool, 10% cashmere",
+            "systems": "Flora: the topper.",
+            "text": "Loro Piana Interiors’ Fiore di Cardo: wool and cashmere woven with a thistle flower. It dresses the winter face of the Flora topper; the summer face is linen and cotton.",
             "texture": "wool",
             "color": "#C9B8A6"
           }
