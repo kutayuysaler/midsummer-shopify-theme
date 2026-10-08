@@ -225,6 +225,7 @@
             <p class="ms-pm__price-text">{%- if product.price_varies -%}{%- assign from_price = product.price_min | money -%}{{ 'ms.product.price_from' | t: price: from_price }}{%- else -%}{{ product.price | money }}{%- endif -%}</p>
           {%- else -%}
             <p class="ms-pm__price-text">{{ t_price_text }}</p>
+            {%- if settings.ms_price_from and product.price_min > 0 -%}{%- assign from_price = product.price_min | money -%}<p class="ms-pm__from">{{ 'ms.product.price_from' | t: price: from_price }}</p>{%- endif -%}
           {%- endif -%}
         </div>
 
@@ -303,6 +304,10 @@
 {%- endcomment -%}
 {%- liquid
   assign show_price = settings.ms_show_prices
+  assign show_from = false
+  if show_price == false and settings.ms_price_from and product.price_min > 0
+    assign show_from = true
+  endif
   if product.price == 0
     assign show_price = false
   endif
@@ -350,6 +355,17 @@
       {%- if lead != blank %}{ "@type": "PropertyValue", "name": {{ t_lead | strip | json }}, "value": {{ lead | json }} },{% endif %}
       { "@type": "PropertyValue", "name": {{ t_f3l | strip | json }}, "value": {{ t_f3v | strip | json }} }
     ]
+    {%- if show_from -%},
+    "offers": {
+      "@type": "AggregateOffer",
+      "lowPrice": {{ product.price_min | divided_by: 100.0 | json }},
+      "offerCount": {{ product.variants.size }},
+      "priceCurrency": {{ cart.currency.iso_code | json }},
+      "availability": "https://schema.org/MadeToOrder",
+      "url": "{{ shop.url }}{{ product.url }}",
+      "seller": { "@id": "{{ shop.url }}/#organization" }
+    }
+    {%- endif %}
     {%- if show_price -%},
     "offers": {
       {%- if product.price_varies %}
@@ -415,6 +431,7 @@
   .ms-pm__tagline { font-family: Newsreader, Georgia, serif; font-size: clamp(19px, 1.9vw, 25px); line-height: 1.45; letter-spacing: -0.015em; font-weight: 200; color: #4A443B; margin-top: clamp(18px, 2.2vw, 30px); max-width: 30ch; }
   .ms-pm__price { border-top: 1px solid #DDD6C9; margin-top: clamp(28px, 3.4vw, 44px); padding-top: 22px; }
   .ms-pm__label { font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: #6E675C; }
+  .ms-pm__from { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: #7E623B; margin-top: 10px; }
   .ms-pm__price-text { font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2vw, 28px); line-height: 1.25; letter-spacing: -0.02em; font-weight: 200; margin-top: 10px; }
   .ms-pm__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 22px 28px; margin-top: 26px; }
   .ms-site .ms-pm__primary { display: inline-flex; align-items: center; min-height: 58px; padding: 0 40px; background: #17140F; color: #FBF9F5; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; transition: background .25s ease; }

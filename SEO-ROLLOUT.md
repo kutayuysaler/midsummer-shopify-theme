@@ -16,7 +16,7 @@ peak of 2,958 on 17 July. On 15 September, the number of not-indexed pages jumpe
 | Crawled – currently not indexed | 483 | Google read these and judged them not worth indexing: typically thin or untranslated language copies, tag pages, old posts, near-duplicate pages. | Translate or unpublish the language copies (§3); tag pages are now `noindex`; the per-URL export says which posts to improve or merge. |
 | Discovered – currently not indexed | 168 | Known, not yet crawled. | Should fall once the thin copies are gone; submit the sitemap again after launch. |
 | Page with redirect | 109 | Old URLs that redirect. | Fine, as long as menus and internal links point at the final URLs (the new theme's do). |
-| Not found (404) | 37 | Broken URLs that someone links to. | Needs the per-URL list (§3, step 6). |
+| Not found (404) | 37 | Broken URLs that someone links to. | Needs the per-URL list (§3, step 7). |
 | Excluded by 'noindex' | 10 | Utility pages (search, quote pages, `/collections/all`, …). | Check the list is only utility pages. |
 | Server error (5xx) | 5 | Usually passing Shopify hiccups. | Validate the fix in Search Console; if they repeat, they are app pages. |
 | Blocked by robots.txt | 5 | Shopify's own rules (cart, checkout, internal search). | None. |
@@ -37,17 +37,17 @@ redirect file and say exactly which pages to fix, merge or drop.
 | Audit / review item | In the new theme |
 | --- | --- |
 | Article author | Unchanged, as you decided: the author is whatever the article says in Shopify. |
-| Duplicate Article schema | The theme outputs one `BlogPosting` per note. The second copy came from the Avada SEO and SEOon Blog apps; turn their structured data off (§3, step 3). |
+| Duplicate Article schema | The theme outputs one `BlogPosting` per note. The second copy came from the Avada SEO and SEOon Blog apps; their app embeds are off in the theme (§3). |
 | FAQPage on Sleep Wise | Done: the questions page is marked up as `FAQPage`. |
 | Organization incomplete | `foundingDate` 2014, founder, `sameAs` (Instagram, Pinterest, LinkedIn, Telegram, VK), VAT number, the Green Product Award, map link, and "by appointment" in the description. All are editable in the *Structured data* section of the header. |
 | LocalBusiness for the showroom | The organisation is also a `FurnitureStore`, with the Via Andegari address, coordinates and opening hours. |
 | Product pages: one-word H1 | The heading now says what the product is: *Vivaldi – Natural-fibre sleep system, handmade in Italy*, or *Capri – Boxspring and mattress* (the line under the name). It can be set per template, or per product with the metafield `custom.kind`. |
 | Product pages: no specifications | The facts under the buttons are now a specification sheet: made, dimensions, standard sizes (from the product's Size option), upholstery, comfort, service. Height and lead time appear when the metafields `custom.height` and `custom.lead_time` are filled in. Nothing about the inside of the bed is listed. |
 | Product pages: no product FAQ | Every bed has *Before you order*: what it is made of (its own fibres), dimensions, comfort, trying it, lead time, price, 15 + 15. Each is marked up as `FAQPage`. |
-| Product schema: no availability or materials | `Product` with its fibres as `material`, the specification rows, `countryOfOrigin` Italy and the award on Top. When prices are shown, it adds `offers` with the price (or the from–to range) and `MadeToOrder` availability. While prices are hidden, no offer is given, so the data never says more than the page. |
+| Product schema: no availability or materials | `Product` with its fibres as `material`, the specification rows, `countryOfOrigin` Italy and the award on Top. When prices are shown, it adds `offers` with the price (or the from–to range) and `MadeToOrder` availability. While prices are hidden, no offer is given, so the data never says more than the page. With *Show a starting price while prices are hidden*, the data gives the lowest price as an `AggregateOffer`. |
 | Italian homepage with an English H1 | The home hero and the product page labels now have their own Italian and Russian text in the theme. Everything else is translated in Translate & Adapt (§3, step 4). |
 | Article dates not visible | Every note shows its date, and "Updated …" when it was revised. |
-| llms.txt | `/?view=llms` is a brand overview, built live from the store. There is also a new **Midsummer Milano at a glance** page, a plain fact sheet for people, press and AI assistants, linked from the footer. Shopify generates `/llms.txt` itself, so check whether it can be redirected (§3, step 7). |
+| llms.txt | `/?view=llms` is a brand overview, built live from the store. There is also a new **Midsummer Milano at a glance** page, a plain fact sheet for people, press and AI assistants, linked from the footer. Shopify generates `/llms.txt` itself, so check whether it can be redirected (§3, step 8). |
 | Green Product Award not on About | *Our story* now ends with Recognition & press: the award first, with a link to the award's own page, then the publications. |
 | Loro Piana Interiors naming | Always the full name, "Loro Piana Interiors". |
 | "Vegan mattresses" | The theme says nothing about vegan beds. |
@@ -56,42 +56,68 @@ redirect file and say exactly which pages to fix, merge or drop.
 | Tag pages | Journal tag listings are `noindex, follow` (a bug stopped this before; it is fixed). |
 | AI referral measurement | New event `ms_ai_referral` (§4). |
 
-## 3. Before launch
+## 3. Launch checklist
 
-1. **Prices: decide** (see §6). The theme handles both: *Theme settings → Show prices*.
-2. **Run the page script** (`scripts/create_pages.py`, INSTALL.md §3). Every designed page
-   then has its own address and template. Until a page exists, its menu entry opens a
-   stand-in that is kept out of Google, so a page that is missing from the store cannot
-   rank. The script lists what it set and what it created. New pages include The Atelier,
-   Compare the collections and At a glance, and the script writes a search description
-   for each page it creates.
-3. **Turn off duplicate structured data.** In **Online Store → Themes → Customize → App
-   embeds**, turn off the structured data / JSON-LD of **Avada SEO Suite** and **SEOon
-   Blog**. Keep their other features if you use them. Then check a product page and a
-   note with Google's Rich Results Test: you should see one Product (or BlogPosting), one
-   Organization and one BreadcrumbList.
+Already done in the theme (nothing to do):
+
+- **Prices** stay on request (§6). *Theme settings → Show a starting price while prices are
+  hidden* adds "From €…" under "On request" and gives search engines that starting price,
+  if you ever want it.
+- **App embeds** are preset as on the live theme. Turned on: Tipo Appointment, Appointo and
+  Mailchimp. Turned off: Avada SEO Suite and SEOon Blog, whose structured data would repeat
+  the theme's. If you rely on another Avada or SEOon feature, turn its embed back on and
+  switch off only its structured data / JSON-LD in the app.
+- **Fibres** are now listed for Amalfi (linen), Monteverdi (cashmere, camel hair) and Ultra
+  Dry (vegetable horsehair), on the page, in *Before you order* and in the structured
+  data. **Bellini** still has none: tell me its fibres, or add them in the theme editor
+  (*Product · The system → Add Fibre*).
+- **Founding year 2014** is kept, as in the audit.
+
+In Shopify, in this order:
+
+1. **Upload** `midsummer-milano-atelier.zip`, preview, then publish (INSTALL.md §1).
+2. **App embeds:** open *Customize → App embeds* once and check that the list matches the one
+   above.
+3. **Pages:** run `scripts/create_pages.py` (INSTALL.md §3), or create the pages by hand
+   from the table there. Every designed page then has its own address and template. Until
+   a page exists, its menu entry opens a stand-in that is kept out of Google. The script
+   lists what it set and what it created, and writes a search description for each page
+   it creates.
 4. **Translations.** In **Translate & Adapt**, translate the theme content for Italian and
-   Russian. That covers section texts, the product questions and the At a glance page. A
-   language left half in English is the most likely cause of *Crawled – currently not
-   indexed*. If a language cannot be translated before launch, unpublish it in **Settings
-   → Languages** rather than leave it in English.
+   Russian: section texts, the product questions, the At a glance page. The quickest way:
+   *Export* the Italian and Russian CSV files, send them to me, I fill them in, and you
+   *Import* them back. A language left half in English is the most likely cause of
+   *Crawled – currently not indexed*. If a language cannot be ready by launch, unpublish
+   it in **Settings → Languages** rather than leave it in English.
 5. **Products.** For each bed, fill the **Search engine listing** title and description in
    this form: *Vivaldi – Handmade natural-fibre mattress | Midsummer Milano*. Optional
    metafields: `custom.kind` (overrides the line under the name), `custom.height`,
-   `custom.lead_time`, `custom.firmness`. **Amalfi, Bellini, Monteverdi and Ultra Dry**
-   have no fibres listed yet: add them in the theme editor (*Product · The system → Add
-   Fibre*) so their pages, their "What is it made of?" answer and their structured data
-   name the materials. The audit reviewed Amalfi.
-6. **Redirects.** From the 404 export, add each old address in **Online Store →
-   Navigation → URL redirects** (or import a CSV with the two columns *Redirect from* and
-   *Redirect to*).
-7. **llms.txt.** Open `https://midsummer-milano.com/llms.txt`. If it is Shopify's generic
-   file, try a URL redirect from `/llms.txt` to `/?view=llms`. If Shopify keeps its own
-   file, leave it; the overview and the fact sheet are linked from `robots.txt` and the
+   `custom.lead_time`, `custom.firmness`.
+6. **Vivaldi and Bellagio:** publish them (their templates are ready). The MOHD draft says
+   their pages are coming; if you would rather retire them, change that line before
+   sending.
+7. **Redirects.** In Search Console, open **Indexing → Pages → Not found (404)** and click
+   **Export**, then send me the file. I return a CSV (*Redirect from*, *Redirect to*) to
+   import under **Online Store → Navigation → URL redirects → Import**.
+8. **llms.txt.** Open `https://midsummer-milano.com/llms.txt`. If it is Shopify's generic
+   file, add a URL redirect from `/llms.txt` to `/?view=llms`. If Shopify keeps its own
+   file, leave it: the overview and the fact sheet are linked from `robots.txt` and the
    footer anyway.
-8. **After publishing:** resubmit `sitemap.xml` in Search Console, then use URL
-   Inspection → *Request indexing* on the home page, the three collections, the top ten
-   products, At a glance, Questions and Our story.
+9. **Search Console, after publishing:** in **Sitemaps**, submit `sitemap.xml` again. Then
+   use URL Inspection → *Request indexing* on the home page, the three collections, the
+   top ten products, At a glance, Questions and Our story.
+10. **Outreach** (§5): three drafts are waiting in Gmail. They are the MOHD follow-up (in
+    the price thread), the Italian resellers and the international resellers (both in
+    BCC). Send them once the site is live. On **1stdibs**, edit the listings yourself in
+    the seller account: current names and descriptions, "Price on request", and a link to
+    the official site where the form allows one.
+
+**Doing the Shopify steps from Claude next time.** This session could not reach the store,
+because the environment's network policy blocks `*.myshopify.com` and
+`midsummer-milano.com`. In the Claude Code environment settings, add those hosts under
+*Network access*, and add the variables `SHOPIFY_STORE` (`your-store.myshopify.com`) and
+`SHOPIFY_ADMIN_TOKEN` (the token from INSTALL.md §3). In a new session, Claude can then run
+the page script, import redirects and check the live pages.
 
 ## 4. Measuring it
 
@@ -155,16 +181,16 @@ official site, and MOHD lists products (Vivaldi, Bellagio) the site does not sho
 - **Optional:** a Wikidata entry for the company (founding date, founder, website,
   headquarters). AI assistants draw on it.
 
-## 6. Decisions to make
+## 6. Decisions taken
 
-1. **Prices.** The live site shows them; the new theme currently hides them. Both
-   documents favour some price signal: AI assistants otherwise quote MOHD's prices.
-   Options:
-   - show prices as now;
-   - show "From €…" (the theme does this by itself when sizes have different prices);
-   - keep "on request" (no offer in the structured data).
-2. **Founding year 2014** (from the audit). It is now in the structured data and on the At
-   a glance page; please confirm it.
-3. **Vivaldi and Bellagio:** publish them on the site, or ask MOHD to remove them.
-4. **Who writes and reviews the content:** the product questions, the facts page and the
-   translations need a final read by someone at the house.
+1. **Prices stay on request.** On 21 September the house asked MOHD to replace prices with
+   "Price on request", so the site does the same. The structured data then gives no
+   price, so it never says more than the page. The starting-price option (§3) is there if
+   you change your mind. Ask MOHD and the resellers to hide prices too (the drafts do), or
+   AI assistants keep quoting theirs.
+2. **Founding year 2014**, as in the audit.
+3. **Vivaldi and Bellagio:** publish them on the site, rather than ask MOHD to remove
+   them.
+4. **Map tiles:** OpenStreetMap, with its credit (INSTALL.md §24).
+5. **Still with the house:** a final read of the product questions, the fact sheet and the
+   translations by someone at the house, and Bellini's fibres.

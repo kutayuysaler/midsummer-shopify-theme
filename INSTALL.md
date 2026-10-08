@@ -633,8 +633,8 @@ make. In the theme:
   shown, and a product whose sizes have different prices then shows "From €…".
 - **Structured data.** Each product describes itself, with its fibres as materials. It gives
   a price only when prices are shown. The organisation now has its founding year, VAT
-  number, award and map, under *Structured data* in the header. Turn off the structured
-  data of Avada SEO and SEOon Blog in App embeds, or every page carries it twice.
+  number, award and map, under *Structured data* in the header. The Avada SEO and SEOon
+  Blog embeds come switched off (section 25), so no page carries its data twice.
 - **Italian and Russian.** The home page's opening words and the product page's labels have
   their own translations in the theme. Everything else is translated in Translate &
   Adapt.
@@ -701,3 +701,16 @@ make. In the theme:
   a styled map, a provider such as MapTiler or Stadia gives an address with a key; paste it
   there and update the credit. Leave it empty to keep only the drawn map.
 
+## 25. Ready for launch
+
+**SEO-ROLLOUT.md §3** is the launch checklist: what the theme already does, and the steps
+left in Shopify, in order.
+
+- **Prices stay on request**, as the house asked MOHD on 21 September. *Theme settings → Show
+  a starting price while prices are hidden* adds "From €…" under "On request" (on product
+  pages and collection cards) and gives search engines that starting price. It is off.
+- **App embeds come preset**, as on the live theme. Turned on: Tipo Appointment, Appointo and
+  Mailchimp. Turned off: Avada SEO Suite and SEOon Blog, whose structured data repeated the
+  theme's.
+- **Fibres** for Amalfi (linen), Monteverdi (cashmere, camel hair) and Ultra Dry (vegetable
+  horsehair) are now in their templates. Bellini still needs its own.

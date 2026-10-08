@@ -75,7 +75,7 @@
             {%- for f in fibres limit: 4 -%}<li>{% render 'ms-fibre-mark', name: f, size: 22 %}<span>{{ f }}</span></li>{%- endfor -%}
           </ul>
         {%- endif -%}
-        {%- if settings.ms_show_prices -%}<p class="ms-sy__price">{% if product.price_varies %}{%- assign from_price = product.price_min | money -%}{{ 'ms.product.price_from' | t: price: from_price }}{% else %}{{ product.price | money }}{% endif %}</p>{%- endif -%}
+        {%- if settings.ms_show_prices -%}<p class="ms-sy__price">{% if product.price_varies %}{%- assign from_price = product.price_min | money -%}{{ 'ms.product.price_from' | t: price: from_price }}{% else %}{{ product.price | money }}{% endif %}</p>{%- endif -%}{%- if settings.ms_show_prices == false and settings.ms_price_from and product.price_min > 0 -%}{%- assign from_price = product.price_min | money -%}<p class="ms-sy__price">{{ 'ms.product.price_from' | t: price: from_price }}</p>{%- endif -%}
       </a>
     {%- else -%}
       <p class="ms-sy__empty">{{ s.empty }}</p>

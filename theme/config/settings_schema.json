@@ -2230,6 +2230,13 @@
         "label": "Show prices",
         "info": "Off: prices are hidden everywhere they would appear (product cards, search, menus, cart) and structured data describes each product as price on request.",
         "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "ms_price_from",
+        "label": "Show a starting price while prices are hidden",
+        "info": "Prices stay on request, with \"From €…\" beneath, and search engines get that starting price.",
+        "default": false
       }
     ]
   },

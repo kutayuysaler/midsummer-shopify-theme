@@ -97,6 +97,7 @@
       "color2": "#F1ECE3"
     },
     "ms_show_prices": false,
+    "ms_price_from": false,
     "sections": {
       "ms-seo": {
         "type": "ms-seo",
@@ -155,7 +156,34 @@
     "ms_social_telegram": "https://t.me/midsummermilano",
     "ms_social_vk": "https://vk.com/midsummermilano",
     "ms_whatsapp_button": true,
-    "ms_whatsapp_label": "Chat with the atelier"
+    "ms_whatsapp_label": "Chat with the atelier",
+    "blocks": {
+      "3787308784794087151": {
+        "type": "shopify://apps/tipo-appointment/blocks/app-embed/efe4d483-fa62-4509-a0a7-3f363fbc9920",
+        "disabled": false,
+        "settings": {}
+      },
+      "9278379683843197553": {
+        "type": "shopify://apps/appointment-booking-appointo/blocks/app-embed/8e9086b8-9c22-4cd3-b1d1-0967727a5d97",
+        "disabled": false,
+        "settings": {}
+      },
+      "18131037017812181619": {
+        "type": "shopify://apps/mailchimp-email-sms/blocks/mailchimp_for_shopify_script/e3b67dce-fd41-4b61-b3cf-961c12344cde",
+        "disabled": false,
+        "settings": {}
+      },
+      "1935445597218932304": {
+        "type": "shopify://apps/avada-seo-suite/blocks/avada-seo/15507c6e-1aa3-45d3-b698-7e175e033440",
+        "disabled": true,
+        "settings": {}
+      },
+      "9664103760669878543": {
+        "type": "shopify://apps/seoon-blog/blocks/avada-seoon-setting/a45c3e67-be9f-4255-a194-b255a24f37c9",
+        "disabled": true,
+        "settings": {}
+      }
+    }
   },
   "presets": {
     "Atelier": {
