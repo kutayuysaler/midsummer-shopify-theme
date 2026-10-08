@@ -19,10 +19,15 @@
         "heading": "The Journal, by letter.",
         "text": "Our newsletter, sent regularly: new notes, new systems, and the dates the atelier opens."
       }
+    },
+    "projects": {
+      "type": "ms-projects",
+      "settings": {}
     }
   },
   "order": [
     "s01",
+    "projects",
     "s02",
     "letters"
   ]

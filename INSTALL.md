@@ -818,3 +818,158 @@ Four templates cannot be rendered outside Shopify: the cart and the appointment 
 use Shopify's `content_for` tag, and `llms.txt` and `robots.txt` are text files. They are
 Atelier's own and were not changed. Page titles and descriptions come from the layout, which
 is checked through the theme check and the SEO tests rather than these renders.
+
+
+## 29. Fibres up close, projects on a map, 15 + 15 to play with
+
+### The world map, zoomed in
+- The map is drawn by the theme itself; no outside map service is needed. The *Detailed map
+  tiles* setting is optional and empty by default.
+- The detail now comes from Natural Earth's 10m countries (world-atlas):
+  - France and Norway were missing from the previous source, and showed as sea when zoomed in.
+    They are back.
+  - Coastlines and borders are ten times finer, with no more stepped edges.
+- Lakes come from Natural Earth's 10m lakes: Como, Maggiore, Lugano, Garda, Iseo, Geneva and
+  the rest.
+
+### Natural materials: fibres up close
+- The Natural materials page (and the materials collection template) has a new band,
+  *Before it is a bed, it is this.* It holds photographs of the raw fibres from the Drive:
+  - vicuña (twice),
+  - yak, cashmere, wool and silk,
+  - horsehair and cotton.
+- Clicking a photograph opens it larger. A closing card notes, with the animals drawn, that
+  none of them could make the photo shoot.
+- The photographs ship with the theme (`ms-fibre-photo-*.jpg`, each in two sizes).
+- Each card is a block. It can use a bundled photograph or any picture from Files, with its own
+  name, place and line.
+- Only close-ups of single fibres are used. Photographs that showed fibres side by side in a
+  cross-section were left out on purpose.
+
+### Projects, as postcards on a map
+- The projects blog now shows as postcards on a drawn map of Italy, with one pin per place.
+  - Hovering a postcard lights its pin; clicking a pin brings its postcard into view.
+  - Three projects in Milano share one pin, marked 3.
+- Which blogs show this way is set under *Theme settings → Midsummer · Where links go →
+  Blogs shown as projects* (default: `projects, hotels, progetti, portfolio`). Every other
+  blog shows the Journal as before.
+- A project finds its place from its title or handle (Lucca, Brianza, Lierna, Meina, Milano …).
+  - The map knows about fifty places in Italy.
+  - For a place the title does not name, add a tag such as `place:Lucca`.
+  - A project with no place still gets its postcard, without a pin.
+
+### 15 + 15, to play with
+- The regeneration page (and Sustainability) has *Thirty years, in one line*: a slider from
+  year 0 to year 30.
+  - The mattress drawing stays as it is, which is the point.
+  - At year fifteen it leaves for Italy and sends a postcard home.
+  - A tally counts one Midsummer against the industrial mattresses thrown away in the same time.
+- The industrial lifespan defaults to 9 years. The page itself says eight to ten.
+- The stages are blocks, each with its own year, title and text.
+
+### At a glance, in figures
+The facts page opens with six figures, all taken from the facts below them:
+
+| Figure | What it counts |
+| --- | --- |
+| 2014 | the year the house was founded |
+| 2 | artisans per bed |
+| 12 | natural fibres |
+| 15 + 15 | years |
+| 8 | countries |
+| 0 | tooling charges, not even for a round bed |
+
+Each figure is a block. Plain numbers count up as they appear; the year stays still.
+
+### Beds with headboards and Tangram
+- The eight beds with headboards each show a drawing of that bed on their product page:
+  Cashmere Couture, Silk Flowers, Soft to the Touch, Beating of Wings, Jungle Dreams, Tulip,
+  Pure and Giotto.
+- Their collection page lines the beds up side by side.
+- The Tangram product page has a composer for its seats. The outdoor collection page shows it too.
+- Each product's kind decides what its page shows. A kind is one of:
+  - a system, a mattress, a topper or a boxspring,
+  - a bed with headboard,
+  - outdoor,
+  - linen.
+
+  The kind is read from the product's handle and type, so each page shows only what applies
+  to that product.
+
+### Collections
+- The collections page lists every collection the store has, on two shelves:
+  - beds by kind,
+  - what completes the bedroom.
+- A card appears only when its collection exists and holds products.
+- The recommended structure in the admin is one collection per kind, plus the three lines:
+  - **Beds:** Bed systems (`designer-beds`), Beds with headboards (`beds-with-headboards`),
+    Mattresses (`mattresses`), Toppers (`mattress-toppers`), Outdoor (`outdoor-1`).
+  - **The bedroom:** Duvets and sheets (`duvets`), Blankets and throws
+    (`gallery-blankets-and-throws`), Cushions and screens (`cushions-and-screens`), Furniture
+    (`gallery-furniture`), Lamps (`gallery-lamps`), Wallcoverings (`wallcovering-and-fabrics`),
+    Treasures (`midsummer-treasures`).
+  - **Lines:** Essentials, Signature and Icons, as before.
+
+  Each product sits in one kind and one line.
+
+### Journal
+- Every note finds its subject by itself:
+  - Sleep, Materials, Craft, The bedroom, Italian living, Sustainability, Projects, or
+    News & press.
+  - The note's title, tags and opening lines are read, and the strongest subject wins. Notes
+    written in future are filed the same way.
+  - Tested against the store's 279 notes.
+- A tag always decides when added: `cat:sleep`, `cat:materials` and so on, or the subject's name.
+- On a note's page:
+  - Paragraphs are evenly spaced, even where the editor left empty lines or stray breaks.
+  - Reading time is counted from the text.
+  - The share row has an icon beside each name, and *Copy link* keeps its icon after copying.
+
+### Instagram, latest posts
+The Follow section can show the account's latest posts in either of two ways.
+
+**With a token**
+1. In Meta for Developers, create an app with *Instagram API with Instagram Login*.
+2. Generate a long-lived token for the Midsummer account.
+3. Paste it under *Theme settings → Midsummer · Social and WhatsApp → Instagram access token*.
+
+The theme asks Instagram to extend the token about once a week when the page is visited. If
+the posts ever stop appearing, paste a fresh token.
+
+**Security note:** the token is visible in the page's source to anyone who looks. It is
+read-only: it can show the account's public posts, and cannot post or change anything. If
+that is not acceptable, use an app instead.
+
+**With an app**
+1. Install an Instagram feed app.
+2. Add its app block to the Follow section.
+
+Without either, the section shows the photographs chosen in it, as before.
+
+### Made by hand in Italy, not in Milan
+- The artisans do not work in Milan. Every place that said the beds are made, or built, in Milan
+  or at the Milan atelier now says *made by hand in Italy*.
+- This covers sections, templates, the share and search descriptions, and the translation
+  files.
+- The atelier on Via Andegari is where the beds are shown, tried and specified, and the copy
+  says so.
+
+### Smaller things
+- **Product size drawing:** it no longer jumps between sizes. The bed eases from one size to
+  the next in a fixed frame.
+- **Inside the bed:** each system's drawing is its own (23 systems), from the catalogue. Nothing
+  of the build is shown.
+- **Fibre marks and icons:** they draw at full size everywhere, with nothing clipped.
+
+### Checks
+
+| Check | Result |
+| --- | --- |
+| Theme check | 0 errors, 0 warnings |
+| Strict Liquid parse | 0 errors, 130 files |
+| Page audit | all 78 pages pass |
+| Interaction tests | 120 pass, 9 of them new |
+
+The page audit covers script errors, missing files, sideways scrolling and one H1 per page.
+The new interaction tests cover the fibre photographs, the projects map, the 15 + 15 slider and
+the figures. The parser now accepts `{% render block %}`, Shopify's own tag for app blocks.

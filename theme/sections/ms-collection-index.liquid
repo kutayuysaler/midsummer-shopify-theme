@@ -1,0 +1,134 @@
+{%- comment -%}
+  Every collection of the house, in two shelves: the beds by kind (bed systems, beds with
+  headboards, mattresses, toppers, outdoor) and what completes the bedroom (bed linen, throws,
+  cushions, furniture, lamps, wallcoverings, treasures). A card appears only when the store has
+  that collection with something in it, with its own picture, or its first product's.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign shelves = 'beds,room' | split: ','
+-%}
+<section class="ms-ci" aria-label="{{ s.heading | escape }}">
+  {%- if s.heading != blank -%}<h2 class="ms-ci__h">{{ s.heading }}</h2>{%- endif -%}
+  {%- for shelf in shelves -%}
+    {%- liquid
+      if shelf == 'beds'
+        assign keys = 'systems,headboards,mattresses,toppers,outdoor' | split: ','
+        assign label = s.beds_label
+      else
+        assign keys = 'bedding,throws,cushions,furniture,lamps,wallcoverings,treasures' | split: ','
+        assign label = s.room_label
+      endif
+      assign cards = ''
+    -%}
+    {%- capture cards -%}
+      {%- for k in keys -%}
+        {%- liquid
+          case k
+            when 'systems'
+              assign hs = 'designer-beds,bed-systems,sleep-systems'
+            when 'headboards'
+              assign hs = 'beds-with-headboards,headboards'
+            when 'mattresses'
+              assign hs = 'mattresses,mattress'
+            when 'toppers'
+              assign hs = 'mattress-toppers,toppers'
+            when 'outdoor'
+              assign hs = 'outdoor-1,outdoor'
+            when 'bedding'
+              assign hs = 'duvets,bed-sheets,bedding,bed-linen'
+            when 'throws'
+              assign hs = 'gallery-blankets-and-throws,blankets-and-throws,throws'
+            when 'cushions'
+              assign hs = 'cushions-and-screens,cushions'
+            when 'furniture'
+              assign hs = 'gallery-furniture,furniture'
+            when 'lamps'
+              assign hs = 'gallery-lamps,lamps'
+            when 'wallcoverings'
+              assign hs = 'wallcovering-and-fabrics,wallcoverings'
+            when 'treasures'
+              assign hs = 'midsummer-treasures,treasures'
+          endcase
+          assign c = nil
+          assign list = hs | split: ','
+          for h in list
+            if collections[h] != blank and collections[h].products_count > 0
+              assign c = collections[h]
+              break
+            endif
+          endfor
+          assign kl = 'line_' | append: k
+          assign kn = 'name_' | append: k
+        -%}
+        {%- if c != nil -%}
+          {%- assign pic = c.image | default: c.products.first.featured_media -%}
+          <a class="ms-ci__card" href="{{ c.url }}">
+            <span class="ms-ci__img">{%- if pic != blank -%}<img src="{{ pic | image_url: width: 900 }}" alt="" width="900" height="675" loading="lazy">{%- endif -%}</span>
+            <span class="ms-ci__name">{{ s[kn] | default: c.title }}</span>
+            <span class="ms-ci__count">{{ c.products_count }}</span>
+            {%- if s[kl] != blank -%}<span class="ms-ci__line">{{ s[kl] }}</span>{%- endif -%}
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endcapture -%}
+    {%- if cards != blank -%}
+      <div class="ms-ci__shelf" id="{{ shelf }}">
+        <div class="ms-ci__label">{{ label }}</div>
+        <div class="ms-ci__grid">{{ cards }}</div>
+      </div>
+    {%- endif -%}
+  {%- endfor -%}
+</section>
+<style>
+  .ms-ci { border-top: 1px solid #DDD6C9; padding: clamp(48px, 7vw, 110px) clamp(18px, 5vw, 80px) clamp(60px, 9vw, 150px); max-width: 1560px; margin: 0 auto; }
+  .ms-ci__h { font-family: Newsreader, Georgia, serif; font-weight: 200; font-size: clamp(28px, 3vw, 42px); letter-spacing: -0.02em; line-height: 1.1; margin-bottom: clamp(24px, 3vw, 44px); }
+  .ms-ci__shelf + .ms-ci__shelf { margin-top: clamp(48px, 6vw, 88px); }
+  .ms-ci__label { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: #6E675C; padding-bottom: 14px; border-bottom: 1px solid #17140F; }
+  .ms-ci__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: clamp(22px, 3vw, 44px) clamp(14px, 2vw, 28px); margin-top: 26px; }
+  .ms-site .ms-ci__card { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto 1fr; column-gap: 12px; align-items: baseline; align-content: start; color: #17140F; }
+  .ms-ci__img { grid-column: 1 / -1; display: block; aspect-ratio: 4 / 3; overflow: hidden; background: #EFE9DF; }
+  .ms-ci__img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.1s cubic-bezier(.2, .7, .2, 1); }
+  .ms-ci__card:hover .ms-ci__img img { transform: scale(1.035); }
+  .ms-ci__name { font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: clamp(19px, 1.7vw, 23px); margin-top: 14px; }
+  .ms-ci__count { font-family: Newsreader, Georgia, serif; font-size: 15px; color: #7E623B; margin-top: 14px; font-variant-numeric: tabular-nums; }
+  .ms-ci__line { grid-column: 1 / -1; font-size: 13.5px; line-height: 1.7; color: #6E675C; margin-top: 6px; max-width: 36ch; }
+</style>
+
+{% schema %}
+{
+  "name": "All the collections",
+  "settings": [
+    { "type": "paragraph", "content": "Every collection the store has, in two shelves. A card shows only when its collection exists and holds products." },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Everything we make, by kind." },
+    { "type": "text", "id": "beds_label", "label": "First shelf", "default": "Beds, by kind" },
+    { "type": "text", "id": "room_label", "label": "Second shelf", "default": "For the bedroom, and around it" },
+    { "type": "header", "content": "Names (empty uses the collection's own)" },
+    { "type": "text", "id": "name_systems", "label": "Bed systems", "default": "Bed systems" },
+    { "type": "text", "id": "name_headboards", "label": "Beds with headboards", "default": "Beds with headboards" },
+    { "type": "text", "id": "name_mattresses", "label": "Mattresses", "default": "Mattresses" },
+    { "type": "text", "id": "name_toppers", "label": "Toppers", "default": "Toppers" },
+    { "type": "text", "id": "name_outdoor", "label": "Outdoor", "default": "Outdoor" },
+    { "type": "text", "id": "name_bedding", "label": "Bed linen", "default": "Duvets and sheets" },
+    { "type": "text", "id": "name_throws", "label": "Throws", "default": "Blankets and throws" },
+    { "type": "text", "id": "name_cushions", "label": "Cushions", "default": "Cushions and screens" },
+    { "type": "text", "id": "name_furniture", "label": "Furniture", "default": "Furniture" },
+    { "type": "text", "id": "name_lamps", "label": "Lamps", "default": "Lamps" },
+    { "type": "text", "id": "name_wallcoverings", "label": "Wallcoverings", "default": "Wallcoverings" },
+    { "type": "text", "id": "name_treasures", "label": "Treasures", "default": "Midsummer Treasures" },
+    { "type": "header", "content": "Lines" },
+    { "type": "text", "id": "line_systems", "label": "Bed systems", "default": "Topper, mattress and boxspring, conceived as one." },
+    { "type": "text", "id": "line_headboards", "label": "Beds with headboards", "default": "Headboards in cashmere, Nubuck, walnut and Vienna straw." },
+    { "type": "text", "id": "line_mattresses", "label": "Mattresses", "default": "Made by hand in natural fibres, for fifteen years and fifteen more." },
+    { "type": "text", "id": "line_toppers", "label": "Toppers", "default": "What the body meets first, turned with the seasons." },
+    { "type": "text", "id": "line_outdoor", "label": "Outdoor", "default": "Tangram: a game of seats, in the open air." },
+    { "type": "text", "id": "line_bedding", "label": "Bed linen", "default": "To finish the bed, in the same natural fibres." },
+    { "type": "text", "id": "line_throws", "label": "Throws", "default": "Cashmere and silk, some woven on wooden looms." },
+    { "type": "text", "id": "line_cushions", "label": "Cushions", "default": "Cushions for the bed, the sofa or the floor." },
+    { "type": "text", "id": "line_furniture", "label": "Furniture", "default": "For the room around the bed." },
+    { "type": "text", "id": "line_lamps", "label": "Lamps", "default": "Light for reading, and for not reading." },
+    { "type": "text", "id": "line_wallcoverings", "label": "Wallcoverings", "default": "Prints made by hand, dreamlike and geometric." },
+    { "type": "text", "id": "line_treasures", "label": "Treasures", "default": "From the archive: one of a kind, then never again." }
+  ]
+}
+{% endschema %}

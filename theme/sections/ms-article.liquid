@@ -1,6 +1,6 @@
 {%- capture cat -%}{% render 'ms-note-cat', a: article %}{%- endcapture -%}{%- capture kicker -%}{% render 'ms-note-cat', label: cat %}{%- endcapture -%}{%- if kicker == blank -%}{%- assign kicker = blog.title -%}{%- endif -%}
 {%- assign words = article.content | strip_html | split: ' ' | size -%}
-{%- assign minutes = words | divided_by: 200 | at_least: 1 -%}
+{%- assign minutes = words | plus: 199 | divided_by: 200 | floor | at_least: 1 -%}
 {%- liquid
   assign ms_pub = article.published_at | date: '%s' | plus: 0
   assign ms_upd = article.updated_at | date: '%s' | plus: 0
@@ -27,17 +27,77 @@
       <nav class="ms-art-toc" data-ms-toc hidden aria-label="{{ section.settings.toc | default: 'In this note' | escape }}"><span>{{ section.settings.toc | default: 'In this note' }}</span><ol></ol></nav>
       <div class="ms-art-share" aria-label="Share">
         <span>{{ section.settings.share | default: 'Share' }}</span>
-        <a href="https://wa.me/?text={{ article.title | url_encode }}%20{{ shop.url | append: article.url | url_encode }}" target="_blank" rel="noopener">WhatsApp</a>
-        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ shop.url | append: article.url | url_encode }}" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://pinterest.com/pin/create/button/?url={{ shop.url | append: article.url | url_encode }}{% if article.image %}&media={{ article.image | image_url: width: 1600 | prepend: 'https:' | url_encode }}{% endif %}&description={{ article.title | url_encode }}" target="_blank" rel="noopener">Pinterest</a>
-        <a href="mailto:?subject={{ article.title | url_encode }}&body={{ shop.url | append: article.url | url_encode }}">Email</a>
-        <button type="button" data-ms-copy="{{ shop.url | append: article.url }}">{{ section.settings.copy | default: 'Copy link' }}</button>
+        <a href="https://wa.me/?text={{ article.title | url_encode }}%20{{ shop.url | append: article.url | url_encode }}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M12 3.2a8.7 8.7 0 0 0-7.5 13.1L3.3 20.8l4.6-1.2A8.7 8.7 0 1 0 12 3.2Z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M9.2 8.3c.2-.4.5-.4.7-.4h.5c.2 0 .4.1.5.4l.7 1.6c.1.2 0 .5-.1.6l-.5.6c-.1.2-.1.4 0 .5.6 1 1.5 1.8 2.5 2.3.2.1.4.1.5-.1l.6-.7c.2-.2.4-.2.6-.1l1.6.8c.2.1.3.3.3.5v.4c0 .5-.4 1.2-1.4 1.4-1 .2-2.4-.2-4.1-1.6-1.9-1.6-2.6-3.3-2.6-4.3 0-.8.4-1.5.6-1.9Z" fill="currentColor"/></svg>WhatsApp</a>
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ shop.url | append: article.url | url_encode }}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M8 10.3v6.2M8 7.6v.1M11.2 16.5v-6.2M11.2 13c0-1.7 1-2.8 2.4-2.8 1.3 0 2.2.9 2.2 2.6v3.7" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>LinkedIn</a>
+        <a href="https://pinterest.com/pin/create/button/?url={{ shop.url | append: article.url | url_encode }}{% if article.image %}&media={{ article.image | image_url: width: 1600 | prepend: 'https:' | url_encode }}{% endif %}&description={{ article.title | url_encode }}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><circle cx="12" cy="12" r="8.7" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M11.2 9.2c.8-1.4 3.8-1.6 4.3.5.5 2-1 4.4-2.8 4.1-1.1-.2-1.3-1.2-1.1-1.9M11.9 11.4l-2 8.4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>Pinterest</a>
+        <a href="mailto:?subject={{ article.title | url_encode }}&body={{ shop.url | append: article.url | url_encode }}"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M4 6.5l8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>Email</a>
+        <button type="button" data-ms-copy="{{ shop.url | append: article.url }}"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M10.3 13.7a3.6 3.6 0 0 0 5.1 0l3.1-3.1a3.6 3.6 0 0 0-5.1-5.1l-1.2 1.2M13.7 10.3a3.6 3.6 0 0 0-5.1 0l-3.1 3.1a3.6 3.6 0 0 0 5.1 5.1l1.2-1.2" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg><span>{{ section.settings.copy | default: 'Copy link' }}</span></button>
       </div>
     </div>
   </aside>
   <div class="ms-article-body">
 {{ article.content }}
   </div>
+<script>
+  /* the note, put in order before it is read: nothing of its words is changed */
+  (function () {
+    var body = document.currentScript.previousElementSibling;
+    if (!body || !body.classList.contains('ms-article-body')) return;
+    var blank = function (el) { return !el.querySelector('img, iframe, video, svg, picture, table, hr') && !(el.textContent || '').replace(/[\s ​]+/g, ''); };
+    body.querySelectorAll('meta, link, style, o\\:p').forEach(function (el) { el.remove(); });
+    body.querySelectorAll('[style]').forEach(function (el) { if (!/^(IMG|IFRAME|VIDEO)$/.test(el.tagName)) el.removeAttribute('style'); });
+    body.querySelectorAll('[data-mce-fragment], [data-mce-style]').forEach(function (el) { el.removeAttribute('data-mce-fragment'); el.removeAttribute('data-mce-style'); });
+    body.querySelectorAll('span, font').forEach(function (el) { if (!el.attributes.length || el.tagName === 'FONT' || /^s\d+$/.test(el.className)) { while (el.firstChild) el.parentNode.insertBefore(el.firstChild, el); el.remove(); } });
+    // a div holding only words is a paragraph
+    body.querySelectorAll('div').forEach(function (d) { if (!d.querySelector('div, p, ul, ol, table, figure, img, iframe, h1, h2, h3, h4, h5, h6')) { var p = document.createElement('p'); while (d.firstChild) p.appendChild(d.firstChild); d.replaceWith(p); } });
+    // two line breaks are a new paragraph
+    Array.prototype.slice.call(body.querySelectorAll('p')).forEach(function (p) {
+      var kids = Array.prototype.slice.call(p.childNodes), parts = [[]], last = null;
+      kids.forEach(function (n) {
+        var isBr = n.nodeName === 'BR', ws = n.nodeType === 3 && !n.textContent.trim();
+        if (isBr && last === 'br') { parts.push([]); last = 'split'; return; }
+        if (isBr && last === 'split') return;
+        if (ws) { parts[parts.length - 1].push(n); return; }
+        if (isBr) { parts[parts.length - 1].push(n); last = 'br'; return; }
+        last = null; parts[parts.length - 1].push(n);
+      });
+      if (parts.length < 2) return;
+      parts.forEach(function (ns) {
+        while (ns.length && (ns[ns.length - 1].nodeName === 'BR' || (ns[ns.length - 1].nodeType === 3 && !ns[ns.length - 1].textContent.trim()))) ns.pop();
+        if (!ns.length) return;
+        var q = document.createElement('p'); ns.forEach(function (n) { q.appendChild(n); }); p.parentNode.insertBefore(q, p);
+      });
+      p.remove();
+    });
+    // stray breaks at the end of a paragraph, and paragraphs with nothing in them
+    body.querySelectorAll('p, li').forEach(function (p) { var n = p.lastChild; while (n && (n.nodeName === 'BR' || (n.nodeType === 3 && !n.textContent.trim()))) { var prev = n.previousSibling; n.remove(); n = prev; } });
+    body.querySelectorAll('p, div, h1, h2, h3, h4, h5, h6, li').forEach(function (el) { if (blank(el)) el.remove(); });
+    // one level of headings in the note: a bold line on its own is one too
+    body.querySelectorAll('h1').forEach(function (h) { var n = document.createElement('h2'); n.innerHTML = h.innerHTML; h.replaceWith(n); });
+    body.querySelectorAll('h4, h5, h6').forEach(function (h) { var n = document.createElement('h3'); n.innerHTML = h.innerHTML; h.replaceWith(n); });
+    // empty inline wrappers and breaks at the edge of bold text say nothing
+    body.querySelectorAll('i, em, b, strong, u').forEach(function (el) { if (blank(el)) el.remove(); });
+    body.querySelectorAll('b, strong').forEach(function (el) { var n = el.lastChild; while (n && n.nodeName === 'BR') { el.parentNode.insertBefore(n, el.nextSibling); n = el.lastChild; } });
+    // a bold line followed by a break, at the head of a paragraph, is that paragraph's heading
+    Array.prototype.slice.call(body.querySelectorAll(':scope > p')).forEach(function (p) {
+      var k = Array.prototype.filter.call(p.childNodes, function (n) { return !(n.nodeType === 3 && !n.textContent.trim()); });
+      if (k.length > 2 && /^(B|STRONG)$/.test(k[0].nodeName) && k[1].nodeName === 'BR') {
+        var t = k[0].textContent.trim();
+        if (t.length > 2 && t.length < 110 && !/[.,;:]$/.test(t)) { var h = document.createElement('h3'); h.textContent = t; p.parentNode.insertBefore(h, p); k[0].remove(); k[1].remove(); }
+      }
+    });
+    body.querySelectorAll('p').forEach(function (p) {
+      var els = Array.prototype.filter.call(p.childNodes, function (n) { return !(n.nodeType === 3 && !n.textContent.trim()) && n.nodeName !== 'BR'; });
+      var t = p.textContent.trim();
+      if (els.length === 1 && /^(B|STRONG)$/.test(els[0].nodeName) && t.length > 2 && t.length < 110 && !/[.,;]$/.test(t)) { var h = document.createElement('h3'); h.textContent = t; p.replaceWith(h); }
+    });
+    // the first paragraph opens the note; a short last line from the team signs it
+    var ps = body.querySelectorAll(':scope > p');
+    if (ps.length) { ps[0].classList.add('ms-art-lede'); var l = ps[ps.length - 1], lt = l.textContent.trim(); if (ps.length > 2 && lt.length < 70 && /(team|midsummer|chiara|atelier)/i.test(lt) && !/[.?!]$/.test(lt)) l.classList.add('ms-art-sign'); }
+    body.querySelectorAll(':scope > p').forEach(function (p) { if (p.querySelector('img') && !p.textContent.trim()) p.classList.add('ms-art-pic'); });
+    body.classList.add('is-tidy');
+  })();
+</script>
 </div>
 {%- unless section.settings.end_after -%}{% render 'ms-article-end', s: section.settings, art: article, b: blog %}{%- endunless -%}
 {%- liquid
@@ -89,7 +149,7 @@
     }
     window.addEventListener('scroll', function () { if (!tick) tick = requestAnimationFrame(update); }, { passive: true });
     update();
-    document.querySelectorAll('[data-ms-copy]').forEach(function (b) { b.addEventListener('click', function () { var t = b.textContent; (navigator.clipboard ? navigator.clipboard.writeText(b.getAttribute('data-ms-copy')) : Promise.reject()).then(function () { b.textContent = '✓'; setTimeout(function () { b.textContent = t; }, 1600); }, function () {}); }); });
+    document.querySelectorAll('[data-ms-copy]').forEach(function (b) { b.addEventListener('click', function () { var s = b.querySelector('span') || b, t = s.textContent; (navigator.clipboard ? navigator.clipboard.writeText(b.getAttribute('data-ms-copy')) : Promise.reject()).then(function () { s.textContent = '✓'; setTimeout(function () { s.textContent = t; }, 1600); }, function () {}); }); });
   })();
 </script>
 <style>
@@ -208,6 +268,24 @@
     .ms-site .ms-article-body ol:has(> li:nth-child(4)) { grid-template-columns: minmax(0, 1fr); }
     .ms-art-hero__img { order: 0; }
   }
+
+  /* one rhythm for every note, whatever its editor left behind */
+  .ms-site .ms-article-body.is-tidy { display: block; }
+  .ms-site .ms-article-body > * + * { margin-top: 1.15em; }
+  .ms-site .ms-article-body > h2 { margin-top: 2.2em; }
+  .ms-site .ms-article-body > h3 { margin-top: 1.9em; font-weight: 300; }
+  .ms-site .ms-article-body > h2 + *, .ms-site .ms-article-body > h3 + * { margin-top: .55em; }
+  .ms-site .ms-article-body > :first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+  .ms-site .ms-article-body .ms-art-lede { font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: clamp(21px, 2vw, 25px); line-height: 1.55; color: #17140F; }
+  .ms-site .ms-article-body .ms-art-sign { font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 19px; color: #4A443B; margin-top: 2em; }
+  .ms-site .ms-article-body .ms-art-pic { margin-top: 1.8em; margin-bottom: .6em; }
+  .ms-site .ms-article-body li + li { margin-top: .45em; }
+  .ms-site .ms-article-body b, .ms-site .ms-article-body strong { font-weight: 500; color: #17140F; }
+  .ms-site .ms-article-body [style] { font-size: inherit !important; line-height: inherit !important; font-family: inherit !important; color: inherit !important; background: none !important; }
+  .ms-site .ms-article-body > p:empty { display: none; }
+  .ms-site .ms-art-share a, .ms-site .ms-art-share button { display: inline-flex; align-items: center; gap: 10px; }
+  .ms-art-share svg { flex: 0 0 auto; color: #7E623B; }
+  .ms-site .ms-art-share a:hover svg, .ms-site .ms-art-share button:hover svg { color: #17140F; }
 </style>
 <script>
   (function () {

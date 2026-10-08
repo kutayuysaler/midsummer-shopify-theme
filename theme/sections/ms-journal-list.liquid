@@ -4,6 +4,14 @@
   numbered like an issue. Index: every note as a line of type; hovering a line shows its
   photograph beside the cursor. The visitor's choice is remembered.
 {%- endcomment -%}
+{%- liquid
+  assign ms_pj_blogs = settings.ms_projects_blogs | default: 'projects,hotels,progetti,portfolio' | downcase | remove: ' ' | split: ','
+  assign ms_pj_skip = false
+  if blog and ms_pj_blogs contains blog.handle
+    assign ms_pj_skip = true
+  endif
+-%}
+{%- unless ms_pj_skip -%}
 {%- paginate blog.articles by 15 -%}
 {%- liquid
   assign featured = nil
@@ -269,6 +277,7 @@
     });
   })();
 </script>
+{%- endunless -%}
 {% schema %}
 {
   "name": "Journal · Notes",

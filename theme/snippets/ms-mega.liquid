@@ -100,8 +100,8 @@
       <div class="ms-mg__title">{{ ss.t1 }}</div>
       <p class="ms-mg__lede">{{ ss.mg_beds_lede }}</p>
       <ul class="ms-mg__minor" role="list">
-        {%- assign types = 'mattresses,toppers,headboards,bedding,furniture' | split: ',' -%}
-        {%- assign type_names = 'Mattresses,Toppers,Beds with headboards,Duvets and sheets,Furniture' | split: ',' -%}
+        {%- assign types = 'systems,headboards,mattresses,toppers,outdoor,bedding,throws,furniture' | split: ',' -%}
+        {%- assign type_names = 'Bed systems,Beds with headboards,Mattresses,Toppers,Outdoor,Duvets and sheets,Blankets and throws,Furniture' | split: ',' -%}
         {%- for t in types -%}
           {%- capture tu -%}{% render 'ms-link', to: t, strict: true %}{%- endcapture -%}
           {%- if tu != blank -%}<li><a href="{{ tu }}">{{ type_names[forloop.index0] }}</a></li>{%- endif -%}

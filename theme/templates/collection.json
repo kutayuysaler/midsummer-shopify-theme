@@ -15,11 +15,21 @@
     "s03": {
       "type": "ms-systems",
       "settings": {}
+    },
+    "lineup": {
+      "type": "ms-bed-lineup",
+      "settings": {}
+    },
+    "tangram": {
+      "type": "ms-tangram",
+      "settings": {}
     }
   },
   "order": [
     "s01",
     "s02",
+    "lineup",
+    "tangram",
     "s03"
   ]
 }

@@ -173,9 +173,78 @@
         "fact_15",
         "fact_16"
       ]
+    },
+    "figures": {
+      "type": "ms-figures",
+      "settings": {},
+      "blocks": {
+        "fig_0": {
+          "type": "figure",
+          "settings": {
+            "number": "2014",
+            "count": false,
+            "label": "Founded in Milan",
+            "line": "By an architect who wanted the bed designed like the rest of the room."
+          }
+        },
+        "fig_1": {
+          "type": "figure",
+          "settings": {
+            "number": "2",
+            "count": true,
+            "label": "Artisans per bed",
+            "line": "Start to finish, one bed at a time."
+          }
+        },
+        "fig_2": {
+          "type": "figure",
+          "settings": {
+            "number": "12",
+            "count": true,
+            "label": "Natural fibres",
+            "line": "From Cheviot wool and horsehair to vicuña."
+          }
+        },
+        "fig_3": {
+          "type": "figure",
+          "settings": {
+            "number": "15 + 15",
+            "count": false,
+            "label": "Years",
+            "line": "Fifteen, a short visit to Italy, fifteen more."
+          }
+        },
+        "fig_4": {
+          "type": "figure",
+          "settings": {
+            "number": "8",
+            "count": true,
+            "label": "Countries with our beds on show",
+            "line": "From Milano to Hong Kong."
+          }
+        },
+        "fig_5": {
+          "type": "figure",
+          "settings": {
+            "number": "0",
+            "count": false,
+            "label": "Tooling charges",
+            "line": "Not even for a round bed."
+          }
+        }
+      },
+      "block_order": [
+        "fig_0",
+        "fig_1",
+        "fig_2",
+        "fig_3",
+        "fig_4",
+        "fig_5"
+      ]
     }
   },
   "order": [
-    "s01"
+    "s01",
+    "figures"
   ]
 }

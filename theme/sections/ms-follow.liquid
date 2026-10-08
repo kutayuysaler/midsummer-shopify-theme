@@ -25,7 +25,11 @@
         <div class="ms-fw__icons">{% render 'ms-social' %}</div>
       </div>
     </div>
-    <div class="ms-fw__grid">
+    {%- assign app_blocks = section.blocks | where: 'type', '@app' -%}
+    {%- if app_blocks.size > 0 -%}
+      <div class="ms-fw__app">{%- for block in section.blocks -%}{%- if block.type == '@app' -%}{% render block %}{%- endif -%}{%- endfor -%}</div>
+    {%- else -%}
+    <div class="ms-fw__grid" data-ms-ig="{{ settings.ms_instagram_token | escape }}">
       {%- for i in (1..5) -%}
         {%- liquid
           assign k = 'image_' | append: i
@@ -49,6 +53,34 @@
         </a>
       {%- endfor -%}
     </div>
+    {%- if settings.ms_instagram_token != blank -%}
+    <script>
+      /* the latest posts, straight from Instagram; an hour's memory; the photographs above if it cannot answer */
+      (function () {
+        var g = document.currentScript.previousElementSibling, tok = g && g.getAttribute('data-ms-ig');
+        if (!tok) return;
+        var KEY = 'ms-ig-v1', now = Date.now(), cached = null;
+        try { cached = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) {}
+        function paint(items) {
+          var tiles = g.querySelectorAll('.ms-fw__tile');
+          items.slice(0, tiles.length).forEach(function (it, i) {
+            var src = it.media_type === 'VIDEO' ? it.thumbnail_url : it.media_url; if (!src) return;
+            var a = tiles[i], img = a.querySelector('img');
+            a.href = it.permalink; img.src = src; img.alt = (it.caption || '').split('\n')[0].slice(0, 120); a.classList.add('is-live');
+          });
+          g.classList.add('is-live');
+        }
+        if (cached && cached.items && now - cached.t < 36e5) paint(cached.items);
+        else fetch('https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,thumbnail_url,permalink,timestamp&limit=12&access_token=' + encodeURIComponent(tok))
+          .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+          .then(function (j) { var items = (j.data || []).filter(function (x) { return x.media_url || x.thumbnail_url; }); if (!items.length) return; paint(items); try { localStorage.setItem(KEY, JSON.stringify({ t: now, items: items.slice(0, 12) })); } catch (e) {} })
+          .catch(function () { if (cached && cached.items) paint(cached.items); });
+        // once a week, ask Instagram to extend the token, so it never lapses while the site is visited
+        try { var last = +localStorage.getItem('ms-ig-refresh') || 0; if (now - last > 6048e5) { localStorage.setItem('ms-ig-refresh', String(now)); fetch('https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=' + encodeURIComponent(tok)).catch(function () {}); } } catch (e) {}
+      })();
+    </script>
+    {%- endif -%}
+    {%- endif -%}
   </div>
 </section>
 <style>
@@ -68,6 +100,7 @@
   .ms-fw__tile img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s cubic-bezier(.2,.7,.2,1), filter .6s ease; }
   .ms-fw__glyph { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(23, 20, 15, .38); opacity: 0; transition: opacity .45s ease; }
   .ms-fw__tile:hover img { transform: scale(1.06); }
+  .ms-fw__app { margin-top: clamp(40px, 5vw, 72px); }
   .ms-fw__tile:hover .ms-fw__glyph { opacity: 1; }
   @media (max-width: 860px) {
     .ms-fw__head { grid-template-columns: minmax(0, 1fr); }
@@ -88,8 +121,10 @@
     { "type": "image_picker", "id": "image_2", "label": "Photograph 2" },
     { "type": "image_picker", "id": "image_3", "label": "Photograph 3" },
     { "type": "image_picker", "id": "image_4", "label": "Photograph 4" },
-    { "type": "image_picker", "id": "image_5", "label": "Photograph 5" }
+    { "type": "image_picker", "id": "image_5", "label": "Photograph 5" },
+    { "type": "paragraph", "content": "The latest posts appear by themselves with an Instagram access token (Theme settings → Midsummer · Social and WhatsApp), or with an Instagram feed app's block added here. The photographs above are shown until then." }
   ],
+  "blocks": [{ "type": "@app" }],
   "presets": [{ "name": "Follow the atelier" }]
 }
 {% endschema %}

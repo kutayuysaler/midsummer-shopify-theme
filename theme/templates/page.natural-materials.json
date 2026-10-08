@@ -33,11 +33,100 @@
       "settings": {
         "current": "materials"
       }
+    },
+    "fibres": {
+      "type": "ms-fibre-gallery",
+      "settings": {},
+      "blocks": {
+        "fibre_1": {
+          "type": "fibre",
+          "settings": {
+            "photo": "vicuna",
+            "name": "Vicuña",
+            "origin": "The Andes, Peru",
+            "line": "The rarest fibre in the world, and the softest thing we have ever photographed. Quickly, before anyone could touch it again."
+          }
+        },
+        "fibre_2": {
+          "type": "fibre",
+          "settings": {
+            "photo": "yak",
+            "name": "Yak hair",
+            "line": "Soft as cashmere and sturdier than it looks. Rather like the animal."
+          }
+        },
+        "fibre_3": {
+          "type": "fibre",
+          "settings": {
+            "photo": "cashmere",
+            "name": "Cashmere",
+            "line": "The fine undercoat, combed out as the winter coat is shed. Warmth without weight."
+          }
+        },
+        "fibre_4": {
+          "type": "fibre",
+          "settings": {
+            "photo": "wool",
+            "name": "Wool",
+            "mark": "Cheviot Wool",
+            "line": "Long and springy, and very hard to flatten. Which is the whole point."
+          }
+        },
+        "fibre_5": {
+          "type": "fibre",
+          "settings": {
+            "photo": "silk",
+            "name": "Silk",
+            "line": "Cool to the touch, with a lustre nothing else here has."
+          }
+        },
+        "fibre_6": {
+          "type": "fibre",
+          "settings": {
+            "photo": "horsehair",
+            "name": "Horsehair",
+            "line": "Long, curled and resilient: it returns to its shape every time, and lets the air through."
+          }
+        },
+        "fibre_7": {
+          "type": "fibre",
+          "settings": {
+            "photo": "cotton",
+            "name": "Cotton",
+            "line": "Fresh and breathable, for the warmer months."
+          }
+        },
+        "fibre_8": {
+          "type": "fibre",
+          "settings": {
+            "photo": "vicuna-2",
+            "name": "Vicuña, again",
+            "mark": "Vicuña",
+            "line": "We could not choose between the two photographs."
+          }
+        },
+        "note_9": {
+          "type": "note",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "fibre_1",
+        "fibre_2",
+        "fibre_3",
+        "fibre_4",
+        "fibre_5",
+        "fibre_6",
+        "fibre_7",
+        "fibre_8",
+        "note_9"
+      ]
     }
   },
   "order": [
     "opening",
     "s01",
+    "fibres",
     "s02",
     "s03",
     "next"

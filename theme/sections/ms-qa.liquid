@@ -1,3 +1,16 @@
+{%- liquid
+  assign qa_show = true
+  if template.name == 'product' and product != blank
+    capture qk
+      render 'ms-kind', p: product
+    endcapture
+    assign qkp = qk | split: '|'
+    if qkp[0] == 'outdoor' or qkp[0] == 'other'
+      assign qa_show = false
+    endif
+  endif
+-%}
+{%- if qa_show -%}
 {%- comment -%}
   Questions and answers, grouped under a heading, opened one at a time. Marked up for search
   engines and AI assistants as an FAQ (schema.org FAQPage), so the answers can be quoted.
@@ -71,6 +84,7 @@
   .ms-site .ms-qa__a a { color: #17140F; text-decoration: underline; text-underline-offset: 3px; }
   @media (max-width: 900px) { .ms-qa__in { grid-template-columns: minmax(0, 1fr); } .ms-qa__head { position: static; } }
 </style>
+{%- endif -%}
 
 {% schema %}
 {

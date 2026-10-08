@@ -13,6 +13,23 @@
       assign desc = ''
       assign count = collection.products_count
   endcase
+  assign ms_count_label = section.settings.t1
+  case collection.handle
+    when 'essentials', 'signature', 'icons', 'icon', 'designer-beds'
+      assign ms_count_label = section.settings.t1
+    when 'beds-with-headboards'
+      assign ms_count_label = 'Beds'
+    when 'mattresses'
+      assign ms_count_label = 'Mattresses'
+    when 'mattress-toppers'
+      assign ms_count_label = 'Toppers'
+    else
+      if collection.handle contains 'outdoor'
+        assign ms_count_label = 'Pieces'
+      elsif collection.handle != 'all'
+        assign ms_count_label = 'Pieces'
+      endif
+  endcase
   assign own = collection.description | strip_html | strip
   if own != blank
     assign desc = own
@@ -22,7 +39,7 @@
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(28px, 6vw, 110px);">
 <p style="font-family: Newsreader, Georgia, serif; font-size: clamp(19px, 2.3vw, 27px); line-height: 1.55; font-style: italic; color: rgb(74, 68, 59);">{{ desc }}</p>
 <div style="display: flex; flex-wrap: wrap; gap: clamp(24px, 4vw, 56px); align-content: flex-start; padding-top: 6px;">
-<div><div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92);">{{ section.settings.t1 }}</div><div style="font-family: Newsreader, Georgia, serif; font-size: 26px; margin-top: 8px;">{{ count }}</div></div>
+<div><div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92);">{{ ms_count_label }}</div><div style="font-family: Newsreader, Georgia, serif; font-size: 26px; margin-top: 8px;">{{ count }}</div></div>
 <div><div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92);">{{ section.settings.t2 }}</div><div style="font-family: Newsreader, Georgia, serif; font-size: 26px; margin-top: 8px;">{{ section.settings.t3 }}</div></div>
 <div><div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92);">{{ section.settings.t4 }}</div><div style="font-family: Newsreader, Georgia, serif; font-size: 26px; margin-top: 8px;">{{ section.settings.t5 }}</div></div>
 </div>
@@ -37,7 +54,7 @@
     { "type": "text", "id": "t2", "label": "Second label", "default": "Lead time" },
     { "type": "text", "id": "t3", "label": "Second value", "default": "On request" },
     { "type": "text", "id": "t4", "label": "Third label", "default": "Made" },
-    { "type": "text", "id": "t5", "label": "Third value", "default": "By hand, in Milan" }
+    { "type": "text", "id": "t5", "label": "Third value", "default": "By hand, in Italy" }
   ]
 }
 {% endschema %}

@@ -82,12 +82,22 @@
     "s05": {
       "type": "ms-product-related",
       "settings": {}
+    },
+    "bed": {
+      "type": "ms-bed-anatomy",
+      "settings": {}
+    },
+    "tangram": {
+      "type": "ms-tangram",
+      "settings": {}
     }
   },
   "order": [
     "s01",
     "s02",
     "s03",
+    "bed",
+    "tangram",
     "s04",
     "s05"
   ]

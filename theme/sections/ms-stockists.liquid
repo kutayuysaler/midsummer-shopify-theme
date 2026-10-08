@@ -150,7 +150,7 @@
 
     <div class="ms-sl__map" data-ms-sl-map role="region" aria-label="{{ s.map_label | escape }}">
       <div class="ms-sl__tiles" data-ms-sl-tiles aria-hidden="true"></div>
-      <svg class="ms-sl__svg" data-ms-sl-svg aria-hidden="true"><g data-ms-sl-world><path class="ms-sl__grat" data-ms-sl-grat></path><path class="ms-sl__land" data-ms-sl-land></path><path class="ms-sl__home" data-ms-sl-home></path><path class="ms-sl__borders" data-ms-sl-borders></path></g></svg>
+      <svg class="ms-sl__svg" data-ms-sl-svg aria-hidden="true"><g data-ms-sl-world><path class="ms-sl__grat" data-ms-sl-grat></path><path class="ms-sl__land" data-ms-sl-land></path><path class="ms-sl__home" data-ms-sl-home></path><path class="ms-sl__lakes" data-ms-sl-lakes></path><path class="ms-sl__rivers" data-ms-sl-rivers></path><path class="ms-sl__borders" data-ms-sl-borders></path></g><g class="ms-sl__labels" data-ms-sl-labels></g></svg>
       <div class="ms-sl__pins" data-ms-sl-pins></div>
       <div class="ms-sl__views" role="group" aria-label="{{ s.views_label | escape }}">
         <button type="button" data-ms-sl-view="" aria-pressed="true">{{ s.world_label }}</button>
@@ -283,8 +283,18 @@
   .ms-sl__land { fill: #E4D8C3; stroke: rgba(126, 98, 59, .38); stroke-width: .7; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
   .ms-sl__home { fill: #D8C8AC; stroke: rgba(126, 98, 59, .38); stroke-width: .7; vector-effect: non-scaling-stroke; }
   .ms-sl__borders { fill: none; stroke: #F6F1E8; stroke-width: .8; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-  .ms-sl__pins { position: absolute; inset: 0; pointer-events: none; }
+  .ms-sl__lakes { fill: #F3EDE3; stroke: rgba(126, 98, 59, .3); stroke-width: .6; vector-effect: non-scaling-stroke; }
+  .ms-sl__rivers { fill: none; stroke: rgba(126, 98, 59, .26); stroke-width: .7; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+  .ms-sl__labels { pointer-events: none; }
+  .ms-sl__labels text { font-family: "Red Hat Text", system-ui, sans-serif; font-size: 9.5px; letter-spacing: .13em; text-transform: uppercase; fill: #7A7062; paint-order: stroke; stroke: rgba(243, 237, 227, .9); stroke-width: 3px; stroke-linejoin: round; }
+  .ms-sl__labels .r1 text, .ms-sl__labels .r2 text { font-size: 10.5px; fill: #5E5548; letter-spacing: .16em; }
+  .ms-sl__labels circle { fill: #8F8372; stroke: rgba(243, 237, 227, .9); stroke-width: 1.5px; }
+  .ms-sl__labels .is-sea text { font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 13px; letter-spacing: .08em; text-transform: none; fill: rgba(126, 98, 59, .62); stroke: none; }
+  .ms-sl__pins { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
   .ms-sl__svg { z-index: 1; }
+  /* the controls and the places stay above the drawing */
+  .ms-sl__views, .ms-sl__zoom, .ms-sl__legend, .ms-sl__hint { z-index: 4; }
+  .ms-sl__pop { z-index: 5; }
   .ms-sl__tiles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; opacity: 0; transition: opacity .35s ease; background: #F3EDE3; isolation: isolate; }
   .ms-site .ms-sl__tiles img.ms-sl__tile { position: absolute; left: 0; top: 0; max-width: none; transform-origin: 0 0; opacity: 0; transition: opacity .3s ease; user-select: none; -webkit-user-drag: none; filter: grayscale(1) contrast(1.04); mix-blend-mode: multiply; }
   .ms-site .ms-sl__tiles img.ms-sl__tile.is-on { opacity: 1; }
@@ -375,7 +385,7 @@
     var root = document.querySelector('[data-ms-sl]');
     if (!root || root.__msSl) return;
     root.__msSl = true;
-    var URL50 = {{ 'ms-world-50m.json' | asset_url | json }};
+    var URL50 = {{ 'ms-world-detail.json' | asset_url | json }};
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var KINDS = { atelier: {{ section.settings.atelier_kind | json }}, showroom: {{ section.settings.showroom_kind | json }}, boutique: {{ section.settings.boutique_kind | json }}, agent: {{ section.settings.agent_kind | json }} };
     var T = { places: {{ section.settings.count_places | json }}, place: {{ section.settings.count_place | json }}, countries: {{ section.settings.count_countries | json }}, country: {{ section.settings.count_country | json }}, here: {{ section.settings.cluster_label | json }}, wheel: {{ section.settings.hint_wheel | json }}, touch: {{ section.settings.hint_touch | json }} };
@@ -493,11 +503,11 @@
     var svg = d3.select(root.querySelector('[data-ms-sl-svg]'));
     var world = svg.select('[data-ms-sl-world]');
     var W = 0, H = 0, K = 1, proj = (d3.geoMercator || d3.geoNaturalEarth1)(), path = d3.geoPath(proj);
-    var land = null, borders = null, home = null, fine = false, loadingFine = false, t = d3.zoomIdentity;
+    var land = null, borders = null, home = null, lakes = null, rivers = null, places = [], seas = [], fine = false, loadingFine = false, t = d3.zoomIdentity;
     var HOME = {}; stores.forEach(function (p) { HOME[p.country === 'United States' ? 'United States of America' : p.country] = 1; });
     var KMAX = 220, homeView = null, touched = false, fitLand = null;
     var TILES = {{ s.tiles_url | json }}, tilesEl = root.querySelector('[data-ms-sl-tiles]'), creditEl = root.querySelector('[data-ms-sl-credit]');
-    var tileImgs = {}, tileTick = null, tilesOK = false, TK0 = 2.2, TK1 = 4.5;
+    var tileImgs = {}, tileTick = null, tilesOK = false, tileErr = 0, TK0 = 2.2, TK1 = 4.5;
     ['pointerdown', 'wheel', 'keydown'].forEach(function (ev) { mapEl.addEventListener(ev, function () { touched = true; }, { passive: true }); });
     function kForZoom(z) { return 256 * Math.pow(2, z) / (2 * Math.PI * proj.scale()); }
     var zoom = d3.zoom().scaleExtent([1, KMAX]).filter(function (e) {
@@ -530,19 +540,26 @@
       if (!fitLand) fitLand = land;
       home = { type: 'FeatureCollection', features: all.filter(function (f) { return HOME[f.properties.name]; }) };
       borders = topo.mesh(topology, obj, function (a, b) { return a !== b; });
+      if (topology.objects.lakes) lakes = topo.feature(topology, topology.objects.lakes);
+      if (topology.objects.rivers) rivers = topo.feature(topology, topology.objects.rivers);
+      if (topology.places) places = topology.places.map(function (a) { return { n: a[0], lon: a[1], lat: a[2], r: a[3] }; });
+      if (topology.seas) seas = topology.seas.map(function (a) { return { n: a[0], lon: a[1], lat: a[2], r: a[3], sea: 1 }; });
     }
     function paint() {
       world.select('[data-ms-sl-grat]').attr('d', path(d3.geoGraticule10()));
       world.select('[data-ms-sl-land]').attr('d', path(land));
       world.select('[data-ms-sl-home]').attr('d', path(home));
       world.select('[data-ms-sl-borders]').attr('d', path(borders));
+      world.select('[data-ms-sl-lakes]').attr('d', lakes ? path(lakes) : null);
+      world.select('[data-ms-sl-rivers]').attr('d', rivers ? path(rivers) : null);
+      places.concat(seas).forEach(function (q) { var xy = proj([q.lon, q.lat]); q.px = xy[0]; q.py = xy[1]; });
     }
     function size() {
       var r = mapEl.getBoundingClientRect();
       W = Math.max(1, Math.round(r.width)); H = Math.max(1, Math.round(r.height));
       svg.attr('viewBox', '0 0 ' + W + ' ' + H);
       proj.fitExtent([[12, 12], [W - 12, H - 12]], fitLand || land);
-      KMAX = Math.max(60, kForZoom(18));
+      KMAX = Math.max(40, kForZoom(11.5));
       zoom.scaleExtent([1, KMAX]);
       stores.forEach(function (p) { var xy = proj([p.lon, p.lat]); p.px = xy[0]; p.py = xy[1]; });
       zoom.extent([[0, 0], [W, H]]).translateExtent([[-W * .25, -H * .25], [W * 1.25, H * 1.25]]);
@@ -552,7 +569,7 @@
     /* the detailed map: a quiet, light map (CARTO Positron, from OpenStreetMap) laid in grey on the
        house's cream, fading in as you come closer; the drawing gives way entirely, the pins stay */
     function tiles() {
-      if (!tilesEl || !TILES || !W) return;
+      if (!tilesEl || !TILES || !W) { if (world) world.style('opacity', 1); return; }
       var fade = Math.max(0, Math.min(1, (t.k - TK0) / (TK1 - TK0)));
       tilesEl.style.opacity = fade;
       // the drawing steps back only once the detailed map has arrived
@@ -577,6 +594,7 @@
           img = document.createElement('img');
           img.alt = ''; img.decoding = 'async'; img.draggable = false; img.className = 'ms-sl__tile';
           var ii = ((i % n) + n) % n;
+          img.onerror = function () { tileErr++; if (tileErr > 1 && !tilesOK) { TILES = null; tilesEl.style.opacity = 0; tilesEl.innerHTML = ''; tileImgs = {}; world.style('opacity', 1); if (creditEl) creditEl.classList.remove('is-on'); } };
           img.onload = function () { this.classList.add('is-on'); tilesOK = true; if (!tileTick) tileTick = requestAnimationFrame(function () { tileTick = null; tiles(); }); };
           img.src = TILES.replace('{z}', z).replace('{x}', ii).replace('{y}', j).replace('{s}', 'abc'.charAt((ii + j) % 3)).replace('{r}', (window.devicePixelRatio || 1) > 1.5 ? '@2x' : '');
           tilesEl.appendChild(img); tileImgs[key] = img;
@@ -614,8 +632,42 @@
       pinsEl.appendChild(b); pinEls[p.id] = b; return b;
     }
     function esc(s) { return String(s || '').replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); }
+    var labelsG = svg.select('[data-ms-sl-labels]');
+    var ZT = { 1: 3.4, 2: 4.9, 3: 6.2, 4: 7.9, 5: 9.3 }, ZS = { 1: 1.6, 2: 4.2, 3: 5.6, 4: 7.6 };
+    function names() {
+      if (!W || !labelsG.node()) return;
+      var z = Math.log(2 * Math.PI * proj.scale() * t.k / 256) / Math.LN2;
+      var boxes = [], out = [];
+      stores.filter(shown).forEach(function (p) { var x = t.applyX(p.px), y = t.applyY(p.py); boxes.push([x - 16, y - 16, x + 16, y + 16]); });
+      function free(b) { for (var i = 0; i < boxes.length; i++) { var o = boxes[i]; if (b[0] < o[2] && b[2] > o[0] && b[1] < o[3] && b[3] > o[1]) return false; } return true; }
+      seas.forEach(function (q) {
+        if (z < ZS[q.r] || (q.r === 1 && z > 7.2)) return;
+        var x = t.applyX(q.px), y = t.applyY(q.py), w = q.n.length * 6.6 + 8;
+        if (x < -w || x > W + w || y < -10 || y > H + 10) return;
+        var b = [x - w / 2, y - 9, x + w / 2, y + 7]; if (!free(b)) return; boxes.push(b); out.push({ q: q, x: x, y: y });
+      });
+      for (var i = 0; i < places.length && out.length < 90; i++) {
+        var q = places[i]; if (z < ZT[q.r]) continue;
+        var x = t.applyX(q.px), y = t.applyY(q.py); if (x < -40 || x > W + 40 || y < -12 || y > H + 12) continue;
+        var w = q.n.length * (q.r < 3 ? 6.9 : 6.2) + 10, side = 0, b = null;
+        // the name sits to the right of its dot; failing that to the left, above or below
+        var tries = [[x - 4, y - 7, x + w + 4, y + 7, 'r'], [x - w - 4, y - 7, x + 4, y + 7, 'l'], [x - w / 2, y - 22, x + w / 2, y + 3, 'a'], [x - w / 2, y - 3, x + w / 2, y + 22, 'b']];
+        for (var k = 0; k < (q.r < 3 ? 4 : 2) && !b; k++) if (free(tries[k])) b = tries[k];
+        if (!b) continue; boxes.push(b); out.push({ q: q, x: x, y: y, s: b[4] });
+      }
+      var sel = labelsG.selectAll('g').data(out, function (d) { return d.q.n + d.q.lon + (d.s || ''); });
+      sel.exit().remove();
+      var en = sel.enter().append('g').attr('class', function (d) { return d.q.sea ? 'is-sea' : 'is-town r' + d.q.r; });
+      en.filter(function (d) { return !d.q.sea; }).append('circle').attr('r', function (d) { return d.q.r < 3 ? 2.2 : 1.6; });
+      en.append('text').text(function (d) { return d.q.n; });
+      var all = en.merge(sel).attr('transform', function (d) { return 'translate(' + d.x.toFixed(1) + ',' + d.y.toFixed(1) + ')'; });
+      all.select('text').attr('text-anchor', function (d) { return d.q.sea || d.s === 'a' || d.s === 'b' ? 'middle' : d.s === 'l' ? 'end' : 'start'; })
+        .attr('x', function (d) { return d.q.sea || d.s === 'a' || d.s === 'b' ? 0 : d.s === 'l' ? -7 : 7; })
+        .attr('y', function (d) { return d.q.sea ? 0 : d.s === 'a' ? -8 : d.s === 'b' ? 15 : 3.5; });
+    }
     function layout() {
       if (!W) return;
+      names();
       var vis = stores.filter(shown);
       var pts = vis.map(function (p) { return { p: p, x: t.applyX(p.px), y: t.applyY(p.py) }; });
       var R = 30, groups = [], used = {};
@@ -681,7 +733,7 @@
     }
     function fit(list) { go(viewFor(list && list.length ? list : stores, 40, list && list.length > 3 ? (narrow() ? 28 : 56) : null)); setView(''); }
     function flyTo(p) {
-      var k = Math.max(t.k, kForZoom(14));
+      var k = Math.min(KMAX, Math.max(t.k, kForZoom(9.5)));
       go(d3.zoomIdentity.translate(W / 2 - k * p.px, H / 2 - k * p.py).scale(k));
     }
     function setView(v) { root.querySelectorAll('[data-ms-sl-view]').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-ms-sl-view') === v ? 'true' : 'false'); }); }
@@ -798,7 +850,7 @@
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Label", "default": "Showrooms, Agents & Resellers" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Where to find us." },
-    { "type": "textarea", "id": "lede", "label": "Introduction", "default": "The beds are made in Milano and can be lain on there. Elsewhere, a showroom, an agent or a reseller will receive you — by appointment, in a room, not a warehouse." },
+    { "type": "textarea", "id": "lede", "label": "Introduction", "default": "The beds are made by hand in Italy, and can be lain on at the atelier in Milano. Elsewhere, a showroom, an agent or a reseller will receive you — by appointment, in a room, not a warehouse." },
     { "type": "text", "id": "tally_places", "label": "Tally: places", "default": "places in" },
     { "type": "text", "id": "tally_countries", "label": "Tally: countries", "default": "countries" },
     { "type": "header", "content": "The atelier" },
@@ -811,7 +863,7 @@
     { "type": "header", "content": "List and map" },
     { "type": "text", "id": "list_label", "label": "List label", "default": "Places" },
     { "type": "text", "id": "map_label", "label": "Map label", "default": "Map of Midsummer Milano showrooms, agents and resellers" },
-    { "type": "text", "id": "tiles_url", "label": "Detailed map tiles (address)", "default": "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", "info": "Shown as you zoom in, laid in grey on cream. Empty keeps the drawn map only." },
+    { "type": "text", "id": "tiles_url", "label": "Detailed map tiles (address)", "default": "", "info": "Optional. Shown as you zoom in, laid in grey on cream. Empty keeps the drawn map only." },
     { "type": "text", "id": "tiles_credit", "label": "Map tiles credit", "default": "© OpenStreetMap contributors © CARTO" },
     { "type": "text", "id": "search_placeholder", "label": "Search placeholder", "default": "Search a city, country or name" },
     { "type": "text", "id": "type_label", "label": "Type filter label", "default": "Type" },

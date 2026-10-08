@@ -1,0 +1,252 @@
+{%- comment -%}
+  The projects blog, as postcards on a map of Italy. Each project finds its place from its
+  title, its handle or a tag such as "place:Lucca"; places the map knows get a pin. Hovering
+  a postcard lights its pin, and the other way round. Shows only on the blogs listed in the
+  theme settings (projects, hotels...); on every other blog the Journal shows as usual.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign handles = settings.ms_projects_blogs | default: 'projects,hotels,progetti,portfolio' | downcase | remove: ' ' | split: ','
+  assign show = false
+  if blog and handles contains blog.handle
+    assign show = true
+  endif
+-%}
+{%- if show -%}
+{%- capture places_raw -%}{%- render 'ms-italy-places' -%}{%- endcapture -%}
+{%- assign places = places_raw | strip | split: ';' -%}
+{%- paginate blog.articles by 24 -%}
+{%- liquid
+  assign pins = ''
+  assign names = ''
+-%}
+{%- capture cards -%}
+  {%- for a in blog.articles -%}
+    {%- liquid
+      assign hay = a.title | append: ' ' | append: a.handle | downcase | replace: '-', ' ' | replace: ',', ' ' | replace: '.', ' ' | replace: '’', ' ' | replace: "'", ' ' | replace: ':', ' ' | prepend: ' ' | append: ' '
+      for t in a.tags
+        assign tl = t | downcase
+        if tl contains 'place:'
+          assign hay = tl | remove: 'place:' | strip | prepend: ' ' | append: ' '
+        endif
+      endfor
+      assign place = ''
+      assign px = ''
+      assign py = ''
+      for p in places
+        assign q = p | split: '|'
+        assign key = q[0] | prepend: ' ' | append: ' '
+        if hay contains key
+          assign place = q[1]
+          assign px = q[2]
+          assign py = q[3]
+          break
+        endif
+      endfor
+      assign i = forloop.index | plus: paginate.current_offset
+      assign num = i | prepend: '0' | slice: -2, 2
+      if i > 99
+        assign num = i
+      endif
+      if place != ''
+        assign pin = px | append: '|' | append: py | append: '|' | append: forloop.index | append: '|' | append: place
+        assign pins = pins | append: pin | append: ';'
+        assign names = names | append: place | append: ';'
+      endif
+      assign year = a.published_at | date: '%Y'
+      assign tilt = forloop.index | modulo: 3
+    -%}
+    <article class="ms-pj__card ms-pj__card--t{{ tilt }}" data-ms-pj-card="{{ forloop.index }}">
+      <a class="ms-pj__post" href="{{ a.url }}">
+        <span class="ms-pj__photo">
+          {%- if a.image -%}
+            <img src="{{ a.image | image_url: width: 900 }}" srcset="{{ a.image | image_url: width: 600 }} 600w, {{ a.image | image_url: width: 900 }} 900w, {{ a.image | image_url: width: 1300 }} 1300w" sizes="(min-width: 1100px) 30vw, (min-width: 700px) 45vw, 92vw" alt="{{ a.image.alt | default: a.title | escape }}" width="900" height="675" loading="{% if forloop.index > 2 %}lazy{% else %}eager{% endif %}">
+          {%- endif -%}
+          <span class="ms-pj__stamp" aria-hidden="true">
+            <svg viewBox="0 0 64 76" width="64" height="76"><rect x="3" y="3" width="58" height="70" fill="#F5F0E7" stroke="#FFFDF9" stroke-width="5" stroke-dasharray="0 8" stroke-linecap="round"></rect><rect x="8" y="8" width="48" height="60" fill="none" stroke="#7E623B" stroke-opacity=".4" stroke-width=".7"></rect><g transform="translate(8 14)" fill="none" stroke="#7E623B" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M8 30V15c0-3 2.5-5 5.5-5h21c3 0 5.5 2 5.5 5v15"></path><path d="M6 30h36v3H6zM9 33v3M39 33v3"></path><path d="M12 24c0-2 1.6-3.2 3.6-3.2h4.8c2 0 3.6 1.2 3.6 3.2M24 24c0-2 1.6-3.2 3.6-3.2h4.8c2 0 3.6 1.2 3.6 3.2"></path><path d="M10 26h28"></path></g><text x="32" y="62" text-anchor="middle" font-size="7" letter-spacing=".8" fill="#6E675C" font-family="Arial, sans-serif">№ {{ num }}</text></svg>
+          </span>
+          <span class="ms-pj__postmark" aria-hidden="true">
+            <svg viewBox="0 0 120 64" width="120" height="64" fill="none" stroke="currentColor" stroke-width="1"><circle cx="32" cy="32" r="24"/><circle cx="32" cy="32" r="19"/><path d="M62 20c8-5 14 5 22 0s14 5 22 0s10 3 12 2M62 32c8-5 14 5 22 0s14 5 22 0s10 3 12 2M62 44c8-5 14 5 22 0s14 5 22 0s10 3 12 2"/><text x="32" y="30" text-anchor="middle" font-size="7" letter-spacing="1" fill="currentColor" stroke="none" font-family="Arial, sans-serif">MIDSUMMER</text><text x="32" y="40" text-anchor="middle" font-size="8" fill="currentColor" stroke="none" font-family="Georgia, serif">{{ year }}</text></svg>
+          </span>
+        </span>
+        <span class="ms-pj__meta">
+          {%- if place != '' -%}<span class="ms-pj__place">{{ place }}</span>{%- endif -%}
+          <span class="ms-pj__title">{{ a.title }}</span>
+          {%- assign ex = a.excerpt | default: a.content | strip_html | strip | truncatewords: 26 -%}
+          {%- if ex != blank -%}<span class="ms-pj__ex">{{ ex }}</span>{%- endif -%}
+          <span class="ms-pj__more">{{ s.read_label }}<svg viewBox="0 0 20 10" width="20" height="10" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><path d="M0 5h18M14 1l4 4-4 4"/></svg></span>
+        </span>
+      </a>
+    </article>
+  {%- endfor -%}
+{%- endcapture -%}
+{%- liquid
+  assign pin_list = pins | split: ';'
+  assign name_list = names | split: ';' | uniq
+  assign n_places = name_list.size
+-%}
+<section class="ms-pj" id="ms-pj-{{ section.id }}" aria-labelledby="ms-pj-h-{{ section.id }}">
+  <header class="ms-pj__head">
+    <div class="ms-pj__eyebrow">{{ s.eyebrow | default: blog.title }}</div>
+    <h1 class="ms-pj__h" id="ms-pj-h-{{ section.id }}">{{ s.heading | default: blog.title }}</h1>
+    {%- if s.text != blank -%}<p class="ms-pj__text">{{ s.text }}</p>{%- endif -%}
+  </header>
+  <div class="ms-pj__body{% if pin_list.size == 0 %} ms-pj__body--nomap{% endif %}">
+    {%- if pin_list.size > 0 -%}
+      <aside class="ms-pj__mapcol">
+        <figure class="ms-pj__map">
+          <svg viewBox="0 0 400 470" role="img" aria-label="{{ s.map_label | escape }}">
+            {%- render 'ms-italy-map' -%}
+            {%- comment -%} one pin per place, however many projects it holds {%- endcomment -%}
+            {%- for nm in name_list -%}
+              {%- liquid
+                assign idx = ''
+                assign n_here = 0
+                for p in pin_list
+                  assign q = p | split: '|'
+                  if q[3] == nm
+                    assign idx = idx | append: q[2] | append: ','
+                    assign px = q[0]
+                    assign py = q[1]
+                    assign n_here = n_here | plus: 1
+                  endif
+                endfor
+              -%}
+              <g class="ms-pj__pin" data-ms-pj-pin=",{{ idx }}" transform="translate({{ px }} {{ py }})" tabindex="0" role="link" aria-label="{{ nm | escape }}">
+                <circle class="ms-pj__halo" r="14"></circle>
+                <circle class="ms-pj__dot" r="{% if n_here > 1 %}8{% else %}5.2{% endif %}"></circle>
+                {%- if n_here > 1 -%}<text class="ms-pj__n" y="3.2" text-anchor="middle">{{ n_here }}</text>{%- endif -%}
+                <title>{{ nm }}</title>
+              </g>
+            {%- endfor -%}
+          </svg>
+          <figcaption class="ms-pj__count">
+            <span><b>{{ blog.articles_count }}</b> {{ s.projects_label }}</span>
+            <span><b>{{ n_places }}</b> {{ s.places_label }}</span>
+          </figcaption>
+          {%- if s.footnote != blank -%}<p class="ms-pj__foot">{{ s.footnote }}</p>{%- endif -%}
+        </figure>
+      </aside>
+    {%- endif -%}
+    <div class="ms-pj__cards">{{ cards }}</div>
+  </div>
+  {%- if paginate.pages > 1 -%}
+    <nav class="ms-pj__pages" aria-label="{{ s.pages_label | escape }}">
+      {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}" rel="prev">{{ s.prev_label }}</a>{%- endif -%}
+      <span>{{ paginate.current_page }} / {{ paginate.pages }}</span>
+      {%- if paginate.next -%}<a href="{{ paginate.next.url }}" rel="next">{{ s.next_label }}</a>{%- endif -%}
+    </nav>
+  {%- endif -%}
+</section>
+{%- endpaginate -%}
+<style>
+  .ms-pj { padding: clamp(60px, 9vw, 140px) clamp(18px, 5vw, 80px) clamp(60px, 9vw, 140px); max-width: 1560px; margin: 0 auto; }
+  .ms-pj__head { max-width: 60ch; }
+  .ms-pj__eyebrow { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: #6E675C; }
+  .ms-pj__h { font-family: Newsreader, Georgia, serif; font-weight: 200; font-size: clamp(38px, 5.6vw, 78px); line-height: 1; letter-spacing: -0.035em; margin-top: 20px; }
+  .ms-pj__text { font-size: 16px; line-height: 1.9; color: #4A443B; margin-top: 24px; }
+  .ms-pj__body { display: grid; grid-template-columns: minmax(260px, 4fr) 8fr; gap: clamp(28px, 4vw, 72px); margin-top: clamp(40px, 5vw, 72px); align-items: start; }
+  .ms-pj__body--nomap { grid-template-columns: 1fr; }
+  .ms-pj__mapcol { position: sticky; top: 110px; }
+  .ms-pj__map { margin: 0; }
+  .ms-pj__map svg { display: block; width: 100%; height: auto; max-height: 72vh; overflow: hidden; }
+  .ms-pj__near { fill: #F1ECE3; stroke: #DDD6C9; stroke-width: .6; }
+  .ms-pj__it { fill: #EBE3D5; stroke: #7E623B; stroke-width: .7; stroke-linejoin: round; }
+  .ms-pj__n { font: 600 9px/1 Arial, sans-serif; fill: #FBF9F5; pointer-events: none; }
+  .ms-pj__pin { cursor: pointer; outline: none; }
+  .ms-pj__dot { fill: #17140F; stroke: #FBF9F5; stroke-width: 1.4; transition: fill .3s; }
+  .ms-pj__halo { fill: #7E623B; opacity: 0; transform: scale(.4); transform-box: fill-box; transform-origin: center; transition: opacity .35s, transform .5s cubic-bezier(.2, .7, .2, 1); }
+  .ms-pj__pin.is-on .ms-pj__halo, .ms-pj__pin:hover .ms-pj__halo, .ms-pj__pin:focus-visible .ms-pj__halo { opacity: .22; transform: scale(1); }
+  .ms-pj__pin.is-on .ms-pj__dot, .ms-pj__pin:hover .ms-pj__dot { fill: #7E623B; }
+  .ms-pj__count { display: flex; gap: 22px; margin-top: 18px; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: #6E675C; }
+  .ms-pj__count b { font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: 26px; letter-spacing: 0; color: #17140F; margin-right: 6px; text-transform: none; }
+  .ms-pj__foot { font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 15px; color: #6E675C; margin-top: 10px; }
+  .ms-pj__cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(36px, 4vw, 64px) clamp(20px, 2.6vw, 40px); }
+  .ms-pj__body--nomap .ms-pj__cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .ms-pj__card { min-width: 0; transition: transform .6s cubic-bezier(.2, .7, .2, 1); }
+  .ms-pj__card--t1 { transform: rotate(-.7deg); }
+  .ms-pj__card--t2 { transform: rotate(.5deg) translateY(14px); }
+  .ms-pj__card:hover, .ms-pj__card.is-on, .ms-pj__card:focus-within { transform: none; }
+  .ms-site .ms-pj__post { display: block; color: #17140F; }
+  .ms-pj__photo { position: relative; display: block; padding: 10px 10px 12px; background: #FFFDF9; box-shadow: 0 1px 2px rgba(23, 20, 15, .08), 0 10px 30px -14px rgba(23, 20, 15, .28); }
+  .ms-pj__photo img { display: block; width: 100%; aspect-ratio: 4 / 3; height: auto; object-fit: cover; background: #EFE9DF; }
+  .ms-pj__stamp { position: absolute; top: -14px; right: 16px; transform: rotate(4deg); filter: drop-shadow(0 1px 1.5px rgba(23, 20, 15, .16)); }
+  .ms-pj__stamp svg { display: block; width: 58px; height: auto; }
+  .ms-pj__postmark { position: absolute; top: 26px; right: 48px; color: rgba(126, 98, 59, .7); transform: rotate(-11deg); pointer-events: none; mix-blend-mode: multiply; }
+  .ms-pj__postmark svg { display: block; width: 104px; height: auto; }
+  .ms-pj__meta { display: grid; gap: 8px; margin-top: 18px; }
+  .ms-pj__place { font-size: 10.5px; letter-spacing: .24em; text-transform: uppercase; color: #7E623B; }
+  .ms-pj__title { font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: clamp(21px, 1.9vw, 27px); line-height: 1.2; letter-spacing: -0.01em; }
+  .ms-pj__ex { font-size: 14px; line-height: 1.75; color: #6E675C; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .ms-pj__more { display: inline-flex; align-items: center; gap: 10px; font-size: 10.5px; letter-spacing: .24em; text-transform: uppercase; margin-top: 4px; }
+  .ms-pj__more svg { transition: transform .4s; }
+  .ms-pj__post:hover .ms-pj__more svg { transform: translateX(4px); }
+  .ms-pj__pages { display: flex; justify-content: center; gap: 28px; margin-top: clamp(48px, 6vw, 88px); font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #6E675C; }
+  .ms-site .ms-pj__pages a { color: #17140F; border-bottom: 1px solid #17140F; }
+  @media (max-width: 899px) {
+    .ms-pj__body { grid-template-columns: 1fr; }
+    .ms-pj__mapcol { position: static; max-width: 340px; margin: 0 auto; width: 100%; }
+    .ms-pj__map svg { max-height: none; }
+    .ms-pj__cards, .ms-pj__body--nomap .ms-pj__cards { grid-template-columns: 1fr; }
+    .ms-pj__card--t2 { transform: rotate(.5deg); }
+  }
+  @media (prefers-reduced-motion: reduce) { .ms-pj__card, .ms-pj__halo { transition: none; } }
+</style>
+<script>
+  (function () {
+    var root = document.getElementById('ms-pj-{{ section.id }}');
+    if (!root || root.dataset.msReady) return;
+    root.dataset.msReady = '1';
+    var pins = root.querySelectorAll('[data-ms-pj-pin]'), cards = root.querySelectorAll('[data-ms-pj-card]');
+    function has(p, i) { return p.getAttribute('data-ms-pj-pin').indexOf(',' + i + ',') > -1; }
+    function lightCard(i, on) {
+      pins.forEach(function (p) { if (has(p, i)) p.classList.toggle('is-on', on); });
+      cards.forEach(function (c) { if (c.getAttribute('data-ms-pj-card') === i) c.classList.toggle('is-on', on); });
+    }
+    function lightPin(p, on) {
+      p.classList.toggle('is-on', on);
+      cards.forEach(function (c) { if (has(p, c.getAttribute('data-ms-pj-card'))) c.classList.toggle('is-on', on); });
+    }
+    cards.forEach(function (c) {
+      var i = c.getAttribute('data-ms-pj-card');
+      c.addEventListener('mouseenter', function () { lightCard(i, true); });
+      c.addEventListener('mouseleave', function () { lightCard(i, false); });
+      c.addEventListener('focusin', function () { lightCard(i, true); });
+      c.addEventListener('focusout', function () { lightCard(i, false); });
+    });
+    pins.forEach(function (p) {
+      var first = p.getAttribute('data-ms-pj-pin').split(',').filter(Boolean)[0];
+      function go() {
+        var c = root.querySelector('[data-ms-pj-card="' + first + '"]');
+        if (!c) return;
+        c.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' });
+        var a = c.querySelector('a'); if (a) a.focus({ preventScroll: true });
+      }
+      p.addEventListener('mouseenter', function () { lightPin(p, true); });
+      p.addEventListener('mouseleave', function () { lightPin(p, false); });
+      p.addEventListener('click', go);
+      p.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+    });
+  })();
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Projects on a map",
+  "settings": [
+    { "type": "paragraph", "content": "Shows on the blogs named in Theme settings → Midsummer · Journal, in place of the Journal list. A project finds its place on the map from its title or handle, or from a tag such as place:Lucca." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Projects" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Where our beds went." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Villas on the lakes, apartments in old city centres, a former factory floor: the rooms we were asked into, and the beds we made for them." },
+    { "type": "text", "id": "map_label", "label": "Map label (screen readers)", "default": "Map of Italy with the places of our projects" },
+    { "type": "text", "id": "projects_label", "label": "Projects label", "default": "projects" },
+    { "type": "text", "id": "places_label", "label": "Places label", "default": "places on the map" },
+    { "type": "text", "id": "footnote", "label": "Under the map", "default": "Pins placed by hand, like everything else here." },
+    { "type": "text", "id": "read_label", "label": "Read label", "default": "See the project" },
+    { "type": "text", "id": "pages_label", "label": "Pages label (screen readers)", "default": "More projects" },
+    { "type": "text", "id": "prev_label", "label": "Previous", "default": "Previous" },
+    { "type": "text", "id": "next_label", "label": "Next", "default": "Next" }
+  ]
+}
+{% endschema %}

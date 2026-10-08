@@ -11,9 +11,25 @@
   if kh == 'icon'
     assign kh = 'icons'
   endif
+  assign is_tier = false
+  if kh == 'essentials' or kh == 'signature' or kh == 'icons'
+    assign is_tier = true
+  endif
+  # the fibre filters only where sleep systems are listed (snippets/ms-kind)
+  assign n_sys = 0
+  for p in collection.products limit: 48
+    capture mk
+      render 'ms-kind', p: p
+    endcapture
+    assign mkp = mk | split: '|'
+    if mkp[0] == 'system'
+      assign n_sys = n_sys | plus: 1
+    endif
+  endfor
 -%}
 <section class="ms-sy" data-ms-sy>
   <div class="ms-sy__tabs">
+    {%- if is_tier or n_sys > 1 -%}
     {%- for h in (1..3) -%}
       {%- case h -%}
         {%- when 1 -%}{%- assign k = 'essentials' -%}{%- assign l = s.tab1 -%}
@@ -22,8 +38,18 @@
       {%- endcase -%}
       <a href="{% render 'ms-link', to: k %}" class="ms-sy__tab{% if kh == k %} is-on{% endif %}"{% if kh == k %} aria-current="page"{% endif %}>{{ l }}</a>
     {%- endfor -%}
+    {%- else -%}
+    {%- comment -%} the house's other beds, each where the store has it {%- endcomment -%}
+    {%- assign fam = 'systems,headboards,mattresses,toppers,outdoor' | split: ',' -%}
+    {%- for k in fam -%}
+      {%- capture u -%}{% render 'ms-link', to: k, strict: true %}{%- endcapture -%}
+      {%- assign kl = 'fam_' | append: k -%}
+      {%- if u != blank and s[kl] != blank -%}<a href="{{ u }}" class="ms-sy__tab{% if u == collection.url %} is-on{% endif %}"{% if u == collection.url %} aria-current="page"{% endif %}>{{ s[kl] }}</a>{%- endif -%}
+    {%- endfor -%}
+    {%- endif -%}
   </div>
 
+  {%- if n_sys > 1 -%}
   <div class="ms-sy__bar">
     <div class="ms-sy__needs" role="group" aria-label="{{ s.need_label | escape }}">
       <span class="ms-sy__ask">{{ s.need_label }}</span>
@@ -48,16 +74,26 @@
     <span data-k="breathability">{{ s.hint_breathability }}</span>
     <span data-k="hypoallergenic">{{ s.hint_hypoallergenic }}</span>
   </template>
+  {%- endif -%}
 
   {%- paginate collection.products by 48 -%}
   <div class="ms-sy__grid" data-sy-panel="grid">
     {%- for product in collection.products -%}
-      {%- capture facts -%}{% render 'ms-system-facts', key: product.template_suffix, handle: product.handle, title: product.title %}{%- endcapture -%}
+      {%- capture mk -%}{% render 'ms-kind', p: product %}{%- endcapture -%}{%- assign mkp = mk | split: '|' -%}{%- capture facts -%}{% render 'ms-system-facts', key: mkp[1], handle: '', title: product.title %}{%- endcapture -%}
       {%- assign fparts = facts | split: '~' -%}
       {%- assign fibres = fparts[0] | split: ',' -%}
       {%- assign quals = fparts[1] | strip -%}
       {%- capture note -%}{% render 'ms-product-note', title: product.title %}{%- endcapture -%}
       {%- assign sub = product.metafields.custom.subtitle.value | default: note -%}
+      {%- assign spec = '' -%}
+      {%- if mkp[0] == 'headboard' and mkp[2] != blank -%}
+        {%- capture bl -%}{% render 'ms-bed-data', key: mkp[2], part: 'line' %}{%- endcapture -%}
+        {%- capture bh -%}{% render 'ms-bed-data', key: mkp[2], part: 'height' %}{%- endcapture -%}
+        {%- assign sub = product.metafields.custom.subtitle.value | default: bl -%}
+        {%- assign spec = s.headboard_label | append: ' ' | append: bh | append: ' cm' -%}
+      {%- elsif mkp[0] == 'outdoor' -%}
+        {%- assign sub = product.metafields.custom.subtitle.value | default: s.outdoor_line -%}
+      {%- endif -%}
       <a href="{{ product.url }}" class="ms-sy__card" data-q="{{ quals }}">
         {%- if product.featured_media -%}
           <span class="ms-card__img">
@@ -70,10 +106,14 @@
         {%- endif -%}
         <h2 class="ms-sy__name">{{ product.title }}</h2>
         {%- if sub != blank -%}<p class="ms-sy__sub">{{ sub }}</p>{%- endif -%}
+        {%- if spec != blank -%}<p class="ms-sy__spec">{{ spec }}</p>{%- endif -%}
         {%- if fibres.size > 0 and fparts[0] != blank -%}
-          <ul class="ms-sy__fibres" role="list">
-            {%- for f in fibres limit: 4 -%}<li>{% render 'ms-fibre-mark', name: f, size: 22 %}<span>{{ f }}</span></li>{%- endfor -%}
-          </ul>
+          <div class="ms-sy__fibres">
+            <ul class="ms-sy__marks" role="list">
+              {%- for f in fibres -%}<li title="{{ f | escape }}">{% render 'ms-fibre-mark', name: f, size: 26 %}<span class="ms-sy__vh">{{ f }}</span></li>{%- endfor -%}
+            </ul>
+            <p class="ms-sy__fnames" aria-hidden="true">{{ fibres | join: ' · ' }}</p>
+          </div>
         {%- endif -%}
         {%- if settings.ms_show_prices -%}<p class="ms-sy__price">{% if product.price_varies %}{%- assign from_price = product.price_min | money -%}{{ 'ms.product.price_from' | t: price: from_price }}{% else %}{{ product.price | money }}{% endif %}</p>{%- endif -%}{%- if settings.ms_show_prices == false and settings.ms_price_from and product.price_min > 0 -%}{%- assign from_price = product.price_min | money -%}<p class="ms-sy__price">{{ 'ms.product.price_from' | t: price: from_price }}</p>{%- endif -%}
       </a>
@@ -82,7 +122,7 @@
     {%- endfor -%}
   </div>
 
-  {%- if collection.products.size > 0 -%}
+  {%- if collection.products.size > 0 and n_sys > 1 -%}
   <div class="ms-sy__tablewrap" data-sy-panel="table" hidden>
     <table class="ms-sy__table">
       <thead>
@@ -98,7 +138,7 @@
       </thead>
       <tbody>
         {%- for product in collection.products -%}
-          {%- capture facts -%}{% render 'ms-system-facts', key: product.template_suffix, handle: product.handle, title: product.title %}{%- endcapture -%}
+          {%- capture mk -%}{% render 'ms-kind', p: product %}{%- endcapture -%}{%- assign mkp = mk | split: '|' -%}{%- capture facts -%}{% render 'ms-system-facts', key: mkp[1], handle: '', title: product.title %}{%- endcapture -%}
           {%- assign fparts = facts | split: '~' -%}
           {%- assign quals = fparts[1] | strip -%}
           <tr data-q="{{ quals }}">
@@ -160,9 +200,14 @@
   .ms-sy__blank { aspect-ratio: 4 / 5; background: #F1ECE3; }
   .ms-sy__name { font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: clamp(21px, 2vw, 26px); letter-spacing: -0.015em; margin-top: 18px; }
   .ms-sy__sub { font-size: 13.5px; line-height: 1.7; color: #6E675C; margin-top: 6px; max-width: 36ch; }
-  .ms-sy__fibres { list-style: none; margin: 14px 0 0; padding: 12px 0 0; border-top: 1px solid #ECE6DB; display: flex; flex-wrap: wrap; gap: 6px 14px; }
-  .ms-sy__fibres li { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #4A443B; }
-  .ms-sy__fibres .ms-fm { color: #7E623B; }
+  /* every fibre of the system, none left out: the marks in a row, their names beneath */
+  .ms-sy__fibres { margin: 14px 0 0; padding: 12px 0 0; border-top: 1px solid #ECE6DB; }
+  .ms-sy__marks { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 6px; }
+  .ms-sy__marks li { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; color: #7E623B; }
+  .ms-sy__marks .ms-fm { display: block; overflow: visible; }
+  .ms-sy__vh { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .ms-sy__fnames { font-size: 11.5px; line-height: 1.6; color: #6E675C; margin-top: 6px; }
+  .ms-sy__spec { font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: #7E623B; margin-top: 10px; }
   .ms-sy__price { font-size: 12.5px; letter-spacing: .08em; color: #6E675C; margin-top: 10px; }
   .ms-sy__empty { font-size: 15px; line-height: 1.9; color: #4A443B; }
   .ms-sy__tablewrap { overflow-x: auto; }
@@ -189,7 +234,8 @@
     .ms-sy__needs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: calc(-1 * clamp(18px, 5vw, 80px)); padding-inline: clamp(18px, 5vw, 80px); flex-wrap: wrap; }
     .ms-sy__name { font-size: 19px; margin-top: 12px; }
     .ms-sy__sub { font-size: 12.5px; }
-    .ms-sy__fibres li span { display: none; }
+    .ms-sy__marks li { width: 26px; height: 26px; }
+    .ms-sy__fnames { font-size: 11px; }
     .ms-sy__help p { flex: 1 0 100%; }
   }
 </style>
@@ -236,6 +282,15 @@
     { "type": "text", "id": "tab2", "label": "Second collection", "default": "Signature" },
     { "type": "text", "id": "tab3", "label": "Third collection", "default": "Icons" },
     { "type": "header", "content": "What matters most" },
+    { "type": "header", "content": "Other collections" },
+    { "type": "paragraph", "content": "On collections that are not Essentials, Signature or Icons (beds with headboards, outdoor …), the row of tabs leads to the house's other beds, each shown only if the store has it." },
+    { "type": "text", "id": "fam_systems", "label": "Bed systems", "default": "Bed systems" },
+    { "type": "text", "id": "fam_headboards", "label": "Beds with headboards", "default": "Beds with headboards" },
+    { "type": "text", "id": "fam_mattresses", "label": "Mattresses", "default": "Mattresses" },
+    { "type": "text", "id": "fam_toppers", "label": "Toppers", "default": "Toppers" },
+    { "type": "text", "id": "fam_outdoor", "label": "Outdoor", "default": "Outdoor" },
+    { "type": "text", "id": "headboard_label", "label": "Bed with headboard: height label", "default": "Headboard" },
+    { "type": "text", "id": "outdoor_line", "label": "Outdoor: line under the name", "default": "An outdoor bed and seating system, foam-free" },
     { "type": "text", "id": "need_label", "label": "Question", "default": "What matters most to you?" },
     { "type": "text", "id": "all_label", "label": "All", "default": "Everything" },
     { "type": "text", "id": "temperature_label", "label": "Temperature", "default": "Temperature" },

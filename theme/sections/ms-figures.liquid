@@ -1,0 +1,54 @@
+{%- comment -%}
+  The house in a few figures: big numbers, a label and a line each. A plain number counts up
+  the first time it comes into view (the site's own count-up); a figure such as a year or
+  "15 + 15" can be set to stay still.
+{%- endcomment -%}
+{%- assign s = section.settings -%}
+<section class="ms-fig" aria-label="{{ s.heading | default: 'Figures' | escape }}">
+  {%- if s.heading != blank -%}<h2 class="ms-fig__h">{{ s.heading }}</h2>{%- endif -%}
+  <div class="ms-fig__grid">
+    {%- for b in section.blocks -%}
+      <div class="ms-fig__item" {{ b.shopify_attributes }}>
+        <div class="ms-fig__n"{% if b.settings.count %} data-ms-count{% endif %}>{{ b.settings.number }}</div>
+        <div class="ms-fig__l">{{ b.settings.label }}</div>
+        {%- if b.settings.line != blank -%}<div class="ms-fig__line">{{ b.settings.line }}</div>{%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+<style>
+  .ms-fig { padding: clamp(20px, 3vw, 40px) clamp(18px, 5vw, 80px) clamp(56px, 8vw, 110px); max-width: 1560px; margin: 0 auto; }
+  .ms-fig__h { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: #6E675C; font-weight: 400; margin-bottom: 22px; }
+  .ms-fig__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 clamp(20px, 3vw, 48px); }
+  .ms-fig__item { border-top: 1px solid #17140F; padding: 22px 0 34px; }
+  .ms-fig__n { font-family: Newsreader, Georgia, serif; font-weight: 200; font-size: clamp(56px, 6.4vw, 96px); line-height: .95; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; white-space: nowrap; transition: transform .6s cubic-bezier(.2, .7, .2, 1); transform-origin: left bottom; }
+  .ms-fig__item:hover .ms-fig__n { transform: rotate(-2deg) scale(1.02); }
+  .ms-fig__l { font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #7E623B; margin-top: 16px; }
+  .ms-fig__line { font-size: 14px; line-height: 1.7; color: #6E675C; margin-top: 8px; max-width: 34ch; }
+  @media (max-width: 899px) { .ms-fig__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (prefers-reduced-motion: reduce) { .ms-fig__n { transition: none; } }
+</style>
+
+{% schema %}
+{
+  "name": "Figures",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "In figures" }
+  ],
+  "blocks": [
+    {
+      "type": "figure",
+      "name": "Figure",
+      "settings": [
+        { "type": "text", "id": "number", "label": "Figure", "default": "15 + 15" },
+        { "type": "checkbox", "id": "count", "label": "Count up when it appears", "default": false, "info": "For a plain number. Leave off for a year." },
+        { "type": "text", "id": "label", "label": "Label", "default": "Years" },
+        { "type": "text", "id": "line", "label": "Line" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Figures", "blocks": [ { "type": "figure" } ] }
+  ]
+}
+{% endschema %}

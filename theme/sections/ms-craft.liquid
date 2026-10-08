@@ -14,15 +14,29 @@
       assign start = 'topper'
     endif
   endif
+  # on a product page, only a sleep system has a topper, a mattress and a base to show
+  # (beds with headboards and the Tangram have sections of their own: snippets/ms-kind)
+  assign cr_show = true
+  assign ms_key = template.suffix
+  if template.name == 'product' and product != blank
+    capture mk
+      render 'ms-kind', p: product
+    endcapture
+    assign mkp = mk | split: '|'
+    assign ms_key = mkp[1]
+    if mkp[0] != 'system' and request.design_mode != true
+      assign cr_show = false
+    endif
+  endif
   # on a system's page, Loro Piana Interiors is named only if the system is made in it
   assign lp_free = false
   assign lp_anchor = ''
   if template.name == 'product'
     capture lp_has
-      render 'ms-product-cloth', key: template.suffix, handle: product.handle, part: 'lp'
+      render 'ms-product-cloth', key: ms_key, handle: '', part: 'lp'
     endcapture
     capture lp_anchor
-      render 'ms-product-cloth', key: template.suffix, handle: product.handle, part: 'anchor'
+      render 'ms-product-cloth', key: ms_key, handle: '', part: 'anchor'
     endcapture
     if lp_has == blank
       assign lp_free = true
@@ -31,6 +45,7 @@
   assign parts = 'topper,mattress,base' | split: ','
   assign nums = 'I,II,III' | split: ','
 -%}
+{%- if cr_show -%}
 <section class="ms-cr" data-ms-craft{% if start %} data-cr-start="{{ start }}"{% endif %}>
   <div class="ms-cr__in">
     <div class="ms-cr__top">
@@ -107,11 +122,7 @@
       </div>
 
       <div class="ms-cr__draw">
-        <svg class="ms-cr__svg" viewBox="0 0 600 440" role="group" aria-label="{{ s.heading | escape }}"><defs><filter id="cr-{{ section.id }}-blur" x="-20%" y="-200%" width="140%" height="500%"><feGaussianBlur stdDeviation="7"/></filter><linearGradient id="cr-{{ section.id }}-topper-t" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FCF8F3"/><stop offset="1" stop-color="#F2E4D8"/></linearGradient><linearGradient id="cr-{{ section.id }}-topper-f" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F0DFD2"/><stop offset="1" stop-color="#E4CABA"/></linearGradient><linearGradient id="cr-{{ section.id }}-topper-s" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#DEC3B2"/><stop offset="1" stop-color="#D2B39F"/></linearGradient><linearGradient id="cr-{{ section.id }}-mattress-t" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FBF6F1"/><stop offset="1" stop-color="#F0E2D6"/></linearGradient><linearGradient id="cr-{{ section.id }}-mattress-f" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F3E7DD"/><stop offset="1" stop-color="#E6D2C4"/></linearGradient><linearGradient id="cr-{{ section.id }}-mattress-s" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#DDC8B9"/><stop offset="1" stop-color="#CFB7A6"/></linearGradient><linearGradient id="cr-{{ section.id }}-base-t" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#DCAE99"/><stop offset="1" stop-color="#CF9A84"/></linearGradient><linearGradient id="cr-{{ section.id }}-base-f" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CB927A"/><stop offset="1" stop-color="#BA7E66"/></linearGradient><linearGradient id="cr-{{ section.id }}-base-s" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#AA705A"/><stop offset="1" stop-color="#9C6550"/></linearGradient></defs>
-<ellipse class="ms-cr__shadow" cx="290" cy="398" rx="250" ry="13" filter="url(#cr-{{ section.id }}-blur)"/>
-<g class="ms-cr__slab" data-part="base" tabindex="0" role="button" aria-label="{{ s.part3_title | escape }}" aria-controls="cr-{{ section.id }}-base" aria-expanded="false"><path class="ms-cr__leg" d="M53,379 l2,13 h6 l2,-13 Z"/><path class="ms-cr__leg" d="M373,379 l2,13 h6 l2,-13 Z"/><path class="ms-cr__leg" d="M507,304 l2,13 h6 l2,-13 Z"/><path class="ms-cr__face ms-cr__face--side" fill="url(#cr-{{ section.id }}-base-s)" d="M400,330 L529.9,255 L529.9,305 L400,380 Z"/><path class="ms-cr__face" fill="url(#cr-{{ section.id }}-base-f)" d="M40,330 L400,330 L400,380 Q220,383 40,380 Z"/><path class="ms-cr__face ms-cr__face--top" fill="url(#cr-{{ section.id }}-base-t)" d="M40,330 L400,330 L529.9,255 L169.9,255 Z"/><path class="ms-cr__seam" d="M44,342 L396,342 L525,267"/><path class="ms-cr__pipe ms-cr__pipe--base" d="M40,330 L400,330 L529.9,255"/><circle class="ms-cr__pulse" cx="284.9" cy="292.5" r="5"/><circle class="ms-cr__spot" cx="284.9" cy="292.5" r="3.2"/><line x1="536" y1="268" x2="565" y2="268" class="ms-cr__lead"/><text x="572" y="273" class="ms-cr__num">III</text></g>
-<g class="ms-cr__slab" data-part="mattress" tabindex="0" role="button" aria-label="{{ s.part2_title | escape }}" aria-controls="cr-{{ section.id }}-mattress" aria-expanded="false"><path class="ms-cr__face ms-cr__face--side" fill="url(#cr-{{ section.id }}-mattress-s)" d="M400,222 L529.9,147 L529.9,209 L400,284 Z"/><path class="ms-cr__face" fill="url(#cr-{{ section.id }}-mattress-f)" d="M40,222 L400,222 L400,284 Q220,287 40,284 Z"/><path class="ms-cr__face ms-cr__face--top" fill="url(#cr-{{ section.id }}-mattress-t)" d="M40,222 L400,222 L529.9,147 L169.9,147 Z"/><ellipse class="ms-cr__tuft" cx="104.6" cy="205.5" rx="2.6" ry="1.5"/><path class="ms-cr__dimple" d="M101.9,202.9 q2.6,-1.6 5.4,0"/><ellipse class="ms-cr__tuft" cx="169.4" cy="205.5" rx="2.6" ry="1.5"/><path class="ms-cr__dimple" d="M166.7,202.9 q2.6,-1.6 5.4,0"/><ellipse class="ms-cr__tuft" cx="234.2" cy="205.5" rx="2.6" ry="1.5"/><path class="ms-cr__dimple" d="M231.5,202.9 q2.6,-1.6 5.4,0"/><ellipse class="ms-cr__tuft" cx="299" cy="205.5" rx="2.6" ry="1.5"/><path class="ms-cr__dimple" d="M296.3,202.9 q2.6,-1.6 5.4,0"/><ellipse class="ms-cr__tuft" cx="363.8" cy="205.5" rx="2.6" ry="1.5"/><path class="ms-cr__dimple" d="M361.1,202.9 q2.6,-1.6 5.4,0"/><ellipse class="ms-cr__tuft" cx="173.4" cy="184.5" rx="2.6" ry="1.5"/><path class="ms-cr__dimple" d="M170.7,181.9 q2.6,-1.6 5.4,0"/><ellipse class="ms-cr__tuft" cx="238.1" cy="184.5" rx="2.6" ry="1.5"/><path class="ms-cr__dimple" d="M235.4,181.9 q2.6,-1.6 5.4,0"/><ellipse class="ms-cr__tuft" cx="303" cy="184.5" rx="2.6" ry="1.5"/><path class="ms-cr__dimple" d="M300.3,181.9 q2.6,-1.6 5.4,0"/><ellipse class="ms-cr__tuft" cx="367.8" cy="184.5" rx="2.6" ry="1.5"/><path class="ms-cr__dimple" d="M365.1,181.9 q2.6,-1.6 5.4,0"/><ellipse class="ms-cr__tuft" cx="432.6" cy="184.5" rx="2.6" ry="1.5"/><path class="ms-cr__dimple" d="M429.9,181.9 q2.6,-1.6 5.4,0"/><ellipse class="ms-cr__tuft" cx="177.3" cy="163.5" rx="2.6" ry="1.5"/><path class="ms-cr__dimple" d="M174.6,160.9 q2.6,-1.6 5.4,0"/><ellipse class="ms-cr__tuft" cx="242.1" cy="163.5" rx="2.6" ry="1.5"/><path class="ms-cr__dimple" d="M239.4,160.9 q2.6,-1.6 5.4,0"/><ellipse class="ms-cr__tuft" cx="306.9" cy="163.5" rx="2.6" ry="1.5"/><path class="ms-cr__dimple" d="M304.2,160.9 q2.6,-1.6 5.4,0"/><ellipse class="ms-cr__tuft" cx="371.7" cy="163.5" rx="2.6" ry="1.5"/><path class="ms-cr__dimple" d="M369,160.9 q2.6,-1.6 5.4,0"/><ellipse class="ms-cr__tuft" cx="436.5" cy="163.5" rx="2.6" ry="1.5"/><path class="ms-cr__dimple" d="M433.8,160.9 q2.6,-1.6 5.4,0"/><path class="ms-cr__stitch" d="M44,231 L396,231 L525,156"/><path class="ms-cr__stitch" d="M44,275 L396,275 L525,200"/><path class="ms-cr__pipe" d="M40,222 L400,222 L529.9,147"/><circle class="ms-cr__pulse" cx="284.9" cy="184.5" r="5"/><circle class="ms-cr__spot" cx="284.9" cy="184.5" r="3.2"/><line x1="536" y1="160" x2="565" y2="160" class="ms-cr__lead"/><text x="572" y="165" class="ms-cr__num">II</text></g>
-<g class="ms-cr__slab" data-part="topper" tabindex="0" role="button" aria-label="{{ s.part1_title | escape }}" aria-controls="cr-{{ section.id }}-topper" aria-expanded="false"><path class="ms-cr__face ms-cr__face--side" fill="url(#cr-{{ section.id }}-topper-s)" d="M400,128 L529.9,53 L529.9,75 L400,150 Z"/><path class="ms-cr__face" fill="url(#cr-{{ section.id }}-topper-f)" d="M40,128 L400,128 L400,150 Q220,153 40,150 Z"/><path class="ms-cr__face ms-cr__face--top" fill="url(#cr-{{ section.id }}-topper-t)" d="M40,128 L400,128 L529.9,53 L169.9,53 Z"/><clipPath id="cr-{{ section.id }}-qc"><path d="M40,128 L400,128 L529.9,53 L169.9,53 Z"/></clipPath><path class="ms-cr__quilt" clip-path="url(#cr-{{ section.id }}-qc)" d="M-122,128 L159.1,53 M-122,128 L-143.3,53 M-89.6,128 L191.5,53 M-89.6,128 L-110.9,53 M-57.2,128 L223.9,53 M-57.2,128 L-78.5,53 M-24.8,128 L256.3,53 M-24.8,128 L-46.1,53 M7.6,128 L288.7,53 M7.6,128 L-13.7,53 M40,128 L321.1,53 M40,128 L18.7,53 M72.4,128 L353.5,53 M72.4,128 L51.1,53 M104.8,128 L385.9,53 M104.8,128 L83.5,53 M137.2,128 L418.3,53 M137.2,128 L115.9,53 M169.6,128 L450.7,53 M169.6,128 L148.3,53 M202,128 L483.1,53 M202,128 L180.7,53 M234.4,128 L515.5,53 M234.4,128 L213.1,53 M266.8,128 L547.9,53 M266.8,128 L245.5,53 M299.2,128 L580.3,53 M299.2,128 L277.9,53 M331.6,128 L612.7,53 M331.6,128 L310.3,53 M364,128 L645.1,53 M364,128 L342.7,53 M396.4,128 L677.5,53 M396.4,128 L375.1,53 M428.8,128 L709.9,53 M428.8,128 L407.5,53 M461.2,128 L742.3,53 M461.2,128 L439.9,53 M493.6,128 L774.7,53 M493.6,128 L472.3,53 M526,128 L807.1,53 M526,128 L504.7,53"/><path class="ms-cr__stitch" d="M44,139 L396,139 L525,64"/><circle class="ms-cr__pulse" cx="284.9" cy="90.5" r="5"/><circle class="ms-cr__spot" cx="284.9" cy="90.5" r="3.2"/><line x1="536" y1="66" x2="565" y2="66" class="ms-cr__lead"/><text x="572" y="71" class="ms-cr__num">I</text></g></svg>
+        {% render 'ms-craft-svg', key: ms_key, u: section.id, aria: s.heading, t1: s.part1_title, t2: s.part2_title, t3: s.part3_title %}
       </div>
     </div>
 
@@ -181,6 +192,9 @@
   .ms-cr__next:hover { color: #2A1F19; }
   .ms-cr__svg { width: 100%; height: auto; display: block; overflow: visible; }
   .ms-cr__slab { cursor: pointer; outline: none; transition: transform .8s cubic-bezier(.2, .8, .2, 1), opacity .5s ease; }
+  /* a part the product does not include: drawn as a light outline, still there to explain */
+  .ms-cr__slab.is-ghost .ms-cr__face { fill: rgba(251, 249, 245, .28) !important; stroke: rgba(122, 69, 50, .45); stroke-dasharray: 4 4; }
+  .ms-cr__slab.is-ghost .ms-cr__pulse, .ms-cr__slab.is-ghost .ms-cr__spot { opacity: .45; }
   .ms-cr__face { stroke: rgba(90, 50, 35, .3); stroke-width: 1; stroke-linejoin: round; transition: stroke .45s ease; }
   .ms-cr__seam { fill: none; stroke: rgba(255, 238, 228, .55); stroke-width: .8; stroke-dasharray: 2 4; }
   .ms-cr__lead { stroke: rgba(154, 91, 67, .55); stroke-width: 1; }
@@ -270,6 +284,7 @@
   });
 })();
 </script>
+{%- endif -%}
 
 {% schema %}
 {

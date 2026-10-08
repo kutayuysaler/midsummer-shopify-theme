@@ -2311,6 +2311,13 @@
         "type": "url",
         "id": "ms_link_enquire",
         "label": "Enquiry page"
+      },
+      {
+        "type": "text",
+        "id": "ms_projects_blogs",
+        "label": "Blogs shown as projects",
+        "default": "projects,hotels,progetti,portfolio",
+        "info": "Blog handles, separated by commas. These blogs show as postcards on a map of Italy instead of the Journal list."
       }
     ]
   },
@@ -2326,6 +2333,12 @@
         "id": "ms_social_instagram",
         "label": "Instagram",
         "default": "https://www.instagram.com/midsummermilano/"
+      },
+      {
+        "type": "text",
+        "id": "ms_instagram_token",
+        "label": "Instagram access token (latest posts)",
+        "info": "Optional. With a token from Instagram (Meta for Developers → Instagram API with Instagram Login), the Follow section shows the account's latest posts and keeps the token renewed. Without it, it shows the photographs chosen in the section. See INSTALL.md."
       },
       {
         "type": "text",

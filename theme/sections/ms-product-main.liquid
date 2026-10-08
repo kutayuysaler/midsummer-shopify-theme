@@ -34,6 +34,14 @@
   # What the product is, said under its name and inside the H1, so the heading reads
   # "Vivaldi, natural-fibre sleep system, handmade in Italy" rather than one word.
   # Metafield custom.kind wins; otherwise the template's choice, in the visitor's language.
+  # what the product is (snippets/ms-kind): a sleep system, a bed with headboard, the outdoor
+  # Tangram, a boxspring, or something else, which then says only its own type
+  capture mk
+    render 'ms-kind', p: product
+  endcapture
+  assign mkp = mk | split: '|'
+  assign pkind = mkp[0]
+  assign bed = mkp[2]
   assign kind = product.metafields.custom.kind.value
   if kind == blank
     assign kind_key = section.settings.kind
@@ -43,6 +51,12 @@
       if lt contains 'topper'
         assign kind_key = 'topper'
       endif
+      case pkind
+        when 'headboard', 'outdoor', 'boxspring'
+          assign kind_key = pkind
+        when 'other'
+          assign kind_key = 'type'
+      endcase
     endif
     case kind_key
       when 'system'
@@ -59,6 +73,12 @@
         assign kind = 'ms.product.kind_round' | t
       when 'perfume'
         assign kind = 'ms.product.kind_perfume' | t
+      when 'headboard'
+        assign kind = 'ms.product.kind_headboard' | t
+      when 'outdoor'
+        assign kind = 'ms.product.kind_outdoor' | t
+      when 'type'
+        assign kind = product.type
       when 'custom'
         assign kind = section.settings.kind_custom
       else
@@ -135,6 +155,24 @@
   capture t_desc
     render 'ms-tr', value: ss.description_label, default: 'About this system', key: 'ms.product.description_label'
   endcapture
+  # a bed with headboard, the Tangram and the rest speak of themselves, not of a sleep system
+  case pkind
+    when 'headboard'
+      assign t_desc = 'ms.product.description_label_bed' | t
+      capture t_cover_v
+        render 'ms-bed-data', key: bed, part: 'uph'
+      endcapture
+    when 'outdoor', 'other', 'boxspring'
+      assign t_desc = 'ms.product.description_label_outdoor' | t
+  endcase
+  if pkind == 'outdoor'
+    assign t_f2v = 'Bases of 100 × 100, 180 × 80 and 80 × 50 cm; other sizes on request'
+    assign t_cover_v = 'Loro Piana Interiors outdoor cloth'
+    assign comfort = ''
+  elsif pkind == 'other'
+    assign t_cover_v = ''
+    assign comfort = ''
+  endif
   capture t_fib
     render 'ms-tr', value: ss.fibres_label, default: 'Natural fibres', key: 'ms.product.fibres_label'
   endcapture
@@ -233,13 +271,13 @@
 
         <dl class="ms-pm__facts" aria-label="{{ t_specs | strip | escape }}">
           <div><dt>{{ t_f1l }}</dt><dd>{{ t_f1v }}</dd></div>
-          <div><dt>{{ t_f2l }}</dt><dd>{{ t_f2v }}</dd></div>
+          {%- unless pkind == 'other' -%}<div><dt>{{ t_f2l }}</dt><dd>{{ t_f2v }}</dd></div>{%- endunless -%}
           {%- if sizes != blank -%}<div><dt>{{ t_sizes }}</dt><dd>{{ sizes }}</dd></div>{%- endif -%}
           {%- if height != blank -%}<div><dt>{{ t_height }}</dt><dd>{{ height }}</dd></div>{%- endif -%}
-          {%- if ss.cover_value != blank -%}<div><dt>{{ t_cover_l }}</dt><dd>{{ t_cover_v }}</dd></div>{%- endif -%}
+          {%- if ss.cover_value != blank and t_cover_v != blank -%}<div><dt>{{ t_cover_l }}</dt><dd>{{ t_cover_v }}</dd></div>{%- endif -%}
           {%- if comfort != blank and ss.comfort_value != blank -%}<div><dt>{{ t_comfort_l }}</dt><dd>{{ comfort }}</dd></div>{%- endif -%}
           {%- if lead != blank -%}<div><dt>{{ t_lead }}</dt><dd>{{ lead }}</dd></div>{%- endif -%}
-          <div><dt>{{ t_f3l }}</dt><dd>{{ t_f3v }}</dd></div>
+          {%- unless pkind == 'outdoor' or pkind == 'other' -%}<div><dt>{{ t_f3l }}</dt><dd>{{ t_f3v }}</dd></div>{%- endunless -%}
         </dl>
 
         {%- if product.description != blank and section.settings.show_description -%}

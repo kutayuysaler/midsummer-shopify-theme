@@ -388,7 +388,11 @@
       "kind_boxspring_mattress": "Boxspring e materasso, fatti a mano in Italia",
       "kind_storage": "Boxspring contenitore, fatto a mano in Italia",
       "kind_round": "Sistema letto rotondo, su misura in Italia",
-      "kind_perfume": "Profumo per il letto e la biancheria"
+      "kind_perfume": "Profumo per il letto e la biancheria",
+      "kind_headboard": "Letto con testiera, fatto a mano in Italia",
+      "kind_outdoor": "Letto e sedute per esterni, fatti a mano in Italia",
+      "description_label_bed": "Il letto",
+      "description_label_outdoor": "Il progetto"
     }
   }
 }

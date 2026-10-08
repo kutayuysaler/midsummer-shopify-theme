@@ -1,0 +1,87 @@
+{%- comment -%}
+  The beds with headboards side by side, each drawn from its foot to the same scale, so their
+  heights and characters compare at a glance; each opens its bed. Shown on a collection that holds
+  at least two beds with headboards (snippets/ms-kind), so it can sit in the default collection
+  template and appear only where it belongs. A cat, for scale.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign beds = ''
+  assign n = 0
+  if collection != blank
+    for p in collection.products limit: 24
+      capture k
+        render 'ms-kind', p: p
+      endcapture
+      assign kp = k | split: '|'
+      if kp[0] == 'headboard' and kp[2] != blank
+        assign n = n | plus: 1
+      endif
+    endfor
+  endif
+-%}
+{%- if n > 1 -%}
+<section class="ms-bl" aria-labelledby="bl-{{ section.id }}">
+  <div class="ms-bl__head">
+    <div class="ms-bl__eyebrow">{{ s.eyebrow }}</div>
+    <h2 class="ms-bl__title" id="bl-{{ section.id }}">{{ s.heading | replace: '[n]', n }}</h2>
+    {%- if s.text != blank -%}<p class="ms-bl__text">{{ s.text }}</p>{%- endif -%}
+  </div>
+  <ul class="ms-bl__row" role="list">
+    {%- for p in collection.products limit: 24 -%}
+      {%- capture k -%}{% render 'ms-kind', p: p %}{%- endcapture -%}
+      {%- assign kp = k | split: '|' -%}
+      {%- if kp[0] == 'headboard' and kp[2] != blank -%}
+        <li class="ms-bl__bed">
+          <a href="{{ p.url }}">
+            <span class="ms-bl__draw">{% render 'ms-bed-drawing', key: kp[2], u: section.id | append: forloop.index, crop: 'lineup', l_aria: p.title, l_headboard: p.title, l_mattress: p.title, l_base: p.title %}</span>
+            <span class="ms-bl__name">{{ p.title }}</span>
+            <span class="ms-bl__h">{{ s.height_label }} {% render 'ms-bed-data', key: kp[2], part: 'height' %} cm</span>
+          </a>
+        </li>
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if s.cat_caption != blank -%}
+      <li class="ms-bl__cat" aria-hidden="true">
+        <span class="ms-bl__draw"><svg viewBox="0 96 120 296" class="ms-bl__catsvg"><g transform="translate(26 326)" fill="#4A443B"><path d="M8 46 C2 30 6 14 20 10 C22 4 24 0 27 2 C29 0 32 2 32 6 C38 8 40 14 38 20 C46 26 50 36 48 46 Z"/><path d="M48 44 C62 46 70 40 68 30 C67 26 63 26 64 31 C65 37 58 40 47 38 Z"/><circle cx="25" cy="13" r="1" fill="#F3EEE5"/><circle cx="32" cy="13" r="1" fill="#F3EEE5"/></g><path d="M10 372.5 H110" stroke="rgba(23,20,15,.25)" stroke-width=".8"/></svg></span>
+        <span class="ms-bl__name">{{ s.cat_name }}</span>
+        <span class="ms-bl__h">{{ s.cat_caption }}</span>
+      </li>
+    {%- endif -%}
+  </ul>
+</section>
+<style>
+  .ms-bl { padding: clamp(56px, 7vw, 110px) clamp(18px, 5vw, 80px) clamp(40px, 5vw, 72px); max-width: 1560px; margin: 0 auto; }
+  .ms-bl__eyebrow { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: #7E623B; }
+  .ms-bl__title { font-family: Newsreader, Georgia, serif; font-weight: 200; font-size: clamp(28px, 3.2vw, 44px); line-height: 1.1; letter-spacing: -0.025em; margin-top: 14px; max-width: 26ch; }
+  .ms-bl__text { font-size: 14.5px; line-height: 1.85; color: #4A443B; margin-top: 14px; max-width: 60ch; }
+  .ms-bl__row { list-style: none; margin: clamp(28px, 4vw, 48px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); gap: 28px clamp(8px, 1.2vw, 18px); align-items: end; }
+  .ms-bl__cat .ms-bl__draw { width: 26.7%; }
+  .ms-site .ms-bl__bed a { display: block; color: #17140F; }
+  .ms-bl__draw { display: block; border-bottom: 1px solid #DDD6C9; }
+  .ms-bl__draw svg { display: block; width: 100%; height: auto; }
+  .ms-bl__catsvg { width: 100%; }
+  .ms-bl__bed .ms-ba__dim { display: none; }
+  .ms-bl__bed svg { transition: transform .4s cubic-bezier(.2, .7, .2, 1); transform-origin: 50% 100%; }
+  .ms-bl__bed a:hover svg, .ms-bl__bed a:focus-visible svg { transform: translateY(-4px); }
+  .ms-bl__name { display: block; font-family: Newsreader, Georgia, serif; font-size: 18px; font-weight: 300; margin-top: 12px; }
+  .ms-bl__h { display: block; font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: #6E675C; margin-top: 4px; }
+  .ms-bl__cat .ms-bl__name { font-size: 15px; font-style: italic; }
+  .ms-bl__cat .ms-bl__h { letter-spacing: .08em; text-transform: none; font-size: 11.5px; line-height: 1.5; }
+</style>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Beds side by side",
+  "settings": [
+    { "type": "paragraph", "content": "Shown on collections holding two or more beds with headboards: each bed drawn from its foot, to one scale." },
+    { "type": "text", "id": "eyebrow", "label": "Label", "default": "Side by side" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "[n] headboards, drawn to one scale.", "info": "[n] is the number of beds." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Seen from the foot of the bed, as you will first see yours. Each can be made in other cloths, leathers and sizes; the drawing shows its character." },
+    { "type": "text", "id": "height_label", "label": "Height label", "default": "Headboard" },
+    { "type": "text", "id": "cat_name", "label": "For scale: name", "default": "For scale" },
+    { "type": "text", "id": "cat_caption", "label": "For scale: caption", "default": "One cat, 30 cm, unimpressed.", "info": "Empty hides the cat." }
+  ]
+}
+{% endschema %}

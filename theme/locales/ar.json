@@ -409,7 +409,11 @@
       "kind_boxspring_mattress": "Boxspring and mattress, handmade in Italy",
       "kind_storage": "Storage boxspring, handmade in Italy",
       "kind_round": "Round sleep system, made to measure in Italy",
-      "kind_perfume": "Bed and linen perfume"
+      "kind_perfume": "Bed and linen perfume",
+      "kind_headboard": "Bed with headboard, handmade in Italy",
+      "kind_outdoor": "Outdoor bed and seating system, handmade in Italy",
+      "description_label_bed": "About this bed",
+      "description_label_outdoor": "About this piece"
     }
   }
 }

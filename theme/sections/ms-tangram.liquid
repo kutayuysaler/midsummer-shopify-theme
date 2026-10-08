@@ -1,0 +1,221 @@
+{%- comment -%}
+  Tangram, the outdoor bed and seating system: "in the beginning was the square". The same six
+  pieces, seen from above, rearrange themselves into the compositions of the catalogue, or into one
+  of their own (many many, really). Then what it is made of. Shown on the Tangram, on the outdoor
+  collection, and nowhere else, so it can sit in the default product and collection templates.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign show = false
+  assign tg = nil
+  if template.name == 'product' and product != blank
+    capture k
+      render 'ms-kind', p: product
+    endcapture
+    assign kp = k | split: '|'
+    if kp[0] == 'outdoor'
+      assign show = true
+    endif
+  elsif template.name == 'collection' and collection != blank
+    if collection.handle contains 'outdoor'
+      assign show = true
+    endif
+    for p in collection.products limit: 24
+      capture k
+        render 'ms-kind', p: p
+      endcapture
+      assign kp = k | split: '|'
+      if kp[0] == 'outdoor'
+        assign show = true
+        if tg == nil
+          assign tg = p
+        endif
+      endif
+    endfor
+  endif
+  if request.design_mode
+    assign show = true
+  endif
+-%}
+{%- if show -%}
+<section class="ms-tg" data-ms-tg aria-labelledby="tg-{{ section.id }}">
+  <div class="ms-tg__in">
+    <div class="ms-tg__left">
+      <div class="ms-tg__eyebrow">{{ s.eyebrow }}</div>
+      <h2 class="ms-tg__title" id="tg-{{ section.id }}">{{ s.heading }}</h2>
+      <p class="ms-tg__text">{{ s.text }}</p>
+      <div class="ms-tg__picks" role="group" aria-label="{{ s.picks_label | escape }}">
+        {%- for i in (1..5) -%}
+          {%- assign kn = 'c' | append: i -%}
+          {%- if s[kn] != blank -%}<button type="button" class="ms-tg__pk{% if i == 1 %} is-on{% endif %}" data-tg="{{ i }}" aria-pressed="{% if i == 1 %}true{% else %}false{% endif %}">{{ s[kn] }}</button>{%- endif -%}
+        {%- endfor -%}
+        <button type="button" class="ms-tg__pk ms-tg__shuffle" data-tg="0" aria-pressed="false">{{ s.shuffle }}</button>
+      </div>
+      <p class="ms-tg__note" data-tg-note aria-live="polite">{{ s.note1 }}</p>
+      <template data-tg-notes>{{ s.notes }}</template>
+    </div>
+    <div class="ms-tg__stage">
+      <svg class="ms-tg__svg" viewBox="0 0 440 340" role="img" aria-label="{{ s.heading | escape }}">
+        <defs>
+          <pattern id="tg-{{ section.id }}-tuft" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="#BDB6A0"/></pattern>
+          <pattern id="tg-{{ section.id }}-slat" width="6" height="10" patternUnits="userSpaceOnUse"><rect width="4.2" height="10" fill="#C49668"/></pattern>
+        </defs>
+        <g class="ms-tg__floor"><path d="M0 0H440V340H0Z" fill="none"/></g>
+        {%- comment -%} the six pieces; each is drawn about its centre, the script moves and turns it {%- endcomment -%}
+        <g class="ms-tg__pc" data-pc="L" data-w="180" data-h="80"><rect x="-90" y="-40" width="180" height="80" rx="4" class="ms-tg__cu"/><rect x="-90" y="-40" width="180" height="80" rx="4" fill="url(#tg-{{ section.id }}-tuft)"/><rect x="-88" y="-38" width="15" height="76" rx="7.5" class="ms-tg__bo"/><rect x="-88" y="-38" width="15" height="6" class="ms-tg__cuff"/><rect x="-88" y="32" width="15" height="6" class="ms-tg__cuff"/></g>
+        <g class="ms-tg__pc" data-pc="S1" data-w="100" data-h="100"><rect x="-50" y="-50" width="100" height="100" rx="4" class="ms-tg__cu"/><rect x="-50" y="-50" width="100" height="100" rx="4" fill="url(#tg-{{ section.id }}-tuft)"/></g>
+        <g class="ms-tg__pc" data-pc="S2" data-w="100" data-h="100"><rect x="-50" y="-50" width="100" height="100" rx="4" class="ms-tg__cu"/><rect x="-50" y="-50" width="100" height="100" rx="4" fill="url(#tg-{{ section.id }}-tuft)"/><rect x="-48" y="-48" width="15" height="96" rx="7.5" class="ms-tg__bo"/><rect x="-48" y="-48" width="15" height="6" class="ms-tg__cuff"/><rect x="-48" y="42" width="15" height="6" class="ms-tg__cuff"/></g>
+        <g class="ms-tg__pc" data-pc="m1" data-w="80" data-h="50"><rect x="-40" y="-25" width="80" height="50" rx="4" class="ms-tg__cu"/><rect x="-40" y="-25" width="80" height="50" rx="4" fill="url(#tg-{{ section.id }}-tuft)"/></g>
+        <g class="ms-tg__pc" data-pc="m2" data-w="80" data-h="50"><rect x="-40" y="-25" width="80" height="50" rx="4" class="ms-tg__cu"/><rect x="-40" y="-25" width="80" height="50" rx="4" fill="url(#tg-{{ section.id }}-tuft)"/></g>
+        <g class="ms-tg__pc" data-pc="t" data-w="80" data-h="50"><rect x="-40" y="-25" width="80" height="50" rx="2" class="ms-tg__wood"/><rect x="-36" y="-21" width="72" height="42" fill="url(#tg-{{ section.id }}-slat)"/><rect x="-40" y="-25" width="80" height="50" rx="2" fill="none" stroke="#8D6440" stroke-width="1.2"/></g>
+      </svg>
+      <ul class="ms-tg__key" role="list">
+        <li><i class="ms-tg__k ms-tg__k--cu"></i>{{ s.key_cushion }}</li>
+        <li><i class="ms-tg__k ms-tg__k--bo"></i>{{ s.key_bolster }}</li>
+        <li><i class="ms-tg__k ms-tg__k--wood"></i>{{ s.key_table }}</li>
+      </ul>
+    </div>
+  </div>
+  <dl class="ms-tg__facts">
+    {%- for i in (1..6) -%}
+      {%- assign kl = 'f' | append: i | append: '_label' -%}{%- assign kv = 'f' | append: i -%}
+      {%- if s[kl] != blank and s[kv] != blank -%}<div><dt>{{ s[kl] }}</dt><dd>{{ s[kv] }}</dd></div>{%- endif -%}
+    {%- endfor -%}
+  </dl>
+  {%- if tg != nil and s.product_link != blank -%}<div class="ms-tg__more"><a href="{{ tg.url }}">{{ s.product_link }} <span aria-hidden="true">→</span></a></div>{%- endif -%}
+</section>
+<style>
+  .ms-tg { background: linear-gradient(175deg, #EDF0EC 0%, #E3E7E2 100%); padding: clamp(64px, 8vw, 128px) clamp(18px, 5vw, 80px); color: #17140F; }
+  .ms-tg__in { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 5vw, 96px); align-items: center; }
+  .ms-tg__eyebrow { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: #8B4A33; }
+  .ms-tg__title { font-family: Newsreader, Georgia, serif; font-weight: 200; font-size: clamp(32px, 3.6vw, 52px); line-height: 1.06; letter-spacing: -0.03em; margin-top: 16px; }
+  .ms-tg__text { font-size: 15px; line-height: 1.85; color: #2F2B25; margin-top: 18px; max-width: 44ch; }
+  .ms-tg__picks { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 28px; }
+  .ms-tg__pk { min-height: 40px; padding: 0 14px; border: 1px solid rgba(23, 20, 15, .22); background: transparent; font: inherit; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #4A443B; cursor: pointer; transition: background .2s, color .2s, border-color .2s; }
+  .ms-tg__pk:hover { border-color: #17140F; color: #17140F; }
+  .ms-tg__pk.is-on { background: #17140F; color: #FBF9F5; border-color: #17140F; }
+  .ms-tg__shuffle { border-style: dashed; }
+  .ms-tg__note { font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 17px; line-height: 1.5; color: #4A443B; margin-top: 18px; min-height: 1.5em; }
+  .ms-tg__stage { position: relative; }
+  .ms-tg__svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .ms-tg__pc { transition: transform .9s cubic-bezier(.45, .05, .2, 1); filter: drop-shadow(0 3px 4px rgba(23, 20, 15, .16)); }
+  .ms-tg__cu { fill: #E7E4D6; stroke: #B5573A; stroke-width: 1.2; }
+  .ms-tg__bo { fill: #A9553E; }
+  .ms-tg__cuff { fill: #C9925C; }
+  .ms-tg__wood { fill: #B5875A; }
+  .ms-tg__key { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 12px; color: #4A443B; }
+  .ms-tg__key li { display: inline-flex; align-items: center; gap: 8px; }
+  .ms-tg__k { display: inline-block; width: 18px; height: 12px; border-radius: 2px; }
+  .ms-tg__k--cu { background: #E7E4D6; box-shadow: inset 0 0 0 1.2px #B5573A; }
+  .ms-tg__k--bo { background: #A9553E; border-radius: 6px; height: 8px; }
+  .ms-tg__k--wood { background: repeating-linear-gradient(90deg, #C49668 0 3px, #9A6E44 3px 4px); }
+  .ms-tg__facts { max-width: 1400px; margin: clamp(40px, 5vw, 72px) auto 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 clamp(24px, 3vw, 48px); }
+  .ms-tg__facts div { border-top: 1px solid rgba(23, 20, 15, .16); padding: 16px 0 20px; }
+  .ms-tg__facts dt { font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: #8B4A33; }
+  .ms-tg__facts dd { margin: 8px 0 0; font-size: 14.5px; line-height: 1.7; color: #2F2B25; }
+  .ms-tg__more { max-width: 1400px; margin: 18px auto 0; }
+  .ms-site .ms-tg__more a { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: #17140F; border-bottom: 1px solid currentColor; padding-bottom: 4px; }
+  @media (max-width: 900px) {
+    .ms-tg__in { grid-template-columns: minmax(0, 1fr); }
+    .ms-tg__stage { order: -1; }
+    .ms-tg__facts { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (prefers-reduced-motion: reduce) { .ms-tg__pc { transition: none; } }
+</style>
+<script>
+(function () {
+  // the catalogue's five compositions: [centre x, centre y, turn] for L, S1, S2, m1, m2 and the table, in cm
+  var C = {
+    1: { L: [200, 150, 90], S1: [110, 190, 0], S2: [340, 190, 0], m1: [85, 100, 90], m2: [135, 100, 90], t: [340, 95, 0] },
+    2: { L: [200, 80, 0], S1: [80, 170, 0], S2: [340, 260, 0], m1: [85, 80, 90], m2: [80, 260, 90], t: [340, 170, 90] },
+    3: { L: [200, 150, 90], S1: [200, 290, 0], S2: [350, 110, 0], m1: [110, 305, 0], m2: [350, 200, 0], t: [200, 35, 0] },
+    4: { L: [280, 170, 90], S1: [140, 240, 0], S2: [380, 110, 0], m1: [145, 90, 90], m2: [380, 235, 0], t: [65, 100, 90] },
+    5: { L: [110, 160, 90], S1: [230, 120, 0], S2: [360, 120, 0], m1: [205, 210, 90], m2: [360, 215, 0], t: [255, 210, 90] }
+  };
+  function init(root) {
+    if (!root || root.__tg) return; root.__tg = true;
+    var pcs = {}; root.querySelectorAll('[data-pc]').forEach(function (g) { pcs[g.getAttribute('data-pc')] = g; });
+    var note = root.querySelector('[data-tg-note]');
+    var tpl = root.querySelector('[data-tg-notes]');
+    var notes = ((tpl && (tpl.content ? tpl.content.textContent : tpl.textContent)) || '').split('\n').map(function (s) { return s.trim(); }).filter(Boolean);
+    var spins = {}, ni = 0;
+    function place(c) {
+      Object.keys(pcs).forEach(function (k) {
+        var p = c[k]; if (!p) return;
+        // turn the short way, but always onward, so the pieces seem to be moved by hand
+        var r = p[2], prev = spins[k] == null ? r : spins[k];
+        while (r - prev > 180) r -= 360; while (prev - r > 180) r += 360;
+        spins[k] = r;
+        pcs[k].style.transform = 'translate(' + p[0] + 'px,' + p[1] + 'px) rotate(' + r + 'deg)';
+      });
+    }
+    function shuffle() {
+      // any arrangement where nothing overlaps: the guests' own
+      for (var tries = 0; tries < 60; tries++) {
+        var boxes = [], c = {}, ok = true;
+        Object.keys(pcs).forEach(function (k) {
+          if (!ok) return;
+          var g = pcs[k], w = +g.getAttribute('data-w'), h = +g.getAttribute('data-h');
+          for (var n = 0; n < 200; n++) {
+            var r = Math.random() < .5 ? 0 : 90, ww = r ? h : w, hh = r ? w : h;
+            var x = 10 + Math.round(Math.random() * (420 - ww) / 10) * 10, y = 10 + Math.round(Math.random() * (320 - hh) / 10) * 10;
+            var b = [x - 6, y - 6, x + ww + 6, y + hh + 6];
+            if (boxes.every(function (o) { return b[2] <= o[0] || b[0] >= o[2] || b[3] <= o[1] || b[1] >= o[3]; })) { boxes.push(b); c[k] = [x + ww / 2, y + hh / 2, r + (Math.random() < .5 ? 0 : 180)]; return; }
+          }
+          ok = false;
+        });
+        if (ok) return c;
+      }
+      return C[1];
+    }
+    root.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-tg]'); if (!b) return;
+      var i = +b.getAttribute('data-tg');
+      root.querySelectorAll('[data-tg]').forEach(function (x) { var on = x === b; x.classList.toggle('is-on', on); x.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+      if (i) { place(C[i]); if (note) note.textContent = notes[i - 1] || ''; }
+      else { place(shuffle()); if (note) note.textContent = notes.length > 5 ? notes[5 + (ni++ % (notes.length - 5))] : ''; }
+    });
+    place(C[1]);
+  }
+  document.querySelectorAll('[data-ms-tg]').forEach(init);
+  document.addEventListener('shopify:section:load', function (e) { init(e.target.querySelector('[data-ms-tg]')); });
+})();
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Tangram",
+  "settings": [
+    { "type": "paragraph", "content": "Shown on the Tangram and on the outdoor collection only: the pieces seen from above, rearranging themselves, and what they are made of." },
+    { "type": "text", "id": "eyebrow", "label": "Label", "default": "Tangram · outdoor" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "In the beginning was the square." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "A square, thought of as one large bed, that comes apart into as many compositions as there are guests and occasions: from the deck of a yacht to a villa by the sea, to a veranda in the country. Choose one, or let the pieces choose." },
+    { "type": "text", "id": "picks_label", "label": "Compositions label", "default": "Compositions" },
+    { "type": "text", "id": "c1", "label": "Composition 1", "default": "The square" },
+    { "type": "text", "id": "c2", "label": "Composition 2", "default": "Long lunch" },
+    { "type": "text", "id": "c3", "label": "Composition 3", "default": "On deck" },
+    { "type": "text", "id": "c4", "label": "Composition 4", "default": "Siesta, apart" },
+    { "type": "text", "id": "c5", "label": "Composition 5", "default": "Side by side" },
+    { "type": "text", "id": "shuffle", "label": "Shuffle button", "default": "Shuffle" },
+    { "type": "text", "id": "note1", "label": "First note", "default": "One large bed, 180 by 180." },
+    { "type": "textarea", "id": "notes", "label": "Notes", "info": "One per line: five for the compositions, then any number for the shuffle.", "default": "One large bed, 180 by 180.\nA sofa for the long lunch, and an ottoman for whoever arrives late.\nA lounger to the sun, a table for the glass, and a seat for the conversation.\nTwo siestas, at a polite distance.\nA daybed and a corner, side by side.\nComposition number six. Or sixty.\nThe cat's arrangement.\nAfter the guests had gone.\nSiesta for one, aperitivo for six.\nMany (many many, really) more." },
+    { "type": "text", "id": "key_cushion", "label": "Key: cushion", "default": "Cushion, on its base" },
+    { "type": "text", "id": "key_bolster", "label": "Key: bolster", "default": "Bolster, with leather cuffs" },
+    { "type": "text", "id": "key_table", "label": "Key: bare base", "default": "A base alone: a side table" },
+    { "type": "text", "id": "f1_label", "label": "Fact 1 label", "default": "Wood" },
+    { "type": "text", "id": "f1", "label": "Fact 1", "default": "Of marine quality, made for sun, salt and rain" },
+    { "type": "text", "id": "f2_label", "label": "Fact 2 label", "default": "Cushions" },
+    { "type": "text", "id": "f2", "label": "Fact 2", "default": "In Loro Piana Interiors outdoor cloth, in a wide palette of colours" },
+    { "type": "text", "id": "f3_label", "label": "Fact 3 label", "default": "Padding" },
+    { "type": "text", "id": "f3", "label": "Fact 3", "default": "Austrian horsehair: it lets water and warmth through and dries in the sun. No foam, anywhere" },
+    { "type": "text", "id": "f4_label", "label": "Fact 4 label", "default": "Leather" },
+    { "type": "text", "id": "f4", "label": "Fact 4", "default": "Water-repellent handles and cuffs, stitched by hand by Michele Cesareo in Genoa" },
+    { "type": "text", "id": "f5_label", "label": "Fact 5 label", "default": "Design" },
+    { "type": "text", "id": "f5", "label": "Fact 5", "default": "With Daniela Puppa" },
+    { "type": "text", "id": "f6_label", "label": "Fact 6 label", "default": "Bases" },
+    { "type": "text", "id": "f6", "label": "Fact 6", "default": "100 × 100, 180 × 80 and 80 × 50 cm; other sizes on request" },
+    { "type": "text", "id": "product_link", "label": "Link to the Tangram (collection page)", "default": "The Tangram" }
+  ]
+}
+{% endschema %}

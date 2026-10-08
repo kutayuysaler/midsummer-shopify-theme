@@ -28,9 +28,9 @@
         "tone": "light",
         "image_fallback": "ms-photo-seamstress-portrait.jpg",
         "numeral": "01",
-        "eyebrow": "Handmade in Milan",
+        "eyebrow": "Handmade in Italy",
         "heading": "Two artisans. One bed.",
-        "text": "No production line. The same two hands begin the bed and sew its final seam, in our atelier on Via Andegari. That is why a change of size, height or fabric is a decision, never an exception.",
+        "text": "No production line. The same two hands begin the bed and sew its final seam. That is why a change of size, height or fabric is a decision, never an exception.",
         "stat1_value": "2",
         "stat1_label": "Artisans build each system, start to finish",
         "stat2_value": "24",
@@ -72,7 +72,7 @@
           "type": "row",
           "settings": {
             "label": "Who makes it",
-            "ours": "Two artisans, start to finish, in our Milan atelier.",
+            "ours": "Two artisans, start to finish, in Italy.",
             "theirs": "A production line, with many hands and no one answerable for the whole."
           }
         },
