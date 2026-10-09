@@ -34,7 +34,7 @@ ATLAS = [
        ('14', 'Animals shorn for the vicuña of one mattress.')],
       origin='Wild, in the high Andes', species='Vicugna vicugna', photo='vicuna', alt='Four vicuñas on a ridge at dusk.'),
     F('cashmere', 'Cashmere', 'animal', 'Cashmere', 'temperature softness', 'Warmth without weight',
-      'The fine undercoat of a goat, combed by hand at the spring moult, never shorn. Soft, silky and velvety, it gives warmth with lightness; '
+      'The fine undercoat of a goat, combed by hand as the goat moults, never shorn. Soft, silky and velvety, it gives warmth with lightness; '
       'even a little cashmere changes a mattress.',
       [('100–200 g', 'Of fine fibre from one goat, in a year.'), ('Mongolia', 'The only place our cashmere comes from.')],
       origin='Mongolia', species='Capra hircus', photo='cashmere', alt='A herd of goats coming down a mountain valley.'),
