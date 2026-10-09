@@ -1156,3 +1156,111 @@ photographs from the company's own library, one for each fibre at its source:
   alt text.
 - **Silk:** no photograph of silk cocoons was found in the Drive or Dropbox, so the silk plate
   shows the cloth. Any picture can replace it from the section's *Silk* block, using *Or a picture from the store*.
+
+## 33. One navigation for the beds, the toppers told apart, a fibre atlas, finer bed drawings, a real atlas when the map zooms in
+
+### Collection navigation
+
+- **The same navigation on every collection page.** Every collection page now carries one bar,
+  just under its opening photograph, in two rows:
+  - *By kind:* Bed systems, With headboards, Mattresses, Toppers, Outdoor.
+  - *By collection:* Essentials I, Signature II, Icons III.
+- **How it behaves:**
+  - The page you are on is underlined, so from Toppers you can go straight on to Mattresses or to
+    Signature.
+  - A kind the store has no collection for is left out.
+  - On a phone each row scrolls sideways. The current item is brought into view, and a row that
+    continues fades at its edge.
+  - The section is *Collection · Navigation*, and every label in it is editable.
+- **The mega menu ("Our beds")** follows the same structure, in three groups: *By kind*, *For the
+  bedroom* and *Choosing* (compare the collections, Find your Midsummer, request a proposal).
+- **The Outdoor page** no longer shows a lone small card. With one piece in a collection, that
+  piece is shown large, photograph beside its words. A collection without a description no
+  longer leaves an empty column beside its figures.
+
+### Specifications and materials, checked against the 2026 catalogue
+
+`scripts/spec_audit.py` compares every system's fibres with the catalogue's composition pages. It
+now reports **0 differences**. Corrections made this round:
+
+- **Bellini, Vicuña and Roma:** Ingeo added where the catalogue lists it.
+- **The toppers:** the store gives the *Medium & High Topper* and the *Thin Topper* the Roma
+  topper's template, so all three showed Roma's fibres ("Cashmere, Mohair, Silk, Falkland Wool,
+  Linen, Ingeo"). Each now shows its own data, taken from the catalogue's toppers page:
+
+  | Product | Fibres | Specification |
+  | --- | --- | --- |
+  | Medium & High Topper | Silk, wool, linen, Ingeo; the high one also in vicuña, the medium one also in wool and horsehair | High 9–10 cm, soft; medium 5 cm, soft. Can be upholstered in Loro Piana Interiors linen and cotton, or cashmere |
+  | Thin Topper | Silk and Ingeo, or wool and Ingeo | 3 cm, medium to firm |
+  | Roma Topper | Winter: cashmere, silk, mohair, Falkland wool. Summer: silk, linen, Ingeo, Falkland wool | Sizes as before; the wrong "Headboard height 110 cm" line is removed |
+
+  - **How it works:** the theme recognises the two by name (thin, high or medium; also sottile,
+    alto, medio). Their product page, Inside the bed, questions and compare table then use their
+    own data, even on the Roma template.
+  - **Optional:** two templates now exist, `product.topper-high` and `product.topper-thin`. You
+    can assign them in admin (Products → the topper → Theme template). Nothing breaks if you don't.
+- **The lines under the topper names** were also corrected. The Thin Topper no longer says
+  "wool and cotton".
+
+### Natural materials: one atlas
+
+The photograph gallery and the cards below it (which the reader could not connect) are replaced
+by one section, *Fibres · Atlas*.
+
+- **On the left:** the fourteen fibres in our beds, *From animals* and *From plants*, each with its
+  qualities.
+  - *What matters most to you?* (Temperature, Support, Softness, Breathability, Hypoallergenic)
+    keeps the fibres that answer it lit.
+- **Choosing a fibre opens it beside the list:**
+  - Its plate: the photograph at its source where we have one (seven of them). Every fibre also
+    has its own drawing *under the glass*: wool's crimp, linen's nodes, cotton's twist, silk's
+    paired filament, the scales of the animal hairs. A small lens on the photograph switches
+    between the two.
+  - What it does, in the catalogue's own words (*Materials to dream of*).
+  - Its figures, all from the catalogue: vicuña 12 µm against cashmere's 15 µm, 150 g every two
+    years, 14 animals for one mattress; 800–1,000 m of silk from one cocoon; linen takes up 20 %
+    of its weight; and so on.
+  - Its origin and species, set small and upright.
+  - *In our beds:* the store's own products made with it, as links. These are found
+    automatically from each product's template.
+- **On a phone** the list opens in place.
+- **Links:** `#fibre-cashmere` (or any fibre) in a link opens that fibre. The fibre names on every
+  product page now link to their own entry.
+- **The Latin names** are no longer in large italics; they sit in the detail, small.
+
+### Inside the bed
+
+- **The drawing:** each system's drawing is now drawn as a fine technical illustration. The cloth
+  colours are softer washes, the edges are hairlines, and the pulsing dots are gone.
+- **Labels:** each part has a leader line to its numeral and name.
+- **Animation:**
+  - The bed is shown whole until the section comes into view, then opens gently into its three
+    parts. The base settles first, then the mattress, then the topper, and the labels draw in.
+  - Each part casts a soft shadow on the one below.
+  - Hovering a part lifts it a little while the others step back.
+  - The parts move very slightly with the cursor, at their own depths.
+- Nothing of the inside or the build is drawn.
+
+### The agents map, close up
+
+Zoomed in, the map used to be a flat field covered in tiny village names. It now draws what a
+printed atlas shows of a region, from Natural Earth 1:10m (public domain, no third-party map
+service):
+
+- the sea's depth contours
+- built-up areas
+- motorways, as a white line with a fine edge, and main roads
+- railways
+- regional boundaries
+- rivers and lakes
+- the mountain ranges, named in spaced italics
+
+Other changes:
+
+- **Labels:** far fewer names, set larger. The big cities are named first, a few towns only when
+  you are close, and never the villages.
+- **Colours:** ivory land on a cool, quiet sea.
+- **Zoom:** the closest zoom now stops where this detail still holds. Places in the same street
+  are listed when you click their number.
+- **Loading:** the detail lives in `assets/ms-world-layers.json` (3.6 MB, about 1.1 MB as sent).
+  It loads only when a visitor zooms into a region.

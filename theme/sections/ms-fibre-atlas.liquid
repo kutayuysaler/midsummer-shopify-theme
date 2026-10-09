@@ -1,0 +1,440 @@
+{%- comment -%}
+  The fibres, one at a time. On the left, every fibre in our beds, from animals and from plants,
+  read by what matters to the sleeper; choose one and it opens beside the list: its plate (the
+  fibre at its source where we have the photograph, and always the fibre drawn as under the glass),
+  what it does, its figures from the house's catalogue, and the beds made with it, from the store's
+  own products. On a phone the list opens in place. #fibre-<name> in the address opens that fibre.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign n_rows = section.blocks.size | plus: 1
+  assign grp = ''
+  for b in section.blocks
+    assign g = b.settings.group | default: 'animal'
+    if g != grp
+      assign n_rows = n_rows | plus: 1
+      assign grp = g
+    endif
+  endfor
+  assign qs = 'temperature,support,softness,breathability,hypoallergenic' | split: ','
+  assign beds = ''
+-%}
+{%- paginate collections.all.products by 250 -%}
+  {%- for p in collections.all.products -%}
+    {%- capture mk -%}{% render 'ms-kind', p: p %}{%- endcapture -%}
+    {%- assign mkp = mk | split: '|' -%}
+    {%- if mkp[0] == 'system' and mkp[1] != blank -%}
+      {%- assign beds = beds | append: mkp[1] | append: '>' | append: p.url | append: '>' | append: p.title | append: '^' -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endpaginate -%}
+{%- assign beds = beds | split: '^' -%}
+<section class="ms-fa" id="{{ s.anchor | default: 'fibres' }}" data-ms-fa>
+  <div class="ms-fa__in">
+    <div class="ms-fa__head">
+      <div>
+        {%- if s.eyebrow != blank -%}<div class="ms-fa__eyebrow">{{ s.eyebrow }}</div>{%- endif -%}
+        <h2 class="ms-fa__title">{{ s.heading }}</h2>
+      </div>
+      {%- if s.text != blank -%}<p class="ms-fa__text">{{ s.text }}</p>{%- endif -%}
+    </div>
+
+    <div class="ms-fa__grid" style="--fa-rows: {{ n_rows }};">
+      <div class="ms-fa__filter" role="group" aria-label="{{ s.filter_label | escape }}">
+        <span class="ms-fa__fl">{{ s.filter_label }}</span>
+        <div class="ms-fa__qs-list">
+          <button type="button" class="ms-fa__q is-on" data-fa-q="" aria-pressed="true">{{ s.all_label }}</button>
+          {%- for q in qs -%}
+            {%- assign ql = 'q_' | append: q -%}
+            {%- if s[ql] != blank -%}<button type="button" class="ms-fa__q" data-fa-q="{{ q }}" aria-pressed="false">{{ s[ql] }}</button>{%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+
+      {%- assign grp = '' -%}
+      {%- for b in section.blocks -%}
+        {%- liquid
+          assign bs = b.settings
+          assign g = bs.group | default: 'animal'
+          assign slug = bs.fibre | default: 'wool'
+          assign id = 'fibre-' | append: slug
+          assign num = forloop.index | prepend: '0' | slice: -2, 2
+          if g == 'plant'
+            assign glabel = s.plant_label
+          else
+            assign glabel = s.animal_label
+          endif
+          assign draw = 'ms-fibre-draw-' | append: slug | append: '.svg' | asset_url
+          assign photo = ''
+          assign photo_sm = ''
+          if bs.image != blank
+            assign photo = bs.image | image_url: width: 1400
+            assign photo_sm = bs.image | image_url: width: 720
+          elsif bs.photo != blank and bs.photo != 'none'
+            assign photo = 'ms-fibre-photo-' | append: bs.photo | append: '.jpg' | asset_url
+            assign photo_sm = 'ms-fibre-photo-' | append: bs.photo | append: '-sm.jpg' | asset_url
+          endif
+        -%}
+        {%- if g != grp -%}
+          {%- assign grp = g -%}
+          <p class="ms-fa__g">{{ glabel }}</p>
+        {%- endif -%}
+        <h3 class="ms-fa__h" data-q="{{ bs.qualities | escape }}">
+          <button type="button" class="ms-fa__row{% if forloop.first %} is-on{% endif %}" id="{{ id }}-tab" data-fa-open="{{ id }}" aria-controls="{{ id }}" aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}">
+            <span class="ms-fa__n" aria-hidden="true">{{ num }}</span>
+            <span class="ms-fa__mk" aria-hidden="true">{% render 'ms-fibre-mark', name: bs.mark, size: 26 %}</span>
+            <span class="ms-fa__nm">{{ bs.name }}</span>
+            {%- if bs.quality_label != blank -%}<span class="ms-fa__ql">{{ bs.quality_label }}</span>{%- endif -%}
+          </button>
+        </h3>
+        <div class="ms-fa__p{% if forloop.first %} is-on{% endif %}" id="{{ id }}" role="region" aria-labelledby="{{ id }}-tab" {{ b.shopify_attributes }}{% unless forloop.first %} hidden{% endunless %}>
+          <figure class="ms-fa__plate{% if photo != '' %} has-photo{% endif %}" data-fa-plate>
+            <span class="ms-fa__glass"><img class="ms-fa__draw" src="{{ draw }}" alt="{{ s.draw_alt | replace: '[fibre]', bs.name | escape }}" width="800" height="1000" loading="lazy"></span>
+            {%- if photo != '' -%}
+              <img class="ms-fa__photo" src="{{ photo }}" srcset="{{ photo_sm }} 720w, {{ photo }} 1400w" sizes="(max-width: 860px) 92vw, 28vw" alt="{{ bs.alt | escape }}" width="1400" height="1400" loading="lazy">
+              <button type="button" class="ms-fa__lens" data-fa-lens aria-pressed="false" aria-label="{{ s.lens_label | escape }}">
+                <img class="ms-fa__lens-draw" src="{{ draw }}" alt="" width="800" height="1000" loading="lazy">
+                <img class="ms-fa__lens-photo" src="{{ photo_sm }}" alt="" width="720" height="720" loading="lazy">
+              </button>
+            {%- endif -%}
+            <figcaption class="ms-fa__cap">
+              <span class="ms-fa__pn">{{ s.plate_label }} {{ num }}</span>
+              {%- if photo != '' -%}<span class="ms-fa__cap-photo">{{ s.source_label }}</span>{%- endif -%}
+              <span class="ms-fa__cap-draw">{{ s.glass_label }}</span>
+            </figcaption>
+          </figure>
+          <div class="ms-fa__txt">
+            <div class="ms-fa__eb">{{ glabel }}<span>{{ forloop.index }} / {{ forloop.length }}</span></div>
+            <div class="ms-fa__name">{{ bs.name }}</div>
+            {%- if bs.quality_label != blank -%}<p class="ms-fa__qs">{{ bs.quality_label }}</p>{%- endif -%}
+            {%- if bs.lead != blank -%}<p class="ms-fa__lead">{{ bs.lead }}</p>{%- endif -%}
+            {%- if bs.f1 != blank or bs.f2 != blank or bs.f3 != blank -%}
+              <dl class="ms-fa__figs">
+                {%- for i in (1..3) -%}
+                  {%- assign fk = 'f' | append: i -%}{%- assign fc = 'f' | append: i | append: '_cap' -%}
+                  {%- if bs[fk] != blank -%}<div><dt>{{ bs[fk] }}</dt><dd>{{ bs[fc] }}</dd></div>{%- endif -%}
+                {%- endfor -%}
+              </dl>
+            {%- endif -%}
+            {%- if bs.species != blank or bs.origin != blank -%}
+              <dl class="ms-fa__meta">
+                {%- if bs.origin != blank -%}<div><dt>{{ s.origin_label }}</dt><dd>{{ bs.origin }}</dd></div>{%- endif -%}
+                {%- if bs.species != blank -%}<div><dt>{{ s.species_label }}</dt><dd>{{ bs.species }}</dd></div>{%- endif -%}
+              </dl>
+            {%- endif -%}
+            {%- liquid
+              capture keys
+                render 'ms-fibre-beds', fibre: slug, part: 'keys'
+              endcapture
+              assign keys = keys | strip
+              assign keys = ',' | append: keys | append: ','
+              assign shown = 0
+              assign more = 0
+              assign seen = '^'
+              capture links
+                for e in beds
+                  assign ep = e | split: '>'
+                  assign probe = ',' | append: ep[0] | append: ','
+                  assign tprobe = '^' | append: ep[2] | append: '^'
+                  if keys contains probe
+                    unless seen contains tprobe
+                      assign seen = seen | append: ep[2] | append: '^'
+                      if shown < 6
+                        echo '<a href="' | append: ep[1] | append: '">' | append: ep[2] | append: '</a>'
+                        assign shown = shown | plus: 1
+                      else
+                        assign more = more | plus: 1
+                      endif
+                    endunless
+                  endif
+                endfor
+              endcapture
+              if beds.size == 0
+                capture names
+                  render 'ms-fibre-beds', fibre: slug, part: 'names'
+                endcapture
+                assign names = names | strip | split: '|'
+                capture links
+                  for nm in names
+                    if forloop.index <= 6
+                      echo '<span>' | append: nm | append: '</span>'
+                    else
+                      assign more = more | plus: 1
+                    endif
+                  endfor
+                endcapture
+              endif
+              assign links = links | strip
+            -%}
+            {%- if links != blank -%}
+              <div class="ms-fa__beds">
+                <span class="ms-fa__bl">{{ s.beds_label }}</span>
+                <span class="ms-fa__bs">{{ links }}{%- if more > 0 -%}<a class="ms-fa__more" href="{% render 'ms-link', to: 'compare' %}">{{ s.more_label | replace: '[n]', more }}</a>{%- endif -%}</span>
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+<script>
+  (function () {
+    var root = document.querySelectorAll('[data-ms-fa]');
+    root.forEach(function (fa) {
+      if (fa.dataset.ready) return;
+      fa.dataset.ready = '1';
+      var rows = [].slice.call(fa.querySelectorAll('[data-fa-open]'));
+      var phone = window.matchMedia('(max-width: 860px)');
+      function panel(b) { return document.getElementById(b.getAttribute('aria-controls')); }
+      function open(id, keep) {
+        rows.forEach(function (b) {
+          var on = b.getAttribute('data-fa-open') === id;
+          b.classList.toggle('is-on', on);
+          b.setAttribute('aria-expanded', on ? 'true' : 'false');
+          var p = panel(b);
+          if (p) { p.hidden = !on; p.classList.toggle('is-on', on); }
+        });
+      }
+      rows.forEach(function (b, i) {
+        b.addEventListener('click', function () {
+          var id = b.getAttribute('data-fa-open');
+          if (phone.matches && b.getAttribute('aria-expanded') === 'true') { open(''); return; }
+          open(id);
+          if (phone.matches) b.scrollIntoView({ block: 'start', behavior: 'smooth' });
+          if (history.replaceState) history.replaceState(null, '', '#' + id);
+        });
+        b.addEventListener('keydown', function (e) {
+          if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+          e.preventDefault();
+          var live = rows.filter(function (r) { return !r.parentNode.classList.contains('is-dim'); });
+          var j = live.indexOf(b) + (e.key === 'ArrowDown' ? 1 : -1);
+          if (live[j]) { live[j].focus(); live[j].click(); }
+        });
+      });
+      // what matters most: the fibres that answer it stay lit, the others step back
+      var qb = [].slice.call(fa.querySelectorAll('[data-fa-q]'));
+      qb.forEach(function (q) {
+        q.addEventListener('click', function () {
+          var want = q.getAttribute('data-fa-q');
+          qb.forEach(function (x) { var on = x === q; x.classList.toggle('is-on', on); x.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+          var first = null, cur = null;
+          fa.querySelectorAll('.ms-fa__h').forEach(function (h) {
+            var dim = want && (' ' + h.getAttribute('data-q') + ' ').indexOf(' ' + want + ' ') < 0;
+            h.classList.toggle('is-dim', !!dim);
+            var b = h.querySelector('[data-fa-open]');
+            if (!dim && !first) first = b;
+            if (b.classList.contains('is-on')) cur = { b: b, dim: dim };
+          });
+          if (first && (!cur || cur.dim) && !phone.matches) open(first.getAttribute('data-fa-open'));
+        });
+      });
+      // the lens: the fibre under the glass, or at its source
+      fa.querySelectorAll('[data-fa-lens]').forEach(function (l) {
+        l.addEventListener('click', function () {
+          var pl = l.closest('[data-fa-plate]');
+          var on = !pl.classList.contains('is-glass');
+          pl.classList.toggle('is-glass', on);
+          l.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+      });
+      // under the glass, the slide moves a little with the hand
+      if (window.matchMedia('(hover: hover) and (prefers-reduced-motion: no-preference)').matches) {
+        fa.querySelectorAll('[data-fa-plate]').forEach(function (pl) {
+          pl.addEventListener('pointermove', function (e) {
+            var r = pl.getBoundingClientRect();
+            pl.style.setProperty('--fa-x', ((e.clientX - r.left) / r.width - 0.5).toFixed(3));
+            pl.style.setProperty('--fa-y', ((e.clientY - r.top) / r.height - 0.5).toFixed(3));
+          });
+          pl.addEventListener('pointerleave', function () { pl.style.setProperty('--fa-x', 0); pl.style.setProperty('--fa-y', 0); });
+        });
+      }
+      function fromHash() {
+        var h = (location.hash || '').slice(1);
+        if (h.indexOf('fibre-') !== 0) return;
+        var b = fa.querySelector('[data-fa-open="' + h + '"]');
+        if (!b) return;
+        open(h);
+        (phone.matches ? b : fa).scrollIntoView({ block: 'start' });
+      }
+      fromHash();
+      window.addEventListener('hashchange', fromHash);
+    });
+  })();
+</script>
+<style>
+  .ms-fa { background: #FBF9F5; color: #17140F; padding: clamp(64px, 8vw, 128px) clamp(18px, 5vw, 80px) clamp(72px, 9vw, 140px); }
+  .ms-fa__in { max-width: 1560px; margin: 0 auto; }
+  .ms-fa__head { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(24px, 5vw, 96px); align-items: end; margin-bottom: clamp(40px, 5vw, 72px); }
+  .ms-fa__eyebrow { font-size: 10.5px; letter-spacing: .26em; text-transform: uppercase; color: #9A8F7E; margin-bottom: 18px; }
+  .ms-fa__title { font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: clamp(34px, 3.6vw, 54px); line-height: 1.08; letter-spacing: -.01em; margin: 0; }
+  .ms-fa__text { font-size: 15px; line-height: 1.75; color: #6E675C; max-width: 62ch; margin: 0; }
+
+  .ms-fa__grid { display: grid; grid-template-columns: minmax(250px, 4fr) minmax(0, 8fr); grid-auto-rows: auto; column-gap: clamp(32px, 5vw, 96px); align-items: start; }
+  .ms-fa__filter, .ms-fa__g, .ms-fa__h { grid-column: 1; }
+  .ms-fa__filter { padding-bottom: 18px; margin-bottom: 8px; border-bottom: 1px solid #DDD6C9; }
+  .ms-fa__fl { display: block; font-family: Newsreader, Georgia, serif; font-size: 15px; color: #6E675C; margin-bottom: 12px; }
+  .ms-fa__qs-list { display: flex; flex-wrap: wrap; gap: 4px 18px; }
+  .ms-site .ms-fa__q { position: relative; background: none; border: 0; padding: 6px 0; font: inherit; font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: #8C8273; cursor: pointer; transition: color .3s ease; }
+  .ms-site .ms-fa__q::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; border-bottom: 1px solid #17140F; transform: scaleX(0); transform-origin: left; transition: transform .45s cubic-bezier(.2, .7, .2, 1); }
+  .ms-site .ms-fa__q:hover, .ms-site .ms-fa__q.is-on { color: #17140F; }
+  .ms-site .ms-fa__q.is-on::after { transform: none; }
+  .ms-fa__g { margin: 30px 0 4px; font-size: 10px; letter-spacing: .26em; text-transform: uppercase; color: #A79C8A; }
+  .ms-fa__h { margin: 0; font: inherit; transition: opacity .45s ease; }
+  .ms-fa__h.is-dim { opacity: .3; }
+  .ms-site .ms-fa__row { width: 100%; display: grid; grid-template-columns: 30px 30px minmax(0, 1fr) auto; align-items: center; gap: 0 10px; padding: 12px 0; background: none; border: 0; border-top: 1px solid #ECE6DB; text-align: left; font: inherit; color: #6E675C; cursor: pointer; transition: color .3s ease; }
+  .ms-fa__n { position: relative; font-family: Newsreader, Georgia, serif; font-size: 12px; color: #B5AA97; }
+  .ms-fa__n::after { content: ''; position: absolute; left: 0; top: 50%; width: 22px; border-top: 1px solid #17140F; transform: scaleX(0); transform-origin: left; transition: transform .5s cubic-bezier(.2, .7, .2, 1); }
+  .ms-fa__row.is-on .ms-fa__n { color: transparent; }
+  .ms-fa__row.is-on .ms-fa__n::after { transform: none; }
+  .ms-fa__mk { display: inline-flex; color: #9A8F7E; opacity: .8; }
+  .ms-fa__mk svg { width: 26px; height: 26px; }
+  .ms-fa__nm { font-family: Newsreader, Georgia, serif; font-size: 21px; line-height: 1.2; }
+  .ms-fa__ql { font-size: 9.5px; letter-spacing: .18em; text-transform: uppercase; color: #A79C8A; white-space: nowrap; }
+  .ms-site .ms-fa__row:hover, .ms-site .ms-fa__row.is-on { color: #17140F; }
+  .ms-site .ms-fa__row.is-on .ms-fa__mk { color: #17140F; opacity: 1; }
+  .ms-site .ms-fa__row:focus-visible { outline: 1px solid #17140F; outline-offset: 2px; }
+
+  .ms-fa__p { grid-column: 2; grid-row: 1 / span var(--fa-rows); position: sticky; top: 112px; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(24px, 3vw, 56px); align-items: start; }
+  .ms-fa__p[hidden] { display: none; }
+  .ms-fa__p.is-on { animation: msFaIn .6s cubic-bezier(.2, .7, .2, 1) both; }
+  @keyframes msFaIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+  .ms-fa__plate { position: relative; margin: 0; aspect-ratio: 4 / 5; background: radial-gradient(120% 90% at 30% 20%, #F3EDE3 0%, #E9E1D4 70%, #E2D8C8 100%); overflow: hidden; --fa-x: 0; --fa-y: 0; }
+  .ms-fa__glass { position: absolute; inset: -4%; display: block; transform: translate(calc(var(--fa-x) * -18px), calc(var(--fa-y) * -18px)); transition: transform .9s cubic-bezier(.2, .7, .2, 1); }
+  .ms-fa__draw { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .ms-fa__p.is-on .ms-fa__draw { animation: msFaFocus 1.1s cubic-bezier(.2, .7, .2, 1) both; }
+  @keyframes msFaFocus { from { filter: blur(3px); opacity: .35; transform: scale(1.04); } to { filter: none; opacity: 1; transform: none; } }
+  .ms-fa__photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .8s ease; transform: translate(calc(var(--fa-x) * -6px), calc(var(--fa-y) * -6px)) scale(1.03); }
+  .ms-fa__p.is-on .ms-fa__photo { animation: msFaPhoto 1.2s cubic-bezier(.2, .7, .2, 1) both; }
+  @keyframes msFaPhoto { from { opacity: 0; } to { opacity: 1; } }
+  .ms-fa__plate.is-glass .ms-fa__photo { opacity: 0; }
+  .ms-site .ms-fa__lens { position: absolute; right: 18px; bottom: 54px; width: 31%; aspect-ratio: 1; padding: 0; border: 0; border-radius: 50%; overflow: hidden; cursor: pointer; background: #EDE6DA; box-shadow: 0 0 0 3px rgba(251, 249, 245, .92), 0 10px 30px rgba(23, 20, 15, .22); transition: transform .5s cubic-bezier(.2, .7, .2, 1); }
+  .ms-site .ms-fa__lens:hover { transform: scale(1.05); }
+  .ms-site .ms-fa__lens:focus-visible { outline: 1px solid #17140F; outline-offset: 5px; }
+  .ms-fa__lens img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .6s ease; }
+  .ms-fa__lens-draw { transform: scale(1.9); }
+  .ms-fa__lens-photo { opacity: 0; }
+  .ms-fa__plate.is-glass .ms-fa__lens-photo { opacity: 1; }
+  .ms-fa__plate.is-glass .ms-fa__lens-draw { opacity: 0; }
+  .ms-fa__cap { position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: space-between; gap: 12px; padding: 14px 18px; font-size: 9.5px; letter-spacing: .22em; text-transform: uppercase; color: #6E675C; background: linear-gradient(transparent, rgba(251, 249, 245, .9) 60%); }
+  .ms-fa__plate.has-photo:not(.is-glass) .ms-fa__cap { color: #FBF9F5; background: linear-gradient(transparent, rgba(23, 20, 15, .45)); }
+  .ms-fa__plate.has-photo .ms-fa__cap-draw { display: none; }
+  .ms-fa__plate.has-photo.is-glass .ms-fa__cap-draw { display: inline; }
+  .ms-fa__plate.has-photo.is-glass .ms-fa__cap-photo { display: none; }
+
+  .ms-fa__txt { padding-top: 4px; }
+  .ms-fa__eb { display: flex; justify-content: space-between; font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: #A79C8A; padding-bottom: 14px; border-bottom: 1px solid #ECE6DB; }
+  .ms-fa__eb span { font-family: Newsreader, Georgia, serif; font-size: 12px; letter-spacing: 0; }
+  .ms-fa__name { font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: clamp(36px, 3.4vw, 52px); line-height: 1.05; margin: 22px 0 10px; }
+  .ms-fa__qs { margin: 0 0 22px; font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: #9A6B4F; }
+  .ms-fa__lead { margin: 0; font-size: 15.5px; line-height: 1.75; color: #4A443B; max-width: 52ch; }
+  .ms-fa__figs { display: grid; grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); gap: 18px 24px; margin: 28px 0 0; padding: 22px 0 0; border-top: 1px solid #ECE6DB; }
+  .ms-fa__figs dt { font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: 28px; line-height: 1.1; color: #17140F; }
+  .ms-fa__figs dd { margin: 8px 0 0; font-size: 12.5px; line-height: 1.55; color: #6E675C; }
+  .ms-fa__meta { display: flex; flex-wrap: wrap; gap: 6px 28px; margin: 24px 0 0; font-size: 12px; color: #8C8273; }
+  .ms-fa__meta div { display: flex; gap: 10px; }
+  .ms-fa__meta dt { font-size: 9.5px; letter-spacing: .22em; text-transform: uppercase; color: #A79C8A; padding-top: 2px; }
+  .ms-fa__meta dd { margin: 0; }
+  .ms-fa__beds { margin-top: 26px; padding-top: 20px; border-top: 1px solid #ECE6DB; }
+  .ms-fa__bl { display: block; font-size: 9.5px; letter-spacing: .22em; text-transform: uppercase; color: #A79C8A; margin-bottom: 10px; }
+  .ms-fa__bs { display: flex; flex-wrap: wrap; gap: 8px 20px; font-family: Newsreader, Georgia, serif; font-size: 17px; line-height: 1.35; color: #4A443B; }
+  .ms-site .ms-fa__bs a { color: #17140F; text-decoration: none; background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .45s cubic-bezier(.2, .7, .2, 1); }
+  .ms-site .ms-fa__bs a:hover { background-size: 100% 1px; }
+  .ms-site .ms-fa__bs a.ms-fa__more { font-family: inherit; color: #8C8273; }
+
+  @media (max-width: 1240px) {
+    .ms-fa__ql { display: none; }
+    .ms-site .ms-fa__row { grid-template-columns: 30px 30px minmax(0, 1fr); }
+  }
+  @media (max-width: 1100px) {
+    .ms-fa__p { grid-template-columns: minmax(0, 1fr); }
+    .ms-fa__plate { aspect-ratio: 16 / 10; }
+  }
+  @media (max-width: 860px) {
+    .ms-fa__head { grid-template-columns: minmax(0, 1fr); }
+    .ms-fa__grid { grid-template-columns: minmax(0, 1fr); }
+    .ms-fa__p { grid-column: 1; grid-row: auto; position: static; padding: 6px 0 34px; gap: 22px; }
+    .ms-fa__plate { aspect-ratio: 4 / 3; }
+    .ms-fa__name { font-size: 34px; margin-top: 16px; }
+    .ms-site .ms-fa__lens { width: 28%; bottom: 46px; right: 14px; }
+    .ms-fa__eb { display: none; }
+    .ms-site .ms-fa__row { padding: 15px 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ms-fa__p.is-on, .ms-fa__p.is-on .ms-fa__draw, .ms-fa__p.is-on .ms-fa__photo { animation: none; }
+    .ms-fa__glass, .ms-fa__photo { transform: none; transition: none; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Fibres · Atlas",
+  "class": "ms-fa-section",
+  "settings": [
+    { "type": "paragraph", "content": "Every fibre in our beds, one at a time. Each block is a fibre; its drawing and the beds made with it follow the fibre chosen in the block. A link to #fibre-vicuna (or any fibre) opens that fibre." },
+    { "type": "text", "id": "anchor", "label": "Anchor", "default": "fibres" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The fibres" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "What each fibre does." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Our materials come from farms where animals are treated ethically: cashmere only from Mongolia, horsehair from Argentina, where horses live free, and wool from small farms, never merino from extensive ones." },
+    { "type": "header", "content": "Reading by what matters" },
+    { "type": "text", "id": "filter_label", "label": "Question", "default": "What matters most to you?" },
+    { "type": "text", "id": "all_label", "label": "All", "default": "Everything" },
+    { "type": "text", "id": "q_temperature", "label": "Temperature", "default": "Temperature" },
+    { "type": "text", "id": "q_support", "label": "Support", "default": "Support" },
+    { "type": "text", "id": "q_softness", "label": "Softness", "default": "Softness" },
+    { "type": "text", "id": "q_breathability", "label": "Breathability", "default": "Breathability" },
+    { "type": "text", "id": "q_hypoallergenic", "label": "Hypoallergenic", "default": "Hypoallergenic" },
+    { "type": "header", "content": "Words" },
+    { "type": "text", "id": "animal_label", "label": "From animals", "default": "From animals" },
+    { "type": "text", "id": "plant_label", "label": "From plants", "default": "From plants" },
+    { "type": "text", "id": "plate_label", "label": "Plate", "default": "Plate" },
+    { "type": "text", "id": "source_label", "label": "Photograph caption", "default": "At the source" },
+    { "type": "text", "id": "glass_label", "label": "Drawing caption", "default": "Under the glass" },
+    { "type": "text", "id": "lens_label", "label": "Lens (for screen readers)", "default": "Show the fibre under the glass" },
+    { "type": "text", "id": "draw_alt", "label": "Drawing description", "default": "[fibre], drawn as under the glass.", "info": "[fibre] becomes the fibre's name." },
+    { "type": "text", "id": "origin_label", "label": "Origin", "default": "Origin" },
+    { "type": "text", "id": "species_label", "label": "Species", "default": "Species" },
+    { "type": "text", "id": "beds_label", "label": "Beds made with it", "default": "In our beds" },
+    { "type": "text", "id": "more_label", "label": "More beds", "default": "and [n] more", "info": "[n] becomes the number." }
+  ],
+  "blocks": [
+    {
+      "type": "fibre",
+      "name": "Fibre",
+      "limit": 24,
+      "settings": [
+        { "type": "text", "id": "name", "label": "Name", "default": "Wool" },
+        { "type": "select", "id": "fibre", "label": "Fibre (its drawing, and the beds made with it)", "default": "wool", "options": [
+          { "value": "vicuna", "label": "Vicuña" }, { "value": "cashmere", "label": "Cashmere" }, { "value": "camel", "label": "Camel hair" },
+          { "value": "yak", "label": "Yak" }, { "value": "alpaca", "label": "Baby alpaca" }, { "value": "mohair", "label": "Mohair" },
+          { "value": "silk", "label": "Silk" }, { "value": "wool", "label": "Wool" }, { "value": "horsehair", "label": "Horsehair" },
+          { "value": "linen", "label": "Linen" }, { "value": "cotton", "label": "Cotton" }, { "value": "vegetable", "label": "Vegetable horsehair" },
+          { "value": "ingeo", "label": "Ingeo" }, { "value": "orange", "label": "Orange Fiber" }
+        ] },
+        { "type": "select", "id": "group", "label": "From", "default": "animal", "options": [ { "value": "animal", "label": "Animals" }, { "value": "plant", "label": "Plants" } ] },
+        { "type": "text", "id": "mark", "label": "Mark (the drawn animal or plant)", "default": "Wool" },
+        { "type": "text", "id": "qualities", "label": "Qualities, for the question", "default": "support temperature", "info": "Any of: temperature, support, softness, breathability, hypoallergenic." },
+        { "type": "text", "id": "quality_label", "label": "Qualities, as shown", "default": "Support · Temperature" },
+        { "type": "textarea", "id": "lead", "label": "What it does" },
+        { "type": "text", "id": "f1", "label": "Figure 1" },
+        { "type": "text", "id": "f1_cap", "label": "Figure 1, said" },
+        { "type": "text", "id": "f2", "label": "Figure 2" },
+        { "type": "text", "id": "f2_cap", "label": "Figure 2, said" },
+        { "type": "text", "id": "f3", "label": "Figure 3" },
+        { "type": "text", "id": "f3_cap", "label": "Figure 3, said" },
+        { "type": "text", "id": "origin", "label": "Origin" },
+        { "type": "text", "id": "species", "label": "Species" },
+        { "type": "select", "id": "photo", "label": "Photograph at the source", "default": "none", "options": [
+          { "value": "none", "label": "None: the drawing alone" }, { "value": "vicuna", "label": "Vicuñas" }, { "value": "yak", "label": "Yak" },
+          { "value": "cashmere", "label": "Goats" }, { "value": "wool", "label": "Sheep" }, { "value": "silk", "label": "Silk" },
+          { "value": "horsehair", "label": "Horse's mane" }, { "value": "cotton", "label": "Cotton bolls" }
+        ] },
+        { "type": "image_picker", "id": "image", "label": "Or a picture from the store" },
+        { "type": "text", "id": "alt", "label": "Photograph description" }
+      ]
+    }
+  ],
+  "presets": [ { "name": "Fibres · Atlas" } ]
+}
+{% endschema %}

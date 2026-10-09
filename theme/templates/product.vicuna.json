@@ -51,6 +51,13 @@
             "name": "Linen",
             "note": "Breathability · Freshness"
           }
+        },
+        "fibre_07": {
+          "type": "fibre",
+          "settings": {
+            "name": "Ingeo",
+            "note": "Breathability · Freshness"
+          }
         }
       },
       "block_order": [
@@ -59,7 +66,8 @@
         "fibre_03",
         "fibre_04",
         "fibre_05",
-        "fibre_06"
+        "fibre_06",
+        "fibre_07"
       ]
     },
     "s02": {
@@ -73,14 +81,14 @@
         "link_place": "materials",
         "text": "[name] is the heart of the bed; a topper and a Midsummer boxspring complete it.",
         "fibres_label": "Its fibres",
-        "part1_lead": "A Vicuña topper on request: vicuña, silk and Cheviot wool.",
-        "part1_text": "A Vicuña topper on request: vicuña, silk and Cheviot wool.",
+        "part1_lead": "A vicuña topper on request: vicuña, silk and wool.",
+        "part1_text": "A vicuña topper on request: vicuña, silk and wool.",
         "part1_points": "To bring the same fibre to the surface of the bed.",
-        "part1_fibres": "Vicuña, Silk, Cheviot Wool",
+        "part1_fibres": "Vicuña, Silk, Wool",
         "part2_lead": "Vicuña, cashmere, Falkland wool and horsehair for winter; linen, silk, Ingeo, Falkland wool and horsehair for summer.",
         "part2_text": "Vicuña, cashmere, Falkland wool and horsehair for winter; linen, silk, Ingeo, Falkland wool and horsehair for summer.",
         "part2_points": "Vicuña is finer than the finest cashmere, from a small wild camelid of the Andes.\nCovered in raw linen and cotton, edged with a vicuña-coloured ribbon and tufted by hand; or in a Loro Piana Interiors linen.",
-        "part2_fibres": "Vicuña, Cashmere, Falkland Wool, Horsehair, Silk, Linen",
+        "part2_fibres": "Vicuña, Cashmere, Falkland Wool, Horsehair, Silk, Linen, Ingeo",
         "part3_lead": "Made to rest on a Midsummer boxspring.",
         "part3_text": "Made to rest on a Midsummer boxspring.",
         "part3_points": "Made by the same artisans, to the size of the mattress.\nDressed in natural cloth, with a headboard drawn with you if you wish.",
@@ -101,7 +109,7 @@
           "type": "qa",
           "settings": {
             "q": "What is [product] made of?",
-            "a": "<p>[product] is made by hand in Italy from natural fibres: vicuña, cashmere, Falkland wool, horsehair, silk and linen. It is covered in raw linen and cotton, or in a Loro Piana Interiors cloth chosen with you. It is made to order by two artisans, start to finish.</p>"
+            "a": "<p>[product] is made by hand in Italy from natural fibres: vicuña, cashmere, Falkland wool, horsehair, silk, linen and Ingeo. It is covered in raw linen and cotton, or in a Loro Piana Interiors cloth chosen with you. It is made to order by two artisans, start to finish.</p>"
           }
         },
         "qa_02": {

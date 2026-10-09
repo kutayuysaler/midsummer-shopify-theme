@@ -11,7 +11,7 @@
   assign bed = ''
   assign kind = 'other'
   assign probe = ',' | append: sfx | append: ','
-  if sfx != '' and ',amalfi,bellagio,bellini,brera,capri,dreamy-2,dreamy-springs,essenziale,first-dream,flora,giotto,monteverdi,my-dream,paisley,raffaello,roma,storage,top-2,topper-roma,ultra-dry,vicuna,vivaldi-2,vivaldi-plus,' contains probe
+  if sfx != '' and ',amalfi,bellagio,bellini,brera,capri,dreamy-2,dreamy-springs,essenziale,first-dream,flora,giotto,monteverdi,my-dream,paisley,raffaello,roma,storage,top-2,topper-high,topper-roma,topper-thin,ultra-dry,vicuna,vivaldi-2,vivaldi-plus,' contains probe
     assign key = sfx
   else
     case h
@@ -62,6 +62,18 @@
       when 'vivaldi-plus'
         assign key = 'vivaldi-plus'
     endcase
+  endif
+  if key == '' or key == 'topper-roma'
+    assign tt = p.title | append: ' ' | append: h | downcase
+    if tt contains 'topper'
+      unless tt contains 'roma'
+        if tt contains 'thin' or tt contains 'sottile'
+          assign key = 'topper-thin'
+        elsif tt contains 'high' or tt contains 'medium' or tt contains 'alto' or tt contains 'medio'
+          assign key = 'topper-high'
+        endif
+      endunless
+    endif
   endif
   case h
     when 'beating-of-wings'

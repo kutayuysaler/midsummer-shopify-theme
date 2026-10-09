@@ -15,14 +15,6 @@
         "text": "Vicuña, cashmere, alpaca, horsehair and wool, each laid by hand where it does its work."
       }
     },
-    "s01": {
-      "type": "ms-materials-01",
-      "settings": {}
-    },
-    "s02": {
-      "type": "ms-materials-02",
-      "settings": {}
-    },
     "s03": {
       "type": "ms-materials-04",
       "settings": {}
@@ -33,79 +25,256 @@
         "current": "materials"
       }
     },
-    "fibres": {
-      "type": "ms-fibre-gallery",
-      "settings": {},
+    "atlas": {
+      "type": "ms-fibre-atlas",
+      "settings": {
+        "heading": "Chosen for what they do to your sleep.",
+        "text": "Our mattresses and bed bases are made only with natural materials, chosen for their quality, durability and comfort. They come from farms where animals are treated ethically: cashmere only from Mongolia, horsehair from Argentina, where horses live free, and wool from small farms. Read them by what matters most to you."
+      },
       "blocks": {
         "fibre_1": {
           "type": "fibre",
           "settings": {
-            "photo": "vicuna",
+            "fibre": "vicuna",
             "name": "Vicuña",
-            "latin": "Vicugna vicugna",
-            "origin": "The Andes, Peru",
-            "line": "The rarest and finest fibre we work with: silky, light and remarkably warm.",
+            "group": "animal",
+            "mark": "Vicuña",
+            "qualities": "softness temperature",
+            "quality_label": "Softness · Warmth",
+            "lead": "It comes from a small camelid that lives wild in the high Andes; the Inca wove it for their kings, for its lightness and warmth. Its coat is twofold: a fine down that regulates warmth, and longer, silky fibres that protect.",
+            "photo": "vicuna",
+            "f1": "12 µm",
+            "f1_cap": "Across one fibre: finer than the best cashmere, at 15 µm.",
+            "f2": "150 g",
+            "f2_cap": "From one animal, every two years.",
+            "f3": "14",
+            "f3_cap": "Animals shorn for the vicuña of one mattress.",
+            "origin": "Wild, in the high Andes",
+            "species": "Vicugna vicugna",
             "alt": "Four vicuñas on a ridge at dusk."
           }
         },
         "fibre_2": {
           "type": "fibre",
           "settings": {
-            "photo": "yak",
-            "name": "Yak",
-            "latin": "Bos grunniens",
-            "line": "Fine, warm and particularly robust, with a softness close to cashmere.",
-            "alt": "A yak on a misty mountainside."
+            "fibre": "cashmere",
+            "name": "Cashmere",
+            "group": "animal",
+            "mark": "Cashmere",
+            "qualities": "temperature softness",
+            "quality_label": "Warmth without weight",
+            "lead": "The fine undercoat of a goat, combed by hand at the spring moult, never shorn. Soft, silky and velvety, it gives warmth with lightness; even a little cashmere changes a mattress.",
+            "photo": "cashmere",
+            "f1": "100–200 g",
+            "f1_cap": "Of fine fibre from one goat, in a year.",
+            "f2": "Mongolia",
+            "f2_cap": "The only place our cashmere comes from.",
+            "origin": "Mongolia",
+            "species": "Capra hircus",
+            "alt": "A herd of goats coming down a mountain valley."
           }
         },
         "fibre_3": {
           "type": "fibre",
           "settings": {
-            "photo": "cashmere",
-            "name": "Cashmere",
-            "latin": "Capra hircus",
-            "line": "The fine undercoat of the goat: warmth without weight.",
-            "alt": "A herd of goats coming down a mountain valley."
+            "fibre": "camel",
+            "name": "Camel hair",
+            "group": "animal",
+            "mark": "Camel Hair",
+            "qualities": "temperature",
+            "quality_label": "Warmth · Temperature",
+            "lead": "It shields the camel from the extremes of the desert, cold and heat, and does the same in a bed. Fine and soft, it holds a great deal of air, and it is more hygroscopic than sheep’s wool: a dry, pleasant warmth.",
+            "photo": "none",
+            "f1": "700 g",
+            "f1_cap": "At most, combed from one young camel in a year.",
+            "origin": "Asia",
+            "species": "Camelus bactrianus"
           }
         },
         "fibre_4": {
           "type": "fibre",
           "settings": {
-            "photo": "wool",
-            "name": "Wool",
-            "latin": "Ovis aries",
-            "line": "Long, resilient fibres that hold their shape, night after night.",
-            "alt": "Sheep in full fleece, close together."
+            "fibre": "yak",
+            "name": "Yak",
+            "group": "animal",
+            "mark": "Yak Hair",
+            "qualities": "temperature softness",
+            "quality_label": "Warmth · Softness",
+            "lead": "A fine, very warm and particularly robust hair, soft and fluffy, with the look of cashmere. The yak is neither shorn nor combed: in May its winter undercoat falls, and the nomads gather it.",
+            "photo": "yak",
+            "f1": "May",
+            "f1_cap": "When the undercoat falls, and is gathered.",
+            "f2": "Never",
+            "f2_cap": "Shorn or combed: collected once it is shed.",
+            "species": "Bos grunniens",
+            "alt": "A yak on a misty mountainside."
           }
         },
         "fibre_5": {
           "type": "fibre",
           "settings": {
-            "photo": "silk",
-            "name": "Silk",
-            "latin": "Bombyx mori",
-            "line": "Cool to the touch and smooth, with a lustre of its own.",
-            "alt": "Silk satin, falling in soft folds."
+            "fibre": "alpaca",
+            "name": "Baby alpaca",
+            "group": "animal",
+            "mark": "Baby Alpaca",
+            "qualities": "temperature hypoallergenic",
+            "quality_label": "Temperature · Hypoallergenic",
+            "lead": "From an animal of the high South American ranges, with an abundant fleece, soft and almost silky. The fibre sits between wool and cashmere, nearer to cashmere; alpaca cloth was once kept for the Inca emperors.",
+            "photo": "none",
+            "f1": "No lanolin",
+            "f1_cap": "And so naturally hypoallergenic.",
+            "origin": "The South American highlands",
+            "species": "Vicugna pacos"
           }
         },
         "fibre_6": {
           "type": "fibre",
           "settings": {
-            "photo": "horsehair",
-            "name": "Horsehair",
-            "latin": "Equus caballus",
-            "line": "Long and resilient; it keeps the air moving through the bed.",
-            "alt": "The long, pale mane of a horse, close up."
+            "fibre": "mohair",
+            "name": "Mohair",
+            "group": "animal",
+            "mark": "Mohair",
+            "qualities": "temperature",
+            "quality_label": "Warmth without weight",
+            "lead": "On the winter side of a bed, with cashmere, silk and wool: warmth without weight.",
+            "photo": "none"
           }
         },
         "fibre_7": {
           "type": "fibre",
           "settings": {
+            "fibre": "silk",
+            "name": "Silk",
+            "group": "animal",
+            "mark": "Silk",
+            "qualities": "softness temperature",
+            "quality_label": "Temperature · Softness",
+            "lead": "The only animal fibre spun by a silkworm, fed on mulberry leaves. A continuous filament, fine and lustrous: light, insulating, elastic and flexible, held to be the finest and softest of the natural fibres.",
+            "photo": "silk",
+            "f1": "800–1,000 m",
+            "f1_cap": "Of filament from a single cocoon.",
+            "species": "Bombyx mori",
+            "alt": "Silk satin, falling in soft folds."
+          }
+        },
+        "fibre_8": {
+          "type": "fibre",
+          "settings": {
+            "fibre": "wool",
+            "name": "Wool",
+            "group": "animal",
+            "mark": "Wool",
+            "qualities": "support temperature",
+            "quality_label": "Support · Temperature",
+            "lead": "The most hygroscopic of the natural fibres. It keeps the body cool when it is warm and warm when it is cold, holds no static and resists mould. Ours comes from small farms: Cheviot, from Scotland, with the longest fibres, and Falkland.",
+            "photo": "wool",
+            "f1": "⅓",
+            "f1_cap": "Of its own weight in vapour, taken up without feeling wet.",
+            "f2": "Small farms",
+            "f2_cap": "Never merino from extensive Australian farms.",
+            "species": "Ovis aries",
+            "alt": "Sheep in full fleece, close together."
+          }
+        },
+        "fibre_9": {
+          "type": "fibre",
+          "settings": {
+            "fibre": "horsehair",
+            "name": "Horsehair",
+            "group": "animal",
+            "mark": "Horsehair",
+            "qualities": "support breathability",
+            "quality_label": "Support · Breathability",
+            "lead": "Used in upholstery for centuries because it is elastic and flexible, and curling makes it more so. Like wool, it takes up the moisture of the night and gives it back to the air by day, keeping the bed fresh.",
+            "photo": "horsehair",
+            "f1": "Argentina",
+            "f1_cap": "Where the horses live free.",
+            "f2": "Horses only",
+            "f2_cap": "Never the hair of other animals.",
+            "origin": "Argentina",
+            "species": "Equus caballus",
+            "alt": "The long, pale mane of a horse, close up."
+          }
+        },
+        "fibre_10": {
+          "type": "fibre",
+          "settings": {
+            "fibre": "linen",
+            "name": "Linen",
+            "group": "plant",
+            "mark": "Linen",
+            "qualities": "breathability",
+            "quality_label": "Breathability · Freshness",
+            "lead": "From the stem of the flax plant, grown in the cool regions of northern Europe. A good conductor of heat, it feels cool against the skin: the fibre of the summer side.",
+            "photo": "none",
+            "f1": "20%",
+            "f1_cap": "Of its own weight in moisture, absorbed.",
+            "origin": "Northern Europe",
+            "species": "Linum usitatissimum"
+          }
+        },
+        "fibre_11": {
+          "type": "fibre",
+          "settings": {
+            "fibre": "cotton",
+            "name": "Organic cotton",
+            "group": "plant",
+            "mark": "Cotton",
+            "qualities": "breathability",
+            "quality_label": "Breathability",
+            "lead": "Only from organic farms that keep to fair working conditions, since ordinary cotton crops use huge amounts of chemicals. Fresh and very breathable, for the warm months.",
             "photo": "cotton",
-            "name": "Cotton",
-            "latin": "Gossypium",
-            "line": "Fresh and breathable, for the warmer months.",
+            "f1": "Organic",
+            "f1_cap": "Farms only, with fair working conditions.",
+            "species": "Gossypium",
             "alt": "Cotton bolls opening on the plant."
+          }
+        },
+        "fibre_12": {
+          "type": "fibre",
+          "settings": {
+            "fibre": "vegetable",
+            "name": "Vegetable horsehair",
+            "group": "plant",
+            "mark": "Vegetable Horsehair",
+            "qualities": "support breathability",
+            "quality_label": "Support · Breathability",
+            "lead": "Fibres from the leaves of palms, mainly the dwarf palm of southern Italy and Sicily, known as St Peter’s palm. The leaves are dried, curled and braided into ropes, like horsehair: soft, resilient and practically indestructible.",
+            "photo": "none",
+            "f1": "Sicily",
+            "f1_cap": "And southern Italy, where the palm grows.",
+            "origin": "Southern Italy and Sicily",
+            "species": "Chamaerops humilis"
+          }
+        },
+        "fibre_13": {
+          "type": "fibre",
+          "settings": {
+            "fibre": "ingeo",
+            "name": "Ingeo",
+            "group": "plant",
+            "mark": "Ingeo",
+            "qualities": "breathability",
+            "quality_label": "Breathability · Freshness",
+            "lead": "A sustainable fibre derived from maize. With wool, linen and cotton, it is on the summer side: fresh and breathable.",
+            "photo": "none",
+            "f1": "Maize",
+            "f1_cap": "The plant it is drawn from."
+          }
+        },
+        "fibre_14": {
+          "type": "fibre",
+          "settings": {
+            "fibre": "orange",
+            "name": "Orange Fiber",
+            "group": "plant",
+            "mark": "Orange Fiber",
+            "qualities": "breathability",
+            "quality_label": "Freshness · Breathability",
+            "lead": "An innovative, sustainable material made from Sicilian orange peels: light, breathable and naturally fresh.",
+            "photo": "none",
+            "f1": "Orange peel",
+            "f1_cap": "From Sicily’s oranges."
           }
         }
       },
@@ -116,15 +285,20 @@
         "fibre_4",
         "fibre_5",
         "fibre_6",
-        "fibre_7"
+        "fibre_7",
+        "fibre_8",
+        "fibre_9",
+        "fibre_10",
+        "fibre_11",
+        "fibre_12",
+        "fibre_13",
+        "fibre_14"
       ]
     }
   },
   "order": [
     "opening",
-    "s01",
-    "fibres",
-    "s02",
+    "atlas",
     "s03",
     "next"
   ]

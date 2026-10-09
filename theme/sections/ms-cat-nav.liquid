@@ -1,0 +1,122 @@
+{%- comment -%}
+  The catalogue's own navigation, the same on every collection page: what a piece is (bed
+  systems, beds with headboards, mattresses, toppers, outdoor) and which collection it belongs
+  to (Essentials, Signature, Icons). The page you are on is underlined; a kind the store does not
+  have is left out. Essentials, Signature and Icons always exist (their designed page stands in
+  until the store has the collection).
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign h = collection.handle
+  if h == 'icon'
+    assign h = 'icons'
+  endif
+  assign cur = ''
+  if h == 'essentials' or h == 'signature' or h == 'icons'
+    assign cur = h
+  else
+    case template.suffix
+      when 'ms-essentials'
+        assign cur = 'essentials'
+      when 'ms-signature'
+        assign cur = 'signature'
+      when 'ms-icons'
+        assign cur = 'icons'
+    endcase
+  endif
+  assign kinds = 'systems,headboards,mattresses,toppers,outdoor' | split: ','
+  assign tiers = 'essentials,signature,icons' | split: ','
+-%}
+<nav class="ms-cn" aria-label="{{ s.label | escape }}">
+  <div class="ms-cn__in">
+    <div class="ms-cn__row">
+      <span class="ms-cn__k">{{ s.kinds_label }}</span>
+      <ul class="ms-cn__list" role="list">
+        {%- for k in kinds -%}
+          {%- capture u -%}{% render 'ms-link', to: k, strict: true %}{%- endcapture -%}
+          {%- assign u = u | strip -%}
+          {%- capture hs -%}{% render 'ms-link', to: k, handles: true %}{%- endcapture -%}
+          {%- assign hs = hs | strip | split: ',' -%}
+          {%- assign on = false -%}
+          {%- if cur == '' and collection.handle != blank -%}
+            {%- if u == collection.url or hs contains collection.handle -%}{%- assign on = true -%}{%- assign u = collection.url -%}{%- endif -%}
+          {%- endif -%}
+          {%- assign kl = 'kind_' | append: k -%}
+          {%- if u != blank and s[kl] != blank -%}
+            <li><a class="ms-cn__a{% if on %} is-on{% endif %}" href="{{ u }}"{% if on %} aria-current="page"{% endif %}>{{ s[kl] }}</a></li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+    <div class="ms-cn__row ms-cn__row--tiers">
+      <span class="ms-cn__k">{{ s.tiers_label }}</span>
+      <ul class="ms-cn__list" role="list">
+        {%- for k in tiers -%}
+          {%- assign tl = 'tier_' | append: k -%}
+          {%- assign on = false -%}{%- if cur == k -%}{%- assign on = true -%}{%- endif -%}
+          <li><a class="ms-cn__a{% if on %} is-on{% endif %}" href="{% render 'ms-link', to: k %}"{% if on %} aria-current="page"{% endif %}>{{ s[tl] }}<span class="ms-cn__n" aria-hidden="true">{% cycle 'I', 'II', 'III' %}</span></a></li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+</nav>
+<script>
+  (function () {
+    // on a phone the rows scroll: the page you are on is brought into view, and a row that
+    // continues past the edge fades there
+    document.querySelectorAll('.ms-cn__row').forEach(function (r) {
+      var a = r.querySelector('.is-on');
+      if (a && r.scrollWidth > r.clientWidth) {
+        var ra = a.getBoundingClientRect(), rr = r.getBoundingClientRect();
+        r.scrollLeft = Math.max(0, ra.left - rr.left + r.scrollLeft - (r.clientWidth - ra.width) / 2);
+      }
+      var edge = function () { r.classList.toggle('is-more', r.scrollLeft + r.clientWidth < r.scrollWidth - 4); };
+      edge();
+      r.addEventListener('scroll', edge, { passive: true });
+      window.addEventListener('resize', edge);
+    });
+  })();
+</script>
+<style>
+  .ms-cn { border-bottom: 1px solid #DDD6C9; background: #FBF9F5; }
+  .ms-cn__in { max-width: 1560px; margin: 0 auto; padding: 0 clamp(18px, 5vw, 80px); display: flex; justify-content: space-between; align-items: stretch; gap: 0 clamp(24px, 4vw, 64px); }
+  .ms-cn__row { display: flex; align-items: center; gap: clamp(14px, 1.6vw, 26px); min-width: 0; }
+  .ms-cn__row--tiers { padding-left: clamp(24px, 4vw, 64px); border-left: 1px solid #ECE6DB; }
+  .ms-cn__k { flex: 0 0 auto; font-family: Newsreader, Georgia, serif; font-size: 14px; color: #9A8F7E; }
+  .ms-cn__list { list-style: none; margin: 0; padding: 0; display: flex; gap: clamp(14px, 1.8vw, 30px); }
+  .ms-site a.ms-cn__a { position: relative; display: inline-flex; align-items: baseline; gap: 7px; padding: 22px 0 21px; font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: #6E675C; white-space: nowrap; transition: color .3s ease; }
+  .ms-site a.ms-cn__a::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; border-bottom: 1px solid #17140F; transform: scaleX(0); transform-origin: left; transition: transform .45s cubic-bezier(.2, .7, .2, 1); }
+  .ms-site a.ms-cn__a:hover { color: #17140F; }
+  .ms-site a.ms-cn__a.is-on { color: #17140F; }
+  .ms-site a.ms-cn__a.is-on::after { transform: none; }
+  .ms-cn__n { font-family: Newsreader, Georgia, serif; font-size: 12px; letter-spacing: 0; text-transform: none; color: #B5AA97; }
+  @media (max-width: 1100px) {
+    .ms-cn__in { flex-direction: column; padding: 0; }
+    .ms-cn__row { overflow-x: auto; scrollbar-width: none; padding: 0 clamp(18px, 5vw, 80px); }
+    .ms-cn__row::-webkit-scrollbar { display: none; }
+    .ms-cn__row--tiers { border-left: 0; border-top: 1px solid #ECE6DB; }
+    .ms-site a.ms-cn__a { padding: 16px 0 15px; }
+    .ms-cn__row.is-more { -webkit-mask-image: linear-gradient(90deg, #000 82%, transparent); mask-image: linear-gradient(90deg, #000 82%, transparent); }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Collection · Navigation",
+  "settings": [
+    { "type": "paragraph", "content": "The same on every collection page. A kind shows only if the store has its collection; the page you are on is underlined." },
+    { "type": "text", "id": "label", "label": "Name (for screen readers)", "default": "Our beds" },
+    { "type": "text", "id": "kinds_label", "label": "Kinds", "default": "By kind" },
+    { "type": "text", "id": "kind_systems", "label": "Bed systems", "default": "Bed systems" },
+    { "type": "text", "id": "kind_headboards", "label": "Beds with headboards", "default": "With headboards" },
+    { "type": "text", "id": "kind_mattresses", "label": "Mattresses", "default": "Mattresses" },
+    { "type": "text", "id": "kind_toppers", "label": "Toppers", "default": "Toppers" },
+    { "type": "text", "id": "kind_outdoor", "label": "Outdoor", "default": "Outdoor" },
+    { "type": "text", "id": "tiers_label", "label": "Collections", "default": "By collection" },
+    { "type": "text", "id": "tier_essentials", "label": "Essentials", "default": "Essentials" },
+    { "type": "text", "id": "tier_signature", "label": "Signature", "default": "Signature" },
+    { "type": "text", "id": "tier_icons", "label": "Icons", "default": "Icons" }
+  ],
+  "presets": [ { "name": "Collection · Navigation" } ]
+}
+{% endschema %}

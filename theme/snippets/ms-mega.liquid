@@ -99,13 +99,22 @@
       <div class="ms-mg__no">01</div>
       <div class="ms-mg__title">{{ ss.t1 }}</div>
       <p class="ms-mg__lede">{{ ss.mg_beds_lede }}</p>
-      <ul class="ms-mg__minor" role="list">
-        {%- assign types = 'systems,headboards,mattresses,toppers,outdoor,bedding,throws,furniture' | split: ',' -%}
-        {%- assign type_names = 'Bed systems,Beds with headboards,Mattresses,Toppers,Outdoor,Duvets and sheets,Blankets and throws,Furniture' | split: ',' -%}
-        {%- for t in types -%}
+      {%- assign groups = 'systems,headboards,mattresses,toppers,outdoor|bedding,throws,furniture' | split: '|' -%}
+      {%- assign group_names = 'By kind|For the bedroom' | split: '|' -%}
+      {%- assign all_names = 'systems:Bed systems,headboards:Beds with headboards,mattresses:Mattresses,toppers:Toppers,outdoor:Outdoor,bedding:Duvets and sheets,throws:Blankets and throws,furniture:Furniture' | split: ',' -%}
+      {%- for g in groups -%}
+        {%- assign gl = '' -%}
+        {%- assign keys = g | split: ',' -%}
+        {%- for t in keys -%}
           {%- capture tu -%}{% render 'ms-link', to: t, strict: true %}{%- endcapture -%}
-          {%- if tu != blank -%}<li><a href="{{ tu }}">{{ type_names[forloop.index0] }}</a></li>{%- endif -%}
+          {%- if tu != blank -%}
+            {%- for n in all_names -%}{%- assign np = n | split: ':' -%}{%- if np[0] == t -%}{%- assign gl = gl | append: '<li><a href="' | append: tu | append: '">' | append: np[1] | append: '</a></li>' -%}{%- endif -%}{%- endfor -%}
+          {%- endif -%}
         {%- endfor -%}
+        {%- if gl != '' -%}<p class="ms-mg__grp">{{ group_names[forloop.index0] }}</p><ul class="ms-mg__minor" role="list">{{ gl }}</ul>{%- endif -%}
+      {%- endfor -%}
+      <p class="ms-mg__grp">Choosing</p>
+      <ul class="ms-mg__minor" role="list">
         <li><a href="{{ u_compare }}">{{ ss.mg_compare }}</a></li>
         <li><a href="{{ u_quiz }}" data-ms-quiz-link>{{ ss.mg_quiz }}</a></li>
         <li><a href="{{ u_proposal }}#enquire" data-ms-landing>{{ ss.mg_proposal }}</a></li>
@@ -252,7 +261,9 @@
   .ms-site .ms-mg__cta { font-size: 10.5px; letter-spacing: .24em; text-transform: uppercase; color: #17140F; border-bottom: 1px solid currentColor; padding-bottom: 4px; }
   .ms-site .ms-mg__cta--solid { display: inline-flex; align-items: center; min-height: 46px; padding: 0 22px; border: 0; background: #17140F; color: #FBF9F5; }
   .ms-site .ms-mg__cta--solid:hover { background: #3A332A; color: #FBF9F5; }
-  .ms-mg__minor { list-style: none; margin: 30px 0 0; padding: 22px 0 0; border-top: 1px solid #DDD6C9; display: grid; gap: 10px; }
+  .ms-mg__minor { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; }
+  .ms-mg__grp { margin: 22px 0 10px; padding-top: 16px; border-top: 1px solid #DDD6C9; font-family: Newsreader, Georgia, serif; font-size: 14px; color: #9A8F7E; }
+  .ms-mg__grp:first-of-type { margin-top: 26px; }
   .ms-site .ms-mg__minor a { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: #4A443B; background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; padding-bottom: 3px; transition: background-size .4s cubic-bezier(.2,.7,.2,1), color .25s ease; }
   .ms-site .ms-mg__minor a:hover { color: #17140F; background-size: 100% 1px; }
 

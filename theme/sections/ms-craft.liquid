@@ -28,6 +28,19 @@
       assign cr_show = false
     endif
   endif
+  # a system on another's template (the Medium & High and the Thin topper are given the Roma
+  # topper's), or on the store's default one, is told from its own data: snippets/ms-sys-data
+  assign sd = false
+  if template.name == 'product' and product != blank and ms_key != '' and ms_key != product.template_suffix
+    assign sd = true
+  endif
+  assign cr_text = s.text
+  if sd
+    capture cr_text
+      render 'ms-sys-data', key: ms_key, part: 'text'
+    endcapture
+    assign cr_text = cr_text | strip | default: s.text
+  endif
   # on a system's page, Loro Piana Interiors is named only if the system is made in it
   assign lp_free = false
   assign lp_anchor = ''
@@ -54,7 +67,7 @@
         <div class="ms-cr__intro" data-cr-intro>
           <div class="ms-cr__eyebrow">{{ eyebrow }}</div>
           <h2 class="ms-cr__title">{{ s.heading }}</h2>
-          {%- if s.text != blank -%}<p class="ms-cr__text">{% if product != blank %}{{ s.text | replace: '[name]', product.title }}{% else %}{{ s.text }}{% endif %}</p>{%- endif -%}
+          {%- if cr_text != blank -%}<p class="ms-cr__text">{% if product != blank %}{{ cr_text | replace: '[name]', product.title }}{% else %}{{ cr_text }}{% endif %}</p>{%- endif -%}
           <div class="ms-cr__pick">
             {%- if s.hint != blank -%}<p class="ms-cr__hint">{{ s.hint }}</p>{%- endif -%}
             <div class="ms-cr__picks" role="group" aria-label="{{ s.heading | escape }}">
@@ -80,15 +93,33 @@
             assign kf = 'part' | append: i | append: '_fibres'
             assign kll = 'part' | append: i | append: '_link_label'
             assign places = 'materials,regen,loro' | split: ','
-            assign points = s[kp] | newline_to_br | split: '<br />'
-            assign fibres = s[kf] | split: ','
+            assign c_lead = s[kl]
+            assign c_points = s[kp]
+            assign c_fibres = s[kf]
+            if sd
+              assign sk = 'p' | append: i
+              capture c_lead
+                render 'ms-sys-data', key: ms_key, part: sk, f: 'lead'
+              endcapture
+              capture c_points
+                render 'ms-sys-data', key: ms_key, part: sk, f: 'points'
+              endcapture
+              capture c_fibres
+                render 'ms-sys-data', key: ms_key, part: sk, f: 'fibres'
+              endcapture
+              assign c_lead = c_lead | strip
+              assign c_points = c_points | strip
+              assign c_fibres = c_fibres | strip
+            endif
+            assign points = c_points | newline_to_br | split: '<br />'
+            assign fibres = c_fibres | split: ','
           -%}
           <div class="ms-cr__panel" id="cr-{{ section.id }}-{{ p }}" data-cr-panel="{{ p }}" role="region" aria-label="{{ s[kt] | escape }}" hidden>
             <button type="button" class="ms-cr__back" data-cr-close><span aria-hidden="true">←</span> {{ s.back_label }}</button>
             <div class="ms-cr__pnum">{{ nums[forloop.index0] }} <span>/ III</span></div>
             <h3 class="ms-cr__ph">{{ s[kt] }}</h3>
-            {%- if s[kl] != blank -%}<p class="ms-cr__lead">{{ s[kl] }}</p>{%- endif -%}
-            {%- if s[kp] != blank -%}
+            {%- if c_lead != blank -%}<p class="ms-cr__lead">{{ c_lead }}</p>{%- endif -%}
+            {%- if c_points != blank -%}
               <ul class="ms-cr__pts" role="list">
                 {%- for pt in points -%}
                   {%- assign t = pt | strip -%}
@@ -97,7 +128,7 @@
                 {%- endfor -%}
               </ul>
             {%- endif -%}
-            {%- if s[kf] != blank -%}
+            {%- if c_fibres != blank -%}
               <div class="ms-cr__fl">{{ s.fibres_label }}</div>
               <ul class="ms-cr__fibres" role="list">
                 {%- for f in fibres -%}{%- assign fn = f | strip -%}{%- if lp_free and fn contains 'Loro Piana' -%}{%- assign fn = '' -%}{%- endif -%}{%- if fn != '' -%}<li><span class="ms-cr__fi">{% render 'ms-fibre-mark', name: fn, size: 28 %}</span>{{ fn }}</li>{%- endif -%}{%- endfor -%}
@@ -135,6 +166,14 @@
           assign kx = 'part' | append: i | append: '_text'
           assign ki = 'part' | append: i | append: '_image'
           assign kf = 'part' | append: i | append: '_fallback'
+          assign c_text = s[kx]
+          if sd
+            assign sk = 'p' | append: i
+            capture c_text
+              render 'ms-sys-data', key: ms_key, part: sk, f: 'lead'
+            endcapture
+            assign c_text = c_text | strip | default: s[kx]
+          endif
         -%}
         <button type="button" class="ms-cr__part" data-part="{{ p }}" data-cr-open="{{ p }}" aria-controls="cr-{{ section.id }}-{{ p }}">
           {%- liquid
@@ -150,7 +189,7 @@
           <span class="ms-cr__img">{%- if own -%}<img src="{{ own | image_url: width: 1000 }}" srcset="{{ own | image_url: width: 600 }} 600w, {{ own | image_url: width: 1000 }} 1000w" sizes="(max-width: 760px) 90vw, 30vw" alt="{{ own.alt | default: s[kt] | escape }}" width="1000" height="1250" loading="lazy">{%- else -%}<img src="{% render 'ms-img', image: s[ki], fallback: s[kf], width: 1000 %}" alt="{{ s[kt] | escape }}" width="1000" height="1250" loading="lazy">{%- endif -%}</span>
           <span class="ms-cr__cnum">{{ nums[forloop.index0] }}</span>
           <span class="ms-cr__ptitle">{{ s[kt] }}</span>
-          <span class="ms-cr__ptext">{% if lp_free %}{{ s[kx] | replace: ' in Loro Piana Interiors', '' }}{% else %}{{ s[kx] }}{% endif %}</span>
+          <span class="ms-cr__ptext">{% if lp_free %}{{ c_text | replace: ' in Loro Piana Interiors', '' }}{% else %}{{ c_text }}{% endif %}</span>
           <span class="ms-cr__more">{{ s.open_label }} <span aria-hidden="true">↑</span></span>
         </button>
       {%- endfor -%}
@@ -202,20 +241,37 @@
   .ms-cr__next { font: inherit; font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: rgba(42, 31, 25, .7); background: none; border: 0; padding: 0; cursor: pointer; }
   .ms-cr__next:hover { color: #2A1F19; }
   .ms-cr__svg { width: 100%; height: auto; display: block; overflow: visible; }
-  .ms-cr__slab { cursor: pointer; outline: none; transition: transform .8s cubic-bezier(.2, .8, .2, 1), opacity .5s ease; }
+  .ms-cr__slab { cursor: pointer; outline: none; transition: transform 1.2s cubic-bezier(.2, .7, .2, 1) var(--cr-delay, 0s), opacity .5s ease; }
+  /* until the section is seen the bed is whole; then it opens, base first, into its three parts */
+  .ms-cr:not(.is-seen) .ms-cr__slab { transform: translateY(var(--cr-c, 0px)); }
+  .ms-cr__depth { transform: translate(calc(var(--px, 0) * var(--d, 1) * 1px), calc(var(--py, 0) * var(--d, 1) * 1px)); transition: transform 1s cubic-bezier(.2, .7, .2, 1); }
+  .ms-cr__guide { opacity: 0; transition: opacity .8s ease .9s; }
+  .ms-cr.is-seen .ms-cr__guide { opacity: 1; }
+  .ms-cr__cast { fill: #2A1F19; opacity: 0; transition: opacity 1s ease .5s; }
+  .ms-cr.is-seen .ms-cr__cast { opacity: .1; }
+  .ms-cr__lbl { opacity: 0; transition: opacity .8s ease calc(var(--cr-delay, 0s) + .6s); }
+  .ms-cr.is-seen .ms-cr__lbl { opacity: 1; }
+  .ms-cr__lead { fill: none; stroke: rgba(122, 69, 50, .5); stroke-width: .7; vector-effect: non-scaling-stroke; stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset 1.1s cubic-bezier(.2, .7, .2, 1) calc(var(--cr-delay, 0s) + .5s); }
+  .ms-cr.is-seen .ms-cr__lead { stroke-dashoffset: 0; }
+  .ms-cr__dot { fill: #9A5B43; }
+  .ms-cr__nm { fill: #2A1F19; font-family: Newsreader, Georgia, serif; font-size: 16px; opacity: .62; transition: opacity .4s ease; }
+  .ms-cr__slab:hover .ms-cr__nm, .ms-cr__slab:focus-visible .ms-cr__nm, .ms-cr__slab.is-on .ms-cr__nm { opacity: 1; }
+  /* the hand over a part: it lifts a little, the others step back */
+  .ms-cr:not([data-open]).is-seen .ms-cr__slab:hover, .ms-cr:not([data-open]).is-seen .ms-cr__slab:focus-visible { transform: translateY(-7px); transition-delay: 0s; }
+  .ms-cr:not([data-open]) .ms-cr__svg:has(.ms-cr__slab:hover) .ms-cr__slab:not(:hover) { opacity: .5; }
+  @media (max-width: 600px) { .ms-cr__nm { display: none; } }
   /* a part the product does not include: drawn as a light outline, still there to explain */
   .ms-cr__slab.is-ghost .ms-cr__face { fill: rgba(251, 249, 245, .28) !important; stroke: rgba(122, 69, 50, .45); stroke-dasharray: 4 4; }
   .ms-cr__slab.is-ghost .ms-cr__pulse, .ms-cr__slab.is-ghost .ms-cr__spot { opacity: .45; }
-  .ms-cr__face { stroke: rgba(90, 50, 35, .3); stroke-width: 1; stroke-linejoin: round; transition: stroke .45s ease; }
+  .ms-cr__face { stroke: rgba(58, 40, 30, .34); stroke-width: .7; vector-effect: non-scaling-stroke; stroke-linejoin: round; transition: stroke .45s ease; }
   .ms-cr__seam { fill: none; stroke: rgba(255, 238, 228, .55); stroke-width: .8; stroke-dasharray: 2 4; }
-  .ms-cr__lead { stroke: rgba(154, 91, 67, .55); stroke-width: 1; }
-  .ms-cr__num { fill: #9A5B43; font-family: Newsreader, Georgia, serif; font-size: 18px; }
+  .ms-cr__num { fill: #9A5B43; font-family: Newsreader, Georgia, serif; font-size: 17px; }
   .ms-cr__spot { fill: #9A5B43; transition: opacity .3s; }
   .ms-cr__pulse { fill: none; stroke: #9A5B43; transform-box: fill-box; transform-origin: center; animation: msCrPulse 2.4s ease-out infinite; }
   .ms-cr__slab[data-part="mattress"] .ms-cr__pulse { animation-delay: .8s; }
   .ms-cr__slab[data-part="base"] .ms-cr__pulse { animation-delay: 1.6s; }
   @keyframes msCrPulse { 0% { transform: scale(.6); opacity: .9; } 100% { transform: scale(3.2); opacity: 0; } }
-  .ms-cr__slab:hover .ms-cr__face, .ms-cr__slab:focus-visible .ms-cr__face { stroke: #7A4532; }
+  .ms-cr__slab:hover .ms-cr__face, .ms-cr__slab:focus-visible .ms-cr__face { stroke: rgba(122, 69, 50, .7); }
   /* a part chosen: the bed opens, the part lifts away and the others step back */
   .ms-cr[data-open] .ms-cr__pulse, .ms-cr[data-open] .ms-cr__spot { opacity: 0; animation: none; }
   .ms-cr[data-open] .ms-cr__slab { opacity: .42; }
@@ -225,8 +281,8 @@
   .ms-cr[data-open="topper"] .ms-cr__slab[data-part="topper"] { transform: translate(-26px, -58px); }
   .ms-cr[data-open="mattress"] .ms-cr__slab[data-part="mattress"] { transform: translate(-40px, -6px); }
   .ms-cr[data-open="base"] .ms-cr__slab[data-part="base"] { transform: translate(-26px, 50px); }
-  .ms-cr__slab.is-on .ms-cr__face { stroke: #7A4532; }
-  .ms-cr__slab.is-on { filter: drop-shadow(0 12px 18px rgba(110, 60, 40, .22)); }
+  .ms-cr__slab.is-on .ms-cr__face { stroke: rgba(122, 69, 50, .7); }
+  .ms-cr__slab.is-on { filter: drop-shadow(0 14px 22px rgba(110, 60, 40, .18)); }
   .ms-cr__parts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(18px, 2.6vw, 44px); margin-top: clamp(56px, 7vw, 110px); }
   .ms-cr__part { display: block; text-align: left; font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
   .ms-cr__img { display: block; aspect-ratio: 4 / 5; overflow: hidden; background: rgba(42, 31, 25, .05); }
@@ -248,7 +304,7 @@
     .ms-cr__part { flex: 0 0 78%; scroll-snap-align: start; }
     .ms-cr__marks { flex-direction: column; }
   }
-  @media (prefers-reduced-motion: reduce) { .ms-cr__pulse { animation: none; } .ms-cr__slab, .ms-cr__intro, .ms-cr__panel { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .ms-cr__pulse { animation: none; } .ms-cr__slab, .ms-cr__intro, .ms-cr__panel, .ms-cr__depth, .ms-cr__lead, .ms-cr__lbl { transition: none; } }
   /* the bed's fabric: quilting, tufts, hand stitching, piping, feet and its shadow */
   .ms-cr__quilt { fill: none; stroke: rgba(150, 96, 74, .22); stroke-width: .7; }
   .ms-cr__stitch { fill: none; stroke: rgba(122, 69, 50, .42); stroke-width: .8; stroke-dasharray: 2 3; }
@@ -258,7 +314,6 @@
   .ms-cr__pipe--base { stroke: #EBC9B7; }
   .ms-cr__leg { fill: #7A5238; }
   .ms-cr__shadow { fill: rgba(110, 60, 40, .3); }
-  .ms-cr__slab:hover .ms-cr__face, .ms-cr__slab:focus-visible .ms-cr__face { stroke: #7A4532; }
   .ms-cr__part.is-on .ms-cr__ptitle { color: #7A4532; }
 </style>
 <script>
@@ -292,6 +347,26 @@
     });
     // a topper's own page opens on the topper
     if (root.getAttribute('data-cr-start')) open(root.getAttribute('data-cr-start'), false, true);
+    // the bed opens into its parts when it comes into view
+    var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var draw = root.querySelector('.ms-cr__draw');
+    if (still || !('IntersectionObserver' in window) || !draw) { root.classList.add('is-seen'); }
+    else {
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (en) { if (en.isIntersecting) { root.classList.add('is-seen'); io.disconnect(); } });
+      }, { threshold: .35 });
+      io.observe(draw);
+    }
+    // and its parts sit at their own depths, moving a little with the hand
+    var svg = root.querySelector('.ms-cr__svg');
+    if (svg && draw && !still && window.matchMedia('(hover: hover)').matches) {
+      draw.addEventListener('pointermove', function (e) {
+        var r = draw.getBoundingClientRect();
+        svg.style.setProperty('--px', (((e.clientX - r.left) / r.width - .5) * -4).toFixed(2));
+        svg.style.setProperty('--py', (((e.clientY - r.top) / r.height - .5) * -3).toFixed(2));
+      });
+      draw.addEventListener('pointerleave', function () { svg.style.setProperty('--px', 0); svg.style.setProperty('--py', 0); });
+    }
   });
 })();
 </script>

@@ -47,27 +47,6 @@
   endfor
 -%}
 <section class="ms-sy" data-ms-sy>
-  <div class="ms-sy__tabs">
-    {%- if is_tier or n_sys > 1 -%}
-    {%- for h in (1..3) -%}
-      {%- case h -%}
-        {%- when 1 -%}{%- assign k = 'essentials' -%}{%- assign l = s.tab1 -%}
-        {%- when 2 -%}{%- assign k = 'signature' -%}{%- assign l = s.tab2 -%}
-        {%- else -%}{%- assign k = 'icons' -%}{%- assign l = s.tab3 -%}
-      {%- endcase -%}
-      <a href="{% render 'ms-link', to: k %}" class="ms-sy__tab{% if kh == k %} is-on{% endif %}"{% if kh == k %} aria-current="page"{% endif %}>{{ l }}</a>
-    {%- endfor -%}
-    {%- else -%}
-    {%- comment -%} the house's other beds, each where the store has it {%- endcomment -%}
-    {%- assign fam = 'systems,headboards,mattresses,toppers,outdoor' | split: ',' -%}
-    {%- for k in fam -%}
-      {%- capture u -%}{% render 'ms-link', to: k, strict: true %}{%- endcapture -%}
-      {%- assign kl = 'fam_' | append: k -%}
-      {%- if u != blank and s[kl] != blank -%}<a href="{{ u }}" class="ms-sy__tab{% if u == collection.url %} is-on{% endif %}"{% if u == collection.url %} aria-current="page"{% endif %}>{{ s[kl] }}</a>{%- endif -%}
-    {%- endfor -%}
-    {%- endif -%}
-  </div>
-
   {%- if n_kinds > 1 -%}
   <div class="ms-sy__kinds" role="group" aria-label="{{ s.kind_label | escape }}">
     <button type="button" class="is-on" data-kind="" aria-pressed="true">{{ s.all_kinds_label }} <span>{{ kinds_list.size }}</span></button>
@@ -109,7 +88,7 @@
   {%- endif -%}
 
   {%- paginate collection.products by 48 -%}
-  <div class="ms-sy__grid" data-sy-panel="grid">
+  <div class="ms-sy__grid{% if collection.products.size == 1 %} ms-sy__grid--one{% endif %}" data-sy-panel="grid">
     {%- for product in collection.products -%}
       {%- capture mk -%}{% render 'ms-kind', p: product %}{%- endcapture -%}{%- assign mkp = mk | split: '|' -%}{%- capture facts -%}{% render 'ms-system-facts', key: mkp[1], handle: '', title: product.title %}{%- endcapture -%}
       {%- assign fparts = facts | split: '~' -%}
@@ -157,13 +136,14 @@
       <a href="{{ product.url }}" class="ms-sy__card" data-q="{{ quals }}" data-kind="{{ what }}">
         {%- if product.featured_media -%}
           <span class="ms-card__img">
-            <img alt="{{ product.featured_media.alt | default: product.title | escape }}" src="{{ product.featured_media | image_url: width: 900 }}" srcset="{{ product.featured_media | image_url: width: 600 }} 600w, {{ product.featured_media | image_url: width: 900 }} 900w" sizes="(max-width: 760px) 50vw, 25vw" loading="{% if forloop.index > 4 %}lazy{% else %}eager{% endif %}" width="900" height="1125">
+            <img alt="{{ product.featured_media.alt | default: product.title | escape }}" src="{{ product.featured_media | image_url: width: 900 }}" srcset="{{ product.featured_media | image_url: width: 600 }} 600w, {{ product.featured_media | image_url: width: 900 }} 900w, {{ product.featured_media | image_url: width: 1400 }} 1400w" sizes="{% if collection.products.size == 1 %}(max-width: 760px) 100vw, 55vw{% else %}(max-width: 760px) 50vw, 30vw{% endif %}" loading="{% if forloop.index > 4 %}lazy{% else %}eager{% endif %}" width="900" height="1125">
             {%- assign alt_media = product.media[1] -%}
             {%- if alt_media and alt_media.media_type == 'image' -%}<img class="ms-card__alt" alt="" src="{{ alt_media | image_url: width: 900 }}" loading="lazy" width="900" height="1125">{%- endif -%}
           </span>
         {%- else -%}
           <span class="ms-card__img ms-sy__blank"></span>
         {%- endif -%}
+        <div class="ms-sy__txt">
         {%- if what_label != blank -%}
           <p class="ms-sy__what">{% render 'ms-kind-glyph', kind: what %}<span>{{ what_label }}</span>{%- if tier != '' -%}<span class="ms-sy__tier">{{ tier }}</span>{%- endif -%}</p>
         {%- endif -%}
@@ -180,6 +160,7 @@
           </div>
         {%- endif -%}
         {%- if settings.ms_show_prices -%}<p class="ms-sy__price">{% if product.price_varies %}{%- assign from_price = product.price_min | money -%}{{ 'ms.product.price_from' | t: price: from_price }}{% else %}{{ product.price | money }}{% endif %}</p>{%- endif -%}{%- if settings.ms_show_prices == false and settings.ms_price_from and product.price_min > 0 -%}{%- assign from_price = product.price_min | money -%}<p class="ms-sy__price">{{ 'ms.product.price_from' | t: price: from_price }}</p>{%- endif -%}
+        </div>
       </a>
     {%- else -%}
       <p class="ms-sy__empty">{{ s.empty }}</p>
@@ -246,9 +227,14 @@
   .ms-site img.ms-card__alt { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .7s ease, transform 1.4s cubic-bezier(.2,.7,.2,1); transform: scale(1.03); }
   @media (hover: hover) { a:hover > .ms-card__img img.ms-card__alt { opacity: 1; transform: none; } }
   .ms-sy { padding: 0 clamp(18px, 5vw, 80px) clamp(60px, 9vw, 140px); max-width: 1560px; margin: 0 auto; }
-  .ms-sy__tabs { display: flex; gap: 8px; flex-wrap: wrap; border-top: 1px solid #DDD6C9; padding-top: 22px; }
-  .ms-site .ms-sy__tab { padding: 13px 20px; font-size: 10.5px; letter-spacing: .24em; text-transform: uppercase; border: 1px solid #DDD6C9; color: #4A443B; }
-  .ms-site .ms-sy__tab.is-on, .ms-site .ms-sy__tab:hover { background: #17140F; border-color: #17140F; color: #FBF9F5; }
+  .ms-sy { padding-top: clamp(40px, 5vw, 72px); }
+  .ms-sy__txt { display: block; }
+  .ms-sy__grid.ms-sy__grid--one { grid-template-columns: minmax(0, 1fr); }
+  .ms-site .ms-sy__grid--one .ms-sy__card.ms-sy__card { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(28px, 5vw, 96px); align-items: center; }
+  .ms-sy__grid--one .ms-sy__card .ms-card__img img { aspect-ratio: 5 / 4; }
+  .ms-sy__grid--one .ms-sy__name { font-size: clamp(34px, 3.6vw, 52px); }
+  .ms-sy__grid--one .ms-sy__sub { font-size: 16px; max-width: 38ch; }
+  @media (max-width: 760px) { .ms-site .ms-sy__grid--one .ms-sy__card.ms-sy__card { grid-template-columns: minmax(0, 1fr); gap: 18px; } .ms-sy__grid--one .ms-sy__card .ms-card__img img { aspect-ratio: 4 / 5; } }
   .ms-sy__bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px 28px; margin-top: clamp(28px, 3.4vw, 48px); padding-bottom: 18px; border-bottom: 1px solid #DDD6C9; }
   .ms-sy__needs { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 4px; }
   .ms-sy__ask { font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 18px; color: #17140F; margin-right: 14px; }
@@ -373,17 +359,11 @@
 {
   "name": "Collection · Systems",
   "settings": [
-    { "type": "text", "id": "tab1", "label": "First collection", "default": "Essentials" },
-    { "type": "text", "id": "tab2", "label": "Second collection", "default": "Signature" },
-    { "type": "text", "id": "tab3", "label": "Third collection", "default": "Icons" },
+    { "type": "text", "id": "tab1", "label": "Collection name on cards: first", "default": "Essentials" },
+    { "type": "text", "id": "tab2", "label": "Collection name on cards: second", "default": "Signature" },
+    { "type": "text", "id": "tab3", "label": "Collection name on cards: third", "default": "Icons" },
     { "type": "header", "content": "What matters most" },
     { "type": "header", "content": "Other collections" },
-    { "type": "paragraph", "content": "On collections that are not Essentials, Signature or Icons (beds with headboards, outdoor …), the row of tabs leads to the house's other beds, each shown only if the store has it." },
-    { "type": "text", "id": "fam_systems", "label": "Bed systems", "default": "Bed systems" },
-    { "type": "text", "id": "fam_headboards", "label": "Beds with headboards", "default": "Beds with headboards" },
-    { "type": "text", "id": "fam_mattresses", "label": "Mattresses", "default": "Mattresses" },
-    { "type": "text", "id": "fam_toppers", "label": "Toppers", "default": "Toppers" },
-    { "type": "text", "id": "fam_outdoor", "label": "Outdoor", "default": "Outdoor" },
     { "type": "text", "id": "headboard_label", "label": "Bed with headboard: height label", "default": "Headboard" },
     { "type": "header", "content": "What each product is" },
     { "type": "text", "id": "what_system", "label": "Bed system", "default": "Bed system" },

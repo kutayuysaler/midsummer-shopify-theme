@@ -150,7 +150,7 @@
 
     <div class="ms-sl__map" data-ms-sl-map role="region" aria-label="{{ s.map_label | escape }}">
       <div class="ms-sl__tiles" data-ms-sl-tiles aria-hidden="true"></div>
-      <svg class="ms-sl__svg" data-ms-sl-svg aria-hidden="true"><g data-ms-sl-world><path class="ms-sl__grat" data-ms-sl-grat></path><path class="ms-sl__land" data-ms-sl-land></path><path class="ms-sl__home" data-ms-sl-home></path><path class="ms-sl__lakes" data-ms-sl-lakes></path><path class="ms-sl__rivers" data-ms-sl-rivers></path><path class="ms-sl__borders" data-ms-sl-borders></path></g><g class="ms-sl__labels" data-ms-sl-labels></g></svg>
+      <svg class="ms-sl__svg" data-ms-sl-svg aria-hidden="true"><g data-ms-sl-world><path class="ms-sl__grat" data-ms-sl-grat></path><path class="ms-sl__depth is-d3000" data-ms-sl-lay="d3000"></path><path class="ms-sl__depth is-d2000" data-ms-sl-lay="d2000"></path><path class="ms-sl__depth is-d1000" data-ms-sl-lay="d1000"></path><path class="ms-sl__depth is-d200" data-ms-sl-lay="d200"></path><path class="ms-sl__land" data-ms-sl-land></path><path class="ms-sl__home" data-ms-sl-home></path><path class="ms-sl__urban" data-ms-sl-lay="urban"></path><path class="ms-sl__states" data-ms-sl-lay="states"></path><path class="ms-sl__lakes" data-ms-sl-lakes></path><path class="ms-sl__rivers" data-ms-sl-rivers></path><path class="ms-sl__river2" data-ms-sl-lay="rivers2"></path><path class="ms-sl__river1" data-ms-sl-lay="rivers1"></path><path class="ms-sl__rail" data-ms-sl-lay="rail"></path><path class="ms-sl__minor" data-ms-sl-lay="minor"></path><path class="ms-sl__case" data-ms-sl-lay="major" data-ms-sl-case></path><path class="ms-sl__major" data-ms-sl-lay="major"></path><path class="ms-sl__borders" data-ms-sl-borders></path></g><g class="ms-sl__labels" data-ms-sl-labels></g></svg>
       <div class="ms-sl__pins" data-ms-sl-pins></div>
       <div class="ms-sl__views" role="group" aria-label="{{ s.views_label | escape }}">
         <button type="button" data-ms-sl-view="" aria-pressed="true">{{ s.world_label }}</button>
@@ -276,20 +276,33 @@
   .ms-sl__mark.is-agent { box-shadow: inset 0 0 0 1.4px var(--ink); }
 
   /* the map */
-  .ms-sl__map { position: relative; overflow: hidden; background: #F3EDE3; border: 1px solid var(--rule); user-select: none; -webkit-user-select: none; }
+  .ms-sl__map { position: relative; overflow: hidden; background: #E6E9E5; border: 1px solid var(--rule); user-select: none; -webkit-user-select: none; }
   .ms-sl__svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: grab; touch-action: pan-x pan-y; }
   .ms-sl__svg:active { cursor: grabbing; }
   .ms-sl__grat { fill: none; stroke: rgba(23, 20, 15, .06); stroke-width: .6; vector-effect: non-scaling-stroke; }
-  .ms-sl__land { fill: #E4D8C3; stroke: rgba(126, 98, 59, .38); stroke-width: .7; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-  .ms-sl__home { fill: #D8C8AC; stroke: rgba(126, 98, 59, .38); stroke-width: .7; vector-effect: non-scaling-stroke; }
-  .ms-sl__borders { fill: none; stroke: #F6F1E8; stroke-width: .8; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-  .ms-sl__lakes { fill: #F3EDE3; stroke: rgba(126, 98, 59, .3); stroke-width: .6; vector-effect: non-scaling-stroke; }
-  .ms-sl__rivers { fill: none; stroke: rgba(126, 98, 59, .26); stroke-width: .7; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+  .ms-sl__land { fill: #F3EEE5; stroke: rgba(110, 104, 92, .42); stroke-width: .7; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .ms-sl__home { fill: #ECE3D3; stroke: rgba(110, 104, 92, .42); stroke-width: .7; vector-effect: non-scaling-stroke; }
+  .ms-sl__borders { fill: none; stroke: rgba(126, 98, 59, .42); stroke-width: .8; stroke-dasharray: 5 2 1 2; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .ms-sl__lakes { fill: #E6E9E5; stroke: rgba(118, 136, 138, .45); stroke-width: .6; vector-effect: non-scaling-stroke; }
+  .ms-sl__rivers, .ms-sl__river1, .ms-sl__river2 { fill: none; stroke: #A9BBBE; stroke-width: .9; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .ms-sl__river2 { stroke-width: .6; stroke: #B8C6C7; }
+  .ms-sl__depth { fill: none; stroke: #C9D2D0; stroke-width: .7; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .ms-sl__depth.is-d200 { stroke: #BFCAC8; }
+  .ms-sl__depth.is-d2000, .ms-sl__depth.is-d3000 { stroke: #D3DAD8; }
+  .ms-sl__urban { fill: #E7DBC6; stroke: rgba(150, 128, 98, .32); stroke-width: .5; vector-effect: non-scaling-stroke; }
+  .ms-sl__states { fill: none; stroke: rgba(126, 98, 59, .32); stroke-width: .6; stroke-dasharray: 1 3; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+  .ms-sl__rail { fill: none; stroke: rgba(110, 96, 78, .42); stroke-width: .6; stroke-dasharray: 4 3; vector-effect: non-scaling-stroke; }
+  .ms-sl__minor { fill: none; stroke: #CDBFA7; stroke-width: .9; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .ms-sl__case { fill: none; stroke: #B7A485; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .ms-sl__major { fill: none; stroke: #FFFDF8; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  [data-ms-sl-lay] { transition: opacity .5s ease; }
   .ms-sl__labels { pointer-events: none; }
-  .ms-sl__labels text { font-family: "Red Hat Text", system-ui, sans-serif; font-size: 9.5px; letter-spacing: .13em; text-transform: uppercase; fill: #7A7062; paint-order: stroke; stroke: rgba(243, 237, 227, .9); stroke-width: 3px; stroke-linejoin: round; }
-  .ms-sl__labels .r1 text, .ms-sl__labels .r2 text { font-size: 10.5px; fill: #5E5548; letter-spacing: .16em; }
-  .ms-sl__labels circle { fill: #8F8372; stroke: rgba(243, 237, 227, .9); stroke-width: 1.5px; }
-  .ms-sl__labels .is-sea text { font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 13px; letter-spacing: .08em; text-transform: none; fill: rgba(126, 98, 59, .62); stroke: none; }
+  .ms-sl__labels text { font-family: "Red Hat Text", system-ui, sans-serif; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; fill: #6E675C; paint-order: stroke; stroke: rgba(243, 238, 229, .92); stroke-width: 3.5px; stroke-linejoin: round; }
+  .ms-sl__labels .r1 text { font-family: Newsreader, Georgia, serif; font-size: 16px; letter-spacing: .02em; text-transform: none; fill: #2F2A24; }
+  .ms-sl__labels .r2 text { font-family: Newsreader, Georgia, serif; font-size: 14px; letter-spacing: .02em; text-transform: none; fill: #4A443B; }
+  .ms-sl__labels circle { fill: #6E675C; stroke: rgba(243, 238, 229, .95); stroke-width: 1.5px; }
+  .ms-sl__labels .is-sea text { font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 13.5px; letter-spacing: .1em; text-transform: none; fill: #7F9496; stroke: none; }
+  .ms-sl__labels .is-range text { font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 12px; letter-spacing: .32em; text-transform: uppercase; fill: rgba(126, 98, 59, .55); stroke: none; }
   .ms-sl__pins { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
   .ms-sl__svg { z-index: 1; }
   /* the controls and the places stay above the drawing */
@@ -385,7 +398,7 @@
     var root = document.querySelector('[data-ms-sl]');
     if (!root || root.__msSl) return;
     root.__msSl = true;
-    var URLMID = {{ 'ms-world-mid.json' | asset_url | json }}, URL50 = {{ 'ms-world-detail.json' | asset_url | json }};
+    var URLMID = {{ 'ms-world-mid.json' | asset_url | json }}, URL50 = {{ 'ms-world-detail.json' | asset_url | json }}, URLLAY = {{ 'ms-world-layers.json' | asset_url | json }};
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var KINDS = { atelier: {{ section.settings.atelier_kind | json }}, showroom: {{ section.settings.showroom_kind | json }}, boutique: {{ section.settings.boutique_kind | json }}, agent: {{ section.settings.agent_kind | json }} };
     var T = { places: {{ section.settings.count_places | json }}, place: {{ section.settings.count_place | json }}, countries: {{ section.settings.count_countries | json }}, country: {{ section.settings.count_country | json }}, here: {{ section.settings.cluster_label | json }}, wheel: {{ section.settings.hint_wheel | json }}, touch: {{ section.settings.hint_touch | json }} };
@@ -503,7 +516,7 @@
     var svg = d3.select(root.querySelector('[data-ms-sl-svg]'));
     var world = svg.select('[data-ms-sl-world]');
     var W = 0, H = 0, K = 1, proj = (d3.geoMercator || d3.geoNaturalEarth1)(), path = d3.geoPath(proj);
-    var G = { base: null, mid: null, fine: null }, places = [], seas = [], fine = false, loadingFine = false, loadingMid = false, t = d3.zoomIdentity, drawT = d3.zoomIdentity, drawGeo = null, redrawT = null, flying = false;
+    var G = { base: null, mid: null, fine: null }, LAY = null, loadingLay = false, ranges = [], places = [], seas = [], fine = false, loadingFine = false, loadingMid = false, t = d3.zoomIdentity, drawT = d3.zoomIdentity, drawGeo = null, redrawT = null, flying = false;
     var HOME = {}; stores.forEach(function (p) { HOME[p.country === 'United States' ? 'United States of America' : p.country] = 1; });
     var KMAX = 220, homeView = null, touched = false;
     var TILES = {{ s.tiles_url | json }}, tilesEl = root.querySelector('[data-ms-sl-tiles]'), creditEl = root.querySelector('[data-ms-sl-credit]');
@@ -602,7 +615,21 @@
        the 10m atlas with lakes and towns once close; each is fetched when first needed */
     var KMID = 2.4, KFINE = 16;
     function level() { return t.k > KFINE && G.fine ? G.fine : t.k > KMID && G.mid ? G.mid : G.base; }
-    function wantData() { if (t.k > KMID * .85) loadMid(); if (t.k > KFINE * .7) loadFine(); }
+    function wantData() { if (t.k > KMID * .85) { loadMid(); loadLay(); } if (t.k > KFINE * .7) loadFine(); }
+    /* what a printed atlas shows of a region (Natural Earth 1:10m): the sea's depth contours, the
+       towns' built-up areas, motorways and main roads, railways, regions and rivers; each comes in
+       at the zoom where it reads, and fades in */
+    var SHOW = { d3000: [2.6, 99], d2000: [2.6, 99], d1000: [2.8, 99], d200: [3.2, 99], urban: [5.2, 99], states: [5.6, 99], rivers1: [4.2, 99], rivers2: [6.2, 99], rail: [7.2, 99], minor: [6.9, 99], major: [5.3, 99] };
+    function loadLay() {
+      if (loadingLay) return; loadingLay = true;
+      d3.json(URLLAY).then(function (tp) {
+        var L = {};
+        Object.keys(tp.objects).forEach(function (k) { var fc = topo.feature(tp, tp.objects[k]); fc.features.forEach(function (f) { f._b = d3.geoBounds(f); }); L[k] = fc.features; });
+        ranges = (tp.ranges || []).map(function (a) { return { n: a[0], lon: a[1], lat: a[2], r: a[3], range: 1 }; });
+        LAY = L; baseCoords(); render(); layout();
+      }).catch(function () { loadingLay = false; });
+    }
+    function zNow() { return Math.log(2 * Math.PI * proj.scale() * t.k / 256) / Math.LN2; }
     function render() {
       redrawT = null;
       var g = level();
@@ -625,10 +652,16 @@
       function fc(list) { return { type: 'FeatureCollection', features: list.filter(seen) }; }
       world.select('[data-ms-sl-grat]').attr('d', gp(graticule));
       world.select('[data-ms-sl-land]').attr('d', gp(fc(g.land)));
-      world.select('[data-ms-sl-home]').attr('d', gp(fc(g.home)));
+      world.select('[data-ms-sl-home]').attr('d', gp(fc(g.home))).style('opacity', Math.max(0, Math.min(1, (7.2 - zNow()) / 1.6)));
       world.select('[data-ms-sl-borders]').attr('d', gp(fc(g.borders)));
       world.select('[data-ms-sl-lakes]').attr('d', g.lakes.length ? gp(fc(g.lakes)) : null);
-      world.select('[data-ms-sl-rivers]').attr('d', g.rivers.length ? gp(fc(g.rivers)) : null);
+      var z = zNow();
+      world.select('[data-ms-sl-rivers]').attr('d', g.rivers.length && !(LAY && z >= SHOW.rivers1[0]) ? gp(fc(g.rivers)) : null);
+      world.selectAll('[data-ms-sl-lay]').each(function () {
+        var el = d3.select(this), k = this.getAttribute('data-ms-sl-lay'), w = SHOW[k];
+        var on = LAY && LAY[k] && z >= w[0] - .5;
+        el.attr('d', on ? gp(fc(LAY[k])) : null).style('opacity', on ? Math.max(0, Math.min(1, (z - w[0] + .5) / 1.1)) : 0);
+      });
       drawT = t; drawGeo = g;
       residual();
     }
@@ -641,13 +674,13 @@
       if (want !== drawGeo || r > 3 || r < .34 || dx > W * .55 || dy > H * .55) { clearTimeout(redrawT); render(); return; }
       clearTimeout(redrawT); redrawT = setTimeout(render, 140);
     }
-    function baseCoords() { places.concat(seas).forEach(function (q) { var xy = proj([q.lon, q.lat]); q.px = xy[0]; q.py = xy[1]; }); }
+    function baseCoords() { places.concat(seas, ranges).forEach(function (q) { var xy = proj([q.lon, q.lat]); q.px = xy[0]; q.py = xy[1]; }); }
     function size() {
       var r = mapEl.getBoundingClientRect();
       W = Math.max(1, Math.round(r.width)); H = Math.max(1, Math.round(r.height));
       svg.attr('viewBox', '0 0 ' + W + ' ' + H);
       proj.fitExtent([[12, 12], [W - 12, H - 12]], { type: 'FeatureCollection', features: G.base.land });
-      KMAX = Math.max(40, kForZoom(11.5));
+      KMAX = Math.max(40, kForZoom(10));
       zoom.scaleExtent([1, KMAX]);
       stores.forEach(function (p) { var xy = proj([p.lon, p.lat]); p.px = xy[0]; p.py = xy[1]; });
       zoom.extent([[0, 0], [W, H]]).translateExtent([[-W * .25, -H * .25], [W * 1.25, H * 1.25]]);
@@ -726,37 +759,44 @@
     }
     function esc(s) { return String(s || '').replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); }
     var labelsG = svg.select('[data-ms-sl-labels]');
-    var ZT = { 1: 3.4, 2: 4.9, 3: 6.2, 4: 7.9, 5: 9.3 }, ZS = { 1: 1.6, 2: 4.2, 3: 5.6, 4: 7.6 };
+    var ZT = { 1: 3.4, 2: 5.6, 3: 7.6, 4: 8.9 }, ZS = { 1: 1.6, 2: 4.2, 3: 5.6, 4: 7.6 };
     function names() {
       if (!W || !labelsG.node()) return;
       var z = Math.log(2 * Math.PI * proj.scale() * t.k / 256) / Math.LN2;
       var boxes = [], out = [];
       stores.filter(shown).forEach(function (p) { var x = t.applyX(p.px), y = t.applyY(p.py); boxes.push([x - 16, y - 16, x + 16, y + 16]); });
-      function free(b) { for (var i = 0; i < boxes.length; i++) { var o = boxes[i]; if (b[0] < o[2] && b[2] > o[0] && b[1] < o[3] && b[3] > o[1]) return false; } return true; }
+      // names keep their distance from each other and from the places, so the map stays quiet
+      function free(b, pad) { pad = pad || 0; for (var i = 0; i < boxes.length; i++) { var o = boxes[i]; if (b[0] - pad < o[2] && b[2] + pad > o[0] && b[1] - pad < o[3] && b[3] + pad > o[1]) return false; } return true; }
       seas.forEach(function (q) {
         if (z < ZS[q.r] || (q.r === 1 && z > 7.2)) return;
         var x = t.applyX(q.px), y = t.applyY(q.py), w = q.n.length * 6.6 + 8;
         if (x < -w || x > W + w || y < -10 || y > H + 10) return;
         var b = [x - w / 2, y - 9, x + w / 2, y + 7]; if (!free(b)) return; boxes.push(b); out.push({ q: q, x: x, y: y });
       });
-      for (var i = 0; i < places.length && out.length < 90; i++) {
-        var q = places[i]; if (z < ZT[q.r]) continue;
+      ranges.forEach(function (q) {
+        if (z < 4.3 + q.r * .35 || z > 8.4) return;
+        var x = t.applyX(q.px), y = t.applyY(q.py), w = q.n.length * 9 + 12;
+        if (x < -w || x > W + w || y < -10 || y > H + 10) return;
+        var b = [x - w / 2, y - 9, x + w / 2, y + 7]; if (!free(b)) return; boxes.push(b); out.push({ q: q, x: x, y: y });
+      });
+      for (var i = 0, nt = 0; i < places.length && nt < 14; i++) {
+        var q = places[i]; if (!ZT[q.r] || z < ZT[q.r]) continue;
         var x = t.applyX(q.px), y = t.applyY(q.py); if (x < -40 || x > W + 40 || y < -12 || y > H + 12) continue;
-        var w = q.n.length * (q.r < 3 ? 6.9 : 6.2) + 10, side = 0, b = null;
+        var w = q.n.length * (q.r === 1 ? 8.4 : q.r === 2 ? 7.4 : 6.6) + 12, side = 0, b = null;
         // the name sits to the right of its dot; failing that to the left, above or below
         var tries = [[x - 4, y - 7, x + w + 4, y + 7, 'r'], [x - w - 4, y - 7, x + 4, y + 7, 'l'], [x - w / 2, y - 22, x + w / 2, y + 3, 'a'], [x - w / 2, y - 3, x + w / 2, y + 22, 'b']];
-        for (var k = 0; k < (q.r < 3 ? 4 : 2) && !b; k++) if (free(tries[k])) b = tries[k];
-        if (!b) continue; boxes.push(b); out.push({ q: q, x: x, y: y, s: b[4] });
+        for (var k = 0; k < (q.r < 3 ? 4 : 2) && !b; k++) if (free(tries[k], q.r < 3 ? 4 : 18)) b = tries[k];
+        if (!b) continue; boxes.push(b); out.push({ q: q, x: x, y: y, s: b[4] }); nt++;
       }
       var sel = labelsG.selectAll('g').data(out, function (d) { return d.q.n + d.q.lon + (d.s || ''); });
       sel.exit().remove();
-      var en = sel.enter().append('g').attr('class', function (d) { return d.q.sea ? 'is-sea' : 'is-town r' + d.q.r; });
-      en.filter(function (d) { return !d.q.sea; }).append('circle').attr('r', function (d) { return d.q.r < 3 ? 2.2 : 1.6; });
+      var en = sel.enter().append('g').attr('class', function (d) { return d.q.sea ? 'is-sea' : d.q.range ? 'is-range' : 'is-town r' + d.q.r; });
+      en.filter(function (d) { return !d.q.sea && !d.q.range; }).append('circle').attr('r', function (d) { return d.q.r < 3 ? 2.4 : 1.7; });
       en.append('text').text(function (d) { return d.q.n; });
       var all = en.merge(sel).attr('transform', function (d) { return 'translate(' + d.x.toFixed(1) + ',' + d.y.toFixed(1) + ')'; });
-      all.select('text').attr('text-anchor', function (d) { return d.q.sea || d.s === 'a' || d.s === 'b' ? 'middle' : d.s === 'l' ? 'end' : 'start'; })
-        .attr('x', function (d) { return d.q.sea || d.s === 'a' || d.s === 'b' ? 0 : d.s === 'l' ? -7 : 7; })
-        .attr('y', function (d) { return d.q.sea ? 0 : d.s === 'a' ? -8 : d.s === 'b' ? 15 : 3.5; });
+      all.select('text').attr('text-anchor', function (d) { return d.q.sea || d.q.range || d.s === 'a' || d.s === 'b' ? 'middle' : d.s === 'l' ? 'end' : 'start'; })
+        .attr('x', function (d) { return d.q.sea || d.q.range || d.s === 'a' || d.s === 'b' ? 0 : d.s === 'l' ? -7 : 7; })
+        .attr('y', function (d) { return d.q.sea || d.q.range ? 0 : d.s === 'a' ? -8 : d.s === 'b' ? 15 : 4; });
     }
     function layout() {
       if (!W) return;
@@ -827,7 +867,7 @@
     }
     function fit(list) { go(viewFor(list && list.length ? list : stores, 40, list && list.length > 3 ? (narrow() ? 28 : 56) : null)); setView(''); }
     function flyTo(p) {
-      var k = Math.min(KMAX, Math.max(t.k, kForZoom(9.5)));
+      var k = Math.min(KMAX, Math.max(t.k, kForZoom(9)));
       go(d3.zoomIdentity.translate(W / 2 - k * p.px, H / 2 - k * p.py).scale(k));
     }
     function setView(v) { root.querySelectorAll('[data-ms-sl-view]').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-ms-sl-view') === v ? 'true' : 'false'); }); }

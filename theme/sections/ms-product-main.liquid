@@ -86,13 +86,43 @@
     endcase
   endif
 
-  assign fibre_names = ''
-  for block in section.blocks
-    if block.settings.name != blank
-      assign fibre_names = fibre_names | append: block.settings.name | append: '|'
+  # a product on another system's template (the store gives the Medium & High and the Thin topper
+  # the Roma topper's) takes its own fibres, cloth and specifications from snippets/ms-sys-data
+  assign mkey = mkp[1]
+  assign sd = false
+  if mkey != '' and mkey != product.template_suffix
+    if product.template_suffix != blank or section.blocks.size == 0
+      assign sd = true
     endif
-  endfor
+  endif
+  assign fibre_names = ''
+  assign fibre_notes = ''
+  if sd
+    capture sd_f
+      render 'ms-sys-data', key: mkey, part: 'fibres'
+    endcapture
+    assign sd_f = sd_f | strip | split: '|'
+    for f in sd_f
+      assign fp = f | split: '~'
+      assign fibre_names = fibre_names | append: fp[0] | append: '|'
+      assign fibre_notes = fibre_notes | append: fp[1] | append: ' |'
+    endfor
+  else
+    for block in section.blocks
+      if block.settings.name != blank
+        assign fibre_names = fibre_names | append: block.settings.name | append: '|'
+      endif
+    endfor
+  endif
   assign fibre_list = fibre_names | split: '|'
+  assign fibre_note_list = fibre_notes | split: '|'
+  assign specs = section.settings.specs
+  if sd
+    capture specs
+      render 'ms-sys-data', key: mkey, part: 'specs'
+    endcapture
+    assign specs = specs | strip
+  endif
 
   assign ss = section.settings
   capture t_price_label
@@ -131,8 +161,15 @@
   capture t_cover_l
     render 'ms-tr', value: ss.cover_label, default: 'Upholstery', key: 'ms.product.cover_label'
   endcapture
+  assign cover_value = ss.cover_value
+  if sd and cover_value != blank
+    capture cover_value
+      render 'ms-sys-data', key: mkey, part: 'cover'
+    endcapture
+    assign cover_value = cover_value | strip | default: 'Natural cloths, chosen with you'
+  endif
   capture t_cover_v
-    render 'ms-tr', value: ss.cover_value, default: 'Natural cloths, chosen with you', key: 'ms.product.cover_value'
+    render 'ms-tr', value: cover_value, default: 'Natural cloths, chosen with you', key: 'ms.product.cover_value'
   endcapture
   capture t_comfort_l
     render 'ms-tr', value: ss.comfort_label, default: 'Comfort', key: 'ms.product.comfort_label'
@@ -176,6 +213,10 @@
   capture t_fib
     render 'ms-tr', value: ss.fibres_label, default: 'Natural fibres', key: 'ms.product.fibres_label'
   endcapture
+  capture u_mat
+    render 'ms-link', to: 'materials'
+  endcapture
+  assign u_mat = u_mat | strip
   capture t_fibl
     render 'ms-tr', value: ss.fibres_link, default: 'All the fibres', key: 'ms.product.fibres_link'
   endcapture
@@ -287,7 +328,27 @@
           </details>
         {%- endif -%}
 
-        {%- if section.blocks.size > 0 -%}
+        {%- if sd and fibre_list.size > 0 -%}
+          <div class="ms-pm__fibres">
+            <div class="ms-pm__fhead">
+              <span>{{ t_fib }}</span>
+              <a href="{% render 'ms-link', to: 'materials' %}">{{ t_fibl }}</a>
+            </div>
+            <ul class="ms-pm__flist" role="list">
+              {%- for fn in fibre_list -%}
+                {%- assign fnote = fibre_note_list[forloop.index0] | strip -%}
+                <li class="ms-pm__fibre">
+                  <span class="ms-pm__ficon">
+                    {%- render 'ms-fibre-mark', name: fn, size: 40 -%}
+                  </span>
+                  {%- capture fsl -%}{% render 'ms-fibre-slug', name: fn %}{%- endcapture -%}{%- assign fsl = fsl | strip -%}
+                  {%- if fsl != blank -%}<a class="ms-pm__fname" href="{{ u_mat }}#fibre-{{ fsl }}">{{ fn }}</a>{%- else -%}<span class="ms-pm__fname">{{ fn }}</span>{%- endif -%}
+                  {%- if fnote != blank -%}<span class="ms-pm__fnote">{{ fnote }}</span>{%- endif -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- elsif section.blocks.size > 0 -%}
           <div class="ms-pm__fibres">
             <div class="ms-pm__fhead">
               <span>{{ t_fib }}</span>
@@ -299,7 +360,8 @@
                   <span class="ms-pm__ficon">
                     {%- render 'ms-fibre-mark', name: block.settings.name, size: 40 -%}
                   </span>
-                  <span class="ms-pm__fname">{{ block.settings.name }}</span>
+                  {%- capture fsl -%}{% render 'ms-fibre-slug', name: block.settings.name %}{%- endcapture -%}{%- assign fsl = fsl | strip -%}
+                  {%- if fsl != blank -%}<a class="ms-pm__fname" href="{{ u_mat }}#fibre-{{ fsl }}">{{ block.settings.name }}</a>{%- else -%}<span class="ms-pm__fname">{{ block.settings.name }}</span>{%- endif -%}
                   {%- if block.settings.note != blank -%}<span class="ms-pm__fnote">{{ block.settings.note }}</span>{%- endif -%}
                 </li>
               {%- endfor -%}
@@ -307,10 +369,10 @@
           </div>
         {%- endif -%}
 
-        {%- if section.settings.specs != blank -%}
+        {%- if specs != blank -%}
           <details class="ms-pm__more ms-pm__specs" open>
             <summary>{{ t_specs }}</summary>
-            <div class="ms-pm__desc">{{ section.settings.specs }}</div>
+            <div class="ms-pm__desc">{{ specs }}</div>
           </details>
         {%- endif -%}
       </div>
@@ -491,6 +553,8 @@
   .ms-pm__ficon { color: #7E623B; }
   .ms-pm__ficon .ms-fm { display: block; }
   .ms-pm__fname { font-family: Newsreader, Georgia, serif; font-size: 17px; line-height: 1.25; }
+  .ms-site a.ms-pm__fname { color: inherit; text-decoration: none; justify-self: start; background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .45s cubic-bezier(.2, .7, .2, 1); }
+  .ms-site a.ms-pm__fname:hover { background-size: 100% 1px; }
   .ms-pm__fnote { font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; line-height: 1.5; color: #6E675C; text-align: right; }
   @media (max-width: 520px) {
     .ms-pm__fibre { grid-template-columns: 40px minmax(0, 1fr); }

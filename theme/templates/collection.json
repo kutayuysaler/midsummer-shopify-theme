@@ -23,10 +23,15 @@
     "tangram": {
       "type": "ms-tangram",
       "settings": {}
+    },
+    "catnav": {
+      "type": "ms-cat-nav",
+      "settings": {}
     }
   },
   "order": [
     "s01",
+    "catnav",
     "s02",
     "lineup",
     "tangram",

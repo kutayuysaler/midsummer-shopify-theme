@@ -23,10 +23,15 @@
         "heading": "Every one made to order.",
         "text": "Each system is specified with you, at the atelier or by video: dimensions, firmness, fibres and cloth. Prices on request."
       }
+    },
+    "catnav": {
+      "type": "ms-cat-nav",
+      "settings": {}
     }
   },
   "order": [
     "s01",
+    "catnav",
     "s02"
   ]
 }

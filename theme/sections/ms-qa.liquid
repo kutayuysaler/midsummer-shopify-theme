@@ -19,6 +19,21 @@
   assign s = section.settings
   # on a product page, [product] in a question or answer becomes the product's name
   assign pname = product.title | default: ''
+  # a system on another's template (the store gives the Medium & High and the Thin topper the Roma
+  # topper's) says what it is made of from its own data: snippets/ms-sys-data
+  assign made_a = ''
+  if template.name == 'product' and product != blank and product.template_suffix != blank
+    capture qk2
+      render 'ms-kind', p: product
+    endcapture
+    assign qk2 = qk2 | split: '|'
+    if qk2[1] != '' and qk2[1] != product.template_suffix
+      capture made_a
+        render 'ms-sys-data', key: qk2[1], part: 'made'
+      endcapture
+      assign made_a = made_a | strip
+    endif
+  endif
   assign shown = 0
   for block in section.blocks
     if block.settings.when_hidden and settings.ms_show_prices
@@ -39,8 +54,9 @@
       {%- for block in section.blocks -%}
         {%- if block.settings.when_hidden and settings.ms_show_prices -%}{%- continue -%}{%- endif -%}
         <details class="ms-qa__item" {{ block.shopify_attributes }}>
+          {%- assign a = block.settings.a -%}{%- if made_a != blank and block.settings.q contains 'made of' -%}{%- assign a = made_a -%}{%- endif -%}
           <summary><span>{{ block.settings.q | replace: '[product]', pname }}</span><i aria-hidden="true"></i></summary>
-          <div class="ms-qa__a">{{ block.settings.a | replace: '[product]', pname }}</div>
+          <div class="ms-qa__a">{{ a | replace: '[product]', pname }}</div>
         </details>
       {%- endfor -%}
     </div>
@@ -55,7 +71,8 @@
     {%- assign sep = '' -%}
     {%- for block in section.blocks -%}
     {%- if block.settings.when_hidden and settings.ms_show_prices -%}{%- continue -%}{%- endif -%}
-    {{ sep }}{ "@type": "Question", "name": {{ block.settings.q | replace: '[product]', pname | strip_html | json }}, "acceptedAnswer": { "@type": "Answer", "text": {{ block.settings.a | replace: '[product]', pname | strip_html | json }} } }
+    {%- assign a = block.settings.a -%}{%- if made_a != blank and block.settings.q contains 'made of' -%}{%- assign a = made_a -%}{%- endif -%}
+    {{ sep }}{ "@type": "Question", "name": {{ block.settings.q | replace: '[product]', pname | strip_html | json }}, "acceptedAnswer": { "@type": "Answer", "text": {{ a | replace: '[product]', pname | strip_html | json }} } }
     {%- assign sep = ',' -%}
     {%- endfor -%}
   ]

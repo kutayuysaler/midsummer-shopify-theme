@@ -17,6 +17,7 @@
     {% render 'ms-link', to: 'mattresses', strict: true %} → empty when the store has no such place
     {% render 'ms-link', to: 'journal-tag', tag: 'sleep' %} → the journal's subject, empty when unused
     {% render 'ms-link', to: 'faq', handles: true %} → the page handles this place answers to
+                                                   (for a collection place, its collection handles)
 {%- endcomment -%}
 {%- liquid
   assign p = ''
@@ -151,7 +152,11 @@
   endcase
 
   if handles
-    echo p
+    if p != ''
+      echo p
+    else
+      echo c
+    endif
   else
     assign out = ''
     assign key = 'ms_link_' | append: to | replace: '-', '_'
