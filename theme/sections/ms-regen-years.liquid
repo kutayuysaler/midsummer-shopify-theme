@@ -1,196 +1,136 @@
 {%- comment -%}
-  Thirty years in one line: a slider from the first night to year thirty. The drawing of the
-  mattress stays as it is (that is the point); at year fifteen it goes on its short visit to
-  Italy and sends a postcard. (The stage texts are divs, not paragraphs, so the site's scroll
-  reveal leaves them alone; they have their own small entrance.) Underneath, a tally: one Midsummer, and the mattresses a household
-  replacing every few years would have thrown away by the same age. Stages are blocks.
+  Thirty years, side by side: on one line of years, an industrial mattress replaced every few
+  years, and one Midsummer mattress, renewed once by hand at fifteen. The bars draw themselves
+  once, as the section comes into view; without script, or with reduced motion, they are simply
+  there.
 {%- endcomment -%}
 {%- liquid
   assign s = section.settings
   assign every = s.industrial_years | default: 9
+  assign total = 30
+  assign n_ind = total | plus: every | minus: 1 | divided_by: every | floor
+  assign n_gone = n_ind | minus: 1
 -%}
-<section class="ms-ry" id="ms-ry-{{ section.id }}" data-every="{{ every }}" aria-labelledby="ms-ry-h-{{ section.id }}">
-  <div class="ms-ry__head">
-    {%- if s.eyebrow != blank -%}<div class="ms-ry__eyebrow">{{ s.eyebrow }}</div>{%- endif -%}
-    <h2 class="ms-ry__h" id="ms-ry-h-{{ section.id }}">{{ s.heading }}</h2>
-    {%- if s.text != blank -%}<p class="ms-ry__text">{{ s.text }}</p>{%- endif -%}
+<section class="ms-ly" id="ms-ly-{{ section.id }}" aria-labelledby="ms-ly-h-{{ section.id }}">
+  <div class="ms-ly__head">
+    {%- if s.eyebrow != blank -%}<div class="ms-ly__eyebrow">{{ s.eyebrow }}</div>{%- endif -%}
+    <h2 class="ms-ly__h" id="ms-ly-h-{{ section.id }}">{{ s.heading }}</h2>
+    {%- if s.text != blank -%}<p class="ms-ly__text">{{ s.text }}</p>{%- endif -%}
   </div>
-  <div class="ms-ry__stage">
-    <div class="ms-ry__words" aria-live="polite">
-      <div class="ms-ry__year"><span class="ms-ry__yl">{{ s.year_label }}</span> <span data-ms-ry-year>{{ s.start }}</span></div>
-      {%- for b in section.blocks -%}
-        <div class="ms-ry__say" data-ms-ry-from="{{ b.settings.from }}" {{ b.shopify_attributes }}{% unless forloop.first %} hidden{% endunless %}>
-          <div class="ms-ry__t">{{ b.settings.title }}</div>
-          <div class="ms-ry__p">{{ b.settings.text }}</div>
-        </div>
-      {%- endfor -%}
-    </div>
-    <div class="ms-ry__pic" aria-hidden="true">
-      <svg class="ms-ry__bed" viewBox="0 0 300 120" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-        <path class="ms-ry__floor" d="M6 104h288"/>
-        <g class="ms-ry__m">
-          <path d="M26 54c0-6 4-10 10-10h228c6 0 10 4 10 10v34c0 6-4 10-10 10H36c-6 0-10-4-10-10z" fill="#FBF9F5"/>
-          <path d="M30 50c10 3 18 3 28 0s18 3 28 0 18 3 28 0 18 3 28 0 18 3 28 0 18 3 28 0 18 3 28 0 18 3 28 0" stroke-width=".9"/>
-          <path d="M44 58v2M72 58v2M100 58v2M128 58v2M156 58v2M184 58v2M212 58v2M240 58v2" stroke-width="2"/>
-          <path d="M30 92h240" stroke-dasharray="2 4" stroke-width=".8"/>
-          <rect x="134" y="72" width="32" height="12" rx="1.5" stroke-width=".8"/>
-          <path d="M140 78h20" stroke-width=".7"/>
-        </g>
-        <g class="ms-ry__zz" stroke-width="1">
-          <path d="M226 30h8l-8 8h8M240 18h6l-6 6h6M252 8h5l-5 5h5"/>
-        </g>
-      </svg>
-      <div class="ms-ry__post">
-        <div class="ms-ry__post-l">{{ s.postcard_text }}</div>
-        <div class="ms-ry__post-r">
-          <svg viewBox="0 0 64 76" width="44" height="52" aria-hidden="true"><rect x="3" y="3" width="58" height="70" fill="#F5F0E7" stroke="#FFFDF9" stroke-width="5" stroke-dasharray="0 8" stroke-linecap="round"/><rect x="8" y="8" width="48" height="60" fill="none" stroke="#7E623B" stroke-opacity=".45" stroke-width=".7"/><path d="M22 52c4-14 4-24 10-30 6 6 6 16 10 30" fill="none" stroke="#7E623B" stroke-width="1.1" stroke-linecap="round"/><path d="M18 52h28" stroke="#7E623B" stroke-width="1.1"/><text x="32" y="64" text-anchor="middle" font-size="6.5" fill="#6E675C" font-family="Arial, sans-serif">ITALIA</text></svg>
-          <span class="ms-ry__post-to">{{ s.postcard_to }}</span>
-        </div>
+
+  <figure class="ms-ly__chart" aria-describedby="ms-ly-d-{{ section.id }}">
+    <div class="ms-ly__row ms-ly__row--axis" aria-hidden="true">
+      <div class="ms-ly__lab">{{ s.years_label }}</div>
+      <div class="ms-ly__ticks">
+        {%- for y in (0..6) -%}
+          {%- assign yr = y | times: 5 -%}
+          <span style="left: {{ yr | times: 100.0 | divided_by: total }}%">{{ yr }}</span>
+        {%- endfor -%}
       </div>
+      <div></div>
     </div>
-  </div>
-  <div class="ms-ry__track">
-    <label class="ms-ry__vh" for="ms-ry-r-{{ section.id }}">{{ s.slider_label }}</label>
-    <input class="ms-ry__range" id="ms-ry-r-{{ section.id }}" type="range" min="0" max="30" step="1" value="{{ s.start }}" data-ms-ry-range>
-    <div class="ms-ry__ticks" aria-hidden="true">
-      <span style="left: 0%">0</span><span style="left: {{ every | times: 100.0 | divided_by: 30 }}%">{{ every }}</span><span style="left: 50%">15</span><span style="left: 100%">30</span>
+
+    <div class="ms-ly__row ms-ly__row--them">
+      <div class="ms-ly__lab">{{ s.label_industrial }}</div>
+      <div class="ms-ly__track" aria-hidden="true">
+        {%- for i in (1..n_ind) -%}
+          {%- assign a = i | minus: 1 | times: every -%}
+          {%- assign b = i | times: every | at_most: total -%}
+          {%- assign w = b | minus: a -%}
+          <span class="ms-ly__seg" style="left: {{ a | times: 100.0 | divided_by: total }}%; width: {{ w | times: 100.0 | divided_by: total }}%; --d: {{ i | times: 140 }}ms"></span>
+        {%- endfor -%}
+      </div>
+      <div class="ms-ly__n"><b>{{ n_ind }}</b> {{ s.mattresses_label }}</div>
     </div>
-  </div>
-  <div class="ms-ry__tally">
-    <div class="ms-ry__row">
-      <div class="ms-ry__lab">{{ s.ours_label }}</div>
-      <div class="ms-ry__icons"><span class="ms-ry__i ms-ry__i--ours"></span></div>
-      <div class="ms-ry__n">1</div>
+
+    <div class="ms-ly__row ms-ly__row--ours">
+      <div class="ms-ly__lab">{{ s.label_ours }}</div>
+      <div class="ms-ly__track" aria-hidden="true">
+        <span class="ms-ly__bar"></span>
+        <span class="ms-ly__mark" style="left: 50%"><i></i><span>{{ s.regen_label }}</span></span>
+      </div>
+      <div class="ms-ly__n"><b>1</b> {{ s.mattress_label }}</div>
     </div>
-    <div class="ms-ry__row">
-      <div class="ms-ry__lab">{{ s.theirs_label }}</div>
-      <div class="ms-ry__icons" data-ms-ry-icons></div>
-      <div class="ms-ry__n" data-ms-ry-n>0</div>
-    </div>
-    {%- if s.footnote != blank -%}<p class="ms-ry__foot">{{ s.footnote }}</p>{%- endif -%}
-  </div>
+
+    <figcaption class="ms-ly__note" id="ms-ly-d-{{ section.id }}">
+      {{ s.footnote | replace: '[n]', n_gone }}
+    </figcaption>
+  </figure>
 </section>
 <style>
-  .ms-ry { border-top: 1px solid #DDD6C9; padding: clamp(56px, 8vw, 120px) clamp(18px, 5vw, 80px); max-width: 1560px; margin: 0 auto; }
-  .ms-ry__head { max-width: 60ch; }
-  .ms-ry__eyebrow { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: #6E675C; }
-  .ms-ry__h { font-family: Newsreader, Georgia, serif; font-weight: 200; font-size: clamp(32px, 4vw, 56px); line-height: 1.05; letter-spacing: -0.03em; margin-top: 16px; }
-  .ms-ry__text { font-size: 15.5px; line-height: 1.9; color: #4A443B; margin-top: 18px; }
-  .ms-ry__stage { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(24px, 4vw, 72px); align-items: center; margin-top: clamp(32px, 4vw, 56px); min-height: 280px; }
-  .ms-ry__year { font-family: Newsreader, Georgia, serif; font-weight: 200; font-size: clamp(64px, 9vw, 140px); line-height: .9; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
-  .ms-ry__yl { font-family: inherit; font-size: .22em; letter-spacing: 0; color: #6E675C; vertical-align: .9em; margin-right: .1em; }
-  .ms-ry__say { margin-top: 22px; max-width: 42ch; animation: ms-ry-in .5s cubic-bezier(.2, .7, .2, 1); }
-  .ms-ry__t { font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: clamp(22px, 2vw, 28px); line-height: 1.2; }
-  .ms-ry__p { font-size: 15px; line-height: 1.85; color: #4A443B; margin-top: 10px; }
-  @keyframes ms-ry-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-  .ms-ry__pic { position: relative; color: #7E623B; }
-  .ms-ry__bed { display: block; width: 100%; max-width: 560px; height: auto; margin: 0 auto; overflow: visible; }
-  .ms-ry__bed path, .ms-ry__bed rect { vector-effect: non-scaling-stroke; }
-  .ms-ry__m { transition: transform 1.1s cubic-bezier(.6, 0, .2, 1), opacity .8s; }
-  .ms-ry__zz { opacity: 0; transition: opacity .6s; }
-  .ms-ry.is-night .ms-ry__zz { opacity: .8; }
-  .ms-ry.is-away .ms-ry__m { transform: translateX(340px); opacity: 0; }
-  .ms-ry__post { position: absolute; left: 50%; top: 50%; width: min(330px, 82%); display: grid; grid-template-columns: 1fr auto; gap: 14px; padding: 18px 18px 20px; background: #FFFDF9; color: #17140F;
-    box-shadow: 0 1px 2px rgba(23, 20, 15, .1), 0 14px 34px -16px rgba(23, 20, 15, .35); transform: translate(-50%, -40%) rotate(-3deg) scale(.96); opacity: 0; pointer-events: none; transition: opacity .6s .35s, transform .9s .35s cubic-bezier(.2, .7, .2, 1); }
-  .ms-ry.is-away .ms-ry__post { opacity: 1; transform: translate(-50%, -50%) rotate(-3deg); }
-  .ms-ry__post-l { font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 16px; line-height: 1.55; border-right: 1px solid #DDD6C9; padding-right: 14px; white-space: pre-line; }
-  .ms-ry__post-r { display: grid; align-content: space-between; justify-items: end; gap: 12px; }
-  .ms-ry__post-to { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #6E675C; text-align: right; max-width: 12ch; line-height: 1.6; }
-  .ms-ry__track { position: relative; margin-top: clamp(28px, 3vw, 44px); padding-bottom: 26px; }
-  .ms-ry__vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-  .ms-ry__range { -webkit-appearance: none; appearance: none; width: 100%; height: 28px; background: transparent; cursor: pointer; margin: 0; }
-  .ms-ry__range::-webkit-slider-runnable-track { height: 1px; background: #17140F; }
-  .ms-ry__range::-moz-range-track { height: 1px; background: #17140F; }
-  .ms-ry__range::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; margin-top: -11px; border-radius: 50%; background: #FBF9F5; border: 1px solid #17140F; box-shadow: 0 0 0 4px #FBF9F5; }
-  .ms-ry__range::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: #FBF9F5; border: 1px solid #17140F; }
-  .ms-ry__range:focus-visible { outline: 1px solid #7E623B; outline-offset: 6px; }
-  .ms-ry__ticks { position: absolute; left: 11px; right: 11px; bottom: 0; height: 16px; }
-  .ms-ry__ticks span { position: absolute; transform: translateX(-50%); font-size: 11px; letter-spacing: .14em; color: #6E675C; }
-  .ms-ry__tally { margin-top: clamp(28px, 3vw, 44px); border-top: 1px solid #DDD6C9; }
-  .ms-ry__row { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr) 48px; gap: 18px; align-items: center; padding: 16px 0; border-bottom: 1px solid #DDD6C9; }
-  .ms-ry__lab { font-size: 13.5px; line-height: 1.6; color: #4A443B; }
-  .ms-ry__icons { display: flex; flex-wrap: wrap; gap: 8px; min-height: 16px; }
-  .ms-ry__i { display: block; width: 38px; height: 15px; border: 1px solid #6E675C; border-radius: 3px; position: relative; animation: ms-ry-in .4s; }
-  .ms-ry__i--ours { border-color: #7E623B; background: #F1E9DB; }
-  .ms-ry__i--gone { opacity: .45; }
-  .ms-ry__i--gone::after { content: ''; position: absolute; left: -3px; right: -3px; top: 50%; border-top: 1px solid #6E675C; transform: rotate(-12deg); }
-  .ms-ry__n { font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: 28px; text-align: right; font-variant-numeric: tabular-nums; }
-  .ms-ry__foot { font-size: 12.5px; line-height: 1.7; color: #6E675C; margin-top: 14px; max-width: 70ch; }
-  @media (max-width: 899px) {
-    .ms-ry__stage { grid-template-columns: 1fr; min-height: 0; }
-    .ms-ry__pic { min-height: 170px; }
-    .ms-ry__row { grid-template-columns: 1fr 40px; }
-    .ms-ry__icons { grid-column: 1 / -1; grid-row: 2; }
+  .ms-ly { border-top: 1px solid #DDD6C9; padding: clamp(56px, 8vw, 120px) clamp(18px, 5vw, 80px); max-width: 1560px; margin: 0 auto; }
+  .ms-ly__head { max-width: 62ch; }
+  .ms-ly__eyebrow { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: #6E675C; }
+  .ms-ly__h { font-family: Newsreader, Georgia, serif; font-weight: 200; font-size: clamp(30px, 3.6vw, 52px); line-height: 1.06; letter-spacing: -0.03em; margin-top: 16px; }
+  .ms-ly__text { font-size: 15.5px; line-height: 1.9; color: #4A443B; margin-top: 18px; }
+  .ms-ly__chart { margin: clamp(40px, 5vw, 72px) 0 0; }
+  .ms-ly__row { display: grid; grid-template-columns: minmax(150px, 2.2fr) minmax(0, 7fr) minmax(110px, 1fr); column-gap: clamp(16px, 2.4vw, 40px); align-items: center; }
+  .ms-ly__row--axis { padding: 0 0 10px; border-bottom: 1px solid #17140F; }
+  .ms-ly__row--axis .ms-ly__lab { font-family: inherit; font-size: 10.5px; letter-spacing: .24em; text-transform: uppercase; color: #9A8F7E; }
+  .ms-ly__ticks { position: relative; height: 16px; }
+  .ms-ly__ticks span { position: absolute; top: 0; transform: translateX(-50%); font-size: 11px; letter-spacing: .1em; color: #6E675C; font-variant-numeric: tabular-nums; }
+  .ms-ly__row { padding: 26px 0; border-bottom: 1px solid #ECE6DB; }
+  .ms-ly__lab { font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: clamp(18px, 1.6vw, 22px); line-height: 1.25; color: #17140F; }
+  .ms-ly__row--them .ms-ly__lab { color: #6E675C; }
+  .ms-ly__track { position: relative; height: 18px; }
+  .ms-ly__seg { position: absolute; top: 3px; height: 12px; border: 1px solid #B5AA97; border-right-width: 0; background: repeating-linear-gradient(90deg, transparent 0 6px, rgba(181, 170, 151, .28) 6px 7px); transform-origin: left center; }
+  .ms-ly__seg::after { content: ''; position: absolute; right: 0; top: -5px; bottom: -5px; border-right: 1px solid #9A8F7E; }
+  .ms-ly__bar { position: absolute; left: 0; right: 0; top: 2px; height: 14px; background: #7E623B; transform-origin: left center; }
+  .ms-ly__mark { position: absolute; top: -34px; bottom: -6px; width: 0; }
+  .ms-ly__mark i { position: absolute; left: -.5px; top: 22px; bottom: 0; border-left: 1px solid #17140F; }
+  .ms-ly__mark i::after { content: ''; position: absolute; left: -4px; bottom: 8px; width: 7px; height: 7px; border-radius: 50%; background: #FBF9F5; border: 1px solid #17140F; }
+  .ms-ly__mark span { position: absolute; left: 0; top: 0; transform: translateX(-50%); white-space: nowrap; font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: #17140F; background: #FBF9F5; padding: 0 8px; }
+  .ms-ly__n { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #6E675C; text-align: right; }
+  .ms-ly__n b { font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: 28px; letter-spacing: 0; color: #17140F; margin-right: 6px; text-transform: none; }
+  .ms-ly__row--them .ms-ly__n b { color: #6E675C; }
+  .ms-ly__note { font-size: 13px; line-height: 1.75; color: #6E675C; margin-top: 18px; max-width: 72ch; }
+  /* drawn once, as it comes into view */
+  .ms-ly.is-ready .ms-ly__seg, .ms-ly.is-ready .ms-ly__bar { transform: scaleX(0); }
+  .ms-ly.is-ready .ms-ly__mark { opacity: 0; }
+  .ms-ly.is-in .ms-ly__seg { transform: none; transition: transform .9s cubic-bezier(.3, .7, .2, 1) var(--d); }
+  .ms-ly.is-in .ms-ly__bar { transform: none; transition: transform 2.2s cubic-bezier(.3, .6, .2, 1) .5s; }
+  .ms-ly.is-in .ms-ly__mark { opacity: 1; transition: opacity .8s ease 1.6s; }
+  @media (max-width: 760px) {
+    .ms-ly__row { grid-template-columns: 1fr auto; row-gap: 14px; padding: 22px 0 18px; }
+    .ms-ly__track { grid-column: 1 / -1; grid-row: 2; }
+    .ms-ly__row--ours .ms-ly__track { margin-top: 40px; }
+    .ms-ly__row--axis { grid-template-columns: 1fr; }
+    .ms-ly__row--axis .ms-ly__lab, .ms-ly__row--axis > div:last-child { display: none; }
+    .ms-ly__ticks { grid-column: 1 / -1; grid-row: auto; }
+    .ms-ly__mark span { font-size: 9.5px; letter-spacing: .14em; white-space: normal; width: 210px; text-align: center; line-height: 1.5; top: -14px; }
   }
-  @media (prefers-reduced-motion: reduce) { .ms-ry__m, .ms-ry__post, .ms-ry__say, .ms-ry__i { transition: none; animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .ms-ly.is-ready .ms-ly__seg, .ms-ly.is-ready .ms-ly__bar { transform: none; } .ms-ly.is-ready .ms-ly__mark { opacity: 1; } }
 </style>
 <script>
   (function () {
-    var root = document.getElementById('ms-ry-{{ section.id }}');
+    var root = document.getElementById('ms-ly-{{ section.id }}');
     if (!root || root.dataset.msReady) return;
     root.dataset.msReady = '1';
-    var range = root.querySelector('[data-ms-ry-range]'), yearEl = root.querySelector('[data-ms-ry-year]');
-    var says = Array.prototype.slice.call(root.querySelectorAll('[data-ms-ry-from]'));
-    var icons = root.querySelector('[data-ms-ry-icons]'), nEl = root.querySelector('[data-ms-ry-n]');
-    var every = Math.max(1, parseInt(root.getAttribute('data-every'), 10) || 9);
-    var shown = null, gone = -1;
-    function set(y) {
-      yearEl.textContent = y;
-      var pick = says[0];
-      says.forEach(function (d) { if (+d.getAttribute('data-ms-ry-from') <= y) pick = d; });
-      if (pick !== shown) { says.forEach(function (d) { d.hidden = d !== pick; }); shown = pick; }
-      root.classList.toggle('is-away', y === 15);
-      root.classList.toggle('is-night', y !== 15);
-      var g = Math.floor(y / every);
-      if (g !== gone) {
-        gone = g;
-        icons.innerHTML = '';
-        for (var i = 0; i <= g; i++) { var s = document.createElement('span'); s.className = 'ms-ry__i' + (i < g ? ' ms-ry__i--gone' : ''); icons.appendChild(s); }
-        nEl.textContent = g + 1;
-      }
-      range.setAttribute('aria-valuetext', '{{ s.year_label | escape }} ' + y);
-    }
-    range.addEventListener('input', function () { set(+range.value); });
-    set(+range.value);
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+    root.classList.add('is-ready');
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { root.classList.add('is-in'); io.disconnect(); } }); }, { threshold: .35 });
+    io.observe(root.querySelector('.ms-ly__chart'));
+    // never left undrawn
+    setTimeout(function () { if (!root.classList.contains('is-in') && root.getBoundingClientRect().top < innerHeight) root.classList.add('is-in'); }, 4000);
   })();
 </script>
 
 {% schema %}
 {
-  "name": "Thirty years, one line",
+  "name": "Thirty years",
   "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Try it" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Thirty years, in one line." },
-    { "type": "textarea", "id": "text", "label": "Text", "default": "Slide through the life of a Midsummer mattress. The drawing does not change much; that is rather the point." },
-    { "type": "text", "id": "year_label", "label": "Year label", "default": "Year" },
-    { "type": "range", "id": "start", "label": "Starts at year", "min": 0, "max": 30, "step": 1, "default": 1 },
-    { "type": "text", "id": "slider_label", "label": "Slider label (screen readers)", "default": "Age of the mattress, in years" },
-    { "type": "textarea", "id": "postcard_text", "label": "Postcard at year fifteen", "default": "Italy is lovely.\nBeing recarded by hand.\nBack soon, a little fluffier.\n— your mattress" },
-    { "type": "text", "id": "postcard_to", "label": "Postcard address", "default": "To whoever sleeps on me" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Thirty years" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "One mattress, thirty years." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Most industrial mattresses are replaced every eight to ten years. A Midsummer mattress goes back to the artisans who made it at fifteen, and comes home for fifteen more." },
     { "type": "range", "id": "industrial_years", "label": "An industrial mattress lasts (years)", "min": 5, "max": 15, "step": 1, "default": 9, "info": "Most industrial mattresses end up in landfill after eight or ten years." },
-    { "type": "text", "id": "ours_label", "label": "First row", "default": "Midsummer mattresses used" },
-    { "type": "text", "id": "theirs_label", "label": "Second row", "default": "Industrial mattresses used, if replaced every eight to ten years" },
-    { "type": "text", "id": "footnote", "label": "Footnote", "default": "Crossed out: already thrown away. An illustration, not a forecast; your own sleep may vary." }
+    { "type": "text", "id": "label_industrial", "label": "First line", "default": "An industrial mattress" },
+    { "type": "text", "id": "label_ours", "label": "Second line", "default": "A Midsummer mattress" },
+    { "type": "text", "id": "regen_label", "label": "Mark at year fifteen", "default": "Year 15 · renewed by hand in Italy" },
+    { "type": "text", "id": "years_label", "label": "Axis label", "default": "Years" },
+    { "type": "text", "id": "mattresses_label", "label": "Count: mattresses", "default": "mattresses" },
+    { "type": "text", "id": "mattress_label", "label": "Count: mattress", "default": "mattress" },
+    { "type": "textarea", "id": "footnote", "label": "Note", "info": "[n] is replaced by how many industrial mattresses are thrown away in thirty years.", "default": "In thirty years, [n] industrial mattresses are thrown away, against none of ours. An illustration from the usual life of an industrial mattress, not a forecast." }
   ],
-  "blocks": [
-    {
-      "type": "stage",
-      "name": "Stage",
-      "settings": [
-        { "type": "range", "id": "from", "label": "From year", "min": 0, "max": 30, "step": 1, "default": 0 },
-        { "type": "text", "id": "title", "label": "Title", "default": "New." },
-        { "type": "textarea", "id": "text", "label": "Text" }
-      ]
-    }
-  ],
-  "presets": [
-    {
-      "name": "Thirty years, one line",
-      "blocks": [
-        { "type": "stage", "settings": { "from": 0, "title": "New.", "text": "It takes a few weeks to learn your shape. Then it keeps it." } },
-        { "type": "stage", "settings": { "from": 15, "title": "A short visit to Italy.", "text": "It comes home to our artisans: inspected, its wool recarded by hand, the outer renewed only where it needs it." } }
-      ]
-    }
-  ]
+  "presets": [ { "name": "Thirty years" } ]
 }
 {% endschema %}

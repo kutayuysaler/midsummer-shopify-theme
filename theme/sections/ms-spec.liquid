@@ -1,0 +1,185 @@
+{%- comment -%}
+  Specification at a glance, for architects and hotels: a bed drawn as a specifier would draw
+  it, in plan and in elevation, with its dimension lines. Three cases, one at a time:
+  rectangular, round, and split in two. The words beside it say what can be set; nothing of
+  the inside is drawn.
+{%- endcomment -%}
+{%- assign s = section.settings -%}
+<section class="ms-spx" id="ms-spx-{{ section.id }}" aria-labelledby="ms-spx-h-{{ section.id }}">
+  <div class="ms-spx__wrap">
+    <div class="ms-spx__copy">
+      {%- if s.eyebrow != blank -%}<div class="ms-spx__eyebrow">{{ s.eyebrow }}</div>{%- endif -%}
+      <h2 class="ms-spx__h" id="ms-spx-h-{{ section.id }}">{{ s.heading }}</h2>
+      {%- if s.text != blank -%}<p class="ms-spx__text">{{ s.text }}</p>{%- endif -%}
+      <dl class="ms-spx__facts">
+        {%- for i in (1..4) -%}
+          {%- assign kt = 'fact' | append: i | append: '_t' -%}{%- assign kd = 'fact' | append: i | append: '_d' -%}
+          {%- if s[kt] != blank -%}<div><dt>{{ s[kt] }}</dt><dd>{{ s[kd] }}</dd></div>{%- endif -%}
+        {%- endfor -%}
+      </dl>
+    </div>
+    <figure class="ms-spx__sheet">
+      <div class="ms-spx__tabs" role="tablist" aria-label="{{ s.heading | escape }}">
+        <button type="button" role="tab" class="is-on" aria-selected="true" data-ms-spx="rect">{{ s.tab_rect }}</button>
+        <button type="button" role="tab" aria-selected="false" data-ms-spx="round">{{ s.tab_round }}</button>
+        <button type="button" role="tab" aria-selected="false" data-ms-spx="split">{{ s.tab_split }}</button>
+      </div>
+      <svg class="ms-spx__svg" viewBox="0 0 600 400" role="img" aria-label="{{ s.drawing_label | escape }}">
+        <defs>
+          <marker id="spx-a-{{ section.id }}" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 5L9 5M5 1.5L5 8.5" stroke="#7E623B" stroke-width="1.2" fill="none" transform="rotate(45 5 5)"/></marker>
+        </defs>
+        <g class="ms-spx__grid" aria-hidden="true"><path d="M20 30H580M20 370H580M20 30V370M580 30V370"/></g>
+        <text class="ms-spx__cap" x="40" y="58">{{ s.plan_label }}</text>
+        <text class="ms-spx__cap" x="340" y="58">{{ s.elev_label }}</text>
+        <path class="ms-spx__rule" d="M310 46V354"/>
+
+        {%- comment -%} rectangular {%- endcomment -%}
+        <g class="ms-spx__case is-on" data-ms-spx-case="rect">
+          <rect class="ms-spx__ln" x="80" y="110" width="170" height="210" rx="4"/>
+          <rect class="ms-spx__ln" x="80" y="100" width="170" height="12" rx="2"/>
+          <rect class="ms-spx__soft" x="92" y="124" width="68" height="28" rx="8"/><rect class="ms-spx__soft" x="170" y="124" width="68" height="28" rx="8"/>
+          <path class="ms-spx__dash" d="M80 172H250"/>
+          <path class="ms-spx__dim" d="M80 84H250" marker-start="url(#spx-a-{{ section.id }})" marker-end="url(#spx-a-{{ section.id }})"/><path class="ms-spx__ext" d="M80 80V100M250 80V100"/>
+          <text class="ms-spx__t" x="165" y="76" text-anchor="middle">{{ s.dim_w }}</text>
+          <path class="ms-spx__dim" d="M272 110V320" marker-start="url(#spx-a-{{ section.id }})" marker-end="url(#spx-a-{{ section.id }})"/><path class="ms-spx__ext" d="M254 110H278M254 320H278"/>
+          <text class="ms-spx__t" x="286" y="219" transform="rotate(90 286 219)" text-anchor="middle">{{ s.dim_l }}</text>
+          {%- comment -%} elevation: topper, mattress, base, legs {%- endcomment -%}
+          <rect class="ms-spx__ln" x="360" y="214" width="190" height="10" rx="3"/>
+          <rect class="ms-spx__ln" x="360" y="226" width="190" height="40" rx="5"/>
+          <rect class="ms-spx__ln ms-spx__fill" x="364" y="268" width="182" height="40" rx="1"/>
+          <path class="ms-spx__ln" d="M372 308v12M538 308v12"/>
+          <path class="ms-spx__ground" d="M340 320H580"/>
+          <path class="ms-spx__dim" d="M342 214V320" marker-start="url(#spx-a-{{ section.id }})" marker-end="url(#spx-a-{{ section.id }})"/><path class="ms-spx__ext" d="M336 214H358"/>
+          <text class="ms-spx__t" x="330" y="267" transform="rotate(-90 330 267)" text-anchor="middle">{{ s.dim_h }}</text>
+        </g>
+
+        {%- comment -%} round {%- endcomment -%}
+        <g class="ms-spx__case" data-ms-spx-case="round">
+          <circle class="ms-spx__ln" cx="165" cy="215" r="108"/>
+          <circle class="ms-spx__dash" cx="165" cy="215" r="72"/>
+          <path class="ms-spx__dim" d="M165 215L241 139" marker-end="url(#spx-a-{{ section.id }})"/>
+          <circle cx="165" cy="215" r="2.4" fill="#7E623B"/>
+          <text class="ms-spx__t" x="214" y="170" transform="rotate(-45 214 170)" text-anchor="middle">{{ s.dim_r }}</text>
+          <path class="ms-spx__dim" d="M57 92H273" marker-start="url(#spx-a-{{ section.id }})" marker-end="url(#spx-a-{{ section.id }})"/><path class="ms-spx__ext" d="M57 88V200M273 88V200"/>
+          <text class="ms-spx__t" x="165" y="84" text-anchor="middle">{{ s.dim_d }}</text>
+          <rect class="ms-spx__ln" x="355" y="216" width="200" height="10" rx="3"/>
+          <rect class="ms-spx__ln" x="355" y="228" width="200" height="38" rx="5"/>
+          <rect class="ms-spx__ln ms-spx__fill" x="359" y="268" width="192" height="44" rx="1"/>
+          <path class="ms-spx__ln" d="M366 312h178" stroke-dasharray="2 3"/>
+          <path class="ms-spx__ground" d="M340 320H580"/>
+          <path class="ms-spx__dim" d="M342 216V320" marker-start="url(#spx-a-{{ section.id }})" marker-end="url(#spx-a-{{ section.id }})"/><path class="ms-spx__ext" d="M336 216H353"/>
+          <text class="ms-spx__t" x="330" y="268" transform="rotate(-90 330 268)" text-anchor="middle">{{ s.dim_h }}</text>
+        </g>
+
+        {%- comment -%} split in two {%- endcomment -%}
+        <g class="ms-spx__case" data-ms-spx-case="split">
+          <rect class="ms-spx__ln" x="70" y="110" width="190" height="210" rx="4"/>
+          <rect class="ms-spx__ln" x="70" y="100" width="190" height="12" rx="2"/>
+          <path class="ms-spx__ln ms-spx__seam" d="M165 112V320"/>
+          <rect class="ms-spx__soft" x="84" y="124" width="70" height="28" rx="8"/><rect class="ms-spx__soft" x="176" y="124" width="70" height="28" rx="8"/>
+          <path class="ms-spx__dim" d="M70 84H165" marker-start="url(#spx-a-{{ section.id }})" marker-end="url(#spx-a-{{ section.id }})"/><path class="ms-spx__dim" d="M165 84H260" marker-start="url(#spx-a-{{ section.id }})" marker-end="url(#spx-a-{{ section.id }})"/>
+          <path class="ms-spx__ext" d="M70 80V100M165 80V100M260 80V100"/>
+          <text class="ms-spx__t" x="117" y="76" text-anchor="middle">½</text><text class="ms-spx__t" x="212" y="76" text-anchor="middle">½</text>
+          <text class="ms-spx__t ms-spx__note" x="165" y="345" text-anchor="middle">{{ s.split_note }}</text>
+          <rect class="ms-spx__ln" x="360" y="226" width="190" height="40" rx="5"/>
+          <rect class="ms-spx__ln ms-spx__fill" x="364" y="268" width="89" height="40" rx="1"/><rect class="ms-spx__ln ms-spx__fill" x="457" y="268" width="89" height="40" rx="1"/>
+          <path class="ms-spx__ln" d="M372 308v12M445 308v12M465 308v12M538 308v12"/>
+          <path class="ms-spx__ground" d="M340 320H580"/>
+        </g>
+      </svg>
+      <figcaption class="ms-spx__fc">
+        <span data-ms-spx-cap="rect">{{ s.cap_rect }}</span>
+        <span data-ms-spx-cap="round" hidden>{{ s.cap_round }}</span>
+        <span data-ms-spx-cap="split" hidden>{{ s.cap_split }}</span>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+<style>
+  .ms-spx { border-top: 1px solid #DDD6C9; padding: clamp(56px, 8vw, 120px) clamp(18px, 5vw, 80px); max-width: 1560px; margin: 0 auto; }
+  .ms-spx__wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 5vw, 96px); align-items: center; }
+  .ms-spx__eyebrow { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: #6E675C; }
+  .ms-spx__h { font-family: Newsreader, Georgia, serif; font-weight: 200; font-size: clamp(30px, 3.4vw, 48px); line-height: 1.08; letter-spacing: -0.025em; margin-top: 16px; }
+  .ms-spx__text { font-size: 15px; line-height: 1.9; color: #4A443B; margin-top: 18px; max-width: 46ch; }
+  .ms-spx__facts { margin: clamp(24px, 3vw, 40px) 0 0; border-top: 1px solid #DDD6C9; }
+  .ms-spx__facts div { display: grid; grid-template-columns: minmax(120px, 2fr) 5fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid #ECE6DB; }
+  .ms-spx__facts dt { font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: #7E623B; padding-top: 3px; }
+  .ms-spx__facts dd { margin: 0; font-size: 14px; line-height: 1.7; color: #4A443B; }
+  .ms-spx__sheet { margin: 0; background: #F6F1E9; border: 1px solid #E4DBCD; padding: clamp(14px, 2vw, 26px); }
+  .ms-spx__tabs { display: flex; gap: 4px; margin-bottom: 8px; }
+  .ms-spx__tabs button { background: none; border: 0; border-bottom: 1px solid transparent; padding: 8px 10px; font: inherit; font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: #6E675C; cursor: pointer; }
+  .ms-spx__tabs button.is-on { color: #17140F; border-bottom-color: #17140F; }
+  .ms-spx__tabs button:focus-visible { outline: 1px solid #7E623B; outline-offset: 2px; }
+  .ms-spx__svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .ms-spx__grid path { fill: none; stroke: #E4DBCD; stroke-width: 1; }
+  .ms-spx__rule { stroke: #E4DBCD; stroke-dasharray: 2 4; }
+  .ms-spx__cap { font: 10px/1 "Red Hat Text", Arial, sans-serif; letter-spacing: .22em; fill: #9A8F7E; text-transform: uppercase; }
+  .ms-spx__ln { fill: none; stroke: #4A443B; stroke-width: 1.1; vector-effect: non-scaling-stroke; }
+  .ms-spx__fill { fill: rgba(126, 98, 59, .08); }
+  .ms-spx__soft { fill: rgba(126, 98, 59, .05); stroke: #9A8F7E; stroke-width: .9; }
+  .ms-spx__dash { fill: none; stroke: #B5AA97; stroke-width: .9; stroke-dasharray: 3 4; }
+  .ms-spx__seam { stroke: #7E623B; stroke-dasharray: 5 4; }
+  .ms-spx__dim { fill: none; stroke: #7E623B; stroke-width: .9; }
+  .ms-spx__ext { fill: none; stroke: #B5AA97; stroke-width: .8; }
+  .ms-spx__ground { stroke: #4A443B; stroke-width: 1; }
+  .ms-spx__t { font: italic 13px/1 Newsreader, Georgia, serif; fill: #7E623B; }
+  .ms-spx__note { font-style: normal; font-size: 11px; letter-spacing: .14em; fill: #6E675C; }
+  .ms-spx__case { opacity: 0; transition: opacity .5s ease; pointer-events: none; }
+  .ms-spx__case.is-on { opacity: 1; }
+  .ms-spx__fc { font-size: 13px; line-height: 1.7; color: #6E675C; margin-top: 10px; min-height: 2.2em; }
+  @media (max-width: 899px) { .ms-spx__wrap { grid-template-columns: minmax(0, 1fr); } }
+  @media (prefers-reduced-motion: reduce) { .ms-spx__case { transition: none; } }
+</style>
+<script>
+  (function () {
+    var root = document.getElementById('ms-spx-{{ section.id }}');
+    if (!root || root.dataset.msReady) return;
+    root.dataset.msReady = '1';
+    var tabs = root.querySelectorAll('[data-ms-spx]');
+    function show(k) {
+      tabs.forEach(function (b) { var on = b.getAttribute('data-ms-spx') === k; b.classList.toggle('is-on', on); b.setAttribute('aria-selected', on ? 'true' : 'false'); });
+      root.querySelectorAll('[data-ms-spx-case]').forEach(function (g) { g.classList.toggle('is-on', g.getAttribute('data-ms-spx-case') === k); });
+      root.querySelectorAll('[data-ms-spx-cap]').forEach(function (c) { c.hidden = c.getAttribute('data-ms-spx-cap') !== k; });
+    }
+    tabs.forEach(function (b, i) {
+      b.addEventListener('click', function () { show(b.getAttribute('data-ms-spx')); });
+      b.addEventListener('keydown', function (e) { var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0; if (!d) return; e.preventDefault(); var t = tabs[(i + d + tabs.length) % tabs.length]; t.focus(); show(t.getAttribute('data-ms-spx')); });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Specification drawing",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Specification at a glance" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Drawn to your room, not to a catalogue." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Every Midsummer system is made to order. Width, length and height, a radius or a split, are set with you and drawn before anything is made." },
+    { "type": "text", "id": "fact1_t", "label": "Fact 1", "default": "Dimensions" },
+    { "type": "text", "id": "fact1_d", "label": "Fact 1 text", "default": "Any width, length or height, round beds included, with no tooling charge." },
+    { "type": "text", "id": "fact2_t", "label": "Fact 2", "default": "Comfort" },
+    { "type": "text", "id": "fact2_d", "label": "Fact 2 text", "default": "Firmness and fibres chosen with you, for the sleeper and the climate." },
+    { "type": "text", "id": "fact3_t", "label": "Fact 3", "default": "Cloth" },
+    { "type": "text", "id": "fact3_d", "label": "Fact 3 text", "default": "Loro Piana Interiors or natural linen and cotton, chosen against the room." },
+    { "type": "text", "id": "fact4_t", "label": "Fact 4", "default": "Delivery" },
+    { "type": "text", "id": "fact4_d", "label": "Fact 4 text", "default": "By our own team: brought into the room, assembled and dressed." },
+    { "type": "header", "content": "The drawing" },
+    { "type": "text", "id": "drawing_label", "label": "Drawing label (screen readers)", "default": "A bed in plan and elevation, with its dimensions" },
+    { "type": "text", "id": "tab_rect", "label": "Tab: rectangular", "default": "Rectangular" },
+    { "type": "text", "id": "tab_round", "label": "Tab: round", "default": "Round" },
+    { "type": "text", "id": "tab_split", "label": "Tab: split", "default": "Split" },
+    { "type": "text", "id": "plan_label", "label": "Plan label", "default": "Plan" },
+    { "type": "text", "id": "elev_label", "label": "Elevation label", "default": "Elevation" },
+    { "type": "text", "id": "dim_w", "label": "Width label", "default": "width, to measure" },
+    { "type": "text", "id": "dim_l", "label": "Length label", "default": "length, to measure" },
+    { "type": "text", "id": "dim_h", "label": "Height label", "default": "height, to your drawing" },
+    { "type": "text", "id": "dim_r", "label": "Radius label", "default": "radius" },
+    { "type": "text", "id": "dim_d", "label": "Diameter label", "default": "any diameter" },
+    { "type": "text", "id": "split_note", "label": "Split note", "default": "SPLIT IN TWO, ON REQUEST" },
+    { "type": "textarea", "id": "cap_rect", "label": "Caption: rectangular", "default": "Topper, mattress and boxspring, to the size of the room and the height of the room's other pieces." },
+    { "type": "textarea", "id": "cap_round", "label": "Caption: round", "default": "Round, to any diameter: made entirely to measure, as Giotto is." },
+    { "type": "textarea", "id": "cap_split", "label": "Caption: split", "default": "For the wider sizes, the base can be split in two, on request." }
+  ],
+  "presets": [ { "name": "Specification drawing" } ]
+}
+{% endschema %}

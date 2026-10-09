@@ -973,3 +973,110 @@ Without either, the section shows the photographs chosen in it, as before.
 The page audit covers script errors, missing files, sideways scrolling and one H1 per page.
 The new interaction tests cover the fibre photographs, the projects map, the 15 + 15 slider and
 the figures. The parser now accepts `{% render block %}`, Shopify's own tag for app blocks.
+
+## 30. A map that works again, clearer collections, quieter charts, sharper drawings and icons
+
+### Agents and resellers: the map works again
+- **Cause:** the map redrew its full detailed outline (about 1.6 MB of paths) on every zoom and
+  resize. On most machines this froze the page.
+- **Fix:** it now draws only what is in view, simplified for the current zoom. It uses three
+  levels of detail:
+  - The world at a glance.
+  - A middle level from `ms-world-mid.json`, which is new and ships with the theme.
+  - The fine level (`ms-world-detail.json`), loaded only when zoomed close.
+- While zooming, the last drawing is scaled. It is redrawn crisply once the zoom settles.
+- The map bundle (`ms-atlas-vendor.js`) was rebuilt. It now includes the bounds function the
+  view clipping needs.
+
+### Journal notes read properly
+- Notes pasted from other editors arrive wrapped in extra boxes, bold blocks and line breaks.
+  The theme now unwraps them when the note is shown, without touching the note itself.
+- Lines that begin with a bold word, such as *Tuesday* or *The sheets*, become a tidy list with
+  the word set apart.
+- Headings get room above them.
+- The sign-off is set in italics and to the right.
+- A link that stands alone at the end becomes an invitation link, not a bare line.
+
+### Collections: what each piece is, at a glance
+- Every card says what the product is: *Bed system*, *Mattress*, *Topper*, *Boxspring*,
+  *Headboard* or *Outdoor*. Each has its own small drawn mark.
+- Bed systems also say what they include, for example *Topper, mattress and boxspring*. On the
+  *All* page they also show their tier.
+- Cards are larger: three to a row on desktop, two on tablets and phones.
+- When a collection holds more than one kind, a row of filters (*All*, *Bed systems*,
+  *Mattresses*, …) sits above the grid. It works together with the existing *needs* filter.
+- The labels can be changed in the section settings.
+
+### Natural materials: the fibres, as specimens
+- The photo band is replaced by a specimen viewer:
+  - On the left is an index of the seven fibres, each with its Latin name.
+  - On the right is one large square plate, with its caption.
+  - Hovering, clicking or using the arrow keys moves through the fibres.
+  - On phones, the index scrolls sideways above the plate.
+- The seven photographs are recropped square around the fibre itself: vicuña, yak, cashmere,
+  wool, silk, horsehair and cotton.
+- Each fibre is a block (photograph, name, Latin name, origin, line). Any picture from Files
+  can replace a bundled one.
+- The closing card with the animals is gone.
+
+### Thirty years, instead of 15 + 15
+- The slider is replaced by a calm, drawn chart on one line of thirty years:
+  - An industrial mattress, replaced every few years. The section setting defaults to nine, so
+    that is four mattresses.
+  - One Midsummer mattress, marked at year fifteen: *renewed by hand in Italy*.
+- The bars draw themselves once, as the chart comes into view. With reduced motion they are
+  simply there.
+- The note under the chart says it is an illustration, not a forecast.
+- The Hospitality page has the same chart, written for hotels.
+
+### Inside the bed: refined drawings
+- The drawings are redrawn with soft shading, rounded edges and finer cloth patterns. Giotto,
+  Paisley and the round systems especially are much improved.
+- **Giotto:** drawn round, with its gold ribbon and linen base.
+- **Paisley:** ivory with its red ribbon over a red paisley base.
+- The section background takes a faint tint from each system's own colour. The tint is never
+  stronger than a shade of the usual ivory.
+- The cards use the product's own photographs when the section has none chosen.
+- Nothing of the build is shown.
+
+### Icons
+- **Fibre marks:** redrawn as filled silhouettes on one grid. They cover sheep, goat, camelid,
+  camel, yak, horse, silkworm cocoon, flax, cotton, palm, corn, orange, hemp and thread.
+- **Social icons:** Instagram, Pinterest, LinkedIn, WhatsApp and Telegram are redrawn as fine
+  lines.
+- **Sustainability icons:** redrawn, including the needle and the seam.
+- **Collection kinds:** each kind has a new mark.
+
+### Architects, Hospitality and the Milan atelier
+- **Architects & Interior Designers:**
+  - A specification drawing shows plan and elevation, with tabs for rectangular, round and
+    split bases, and the facts beside it.
+  - *A project, step by step* sets five steps from the drawing to the dressed bed on one line.
+- **Hospitality & Contract:**
+  - The specification drawing, written for hotels.
+  - The *Thirty years* chart.
+- **The Milan atelier:**
+  - An hours plate shows the address, and whether the atelier is open now in Milan time.
+  - It has links to book a visit and for directions.
+  - A week timetable sets today in italics and marks the hour.
+- **Wording:** pages that said the atelier makes or rebuilds the beds now say the beds are made
+  and renewed by our artisans in Italy. The atelier is where they are seen, specified and lain
+  on.
+
+### Checks
+
+| Check | Result |
+| --- | --- |
+| Theme check | 0 errors, 0 warnings |
+| Strict Liquid parse | 0 errors, 136 files |
+| Page audit | all 78 pages pass |
+| Interaction tests | 124 pass |
+
+New and updated tests cover:
+- the fibre viewer;
+- the thirty-year chart;
+- collection kinds and the kind filter;
+- the size of the map drawing;
+- journal unwrapping;
+- the specification drawing and steps;
+- the atelier hours.

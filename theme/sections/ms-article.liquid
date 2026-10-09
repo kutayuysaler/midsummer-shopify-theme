@@ -47,6 +47,15 @@
     body.querySelectorAll('meta, link, style, o\\:p').forEach(function (el) { el.remove(); });
     body.querySelectorAll('[style]').forEach(function (el) { if (!/^(IMG|IFRAME|VIDEO)$/.test(el.tagName)) el.removeAttribute('style'); });
     body.querySelectorAll('[data-mce-fragment], [data-mce-style]').forEach(function (el) { el.removeAttribute('data-mce-fragment'); el.removeAttribute('data-mce-style'); });
+    // wrappers around whole blocks (a div from another editor, a pasted bold or span) are taken away
+    var BLOCK = 'p, h1, h2, h3, h4, h5, h6, ul, ol, blockquote, figure, table, div, section';
+    for (var pass = 0; pass < 6; pass++) {
+      var wraps = Array.prototype.filter.call(body.querySelectorAll('div, section, article, main, header, footer, b, strong, span, font'), function (w) {
+        return w.querySelector(BLOCK) && !w.querySelector('iframe, video') && !w.closest('li, table, blockquote');
+      });
+      if (!wraps.length) break;
+      wraps.forEach(function (w) { if (!w.parentNode) return; while (w.firstChild) w.parentNode.insertBefore(w.firstChild, w); w.remove(); });
+    }
     body.querySelectorAll('span, font').forEach(function (el) { if (!el.attributes.length || el.tagName === 'FONT' || /^s\d+$/.test(el.className)) { while (el.firstChild) el.parentNode.insertBefore(el.firstChild, el); el.remove(); } });
     // a div holding only words is a paragraph
     body.querySelectorAll('div').forEach(function (d) { if (!d.querySelector('div, p, ul, ol, table, figure, img, iframe, h1, h2, h3, h4, h5, h6')) { var p = document.createElement('p'); while (d.firstChild) p.appendChild(d.firstChild); d.replaceWith(p); } });
@@ -69,6 +78,22 @@
       });
       p.remove();
     });
+    // a paragraph of several long lines (each a sentence, or a bold label and its words) becomes
+    // one line each, with a little air between, so a wrapped line is not mistaken for the next
+    Array.prototype.slice.call(body.querySelectorAll(':scope > p')).forEach(function (p) {
+      var lines = [[]];
+      Array.prototype.slice.call(p.childNodes).forEach(function (n) { if (n.nodeName === 'BR') lines.push([]); else lines[lines.length - 1].push(n); });
+      lines = lines.filter(function (ns) { return ns.some(function (n) { return (n.textContent || '').trim(); }); });
+      if (lines.length < 2) return;
+      var len = lines.map(function (ns) { return ns.map(function (n) { return n.textContent || ''; }).join('').trim().length; });
+      var long = len.filter(function (l) { return l >= 38; }).length;
+      if (long < lines.length - 1) return;
+      var labelled = lines.every(function (ns) { var f = ns.filter(function (n) { return !(n.nodeType === 3 && !n.textContent.trim()); })[0]; return f && /^(B|STRONG)$/.test(f.nodeName); });
+      lines.forEach(function (ns) { var q = document.createElement('p'); q.className = 'ms-art-line' + (labelled ? ' ms-art-line--item' : ''); ns.forEach(function (n) { q.appendChild(n); }); p.parentNode.insertBefore(q, p); });
+      p.remove();
+    });
+    // in a list item that opens with a bold question, the break after it is the bold's own
+    body.querySelectorAll('li').forEach(function (li) { var k = Array.prototype.filter.call(li.childNodes, function (n) { return !(n.nodeType === 3 && !n.textContent.trim()); }); if (k.length > 1 && /^(B|STRONG)$/.test(k[0].nodeName) && k[1].nodeName === 'BR') k[1].remove(); });
     // stray breaks at the end of a paragraph, and paragraphs with nothing in them
     body.querySelectorAll('p, li').forEach(function (p) { var n = p.lastChild; while (n && (n.nodeName === 'BR' || (n.nodeType === 3 && !n.textContent.trim()))) { var prev = n.previousSibling; n.remove(); n = prev; } });
     body.querySelectorAll('p, div, h1, h2, h3, h4, h5, h6, li').forEach(function (el) { if (blank(el)) el.remove(); });
@@ -94,6 +119,8 @@
     // the first paragraph opens the note; a short last line from the team signs it
     var ps = body.querySelectorAll(':scope > p');
     if (ps.length) { ps[0].classList.add('ms-art-lede'); var l = ps[ps.length - 1], lt = l.textContent.trim(); if (ps.length > 2 && lt.length < 70 && /(team|midsummer|chiara|atelier)/i.test(lt) && !/[.?!]$/.test(lt)) l.classList.add('ms-art-sign'); }
+    // a paragraph that is only a link is an invitation
+    body.querySelectorAll(':scope > p').forEach(function (p) { var k = Array.prototype.filter.call(p.childNodes, function (n) { return !(n.nodeType === 3 && !n.textContent.trim()); }); if (k.length === 1 && k[0].nodeName === 'A' && k[0].textContent.trim().length < 80) p.classList.add('ms-art-cta'); });
     body.querySelectorAll(':scope > p').forEach(function (p) { if (p.querySelector('img') && !p.textContent.trim()) p.classList.add('ms-art-pic'); });
     body.classList.add('is-tidy');
   })();
@@ -270,16 +297,30 @@
   }
 
   /* one rhythm for every note, whatever its editor left behind */
-  .ms-site .ms-article-body.is-tidy { display: block; }
-  .ms-site .ms-article-body > * + * { margin-top: 1.15em; }
-  .ms-site .ms-article-body > h2 { margin-top: 2.2em; }
-  .ms-site .ms-article-body > h3 { margin-top: 1.9em; font-weight: 300; }
-  .ms-site .ms-article-body > h2 + *, .ms-site .ms-article-body > h3 + * { margin-top: .55em; }
-  .ms-site .ms-article-body > :first-child { margin-top: 0; padding-top: 0; border-top: 0; }
-  .ms-site .ms-article-body .ms-art-lede { font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: clamp(21px, 2vw, 25px); line-height: 1.55; color: #17140F; }
-  .ms-site .ms-article-body .ms-art-sign { font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 19px; color: #4A443B; margin-top: 2em; }
+  .ms-site .ms-article-body.is-tidy { display: block; font-size: 17px !important; line-height: 1.8 !important; }
+  .ms-site .ms-article-body.is-tidy > * { margin: 0; }
+  .ms-site .ms-article-body.is-tidy > * + * { margin-top: 1.2em; }
+  .ms-site .ms-article-body.is-tidy > h2 { margin-top: 2.4em; padding-top: 0; border-top: 0; font-size: clamp(28px, 2.8vw, 36px); line-height: 1.15; }
+  .ms-site .ms-article-body.is-tidy > h3 { margin-top: 2em; font-weight: 300; font-size: clamp(21px, 2vw, 25px); line-height: 1.3; }
+  .ms-site .ms-article-body.is-tidy > h2 + h3 { margin-top: .7em; color: #4A443B; }
+  .ms-site .ms-article-body.is-tidy > h2 + *, .ms-site .ms-article-body.is-tidy > h3 + * { margin-top: .7em; }
+  .ms-site .ms-article-body.is-tidy > :first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+  .ms-site .ms-article-body.is-tidy > ol, .ms-site .ms-article-body.is-tidy > ul, .ms-site .ms-article-body.is-tidy > blockquote { margin-top: 1.6em; }
+  .ms-site .ms-article-body.is-tidy > ol + *, .ms-site .ms-article-body.is-tidy > ul + *, .ms-site .ms-article-body.is-tidy > blockquote + * { margin-top: 1.6em; }
+  .ms-site .ms-article-body.is-tidy .ms-art-line + .ms-art-line { margin-top: .55em; }
+  .ms-site .ms-article-body.is-tidy .ms-art-line--item { padding-left: 18px; position: relative; }
+  .ms-site .ms-article-body.is-tidy .ms-art-line--item::before { content: ''; position: absolute; left: 0; top: .9em; width: 7px; border-top: 1px solid #B5AA97; }
+  .ms-site .ms-article-body.is-tidy .ms-art-lede { font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: clamp(21px, 2vw, 25px); line-height: 1.55; color: #17140F; padding-left: 0; }
+  .ms-site .ms-article-body.is-tidy .ms-art-lede::before { display: none; }
+  .ms-site .ms-article-body.is-tidy .ms-art-cta a { display: inline-flex; align-items: center; gap: 10px; font-size: 11.5px; letter-spacing: .24em; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid #17140F; padding-bottom: 6px; color: #17140F; }
+  .ms-site .ms-article-body.is-tidy .ms-art-sign { font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 19px; line-height: 1.5; color: #4A443B; margin-top: 2.6em; padding-top: 22px; border-top: 1px solid #DDD6C9; padding-left: 0; }
+  .ms-site .ms-article-body.is-tidy .ms-art-sign::before { display: none; }
+  .ms-site .ms-article-body.is-tidy .ms-art-sign em, .ms-site .ms-article-body.is-tidy .ms-art-sign i { display: block; font-size: 15px; color: #7E623B; }
+  .ms-site .ms-article-body.is-tidy ol > li { line-height: 1.65; }
+  .ms-site .ms-article-body.is-tidy ol > li strong:first-child, .ms-site .ms-article-body.is-tidy ol > li b:first-child { margin-bottom: 6px; }
   .ms-site .ms-article-body .ms-art-pic { margin-top: 1.8em; margin-bottom: .6em; }
   .ms-site .ms-article-body li + li { margin-top: .45em; }
+  .ms-site .ms-article-body ol > li + li { margin-top: 0; }
   .ms-site .ms-article-body b, .ms-site .ms-article-body strong { font-weight: 500; color: #17140F; }
   .ms-site .ms-article-body [style] { font-size: inherit !important; line-height: inherit !important; font-family: inherit !important; color: inherit !important; background: none !important; }
   .ms-site .ms-article-body > p:empty { display: none; }

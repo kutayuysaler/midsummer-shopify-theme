@@ -15,8 +15,11 @@
   if kh == 'essentials' or kh == 'signature' or kh == 'icons'
     assign is_tier = true
   endif
-  # the fibre filters only where sleep systems are listed (snippets/ms-kind)
+  # the fibre filters only where sleep systems are listed (snippets/ms-kind); and what each
+  # product is (bed system, mattress, topper, boxspring, bed with headboard, outdoor), counted
+  # so a collection that holds more than one kind can be narrowed to one
   assign n_sys = 0
+  assign kinds_seen = ''
   for p in collection.products limit: 48
     capture mk
       render 'ms-kind', p: p
@@ -24,6 +27,22 @@
     assign mkp = mk | split: '|'
     if mkp[0] == 'system'
       assign n_sys = n_sys | plus: 1
+    endif
+    assign w = mkp[0]
+    if w == 'system'
+      capture w
+        render 'ms-what', key: mkp[1]
+      endcapture
+      assign w = w | strip | default: 'system'
+    endif
+    assign kinds_seen = kinds_seen | append: w | append: ','
+  endfor
+  assign kind_order = 'system,mattress,topper,boxspring,headboard,outdoor' | split: ','
+  assign kinds_list = kinds_seen | split: ','
+  assign n_kinds = 0
+  for k in kind_order
+    if kinds_list contains k
+      assign n_kinds = n_kinds | plus: 1
     endif
   endfor
 -%}
@@ -48,6 +67,19 @@
     {%- endfor -%}
     {%- endif -%}
   </div>
+
+  {%- if n_kinds > 1 -%}
+  <div class="ms-sy__kinds" role="group" aria-label="{{ s.kind_label | escape }}">
+    <button type="button" class="is-on" data-kind="" aria-pressed="true">{{ s.all_kinds_label }} <span>{{ kinds_list.size }}</span></button>
+    {%- for k in kind_order -%}
+      {%- if kinds_list contains k -%}
+        {%- assign kc = 0 -%}{%- for x in kinds_list -%}{%- if x == k -%}{%- assign kc = kc | plus: 1 -%}{%- endif -%}{%- endfor -%}
+        {%- assign kp = 'kinds_' | append: k -%}
+        <button type="button" data-kind="{{ k }}" aria-pressed="false">{% render 'ms-kind-glyph', kind: k %}{{ s[kp] }} <span>{{ kc }}</span></button>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+  {%- endif -%}
 
   {%- if n_sys > 1 -%}
   <div class="ms-sy__bar">
@@ -94,7 +126,35 @@
       {%- elsif mkp[0] == 'outdoor' -%}
         {%- assign sub = product.metafields.custom.subtitle.value | default: s.outdoor_line -%}
       {%- endif -%}
-      <a href="{{ product.url }}" class="ms-sy__card" data-q="{{ quals }}">
+      {%- liquid
+        assign what = mkp[0]
+        if what == 'system'
+          capture what
+            render 'ms-what', key: mkp[1]
+          endcapture
+          assign what = what | strip | default: 'system'
+        endif
+        assign wl = 'what_' | append: what
+        assign what_label = s[wl]
+        assign tier = ''
+        unless is_tier
+          for c in product.collections
+            case c.handle
+              when 'essentials'
+                assign tier = s.tab1
+              when 'signature'
+                assign tier = s.tab2
+              when 'icons', 'icon'
+                assign tier = s.tab3
+            endcase
+            if tier != ''
+              break
+            endif
+          endfor
+        endunless
+        assign wi = 'with_' | append: what
+      -%}
+      <a href="{{ product.url }}" class="ms-sy__card" data-q="{{ quals }}" data-kind="{{ what }}">
         {%- if product.featured_media -%}
           <span class="ms-card__img">
             <img alt="{{ product.featured_media.alt | default: product.title | escape }}" src="{{ product.featured_media | image_url: width: 900 }}" srcset="{{ product.featured_media | image_url: width: 600 }} 600w, {{ product.featured_media | image_url: width: 900 }} 900w" sizes="(max-width: 760px) 50vw, 25vw" loading="{% if forloop.index > 4 %}lazy{% else %}eager{% endif %}" width="900" height="1125">
@@ -104,7 +164,11 @@
         {%- else -%}
           <span class="ms-card__img ms-sy__blank"></span>
         {%- endif -%}
-        <h2 class="ms-sy__name">{{ product.title }}</h2>
+        {%- if what_label != blank -%}
+          <p class="ms-sy__what">{% render 'ms-kind-glyph', kind: what %}<span>{{ what_label }}</span>{%- if tier != '' -%}<span class="ms-sy__tier">{{ tier }}</span>{%- endif -%}</p>
+        {%- endif -%}
+        <h2 class="ms-sy__name">{{ product.title }}<svg class="ms-sy__go" viewBox="0 0 20 10" width="20" height="10" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><path d="M0 5h18M14 1l4 4-4 4"/></svg></h2>
+        {%- if s[wi] != blank -%}<p class="ms-sy__with">{{ s[wi] }}</p>{%- endif -%}
         {%- if sub != blank -%}<p class="ms-sy__sub">{{ sub }}</p>{%- endif -%}
         {%- if spec != blank -%}<p class="ms-sy__spec">{{ spec }}</p>{%- endif -%}
         {%- if fibres.size > 0 and fparts[0] != blank -%}
@@ -193,12 +257,28 @@
   .ms-sy__needs button.is-on, .ms-sy__views button.is-on { color: #17140F; border-bottom-color: #17140F; }
   .ms-sy__views { display: flex; gap: 2px; }
   .ms-sy__hint { font-family: Newsreader, Georgia, serif; font-weight: 200; font-size: clamp(18px, 1.7vw, 22px); line-height: 1.5; color: #4A443B; max-width: 62ch; margin: 22px 0 clamp(30px, 3.6vw, 52px); min-height: 3em; }
-  .ms-sy__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: clamp(32px, 4vw, 64px) clamp(16px, 2.4vw, 36px); }
+  .ms-sy__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(44px, 5vw, 80px) clamp(18px, 2.6vw, 40px); }
+  .ms-sy__kinds { display: flex; flex-wrap: wrap; gap: 8px; margin-top: clamp(24px, 3vw, 40px); }
+  .ms-sy__kinds button { display: inline-flex; align-items: center; gap: 10px; background: none; border: 1px solid #DDD6C9; padding: 10px 16px 10px 12px; font: inherit; font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: #4A443B; cursor: pointer; transition: border-color .3s, color .3s, background .3s; }
+  .ms-sy__kinds button span { font-family: Newsreader, Georgia, serif; font-size: 13px; letter-spacing: 0; color: #9A8F7E; }
+  .ms-sy__kinds button:hover { border-color: #17140F; color: #17140F; }
+  .ms-sy__kinds button.is-on { background: #17140F; border-color: #17140F; color: #FBF9F5; }
+  .ms-sy__kinds button.is-on span { color: #C9BBA3; }
+  .ms-sy__kinds button:first-child { padding-left: 16px; }
+  .ms-kg { display: block; width: 32px; height: 20px; flex: 0 0 auto; overflow: visible; }
+  .ms-sy__what { display: flex; align-items: center; gap: 10px; margin-top: 20px; font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: #7E623B; }
+  .ms-sy__what .ms-kg { color: #7E623B; }
+  .ms-sy__tier { color: #9A8F7E; }
+  .ms-sy__tier::before { content: '·'; margin-right: 10px; color: #C9BBA3; }
+  .ms-sy__with { font-size: 12px; letter-spacing: .04em; color: #9A8F7E; margin-top: 4px; }
+  .ms-sy__go { display: inline-block; margin-left: 12px; vertical-align: middle; opacity: 0; transform: translateX(-6px); transition: opacity .4s, transform .5s cubic-bezier(.2,.7,.2,1); }
+  @media (hover: hover) { .ms-sy__card:hover .ms-sy__go { opacity: 1; transform: none; } }
   .ms-site .ms-sy__card { display: block; color: inherit; transition: opacity .45s ease; }
   .ms-sy__card[hidden] { display: none; }
-  .ms-sy__card .ms-card__img img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; background: #F1ECE3; }
+  .ms-sy__card .ms-card__img img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; background: #F1ECE3; transition: transform 1.4s cubic-bezier(.2,.7,.2,1); }
+  @media (hover: hover) { .ms-sy__card:hover .ms-card__img img:first-child { transform: scale(1.025); } }
   .ms-sy__blank { aspect-ratio: 4 / 5; background: #F1ECE3; }
-  .ms-sy__name { font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: clamp(21px, 2vw, 26px); letter-spacing: -0.015em; margin-top: 18px; }
+  .ms-sy__name { font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: clamp(24px, 2.3vw, 32px); line-height: 1.12; letter-spacing: -0.02em; margin-top: 8px; }
   .ms-sy__sub { font-size: 13.5px; line-height: 1.7; color: #6E675C; margin-top: 6px; max-width: 36ch; }
   /* every fibre of the system, none left out: the marks in a row, their names beneath */
   .ms-sy__fibres { margin: 14px 0 0; padding: 12px 0 0; border-top: 1px solid #ECE6DB; }
@@ -228,11 +308,18 @@
   .ms-sy__help { display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px 28px; margin-top: clamp(48px, 6vw, 88px); padding-top: 24px; border-top: 1px solid #DDD6C9; }
   .ms-sy__help p { font-family: Newsreader, Georgia, serif; font-size: 19px; font-weight: 300; color: #17140F; margin: 0 auto 0 0; }
   .ms-site .ms-sy__help a { font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: #17140F; border-bottom: 1px solid currentColor; padding-bottom: 3px; }
+  @media (max-width: 1080px) and (min-width: 761px) { .ms-sy__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 760px) {
-    .ms-sy__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 14px; }
+    .ms-sy__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 34px 14px; }
+    .ms-sy__what { gap: 6px; font-size: 9.5px; letter-spacing: .16em; margin-top: 14px; flex-wrap: wrap; }
+    .ms-sy__what .ms-kg { width: 26px; height: 16px; }
+    .ms-sy__tier::before { margin-right: 6px; }
+    .ms-sy__with { font-size: 11px; }
+    .ms-sy__kinds { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: calc(-1 * clamp(18px, 5vw, 80px)); padding-inline: clamp(18px, 5vw, 80px); }
+    .ms-sy__kinds button { flex: 0 0 auto; }
     .ms-sy__ask { flex: 1 0 100%; margin: 0 0 4px; }
     .ms-sy__needs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: calc(-1 * clamp(18px, 5vw, 80px)); padding-inline: clamp(18px, 5vw, 80px); flex-wrap: wrap; }
-    .ms-sy__name { font-size: 19px; margin-top: 12px; }
+    .ms-sy__name { font-size: 20px; margin-top: 6px; }
     .ms-sy__sub { font-size: 12.5px; }
     .ms-sy__marks li { width: 26px; height: 26px; }
     .ms-sy__fnames { font-size: 11px; }
@@ -248,11 +335,11 @@
     var hints = {};
     var tpl = root.querySelector('[data-sy-hints]');
     if (tpl) Array.prototype.forEach.call(tpl.content.querySelectorAll('[data-k]'), function (n) { hints[n.getAttribute('data-k')] = n.textContent; });
-    var need = '';
+    var need = '', kind = '';
     function apply() {
       root.querySelectorAll('[data-q]').forEach(function (el) {
-        var q = ' ' + el.getAttribute('data-q') + ' ';
-        el.hidden = !!need && q.indexOf(' ' + need + ' ') < 0;
+        var q = ' ' + el.getAttribute('data-q') + ' ', k = el.getAttribute('data-kind');
+        el.hidden = (!!need && q.indexOf(' ' + need + ' ') < 0) || (!!kind && k !== null && k !== kind);
       });
       root.querySelectorAll('[data-col]').forEach(function (c) { c.classList.toggle('is-need', !!need && c.getAttribute('data-col') === need); });
       if (hint) hint.textContent = hints[need] || hints[''] || '';
@@ -261,6 +348,14 @@
       b.addEventListener('click', function () {
         need = b.getAttribute('data-need');
         root.querySelectorAll('[data-need]').forEach(function (x) { var on = x === b; x.classList.toggle('is-on', on); x.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+        apply();
+      });
+    });
+    root.querySelectorAll('[data-kind]').forEach(function (b) {
+      if (b.tagName !== 'BUTTON') return;
+      b.addEventListener('click', function () {
+        kind = b.getAttribute('data-kind');
+        root.querySelectorAll('button[data-kind]').forEach(function (x) { var on = x === b; x.classList.toggle('is-on', on); x.setAttribute('aria-pressed', on ? 'true' : 'false'); });
         apply();
       });
     });
@@ -290,6 +385,22 @@
     { "type": "text", "id": "fam_toppers", "label": "Toppers", "default": "Toppers" },
     { "type": "text", "id": "fam_outdoor", "label": "Outdoor", "default": "Outdoor" },
     { "type": "text", "id": "headboard_label", "label": "Bed with headboard: height label", "default": "Headboard" },
+    { "type": "header", "content": "What each product is" },
+    { "type": "text", "id": "what_system", "label": "Bed system", "default": "Bed system" },
+    { "type": "text", "id": "with_system", "label": "Bed system: what it holds", "default": "Topper, mattress and boxspring" },
+    { "type": "text", "id": "what_mattress", "label": "Mattress", "default": "Mattress" },
+    { "type": "text", "id": "what_topper", "label": "Topper", "default": "Topper" },
+    { "type": "text", "id": "what_boxspring", "label": "Boxspring", "default": "Boxspring" },
+    { "type": "text", "id": "what_headboard", "label": "Bed with headboard", "default": "Bed with headboard" },
+    { "type": "text", "id": "what_outdoor", "label": "Outdoor", "default": "Outdoor" },
+    { "type": "text", "id": "kind_label", "label": "Kind filter label (screen readers)", "default": "Show" },
+    { "type": "text", "id": "all_kinds_label", "label": "Kind filter: all", "default": "All" },
+    { "type": "text", "id": "kinds_system", "label": "Kind filter: bed systems", "default": "Bed systems" },
+    { "type": "text", "id": "kinds_mattress", "label": "Kind filter: mattresses", "default": "Mattresses" },
+    { "type": "text", "id": "kinds_topper", "label": "Kind filter: toppers", "default": "Toppers" },
+    { "type": "text", "id": "kinds_boxspring", "label": "Kind filter: boxsprings", "default": "Boxsprings" },
+    { "type": "text", "id": "kinds_headboard", "label": "Kind filter: beds with headboards", "default": "Beds with headboards" },
+    { "type": "text", "id": "kinds_outdoor", "label": "Kind filter: outdoor", "default": "Outdoor" },
     { "type": "text", "id": "outdoor_line", "label": "Outdoor: line under the name", "default": "An outdoor bed and seating system, foam-free" },
     { "type": "text", "id": "need_label", "label": "Question", "default": "What matters most to you?" },
     { "type": "text", "id": "all_label", "label": "All", "default": "Everything" },

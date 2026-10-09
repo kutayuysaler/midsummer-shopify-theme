@@ -42,16 +42,18 @@
           "settings": {
             "photo": "vicuna",
             "name": "Vicuña",
+            "latin": "Vicugna vicugna",
             "origin": "The Andes, Peru",
-            "line": "The rarest fibre in the world, and the softest thing we have ever photographed. Quickly, before anyone could touch it again."
+            "line": "The rarest and finest fibre we work with: silky, light and remarkably warm."
           }
         },
         "fibre_2": {
           "type": "fibre",
           "settings": {
             "photo": "yak",
-            "name": "Yak hair",
-            "line": "Soft as cashmere and sturdier than it looks. Rather like the animal."
+            "name": "Yak",
+            "latin": "Bos grunniens",
+            "line": "Fine, warm and particularly robust, with a softness close to cashmere."
           }
         },
         "fibre_3": {
@@ -59,7 +61,8 @@
           "settings": {
             "photo": "cashmere",
             "name": "Cashmere",
-            "line": "The fine undercoat, combed out as the winter coat is shed. Warmth without weight."
+            "latin": "Capra hircus",
+            "line": "The fine undercoat of the goat: warmth without weight."
           }
         },
         "fibre_4": {
@@ -67,8 +70,8 @@
           "settings": {
             "photo": "wool",
             "name": "Wool",
-            "mark": "Cheviot Wool",
-            "line": "Long and springy, and very hard to flatten. Which is the whole point."
+            "latin": "Ovis aries",
+            "line": "Long, resilient fibres that hold their shape, night after night."
           }
         },
         "fibre_5": {
@@ -76,7 +79,8 @@
           "settings": {
             "photo": "silk",
             "name": "Silk",
-            "line": "Cool to the touch, with a lustre nothing else here has."
+            "latin": "Bombyx mori",
+            "line": "Cool to the touch and smooth, with a lustre of its own."
           }
         },
         "fibre_6": {
@@ -84,7 +88,8 @@
           "settings": {
             "photo": "horsehair",
             "name": "Horsehair",
-            "line": "Long, curled and resilient: it returns to its shape every time, and lets the air through."
+            "latin": "Equus caballus",
+            "line": "Long and resilient; it keeps the air moving through the bed."
           }
         },
         "fibre_7": {
@@ -92,21 +97,9 @@
           "settings": {
             "photo": "cotton",
             "name": "Cotton",
+            "latin": "Gossypium",
             "line": "Fresh and breathable, for the warmer months."
           }
-        },
-        "fibre_8": {
-          "type": "fibre",
-          "settings": {
-            "photo": "vicuna-2",
-            "name": "Vicuña, again",
-            "mark": "Vicuña",
-            "line": "We could not choose between the two photographs."
-          }
-        },
-        "note_9": {
-          "type": "note",
-          "settings": {}
         }
       },
       "block_order": [
@@ -116,9 +109,7 @@
         "fibre_4",
         "fibre_5",
         "fibre_6",
-        "fibre_7",
-        "fibre_8",
-        "note_9"
+        "fibre_7"
       ]
     }
   },

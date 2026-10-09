@@ -385,7 +385,7 @@
     var root = document.querySelector('[data-ms-sl]');
     if (!root || root.__msSl) return;
     root.__msSl = true;
-    var URL50 = {{ 'ms-world-detail.json' | asset_url | json }};
+    var URLMID = {{ 'ms-world-mid.json' | asset_url | json }}, URL50 = {{ 'ms-world-detail.json' | asset_url | json }};
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var KINDS = { atelier: {{ section.settings.atelier_kind | json }}, showroom: {{ section.settings.showroom_kind | json }}, boutique: {{ section.settings.boutique_kind | json }}, agent: {{ section.settings.agent_kind | json }} };
     var T = { places: {{ section.settings.count_places | json }}, place: {{ section.settings.count_place | json }}, countries: {{ section.settings.count_countries | json }}, country: {{ section.settings.count_country | json }}, here: {{ section.settings.cluster_label | json }}, wheel: {{ section.settings.hint_wheel | json }}, touch: {{ section.settings.hint_touch | json }} };
@@ -503,9 +503,9 @@
     var svg = d3.select(root.querySelector('[data-ms-sl-svg]'));
     var world = svg.select('[data-ms-sl-world]');
     var W = 0, H = 0, K = 1, proj = (d3.geoMercator || d3.geoNaturalEarth1)(), path = d3.geoPath(proj);
-    var land = null, borders = null, home = null, lakes = null, rivers = null, places = [], seas = [], fine = false, loadingFine = false, t = d3.zoomIdentity;
+    var G = { base: null, mid: null, fine: null }, places = [], seas = [], fine = false, loadingFine = false, loadingMid = false, t = d3.zoomIdentity, drawT = d3.zoomIdentity, drawGeo = null, redrawT = null, flying = false;
     var HOME = {}; stores.forEach(function (p) { HOME[p.country === 'United States' ? 'United States of America' : p.country] = 1; });
-    var KMAX = 220, homeView = null, touched = false, fitLand = null;
+    var KMAX = 220, homeView = null, touched = false;
     var TILES = {{ s.tiles_url | json }}, tilesEl = root.querySelector('[data-ms-sl-tiles]'), creditEl = root.querySelector('[data-ms-sl-credit]');
     var tileImgs = {}, tileTick = null, tilesOK = false, tileErr = 0, TK0 = 2.2, TK1 = 4.5;
     ['pointerdown', 'wheel', 'keydown'].forEach(function (ev) { mapEl.addEventListener(ev, function () { touched = true; }, { passive: true }); });
@@ -516,8 +516,8 @@
       return !e.button;
     }).on('zoom', function (e) {
       t = e.transform;
-      world.attr('transform', t);
-      if (!fine && t.k > 2.6) loadFine();
+      settle();
+      wantData();
       if (!tileTick) tileTick = requestAnimationFrame(function () { tileTick = null; tiles(); });
       layout();
     });
@@ -536,34 +536,123 @@
     function draw(topology) {
       var obj = topology.objects.countries;
       var all = topo.feature(topology, obj).features.filter(function (f) { return f.properties.name !== 'Antarctica'; }).map(mend).filter(function (f) { return areaPath.area(f) < sphereA * .5; });
-      land = { type: 'FeatureCollection', features: all };
-      if (!fitLand) fitLand = land;
-      home = { type: 'FeatureCollection', features: all.filter(function (f) { return HOME[f.properties.name]; }) };
-      borders = topo.mesh(topology, obj, function (a, b) { return a !== b; });
-      if (topology.objects.lakes) lakes = topo.feature(topology, topology.objects.lakes);
-      if (topology.objects.rivers) rivers = topo.feature(topology, topology.objects.rivers);
       if (topology.places) places = topology.places.map(function (a) { return { n: a[0], lon: a[1], lat: a[2], r: a[3] }; });
       if (topology.seas) seas = topology.seas.map(function (a) { return { n: a[0], lon: a[1], lat: a[2], r: a[3], sea: 1 }; });
+      // every shape keeps its bounds, so a drawing only projects what can be seen
+      function boxed(list) { list.forEach(function (f) { f._b = d3.geoBounds(f); }); return list; }
+      var mesh = topo.mesh(topology, obj, function (a, b) { return a !== b; });
+      return {
+        land: boxed(all),
+        home: all.filter(function (f) { return HOME[f.properties.name]; }),
+        borders: boxed(mesh.coordinates.map(function (c) { return { type: 'Feature', properties: {}, geometry: { type: 'LineString', coordinates: c } }; })),
+        lakes: topology.objects.lakes ? boxed(topo.feature(topology, topology.objects.lakes).features) : [],
+        rivers: topology.objects.rivers ? boxed(topo.feature(topology, topology.objects.rivers).features) : []
+      };
     }
-    function paint() {
-      world.select('[data-ms-sl-grat]').attr('d', path(d3.geoGraticule10()));
-      world.select('[data-ms-sl-land]').attr('d', path(land));
-      world.select('[data-ms-sl-home]').attr('d', path(home));
-      world.select('[data-ms-sl-borders]').attr('d', path(borders));
-      world.select('[data-ms-sl-lakes]').attr('d', lakes ? path(lakes) : null);
-      world.select('[data-ms-sl-rivers]').attr('d', rivers ? path(rivers) : null);
-      places.concat(seas).forEach(function (q) { var xy = proj([q.lon, q.lat]); q.px = xy[0]; q.py = xy[1]; });
+    /* The drawing is made for the view on screen: projected at the current zoom, cut to the frame
+       (with a margin for panning) and simplified to what a screen can show (to under a pixel). Between drawings the last one is moved and scaled; once a zoom settles
+       it is drawn again. The fine atlas is used only when close enough to need it. */
+    var graticule = d3.geoGraticule10();
+    // each line or ring is simplified on screen (Douglas–Peucker, under a pixel) before it is written
+    function simplify(pts, eps) {
+      var n = pts.length; if (n < 4) return pts;
+      var keep = new Uint8Array(n), stack = [0, n - 1], e2 = eps * eps;
+      keep[0] = keep[n - 1] = 1;
+      var x0 = pts[0][0], y0 = pts[0][1], far = 0, fd = -1;
+      // a closed ring has no chord to measure against: split it at its farthest point first
+      if (Math.abs(pts[n - 1][0] - x0) + Math.abs(pts[n - 1][1] - y0) < 1e-6) {
+        for (var i = 1; i < n - 1; i++) { var d = (pts[i][0] - x0) * (pts[i][0] - x0) + (pts[i][1] - y0) * (pts[i][1] - y0); if (d > fd) { fd = d; far = i; } }
+        keep[far] = 1; stack = [0, far, far, n - 1];
+      }
+      while (stack.length) {
+        var j = stack.pop(), h = stack.pop();
+        if (j - h < 2) continue;
+        var ax = pts[h][0], ay = pts[h][1], bx = pts[j][0], by = pts[j][1], dx = bx - ax, dy = by - ay, L = dx * dx + dy * dy, best = -1, bi = 0;
+        for (var k = h + 1; k < j; k++) {
+          var px = pts[k][0] - ax, py = pts[k][1] - ay, dd;
+          if (L === 0) dd = px * px + py * py; else { var c = px * dy - py * dx; dd = c * c / L; }
+          if (dd > best) { best = dd; bi = k; }
+        }
+        if (best > e2) { keep[bi] = 1; stack.push(h, bi, bi, j); }
+      }
+      var out = []; for (var m = 0; m < n; m++) if (keep[m]) out.push(pts[m]);
+      return out;
     }
+    function simp(out, eps) {
+      var buf = null, inPoly = false;
+      return {
+        point: function (x, y) { if (buf) buf.push([x, y]); else out.point(x, y); },
+        lineStart: function () { buf = []; },
+        lineEnd: function () {
+          var pts = simplify(buf, eps); buf = null;
+          // a ring smaller than a few pixels is not worth drawing
+          if (inPoly && pts.length < 4) return;
+          out.lineStart(); for (var i = 0; i < pts.length; i++) out.point(pts[i][0], pts[i][1]); out.lineEnd();
+        },
+        polygonStart: function () { inPoly = true; out.polygonStart(); },
+        polygonEnd: function () { inPoly = false; out.polygonEnd(); },
+        sphere: function () { if (out.sphere) out.sphere(); }
+      };
+    }
+    function residual() {
+      var r = t.k / drawT.k;
+      world.attr('transform', 'translate(' + (t.x - drawT.x * r) + ',' + (t.y - drawT.y * r) + ') scale(' + r + ')');
+    }
+    /* three levels of the world: the outline inline (wide views), the 50m atlas for a region,
+       the 10m atlas with lakes and towns once close; each is fetched when first needed */
+    var KMID = 2.4, KFINE = 16;
+    function level() { return t.k > KFINE && G.fine ? G.fine : t.k > KMID && G.mid ? G.mid : G.base; }
+    function wantData() { if (t.k > KMID * .85) loadMid(); if (t.k > KFINE * .7) loadFine(); }
+    function render() {
+      redrawT = null;
+      var g = level();
+      if (!g || !W) return;
+      var k = t.k, tr = proj.translate(), mx = W * .6, my = H * .6;
+      var p2 = (d3.geoMercator || d3.geoNaturalEarth1)().rotate(proj.rotate()).center(proj.center ? proj.center() : [0, 0])
+        .scale(proj.scale() * k).translate([t.x + k * tr[0], t.y + k * tr[1]]).clipExtent([[-mx, -my], [W + mx, H + my]]).precision(0);
+      var gp = d3.geoPath({ stream: function (s) { return p2.stream(simp(s, .6)); } });
+      if (gp.digits) gp.digits(1);
+      // the longitudes and latitudes in the frame (and its margin); a wide view takes everything
+      var a = p2.invert([-mx, -my]), b = p2.invert([W + mx, H + my]);
+      var lon0 = a[0], lon1 = b[0], lat1 = Math.min(90, a[1]), lat0 = Math.max(-90, b[1]), all = !(lon1 - lon0 < 300 && lon1 > lon0);
+      function seen(f) {
+        if (all || !f._b) return true;
+        var fb = f._b;
+        if (fb[1][1] < lat0 || fb[0][1] > lat1) return false;
+        if (fb[0][0] > fb[1][0]) return true;
+        return !(fb[1][0] < lon0 || fb[0][0] > lon1);
+      }
+      function fc(list) { return { type: 'FeatureCollection', features: list.filter(seen) }; }
+      world.select('[data-ms-sl-grat]').attr('d', gp(graticule));
+      world.select('[data-ms-sl-land]').attr('d', gp(fc(g.land)));
+      world.select('[data-ms-sl-home]').attr('d', gp(fc(g.home)));
+      world.select('[data-ms-sl-borders]').attr('d', gp(fc(g.borders)));
+      world.select('[data-ms-sl-lakes]').attr('d', g.lakes.length ? gp(fc(g.lakes)) : null);
+      world.select('[data-ms-sl-rivers]').attr('d', g.rivers.length ? gp(fc(g.rivers)) : null);
+      drawT = t; drawGeo = g;
+      residual();
+    }
+    function settle() {
+      residual();
+      var r = t.k / drawT.k, dx = Math.abs(t.x - drawT.x * r), dy = Math.abs(t.y - drawT.y * r);
+      var want = level();
+      // far from what was drawn (much closer, much further, or panned past the margin): draw now
+      if (flying) return;
+      if (want !== drawGeo || r > 3 || r < .34 || dx > W * .55 || dy > H * .55) { clearTimeout(redrawT); render(); return; }
+      clearTimeout(redrawT); redrawT = setTimeout(render, 140);
+    }
+    function baseCoords() { places.concat(seas).forEach(function (q) { var xy = proj([q.lon, q.lat]); q.px = xy[0]; q.py = xy[1]; }); }
     function size() {
       var r = mapEl.getBoundingClientRect();
       W = Math.max(1, Math.round(r.width)); H = Math.max(1, Math.round(r.height));
       svg.attr('viewBox', '0 0 ' + W + ' ' + H);
-      proj.fitExtent([[12, 12], [W - 12, H - 12]], fitLand || land);
+      proj.fitExtent([[12, 12], [W - 12, H - 12]], { type: 'FeatureCollection', features: G.base.land });
       KMAX = Math.max(40, kForZoom(11.5));
       zoom.scaleExtent([1, KMAX]);
       stores.forEach(function (p) { var xy = proj([p.lon, p.lat]); p.px = xy[0]; p.py = xy[1]; });
       zoom.extent([[0, 0], [W, H]]).translateExtent([[-W * .25, -H * .25], [W * 1.25, H * 1.25]]);
-      paint();
+      baseCoords();
+      render();
       tiles();
     }
     /* the detailed map: a quiet, light map (CARTO Positron, from OpenStreetMap) laid in grey on the
@@ -614,9 +703,13 @@
         img.remove(); delete tileImgs[key];
       });
     }
+    function loadMid() {
+      if (loadingMid) return; loadingMid = true;
+      d3.json(URLMID).then(function (topology) { G.mid = draw(topology); baseCoords(); render(); layout(); }).catch(function () { loadingMid = false; });
+    }
     function loadFine() {
       if (loadingFine) return; loadingFine = true;
-      d3.json(URL50).then(function (topology) { draw(topology); fine = true; paint(); }).catch(function () {});
+      d3.json(URL50).then(function (topology) { G.fine = draw(topology); fine = true; baseCoords(); render(); layout(); }).catch(function () { loadingFine = false; });
     }
 
     /* pins: one per place, gathered into clusters where they would touch */
@@ -729,7 +822,8 @@
     }
     function go(tr, ms) {
       var dur = reduce ? 0 : (ms == null ? 1100 : ms);
-      if (!dur) svg.call(zoom.transform, tr); else svg.transition().duration(dur).call(zoom.transform, tr);
+      if (!dur) svg.call(zoom.transform, tr);
+      else { flying = true; svg.transition().duration(dur).call(zoom.transform, tr).on('end interrupt', function () { flying = false; render(); layout(); }); }
     }
     function fit(list) { go(viewFor(list && list.length ? list : stores, 40, list && list.length > 3 ? (narrow() ? 28 : 56) : null)); setView(''); }
     function flyTo(p) {
@@ -789,7 +883,7 @@
     map = { layout: layout, fit: fit, flyTo: flyTo };
     var world0 = document.querySelector('script[data-ms-sl-geo]');
     Promise.resolve().then(function () { return JSON.parse(world0.textContent); }).then(function (topology) {
-      draw(topology);
+      G.base = draw(topology);
       size();
       svg.call(zoom);
       svg.style('touch-action', 'pan-x pan-y');
@@ -800,13 +894,13 @@
       var start = homeView();
       svg.call(zoom.transform, start);
       if (reg0.length > 1) setView(at0.region);
-      if (start.k > 2.6) loadFine();
+      wantData();
       layout();
       if (location.hash === '#atelier') { var a = stores.filter(function (p) { return p.kind === 'atelier'; })[0]; if (a) setTimeout(function () { select(a, { scrollList: true }); }, 350); }
       var rt;
       if (window.ResizeObserver) new ResizeObserver(function () {
         clearTimeout(rt);
-        rt = setTimeout(function () { var w0 = W, h0 = H; size(); if (W !== w0 || H !== h0) { if (state.sel) flyTo(state.sel); else if (!touched) svg.call(zoom.transform, homeView()); else svg.call(zoom.transform, viewFor(stores.filter(shown), 40)); } layout(); }, 120);
+        rt = setTimeout(function () { var w0 = W, h0 = H; size(); if (W !== w0 || Math.abs(H - h0) > 160) { if (state.sel) flyTo(state.sel); else if (!touched) svg.call(zoom.transform, homeView()); else svg.call(zoom.transform, viewFor(stores.filter(shown), 40)); } layout(); }, 120);
       }).observe(mapEl);
     }).catch(function (err) { mapEl.classList.add('is-failed'); if (window.console) console.error('[agents map]', err); });
   };

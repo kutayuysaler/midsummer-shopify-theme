@@ -148,11 +148,18 @@
         "link_label": "Agents & Resellers",
         "link_place": "agents"
       }
+    },
+    "hours": {
+      "type": "ms-hours",
+      "settings": {
+        "map_url": "https://www.google.com/maps/search/?api=1&query=Via+Andegari+4+20121+Milano"
+      }
     }
   },
   "order": [
     "s01",
     "s02",
+    "hours",
     "s03",
     "s04",
     "s05",

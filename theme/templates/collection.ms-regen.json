@@ -44,74 +44,7 @@
     },
     "years": {
       "type": "ms-regen-years",
-      "settings": {},
-      "blocks": {
-        "stage_0": {
-          "type": "stage",
-          "settings": {
-            "from": 0,
-            "title": "New.",
-            "text": "It takes a few weeks to learn your shape. Then it keeps it."
-          }
-        },
-        "stage_1": {
-          "type": "stage",
-          "settings": {
-            "from": 3,
-            "title": "Settled.",
-            "text": "The fibres have found their place. So have you."
-          }
-        },
-        "stage_2": {
-          "type": "stage",
-          "settings": {
-            "from": 8,
-            "title": "The age most mattresses are thrown away.",
-            "text": "Ours is just getting comfortable."
-          }
-        },
-        "stage_3": {
-          "type": "stage",
-          "settings": {
-            "from": 15,
-            "title": "A short visit to Italy.",
-            "text": "It comes home to our artisans: inspected, its wool recarded by hand, the outer renewed only where it needs it."
-          }
-        },
-        "stage_4": {
-          "type": "stage",
-          "settings": {
-            "from": 16,
-            "title": "Fifteen years more.",
-            "text": "Back in its room. Same structure, same fabric, same character."
-          }
-        },
-        "stage_5": {
-          "type": "stage",
-          "settings": {
-            "from": 24,
-            "title": "Still not tired.",
-            "text": "Neither, with luck, are you."
-          }
-        },
-        "stage_6": {
-          "type": "stage",
-          "settings": {
-            "from": 30,
-            "title": "Thirty.",
-            "text": "One mattress, thirty years. A fairly good argument for doing things slowly."
-          }
-        }
-      },
-      "block_order": [
-        "stage_0",
-        "stage_1",
-        "stage_2",
-        "stage_3",
-        "stage_4",
-        "stage_5",
-        "stage_6"
-      ]
+      "settings": {}
     }
   },
   "order": [

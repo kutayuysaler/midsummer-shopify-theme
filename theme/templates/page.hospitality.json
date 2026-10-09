@@ -128,12 +128,30 @@
         "qa_03",
         "qa_04"
       ]
+    },
+    "spec": {
+      "type": "ms-spec",
+      "settings": {
+        "eyebrow": "For every room",
+        "heading": "Drawn to the plan of each room.",
+        "text": "Each bed is made to order: for a suite, a villa or a cabin, width, length and height are set to the plan, and the cloth to the room."
+      }
+    },
+    "years": {
+      "type": "ms-regen-years",
+      "settings": {
+        "eyebrow": "Thirty years, per room",
+        "heading": "One bed per room, for thirty years.",
+        "text": "An industrial mattress is replaced every eight to ten years. A Midsummer mattress goes back to the artisans who made it at fifteen, and returns to the room for fifteen more."
+      }
     }
   },
   "order": [
     "s01",
     "s02",
+    "spec",
     "s03",
+    "years",
     "s04",
     "places",
     "projects",

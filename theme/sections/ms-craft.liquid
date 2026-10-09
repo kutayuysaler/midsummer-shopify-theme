@@ -46,7 +46,8 @@
   assign nums = 'I,II,III' | split: ','
 -%}
 {%- if cr_show -%}
-<section class="ms-cr" data-ms-craft{% if start %} data-cr-start="{{ start }}"{% endif %}>
+{%- capture cr_tint -%}{% render 'ms-craft-tint', key: ms_key %}{%- endcapture -%}
+<section class="ms-cr" data-ms-craft{% if start %} data-cr-start="{{ start }}"{% endif %}{% if cr_tint != blank %} style="{{ cr_tint | strip }}"{% endif %}>
   <div class="ms-cr__in">
     <div class="ms-cr__top">
       <div class="ms-cr__left">
@@ -136,7 +137,17 @@
           assign kf = 'part' | append: i | append: '_fallback'
         -%}
         <button type="button" class="ms-cr__part" data-part="{{ p }}" data-cr-open="{{ p }}" aria-controls="cr-{{ section.id }}-{{ p }}">
-          <span class="ms-cr__img"><img src="{% render 'ms-img', image: s[ki], fallback: s[kf], width: 1000 %}" alt="{{ s[kt] | escape }}" width="1000" height="1250" loading="lazy"></span>
+          {%- liquid
+            assign own = nil
+            if product != blank and s[ki] == blank
+              assign mi = forloop.index
+              assign m = product.media[mi]
+              if m and m.media_type == 'image'
+                assign own = m
+              endif
+            endif
+          -%}
+          <span class="ms-cr__img">{%- if own -%}<img src="{{ own | image_url: width: 1000 }}" srcset="{{ own | image_url: width: 600 }} 600w, {{ own | image_url: width: 1000 }} 1000w" sizes="(max-width: 760px) 90vw, 30vw" alt="{{ own.alt | default: s[kt] | escape }}" width="1000" height="1250" loading="lazy">{%- else -%}<img src="{% render 'ms-img', image: s[ki], fallback: s[kf], width: 1000 %}" alt="{{ s[kt] | escape }}" width="1000" height="1250" loading="lazy">{%- endif -%}</span>
           <span class="ms-cr__cnum">{{ nums[forloop.index0] }}</span>
           <span class="ms-cr__ptitle">{{ s[kt] }}</span>
           <span class="ms-cr__ptext">{% if lp_free %}{{ s[kx] | replace: ' in Loro Piana Interiors', '' }}{% else %}{{ s[kx] }}{% endif %}</span>
@@ -153,7 +164,7 @@
   </div>
 </section>
 <style>
-  .ms-cr { background: linear-gradient(165deg, #E4D3C8 0%, #DCC7BA 55%, #D2BAAA 100%); color: #2A1F19; padding: clamp(80px, 10vw, 160px) clamp(16px, 5vw, 80px); }
+  .ms-cr { background: linear-gradient(165deg, var(--cr-g1, #E4D3C8) 0%, var(--cr-g2, #DCC7BA) 55%, var(--cr-g3, #D2BAAA) 100%); color: #2A1F19; padding: clamp(80px, 10vw, 160px) clamp(16px, 5vw, 80px); }
   .ms-cr__in { max-width: 1560px; margin: 0 auto; }
   .ms-cr__top { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(32px, 6vw, 120px); align-items: center; }
   .ms-cr__left { display: grid; }

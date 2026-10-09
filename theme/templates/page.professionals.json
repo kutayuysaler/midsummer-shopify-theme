@@ -136,11 +136,65 @@
         "qa_04",
         "qa_05"
       ]
+    },
+    "spec": {
+      "type": "ms-spec",
+      "settings": {}
+    },
+    "steps": {
+      "type": "ms-steps",
+      "settings": {},
+      "blocks": {
+        "step_0": {
+          "type": "step",
+          "settings": {
+            "title": "The drawing",
+            "text": "Send us the room: the plan, the elevations and the bed's place in it."
+          }
+        },
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "The specification",
+            "text": "Dimensions, firmness, fibres and cloth, set with one person at the atelier."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "The samples",
+            "text": "Cloths and fibres sent to your studio, to be chosen against the room."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "The making",
+            "text": "By hand in Italy, by two artisans, from start to finish."
+          }
+        },
+        "step_4": {
+          "type": "step",
+          "settings": {
+            "title": "The delivery",
+            "text": "By our own team: brought into the room, assembled and dressed."
+          }
+        }
+      },
+      "block_order": [
+        "step_0",
+        "step_1",
+        "step_2",
+        "step_3",
+        "step_4"
+      ]
     }
   },
   "order": [
     "s01",
     "s02",
+    "spec",
+    "steps",
     "s03",
     "s04",
     "places",
