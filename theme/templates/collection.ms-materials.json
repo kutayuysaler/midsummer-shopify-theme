@@ -44,7 +44,8 @@
             "name": "Vicuña",
             "latin": "Vicugna vicugna",
             "origin": "The Andes, Peru",
-            "line": "The rarest and finest fibre we work with: silky, light and remarkably warm."
+            "line": "The rarest and finest fibre we work with: silky, light and remarkably warm.",
+            "alt": "Four vicuñas on a ridge at dusk."
           }
         },
         "fibre_2": {
@@ -53,7 +54,8 @@
             "photo": "yak",
             "name": "Yak",
             "latin": "Bos grunniens",
-            "line": "Fine, warm and particularly robust, with a softness close to cashmere."
+            "line": "Fine, warm and particularly robust, with a softness close to cashmere.",
+            "alt": "A yak on a misty mountainside."
           }
         },
         "fibre_3": {
@@ -62,7 +64,8 @@
             "photo": "cashmere",
             "name": "Cashmere",
             "latin": "Capra hircus",
-            "line": "The fine undercoat of the goat: warmth without weight."
+            "line": "The fine undercoat of the goat: warmth without weight.",
+            "alt": "A herd of goats coming down a mountain valley."
           }
         },
         "fibre_4": {
@@ -71,7 +74,8 @@
             "photo": "wool",
             "name": "Wool",
             "latin": "Ovis aries",
-            "line": "Long, resilient fibres that hold their shape, night after night."
+            "line": "Long, resilient fibres that hold their shape, night after night.",
+            "alt": "Sheep in full fleece, close together."
           }
         },
         "fibre_5": {
@@ -80,7 +84,8 @@
             "photo": "silk",
             "name": "Silk",
             "latin": "Bombyx mori",
-            "line": "Cool to the touch and smooth, with a lustre of its own."
+            "line": "Cool to the touch and smooth, with a lustre of its own.",
+            "alt": "Silk satin, falling in soft folds."
           }
         },
         "fibre_6": {
@@ -89,7 +94,8 @@
             "photo": "horsehair",
             "name": "Horsehair",
             "latin": "Equus caballus",
-            "line": "Long and resilient; it keeps the air moving through the bed."
+            "line": "Long and resilient; it keeps the air moving through the bed.",
+            "alt": "The long, pale mane of a horse, close up."
           }
         },
         "fibre_7": {
@@ -98,7 +104,8 @@
             "photo": "cotton",
             "name": "Cotton",
             "latin": "Gossypium",
-            "line": "Fresh and breathable, for the warmer months."
+            "line": "Fresh and breathable, for the warmer months.",
+            "alt": "Cotton bolls opening on the plant."
           }
         }
       },

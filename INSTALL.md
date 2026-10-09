@@ -1126,3 +1126,33 @@ reports none.
 
 After uploading, check the list Shopify shows when the upload finishes. It should name no
 files.
+
+## 32. Natural materials: new photographs
+
+The design of the fibre section stays the same. The phone close-ups are replaced by licensed
+photographs from the company's own library, one for each fibre at its source:
+
+| Plate | Photograph | Source |
+| --- | --- | --- |
+| 01 Vicuña | Four vicuñas on a ridge at dusk | Shutterstock 109093589 |
+| 02 Yak | A yak on a misty mountainside | Unsplash, Toomas Tartes |
+| 03 Cashmere | A herd of goats coming down a mountain valley | Shutterstock 535793413 |
+| 04 Wool | Sheep in full fleece, close together | Shutterstock 104115377 |
+| 05 Silk | Silk satin, falling in soft folds | Shutterstock (texture "seta") |
+| 06 Horsehair | The long, pale mane of a horse | Shutterstock 356083304 |
+| 07 Cotton | Cotton bolls opening on the plant | Shutterstock 127061399 |
+
+- **Where the photographs came from:**
+  - The Shutterstock images are from the brand's own *SHUTTERSTOCK* folder, which was
+    already used for catalogues.
+  - The yak is from the *materiale per newsletter* folder.
+- **How they are prepared:**
+  - Each is cropped square around its subject.
+  - All seven are toned alike, in a warm monochrome taken from the site's ivory and walnut, so
+    they read as one series of plates.
+  - Each comes in two sizes, 1400 and 720 px.
+  - The script is `scripts/fibre_plates.py`.
+- **Section text:** the heading is now *Where each fibre begins.* and each plate has its own
+  alt text.
+- **Silk:** no photograph of silk cocoons was found in the Drive or Dropbox, so the silk plate
+  shows the cloth. Any picture can replace it from the section's *Silk* block, using *Or a picture from the store*.

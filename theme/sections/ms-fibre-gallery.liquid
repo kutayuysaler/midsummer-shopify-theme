@@ -41,7 +41,7 @@
           -%}
           <figure class="ms-fg__slide{% if forloop.first %} is-on{% endif %}" data-ms-fg-slide="{{ forloop.index0 }}"{% unless forloop.first %} aria-hidden="true"{% endunless %}>
             {%- if src != blank -%}
-              <img src="{{ src_sm }}" srcset="{{ src_sm }} 640w, {{ src }} 1200w" sizes="(min-width: 900px) 52vw, 100vw" alt="{{ bs.alt | default: bs.name | escape }}" width="1200" height="1200" loading="{% if forloop.first %}lazy{% else %}lazy{% endif %}" decoding="async">
+              <img src="{{ src_sm }}" srcset="{{ src_sm }} 720w, {{ src }} 1400w" sizes="(min-width: 900px) 52vw, 100vw" alt="{{ bs.alt | default: bs.name | escape }}" width="1400" height="1400" loading="{% if forloop.first %}lazy{% else %}lazy{% endif %}" decoding="async">
             {%- endif -%}
             <figcaption class="ms-fg__cap">
               <span class="ms-fg__capno">{{ s.plate_label }} {{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
@@ -125,9 +125,9 @@
 {
   "name": "Fibres, up close",
   "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Up close" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "The fibres, as they come to us." },
-    { "type": "textarea", "id": "text", "label": "Text", "default": "Before anything is made, every fibre is chosen by hand. Here are seven of them, photographed close, before anyone has touched them." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "At the source" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Where each fibre begins." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Before anything is made, every fibre is chosen by hand. Here are seven of them, and where each one begins." },
     { "type": "text", "id": "plate_label", "label": "Plate label", "default": "Plate" }
   ],
   "blocks": [
