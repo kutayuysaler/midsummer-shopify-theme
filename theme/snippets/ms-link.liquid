@@ -9,6 +9,7 @@
     3. for the three collections, any published collection whose title or handle names it;
     4. the place's designed page, which always exists: /collections/all?view=ms-<place>
        (templates/collection.ms-*.json). Creating the page later moves the link to it.
+       A page hidden in admin is skipped: its address would be a 404.
 
   Usage:
     href="{% render 'ms-link', to: 'materials' %}"
@@ -160,7 +161,11 @@
     if out == '' and p != ''
       assign list = p | split: ','
       for h in list
-        if pages[h].url != blank
+        comment
+          a page hidden in admin still answers here, but its address is a 404 for visitors:
+          only a published page is linked
+        endcomment
+        if pages[h].url != blank and pages[h].published_at != blank
           assign out = pages[h].url
           comment
             the page opens in its designed template, with its own title and words, even if

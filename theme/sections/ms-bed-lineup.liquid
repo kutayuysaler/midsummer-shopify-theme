@@ -34,7 +34,7 @@
       {%- if kp[0] == 'headboard' and kp[2] != blank -%}
         <li class="ms-bl__bed">
           <a href="{{ p.url }}">
-            <span class="ms-bl__draw">{% render 'ms-bed-drawing', key: kp[2], u: section.id | append: forloop.index, crop: 'lineup', l_aria: p.title, l_headboard: p.title, l_mattress: p.title, l_base: p.title %}</span>
+            <span class="ms-bl__draw">{%- assign lu = section.id | append: forloop.index -%}{% render 'ms-bed-drawing', key: kp[2], u: lu, crop: 'lineup', l_aria: p.title, l_headboard: p.title, l_mattress: p.title, l_base: p.title %}</span>
             <span class="ms-bl__name">{{ p.title }}</span>
             <span class="ms-bl__h">{{ s.height_label }} {% render 'ms-bed-data', key: kp[2], part: 'height' %} cm</span>
           </a>

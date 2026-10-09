@@ -1080,3 +1080,49 @@ New and updated tests cover:
 - journal unwrapping;
 - the specification drawing and steps;
 - the atelier hours.
+
+## 31. Two upload failures fixed: the bed drawing and the agents page
+
+Both problems came from Shopify refusing a file when the theme was uploaded. A refused file is
+simply missing from the store afterwards.
+
+- **Inside the bed showed "Could not find asset snippets/ms-craft-svg.liquid".**
+  - **Cause:** Shopify refuses any Liquid file over 256 KB. The drawings of all 24 systems,
+    kept in one file, came to 275 KB.
+  - **Fix:** each system now has its own small file (`ms-craft-svg-<system>.liquid`, about
+    12 KB each). `ms-craft-svg.liquid` only picks the right one.
+- **Agents & Resellers opened the 404 page.**
+  - **Cause:** the map section had a text setting (*Detailed map tiles*) with an empty
+    default, and Shopify refused the section for it.
+  - When Shopify refuses a section, it also refuses every template that uses that section.
+    All three of the agents page's templates did, so the page was left with no template at
+    all, and Shopify showed the 404 page.
+  - The default page template also holds the map, so it was refused too. Any page relying
+    on it would also have opened the 404 page.
+  - **Fix:** the setting has no default now. It is still optional and empty.
+- **Hidden pages:** the agents link (and every other link to a page) now skips a page that
+  is hidden in admin. The address of a hidden page is a 404 for visitors, so the link opens
+  the designed page instead.
+- **Headboard lineup:** a drawing call passed a filtered value straight into `render`, which
+  Shopify's parser rejects. The value is now prepared first.
+
+### Checks added to `tools/validate.py`, so this cannot happen again
+- **File sizes:** Liquid files 256 KB, JSON templates 512 KB, settings and locales 1.5 MB.
+- **Empty defaults:** none on text settings.
+- **Missing files:** every `render`, `include` and `section` points to a file that exists,
+  and every `asset_url` points to a file in `assets/`.
+
+Run against the previous zip, the validator now reports both problems. Against this one, it
+reports none.
+
+### Checks
+
+| Check | Result |
+| --- | --- |
+| Theme check | 0 errors (63 advisory warnings: remote images, settings counts) |
+| Strict Liquid parse | 0 errors, 442 files |
+| Page audit | all 78 pages pass |
+| Interaction tests | 124 pass |
+
+After uploading, check the list Shopify shows when the upload finishes. It should name no
+files.
