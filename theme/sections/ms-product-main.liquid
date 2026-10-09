@@ -24,9 +24,11 @@
   capture note
     render 'ms-product-note', title: product.title
   endcapture
+  # the description as plain words: paragraphs and lines kept apart by a space, not run together
+  assign desc_text = product.description | newline_to_br | replace: '<br />', ' ' | replace: '<br>', ' ' | replace: '<br/>', ' ' | replace: '</p>', ' </p>' | replace: '</div>', ' </div>' | replace: '</li>', ' </li>' | replace: '</h2>', ' </h2>' | replace: '</h3>', ' </h3>' | replace: '</h4>', ' </h4>' | replace: '</h5>', ' </h5>' | strip_html | split: ' ' | join: ' '
   assign tagline = product.metafields.custom.subtitle.value | default: note
   if tagline == blank
-    assign tagline = product.description | strip_html | truncatewords: 22
+    assign tagline = desc_text | truncatewords: 22
   endif
   assign images = product.media | where: 'media_type', 'image'
   assign n_images = images | size
@@ -42,6 +44,13 @@
   assign mkp = mk | split: '|'
   assign pkind = mkp[0]
   assign bed = mkp[2]
+  # a bed with headboard says what it is in its own line, not in the opening of its description
+  if bed != blank and product.metafields.custom.subtitle == blank and note == blank
+    capture tagline
+      render 'ms-bed-data', key: bed, part: 'line'
+    endcapture
+    assign tagline = tagline | strip | default: desc_text | truncatewords: 22
+  endif
   assign kind = product.metafields.custom.kind.value
   if kind == blank
     assign kind_key = section.settings.kind
@@ -421,7 +430,7 @@
     "category": {{ kind | json }},
     {%- endif %}
     "url": "{{ shop.url }}{{ product.url }}",
-    "description": {{ product.description | strip_html | strip_newlines | default: tagline | truncate: 600 | json }},
+    "description": {{ desc_text | default: tagline | truncate: 600 | json }},
     {%- if n_images > 0 %}
     "image": [
       {%- for media in images limit: 4 -%}

@@ -63,8 +63,36 @@
         -%}
         {%- if c != nil -%}
           {%- assign pic = c.image | default: c.products.first.featured_media -%}
+          {%- liquid
+            # a collection without a picture of its own shows one of the house's photographs
+            assign house = ''
+            case k
+              when 'systems'
+                assign house = 'ms-photo-atelier-pure.jpg'
+              when 'headboards'
+                assign house = 'ms-photo-fresco-bed.jpg'
+              when 'mattresses'
+                assign house = 'ms-photo-mattress-detail.jpg'
+              when 'toppers'
+                assign house = 'ms-photo-tufting.jpg'
+              when 'bedding'
+                assign house = 'ms-photo-linen-sheets.jpg'
+              when 'throws'
+                assign house = 'ms-photo-red-throw.jpg'
+              when 'cushions'
+                assign house = 'ms-photo-teal-throw.jpg'
+              when 'furniture'
+                assign house = 'ms-photo-atelier-chair.jpg'
+              when 'lamps'
+                assign house = 'ms-photo-window-chair.jpg'
+              when 'wallcoverings'
+                assign house = 'ms-photo-atelier-parrots.jpg'
+              when 'treasures'
+                assign house = 'ms-photo-silk-detail.jpg'
+            endcase
+          -%}
           <a class="ms-ci__card" href="{{ c.url }}">
-            <span class="ms-ci__img">{%- if pic != blank -%}<img src="{{ pic | image_url: width: 900 }}" alt="" width="900" height="675" loading="lazy">{%- endif -%}</span>
+            <span class="ms-ci__img">{%- if pic != blank -%}<img src="{{ pic | image_url: width: 900 }}" alt="" width="900" height="675" loading="lazy">{%- elsif house != '' -%}<img src="{{ house | asset_url }}" alt="" width="900" height="675" loading="lazy">{%- endif -%}</span>
             <span class="ms-ci__name">{{ s[kn] | default: c.title }}</span>
             <span class="ms-ci__count">{{ c.products_count }}</span>
             {%- if s[kl] != blank -%}<span class="ms-ci__line">{{ s[kl] }}</span>{%- endif -%}

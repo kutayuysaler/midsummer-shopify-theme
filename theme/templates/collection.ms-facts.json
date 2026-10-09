@@ -59,7 +59,7 @@
           "type": "fact",
           "settings": {
             "label": "Natural fibres",
-            "value": "<p>Baby alpaca, Cheviot wool, horsehair, vegetable horsehair, yak hair, mohair, cashmere, silk, linen, organic cotton and Orange Fiber; vicuña in the Icons collection.</p>",
+            "value": "<p>Baby alpaca, camel hair, Cheviot and Falkland wool, horsehair, vegetable horsehair, yak hair, mohair, cashmere, silk, linen, organic cotton, Ingeo and Orange Fiber; vicuña in the Icons collection.</p>",
             "link_place": "materials",
             "link_label": "Natural materials"
           }
@@ -199,7 +199,7 @@
         "fig_2": {
           "type": "figure",
           "settings": {
-            "number": "12",
+            "number": "14",
             "count": true,
             "label": "Natural fibres",
             "line": "From Cheviot wool and horsehair to vicuña."

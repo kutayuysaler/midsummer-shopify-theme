@@ -27,7 +27,7 @@
     <h2 class="ms-bl__title" id="bl-{{ section.id }}">{{ s.heading | replace: '[n]', n }}</h2>
     {%- if s.text != blank -%}<p class="ms-bl__text">{{ s.text }}</p>{%- endif -%}
   </div>
-  <ul class="ms-bl__row" role="list">
+  <ul class="ms-bl__row{% if n <= 10 %} is-one-row{% endif %}" role="list" style="--bl-n: {{ n }};">
     {%- for p in collection.products limit: 24 -%}
       {%- capture k -%}{% render 'ms-kind', p: p %}{%- endcapture -%}
       {%- assign kp = k | split: '|' -%}
@@ -56,6 +56,8 @@
   .ms-bl__title { font-family: Newsreader, Georgia, serif; font-weight: 200; font-size: clamp(28px, 3.2vw, 44px); line-height: 1.1; letter-spacing: -0.025em; margin-top: 14px; max-width: 26ch; }
   .ms-bl__text { font-size: 14.5px; line-height: 1.85; color: #4A443B; margin-top: 14px; max-width: 60ch; }
   .ms-bl__row { list-style: none; margin: clamp(28px, 4vw, 48px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); gap: 28px clamp(8px, 1.2vw, 18px); align-items: end; }
+  /* on a wide screen every bed stands in one row, the cat at the end */
+  @media (min-width: 1100px) { .ms-bl__row.is-one-row { grid-template-columns: repeat(var(--bl-n), minmax(0, 1fr)) minmax(70px, .55fr); } }
   .ms-bl__cat .ms-bl__draw { width: 26.7%; }
   .ms-site .ms-bl__bed a { display: block; color: #17140F; }
   .ms-bl__draw { display: block; border-bottom: 1px solid #DDD6C9; }

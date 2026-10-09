@@ -1264,3 +1264,67 @@ Other changes:
   are listed when you click their number.
 - **Loading:** the detail lives in `assets/ms-world-layers.json` (3.6 MB, about 1.1 MB as sent).
   It loads only when a visitor zooms into a region.
+
+## 34. A full review: every page checked on a desktop and a phone, and refined
+
+Every template (43 pages) was reviewed at desktop width (1440 px) and phone width (390 px). These
+are the changes that came out of the review.
+
+### Words and photographs
+
+- **The Loro Piana Interiors page:** the second photograph of the pair is now the red Paisley bed.
+  Its caption reads "Paisley: Katai, a pure silk, on the base and the border of the mattress."
+  The old caption described a headboard the photograph did not show.
+- **The Salone 2026 page:** the first photograph is now the Paisley bed that its caption
+  ("Paisley, in Loro Piana Interiors Shadan.") describes. Before, the caption sat under a general
+  view of the atelier.
+- **Every list of fibres now names all 14:** baby alpaca, camel hair, Cheviot and Falkland wool,
+  horsehair, vegetable horsehair, yak hair, mohair, cashmere, silk, linen, organic cotton, Ingeo
+  and Orange Fiber, with vicuña in the Icons collection. Camel hair, Falkland wool and Ingeo were
+  missing before. The lists appear on the Facts, FAQ and Sustainability pages. The Facts figure
+  changed from 12 to 14, to match the fibre atlas.
+- **The opening line on a product page:**
+  - When a product's description has paragraphs or line breaks, the opening line no longer runs
+    words together (as in "silk.The").
+  - The same fix applies to the search-engine description and the product's structured data.
+  - A headboard with no subtitle now opens on its own line from the bed data, for example "A
+    headboard of padded folds, parted by a band of pure silk.", instead of the start of its
+    description.
+
+### The materials page on the default template
+
+If the Natural materials page uses the store's default page template rather than
+`page.natural-materials`, it now shows the fibre atlas too, in place of the old gallery. The atlas
+appears only on the materials page, so other pages on the default template are unchanged.
+
+### Layout
+
+- **The journal band** (articles at the foot of a page):
+  - Three equal columns on a desktop, two on a tablet and one on a phone.
+  - When there is only one article, it is shown large, with the photograph beside its words,
+    instead of a lone small card.
+- **The collections index:** a collection with no image of its own now shows a house photograph
+  that fits its kind, so no card is left blank. Bed systems show the atelier, headboards the
+  fresco bed, mattresses a mattress detail, toppers the tufting, bedding the linen sheets, and so
+  on.
+- **The headboard line-up:** on a wide screen, up to ten headboards now sit in one row instead of
+  wrapping to a second row with one or two left over.
+- **The process steps:** the steps not yet reached are easier to read, at 72% strength instead of
+  55%.
+- **The contact block:** the email address stays on one line and scales with the screen instead
+  of breaking.
+- **Page text:** headings inside a page's body text have space below them, as well as above.
+
+### On a phone
+
+- **The craft drawing:** on a phone the parts' names give way to their numerals, and the drawing
+  now widens to fill the room they leave instead of sitting small in the middle.
+- **The footer:** the social icons are a little smaller (35 px) and closer together, so they stay
+  on one row.
+
+### Checks
+
+- **Theme Check:** 0 errors.
+- **Strict Liquid parse:** 449 files, 0 errors.
+- **Render audit:** 78 pages, 0 render errors, 0 missing assets.
+- **Interaction tests:** 133 passed, 0 failed.

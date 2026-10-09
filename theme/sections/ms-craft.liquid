@@ -359,6 +359,13 @@
     }
     // and its parts sit at their own depths, moving a little with the hand
     var svg = root.querySelector('.ms-cr__svg');
+    // on a phone the parts' names give way to their numerals: the drawing takes the room they left
+    if (svg) {
+      var narrowMq = window.matchMedia('(max-width: 600px)');
+      var frame = function () { svg.setAttribute('viewBox', narrowMq.matches ? '0 0 612 440' : '0 0 700 440'); };
+      frame();
+      if (narrowMq.addEventListener) narrowMq.addEventListener('change', frame);
+    }
     if (svg && draw && !still && window.matchMedia('(hover: hover)').matches) {
       draw.addEventListener('pointermove', function (e) {
         var r = draw.getBoundingClientRect();

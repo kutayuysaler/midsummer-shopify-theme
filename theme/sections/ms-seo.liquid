@@ -232,7 +232,7 @@
       "@id": "{{ shop.url }}{{ product.url }}#product",
       "name": {{ product.title | json }},
       "url": "{{ shop.url }}{{ product.url }}",
-      "description": {{ product.description | strip_html | truncate: 600 | json }},
+      "description": {{ product.description | newline_to_br | replace: '<br />', ' ' | replace: '</p>', ' </p>' | replace: '</h4>', ' </h4>' | replace: '</li>', ' </li>' | strip_html | split: ' ' | join: ' ' | truncate: 600 | json }},
       {%- if product.featured_media -%}
       "image": [
         {%- for media in product.media limit: 4 -%}
