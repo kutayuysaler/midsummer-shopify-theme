@@ -1572,3 +1572,43 @@ once the theme is published (see the checklist at the end).
     - The tiles and fonts come from `tiles.openfreemap.org`.
 11. **The softened claims (see the audits above):** if any of the original figures can be
     sourced, it can be restored in the editor.
+
+## 36. Round 15 (urgent): the homepage and product pages
+
+**What happened:** on the Round 14 theme, the homepage and every product page showed the
+theme's own 404 page ("This page is no longer here."). Shopify shows that page when it has no
+template for the address. So `templates/index.json` and the product templates were missing from
+the uploaded theme.
+
+**The likely cause:** the one section all of those templates share is *Inside the bed*
+(`sections/ms-craft.liquid`).
+- In Round 14 it grew from 40 settings to 72.
+- Shopify's own checker gives 40 as the maximum for a section.
+- When Shopify refuses a section, every template that uses it is refused with it.
+
+**The fix:**
+- *Inside the bed* is back to the 40 settings of the last version that uploaded.
+- The new wording (the headings for a mattress, a topper or a boxspring alone, the captions,
+  *Optional*, *Not included*, *All toppers* …) now sits in the section's code.
+- The fibres for each face come from `snippets/ms-sys-data`.
+- The page looks exactly as before. Both versions were rendered with Shopify's own Liquid engine
+  and compared: the output is the same.
+
+**Checks run on this build:**
+- Shopify's Liquid engine (Ruby, with `strict2` parsing): every section, snippet and layout file
+  parses.
+- That engine renders the homepage and every product template, with and without a product,
+  including toppers, mattresses and boxsprings, with no errors.
+- Theme Check: 0 errors.
+
+**After uploading, please check:**
+1. When the upload finishes, Shopify lists any files it could not take. It should list none.
+2. In *Edit code*, `templates/index.json` and `templates/product.json` should both be there.
+3. If the homepage still shows the 404 page, open *Customize*. The editor names the template
+   or section it cannot load. Send me that message.
+
+**Also in this build:**
+- **Product cards:** one photograph per product. The second photograph on hover is gone,
+  including on the store's own cards (Theme settings, *Show second image on hover*: off).
+- **The homepage film on a phone:** the whole frame is shown under the header, with the words
+  and the appointment button beneath it. The tall crop that showed only a blur is gone.

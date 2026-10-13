@@ -183,7 +183,8 @@
         "disabled": true,
         "settings": {}
       }
-    }
+    },
+    "show_second_image_on_hover": false
   },
   "presets": {
     "Atelier": {

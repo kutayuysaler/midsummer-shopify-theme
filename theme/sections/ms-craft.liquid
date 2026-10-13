@@ -6,6 +6,32 @@
 {%- endcomment -%}
 {%- liquid
   assign s = section.settings
+  # the words around the drawing live here rather than in the editor: Shopify takes a section
+  # of at most forty settings, and Inside the bed is on the homepage and every product page
+  assign tx_heading_mattress = 'The mattress, and what completes it.'
+  assign tx_heading_topper = 'The topper, and the bed beneath it.'
+  assign tx_heading_base = 'The boxspring, and the bed above it.'
+  assign tx_legend_in = '[name]'
+  assign tx_legend_out = 'Not included, to complete the bed'
+  assign tx_winter_label = 'Winter face'
+  assign tx_summer_label = 'Summer face'
+  assign tx_absent_label = 'Not included'
+  assign tx_absent_with = 'Not included with [name]'
+  assign tx_own_label = 'This is [name]'
+  assign tx_mates_label = 'To complete it'
+  assign tx_mates_ask = 'Specify it with [name]'
+  assign tx_cap_system = 'Topper, mattress and boxspring, made as one'
+  assign tx_heading_two = 'Two parts, made as one.'
+  assign tx_cap_opt = 'Mattress and boxspring, made as one; a topper if you wish'
+  assign tx_cap_two = 'Made as one, in two parts'
+  assign tx_one_base_title = 'Mattress and boxspring, in one'
+  assign tx_one_mattress_title = 'Mattress and topper, in one'
+  assign tx_opt_label = 'Optional'
+  assign tx_opt_with = 'Optional with [name]'
+  assign tx_cap_mattress = 'The mattress; what completes it, in outline'
+  assign tx_cap_topper = 'The topper; what lies beneath it, in outline'
+  assign tx_cap_base = 'The boxspring; what lies above it, in outline'
+  assign tx_all = 'All toppers|All mattresses|All boxsprings' | split: '|'
   assign eyebrow = s.eyebrow
   assign pname = ''
   if template.name == 'product' and product != blank
@@ -61,11 +87,11 @@
   assign cr_heading = s.heading
   case cr_kind
     when 'mattress'
-      assign cr_heading = s.heading_mattress | default: s.heading
+      assign cr_heading = tx_heading_mattress | default: s.heading
     when 'topper'
-      assign cr_heading = s.heading_topper | default: s.heading
+      assign cr_heading = tx_heading_topper | default: s.heading
     when 'base'
-      assign cr_heading = s.heading_base | default: s.heading
+      assign cr_heading = tx_heading_base | default: s.heading
   endcase
   assign cr_text = s.text
   if sd
@@ -109,16 +135,16 @@
   assign t3 = s.part3_title
   if parts.size == 2
     if cr_parts contains 'topper'
-      assign t3 = s.one_base_title | default: s.part3_title
+      assign t3 = tx_one_base_title | default: s.part3_title
     else
-      assign t2 = s.one_mattress_title | default: s.part2_title
+      assign t2 = tx_one_mattress_title | default: s.part2_title
     endif
   endif
-  assign absent_with = s.absent_with | replace: '[name]', pname
-  assign opt_with = s.opt_with | replace: '[name]', pname
+  assign absent_with = tx_absent_with | replace: '[name]', pname
+  assign opt_with = tx_opt_with | replace: '[name]', pname
   if cr_kind == 'system'
     if parts.size == 2 or cr_opt != blank
-      assign cr_heading = s.heading_two | default: cr_heading
+      assign cr_heading = tx_heading_two | default: cr_heading
     endif
   endif
 -%}
@@ -177,11 +203,11 @@
                       assign c_title = t3
                   endcase
                 -%}
-                <button type="button" class="ms-cr__pk{% unless mine %} is-absent{% endunless %}{% if isopt %} is-opt{% endif %}" data-cr-open="{{ p }}" aria-expanded="false" aria-controls="cr-{{ section.id }}-{{ p }}"><span>{{ nums[forloop.index0] }}</span>{{ c_title }}{%- unless mine -%}<em class="ms-cr__pk-out">{% if isopt %}{{ s.opt_label }}{% else %}{{ s.absent_label }}{% endif %}</em>{%- endunless -%}</button>
+                <button type="button" class="ms-cr__pk{% unless mine %} is-absent{% endunless %}{% if isopt %} is-opt{% endif %}" data-cr-open="{{ p }}" aria-expanded="false" aria-controls="cr-{{ section.id }}-{{ p }}"><span>{{ nums[forloop.index0] }}</span>{{ c_title }}{%- unless mine -%}<em class="ms-cr__pk-out">{% if isopt %}{{ tx_opt_label }}{% else %}{{ tx_absent_label }}{% endif %}</em>{%- endunless -%}</button>
               {%- endfor -%}
             </div>
             {%- if cr_kind != 'system' -%}
-              <p class="ms-cr__legend"><span class="ms-cr__lg"><i class="ms-cr__lg-in" aria-hidden="true"></i>{{ s.legend_in | replace: '[name]', pname }}</span><span class="ms-cr__lg"><i class="ms-cr__lg-out" aria-hidden="true"></i>{{ s.legend_out }}</span></p>
+              <p class="ms-cr__legend"><span class="ms-cr__lg"><i class="ms-cr__lg-in" aria-hidden="true"></i>{{ tx_legend_in | replace: '[name]', pname }}</span><span class="ms-cr__lg"><i class="ms-cr__lg-out" aria-hidden="true"></i>{{ tx_legend_out }}</span></p>
             {%- endif -%}
           </div>
           {%- if s.note != blank -%}<p class="ms-cr__note">{{ s.note }}</p>{%- endif -%}
@@ -204,16 +230,19 @@
             assign kl = 'part' | append: i | append: '_lead'
             assign kp = 'part' | append: i | append: '_points'
             assign kf = 'part' | append: i | append: '_fibres'
-            assign kw = 'part' | append: i | append: '_winter'
-            assign ks = 'part' | append: i | append: '_summer'
             assign kll = 'part' | append: i | append: '_link_label'
-            assign kal = 'part' | append: i | append: '_all_label'
+            assign ai = i | minus: 1
             assign infos = 'materials,regen,loro' | split: ','
             assign c_lead = s[kl]
             assign c_points = s[kp]
             assign c_fibres = s[kf]
-            assign c_winter = s[kw]
-            assign c_summer = s[ks]
+            assign sk = 'p' | append: i
+            capture c_winter
+              render 'ms-sys-data', key: ms_key, part: sk, f: 'winter'
+            endcapture
+            capture c_summer
+              render 'ms-sys-data', key: ms_key, part: sk, f: 'summer'
+            endcapture
             if sd
               assign sk = 'p' | append: i
               capture c_lead
@@ -225,18 +254,14 @@
               capture c_fibres
                 render 'ms-sys-data', key: ms_key, part: sk, f: 'fibres'
               endcapture
-              capture c_winter
-                render 'ms-sys-data', key: ms_key, part: sk, f: 'winter'
-              endcapture
-              capture c_summer
-                render 'ms-sys-data', key: ms_key, part: sk, f: 'summer'
-              endcapture
               assign c_lead = c_lead | strip
               assign c_points = c_points | strip
               assign c_fibres = c_fibres | strip
               assign c_winter = c_winter | strip
               assign c_summer = c_summer | strip
             endif
+            assign c_winter = c_winter | strip
+            assign c_summer = c_summer | strip
             assign c_lead = c_lead | replace: '[name]', pname
             assign points = c_points | newline_to_br | split: '<br />'
             assign fibres = c_fibres | split: ','
@@ -263,7 +288,7 @@
             <button type="button" class="ms-cr__back" data-cr-close><span aria-hidden="true">←</span> {{ s.back_label }}</button>
             <div class="ms-cr__pnum">{{ nums[forloop.index0] }} <span>/ {{ nums[n_last] }}</span></div>
             {%- if cr_kind != 'system' -%}
-              {%- if mine -%}<p class="ms-cr__badge"><i aria-hidden="true"></i>{{ s.own_label | replace: '[name]', pname }}</p>{%- elsif isopt -%}<p class="ms-cr__badge is-out"><i aria-hidden="true"></i>{{ opt_with }}</p>{%- else -%}<p class="ms-cr__badge is-out"><i aria-hidden="true"></i>{{ absent_with }}</p>{%- endif -%}
+              {%- if mine -%}<p class="ms-cr__badge"><i aria-hidden="true"></i>{{ tx_own_label | replace: '[name]', pname }}</p>{%- elsif isopt -%}<p class="ms-cr__badge is-out"><i aria-hidden="true"></i>{{ opt_with }}</p>{%- else -%}<p class="ms-cr__badge is-out"><i aria-hidden="true"></i>{{ absent_with }}</p>{%- endif -%}
             {%- endif -%}
             <h3 class="ms-cr__ph">{{ c_title }}</h3>
             {%- if c_lead != blank -%}<p class="ms-cr__lead">{{ c_lead }}</p>{%- endif -%}
@@ -284,7 +309,7 @@
               <div class="ms-cr__fl">{{ s.fibres_label }}</div>
               <div class="ms-cr__faces">
                 {%- for side in (1..2) -%}
-                  {%- if side == 1 -%}{%- assign fl = c_winter | split: ',' -%}{%- assign fh = s.winter_label -%}{%- else -%}{%- assign fl = c_summer | split: ',' -%}{%- assign fh = s.summer_label -%}{%- endif -%}
+                  {%- if side == 1 -%}{%- assign fl = c_winter | split: ',' -%}{%- assign fh = tx_winter_label -%}{%- else -%}{%- assign fl = c_summer | split: ',' -%}{%- assign fh = tx_summer_label -%}{%- endif -%}
                   <div class="ms-cr__fc">
                     <div class="ms-cr__fh">{%- if side == 1 -%}<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5v13M2.4 4.75l11.2 6.5M2.4 11.25l11.2-6.5M6.3 2.6 8 4.3l1.7-1.7M6.3 13.4 8 11.7l1.7 1.7" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>{%- else -%}<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="8" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.4 1.4M11.55 11.55l1.4 1.4M3.05 12.95l1.4-1.4M11.55 4.45l1.4-1.4" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>{%- endif -%}{{ fh }}</div>
                     <ul class="ms-cr__fibres" role="list">
@@ -302,11 +327,11 @@
             {%- unless mine -%}
               {%- assign m_items = mt[3] | replace: '¦', '|' -%}
               <div class="ms-cr__mates">
-                <div class="ms-cr__fl">{{ s.mates_label }}</div>
+                <div class="ms-cr__fl">{{ tx_mates_label }}</div>
                 {%- if m_items != blank -%}<ul class="ms-cr__mlist" role="list">{{ m_items }}</ul>{%- endif -%}
                 <div class="ms-cr__mlinks">
-                  {%- if mt[1] != blank -%}<a class="ms-cr__link" href="{{ mt[1] }}">{{ s[kal] }}<span aria-hidden="true">→</span></a>{%- endif -%}
-                  <a class="ms-cr__link ms-cr__link--soft" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=appointment' %}#enquire" data-ms-enquire>{{ s.mates_ask | replace: '[name]', pname }}<span aria-hidden="true">→</span></a>
+                  {%- if mt[1] != blank -%}<a class="ms-cr__link" href="{{ mt[1] }}">{{ tx_all[ai] }}<span aria-hidden="true">→</span></a>{%- endif -%}
+                  <a class="ms-cr__link ms-cr__link--soft" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=appointment' %}#enquire" data-ms-enquire>{{ tx_mates_ask | replace: '[name]', pname }}<span aria-hidden="true">→</span></a>
                 </div>
               </div>
             {%- endunless -%}
@@ -331,22 +356,22 @@
       </div>
 
       <figure class="ms-cr__draw">
-        {% render 'ms-craft-svg', key: ms_key, u: section.id, aria: cr_heading, t0: s.absent_label, to: s.opt_label, t1: s.part1_title, t2: t2, t3: t3 %}
+        {% render 'ms-craft-svg', key: ms_key, u: section.id, aria: cr_heading, t0: tx_absent_label, to: tx_opt_label, t1: s.part1_title, t2: t2, t3: t3 %}
         {%- if pname != '' -%}
           {%- liquid
             case cr_kind
               when 'mattress'
-                assign cap = s.cap_mattress
+                assign cap = tx_cap_mattress
               when 'topper'
-                assign cap = s.cap_topper
+                assign cap = tx_cap_topper
               when 'base'
-                assign cap = s.cap_base
+                assign cap = tx_cap_base
               else
-                assign cap = s.cap_system
+                assign cap = tx_cap_system
                 if parts.size == 2
-                  assign cap = s.cap_two | default: s.cap_system
+                  assign cap = tx_cap_two | default: tx_cap_system
                 elsif cr_opt != blank
-                  assign cap = s.cap_opt | default: s.cap_system
+                  assign cap = tx_cap_opt | default: tx_cap_system
                 endif
             endcase
           -%}
@@ -369,7 +394,7 @@
           assign kx = 'part' | append: i | append: '_text'
           assign ki = 'part' | append: i | append: '_image'
           assign kf = 'part' | append: i | append: '_fallback'
-          assign kal = 'part' | append: i | append: '_all_label'
+          assign ai = i | minus: 1
           assign c_text = s[kx]
           if sd
             assign sk = 'p' | append: i
@@ -414,7 +439,7 @@
         {%- else -%}
         <a class="ms-cr__part is-absent" data-part="{{ p }}" href="{{ mt[0] }}">
         {%- endif -%}
-          <span class="ms-cr__img">{%- if own -%}<img src="{{ own | image_url: width: 1000 }}" srcset="{{ own | image_url: width: 600 }} 600w, {{ own | image_url: width: 1000 }} 1000w" sizes="(max-width: 760px) 90vw, 30vw" alt="{{ own.alt | default: c_title | escape }}" width="1000" height="1250" loading="lazy">{%- elsif mine == false and mt[2] != blank -%}<img src="{{ mt[2] }}" alt="{{ c_title | escape }}" width="900" height="1125" loading="lazy">{%- else -%}<img src="{% render 'ms-img', image: s[ki], fallback: s[kf], width: 1000 %}" alt="{{ c_title | escape }}" width="1000" height="1250" loading="lazy">{%- endif -%}{%- unless mine -%}<span class="ms-cr__out">{% if isopt %}{{ s.opt_label }}{% else %}{{ s.absent_label }}{% endif %}</span>{%- endunless -%}</span>
+          <span class="ms-cr__img">{%- if own -%}<img src="{{ own | image_url: width: 1000 }}" srcset="{{ own | image_url: width: 600 }} 600w, {{ own | image_url: width: 1000 }} 1000w" sizes="(max-width: 760px) 90vw, 30vw" alt="{{ own.alt | default: c_title | escape }}" width="1000" height="1250" loading="lazy">{%- elsif mine == false and mt[2] != blank -%}<img src="{{ mt[2] }}" alt="{{ c_title | escape }}" width="900" height="1125" loading="lazy">{%- else -%}<img src="{% render 'ms-img', image: s[ki], fallback: s[kf], width: 1000 %}" alt="{{ c_title | escape }}" width="1000" height="1250" loading="lazy">{%- endif -%}{%- unless mine -%}<span class="ms-cr__out">{% if isopt %}{{ tx_opt_label }}{% else %}{{ tx_absent_label }}{% endif %}</span>{%- endunless -%}</span>
           <span class="ms-cr__cnum">{{ nums[forloop.index0] }}</span>
           <span class="ms-cr__ptitle">{{ c_title }}</span>
           <span class="ms-cr__ptext">{% if lp_free %}{{ c_text | replace: ' in Loro Piana Interiors', '' }}{% else %}{{ c_text }}{% endif %}</span>
@@ -422,7 +447,7 @@
           <span class="ms-cr__more">{{ s.open_label }} <span aria-hidden="true">↑</span></span>
         </button>
           {%- else -%}
-          <span class="ms-cr__more">{{ s[kal] }} <span aria-hidden="true">→</span></span>
+          <span class="ms-cr__more">{{ tx_all[ai] }} <span aria-hidden="true">→</span></span>
         </a>
           {%- endif -%}
       {%- endfor -%}
@@ -680,24 +705,6 @@
       "default": "Three parts, made as one."
     },
     {
-      "type": "text",
-      "id": "heading_mattress",
-      "label": "Heading on a mattress",
-      "default": "The mattress, and what completes it."
-    },
-    {
-      "type": "text",
-      "id": "heading_topper",
-      "label": "Heading on a topper",
-      "default": "The topper, and the bed beneath it."
-    },
-    {
-      "type": "text",
-      "id": "heading_base",
-      "label": "Heading on a boxspring",
-      "default": "The boxspring, and the bed above it."
-    },
-    {
       "type": "textarea",
       "id": "text",
       "label": "Text",
@@ -708,19 +715,6 @@
       "id": "hint",
       "label": "Hint",
       "default": "Open a part of the bed"
-    },
-    {
-      "type": "text",
-      "id": "legend_in",
-      "label": "Key: included",
-      "default": "[name]",
-      "info": "[name] becomes the product’s name. Shown on a mattress, topper or boxspring page."
-    },
-    {
-      "type": "text",
-      "id": "legend_out",
-      "label": "Key: not included",
-      "default": "Not included, to complete the bed"
     },
     {
       "type": "textarea",
@@ -797,120 +791,6 @@
       "default": "What we tend to use"
     },
     {
-      "type": "text",
-      "id": "winter_label",
-      "label": "Winter face",
-      "default": "Winter face"
-    },
-    {
-      "type": "text",
-      "id": "summer_label",
-      "label": "Summer face",
-      "default": "Summer face"
-    },
-    {
-      "type": "header",
-      "content": "What a mattress, topper or boxspring does not include"
-    },
-    {
-      "type": "text",
-      "id": "absent_label",
-      "label": "Not included",
-      "default": "Not included"
-    },
-    {
-      "type": "text",
-      "id": "absent_with",
-      "label": "Not included, with the product",
-      "default": "Not included with [name]",
-      "info": "[name] becomes the product’s name."
-    },
-    {
-      "type": "text",
-      "id": "own_label",
-      "label": "Included",
-      "default": "This is [name]"
-    },
-    {
-      "type": "text",
-      "id": "mates_label",
-      "label": "To complete it",
-      "default": "To complete it"
-    },
-    {
-      "type": "text",
-      "id": "mates_ask",
-      "label": "Ask",
-      "default": "Specify it with [name]"
-    },
-    {
-      "type": "text",
-      "id": "cap_system",
-      "label": "Caption: a system",
-      "default": "Topper, mattress and boxspring, made as one"
-    },
-    {
-      "type": "text",
-      "id": "heading_two",
-      "label": "Heading on a system in two parts",
-      "default": "Two parts, made as one."
-    },
-    {
-      "type": "text",
-      "id": "cap_opt",
-      "label": "Caption: a system whose topper is optional",
-      "default": "Mattress and boxspring, made as one; a topper if you wish"
-    },
-    {
-      "type": "text",
-      "id": "cap_two",
-      "label": "Caption: a system in two parts",
-      "default": "Made as one, in two parts"
-    },
-    {
-      "type": "text",
-      "id": "one_base_title",
-      "label": "Part III, when mattress and boxspring are one piece",
-      "default": "Mattress and boxspring, in one"
-    },
-    {
-      "type": "text",
-      "id": "one_mattress_title",
-      "label": "Part II, when mattress and topper are one piece",
-      "default": "Mattress and topper, in one"
-    },
-    {
-      "type": "text",
-      "id": "opt_label",
-      "label": "An optional part",
-      "default": "Optional"
-    },
-    {
-      "type": "text",
-      "id": "opt_with",
-      "label": "An optional part: badge",
-      "default": "Optional with [name]",
-      "info": "[name] becomes the product’s name."
-    },
-    {
-      "type": "text",
-      "id": "cap_mattress",
-      "label": "Caption: a mattress",
-      "default": "The mattress; what completes it, in outline"
-    },
-    {
-      "type": "text",
-      "id": "cap_topper",
-      "label": "Caption: a topper",
-      "default": "The topper; what lies beneath it, in outline"
-    },
-    {
-      "type": "text",
-      "id": "cap_base",
-      "label": "Caption: a boxspring",
-      "default": "The boxspring; what lies above it, in outline"
-    },
-    {
       "type": "header",
       "content": "Part I"
     },
@@ -948,27 +828,10 @@
     },
     {
       "type": "text",
-      "id": "part1_winter",
-      "label": "Fibres, winter face",
-      "info": "Separated by commas. With the summer face, shown side by side in place of the fibres above."
-    },
-    {
-      "type": "text",
-      "id": "part1_summer",
-      "label": "Fibres, summer face"
-    },
-    {
-      "type": "text",
       "id": "part1_link_label",
       "label": "Link",
       "default": "Every fibre",
       "info": "Leads to Natural materials."
-    },
-    {
-      "type": "text",
-      "id": "part1_all_label",
-      "label": "Link, when not included",
-      "default": "All toppers"
     },
     {
       "type": "image_picker",
@@ -1019,27 +882,10 @@
     },
     {
       "type": "text",
-      "id": "part2_winter",
-      "label": "Fibres, winter face",
-      "info": "Separated by commas. With the summer face, shown side by side in place of the fibres above."
-    },
-    {
-      "type": "text",
-      "id": "part2_summer",
-      "label": "Fibres, summer face"
-    },
-    {
-      "type": "text",
       "id": "part2_link_label",
       "label": "Link",
       "default": "Made to last · 15 + 15",
       "info": "Leads to Made to last."
-    },
-    {
-      "type": "text",
-      "id": "part2_all_label",
-      "label": "Link, when not included",
-      "default": "All mattresses"
     },
     {
       "type": "image_picker",
@@ -1090,27 +936,10 @@
     },
     {
       "type": "text",
-      "id": "part3_winter",
-      "label": "Fibres, winter face",
-      "info": "Separated by commas. With the summer face, shown side by side in place of the fibres above."
-    },
-    {
-      "type": "text",
-      "id": "part3_summer",
-      "label": "Fibres, summer face"
-    },
-    {
-      "type": "text",
       "id": "part3_link_label",
       "label": "Link",
       "default": "The Loro Piana Interiors cloths",
       "info": "Leads to Loro Piana Interiors."
-    },
-    {
-      "type": "text",
-      "id": "part3_all_label",
-      "label": "Link, when not included",
-      "default": "All boxsprings"
     },
     {
       "type": "image_picker",
