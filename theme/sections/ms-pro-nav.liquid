@@ -1,0 +1,70 @@
+{%- comment -%}
+  The professionals' own bar, the same on each of their pages: architects and interior designers,
+  hospitality and contract, the portfolio, agents and resellers, and the trade desk. The page you
+  are on is marked; the trade desk opens a project file on the enquiry page.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  capture u_pro
+    render 'ms-link', to: 'professionals'
+  endcapture
+  capture u_hosp
+    render 'ms-link', to: 'hospitality'
+  endcapture
+  capture u_portfolio
+    render 'ms-link', to: 'portfolio', strict: true
+  endcapture
+  capture u_agents
+    render 'ms-link', to: 'agents'
+  endcapture
+  capture u_trade
+    render 'ms-link', to: 'enquire', q: 'enquiry=trade'
+  endcapture
+-%}
+<nav class="ms-pn" aria-label="{{ s.label | escape }}">
+  <div class="ms-pn__in">
+    <span class="ms-pn__lab">{{ s.label }}</span>
+    <ul class="ms-pn__list" role="list">
+      <li><a href="{{ u_pro | strip }}"{% if s.current == 'architects' %} aria-current="page"{% endif %}>{{ s.l_architects }}</a></li>
+      <li><a href="{{ u_hosp | strip }}"{% if s.current == 'hospitality' %} aria-current="page"{% endif %}>{{ s.l_hospitality }}</a></li>
+      {%- if u_portfolio != blank -%}<li><a href="{{ u_portfolio | strip }}"{% if s.current == 'portfolio' %} aria-current="page"{% endif %}>{{ s.l_portfolio }}</a></li>{%- endif -%}
+      <li><a href="{{ u_agents | strip }}"{% if s.current == 'agents' %} aria-current="page"{% endif %}>{{ s.l_agents }}</a></li>
+    </ul>
+    <a class="ms-pn__cta" href="{{ u_trade | strip }}#enquire" data-ms-landing>{{ s.l_trade }}<span aria-hidden="true">→</span></a>
+  </div>
+</nav>
+<style>
+  .ms-pn { background: #FBF9F5; border-bottom: 1px solid rgba(23, 20, 15, .1); }
+  .ms-pn__in { max-width: 1440px; margin: 0 auto; padding: 0 clamp(20px, 4.5vw, 72px); display: flex; align-items: center; gap: clamp(18px, 3vw, 44px); min-height: 56px; }
+  .ms-pn__lab { flex: 0 0 auto; font-size: 10px; letter-spacing: .26em; text-transform: uppercase; color: #7E623B; }
+  .ms-pn__list { list-style: none; margin: 0; padding: 0; display: flex; gap: clamp(16px, 2.4vw, 36px); flex: 1 1 auto; min-width: 0; overflow-x: auto; scrollbar-width: none; }
+  .ms-pn__list::-webkit-scrollbar { display: none; }
+  .ms-site .ms-pn__list a { display: block; padding: 18px 0 16px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #6E675C; white-space: nowrap; border-bottom: 1px solid transparent; transition: color .25s, border-color .25s; }
+  .ms-site .ms-pn__list a:hover { color: #17140F; }
+  .ms-site .ms-pn__list a[aria-current="page"] { color: #17140F; border-bottom-color: #17140F; }
+  .ms-site .ms-pn__cta { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 10px; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #17140F; border-bottom: 1px solid currentColor; padding: 2px 0; white-space: nowrap; }
+  @media (max-width: 760px) {
+    .ms-pn__in { flex-wrap: wrap; gap: 0 16px; padding-top: 12px; }
+    .ms-pn__lab { order: 1; flex: 1 1 auto; }
+    .ms-site .ms-pn__cta { order: 2; font-size: 10px; letter-spacing: .16em; }
+    .ms-pn__list { order: 3; width: 100%; flex-basis: 100%; }
+    .ms-site .ms-pn__list a { padding: 12px 0; font-size: 11px; letter-spacing: .12em; }
+  }
+</style>
+{% schema %}
+{
+  "name": "Professionals bar",
+  "settings": [
+    { "type": "select", "id": "current", "label": "This page", "default": "architects", "options": [
+      { "value": "architects", "label": "Architects & Interior Designers" }, { "value": "hospitality", "label": "Hospitality & Contract" },
+      { "value": "portfolio", "label": "Portfolio" }, { "value": "agents", "label": "Agents & Resellers" } ] },
+    { "type": "text", "id": "label", "label": "Bar title", "default": "Professionals" },
+    { "type": "text", "id": "l_architects", "label": "Architects", "default": "Architects & Designers" },
+    { "type": "text", "id": "l_hospitality", "label": "Hospitality", "default": "Hospitality & Contract" },
+    { "type": "text", "id": "l_portfolio", "label": "Portfolio", "default": "Portfolio" },
+    { "type": "text", "id": "l_agents", "label": "Agents", "default": "Agents & Resellers" },
+    { "type": "text", "id": "l_trade", "label": "Trade desk", "default": "Open a project file" }
+  ],
+  "presets": [{ "name": "Professionals bar" }]
+}
+{% endschema %}

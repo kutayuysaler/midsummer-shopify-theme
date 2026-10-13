@@ -89,13 +89,14 @@
             "qualities": "temperature",
             "quality_label": "Warmth · Temperature",
             "lead": "It shields the camel from the extremes of the desert, cold and heat, and does the same in a bed. Fine and soft, it holds a great deal of air, and it is more hygroscopic than sheep’s wool: a dry, pleasant warmth.",
-            "photo": "none",
+            "photo": "camel",
             "glass_note": "Fine hair, scaled, holding a great deal of air.",
             "points": "43.5,104.5",
             "f1": "700 g",
             "f1_cap": "At most, combed from one young camel in a year.",
             "origin": "Asia",
-            "species": "Camelus bactrianus"
+            "species": "Camelus bactrianus",
+            "alt": "A Bactrian camel crossing the snow."
           }
         },
         "fibre_4": {
@@ -128,13 +129,14 @@
             "qualities": "temperature hypoallergenic",
             "quality_label": "Temperature · Hypoallergenic",
             "lead": "From an animal of the high South American ranges, with an abundant fleece, soft and almost silky. The fibre sits between wool and cashmere, nearer to cashmere; alpaca cloth was once kept for the Inca emperors.",
-            "photo": "none",
+            "photo": "alpaca",
             "glass_note": "Low scales and a gentle wave: between wool and cashmere.",
             "points": "-14.5,-71.5",
             "f1": "No lanolin",
             "f1_cap": "And so naturally hypoallergenic.",
             "origin": "The South American highlands",
-            "species": "Vicugna pacos"
+            "species": "Vicugna pacos",
+            "alt": "Baby alpaca, its long, soft fleece close up."
           }
         },
         "fibre_6": {
@@ -147,8 +149,9 @@
             "qualities": "temperature",
             "quality_label": "Warmth without weight",
             "lead": "On the winter side of a bed, with cashmere, silk and wool: warmth without weight.",
-            "photo": "none",
-            "glass_note": "Long fibres, almost smooth, which give mohair its lustre."
+            "photo": "mohair",
+            "glass_note": "Long fibres, almost smooth, which give mohair its lustre.",
+            "alt": "Tufts of mohair on a sample card, in many shades."
           }
         },
         "fibre_7": {
@@ -223,13 +226,14 @@
             "qualities": "breathability",
             "quality_label": "Breathability · Freshness",
             "lead": "From the stem of the flax plant, grown in the cool regions of northern Europe. A good conductor of heat, it feels cool against the skin: the fibre of the summer side.",
-            "photo": "none",
+            "photo": "linen",
             "glass_note": "Straight fibres, marked by the nodes of the flax stem.",
             "points": "50.4,3.2",
             "f1": "20%",
             "f1_cap": "Of its own weight in moisture, absorbed.",
             "origin": "Northern Europe",
-            "species": "Linum usitatissimum"
+            "species": "Linum usitatissimum",
+            "alt": "Linen cloth, in soft folds."
           }
         },
         "fibre_11": {
@@ -260,13 +264,14 @@
             "qualities": "support breathability",
             "quality_label": "Support · Breathability",
             "lead": "Fibres from the leaves of palms, mainly the dwarf palm of southern Italy and Sicily, known as St Peter’s palm. The leaves are dried, curled and braided into ropes, like horsehair: soft, resilient and practically indestructible.",
-            "photo": "none",
+            "photo": "vegetable",
             "glass_note": "Ridged fibres of the palm leaf, curled like horsehair.",
             "points": "38.6,16.1",
             "f1": "Sicily",
             "f1_cap": "And southern Italy, where the palm grows.",
             "origin": "Southern Italy and Sicily",
-            "species": "Chamaerops humilis"
+            "species": "Chamaerops humilis",
+            "alt": "The fan-shaped leaves of a palm against the sky."
           }
         },
         "fibre_13": {
@@ -279,10 +284,11 @@
             "qualities": "breathability",
             "quality_label": "Breathability · Freshness",
             "lead": "A sustainable fibre derived from maize. With wool, linen and cotton, it is on the summer side: fresh and breathable.",
-            "photo": "none",
+            "photo": "ingeo",
             "glass_note": "Even, smooth filaments, drawn from maize.",
             "f1": "Maize",
-            "f1_cap": "The plant it is drawn from."
+            "f1_cap": "The plant it is drawn from.",
+            "alt": "A soft white tuft of maize fibre with cotton."
           }
         },
         "fibre_14": {
@@ -295,12 +301,13 @@
             "qualities": "breathability",
             "quality_label": "Freshness · Breathability",
             "lead": "An innovative, sustainable material made from Sicilian orange peels: light, breathable and naturally fresh.",
-            "photo": "none",
+            "photo": "orange",
             "glass_note": "Fine, even filaments, made from orange peel.",
             "points": "37.4,14.4",
             "f1": "Orange peel",
             "f1_cap": "From Sicily’s oranges.",
-            "origin": "Sicily"
+            "origin": "Sicily",
+            "alt": "Oranges, the fruit whose peel becomes Orange Fiber, under a Top mattress."
           }
         }
       },

@@ -1,4 +1,4 @@
-"""The seven fibre plates for the Natural materials specimen viewer: licensed photographs of
+"""The fourteen fibre plates for the Natural materials specimen viewer: licensed photographs of
 each fibre at its source (Shutterstock and Unsplash, from the company's own library), cropped
 square around the subject and toned alike: a warm monochrome, as one series of plates."""
 import sys, os
@@ -14,6 +14,14 @@ SPEC = {
   'silk':      ('seta.jpg',                              .66, .55, .82),
   'horsehair': ('shutterstock_356083304-5878250.jpg',    .60, .5, 1.0),
   'cotton':    ('shutterstock_127061399-3624055.jpg',    .56, .5, 1.0),
+  # Round 15: the seven that had only their drawing
+  'camel':     ('shutterstock_390845494.jpg',            .47, .5, 1.0),
+  'alpaca':    ('ALPACA_BEIGE.jpg',                      .5, .5, 1.0),
+  'mohair':    ('MOhair colors.jpeg',                    .62, .42, .62),
+  'linen':     ('lino.jpg',                              .5, .5, .9),
+  'vegetable': ('nika-akin-b9UKi6t3xh0-unsplash (1).jpg', .5, .3, 1.0),
+  'ingeo':     ('cotone+fibra mais.JPG',                 .56, .5, .72),
+  'orange':    ('Top_arance.jpg',                        .5, .79, .42),
 }
 # warm monochrome: shadows of dark walnut, light of the page's ivory
 STOPS = [(0.0, (34, 28, 22)), (0.42, (122, 106, 88)), (0.78, (205, 192, 172)), (1.0, (247, 242, 233))]

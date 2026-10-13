@@ -316,9 +316,16 @@
         "system_8",
         "system_9"
       ]
+    },
+    "pronav": {
+      "type": "ms-pro-nav",
+      "settings": {
+        "current": "architects"
+      }
     }
   },
   "order": [
+    "pronav",
     "s01",
     "s02",
     "spec",

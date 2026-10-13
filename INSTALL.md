@@ -1612,3 +1612,102 @@ the uploaded theme.
   including on the store's own cards (Theme settings, *Show second image on hover*: off).
 - **The homepage film on a phone:** the whole frame is shown under the header, with the words
   and the appointment button beneath it. The tall crop that showed only a blur is gone.
+
+## 37. Round 15: the rest of the requests
+
+### Natural materials: every fibre has its plate
+
+The seven fibres that showed only their drawing now have a photograph at the source, toned like
+the first seven (`scripts/fibre_plates.py`). All come from the brand's Drive:
+
+| Fibre | Photograph | Source |
+| --- | --- | --- |
+| Camel hair | A Bactrian camel crossing the snow | Shutterstock 390845494 |
+| Baby alpaca | The fleece, close up | the brand's ALPACA_BEIGE photograph |
+| Mohair | Tufts of mohair on a sample card | *MOhair colors* |
+| Linen | Linen cloth in soft folds | Shutterstock, *lino* (_TEXTURE folder) |
+| Vegetable horsehair | The fan-shaped leaves of a palm | Unsplash, Nika Akin (_VEGETAZIONE folder) |
+| Ingeo | A tuft of maize fibre with cotton | the brand's fibre close-up *cotone + fibra mais* |
+| Orange Fiber | Oranges under a Top mattress | the brand's *Top_arance* |
+
+Vegetable horsehair comes from palm leaves, so the plate shows a palm. The coconut-fibre
+close-up in the Drive is a different fibre and is not used.
+
+### Loro Piana Interiors
+
+- **Wish:** the Flora boxspring corner is replaced by the official Wish bouclé swatch, in ivory,
+  from the Drive (1200 px).
+- **Each colour now looks like cloth:**
+  - Altai and Connemara are shown on a photographed weave: an atelier photograph of a linen
+    plain weave for Connemara, and a fine wool and cashmere nap for Altai.
+  - Each is tinted with the colour measured on the Loro Piana card and lit softly.
+  - The chips are 240 px and the large view 1000 px. The script is `scripts/cloth_render.py`.
+  - The footnote says so.
+- **Ely's Harbour and Bangor:** their large view shows the cloth's weave in a natural ground,
+  still captioned *Colours at the atelier*.
+- **The chips:** clean small cuts with a soft shadow; the chosen one has a fine ring. The pinked
+  edges are gone.
+- **Altai's three mélange colours** are named as such: *1 Biancore mélange*, and so on.
+
+### Professionals
+
+- **One bar on each professional page:** the Architects, Hospitality and Agents & Resellers
+  pages share the same bar.
+  - It holds *Architects & Designers · Hospitality & Contract · Portfolio · Agents &
+    Resellers*, and *Open a project file* on the right.
+  - The page you are on is underlined.
+  - It is a section (*Professionals bar*), so it can be moved or removed in the editor.
+- **The menu's Professionals panel** lists the same places in the same order, with *Open a
+  project file* as its button.
+  - *Become a partner* is on the Agents & Resellers page.
+  - The phone menu matches.
+- **The project desk** (bottom of the Architects page) is recomposed:
+  - The three steps of a project sit beside the frescoed loft photograph, with the mattress
+    label as a detail.
+  - The lifestyle photograph with the red throw is gone.
+
+### Enquiries reach info@ clearly
+
+The enquiry page and the enquiry drawer post to Shopify's contact form. Shopify emails each one
+to the store's contact email.
+- **In admin:** Settings → Store details (Store contact email) must be
+  **info@midsummer-milano.com**. Replying to the email answers the visitor.
+- **Each email now starts with:**
+  - the enquiry type (*Book appointment*, *Trade enquiry*, …);
+  - the visitor's title and name, in Shopify's own name field, so the sender line shows it;
+  - the page it was sent from, with its address.
+- **The other fields are named by the tab:** *Preferred date*, *Subject*, *Company*,
+  *Project*, *Message* …
+- **Check:** send one test enquiry from the live site. If it does not arrive, look in spam.
+  Shopify sends from its own mailer, so mark it as a trusted sender.
+
+### The world map
+
+The agents page opens on the drawn map again. It has been checked in every round, with regions,
+clusters and a legend.
+- The street map (OpenFreeMap tiles) stays in the section as *Street map (test before turning
+  on)*, off by default.
+- Its tiles cannot be reached from where the theme is built, so it was never seen with real
+  tiles. Turn it on only after looking at it on the store.
+
+### Collection pages: one line of products
+
+The products of a collection run in one horizontal line:
+- Each card snaps into place, and the next one shows at the edge.
+- Draw the line along with the mouse, or swipe on a phone.
+- Arrows and a fine progress line with *01 / 12* sit beneath it.
+- The kind and need filters work as before.
+- A collection of one product keeps its large single layout.
+
+### Checks on this build
+
+| Check | Result |
+| --- | --- |
+| Shopify's Liquid engine (Ruby, `strict` and `strict2` parsing) | 462 files, 0 errors |
+| The same engine rendering the homepage, product pages (system, topper, mattress, boxspring), Professionals, Loro Piana, collection and agents pages | no errors |
+| Theme Check | 0 errors (67 warnings, as before) |
+| Template values against section schemas | no new issues |
+| Page audit (78 templates, computer and phone) | no sideways overflow, no missing images, no script errors |
+| Interaction tests | 152 pass (new: the collection line and its arrow) |
+
+After uploading, check the list Shopify shows when the upload finishes. It should name no files.

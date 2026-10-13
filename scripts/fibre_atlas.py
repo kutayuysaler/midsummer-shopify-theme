@@ -70,7 +70,7 @@ ATLAS = [
       'It shields the camel from the extremes of the desert, cold and heat, and does the same in a bed. Fine and soft, it holds a great deal of air, '
       'and it is more hygroscopic than sheep’s wool: a dry, pleasant warmth.',
       [('700 g', 'At most, combed from one young camel in a year.')],
-      origin='Asia', species='Camelus bactrianus'),
+      origin='Asia', species='Camelus bactrianus', photo='camel', alt='A Bactrian camel crossing the snow.'),
     F('yak', 'Yak', 'animal', 'Yak Hair', 'temperature softness', 'Warmth · Softness',
       'A fine, very warm and particularly robust hair, soft and fluffy, with the look of cashmere. The yak is neither shorn nor combed: '
       'in May its winter undercoat falls, and the nomads gather it.',
@@ -80,9 +80,9 @@ ATLAS = [
       'From an animal of the high South American ranges, with an abundant fleece, soft and almost silky. The fibre sits between wool and cashmere, '
       'nearer to cashmere; alpaca cloth was once kept for the Inca emperors.',
       [('No lanolin', 'And so naturally hypoallergenic.')],
-      origin='The South American highlands', species='Vicugna pacos'),
+      origin='The South American highlands', species='Vicugna pacos', photo='alpaca', alt='Baby alpaca, its long, soft fleece close up.'),
     F('mohair', 'Mohair', 'animal', 'Mohair', 'temperature', 'Warmth without weight',
-      'On the winter side of a bed, with cashmere, silk and wool: warmth without weight.'),
+      'On the winter side of a bed, with cashmere, silk and wool: warmth without weight.', photo='mohair', alt='Tufts of mohair on a sample card, in many shades.'),
     F('silk', 'Silk', 'animal', 'Silk', 'softness temperature', 'Temperature · Softness',
       'The only animal fibre spun by a silkworm, fed on mulberry leaves. A continuous filament, fine and lustrous: light, insulating, '
       'elastic and flexible, held to be the finest and softest of the natural fibres.',
@@ -102,7 +102,7 @@ ATLAS = [
       'From the stem of the flax plant, grown in the cool regions of northern Europe. A good conductor of heat, it feels cool against the skin: '
       'the fibre of the summer side.',
       [('20%', 'Of its own weight in moisture, absorbed.')],
-      origin='Northern Europe', species='Linum usitatissimum'),
+      origin='Northern Europe', species='Linum usitatissimum', photo='linen', alt='Linen cloth, in soft folds.'),
     F('cotton', 'Organic cotton', 'plant', 'Cotton', 'breathability', 'Breathability',
       'Only from organic farms that keep to fair working conditions, since ordinary cotton crops use huge amounts of chemicals. '
       'Fresh and very breathable, for the warm months.',
@@ -112,11 +112,11 @@ ATLAS = [
       'Fibres from the leaves of palms, mainly the dwarf palm of southern Italy and Sicily, known as St Peter’s palm. The leaves are dried, '
       'curled and braided into ropes, like horsehair: soft, resilient and practically indestructible.',
       [('Sicily', 'And southern Italy, where the palm grows.')],
-      origin='Southern Italy and Sicily', species='Chamaerops humilis'),
+      origin='Southern Italy and Sicily', species='Chamaerops humilis', photo='vegetable', alt='The fan-shaped leaves of a palm against the sky.'),
     F('ingeo', 'Ingeo', 'plant', 'Ingeo', 'breathability', 'Breathability · Freshness',
       'A sustainable fibre derived from maize. With wool, linen and cotton, it is on the summer side: fresh and breathable.',
-      [('Maize', 'The plant it is drawn from.')]),
+      [('Maize', 'The plant it is drawn from.')], photo='ingeo', alt='A soft white tuft of maize fibre with cotton.'),
     F('orange', 'Orange Fiber', 'plant', 'Orange Fiber', 'breathability', 'Freshness · Breathability',
       'An innovative, sustainable material made from Sicilian orange peels: light, breathable and naturally fresh.',
-      [('Orange peel', 'From Sicily’s oranges.')], origin='Sicily'),
+      [('Orange peel', 'From Sicily’s oranges.')], origin='Sicily', photo='orange', alt='Oranges, the fruit whose peel becomes Orange Fiber, under a Top mattress.'),
 ]

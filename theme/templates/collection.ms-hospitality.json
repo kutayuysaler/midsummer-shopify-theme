@@ -277,9 +277,16 @@
         "system_8",
         "system_9"
       ]
+    },
+    "pronav": {
+      "type": "ms-pro-nav",
+      "settings": {
+        "current": "hospitality"
+      }
     }
   },
   "order": [
+    "pronav",
     "s01",
     "s02",
     "spec",

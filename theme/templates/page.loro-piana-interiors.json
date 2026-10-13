@@ -30,7 +30,7 @@
         "eyebrow": "The cloths",
         "heading": "The cloths our systems are made in.",
         "text": "<p>Every cloth here is on one of our systems, with the colours we make it in. Choose a colour to see it larger, and ask for it: the atelier on Via Andegari holds the cards, and sends samples by post.</p>",
-        "footnote": "Colours on screen are indicative: the Mystic River colours are photographed, the others taken from the Loro Piana Interiors cards at the atelier. Other Loro Piana Interiors cloths, and your own, on request."
+        "footnote": "Colours on screen are indicative: the Mystic River colours are photographed; the others are drawn from the Loro Piana Interiors cards at the atelier, on a photographed weave. Other Loro Piana Interiors cloths, and your own, on request."
       },
       "blocks": {
         "fabric_01": {
@@ -172,7 +172,8 @@
           "settings": {
             "name": "1 Dark Indigo",
             "color": "#2E2A39",
-            "image_fallback": "ms-lp-co-01.jpg"
+            "image_fallback": "ms-lp-co-01.jpg",
+            "large_fallback": "ms-lp-co-01-l.jpg"
           }
         },
         "colour_16": {
@@ -180,7 +181,8 @@
           "settings": {
             "name": "2 Indaco Oxus",
             "color": "#525C9B",
-            "image_fallback": "ms-lp-co-02.jpg"
+            "image_fallback": "ms-lp-co-02.jpg",
+            "large_fallback": "ms-lp-co-02-l.jpg"
           }
         },
         "colour_17": {
@@ -188,7 +190,8 @@
           "settings": {
             "name": "5 Zen",
             "color": "#B8A18F",
-            "image_fallback": "ms-lp-co-03.jpg"
+            "image_fallback": "ms-lp-co-03.jpg",
+            "large_fallback": "ms-lp-co-03-l.jpg"
           }
         },
         "colour_18": {
@@ -196,7 +199,8 @@
           "settings": {
             "name": "6 Biancore",
             "color": "#EAE6E5",
-            "image_fallback": "ms-lp-co-04.jpg"
+            "image_fallback": "ms-lp-co-04.jpg",
+            "large_fallback": "ms-lp-co-04-l.jpg"
           }
         },
         "colour_19": {
@@ -204,7 +208,8 @@
           "settings": {
             "name": "8 Dark Zen",
             "color": "#66575B",
-            "image_fallback": "ms-lp-co-05.jpg"
+            "image_fallback": "ms-lp-co-05.jpg",
+            "large_fallback": "ms-lp-co-05-l.jpg"
           }
         },
         "colour_20": {
@@ -212,7 +217,8 @@
           "settings": {
             "name": "10 Malachite",
             "color": "#6E7E8E",
-            "image_fallback": "ms-lp-co-06.jpg"
+            "image_fallback": "ms-lp-co-06.jpg",
+            "large_fallback": "ms-lp-co-06-l.jpg"
           }
         },
         "colour_21": {
@@ -220,7 +226,8 @@
           "settings": {
             "name": "12 Sassicaia",
             "color": "#5F2F31",
-            "image_fallback": "ms-lp-co-07.jpg"
+            "image_fallback": "ms-lp-co-07.jpg",
+            "large_fallback": "ms-lp-co-07-l.jpg"
           }
         },
         "colour_22": {
@@ -228,7 +235,8 @@
           "settings": {
             "name": "14 Cowes",
             "color": "#822823",
-            "image_fallback": "ms-lp-co-08.jpg"
+            "image_fallback": "ms-lp-co-08.jpg",
+            "large_fallback": "ms-lp-co-08-l.jpg"
           }
         },
         "colour_23": {
@@ -236,7 +244,8 @@
           "settings": {
             "name": "16 Camargue",
             "color": "#AB7F5A",
-            "image_fallback": "ms-lp-co-09.jpg"
+            "image_fallback": "ms-lp-co-09.jpg",
+            "large_fallback": "ms-lp-co-09-l.jpg"
           }
         },
         "fabric_24": {
@@ -257,7 +266,8 @@
           "settings": {
             "name": "11 Shaded White",
             "color": "#F4F3F0",
-            "image_fallback": "ms-lp-al-01.jpg"
+            "image_fallback": "ms-lp-al-01.jpg",
+            "large_fallback": "ms-lp-al-01-l.jpg"
           }
         },
         "colour_26": {
@@ -265,7 +275,8 @@
           "settings": {
             "name": "15 Midnight",
             "color": "#191A2F",
-            "image_fallback": "ms-lp-al-02.jpg"
+            "image_fallback": "ms-lp-al-02.jpg",
+            "large_fallback": "ms-lp-al-02-l.jpg"
           }
         },
         "colour_27": {
@@ -273,7 +284,8 @@
           "settings": {
             "name": "21 Eucalyptus",
             "color": "#858893",
-            "image_fallback": "ms-lp-al-03.jpg"
+            "image_fallback": "ms-lp-al-03.jpg",
+            "large_fallback": "ms-lp-al-03-l.jpg"
           }
         },
         "colour_28": {
@@ -281,7 +293,8 @@
           "settings": {
             "name": "24 Diaspro",
             "color": "#6D2024",
-            "image_fallback": "ms-lp-al-04.jpg"
+            "image_fallback": "ms-lp-al-04.jpg",
+            "large_fallback": "ms-lp-al-04-l.jpg"
           }
         },
         "colour_29": {
@@ -289,7 +302,8 @@
           "settings": {
             "name": "25 Rosso Lacca",
             "color": "#91181F",
-            "image_fallback": "ms-lp-al-05.jpg"
+            "image_fallback": "ms-lp-al-05.jpg",
+            "large_fallback": "ms-lp-al-05-l.jpg"
           }
         },
         "colour_30": {
@@ -297,7 +311,8 @@
           "settings": {
             "name": "26 Granato",
             "color": "#2E1B1C",
-            "image_fallback": "ms-lp-al-06.jpg"
+            "image_fallback": "ms-lp-al-06.jpg",
+            "large_fallback": "ms-lp-al-06-l.jpg"
           }
         },
         "colour_31": {
@@ -305,7 +320,8 @@
           "settings": {
             "name": "28 Cammello",
             "color": "#AC8B7A",
-            "image_fallback": "ms-lp-al-07.jpg"
+            "image_fallback": "ms-lp-al-07.jpg",
+            "large_fallback": "ms-lp-al-07-l.jpg"
           }
         },
         "colour_32": {
@@ -313,7 +329,8 @@
           "settings": {
             "name": "37 Paprika",
             "color": "#A03604",
-            "image_fallback": "ms-lp-al-08.jpg"
+            "image_fallback": "ms-lp-al-08.jpg",
+            "large_fallback": "ms-lp-al-08-l.jpg"
           }
         },
         "colour_33": {
@@ -321,7 +338,8 @@
           "settings": {
             "name": "38 Henné",
             "color": "#49201E",
-            "image_fallback": "ms-lp-al-09.jpg"
+            "image_fallback": "ms-lp-al-09.jpg",
+            "large_fallback": "ms-lp-al-09-l.jpg"
           }
         },
         "colour_34": {
@@ -329,7 +347,8 @@
           "settings": {
             "name": "45 Polvere",
             "color": "#8184A5",
-            "image_fallback": "ms-lp-al-10.jpg"
+            "image_fallback": "ms-lp-al-10.jpg",
+            "large_fallback": "ms-lp-al-10-l.jpg"
           }
         },
         "colour_35": {
@@ -337,7 +356,8 @@
           "settings": {
             "name": "46 Lovat",
             "color": "#54646C",
-            "image_fallback": "ms-lp-al-11.jpg"
+            "image_fallback": "ms-lp-al-11.jpg",
+            "large_fallback": "ms-lp-al-11-l.jpg"
           }
         },
         "colour_36": {
@@ -345,7 +365,8 @@
           "settings": {
             "name": "47 Green Blue",
             "color": "#29374C",
-            "image_fallback": "ms-lp-al-12.jpg"
+            "image_fallback": "ms-lp-al-12.jpg",
+            "large_fallback": "ms-lp-al-12-l.jpg"
           }
         },
         "colour_37": {
@@ -353,31 +374,35 @@
           "settings": {
             "name": "51 Pergamena",
             "color": "#EAE0D6",
-            "image_fallback": "ms-lp-al-13.jpg"
+            "image_fallback": "ms-lp-al-13.jpg",
+            "large_fallback": "ms-lp-al-13-l.jpg"
           }
         },
         "colour_38": {
           "type": "colour",
           "settings": {
-            "name": "1 Biancore",
+            "name": "1 Biancore mélange",
             "color": "#CCBCAC",
-            "image_fallback": "ms-lp-al-14.jpg"
+            "image_fallback": "ms-lp-al-14.jpg",
+            "large_fallback": "ms-lp-al-14-l.jpg"
           }
         },
         "colour_39": {
           "type": "colour",
           "settings": {
-            "name": "2 Natural Brown",
+            "name": "2 Natural Brown mélange",
             "color": "#AA9589",
-            "image_fallback": "ms-lp-al-15.jpg"
+            "image_fallback": "ms-lp-al-15.jpg",
+            "large_fallback": "ms-lp-al-15-l.jpg"
           }
         },
         "colour_40": {
           "type": "colour",
           "settings": {
-            "name": "7 Light Marengo",
+            "name": "7 Light Marengo mélange",
             "color": "#76737C",
-            "image_fallback": "ms-lp-al-16.jpg"
+            "image_fallback": "ms-lp-al-16.jpg",
+            "large_fallback": "ms-lp-al-16-l.jpg"
           }
         },
         "fabric_41": {
@@ -392,7 +417,7 @@
             "texture": "boucle",
             "color": "#CDBEAA",
             "image_fallback": "ms-lp-wish-l.jpg",
-            "image_caption": "On the Flora boxspring"
+            "image_caption": "The bouclé, close up: wool and cashmere"
           }
         },
         "fabric_42": {
@@ -420,7 +445,8 @@
             "systems": "Top: the winter side of the mattress and of the topper.",
             "text": "Linen and cashmere: the freshness of linen with the warmth of cashmere, on the winter side of Top.",
             "texture": "linen",
-            "color": "#E2DACE"
+            "color": "#E2DACE",
+            "image_fallback": "ms-lp-elys-l.jpg"
           }
         },
         "fabric_44": {
@@ -433,7 +459,8 @@
             "systems": "Top and Giotto Round: the topper.",
             "text": "A fine pure linen for the surface you sleep on in summer.",
             "texture": "linen",
-            "color": "#E2DACE"
+            "color": "#E2DACE",
+            "image_fallback": "ms-lp-bangor-l.jpg"
           }
         },
         "fabric_45": {

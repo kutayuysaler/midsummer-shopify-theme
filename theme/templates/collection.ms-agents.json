@@ -274,9 +274,16 @@
         "place_15",
         "place_16"
       ]
+    },
+    "pronav": {
+      "type": "ms-pro-nav",
+      "settings": {
+        "current": "agents"
+      }
     }
   },
   "order": [
+    "pronav",
     "s01"
   ]
 }

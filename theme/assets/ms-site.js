@@ -382,3 +382,22 @@
   // filters (the Journal's subjects, the palette's weaves) change what is shown
   document.addEventListener('click', function (e) { if (e.target.closest('button, [data-cat], [role="tab"]')) soon(); });
 })();
+
+/* ms-mail-name: before an enquiry is sent, Shopify's name field takes the visitor's title and name,
+   and the page it was sent from is named, so the mail at the store reads clearly */
+(function () {
+  document.addEventListener('submit', function (e) {
+    var f = e.target;
+    if (!f || !f.querySelector || !f.querySelector('[name="contact[Enquiry mode]"]')) return;
+    var v = function (n) { var el = f.querySelector('[name="contact[' + n + ']"]'); return el && el.value ? el.value.trim() : ''; };
+    var put = function (n, val, before) {
+      var el = f.querySelector('input[type="hidden"][name="contact[' + n + ']"]');
+      if (!el) { el = document.createElement('input'); el.type = 'hidden'; el.name = 'contact[' + n + ']'; if (before && before.parentNode) before.parentNode.insertBefore(el, before.nextSibling); else f.appendChild(el); }
+      el.value = val;
+    };
+    var mode = f.querySelector('[name="contact[Enquiry mode]"]');
+    var name = [v('Title'), v('First name'), v('Last name')].filter(Boolean).join(' ');
+    if (name) put('name', name, mode);
+    put('Sent from', [(document.title || '').replace(/\s+/g, ' ').trim(), '(' + location.origin + location.pathname + location.search + ')'].filter(Boolean).join(' '), mode);
+  }, true);
+})();
