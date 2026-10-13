@@ -34,6 +34,7 @@
     {%- comment -%} Midsummer Milano: the preview's header, footer and enquiry sheet also serve the stock pages (cart). {%- endcomment -%}
     {%- render 'ms-fonts' -%}
     {{ 'ms-site.css' | asset_url | stylesheet_tag }}
+    {%- render 'ms-photo-tone' -%}
     <script src="{{ 'ms-site.js' | asset_url }}" defer="defer"></script>
 
   </head>

@@ -1328,3 +1328,247 @@ appears only on the materials page, so other pages on the default template are u
 - **Strict Liquid parse:** 449 files, 0 errors.
 - **Render audit:** 78 pages, 0 render errors, 0 missing assets.
 - **Interaction tests:** 133 passed, 0 failed.
+
+
+## 35. Round 14: Inside the bed as each bed is made, the materials under the glass, a street map, the journal by subject, the audits
+
+**About the preview.** The preview link (`…shopifypreview.com`) could not be opened from the
+environment this work runs in, because its network policy blocks that host. Every check below
+was therefore made on local renders of this theme. Those renders used the store's own product
+texts (the export of 14 August 2025), its 279 journal notes and its press blogs. The street
+map's tiles (OpenFreeMap) and Instagram could not be reached either, so test both on the store
+once the theme is published (see the checklist at the end).
+
+### Inside the bed
+
+- **A topper, a mattress or a boxspring page shows that part alone.**
+  - The parts it does not include are drawn in outline and marked *Not included*.
+  - Each of those parts leads onward: first to its own companions on the store (the Roma topper
+    to the Roma mattress, a boxspring to its mattress), then to the collection of that kind
+    (*All toppers*, *All mattresses*, *All boxsprings*).
+  - A badge says which part this product is.
+  - Each part shows its winter face and its summer face side by side.
+  - A caption under the drawing names the product.
+- **The boxspring is called the boxspring everywhere,** in the drawing, the buttons, the panels
+  and the captions. The word "base" is gone from what a visitor reads.
+- **The systems are drawn as the 2026 catalogue makes them:**
+  - **Capri and Giotto Round** come in two parts: the topper, and one piece that is the mattress
+    and the boxspring together. They are drawn as one block with a single seam, with the topper
+    lifting off it, and the heading reads "Two parts, made as one."
+  - **Brera** also comes in two parts: one slim piece that is mattress and topper at once, on its
+    17 cm boxspring with leather legs.
+  - **Storage and Amalfi** take a topper only if you wish. Their topper is drawn in outline,
+    marked *Optional*, and leads to the toppers.
+  - The other systems are unchanged: a topper, a mattress and a boxspring.
+- **Wording you asked for:**
+  - The topper no longer says "A removable covering in Loro Piana Interiors, embroidered on
+    request."
+  - The boxspring is "upholstered for your room in Loro Piana Interiors or in other natural
+    fabrics, and made to carry your mattress and topper for many years."
+  - "Without tooling charges" is gone.
+  - The line about storage, slim and round boxsprings now names the systems and links to them:
+    "with drawers beneath, as in Storage; slim, on leather legs, as in Brera; or round, as in
+    Giotto Round."
+- **New photographs on the home page cards:** the mattress card shows Flora's mattress from the
+  side, and the boxspring card shows Flora's Wish bouclé boxspring. The boxspring card used to
+  show a throw.
+- **New settings in the section:**
+  - *Heading on a system in two parts*
+  - *Part III, when mattress and boxspring are one piece*
+  - *Part II, when mattress and topper are one piece*
+  - *An optional part*, and its badge
+  - The captions for a two-part system and for a system with an optional topper
+
+### Natural materials
+
+- **Under the glass now works.** Each fibre's plate has three views:
+  - the photograph;
+  - **Under the glass**, the fibre as a microscope shows it, with a dark eyepiece around it;
+  - **Its origin**, a pin on a dotted world map.
+
+  Click or tap the glass to look closer. It zooms in 2.4 times, at the point you chose. Each
+  fibre has a short line on what to look for, such as the scales on wool or the hollow core of
+  camel hair.
+- **The drawings are lit as under a microscope.** The strands behind are softly out of focus,
+  and the light falls along each fibre. Each fibre has its own colour.
+- **In our beds** lists the beds made with each fibre, as cards with a photograph, a name and
+  what each one is (system, mattress or topper).
+- **Two origins corrected:** wool now reads "Scotland and the Falkland Islands", and Orange
+  Fiber reads "Sicily".
+
+### The Loro Piana Interiors page
+
+- **The header** is now Flora: the Cardi topper over the Wish bouclé boxspring. It used to be a
+  paisley throw.
+- **Cardi and Wish** now each show a close-up of Flora, captioned "On the Flora topper" and
+  "On the Flora boxspring". Shadan's photograph is captioned "On the Paisley topper". These
+  captions come from a new block setting, *Photograph caption*.
+- **The cloths and colours** were checked against the cards: Mystic River 12, Connemara 9 and
+  Altai 16, with the systems each cloth dresses.
+
+### The stockists map
+
+- **A real street map** (MapLibre, with OpenFreeMap's tiles) now shows each store at street
+  level:
+  - zoom it with the buttons, the wheel or a pinch;
+  - choose a store in the list and the map flies to it;
+  - stores close together gather into a numbered cluster that opens when clicked.
+- **Its colours** come from the house palette: paper land, a pale sea, and white roads with a
+  warm edge. Place names follow the visitor's language.
+- **If the tiles cannot load,** the drawn map from before takes over by itself within a few
+  seconds.
+- **The setting** is *Street map* (on by default). The map is credited to OpenFreeMap,
+  OpenMapTiles and OpenStreetMap, as their licences require.
+
+### The journal, by subject
+
+- **Each subject has its own page:** Sleep, Materials, Craft, The bedroom, Italian living,
+  Sustainability, Projects, and News & press.
+  - Every note is sorted into a subject automatically, from its title and words.
+  - A subject page lists every note of that subject across the journal, with a heading and a
+    count.
+- **The addresses** are `/blogs/<journal>?view=sleep`, `?view=materials` and so on. The theme's
+  menus and notes use them, and old `?cat=` links still lead to the right page.
+- **Each subject page has its own title and description** for search engines.
+
+### Product pages
+
+- **A way back at the top:** it leads to the collection the visitor came from, or else to that
+  kind of product (Mattresses, Toppers, Boxsprings, Headboards, Outdoor).
+- **Every description is put in order,** whatever shape it has in admin:
+  - an opening quotation becomes an epigraph with its author;
+  - the first paragraph becomes a lead;
+  - headings stay headings;
+  - sizes, heights, composition and finishings move into the list of facts at the top of the
+    page;
+  - the delivery small print becomes a short "Made to order" note.
+- **Tidy wording:** sizes read "160 × 220" and "4 cm", and "Midsummer-Milano" reads "Midsummer
+  Milano". A "Click here" link reads "More at" and its address, for example "More at
+  michelanicoli.com".
+- **Keep the build private in descriptions** (a new setting, on by default). Any sentence that
+  names springs, layers or the core is left out of the description shown. So is any list under
+  a heading of that kind. The words are still in the page source and the product feed, so
+  **DESCRIPTIONS.md** lists, product by product, what to edit in admin.
+- **The line under the name:**
+  - When a product has no subtitle, the line is the first sentence of its description, and the
+    description below no longer repeats it.
+  - The boxsprings have lines of their own: Top Dream, Dreamy Springs, My Dream, First Dream and
+    Storage.
+  - A plaid that shares a system's name (the mohair "Capri" and "Roma") no longer takes that
+    system's line.
+- **Sizes** are translated in Italian and Russian.
+- **A product shown without a price** is described to search engines as a thing, not as a
+  product with an offer. The theme setting *Search engines, while prices are on request*
+  (under Enquiry-led commerce) lets you change this.
+
+### Across the site
+
+- **A gentle tone on the photographs:** a little warmth and a little less saturation, so that
+  photographs from different shoots sit together. The tone does not touch logos, drawings,
+  swatches or the map. Its settings are under **Midsummer · Photographs** (on, strength 40).
+- **On a phone:**
+  - the Tangram section shows only on the outdoor collection;
+  - the fibre marks on collection pages are smaller.
+- **The artisan on the home page** is now a Midsummer artisan working fibre by hand, from the
+  *Foto artigiani* folder. The stock photograph of a seamstress is gone from the home page, the
+  menu and the Handmade in Italy page.
+- **The questions page** has the topics as an index beside the answers. The index follows you
+  down the page, and *Not here?* sits beneath it. The opening no longer talks about search
+  engines.
+- **Care of the cloth:** "Loro Piana Interiors upholstery is removable: clean it as its care
+  label directs, and ask the atelier whenever in doubt."
+- **The architects and hotels pages** have a new table, *Systems, measured*: each system's
+  collection, overall height, standard sizes and cloth, from the 2026 catalogue, with a link to
+  each system's page.
+- **The Instagram row** shows house photographs that link to the profile: the artisan, Flora,
+  the fresco bed, the parrots room and the shepherd. The latest posts appear only with a token
+  or an app (see the checklist).
+
+### The two website audits, theme side
+
+- **Literal claims, softened.** Each of these now says something that is plainly true:
+  - "two hands" and "two artisans" now read "by hand in Italy";
+  - "24 systems" now reads "three collections";
+  - "no tooling charge" is gone everywhere, round beds included;
+  - "the base, for thirty years" now reads "for many years";
+  - "natural fibres only" now reads "natural fibres";
+  - "nothing synthetic" now reads "Made to order, by hand in Italy";
+  - "no tooling to amortise" now reads "no production line".
+- **The press strip:**
+  - it shows only publications with a piece to read, most recent first, eight at most;
+  - "L'Officiel", "Festival dell'Etica" and "Lust & Leben" are spelt as those publications spell
+    them;
+  - "Midsummer-Milano" in a press title reads "Midsummer Milano";
+  - the year shown is the one the piece's title names (Kommersant 2025), or otherwise the year
+    it was published;
+  - the Green Product Award leads the strip.
+- **Titles and descriptions:**
+  - each press blog, the projects blog and the journal has its own description;
+  - "&amp;" no longer shows double-encoded;
+  - the contact page no longer reads "Please proceed with your enquiry";
+  - the brand is one name, Midsummer Milano, in titles, share cards and structured data;
+  - the Icons collection is named "Icons".
+- **Alt text:** photographs that had none now describe what they show.
+
+### Checks
+
+- **Theme Check:** 0 errors.
+- **Strict Liquid parse:** 461 files, 0 errors.
+- **Render audit:** 78 pages, no issues. The cart, the appointment product page, `llms.txt` and
+  `robots.txt` cannot be rendered outside Shopify.
+- **Interaction tests:** 149 passed, 0 failed. New tests cover:
+  - the description structure, and the build kept private;
+  - the two-part and optional-topper systems;
+  - the questions index;
+  - the materials views;
+  - the street map;
+  - the journal subjects.
+- **The natural materials of every product** were compared with the 2026 catalogue, system by
+  system and part by part, with 0 differences.
+
+### Owner checklist (admin, not the theme)
+
+1. **Prices.**
+   - The Essenziale prices are broken, and some products carry placeholder prices of €12,200.
+     Correct them, or set them to 0 for "on request".
+   - Shopify publishes variant prices in `/products.json` and in each product's `.js` address,
+     whatever the theme does. A price that must stay private should not be entered.
+2. **Product descriptions:** see **DESCRIPTIONS.md**.
+   - It lists the sentences that name the build (37 products), as hidden by the theme.
+   - It also lists "Midsummer-Milano" spellings, a "Click here" link and two placeholder
+     products (`test-product`, `langify_image_container`).
+   - Amalfi's description says eight colours; the catalogue says four.
+   - My Dream boxspring and Caravaggio name polyurethane. Please confirm what is inside.
+3. **Product types:** use one list across the catalogue: Bed system, Mattress, Topper,
+   Boxspring, Bed with headboard, Outdoor, Throw, Bed linen, Furniture, Perfume.
+4. **Handles.** Rename these with a redirect (Online Store → Navigation → URL redirects):
+   - `icon` to `icons`;
+   - `camelia` (the product is spelt "Camelie" elsewhere);
+   - `silk-fowers` to `silk-flowers`;
+   - `outdoor-1` to `outdoor`.
+
+   The handle `roma` was the Roma mohair plaid in August 2025; the Roma bed is `mystic-river`.
+   The theme tells the two apart.
+5. **Pages that 404:** Paisley and Tangram Air. Publish the products, or remove the links that
+   lead to them.
+6. **Press blogs:**
+   - Robb Report has no article: add one, or the strip simply leaves it out.
+   - The Elle Decor blog also holds Elle Decoration pieces; rename it or split it if you want
+     them told apart.
+   - AD Magazine and Architectural Digest are two blogs, so they show as two marks.
+   - Kommersant's article is dated 2026 for a 2025 piece. The strip shows 2025; correct the
+     date in admin.
+7. **Italian and Russian:** in Translate & Adapt, translate the product titles, the SEO titles
+   and descriptions, and the subtitle metafield.
+8. **At launch:**
+   - Check Settings → Customer events for the pixel that returns 404.
+   - Remove the password page, so the store is no longer noindex.
+9. **Instagram:** the row can show the latest posts in either of two ways:
+   - paste a token from the Instagram API with Instagram Login in Theme settings →
+     Midsummer · Social and WhatsApp;
+   - or add an Instagram feed app's block to the section.
+10. **The street map:** once the theme is live, open the stockists page and zoom in.
+    - If the tiles do not appear, turn off *Street map* in the section; the drawn map returns.
+    - The tiles and fonts come from `tiles.openfreemap.org`.
+11. **The softened claims (see the audits above):** if any of the original figures can be
+    sourced, it can be restored in the editor.

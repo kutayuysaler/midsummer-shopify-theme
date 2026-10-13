@@ -35,7 +35,7 @@
         {%- if k == 1 -%}{%- assign key = prev_k -%}{%- assign dir = section.settings.prev -%}{%- else -%}{%- assign key = next_k -%}{%- assign dir = section.settings.next -%}{%- endif -%}
         {%- capture img -%}{% render 'ms-next-read-data', k: key, f: 'image' %}{%- endcapture -%}
         <a class="ms-nr__card{% if k == 2 %} is-next{% endif %}" href="{% render 'ms-link', to: key %}">
-          <span class="ms-nr__img"><img src="{{ img | asset_url }}" alt="" width="1200" height="800" loading="lazy"></span>
+          <span class="ms-nr__img">{%- capture nr_alt -%}{% render 'ms-next-read-data', k: key, f: 'title' %}{%- endcapture -%}<img src="{{ img | asset_url }}" alt="{{ nr_alt | strip | escape }}" width="1200" height="800" loading="lazy"></span>
           <span class="ms-nr__words">
             <span class="ms-nr__dir">{% if k == 1 %}<span aria-hidden="true">←</span> {% endif %}{{ dir }}{% if k == 2 %} <span aria-hidden="true">→</span>{% endif %}</span>
             <span class="ms-nr__title">{% render 'ms-next-read-data', k: key, f: 'title' %}</span>

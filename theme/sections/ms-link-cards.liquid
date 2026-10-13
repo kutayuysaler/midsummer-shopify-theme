@@ -14,7 +14,7 @@
       {%- for block in section.blocks -%}
         {%- assign b = block.settings -%}
         <a class="ms-lc__card" href="{% render 'ms-link', to: b.place %}{% if b.place == 'enquire' %}#enquire{% endif %}"{% if b.place == 'enquire' %} data-ms-landing{% endif %} {{ block.shopify_attributes }}>
-          <span class="ms-lc__img"><img src="{% render 'ms-img', image: b.image, fallback: b.image_fallback, width: 900 %}" alt="" width="900" height="1125" loading="lazy"></span>
+          <span class="ms-lc__img"><img src="{% render 'ms-img', image: b.image, fallback: b.image_fallback, width: 900 %}" alt="{{ b.title | escape }}" width="900" height="1125" loading="lazy"></span>
           <span class="ms-lc__name">{{ b.title }}</span>
           <span class="ms-lc__line">{{ b.text }}</span>
           <span class="ms-lc__go" aria-hidden="true">→</span>

@@ -15,7 +15,7 @@
         <div class="ms-pc__frame">
           {%- for block in section.blocks -%}
             {%- capture src -%}{% render 'ms-img', image: block.settings.image, fallback: block.settings.image_fallback, width: 1400 %}{%- endcapture -%}
-            {%- if src != blank -%}<img src="{{ src }}" alt="" data-ms-pc-img="{{ forloop.index0 }}" class="{% if forloop.first %}is-on{% endif %}" loading="lazy" width="1200" height="1500">{%- endif -%}
+            {%- if src != blank -%}<img src="{{ src }}" alt="{{ block.settings.title | escape }}" data-ms-pc-img="{{ forloop.index0 }}" class="{% if forloop.first %}is-on{% endif %}" loading="lazy" width="1200" height="1500">{%- endif -%}
           {%- endfor -%}
           <span class="ms-pc__count"><span data-ms-pc-n>01</span> / {{ section.blocks.size | prepend: '0' | slice: -2, 2 }}</span>
         </div>

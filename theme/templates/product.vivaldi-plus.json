@@ -63,20 +63,26 @@
       "settings": {
         "link_label": "The fibres inside",
         "link_place": "materials",
-        "text": "[name] is the heart of the bed; a topper and a Midsummer boxspring complete it.",
+        "text": "[name] is the mattress alone, the heart of the bed. A topper and a Midsummer boxspring complete it, and are shown here in outline.",
         "fibres_label": "Its fibres",
-        "part1_lead": "Optional: a Midsummer topper to finish the bed.",
-        "part1_text": "Optional: a Midsummer topper to finish the bed.",
+        "part1_lead": "Not part of [name]: a Midsummer topper finishes the bed.",
+        "part1_text": "Not part of [name]: a Midsummer topper finishes the bed.",
         "part1_points": "Three heights, with a summer and a winter face.\nMade to sit on the mattress without changing its feel.",
         "part1_fibres": "Silk, Cheviot Wool, Linen",
+        "part1_winter": "",
+        "part1_summer": "",
         "part2_lead": "Cashmere and silk with wool for winter; wool, cotton and Ingeo for summer.",
         "part2_text": "Cashmere and silk with wool for winter; wool, cotton and Ingeo for summer.",
         "part2_points": "The Vivaldi, enriched with precious cashmere.\nCovered in linen and cotton.\nIts feel is chosen with you, from soft to firm.",
         "part2_fibres": "Cashmere, Silk, Wool, Cotton, Ingeo",
-        "part3_lead": "Made to rest on a Midsummer boxspring.",
-        "part3_text": "Made to rest on a Midsummer boxspring.",
-        "part3_points": "Made by the same artisans, to the size of the mattress.\nDressed in natural cloth, with a headboard drawn with you if you wish.",
-        "part3_fibres": "Cheviot Wool"
+        "part2_winter": "Cashmere, Silk, Wool",
+        "part2_summer": "Wool, Cotton, Ingeo",
+        "part3_lead": "Not part of [name]: it rests on a Midsummer boxspring.",
+        "part3_text": "Not part of [name]: it rests on a Midsummer boxspring.",
+        "part3_points": "Made by hand in Italy, to the size of the mattress.\nDressed in natural cloth, with a headboard drawn with you if you wish.",
+        "part3_fibres": "Cheviot Wool",
+        "part3_winter": "",
+        "part3_summer": ""
       }
     },
     "s04": {
@@ -93,14 +99,14 @@
           "type": "qa",
           "settings": {
             "q": "What is [product] made of?",
-            "a": "<p>[product] is made by hand in Italy from natural fibres: cashmere, silk, wool, cotton and Ingeo. It is covered in linen and cotton. It is made to order by two artisans, start to finish.</p>"
+            "a": "<p>[product] is made by hand in Italy from natural fibres: cashmere, silk, wool, cotton and Ingeo. It is covered in linen and cotton. It is made to order, by hand, one at a time.</p>"
           }
         },
         "qa_02": {
           "type": "qa",
           "settings": {
             "q": "Can [product] be made to my dimensions?",
-            "a": "<p>Yes. Dimensions, heights, fibres, fabric and comfort level are specification decisions rather than exceptions. Non-standard widths, heights and radii, including round, carry no tooling charge.</p>"
+            "a": "<p>Yes. Dimensions, heights, fibres, fabric and comfort level are specification decisions rather than exceptions. Non-standard widths, heights and radii, round included, are worked to your drawing.</p>"
           }
         },
         "qa_03": {

@@ -1,4 +1,72 @@
-{%- comment -%} The one-line description of each system, from the house's 2026 catalogue and price lists. Used when a product has no custom.subtitle metafield. {%- endcomment -%}
+{%- comment -%} The one-line description of each system, from the house's 2026 catalogue and price lists, in the visitor's language. Used when a product has no custom.subtitle metafield. {%- endcomment -%}
+{%- assign nl = request.locale.iso_code | slice: 0, 2 -%}
+{%- if nl == 'it' -%}
+{%- case title -%}
+  {%- when 'Essenziale' -%}Il primo materasso. Lana, lino e Ingeo, niente di superfluo.
+  {%- when 'Raffaello' -%}Baby alpaca e lana, in una fodera di cotone.
+  {%- when 'Amalfi' -%}Lino e cotone colorati, in quattro colori.
+  {%- when 'Capri' -%}Boxspring e materasso in un’unica linea pulita, in Mystic River.
+  {%- when 'Thin Topper' -%}Tre centimetri di seta o lana, con Ingeo.
+  {%- when 'Bellagio' -%}Yak e lana Cheviot, in lino grezzo bordato d’arancio.
+  {%- when 'Vivaldi' -%}Cammello, seta e lana: il materasso equilibrato, il più richiesto.
+  {%- when 'Monteverdi' -%}Interamente vegetale: crine vegetale, lino e Ingeo.
+  {%- when 'Ultra Dry' -%}Crine vegetale e lino, per i climi umidi.
+  {%- when 'Dreamy' -%}Il comfort del capitonné, in Loro Piana Interiors Mystic River.
+  {%- when 'Brera' -%}Sottile e strutturato, in lino Loro Piana Interiors Connemara.
+  {%- when 'Medium & High Topper' -%}Seta, lana e lino, in due altezze; quello alto anche in vigogna.
+  {%- when 'Paisley' -%}Lino Shadan e seta Katai di Loro Piana Interiors.
+  {%- when 'Top' -%}Il sistema più completo della casa, in tre tessuti Loro Piana Interiors.
+  {%- when 'Vicuña' -%}La fibra degli dei, a pieno peso.
+  {%- when 'Giotto Round' -%}Rotondo, interamente su misura, in lino Connemara e Bangor.
+  {%- when 'Bellini' -%}Un letto slanciato, vestito di bouclé Wish di Loro Piana Interiors.
+  {%- when 'Storage' -%}Un contenitore senza linee visibili, in Mystic River.
+  {%- when 'Flora' -%}Cardi e Wish di Loro Piana Interiors, in lana e cashmere.
+  {%- when 'Dreamy Springs' -%}Cashmere e cammello sotto il capitonné.
+  {%- when 'My Dream' -%}L’ipoallergenico: seta, alpaca e lana Cheviot.
+  {%- when 'Roma' -%}Loro Piana Interiors Mystic River, bordato in rosa Midsummer.
+  {%- when 'Roma Topper' -%}Due lati, per l’inverno e l’estate, a completare il Roma.
+  {%- when 'Vivaldi Plus' -%}Il Vivaldi, portato oltre, con cashmere e seta.
+  {%- when 'First Dream' -%}Baby alpaca e cashmere per l’inverno, lino e seta per l’estate.
+  {%- when 'Top Dream Boxspring' -%}Il nostro capolavoro tra i boxspring, interamente fatto a mano.
+  {%- when 'Dreamy Springs Boxspring' -%}La base del Dreamy Springs, con pura lana scozzese e fibra di cocco.
+  {%- when 'My Dream Boxspring' -%}Il boxspring per l’uso intenso e i progetti contract, vestito di tessuto naturale.
+  {%- when 'First Dream Boxspring' -%}La base più rigida, con pura lana Cheviot e fibra di cocco, alta 13 o 20 cm.
+  {%- when 'Storage Boxspring' -%}Un boxspring con quattro cassetti in mogano.
+{%- endcase -%}
+{%- elsif nl == 'ru' -%}
+{%- case title -%}
+  {%- when 'Essenziale' -%}Первый матрас. Шерсть, лён и Ingeo — ничего лишнего.
+  {%- when 'Raffaello' -%}Беби-альпака и шерсть, в хлопковом чехле.
+  {%- when 'Amalfi' -%}Цветной лён и хлопок, в четырёх цветах.
+  {%- when 'Capri' -%}Бокс-спринг и матрас одной чистой линией, в ткани Mystic River.
+  {%- when 'Thin Topper' -%}Три сантиметра шёлка или шерсти, с Ingeo.
+  {%- when 'Bellagio' -%}Як и шерсть шевиот, в небелёном льне с оранжевой окантовкой.
+  {%- when 'Vivaldi' -%}Верблюжья шерсть, шёлк и шерсть: сбалансированный матрас, который у нас просят чаще всего.
+  {%- when 'Monteverdi' -%}Полностью растительный: растительный конский волос, лён и Ingeo.
+  {%- when 'Ultra Dry' -%}Растительный конский волос и лён, для влажного климата.
+  {%- when 'Dreamy' -%}Комфорт капитоне, в ткани Loro Piana Interiors Mystic River.
+  {%- when 'Brera' -%}Тонкий и структурный, в льне Loro Piana Interiors Connemara.
+  {%- when 'Medium & High Topper' -%}Шёлк, шерсть и лён, в двух высотах; высокий — также из викуньи.
+  {%- when 'Paisley' -%}Лён Shadan и шёлк Katai от Loro Piana Interiors.
+  {%- when 'Top' -%}Самая полная система дома, в трёх тканях Loro Piana Interiors.
+  {%- when 'Vicuña' -%}Волокно богов, в полной мере.
+  {%- when 'Giotto Round' -%}Круглый, полностью по индивидуальным размерам, в льне Connemara и Bangor.
+  {%- when 'Bellini' -%}Изящная кровать в буклé Wish от Loro Piana Interiors.
+  {%- when 'Storage' -%}Хранение без видимых линий, в ткани Mystic River.
+  {%- when 'Flora' -%}Ткани Cardi и Wish от Loro Piana Interiors, из шерсти и кашемира.
+  {%- when 'Dreamy Springs' -%}Кашемир и верблюжья шерсть под капитоне.
+  {%- when 'My Dream' -%}Гипоаллергенный: шёлк, альпака и шерсть шевиот.
+  {%- when 'Roma' -%}Loro Piana Interiors Mystic River с окантовкой цвета Midsummer pink.
+  {%- when 'Roma Topper' -%}Две стороны, для зимы и лета, — завершение Roma.
+  {%- when 'Vivaldi Plus' -%}Vivaldi, доведённый до совершенства, с кашемиром и шёлком.
+  {%- when 'First Dream' -%}Беби-альпака и кашемир для зимы, лён и шёлк для лета.
+  {%- when 'Top Dream Boxspring' -%}Наш шедевр среди бокс-спрингов, целиком ручная работа.
+  {%- when 'Dreamy Springs Boxspring' -%}Основание Dreamy Springs, с чистой шотландской шерстью и кокосовым волокном.
+  {%- when 'My Dream Boxspring' -%}Бокс-спринг для интенсивного использования и контрактных проектов, в натуральной ткани.
+  {%- when 'First Dream Boxspring' -%}Более жёсткое основание, с чистой шерстью Cheviot и кокосовым волокном, высотой 13 или 20 см.
+  {%- when 'Storage Boxspring' -%}Бокс-спринг с четырьмя ящиками из красного дерева.
+{%- endcase -%}
+{%- else -%}
 {%- case title -%}
   {%- when 'Essenziale' -%}The first mattress. Wool, linen and Ingeo, nothing superfluous.
   {%- when 'Raffaello' -%}Baby alpaca and wool, in a cotton cover.
@@ -6,7 +74,7 @@
   {%- when 'Capri' -%}Boxspring and mattress in one clean line, in Mystic River.
   {%- when 'Thin Topper' -%}Three centimetres of silk or wool, with Ingeo.
   {%- when 'Bellagio' -%}Yak and Cheviot wool, in raw linen edged in orange.
-  {%- when 'Vivaldi' -%}Camel hair, silk and wool: the balanced system, most specified of all.
+  {%- when 'Vivaldi' -%}Camel hair, silk and wool: the balanced mattress, the one we are asked for most.
   {%- when 'Monteverdi' -%}Fully plant-based: vegetable horsehair, linen and Ingeo.
   {%- when 'Ultra Dry' -%}Vegetable horsehair and linen, for humid climates.
   {%- when 'Dreamy' -%}Capitonné comfort, in Loro Piana Interiors Mystic River.
@@ -25,4 +93,10 @@
   {%- when 'Roma Topper' -%}Two faces, for winter and summer, to finish the Roma.
   {%- when 'Vivaldi Plus' -%}The Vivaldi, taken further, with cashmere and silk.
   {%- when 'First Dream' -%}Baby alpaca and cashmere for winter, linen and silk for summer.
+  {%- when 'Top Dream Boxspring' -%}Our masterpiece among boxsprings, made entirely by hand.
+  {%- when 'Dreamy Springs Boxspring' -%}The base of the Dreamy Springs, with pure Scottish wool and coconut fibre.
+  {%- when 'My Dream Boxspring' -%}The boxspring for heavy use and contract projects, dressed in natural cloth.
+  {%- when 'First Dream Boxspring' -%}The firmer base, with pure Cheviot wool and coconut fibre, 13 or 20 cm high.
+  {%- when 'Storage Boxspring' -%}A boxspring with four mahogany drawers beneath.
 {%- endcase -%}
+{%- endif -%}

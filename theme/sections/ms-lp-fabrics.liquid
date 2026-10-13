@@ -73,6 +73,9 @@
             elsif fs.image_fallback != blank
               assign big_img = fs.image_fallback | asset_url
             endif
+            if big_img != '' and fs.image_caption != blank
+              assign cap = fs.image_caption
+            endif
           else
             assign big_color = first.settings.color
             assign cap = first.settings.name
@@ -309,7 +312,8 @@
         ] },
         { "type": "color", "id": "color", "label": "Colour, when it has no colours listed", "default": "#D9CDBE" },
         { "type": "image_picker", "id": "image", "label": "Photograph, when it has no colours listed" },
-        { "type": "text", "id": "image_fallback", "label": "Theme photograph (file name)" }
+        { "type": "text", "id": "image_fallback", "label": "Theme photograph (file name)" },
+        { "type": "text", "id": "image_caption", "label": "Photograph caption", "info": "Where the cloth is seen, as On the Flora topper." }
       ]
     },
     {

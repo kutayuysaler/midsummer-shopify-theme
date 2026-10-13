@@ -22,7 +22,7 @@
           "type": "question",
           "settings": {
             "question": "Where are Midsummer beds made?",
-            "answer": "<p>By hand in Italy. Every sleep system is built one by one by two artisans, start to finish — the same two hands that begin the bed sew its final seam.</p>"
+            "answer": "<p>By hand in Italy. Every sleep system is built by hand, one by one, from the first stitch to the final seam.</p>"
           }
         },
         "question_02": {
@@ -70,7 +70,7 @@
           "type": "question",
           "settings": {
             "question": "Can a bed be made to my dimensions?",
-            "answer": "<p>Yes. Dimensions, heights, fibres, fabric and comfort level are specification decisions rather than exceptions. Non-standard widths, heights and radii, including round, carry no tooling charge.</p>"
+            "answer": "<p>Yes. Dimensions, heights, fibres, fabric and comfort level are specification decisions rather than exceptions. Non-standard widths, heights and radii, round included, are worked to your drawing.</p>"
           }
         },
         "question_09": {
@@ -159,7 +159,7 @@
           "type": "question",
           "settings": {
             "question": "How should I care for the system?",
-            "answer": "<p>Rotate head to foot every three months for the first year, then twice yearly. Air the system when you change the linen. Loro Piana Interiors upholstery should be dry-cleaned by a specialist only; the atelier can arrange this.</p>"
+            "answer": "<p>Rotate head to foot every three months for the first year, then twice yearly. Air the system when you change the linen. Loro Piana Interiors upholstery is removable: clean it as its care label directs, and ask the atelier whenever in doubt.</p>"
           }
         },
         "question_22": {
@@ -263,7 +263,7 @@
           "type": "point",
           "settings": {
             "title": "The cloth",
-            "text": "Loro Piana Interiors upholstery is dry-cleaned by a specialist only; the atelier can arrange it."
+            "text": "Loro Piana Interiors upholstery is removable: clean it as its care label directs, and ask the atelier whenever in doubt."
           }
         }
       },
@@ -280,7 +280,7 @@
         "anchor": "sizes",
         "eyebrow": "Sizes",
         "heading": "Standard sizes, and every other.",
-        "text": "The sizes most often specified. Any width, length or shape, round included, is made to order without tooling charges."
+        "text": "The sizes most often specified. Any width, length or shape, round included, is made to order."
       },
       "blocks": {
         "point_01": {

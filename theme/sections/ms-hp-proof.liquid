@@ -1,8 +1,9 @@
 {%- comment -%}
   Recognition and press. One publication at a time: its mark, the headline of its piece
   (taken live from that publication's press blog, or the line set in the block), and a
-  link to read it. The award opens the sequence. Beneath, every publication's mark runs
-  in one slow line; hover or tap a mark to bring its piece forward.
+  link to read it. The award opens the sequence. Beneath, the marks of the most recent
+  publications run in one slow line; hover or tap a mark to bring its piece forward. A
+  publication with nothing to read (an empty press blog, no headline) is not shown.
 {%- endcomment -%}
 {%- liquid
   assign s = section.settings
@@ -18,7 +19,8 @@
       unless alogo contains '/'
         assign alogo = alogo | asset_url
       endunless
-      echo '<div class="ms-pr__mark"><img src="' | append: alogo | append: '" alt="" width="200" height="56"></div>'
+      assign eby0 = s.award_by | escape
+      echo '<div class="ms-pr__mark"><img src="' | append: alogo | append: '" alt="' | append: eby0 | append: '" width="200" height="56"></div>'
     endif
     echo '<p class="ms-pr__line">' | append: s.award | append: '</p>'
     echo '<figcaption class="ms-pr__cap"><span>' | append: s.award_by | append: '</span>'
@@ -28,77 +30,100 @@
     echo '</figcaption></figure>'
     endif
   endcapture
-  capture strip
-    for block in section.blocks
-      assign handle = block.settings.link | split: '/blogs/' | last | split: '/' | first
-      assign line = ''
-      assign href = block.settings.link
-      assign when = block.settings.when
-      if handle contains 'green-product-award'
-        assign line = ''
-      elsif handle != blank and blogs[handle].articles_count > 0
-        assign art = blogs[handle].articles.first
-        assign line = art.title
-        assign href = art.url
-        assign when = art.published_at | date: '%Y'
-      elsif block.settings.line != blank
-        assign line = block.settings.line
-      endif
-      if block.settings.logo != blank
-        assign src = block.settings.logo | image_url: width: 300
-      elsif block.settings.logo_file != blank
-        assign src = block.settings.logo_file | asset_url
-      else
-        assign src = ''
-      endif
-      assign target = ''
-      if line != blank
-        assign target = n
-        assign mark = ''
-        if src != ''
-          assign mark = '<div class="ms-pr__mark"><img src="' | append: src | append: '" alt="' | append: block.settings.name | append: '" width="200" height="56"></div>'
+  # every publication with a piece behind it (an article in its press blog, or a headline set in
+  # its block); a mark with nothing to read is not shown. Most recent first, as many as set; the
+  # rest are on the press page.
+  assign recs = ''
+  for block in section.blocks
+    assign handle = block.settings.link | split: '/blogs/' | last | split: '/' | first
+    if handle contains 'green-product-award'
+      continue
+    endif
+    assign line = ''
+    assign href = block.settings.link
+    assign when = block.settings.when
+    if handle != blank and blogs[handle].articles_count > 0
+      assign art = blogs[handle].articles.first
+      assign line = art.title | replace: 'Midsummer-Milano', 'Midsummer Milano' | escape
+      assign href = art.url
+      # the year of the piece: the one its title names (a piece filed later keeps its own year),
+      # else the year it was published here
+      assign when = art.published_at | date: '%Y'
+      assign tws = art.title | replace: '-', ' ' | replace: ',', ' ' | replace: '(', ' ' | replace: ')', ' ' | replace: '.', ' ' | split: ' '
+      for tw in tws
+        if tw.size == 4
+          assign tn = tw | plus: 0
+          if tn > 1990 and tn < 2100
+            assign when = tw
+          endif
         endif
-        capture one
-          if n == 0
-            echo '<figure class="ms-pr__item is-on" data-ms-pr-item="0" aria-hidden="false">' | append: mark
-          else
-            echo '<figure class="ms-pr__item" data-ms-pr-item="' | append: n | append: '" aria-hidden="true">' | append: mark
-          endif
-          echo '<p class="ms-pr__line">' | append: line | append: '</p>'
-          echo '<figcaption class="ms-pr__cap"><span>' | append: block.settings.name
-          if when != blank
-            echo ' · ' | append: when
-          endif
-          echo '</span>'
-          if href != blank
-            echo '<a href="' | append: href | append: '">' | append: s.read_label | append: ' <span aria-hidden="true">→</span></a>'
-          endif
-          echo '</figcaption></figure>'
-        endcapture
-        assign items = items | append: one
-        assign n = n | plus: 1
+      endfor
+    elsif block.settings.line != blank
+      assign line = block.settings.line
+      if href contains '/blogs/'
+        assign href = ''
       endif
-      echo '<li class="ms-pr__logo'
-      if target != ''
-        echo ' has-piece'
+    endif
+    if line == blank
+      continue
+    endif
+    if block.settings.logo != blank
+      assign src = block.settings.logo | image_url: width: 300
+    elsif block.settings.logo_file != blank
+      assign src = block.settings.logo_file | asset_url
+    else
+      assign src = ''
+    endif
+    assign yk = when | default: '0000' | slice: 0, 4
+    assign ik = 99 | minus: forloop.index | prepend: '0' | slice: -2, 2
+    assign rec = yk | append: '~' | append: ik | append: '¤' | append: line | append: '¤' | append: href | append: '¤' | append: when | append: '¤' | append: src | append: '¤' | append: block.settings.name | append: '¤' | append: block.shopify_attributes
+    assign recs = recs | append: rec | append: '¦'
+  endfor
+  assign recs = recs | split: '¦' | sort | reverse
+  assign max = s.max_logos | default: 8
+  capture strip
+    if s.show_award and s.award_logo != blank
+      assign eby = s.award_by | escape
+      echo '<li class="ms-pr__logo has-piece"><button type="button" data-ms-pr-to="0" aria-label="' | append: eby | append: '"><img src="' | append: alogo | append: '" alt="' | append: eby | append: '" width="150" height="40"></button></li>'
+    endif
+    for r in recs limit: max
+      assign f = r | split: '¤'
+      assign line = f[1]
+      assign href = f[2]
+      assign when = f[3]
+      assign src = f[4]
+      assign name = f[5]
+      assign ename = name | escape
+      assign mark = ''
+      if src != blank
+        assign mark = '<div class="ms-pr__mark"><img src="' | append: src | append: '" alt="' | append: ename | append: '" width="200" height="56"></div>'
       endif
-      echo '" ' | append: block.shopify_attributes | append: '>'
-      if target != ''
-        echo '<button type="button" data-ms-pr-to="' | append: target | append: '" aria-label="' | append: block.settings.name | append: '">'
+      capture one
+        if n == 0
+          echo '<figure class="ms-pr__item is-on" data-ms-pr-item="0" aria-hidden="false">' | append: mark
+        else
+          echo '<figure class="ms-pr__item" data-ms-pr-item="' | append: n | append: '" aria-hidden="true">' | append: mark
+        endif
+        echo '<p class="ms-pr__line">' | append: line | append: '</p>'
+        echo '<figcaption class="ms-pr__cap"><span>' | append: name
+        if when != blank
+          echo ' · ' | append: when
+        endif
+        echo '</span>'
+        if href != blank
+          echo '<a href="' | append: href | append: '">' | append: s.read_label | append: ' <span aria-hidden="true">→</span></a>'
+        endif
+        echo '</figcaption></figure>'
+      endcapture
+      assign items = items | append: one
+      echo '<li class="ms-pr__logo has-piece" ' | append: f[6] | append: '><button type="button" data-ms-pr-to="' | append: n | append: '" aria-label="' | append: ename | append: '">'
+      if src != blank
+        echo '<img src="' | append: src | append: '" alt="' | append: ename | append: '" width="150" height="40">'
       else
-        echo '<a href="' | append: block.settings.link | default: '#' | append: '" aria-label="' | append: block.settings.name | append: '">'
+        echo '<span>' | append: name | append: '</span>'
       endif
-      if src != ''
-        echo '<img src="' | append: src | append: '" alt="" width="150" height="40">'
-      else
-        echo '<span>' | append: block.settings.name | append: '</span>'
-      endif
-      if target != ''
-        echo '</button>'
-      else
-        echo '</a>'
-      endif
-      echo '</li>'
+      echo '</button></li>'
+      assign n = n | plus: 1
     endfor
   endcapture
   capture press_url
@@ -251,6 +276,7 @@
     { "type": "text", "id": "read_label", "label": "Read link", "default": "Read the piece" },
     { "type": "range", "id": "interval", "label": "Seconds per piece", "min": 4, "max": 12, "step": 1, "default": 6 },
     { "type": "text", "id": "press_label", "label": "Strip label", "default": "As featured in" },
+    { "type": "range", "id": "max_logos", "label": "Publications shown", "min": 4, "max": 30, "step": 1, "default": 8, "info": "Only those with a piece to read, most recent first. The rest are on the press page." },
     { "type": "text", "id": "all_label", "label": "Link to the press page", "default": "All the press" }
   ],
   "blocks": [

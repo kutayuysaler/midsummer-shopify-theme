@@ -161,7 +161,7 @@
 {%- comment -%} 02 · Heritage & craft {%- endcomment -%}
 {%- capture items -%}
 {{ u_story }}|{{ ss.mg_h1 }}|{{ ss.mg_h1_note }}|{{ 'ms-photo-loft.jpg' | asset_url }}|
-§{{ u_handmade }}|{{ ss.mg_h2 }}|{{ ss.mg_h2_note }}|{{ 'ms-photo-seamstress.jpg' | asset_url }}|
+§{{ u_handmade }}|{{ ss.mg_h2 }}|{{ ss.mg_h2_note }}|{{ 'ms-photo-artisan-wool.jpg' | asset_url }}|
 §{{ u_culture }}|{{ ss.mg_h3 }}|{{ ss.mg_h3_note }}|{{ 'ms-photo-window-chair.jpg' | asset_url }}|
 §{{ u_materials }}|{{ ss.mg_h4 }}|{{ ss.mg_h4_note }}|{{ 'ms-photo-shepherd.jpg' | asset_url }}|
 §{{ u_loro }}|{{ ss.mg_h5 }}|{{ ss.mg_h5_note }}|{{ 'ms-photo-paisley-throw.jpg' | asset_url }}|
@@ -204,7 +204,7 @@
             assign allcats = allcats | split: ','
           -%}
           {%- for k in allcats -%}
-            {%- if present contains k -%}<li><a href="{{ u_journal }}?cat={{ k }}">{% render 'ms-note-cat', label: k %}</a></li>{%- endif -%}
+            {%- if present contains k -%}<li><a href="{{ u_journal }}?view={{ k }}">{% render 'ms-note-cat', label: k %}</a></li>{%- endif -%}
           {%- endfor -%}
         {%- endif -%}
         {%- if u_press != blank -%}<li><a href="{{ u_press }}">{{ ss.mg_press }}</a></li>{%- endif -%}
@@ -223,7 +223,7 @@
         {%- endfor -%}
       {%- else -%}
         <a class="ms-mg__card ms-mg__card--note" href="{{ u_journal }}" style="--i: 1;">
-          <span class="ms-mg__cimg"><img src="{{ cdn }}Vicuna-mattress.jpg?width=900" alt="" width="900" height="600" loading="lazy"></span>
+          <span class="ms-mg__cimg"><img src="{{ cdn }}Vicuna-mattress.jpg?width=900" alt="The Vicuña mattress" width="900" height="600" loading="lazy"></span>
           <span class="ms-mg__ctag">{{ ss.mg_note_label }}</span>
           <span class="ms-mg__cname">{{ ss.mg_all_notes }}</span>
         </a>

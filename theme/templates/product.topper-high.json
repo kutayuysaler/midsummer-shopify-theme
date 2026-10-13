@@ -72,20 +72,26 @@
       "settings": {
         "link_label": "The fibres inside",
         "link_place": "materials",
-        "text": "[name] is the surface of the bed, made to sit on the mattress beneath it.",
+        "text": "[name] is the topper alone, the surface of the bed. It sits on the mattress beneath it, shown here in outline.",
         "fibres_label": "Its fibres",
         "part1_lead": "High, 9 to 10 cm, or medium, 5 cm: silk, wool, linen and Ingeo; the high one also in vicuña, the medium one also in wool and horsehair.",
         "part1_text": "High, 9 to 10 cm, or medium, 5 cm: silk, wool, linen and Ingeo; the high one also in vicuña, the medium one also in wool and horsehair.",
         "part1_points": "The body rests on the mattress, gently held by the softness of the fibres above it.\nWarm for the winter, cool and breathable for the summer.\nUpholstered in Loro Piana Interiors linen and cotton, or cashmere, in a range of colours.",
         "part1_fibres": "Silk, Wool, Linen, Ingeo, Vicuña, Horsehair",
-        "part2_lead": "Made to sit on the mattress beneath it.",
-        "part2_text": "Made to sit on the mattress beneath it.",
+        "part1_winter": "",
+        "part1_summer": "",
+        "part2_lead": "Not part of [name]: it sits on the mattress beneath it.",
+        "part2_text": "Not part of [name]: it sits on the mattress beneath it.",
         "part2_points": "On a Midsummer mattress, or on any good mattress you already sleep on.",
         "part2_fibres": "",
-        "part3_lead": "Made to rest on a Midsummer boxspring.",
-        "part3_text": "Made to rest on a Midsummer boxspring.",
-        "part3_points": "Made by the same artisans, to the size of the mattress.\nDressed in natural cloth, with a headboard drawn with you if you wish.",
-        "part3_fibres": "Cheviot Wool"
+        "part2_winter": "",
+        "part2_summer": "",
+        "part3_lead": "Not part of [name]: it rests on a Midsummer boxspring.",
+        "part3_text": "Not part of [name]: it rests on a Midsummer boxspring.",
+        "part3_points": "Made by hand in Italy, to the size of the mattress.\nDressed in natural cloth, with a headboard drawn with you if you wish.",
+        "part3_fibres": "Cheviot Wool",
+        "part3_winter": "",
+        "part3_summer": ""
       }
     },
     "s04": {
@@ -102,14 +108,14 @@
           "type": "qa",
           "settings": {
             "q": "What is [product] made of?",
-            "a": "<p>[product] is made by hand in Italy from natural fibres: silk, wool, linen, Ingeo, horsehair and vicuña. It can be upholstered in Loro Piana Interiors linen and cotton, or in cashmere, in a range of colours. It is made to order by two artisans, start to finish.</p>"
+            "a": "<p>[product] is made by hand in Italy from natural fibres: silk, wool, linen, Ingeo, horsehair and vicuña. It can be upholstered in Loro Piana Interiors linen and cotton, or in cashmere, in a range of colours. It is made to order, by hand, one at a time.</p>"
           }
         },
         "qa_02": {
           "type": "qa",
           "settings": {
             "q": "Can [product] be made to my dimensions?",
-            "a": "<p>Yes. Dimensions, heights, fibres, fabric and comfort level are specification decisions rather than exceptions. Non-standard widths, heights and radii, including round, carry no tooling charge.</p>"
+            "a": "<p>Yes. Dimensions, heights, fibres, fabric and comfort level are specification decisions rather than exceptions. Non-standard widths, heights and radii, round included, are worked to your drawing.</p>"
           }
         },
         "qa_03": {

@@ -6,11 +6,11 @@
 {%- liquid
   case tier
     when 'essentials'
-      assign list = 'essenziale,raffaello,amalfi,capri,thin-topper|topper-essentials|essentials-topper'
+      assign list = 'essenziale,raffaello,amalfi,capri,thin-topper|topper-essentials|essentials-topper|topper-basso'
     when 'signature'
-      assign list = 'bellagio,vivaldi-2|vivaldi,monteverdi,ultra-dry,dreamy-2|dreamy,brera,topper|signature-topper'
+      assign list = 'bellagio,vivaldi-2|vivaldi,monteverdi,ultra-dry|ultra-dry-mattress,dreamy-2|dreamy,brera,topper|signature-topper|topper-medio|topper-alto'
     else
-      assign list = 'paisley,top-2|top,vicuna,giotto|giotto-round,bellini,storage,flora,dreamy-springs,my-dream,roma,topper-roma,vivaldi-plus'
+      assign list = 'paisley,top-2|top,vicuna|vicuna-mattress,giotto-round,bellini,storage,flora,dreamy-springs-1|dreamy-springs-mattress,my-dream,mystic-river|roma,topper-roma,vivaldi-plus'
   endcase
   assign out = ''
   assign items = list | split: ','

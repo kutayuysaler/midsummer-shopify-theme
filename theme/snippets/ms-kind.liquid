@@ -63,6 +63,13 @@
         assign key = 'vivaldi-plus'
     endcase
   endif
+  if sfx == '' and key != ''
+    assign tt = p.title | append: ' ' | append: p.type | downcase
+    assign dd = p.description | strip_html | downcase | truncate: 600
+    if tt contains 'plaid' or tt contains 'blanket' or tt contains 'throw' or dd contains 'mohair plaid' or dd contains 'this plaid' or dd contains 'this blanket'
+      assign key = ''
+    endif
+  endif
   if key == '' or key == 'topper-roma'
     assign tt = p.title | append: ' ' | append: h | downcase
     if tt contains 'topper'

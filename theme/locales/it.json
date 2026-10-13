@@ -354,7 +354,7 @@
   "ms": {
     "home": {
       "h1": "Letti e materassi artigianali di lusso, realizzati uno a uno.",
-      "lede": "Disegniamo sogni. Ogni letto è realizzato da due artigiani, dall’inizio alla fine.",
+      "lede": "Disegniamo sogni. Ogni letto è fatto a mano in Italia, su ordinazione, uno alla volta.",
       "cta": "Prenota un appuntamento privato",
       "cta_note": "Nel nostro atelier di Milano o in videochiamata"
     },
@@ -366,9 +366,9 @@
       "cta_primary": "Richiedi una proposta",
       "cta_secondary": "Prenota un appuntamento privato",
       "f1_label": "Realizzazione",
-      "f1_value": "A mano in Italia, da due artigiani, dall’inizio alla fine",
+      "f1_value": "A mano in Italia, su ordinazione",
       "f2_label": "Dimensioni",
-      "f2_value": "Qualsiasi misura, anche rotonda, senza costi di attrezzaggio",
+      "f2_value": "Su misura, anche rotondo",
       "f3_label": "Servizio",
       "f3_value": "Rigenerato a quindici anni, per altri quindici",
       "cover_label": "Rivestimento",
@@ -392,7 +392,26 @@
       "kind_headboard": "Letto con testiera, fatto a mano in Italia",
       "kind_outdoor": "Letto e sedute per esterni, fatti a mano in Italia",
       "description_label_bed": "Il letto",
-      "description_label_outdoor": "Il progetto"
+      "description_label_outdoor": "Il progetto",
+      "kind_mattress": "Materasso in fibre naturali, fatto a mano in Italia",
+      "description_label_mattress": "Il materasso",
+      "description_label_topper": "Il topper",
+      "back": "Indietro",
+      "all_collections": "Tutte le collezioni",
+      "breadcrumb": "Percorso",
+      "home": "Home",
+      "size_single": "Singolo",
+      "size_small_double": "Una piazza e mezza",
+      "size_double": "Matrimoniale",
+      "size_double_extra": "Matrimoniale extra",
+      "size_queen": "Queen",
+      "size_king": "King",
+      "size_super_king": "Super King",
+      "facts_composition": "Composizione",
+      "facts_finishings": "Finiture",
+      "facts_care": "Cura",
+      "facts_order": "Su ordinazione",
+      "more_at": "Di più su"
     }
   }
 }

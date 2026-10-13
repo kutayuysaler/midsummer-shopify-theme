@@ -13,8 +13,36 @@ SLUG_NAMES = {
     'orange': ['Orange Fiber'],
 }
 
+# what the glass shows of each fibre: only what is drawn, in general terms
+GLASS = {
+    'vicuna': 'The finest of all: slender fibres, finely scaled, with a gentle wave.',
+    'cashmere': 'Fine fibres with smooth, shallow scales and a soft wave.',
+    'camel': 'Fine hair, scaled, holding a great deal of air.',
+    'yak': 'A fine down, scaled and softly waved, with the look of cashmere.',
+    'alpaca': 'Low scales and a gentle wave: between wool and cashmere.',
+    'mohair': 'Long fibres, almost smooth, which give mohair its lustre.',
+    'silk': 'A continuous filament, smooth and lustrous, spun as a pair.',
+    'wool': 'Bold scales and a deep crimp, the natural wave of the fibre.',
+    'horsehair': 'A thick, strong hair with a core: elastic, and more so curled.',
+    'linen': 'Straight fibres, marked by the nodes of the flax stem.',
+    'cotton': 'A flat ribbon that twists on itself.',
+    'vegetable': 'Ridged fibres of the palm leaf, curled like horsehair.',
+    'ingeo': 'Even, smooth filaments, drawn from maize.',
+    'orange': 'Fine, even filaments, made from orange peel.',
+}
+# where it comes from, for the map: latitude,longitude; several separated by ;
+POINTS = {
+    'vicuna': '-15.5,-70.5', 'cashmere': '46.9,103.8', 'camel': '43.5,104.5', 'alpaca': '-14.5,-71.5',
+    'wool': '55.4,-2.2;-51.7,-59.2', 'horsehair': '-36.5,-62', 'linen': '50.4,3.2',
+    'vegetable': '38.6,16.1', 'orange': '37.4,14.4',
+}
+
 def F(fibre, name, group, mark, q, ql, lead, figs=(), origin='', species='', photo='none', alt=''):
     st = {'fibre': fibre, 'name': name, 'group': group, 'mark': mark, 'qualities': q, 'quality_label': ql, 'lead': lead, 'photo': photo}
+    if GLASS.get(fibre):
+        st['glass_note'] = GLASS[fibre]
+    if POINTS.get(fibre):
+        st['points'] = POINTS[fibre]
     for i, (v, cap) in enumerate(figs, 1):
         st['f%d' % i] = v
         st['f%d_cap' % i] = cap
@@ -64,7 +92,7 @@ ATLAS = [
       'The most hygroscopic of the natural fibres. It keeps the body cool when it is warm and warm when it is cold, holds no static and resists mould. '
       'Ours comes from small farms: Cheviot, from Scotland, with the longest fibres, and Falkland.',
       [('⅓', 'Of its own weight in vapour, taken up without feeling wet.'), ('Small farms', 'Never merino from extensive Australian farms.')],
-      species='Ovis aries', photo='wool', alt='Sheep in full fleece, close together.'),
+      origin='Scotland and the Falkland Islands', species='Ovis aries', photo='wool', alt='Sheep in full fleece, close together.'),
     F('horsehair', 'Horsehair', 'animal', 'Horsehair', 'support breathability', 'Support · Breathability',
       'Used in upholstery for centuries because it is elastic and flexible, and curling makes it more so. Like wool, it takes up the moisture '
       'of the night and gives it back to the air by day, keeping the bed fresh.',
@@ -90,5 +118,5 @@ ATLAS = [
       [('Maize', 'The plant it is drawn from.')]),
     F('orange', 'Orange Fiber', 'plant', 'Orange Fiber', 'breathability', 'Freshness · Breathability',
       'An innovative, sustainable material made from Sicilian orange peels: light, breathable and naturally fresh.',
-      [('Orange peel', 'From Sicily’s oranges.')]),
+      [('Orange peel', 'From Sicily’s oranges.')], origin='Sicily'),
 ]

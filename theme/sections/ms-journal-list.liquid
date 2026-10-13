@@ -12,42 +12,79 @@
   endif
 -%}
 {%- unless ms_pj_skip -%}
-{%- paginate blog.articles by 15 -%}
 {%- liquid
+  # a subject of its own (/blogs/<journal>?view=sleep, templates/blog.sleep.json …): every note of that
+  # subject, filed by snippets/ms-note-cat, across the whole journal; otherwise fifteen notes a page
+  assign subj = ''
+  if template.suffix != blank
+    capture allc
+      render 'ms-note-cat', list: true
+    endcapture
+    assign probe = ',' | append: template.suffix | append: ','
+    assign allc_p = ',' | append: allc | append: ','
+    if allc_p contains probe
+      assign subj = template.suffix
+    endif
+  endif
+  assign per = 15
+  if subj != ''
+    assign per = 250
+  endif
+-%}
+{%- paginate blog.articles by per -%}
+{%- liquid
+  # each note filed once, in order
+  assign cats = ''
+  assign n_in = 0
+  for article in blog.articles
+    capture c
+      render 'ms-note-cat', a: article
+    endcapture
+    assign cats = cats | append: c | append: '|'
+    if subj == '' or c == subj
+      assign n_in = n_in | plus: 1
+    endif
+  endfor
+  assign cats = cats | split: '|'
   assign featured = nil
   if paginate.current_page == 1
-    assign featured = blog.articles.first
+    for article in blog.articles
+      if subj == '' or cats[forloop.index0] == subj
+        assign featured = article
+        break
+      endif
+    endfor
   endif
   assign total = blog.articles_count
+  if subj != ''
+    assign total = n_in
+  endif
   assign start = paginate.current_offset
+  capture allcats
+    render 'ms-note-cat', list: true
+  endcapture
+  assign allcats = allcats | split: ','
+  assign vq = ''
+  if subj != ''
+    assign vq = 'view=' | append: subj
+  endif
 -%}
-<section class="ms-jl" data-ms-jl>
+<section class="ms-jl{% if subj != '' %} is-subject{% endif %}" data-ms-jl{% if subj != '' %} data-subject="{{ subj }}"{% endif %}>
   {%- if blog.articles_count == 0 -%}
     <p class="ms-jl__empty">{{ section.settings.empty }}</p>
   {%- else -%}
-  {%- liquid
-    assign present = ''
-    for article in blog.articles
-      capture c
-        render 'ms-note-cat', a: article
-      endcapture
-      if c != ''
-        assign present = present | append: ',' | append: c
-      endif
-    endfor
-    capture allcats
-      render 'ms-note-cat', list: true
-    endcapture
-    assign allcats = allcats | split: ','
-  -%}
   <nav class="ms-jl__cats" aria-label="{{ section.settings.cats_label | escape }}" data-ms-jl-cats>
-    <a href="{{ blog.url }}" data-cat-link="" aria-current="true">{{ section.settings.all_label }}</a>
+    <a href="{{ blog.url }}" data-cat-link=""{% if subj == '' %} aria-current="true"{% endif %}>{{ section.settings.all_label }}</a>
     {%- for k in allcats -%}
-      {%- if present contains k -%}
-        <a href="{{ blog.url }}?cat={{ k }}" data-cat-link="{{ k }}">{% render 'ms-note-cat', label: k %}</a>
-      {%- endif -%}
+      <a href="{{ blog.url }}?view={{ k }}" data-cat-link="{{ k }}"{% if subj == k %} aria-current="true"{% endif %}>{% render 'ms-note-cat', label: k %}</a>
     {%- endfor -%}
   </nav>
+  {%- if subj != '' -%}
+    <header class="ms-jl__subj">
+      <h2 class="ms-jl__subjt">{% render 'ms-note-cat', label: subj %}</h2>
+      <p class="ms-jl__subjn">{{ total }} {{ section.settings.notes_label }}</p>
+    </header>
+  {%- endif -%}
   <div class="ms-jl__bar">
     <span class="ms-jl__total">{{ total }} {{ section.settings.notes_label }}</span>
     <div class="ms-jl__views" role="group" aria-label="{{ section.settings.view_label | escape }}">
@@ -56,6 +93,9 @@
     </div>
   </div>
 
+  {%- if total == 0 -%}
+    <p class="ms-jl__none">{{ section.settings.empty }}</p>
+  {%- endif -%}
   <div class="ms-jl__gallery" data-ms-jl-pane="gallery">
     {%- if featured -%}
       {%- assign article = featured -%}{%- capture cat -%}{% render 'ms-note-cat', a: article %}{%- endcapture -%}{%- capture catl -%}{% render 'ms-note-cat', label: cat %}{%- endcapture -%}
@@ -72,11 +112,15 @@
     {%- endif -%}
     <div class="ms-jl__mosaic">
       {%- assign k = 0 -%}
+      {%- assign seen = 0 -%}
       {%- for article in blog.articles -%}
-        {%- if featured and forloop.first -%}{%- continue -%}{%- endif -%}
+        {%- assign cat = cats[forloop.index0] -%}
+        {%- if subj != '' and cat != subj -%}{%- continue -%}{%- endif -%}
+        {%- assign seen = seen | plus: 1 -%}
+        {%- if featured and article.url == featured.url -%}{%- continue -%}{%- endif -%}
         {%- assign slot = k | modulo: 7 -%}
-        {%- assign no = total | minus: start | minus: forloop.index0 -%}
-{%- capture cat -%}{% render 'ms-note-cat', a: article %}{%- endcapture -%}{%- capture catl -%}{% render 'ms-note-cat', label: cat %}{%- endcapture -%}
+        {%- if subj != '' -%}{%- assign no = total | minus: seen | plus: 1 -%}{%- else -%}{%- assign no = total | minus: start | minus: forloop.index0 -%}{%- endif -%}
+        {%- capture catl -%}{% render 'ms-note-cat', label: cat %}{%- endcapture -%}
         <a class="ms-jl__card is-s{{ slot }}" href="{{ article.url }}" data-cat="{{ cat }}">
           <span class="ms-jl__img">{%- if article.image -%}<img src="{{ article.image | image_url: width: 1200 }}" srcset="{{ article.image | image_url: width: 600 }} 600w, {{ article.image | image_url: width: 1200 }} 1200w" sizes="(max-width: 760px) 100vw, 45vw" alt="{{ article.image.alt | default: article.title | escape }}" loading="lazy" width="1200" height="1200">{%- endif -%}</span>
           <span class="ms-jl__row"><span class="ms-jl__no">No. {{ no }}</span><span class="ms-jl__meta">{{ catl | default: blog.title }}</span></span>
@@ -90,12 +134,16 @@
 
   <div class="ms-jl__index" data-ms-jl-pane="index" hidden>
     <ol class="ms-jl__list" role="list">
+      {%- assign seen = 0 -%}
       {%- for article in blog.articles -%}
-        {%- assign no = total | minus: start | minus: forloop.index0 -%}
-        {%- capture cat -%}{% render 'ms-note-cat', a: article %}{%- endcapture -%}{%- capture catl -%}{% render 'ms-note-cat', label: cat %}{%- endcapture -%}<li data-cat="{{ cat }}">
+        {%- assign cat = cats[forloop.index0] -%}
+        {%- if subj != '' and cat != subj -%}{%- continue -%}{%- endif -%}
+        {%- assign seen = seen | plus: 1 -%}
+        {%- if subj != '' -%}{%- assign no = total | minus: seen | plus: 1 -%}{%- else -%}{%- assign no = total | minus: start | minus: forloop.index0 -%}{%- endif -%}
+        {%- capture catl -%}{% render 'ms-note-cat', label: cat %}{%- endcapture -%}<li data-cat="{{ cat }}">
           <a class="ms-jl__line" href="{{ article.url }}"{% if article.image %} data-ms-jl-img="{{ article.image | image_url: width: 700 }}"{% endif %}>
             <span class="ms-jl__no">No. {{ no }}</span>
-            {%- if article.image -%}<img class="ms-jl__thumb" src="{{ article.image | image_url: width: 200 }}" alt="" loading="lazy" width="100" height="125">{%- endif -%}
+            {%- if article.image -%}<img class="ms-jl__thumb" src="{{ article.image | image_url: width: 200 }}" alt="{{ article.image.alt | default: article.title | escape }}" loading="lazy" width="100" height="125">{%- endif -%}
             <span class="ms-jl__ltitle">{{ article.title }}</span>
             <span class="ms-jl__ltag">{{ catl | default: blog.title }}</span>
             <span class="ms-jl__ldate">{{ article.published_at | date: '%d.%m.%Y' }}</span>
@@ -103,14 +151,34 @@
         </li>
       {%- endfor -%}
     </ol>
-    <div class="ms-jl__float" data-ms-jl-float aria-hidden="true"><img alt="" data-ms-jl-floatimg width="240" height="300"></div>
+    <div class="ms-jl__float" data-ms-jl-float aria-hidden="true"><img alt="" role="presentation" data-ms-jl-floatimg width="240" height="300"></div>
   </div>
 
   {%- if paginate.pages > 1 -%}
+    {%- liquid
+      assign prev_u = paginate.previous.url
+      assign next_u = paginate.next.url
+      if vq != ''
+        unless prev_u contains 'view='
+          if prev_u contains '?'
+            assign prev_u = prev_u | append: '&' | append: vq
+          else
+            assign prev_u = prev_u | append: '?' | append: vq
+          endif
+        endunless
+        unless next_u contains 'view='
+          if next_u contains '?'
+            assign next_u = next_u | append: '&' | append: vq
+          else
+            assign next_u = next_u | append: '?' | append: vq
+          endif
+        endunless
+      endif
+    -%}
     <nav class="ms-jl__pages" aria-label="Pages">
-      {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">← {{ section.settings.newer }}</a>{%- else -%}<span></span>{%- endif -%}
+      {%- if paginate.previous -%}<a href="{{ prev_u }}">← {{ section.settings.newer }}</a>{%- else -%}<span></span>{%- endif -%}
       <span class="ms-jl__pnum">{{ paginate.current_page }} / {{ paginate.pages }}</span>
-      {%- if paginate.next -%}<a href="{{ paginate.next.url }}">{{ section.settings.older }} →</a>{%- else -%}<span></span>{%- endif -%}
+      {%- if paginate.next -%}<a href="{{ next_u }}">{{ section.settings.older }} →</a>{%- else -%}<span></span>{%- endif -%}
     </nav>
   {%- endif -%}
   {%- endif -%}
@@ -141,6 +209,10 @@
   .ms-site .ms-jl__cats a:hover { color: #17140F; }
   .ms-site .ms-jl__cats a[aria-current="true"] { color: #17140F; border-bottom-color: #17140F; }
   .ms-jl [data-cat].is-out { display: none !important; }
+  .ms-jl__subj { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin: clamp(18px, 2.4vw, 32px) 0 clamp(8px, 1vw, 14px); padding-bottom: 14px; border-bottom: 1px solid #DDD6C9; }
+  .ms-jl__subjt { font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: clamp(34px, 4vw, 56px); line-height: 1.05; margin: 0; }
+  .ms-site .ms-jl__subjn { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: #8C8273; margin: 0; }
+  .ms-jl.is-subject .ms-jl__total { visibility: hidden; }
   .ms-jl.is-filtered .ms-jl__mosaic { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)) !important; gap: clamp(28px, 3vw, 48px) clamp(16px, 2vw, 32px); }
   .ms-jl.is-filtered .ms-jl__mosaic > * { grid-column: auto !important; grid-row: auto !important; margin: 0 !important; }
   .ms-jl__none { font-family: Newsreader, Georgia, serif; font-size: 22px; color: #6E675C; padding: 40px 0; }
@@ -255,26 +327,9 @@
   })();
 
   (function () {
-    var root = document.querySelector('[data-ms-jl]'), nav = root && root.querySelector('[data-ms-jl-cats]');
-    if (!nav) return;
-    function apply(cat) {
-      root.classList.toggle('is-filtered', !!cat);
-      root.querySelectorAll('[data-cat]').forEach(function (el) { el.classList.toggle('is-out', !!cat && el.getAttribute('data-cat') !== cat); });
-      nav.querySelectorAll('[data-cat-link]').forEach(function (a) { a.setAttribute('aria-current', a.getAttribute('data-cat-link') === (cat || '') ? 'true' : 'false'); });
-    }
-    var start = new URLSearchParams(location.search).get('cat') || '';
-    if (start && !nav.querySelector('[data-cat-link="' + start + '"]')) start = '';
-    apply(start);
-    nav.addEventListener('click', function (e) {
-      var a = e.target.closest('[data-cat-link]');
-      if (!a || e.metaKey || e.ctrlKey) return;
-      e.preventDefault();
-      var cat = a.getAttribute('data-cat-link');
-      var u = new URL(location.href);
-      if (cat) u.searchParams.set('cat', cat); else u.searchParams.delete('cat');
-      history.replaceState(null, '', u);
-      apply(cat);
-    });
+    // an older link to a subject (?cat=sleep) opens the subject's own page (?view=sleep)
+    var cat = new URLSearchParams(location.search).get('cat');
+    if (cat && /^[a-z]+$/.test(cat)) { var u = new URL(location.href); u.searchParams.delete('cat'); u.searchParams.set('view', cat); location.replace(u.toString()); }
   })();
 </script>
 {%- endunless -%}

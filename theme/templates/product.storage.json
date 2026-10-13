@@ -48,20 +48,26 @@
       "settings": {
         "link_label": "The fibres inside",
         "link_place": "materials",
-        "text": "[name] is made as one: topper, mattress and base, by the same two artisans, and specified with you.",
+        "text": "[name] is a mattress on a boxspring with drawers beneath, made by hand in Italy and specified with you. A topper can finish it, if you wish.",
         "fibres_label": "Its fibres",
         "part1_lead": "Optional: a Midsummer topper to finish the bed.",
         "part1_text": "Optional: a Midsummer topper to finish the bed.",
         "part1_points": "Three heights, with a summer and a winter face.\nMade to sit on the mattress without changing its feel.",
         "part1_fibres": "Silk, Cheviot Wool, Linen",
+        "part1_winter": "",
+        "part1_summer": "",
         "part2_lead": "Cheviot wool, silk and cashmere.",
         "part2_text": "Cheviot wool, silk and cashmere.",
         "part2_points": "Upholstered in Loro Piana Interiors Mystic River, to match its base.",
         "part2_fibres": "Cashmere, Silk, Cheviot Wool",
+        "part2_winter": "",
+        "part2_summer": "",
         "part3_lead": "A slender base that holds two or four upholstered drawers.",
         "part3_text": "A slender base that holds two or four upholstered drawers.",
         "part3_points": "Cheviot wool on top; the drawers in the same Mystic River.",
-        "part3_fibres": "Cheviot Wool"
+        "part3_fibres": "Cheviot Wool",
+        "part3_winter": "",
+        "part3_summer": ""
       }
     },
     "s04": {
@@ -78,14 +84,14 @@
           "type": "qa",
           "settings": {
             "q": "What is [product] made of?",
-            "a": "<p>[product] is made by hand in Italy from natural fibres: cashmere, silk and Cheviot wool. It is upholstered in Loro Piana Interiors Mystic River, a linen and cotton, drawers included. It is made to order by two artisans, start to finish.</p>"
+            "a": "<p>[product] is made by hand in Italy from natural fibres: cashmere, silk and Cheviot wool. It is upholstered in Loro Piana Interiors Mystic River, a linen and cotton, drawers included. It is made to order, by hand, one at a time.</p>"
           }
         },
         "qa_02": {
           "type": "qa",
           "settings": {
             "q": "Can [product] be made to my dimensions?",
-            "a": "<p>Yes. Dimensions, heights, fibres, fabric and comfort level are specification decisions rather than exceptions. Non-standard widths, heights and radii, including round, carry no tooling charge.</p>"
+            "a": "<p>Yes. Dimensions, heights, fibres, fabric and comfort level are specification decisions rather than exceptions. Non-standard widths, heights and radii, round included, are worked to your drawing.</p>"
           }
         },
         "qa_03": {

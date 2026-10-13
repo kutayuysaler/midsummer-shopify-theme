@@ -61,7 +61,7 @@
         "row_06": {
           "type": "row",
           "settings": {
-            "label": "Handmade in Italy, by two artisans",
+            "label": "Handmade in Italy, to order",
             "v1": "yes",
             "v2": "yes",
             "v3": "yes",
@@ -132,14 +132,14 @@
           "type": "qa",
           "settings": {
             "q": "Are Essentials made differently from Icons?",
-            "a": "<p>No. Every system, in every collection, is made by hand in Italy by the same two artisans, from natural fibres only. The collections differ in the cloth, the rarity of the fibres and how far each system is made to measure.</p>"
+            "a": "<p>No. Every system, in every collection, is made by hand in Italy, from natural fibres. The collections differ in the cloth, the rarity of the fibres and how far each system is made to measure.</p>"
           }
         },
         "qa_03": {
           "type": "qa",
           "settings": {
             "q": "Can I have a size that is not listed?",
-            "a": "<p>Yes. Every system is made to order: dimensions and heights are worked to your drawing, round beds included, without tooling charges.</p>"
+            "a": "<p>Yes. Every system is made to order: dimensions and heights are worked to your drawing, round beds included.</p>"
           }
         },
         "qa_04": {

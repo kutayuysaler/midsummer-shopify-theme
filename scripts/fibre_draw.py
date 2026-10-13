@@ -2,12 +2,20 @@
 tells it apart. The animal hairs carry their cuticle scales (wool crimped and boldly scaled, mohair
 almost smooth, horsehair thick with a core); silk runs as a pair of smooth filaments; linen is straight
 with its nodes; cotton is a flat, twisting ribbon; vegetable horsehair is ridged; Ingeo and Orange Fiber
-are smooth, even filaments. Fine lines only, in the house's warm greys. Deterministic; written as small
-SVG files (assets/ms-fibre-draw-<slug>.svg) by bin/build_more.py."""
+are smooth, even filaments. Each in its own natural colour, lit as on a microscope's bright field: the
+strands in front sharp and rounded by the light, those behind softly out of focus. Deterministic;
+written as small SVG files (assets/ms-fibre-draw-<slug>.svg) by bin/build_more.py."""
 import math, random
 
 W, H = 800, 1000
 INK = '#5E5244'
+# each fibre's own colour, as it is before any dye: (body, edge ink)
+COLOR = {
+    'vicuna': '#C99D6E', 'cashmere': '#E0CFB2', 'camel': '#C9A47B', 'yak': '#7A6250', 'alpaca': '#CDB28A',
+    'mohair': '#F1ECE2', 'silk': '#EEDDB4', 'wool': '#EEE4CF', 'horsehair': '#3F3631', 'linen': '#CFC2A6',
+    'cotton': '#F5F2EB', 'vegetable': '#5E4C34', 'ingeo': '#F2F0EA', 'orange': '#EECDA4',
+}
+FIELD = ('#FBF6EC', '#EFE5D3', '#D9CBB3')     # the bright field: centre, middle, edge
 
 # r: strand radius; n: strands; scale: spacing of the cuticle scales (0 none); crimp: (amplitude, wavelength)
 STYLE = {
@@ -26,6 +34,13 @@ STYLE = {
     'ingeo':     dict(r=12, n=8, crimp=(0, 1), straight=True, sheen=True),
     'orange':    dict(r=10, n=8, crimp=(2, 500), sheen=True),
 }
+
+def shade(hexc, k):
+    """lighter (k > 0, toward white) or darker (k < 0, toward a warm black)"""
+    c = [int(hexc[i:i + 2], 16) for i in (1, 3, 5)]
+    t = (255, 252, 246) if k > 0 else (34, 26, 20)
+    k = abs(k)
+    return '#%02X%02X%02X' % tuple(round(a + (b - a) * k) for a, b in zip(c, t))
 
 def f(v):
     return ('%.1f' % v).rstrip('0').rstrip('.')
@@ -61,6 +76,10 @@ def inside(x, y, m=120):
 def draw(slug):
     st = STYLE[slug]
     rng = random.Random(sum(map(ord, slug)) * 7 + 3)
+    col = COLOR.get(slug, '#EDE6DA')
+    dark = sum(int(col[i:i + 2], 16) for i in (1, 3, 5)) < 330
+    ink = shade(col, -.62 if not dark else -.55)
+    lite = shade(col, .55 if not dark else .38)
     out = []
     base = math.radians(rng.choice([-32, -28, 24, 30]))
     n = st['n']
@@ -76,7 +95,7 @@ def draw(slug):
             return rr * (1 + 0.04 * math.sin(k * 0.21 + i))
         reps = [0] if not st.get('pair') else [-rr * 1.05, rr * 1.05]
         back = n > 3 and rng.random() < 0.34
-        out.append('<g opacity="%s">' % ('.42' if back else '1'))
+        out.append('<g stroke="%s"%s>' % (ink, ' opacity=".55" filter="url(#b)"' if back else ''))
         for sh in reps:
             e1 = [(x + nx * (sh + rad(k)), y + ny * (sh + rad(k))) for k, ((x, y), (nx, ny)) in enumerate(zip(pts, nrm))]
             e2 = [(x + nx * (sh - rad(k)), y + ny * (sh - rad(k))) for k, ((x, y), (nx, ny)) in enumerate(zip(pts, nrm))]
@@ -87,14 +106,15 @@ def draw(slug):
             e1, e2 = e1[k0:k1 + 1], e2[k0:k1 + 1]
             P, N = pts[k0:k1 + 1], nrm[k0:k1 + 1]
             # the strand: a pale body over what lies beneath, its two edges in ink
-            out.append('<path d="%s" fill="#F7F2EA" fill-opacity=".9" stroke="none"/>' % poly(e1 + e2[::-1], True))
-            if st.get('shade'):
-                out.append('<path d="%s" fill="#5E5244" fill-opacity="%s" stroke="none"/>' % (poly(e1 + e2[::-1], True), st['shade']))
-            out.append('<path d="%s" stroke-width=".9"/>' % poly(e1))
-            out.append('<path d="%s" stroke-width=".9"/>' % poly(e2))
-            if st.get('sheen'):
-                hl = [(x + nx * (sh + rr * 0.35), y + ny * (sh + rr * 0.35)) for (x, y), (nx, ny) in zip(P, N)]
-                out.append('<path d="%s" stroke-width=".5" stroke-opacity=".45"/>' % poly(hl))
+            body_d = poly(e1 + e2[::-1], True)
+            out.append('<path d="%s" fill="%s" stroke="none"/>' % (body_d, col))
+            # rounded by the light: darker towards both edges, a bright line a little off the centre
+            out.append('<path d="%s" stroke="%s" stroke-width="%s" stroke-opacity=".22"/>' % (poly(e1), shade(col, -.45), f(rr * .55)))
+            out.append('<path d="%s" stroke="%s" stroke-width="%s" stroke-opacity=".3"/>' % (poly(e2), shade(col, -.45), f(rr * .7)))
+            hl = [(x + nx * (sh + rr * 0.3), y + ny * (sh + rr * 0.3)) for (x, y), (nx, ny) in zip(P, N)]
+            out.append('<path d="%s" stroke="%s" stroke-width="%s" stroke-opacity="%s"/>' % (poly(hl), lite, f(rr * .32), '.85' if st.get('sheen') else '.55'))
+            out.append('<path d="%s" stroke-width="1"/>' % poly(e1))
+            out.append('<path d="%s" stroke-width="1"/>' % poly(e2))
             if st.get('core'):
                 c = [(x + nx * sh, y + ny * sh) for (x, y), (nx, ny) in zip(P, N)]
                 out.append('<path d="%s" stroke-width="%s" stroke-opacity=".2" stroke-dasharray="26 7 11 5 18 9"/>' % (poly(c), f(rr * st['core'])))
@@ -144,8 +164,29 @@ def draw(slug):
                     rl = [(x + nx * (sh + rad(k) * q), y + ny * (sh + rad(k) * q)) for k, ((x, y), (nx, ny)) in enumerate(zip(P, N))]
                     out.append('<path d="%s" stroke-width=".5" stroke-opacity=".5"/>' % poly(rl))
         out.append('</g>')
-    return ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %d %d" preserveAspectRatio="xMidYMid slice">'
-            '<g fill="none" stroke="%s" stroke-linecap="round" stroke-linejoin="round">%s</g></svg>' % (W, H, INK, ''.join(out)))
+    # the bright field behind, and the strands behind drawn first, out of focus
+    back_first = sorted(out_groups(out), key=lambda g: 0 if 'filter=' in g[0] else 1)
+    field = ('<defs><radialGradient id="f" cx=".5" cy=".46" r=".72"><stop offset="0" stop-color="%s"/><stop offset=".62" stop-color="%s"/><stop offset="1" stop-color="%s"/></radialGradient>'
+             '<filter id="b" x="-10%%" y="-10%%" width="120%%" height="120%%"><feGaussianBlur stdDeviation="3.2"/></filter></defs>'
+             '<rect width="%d" height="%d" fill="url(#f)"/>' % (FIELD[0], FIELD[1], FIELD[2], W, H))
+    return ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %d %d" preserveAspectRatio="xMidYMid slice">%s'
+            '<g fill="none" stroke-linecap="round" stroke-linejoin="round">%s</g></svg>' % (W, H, field, ''.join(''.join(g) for g in back_first)))
+
+def out_groups(out):
+    """the drawing's parts, one list per strand group (from its <g> to its </g>)"""
+    groups, cur = [], None
+    for x in out:
+        if x.startswith('<g '):
+            cur = [x]
+        elif x == '</g>':
+            cur.append(x)
+            groups.append(cur)
+            cur = None
+        elif cur is not None:
+            cur.append(x)
+    return groups
+
+
 
 if __name__ == '__main__':
     import sys, os

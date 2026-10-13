@@ -1,0 +1,34 @@
+/*
+ * Midsummer Milano: built from the approved Atelier preview, one section per band.
+ * Rendered with layout/ms.liquid, the preview's own type, colour and spacing.
+ */
+{
+  "layout": "ms",
+  "sections": {
+    "s01": {
+      "type": "ms-journal-head",
+      "settings": {}
+    },
+    "s02": {
+      "type": "ms-journal-list",
+      "settings": {}
+    },
+    "letters": {
+      "type": "ms-letters",
+      "settings": {
+        "heading": "The Journal, by letter.",
+        "text": "Our newsletter, sent regularly: new notes, new systems, and the dates the atelier opens."
+      }
+    },
+    "projects": {
+      "type": "ms-projects",
+      "settings": {}
+    }
+  },
+  "order": [
+    "s01",
+    "projects",
+    "s02",
+    "letters"
+  ]
+}

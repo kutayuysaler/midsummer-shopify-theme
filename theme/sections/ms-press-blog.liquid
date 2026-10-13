@@ -62,6 +62,8 @@
     <ul class="ms-pb__logos" role="list">
       {%- for block in section.blocks -%}
         {%- assign h = block.settings.link | split: '/' | last -%}
+        {%- comment -%} only publications with a piece to read: a mark never leads to an empty page {%- endcomment -%}
+        {%- unless blogs[h].articles_count > 0 or h == blog.handle -%}{%- continue -%}{%- endunless -%}
         <li {{ block.shopify_attributes }}>
           <a href="{{ block.settings.link }}"{% if h == blog.handle %} aria-current="page"{% endif %} title="{{ block.settings.name | escape }}">
             {%- if block.settings.logo_file != blank -%}

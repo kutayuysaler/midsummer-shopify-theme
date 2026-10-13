@@ -14,7 +14,7 @@
           "type": "fact",
           "settings": {
             "label": "The house",
-            "value": "<p>Midsummer Milano is a luxury bed and mattress house from Milan. Every piece is made to order, by hand in Italy, from natural fibres only.</p>",
+            "value": "<p>Midsummer Milano is a luxury bed and mattress house from Milan. Every piece is made to order, by hand in Italy, from natural fibres.</p>",
             "link_place": "story",
             "link_label": "Our story"
           }
@@ -50,7 +50,7 @@
           "type": "fact",
           "settings": {
             "label": "Made",
-            "value": "<p>By hand in Italy, one by one, by two artisans, start to finish. Nothing is made before it is specified.</p>",
+            "value": "<p>By hand in Italy, one by one, start to finish. Nothing is made before it is specified.</p>",
             "link_place": "handmade",
             "link_label": "Handmade in Italy"
           }
@@ -77,7 +77,7 @@
           "type": "fact",
           "settings": {
             "label": "Made to measure",
-            "value": "<p>Any dimension, height or radius, round beds included, with no tooling charge. Size, firmness, fibres and cloth are chosen with you.</p>",
+            "value": "<p>Any dimension, height or radius, round beds included, made to your drawing. Size, firmness, fibres and cloth are chosen with you.</p>",
             "link_place": "none",
             "link_label": ""
           }
@@ -190,10 +190,10 @@
         "fig_1": {
           "type": "figure",
           "settings": {
-            "number": "2",
+            "number": "1",
             "count": true,
-            "label": "Artisans per bed",
-            "line": "Start to finish, one bed at a time."
+            "label": "Bed at a time",
+            "line": "Made by hand in Italy, from the first stitch to the last."
           }
         },
         "fig_2": {
@@ -226,10 +226,10 @@
         "fig_5": {
           "type": "figure",
           "settings": {
-            "number": "0",
+            "number": "100%",
             "count": false,
-            "label": "Tooling charges",
-            "line": "Not even for a round bed."
+            "label": "Made to order",
+            "line": "To your measure, round beds included."
           }
         }
       },

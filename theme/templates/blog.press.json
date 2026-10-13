@@ -59,7 +59,7 @@
         "publication_07": {
           "type": "publication",
           "settings": {
-            "name": "L Officiel",
+            "name": "L’Officiel",
             "link": "/blogs/press-lofficiel",
             "logo_file": "ms-press-l-officiel.svg"
           }
@@ -147,7 +147,7 @@
         "publication_18": {
           "type": "publication",
           "settings": {
-            "name": "Lust und Leben",
+            "name": "Lust & Leben",
             "link": "/blogs/press-lust-leben",
             "logo_file": "ms-press-lust-und-leben.png"
           }
@@ -195,7 +195,7 @@
         "publication_24": {
           "type": "publication",
           "settings": {
-            "name": "Festival dell Etica",
+            "name": "Festival dell’Etica",
             "link": "/blogs/press-festival-delletica",
             "logo_file": "ms-press-festival-dell-etica.svg"
           }

@@ -95,6 +95,7 @@
       {%- assign fibres = fparts[0] | split: ',' -%}
       {%- assign quals = fparts[1] | strip -%}
       {%- capture note -%}{% render 'ms-product-note', title: product.title %}{%- endcapture -%}
+      {%- if mkp[0] == 'other' or mkp[0] == 'headboard' or mkp[0] == 'outdoor' -%}{%- assign note = '' -%}{%- endif -%}
       {%- assign sub = product.metafields.custom.subtitle.value | default: note -%}
       {%- assign spec = '' -%}
       {%- if mkp[0] == 'headboard' and mkp[2] != blank -%}
@@ -138,7 +139,7 @@
           <span class="ms-card__img">
             <img alt="{{ product.featured_media.alt | default: product.title | escape }}" src="{{ product.featured_media | image_url: width: 900 }}" srcset="{{ product.featured_media | image_url: width: 600 }} 600w, {{ product.featured_media | image_url: width: 900 }} 900w, {{ product.featured_media | image_url: width: 1400 }} 1400w" sizes="{% if collection.products.size == 1 %}(max-width: 760px) 100vw, 55vw{% else %}(max-width: 760px) 50vw, 30vw{% endif %}" loading="{% if forloop.index > 4 %}lazy{% else %}eager{% endif %}" width="900" height="1125">
             {%- assign alt_media = product.media[1] -%}
-            {%- if alt_media and alt_media.media_type == 'image' -%}<img class="ms-card__alt" alt="" src="{{ alt_media | image_url: width: 900 }}" loading="lazy" width="900" height="1125">{%- endif -%}
+            {%- if alt_media and alt_media.media_type == 'image' -%}<img class="ms-card__alt" alt="{{ product.title | escape }}" src="{{ alt_media | image_url: width: 900 }}" loading="lazy" width="900" height="1125">{%- endif -%}
           </span>
         {%- else -%}
           <span class="ms-card__img ms-sy__blank"></span>
@@ -189,7 +190,7 @@
           <tr data-q="{{ quals }}">
             <th scope="row">
               <a href="{{ product.url }}">
-                {%- if product.featured_media -%}<img src="{{ product.featured_media | image_url: width: 160 }}" alt="" width="64" height="80" loading="lazy">{%- endif -%}
+                {%- if product.featured_media -%}<img src="{{ product.featured_media | image_url: width: 160 }}" alt="{{ product.title | escape }}" width="64" height="80" loading="lazy">{%- endif -%}
                 <span>{{ product.title }}</span>
               </a>
             </th>
@@ -307,7 +308,11 @@
     .ms-sy__needs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: calc(-1 * clamp(18px, 5vw, 80px)); padding-inline: clamp(18px, 5vw, 80px); flex-wrap: wrap; }
     .ms-sy__name { font-size: 20px; margin-top: 6px; }
     .ms-sy__sub { font-size: 12.5px; }
-    .ms-sy__marks li { width: 26px; height: 26px; }
+    /* on a phone the marks stay small and quiet, a line under the name, the names beneath them */
+    .ms-sy__fibres { margin-top: 10px; padding-top: 9px; }
+    .ms-sy__marks { gap: 2px 3px; }
+    .ms-sy__marks li { width: 17px; height: 17px; color: #A08B6C; }
+    .ms-sy__marks .ms-fm { width: 15px; height: 15px; }
     .ms-sy__fnames { font-size: 11px; }
     .ms-sy__help p { flex: 1 0 100%; }
   }

@@ -17,17 +17,20 @@
   endif
 -%}
 {%- if ms_show -%}
-<section class="ms-faq-wrap" style="padding: 0px clamp(18px, 5vw, 80px) clamp(70px, 10vw, 150px); max-width: 1560px; margin: 0px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(28px, 5vw, 88px); align-items: start;">
-<div data-dc-tpl="1137" class="ms-faq-side" style="max-width: 40ch;">
-<div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgb(110, 103, 92);">{{ section.settings.t1 }}</div>
-<p style="font-size: 15px; line-height: 1.95; color: rgb(74, 68, 59); margin-top: 16px;">{{ section.settings.t2 }}</p>
-<a data-ms="cta" data-ms-enquire="" href="{% render 'ms-link', to: 'contact' %}" style="display: inline-block; margin-top: 20px; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; border-bottom: 1px solid rgb(23, 20, 15); padding-bottom: 7px;">{{ section.settings.t3 }}</a>
-</div>
-<div>
+<section class="ms-faq-wrap" style="padding: 0px clamp(18px, 5vw, 80px) clamp(70px, 10vw, 150px); max-width: 1560px; margin: 0px auto; display: grid; grid-template-columns: minmax(220px, 3fr) minmax(0, 7fr); gap: clamp(28px, 6vw, 120px); align-items: start;">
+<div data-dc-tpl="1137" class="ms-faq-side">
 {%- assign topics = section.blocks | where: 'type', 'topic' -%}
 {%- if topics.size > 1 -%}
-<nav class="ms-faq-topics" aria-label="Topics">{%- for tb in topics -%}<a href="#{{ tb.settings.title | handleize }}">{{ tb.settings.title }}</a>{%- endfor -%}</nav>
+<nav class="ms-faq-index" aria-label="{{ section.settings.t1 | default: 'Topics' | escape }}"><ol>{%- for tb in topics -%}<li><a href="#{{ tb.settings.title | handleize }}" data-faq-to="{{ tb.settings.title | handleize }}"><span>{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>{{ tb.settings.title }}</a></li>{%- endfor -%}</ol></nav>
 {%- endif -%}
+<div class="ms-faq-ask">
+<div class="ms-faq-ask__e">{{ section.settings.t1 }}</div>
+<p>{{ section.settings.t2 }}</p>
+<a data-ms="cta" data-ms-enquire="" href="{% render 'ms-link', to: 'contact' %}">{{ section.settings.t3 }}</a>
+</div>
+</div>
+<div>
+
 {%- assign opened = false -%}
 {%- for block in section.blocks -%}
 {%- if block.type == 'topic' -%}
@@ -58,7 +61,42 @@
   .ms-site .ms-faq-topics a:hover { color: #17140F; border-bottom-color: #17140F; }
   .ms-faq-topic { font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: clamp(24px, 2.4vw, 32px); letter-spacing: -0.02em; margin: clamp(36px, 4vw, 56px) 0 14px; scroll-margin-top: 110px; }
   .ms-faq-topic:first-of-type { margin-top: 12px; }
+  .ms-faq-side { max-width: none; }
+  .ms-faq-index ol { list-style: none; margin: 0; padding: 0; border-top: 1px solid #DDD6C9; }
+  .ms-faq-index li { border-bottom: 1px solid #DDD6C9; }
+  .ms-site .ms-faq-index a { display: flex; align-items: baseline; gap: 14px; padding: 15px 0; font-family: Newsreader, Georgia, serif; font-size: 19px; line-height: 1.3; color: #6E675C; transition: color .3s ease, padding .3s ease; }
+  .ms-faq-index a span { font-family: inherit; font-size: 11px; letter-spacing: .18em; color: #A08B6C; min-width: 22px; }
+  .ms-site .ms-faq-index a:hover, .ms-site .ms-faq-index a[aria-current="true"] { color: #17140F; }
+  .ms-site .ms-faq-index a[aria-current="true"] { padding-left: 8px; }
+  .ms-faq-ask { margin-top: clamp(28px, 3vw, 44px); padding: 22px 24px; background: #F3EEE5; }
+  .ms-faq-ask__e { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: #6E675C; }
+  .ms-faq-ask p { font-size: 14.5px; line-height: 1.85; color: #4A443B; margin: 12px 0 0; }
+  .ms-site .ms-faq-ask a { display: inline-block; margin-top: 16px; font-size: 11px; letter-spacing: .26em; text-transform: uppercase; border-bottom: 1px solid #17140F; padding-bottom: 7px; color: #17140F; }
+  .ms-faq-topic:first-of-type { margin-top: 0 !important; }
+  @media (max-width: 999px) {
+    .ms-faq-index ol { display: flex; flex-wrap: wrap; gap: 4px 18px; border: 0; }
+    .ms-faq-index li { border: 0; }
+    .ms-site .ms-faq-index a { font-family: inherit; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; padding: 8px 0; border-bottom: 1px solid #DDD6C9; }
+    .ms-faq-index a span { display: none; }
+    .ms-faq-ask { order: 3; }
+  }
 </style>
+<script>
+  /* the index follows the reader: the topic in view is the one marked */
+  (function () {
+    var nav = document.querySelector('.ms-faq-index'); if (!nav || !('IntersectionObserver' in window)) return;
+    var links = {}; nav.querySelectorAll('a[data-faq-to]').forEach(function (a) { links[a.getAttribute('data-faq-to')] = a; });
+    var heads = Array.prototype.slice.call(document.querySelectorAll('.ms-faq-topic[id]'));
+    function mark(id) { Object.keys(links).forEach(function (k) { if (k === id) links[k].setAttribute('aria-current', 'true'); else links[k].removeAttribute('aria-current'); }); }
+    var io = new IntersectionObserver(function () {
+      var cur = heads[0]; heads.forEach(function (h) { if (h.getBoundingClientRect().top < innerHeight * .35) cur = h; });
+      if (cur) mark(cur.id);
+    }, { rootMargin: '0px 0px -60% 0px', threshold: [0, 1] });
+    heads.forEach(function (h) { io.observe(h); });
+    addEventListener('scroll', function () { var cur = heads[0]; heads.forEach(function (h) { if (h.getBoundingClientRect().top < innerHeight * .35) cur = h; }); if (cur) mark(cur.id); }, { passive: true });
+    if (heads[0]) mark(heads[0].id);
+  })();
+</script>
 {%- if section.settings.schema -%}
 <script type="application/ld+json">
 {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [

@@ -9,13 +9,15 @@
 <div data-ms="prodgrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: clamp(20px, 3vw, 56px) clamp(16px, 2.4vw, 36px);">
 {%- for product in collection.products -%}
   {%- capture note -%}{% render 'ms-product-note', title: product.title %}{%- endcapture -%}
+  {%- capture gk -%}{% render 'ms-kind', p: product %}{%- endcapture -%}{%- assign gk = gk | split: '|' | first -%}
+  {%- if gk == 'other' or gk == 'headboard' or gk == 'outdoor' -%}{%- assign note = '' -%}{%- endif -%}
   {%- assign sub = product.metafields.custom.subtitle.value | default: note -%}
   <a href="{{ product.url }}" style="display: block;">
     {%- if product.featured_media -%}
       <span class="ms-card__img">
       <img alt="{{ product.featured_media.alt | default: product.title | escape }}" src="{{ product.featured_media | image_url: width: 1000 }}" srcset="{{ product.featured_media | image_url: width: 600 }} 600w, {{ product.featured_media | image_url: width: 1000 }} 1000w" sizes="(max-width: 760px) 50vw, 33vw" loading="{% if forloop.index > 3 %}lazy{% else %}eager{% endif %}" width="1000" height="1333" style="width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; display: block;">
       {%- assign alt_media = product.media[1] -%}
-      {%- if alt_media and alt_media.media_type == 'image' -%}<img class="ms-card__alt" alt="" src="{{ alt_media | image_url: width: 1000 }}" loading="lazy" width="1000" height="1333">{%- endif -%}
+      {%- if alt_media and alt_media.media_type == 'image' -%}<img class="ms-card__alt" alt="{{ product.title | escape }}" src="{{ alt_media | image_url: width: 1000 }}" loading="lazy" width="1000" height="1333">{%- endif -%}
       </span>
     {%- else -%}
       <span style="display: block; width: 100%; aspect-ratio: 3 / 4; background: rgb(241, 236, 227);"></span>

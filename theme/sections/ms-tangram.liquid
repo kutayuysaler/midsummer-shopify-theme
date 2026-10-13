@@ -2,7 +2,7 @@
   Tangram, the outdoor bed and seating system: "in the beginning was the square". The same six
   pieces, seen from above, rearrange themselves into the compositions of the catalogue, or into one
   of their own (many many, really). Then what it is made of. Shown on the Tangram, on the outdoor
-  collection, and nowhere else, so it can sit in the default product and collection templates.
+  collection (by its handle, or a collection of outdoor pieces alone), and nowhere else, so it can sit in the default product and collection templates.
 {%- endcomment -%}
 {%- liquid
   assign s = section.settings
@@ -17,21 +17,26 @@
       assign show = true
     endif
   elsif template.name == 'collection' and collection != blank
-    if collection.handle contains 'outdoor'
-      assign show = true
-    endif
+    # only the outdoor collection: by its handle, or a collection of outdoor pieces alone. A
+    # collection that merely includes the Tangram among beds (all, Signature …) goes without.
+    assign n_all = 0
+    assign n_out = 0
     for p in collection.products limit: 24
+      assign n_all = n_all | plus: 1
       capture k
         render 'ms-kind', p: p
       endcapture
       assign kp = k | split: '|'
       if kp[0] == 'outdoor'
-        assign show = true
+        assign n_out = n_out | plus: 1
         if tg == nil
           assign tg = p
         endif
       endif
     endfor
+    if collection.handle contains 'outdoor' or n_out > 0 and n_out == n_all
+      assign show = true
+    endif
   endif
   if request.design_mode
     assign show = true

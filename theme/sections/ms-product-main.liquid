@@ -26,9 +26,20 @@
   endcapture
   # the description as plain words: paragraphs and lines kept apart by a space, not run together
   assign desc_text = product.description | newline_to_br | replace: '<br />', ' ' | replace: '<br>', ' ' | replace: '<br/>', ' ' | replace: '</p>', ' </p>' | replace: '</div>', ' </div>' | replace: '</li>', ' </li>' | replace: '</h2>', ' </h2>' | replace: '</h3>', ' </h3>' | replace: '</h4>', ' </h4>' | replace: '</h5>', ' </h5>' | strip_html | split: ' ' | join: ' '
+  # the line under a system's name is found by its title: a plaid that shares a system's name
+  # ("Capri", "Roma") is not that system, and says its own line instead
+  capture mk0
+    render 'ms-kind', p: product
+  endcapture
+  assign mk0 = mk0 | split: '|'
+  if mk0[0] == 'other' or mk0[0] == 'headboard' or mk0[0] == 'outdoor'
+    assign note = ''
+  endif
   assign tagline = product.metafields.custom.subtitle.value | default: note
+  assign tagline_auto = false
   if tagline == blank
     assign tagline = desc_text | truncatewords: 22
+    assign tagline_auto = true
   endif
   assign images = product.media | where: 'media_type', 'image'
   assign n_images = images | size
@@ -38,10 +49,7 @@
   # Metafield custom.kind wins; otherwise the template's choice, in the visitor's language.
   # what the product is (snippets/ms-kind): a sleep system, a bed with headboard, the outdoor
   # Tangram, a boxspring, or something else, which then says only its own type
-  capture mk
-    render 'ms-kind', p: product
-  endcapture
-  assign mkp = mk | split: '|'
+  assign mkp = mk0
   assign pkind = mkp[0]
   assign bed = mkp[2]
   # a bed with headboard says what it is in its own line, not in the opening of its description
@@ -50,6 +58,14 @@
       render 'ms-bed-data', key: bed, part: 'line'
     endcapture
     assign tagline = tagline | strip | default: desc_text | truncatewords: 22
+  endif
+  # a sleep system's key may name a mattress or a topper alone (bin/lp_data.py CRAFT)
+  assign skind = ''
+  if mkp[1] != blank
+    capture skind
+      render 'ms-sys-data', key: mkp[1], part: 'kind'
+    endcapture
+    assign skind = skind | strip
   endif
   assign kind = product.metafields.custom.kind.value
   if kind == blank
@@ -66,12 +82,19 @@
         when 'other'
           assign kind_key = 'type'
       endcase
+      if pkind == 'system' and skind == 'mattress'
+        assign kind_key = 'mattress'
+      elsif pkind == 'system' and skind == 'topper'
+        assign kind_key = 'topper'
+      endif
     endif
     case kind_key
       when 'system'
         assign kind = 'ms.product.kind_system' | t
       when 'topper'
         assign kind = 'ms.product.kind_topper' | t
+      when 'mattress'
+        assign kind = 'ms.product.kind_mattress' | t
       when 'boxspring'
         assign kind = 'ms.product.kind_boxspring' | t
       when 'boxspring_mattress'
@@ -153,13 +176,13 @@
     render 'ms-tr', value: ss.f1_label, default: 'Made', key: 'ms.product.f1_label'
   endcapture
   capture t_f1v
-    render 'ms-tr', value: ss.f1_value, default: 'By hand in Italy, by two artisans, start to finish', key: 'ms.product.f1_value'
+    render 'ms-tr', value: ss.f1_value, default: 'By hand in Italy, to order', key: 'ms.product.f1_value'
   endcapture
   capture t_f2l
     render 'ms-tr', value: ss.f2_label, default: 'Dimensions', key: 'ms.product.f2_label'
   endcapture
   capture t_f2v
-    render 'ms-tr', value: ss.f2_value, default: 'Any size, including round, with no tooling charge', key: 'ms.product.f2_value'
+    render 'ms-tr', value: ss.f2_value, default: 'Made to measure, round included', key: 'ms.product.f2_value'
   endcapture
   capture t_f3l
     render 'ms-tr', value: ss.f3_label, default: 'Service', key: 'ms.product.f3_label'
@@ -211,6 +234,70 @@
     when 'outdoor', 'other', 'boxspring'
       assign t_desc = 'ms.product.description_label_outdoor' | t
   endcase
+  if pkind == 'system' and ss.description_label == 'About this system'
+    if skind == 'mattress'
+      assign t_desc = 'ms.product.description_label_mattress' | t
+    elsif skind == 'topper'
+      assign t_desc = 'ms.product.description_label_topper' | t
+    endif
+  endif
+
+  # the way back: the collection the visitor came through, else the one for what the product is
+  # (mattresses, toppers, boxsprings, beds with headboards, outdoor), else its collection
+  assign back = nil
+  if collection != blank and collection.handle != blank
+    assign back = collection
+  else
+    case pkind
+      when 'headboard', 'outdoor'
+        assign back_place = pkind
+        if pkind == 'headboard'
+          assign back_place = 'headboards'
+        endif
+      when 'boxspring'
+        assign back_place = 'bases'
+      else
+        assign back_place = ''
+        if skind == 'mattress'
+          assign back_place = 'mattresses'
+        elsif skind == 'topper'
+          assign back_place = 'toppers'
+        endif
+    endcase
+    if back_place != ''
+      capture bhs
+        render 'ms-link', to: back_place, handles: true
+      endcapture
+      assign bhs = bhs | strip | split: ','
+      for bh in bhs
+        assign bc = collections[bh]
+        if bc != blank and bc.products_count > 0
+          assign back = bc
+          break
+        endif
+      endfor
+    endif
+    if back == nil and tier
+      assign back = tier
+    endif
+    if back == nil
+      for c in product.collections
+        unless c.handle == 'all' or c.handle == 'frontpage'
+          assign back = c
+          break
+        endunless
+      endfor
+    endif
+  endif
+  if back
+    assign back_url = back.url
+    assign back_title = back.title
+    assign back_handle = back.handle
+  else
+    assign back_url = routes.collections_url
+    assign back_title = 'ms.product.all_collections' | t
+    assign back_handle = ''
+  endif
   if pkind == 'outdoor'
     assign t_f2v = 'Bases of 100 × 100, 180 × 80 and 80 × 50 cm; other sizes on request'
     assign t_cover_v = 'Loro Piana Interiors outdoor cloth'
@@ -234,7 +321,33 @@
   for option in product.options_with_values
     assign on = option.name | downcase
     if on contains 'size' or on contains 'misur' or on contains 'dimens' or on contains 'размер'
-      assign sizes = option.values | join: ' · '
+      # the standard names in the visitor's language (a translation in Translate & Adapt wins)
+      for v in option.values
+        assign vk = v | downcase | strip
+        case vk
+          when 'single'
+            assign vn = 'ms.product.size_single' | t
+          when 'small double'
+            assign vn = 'ms.product.size_small_double' | t
+          when 'double'
+            assign vn = 'ms.product.size_double' | t
+          when 'double extra'
+            assign vn = 'ms.product.size_double_extra' | t
+          when 'queen'
+            assign vn = 'ms.product.size_queen' | t
+          when 'king'
+            assign vn = 'ms.product.size_king' | t
+          when 'super king'
+            assign vn = 'ms.product.size_super_king' | t
+          else
+            assign vn = v
+        endcase
+        if forloop.first
+          assign sizes = vn
+        else
+          assign sizes = sizes | append: ' · ' | append: vn
+        endif
+      endfor
       break
     endif
   endfor
@@ -245,13 +358,21 @@
   assign lead = product.metafields.custom.lead_time | metafield_text
 -%}
 <section class="ms-pm" data-ms-pm>
+  <nav class="ms-pm__nav" aria-label="{{ 'ms.product.breadcrumb' | t }}">
+    <a class="ms-pm__back" href="{{ back_url }}" data-ms-pm-back="{{ back_handle }}"><span aria-hidden="true">←</span><span data-ms-pm-back-label>{{ back_title }}</span></a>
+    <ol class="ms-pm__trail">
+      <li><a href="{{ routes.root_url }}">{{ 'ms.product.home' | t }}</a></li>
+      <li><a href="{{ back_url }}">{{ back_title }}</a></li>
+      <li aria-current="page">{{ product.title }}</li>
+    </ol>
+  </nav>
   <div class="ms-pm__grid">
     <div class="ms-pm__gallery{% if n_images < 2 %} is-single{% endif %}" data-ms-pm-gallery aria-roledescription="carousel" aria-label="{{ product.title | escape }}: photographs">
       {%- if n_images > 1 -%}
         <div class="ms-pm__thumbs" data-ms-pm-thumbs>
           {%- for media in images -%}
             <button type="button" class="ms-pm__thumb{% if forloop.first %} is-on{% endif %}" data-ms-pm-to="{{ forloop.index0 }}" aria-label="Show photograph {{ forloop.index }}"{% if forloop.first %} aria-current="true"{% endif %}>
-              <img src="{{ media | image_url: width: 200 }}" alt="" width="100" height="125" loading="lazy">
+              <img src="{{ media | image_url: width: 200 }}" alt="{{ media.alt | default: product.title | escape }}" width="100" height="125" loading="lazy">
             </button>
           {%- endfor -%}
         </div>
@@ -301,8 +422,15 @@
         <div class="ms-pm__eyebrow">
           {%- if tier -%}<a href="{{ tier.url }}">{{ tier.title }}</a> · {{ numeral }}{%- else -%}{{ product.type | default: section.settings.eyebrow }}{%- endif -%}
         </div>
+        {%- liquid
+          assign eb_text = product.type | default: section.settings.eyebrow | strip | downcase
+          assign k_text = kind | strip | downcase
+          if tier == nil and k_text == eb_text
+            assign kind = ''
+          endif
+        -%}
         <h1 class="ms-pm__title">{{ product.title }}{% if kind != blank %}<span class="ms-pm__kind"><span class="ms-vh"> – </span>{{ kind }}</span>{% endif %}</h1>
-        {%- if tagline != blank -%}<p class="ms-pm__tagline">{{ tagline }}</p>{%- endif -%}
+        {%- if tagline != blank -%}<p class="ms-pm__tagline"{% if tagline_auto %} data-ms-auto{% endif %}>{{ tagline }}</p>{%- endif -%}
 
         <div class="ms-pm__price">
           <div class="ms-pm__label">{{ t_price_label }}</div>
@@ -321,7 +449,7 @@
 
         <dl class="ms-pm__facts" aria-label="{{ t_specs | strip | escape }}">
           <div><dt>{{ t_f1l }}</dt><dd>{{ t_f1v }}</dd></div>
-          {%- unless pkind == 'other' -%}<div><dt>{{ t_f2l }}</dt><dd>{{ t_f2v }}</dd></div>{%- endunless -%}
+          {%- unless pkind == 'other' -%}<div{% if pkind == 'headboard' or pkind == 'boxspring' %} class="is-generic"{% endif %}><dt>{{ t_f2l }}</dt><dd>{{ t_f2v }}</dd></div>{%- endunless -%}
           {%- if sizes != blank -%}<div><dt>{{ t_sizes }}</dt><dd>{{ sizes }}</dd></div>{%- endif -%}
           {%- if height != blank -%}<div><dt>{{ t_height }}</dt><dd>{{ height }}</dd></div>{%- endif -%}
           {%- if ss.cover_value != blank and t_cover_v != blank -%}<div><dt>{{ t_cover_l }}</dt><dd>{{ t_cover_v }}</dd></div>{%- endif -%}
@@ -333,7 +461,7 @@
         {%- if product.description != blank and section.settings.show_description -%}
           <details class="ms-pm__more" open>
             <summary>{{ t_desc }}</summary>
-            <div class="ms-pm__desc">{{ product.description }}</div>
+            <div class="ms-pm__desc" data-ms-desc{% if section.settings.discreet_build %} data-discreet{% endif %} data-l-dims="{{ t_f2l | strip | escape }}" data-l-height="{{ t_height | strip | escape }}" data-l-comp="{{ 'ms.product.facts_composition' | t | escape }}" data-l-fin="{{ 'ms.product.facts_finishings' | t | escape }}" data-l-care="{{ 'ms.product.facts_care' | t | escape }}" data-l-order="{{ 'ms.product.facts_order' | t | escape }}" data-l-more="{{ 'ms.product.more_at' | t | escape }}">{{ product.description }}</div>
           </details>
         {%- endif -%}
 
@@ -395,7 +523,7 @@
     <button type="button" class="ms-pm__vnav is-prev" data-ms-pm-step="-1" aria-label="Previous photograph">
       <svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.1"/></svg>
     </button>
-    <img data-ms-pm-full alt="" width="1600" height="1600">
+    <img data-ms-pm-full alt="{{ product.title | escape }}" width="1600" height="1600">
     <button type="button" class="ms-pm__vnav is-next" data-ms-pm-step="1" aria-label="Next photograph">
       <svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"/></svg>
     </button>
@@ -419,6 +547,47 @@
   endif
   assign v1 = product.selected_or_first_available_variant
 -%}
+{%- comment -%}
+  While prices are on request and no starting price is shown, the product is described plainly
+  (a Thing that is a Product): Google asks a product for an offer and reports its absence as an
+  error. Theme settings → Enquiry-led commerce → Search engines chooses.
+{%- endcomment -%}
+{%- liquid
+  assign ld_plain = false
+  if show_price == false and show_from == false and settings.ms_schema_unpriced != 'product'
+    assign ld_plain = true
+  endif
+-%}
+{%- if ld_plain -%}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Thing",
+    "additionalType": "https://schema.org/Product",
+    "@id": "{{ shop.url }}{{ product.url }}#product",
+    "name": {{ product.title | json }},
+    {%- if kind != blank %}
+    "alternateName": {{ product.title | append: ', ' | append: kind | json }},
+    {%- endif %}
+    {%- capture ld_dis -%}{{ kind | default: product.type }}{% if fibre_list.size > 0 %}: {{ fibre_list | join: ', ' }}{% endif %}{%- endcapture -%}
+    {%- if ld_dis != blank %}
+    "disambiguatingDescription": {{ ld_dis | strip | json }},
+    {%- endif %}
+    {%- if v1.sku != blank %}
+    "identifier": {{ v1.sku | json }},
+    {%- endif %}
+    "url": "{{ shop.url }}{{ product.url }}",
+    {%- if n_images > 0 %}
+    "image": [
+      {%- for media in images limit: 4 -%}
+        "https:{{ media | image_url: width: 1600 }}"{%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    ],
+    {%- endif %}
+    "description": {{ desc_text | default: tagline | truncate: 600 | json }}
+  }
+</script>
+{%- else -%}
 <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -438,7 +607,7 @@
       {%- endfor -%}
     ],
     {%- endif %}
-    "brand": { "@type": "Brand", "name": {{ shop.name | json }} },
+    "brand": { "@type": "Brand", "name": "Midsummer Milano" },
     "manufacturer": { "@id": "{{ shop.url }}/#organization" },
     {%- if v1.sku != blank %}
     "sku": {{ v1.sku | json }},
@@ -492,8 +661,41 @@
     {%- endif %}
   }
 </script>
+{%- endif -%}
 
 <style>
+  /* the way back, above the photographs */
+  .ms-pm__nav { display: flex; justify-content: space-between; align-items: center; gap: 12px 24px; margin: 0 0 clamp(16px, 2vw, 26px); }
+  .ms-site a.ms-pm__back { display: inline-flex; align-items: center; gap: 10px; min-height: 36px; font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: #17140F; text-decoration: none; }
+  .ms-pm__back span[aria-hidden] { display: inline-block; transition: transform .35s cubic-bezier(.2, .7, .2, 1); }
+  .ms-site a.ms-pm__back:hover span[aria-hidden] { transform: translateX(-4px); }
+  .ms-pm__trail { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 0; font-size: 11.5px; color: #8C8273; }
+  .ms-pm__trail li + li::before { content: '/'; margin: 0 9px; color: #C9BFAF; }
+  .ms-site .ms-pm__trail a { color: #6E675C; text-decoration: none; }
+  .ms-site .ms-pm__trail a:hover { color: #17140F; }
+  .ms-pm__trail [aria-current] { color: #17140F; }
+  @media (max-width: 900px) { .ms-pm__trail { display: none; } .ms-pm__nav { margin-bottom: 10px; } }
+  /* the description, put in order (the script above): epigraph, lead, text, facts, the small print */
+  .ms-desc__epi { margin: 0 0 22px; padding: 4px 0 4px 18px; border-left: 1px solid #C9B9A0; }
+  .ms-desc__epi blockquote { margin: 0; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 19px; line-height: 1.45; color: #4A443B; }
+  .ms-desc__epi figcaption { margin-top: 8px; font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: #8C8273; }
+  .ms-site .ms-desc__lead { font-family: Newsreader, Georgia, serif; font-size: 19px; line-height: 1.55; color: #2A251E; }
+  .ms-desc__h { font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: #6E675C; font-weight: 400; margin: 22px 0 8px; }
+  .ms-desc ul, .ms-pm__facts .is-from-text ul { margin: 6px 0 0; padding: 0; list-style: none; }
+  .ms-desc li, .ms-pm__facts .is-from-text li { position: relative; padding-left: 16px; }
+  .ms-desc li::before, .ms-pm__facts .is-from-text li::before { content: ''; position: absolute; left: 0; top: .9em; width: 8px; height: 1px; background: #B8A88E; }
+  .ms-pm__facts .is-from-text dd p { margin: 0; }
+  .ms-pm__facts .is-from-text dd p + p { margin-top: 6px; }
+  .ms-desc__facts { margin: 22px 0 0; border-top: 1px solid #ECE6DB; }
+  .ms-desc__facts > div { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 5fr); gap: 12px; padding: 12px 0; border-bottom: 1px solid #ECE6DB; }
+  .ms-desc__facts dt { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #8C8273; padding-top: 3px; }
+  .ms-desc__facts dd { margin: 0; }
+  .ms-desc__link { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; }
+  .ms-desc__link a { color: #17140F; text-decoration: none; border-bottom: 1px solid #A08B6C; padding-bottom: 2px; }
+  .ms-desc__link a::after { content: ' ↗'; }
+  .ms-desc__note { margin-top: 24px; padding: 14px 16px; background: #F4F0E8; font-size: 12.5px; line-height: 1.7; color: #6E675C; }
+  .ms-desc__note span { display: block; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #8C8273; margin-bottom: 6px; }
+  .ms-desc__note p + p { margin-top: 6px; }
   .ms-pm { padding: clamp(28px, 4vw, 64px) clamp(18px, 5vw, 80px) clamp(36px, 5vw, 72px); max-width: 1560px; margin: 0 auto; }
   .ms-pm__grid { display: grid; grid-template-columns: minmax(0, 8fr) minmax(340px, 4fr); gap: clamp(28px, 4vw, 80px); align-items: start; }
   /* the gallery: a slim rail of every photograph, a large stage that cross-fades, a fine line that counts */
@@ -706,6 +908,265 @@ document.addEventListener('DOMContentLoaded', function () {
   if (foot) new IntersectionObserver(function (e) { atFoot = e[0].isIntersecting; set(); }).observe(foot);
 });
 </script>
+<script>
+  // came from a collection page of this site: back goes there, as it was left (filters, scroll)
+  (function () {
+    var a = document.querySelector('[data-ms-pm-back]');
+    if (!a || !document.referrer) return;
+    try {
+      var r = new URL(document.referrer);
+      if (r.origin !== location.origin || r.pathname === location.pathname) return;
+      var m = r.pathname.match(/\/collections\/([^\/?#]+)\/?$/);
+      if (!m) return;
+      a.href = r.pathname + r.search;
+      if (m[1] !== a.getAttribute('data-ms-pm-back')) a.querySelector('[data-ms-pm-back-label]').textContent = {{ 'ms.product.back' | t | json }};
+      a.addEventListener('click', function (e) { if (history.length > 1) { e.preventDefault(); history.back(); } });
+    } catch (e) {}
+  })();
+</script>
+
+<script>
+  // the description, put in order: whatever admin holds (paragraphs or line breaks, an opening
+  // quotation, headings such as "Sizes (cm)" or "Finishings", "Standard measures: 160x220", the
+  // delivery small print) becomes an epigraph, a lead, the text, and facts in the list above
+  (function () {
+    var box = document.querySelector('.ms-pm__more .ms-pm__desc[data-ms-desc]');
+    if (!box || box.hasAttribute('data-ms-desc-done')) return;
+    box.setAttribute('data-ms-desc-done', '');
+    var L = { dims: box.getAttribute('data-l-dims') || 'Dimensions', height: box.getAttribute('data-l-height') || 'Height', comp: box.getAttribute('data-l-comp') || 'Composition', fin: box.getAttribute('data-l-fin') || 'Finishings', care: box.getAttribute('data-l-care') || 'Care', order: box.getAttribute('data-l-order') || 'Made to order' };
+    var html = box.innerHTML
+      .replace(/<!--[\s\S]*?-->/g, '')
+      .replace(/<\/?(span|font)[^>]*>/gi, '')
+      .replace(/\s(data-[\w-]+|class|style|title|dir)="[^"]*"/gi, '')
+      .replace(/<h[1-6][^>]*>/gi, '\n§H§').replace(/<\/h[1-6]>/gi, '\n')
+      .replace(/<li[^>]*>/gi, '\n§L§').replace(/<\/li>/gi, '\n')
+      .replace(/<br[^>]*>\s*(&nbsp;|\s)*<br[^>]*>/gi, '\n')
+      .replace(/<br[^>]*>/gi, '\n§B§')
+      .replace(/<\/?(p|div|ul|ol|blockquote|section|article|table|tbody|tr|td)[^>]*>/gi, '\n')
+      .replace(/<hr[^>]*>/gi, '\n');
+    var blocks = [];
+    html.split('\n').forEach(function (raw) {
+      var kind = 'p', soft = false, s = raw;
+      if (s.indexOf('§H§') === 0) { kind = 'h'; s = s.slice(3); }
+      else if (s.indexOf('§L§') === 0) { kind = 'li'; s = s.slice(3); }
+      else if (s.indexOf('§B§') === 0) { soft = true; s = s.slice(3); }
+      var d = document.createElement('div'); d.innerHTML = s;
+      var text = d.textContent.replace(/ /g, ' ').replace(/\s+/g, ' ').trim();
+      if (!text) return;
+      // a line set in capitals reads as a line, a name in capitals as a name
+      var inner = s.trim();
+      if (text.length > 3 && text === text.toUpperCase() && /[A-Z]{3}/.test(text)) {
+        var sc = text.toLowerCase().replace(/(^|[.!?]\s+)(\p{L})/gu, function (m, a, b) { return a + b.toUpperCase(); });
+        inner = sc; text = sc;
+      } else {
+        inner = inner.replace(/\b([A-ZÀ-Ž]{4,})\b/g, function (w) { return w.charAt(0) + w.slice(1).toLowerCase(); });
+        text = text.replace(/\b([A-ZÀ-Ž]{4,})\b/g, function (w) { return w.charAt(0) + w.slice(1).toLowerCase(); });
+      }
+      // one name, written one way
+      inner = inner.replace(/Midsummer-Milano/g, 'Midsummer Milano'); text = text.replace(/Midsummer-Milano/g, 'Midsummer Milano');
+      // a heading of its own words only: a short line in bold
+      if (kind === 'p' && /^<(strong|b)>[^<]{2,48}<\/(strong|b)>$/i.test(inner)) kind = 'h';
+      // a sentence set as a heading reads as a sentence; a heading that holds its value ("Height: 9-10 cm") is a line of facts
+      if (kind === 'h' && (text.length > 60 || /[.!?]$/.test(text))) { kind = 'p'; inner = text; }
+      if (kind === 'h' && /^[^:]{2,28}:\s*\S/.test(text)) { kind = 'p'; inner = text; }
+      if (kind === 'h') { text = text.replace(/\s*:\s*$/, ''); inner = inner.replace(/\s*:\s*(<\/(strong|b)>)?\s*$/i, '$1'); }
+      // a link alone on its line, said as where it goes rather than "click here"
+      var lone = inner.match(/^<a\s[^>]*href="([^"]+)"[^>]*>([^<]*)<\/a>$/i);
+      if (kind === 'p' && lone) {
+        kind = 'a';
+        if (/^(click here|clicca qui|more info|for more information|read more)/i.test(lone[2].trim())) {
+          var host = lone[1].replace(/^https?:\/\/(www\.)?/i, '').split('/')[0];
+          if (host) { text = (box.getAttribute('data-l-more') || 'More at') + ' ' + host; inner = inner.replace(/>[^<]*<\/a>$/, '>' + text + '</a>'); }
+        }
+      }
+      // a sentence left without its full stop
+      if (kind === 'p' && text.length > 30 && /\p{L}$/u.test(text)) inner += '.';
+      blocks.push({ k: kind, soft: soft, html: inner, text: text });
+    });
+    // the build stays the atelier's: where the theme is set to keep it private (the default), what
+    // names springs, layers or the core is left out of what is shown. A sentence that names them goes
+    // on its own and the rest of its paragraph stays; a run of short lines with one of them in it (a
+    // list of what lies under what is the build itself) goes whole; so does a heading over such words
+    if (box.hasAttribute('data-discreet')) {
+      var CON = /\b(layers?|strat[oi]|springs?|micro-?springs?|mini-?molle|molle|sommier|knots?|nodi|coils?|pocket(ed)?|insacchettat\w*|hourglass|clessidra|core|nucleo)\b|пружин|слой|слоя|слоёв|слоев/i;
+      var HEADX = /\b(padding|imbottitura|struttura|structure|construction|costruzione|inside|interno)\b/i;
+      var said = function (s) { return CON.test(s.replace(/dreamy springs|box-?springs?|spring\s*(\/|and|e)\s*summer|\b(in|of|the|this|every|early|late)\s+spring\b/gi, '')); };
+      var kept = [], head = null, group = [];
+      var flush = function () {
+        var out = [], run = [];
+        var dimsHead = head && /^(sizes?|dimensions?|measures?|misure|dimensioni|heights?|altezz)/i.test(head.text);
+        var close = function () { if (!run.some(function (b) { return said(b.text); })) out = out.concat(run); run = []; };
+        group.forEach(function (b) {
+          if (dimsHead) { if (!said(b.text)) out.push(b); return; }
+          if (b.k !== 'p' || b.text.length < 80) { run.push(b); return; }
+          close();
+          if (!said(b.text)) { out.push(b); return; }
+          var ok = b.text.split(/(?<=[.!?])\s+/).filter(function (s) { return !said(s); });
+          if (!ok.length) return;
+          b.text = ok.join(' '); b.html = b.text.replace(/[&<>]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]; });
+          out.push(b);
+        });
+        close();
+        if (head && !said(head.text) && !HEADX.test(head.text) && (out.length || !group.length)) kept.push(head);
+        if (!head || (!said(head.text) && !HEADX.test(head.text))) kept = kept.concat(out);
+        head = null; group = [];
+      };
+      blocks.forEach(function (b) { if (b.k === 'h') { flush(); head = b; } else group.push(b); });
+      flush();
+      blocks = kept;
+    }
+    if (!blocks.length) {
+      if (box.closest('details')) box.closest('details').hidden = true;
+      var tl0 = document.querySelector('.ms-pm__tagline[data-ms-auto]'); if (tl0) tl0.hidden = true;
+      return;
+    }
+    var facts = [], note = [], parts = [], epi = null;
+    // an opening quotation: "words - Author", or quoted lines and then the author alone on a line
+    var q = blocks[0].text.match(/^[“"«]?(.{6,280}?)[”"»]?\s+[-–—]\s*([^-–—]{2,60})$/);
+    if (q && q[2].split(' ').length <= 6) { epi = { q: q[1], a: q[2] }; blocks.shift(); }
+    else if ((function () {
+      // the quotation over several lines, its author on a line of their own after a dash: "… - Claude Monet"
+      for (var i = 1; i < Math.min(blocks.length, 6); i++) {
+        var m = blocks[i].text.match(/^[-–—]\s*(.{2,60})$/);
+        if (m && m[1].split(' ').length <= 6) {
+          epi = { q: blocks.slice(0, i).map(function (b) { return b.text; }).join(' ').replace(/^[“"«]|[”"»]$/g, ''), a: m[1] };
+          blocks.splice(0, i + 1);
+          return true;
+        }
+        if (blocks[i].text.length > 160) break;
+      }
+      return false;
+    })()) {}
+    else if (/^[“"«]/.test(blocks[0].text)) {
+      for (var i = 1; i < Math.min(blocks.length, 5); i++) {
+        var t = blocks[i].text;
+        if (t.split(' ').length <= 4 && !/[.!?:]$/.test(t) && /^\p{Lu}/u.test(t)) {
+          epi = { q: blocks.slice(0, i).map(function (b) { return b.text; }).join(' ').replace(/^[“"«]|[”"»]$/g, ''), a: t };
+          blocks.splice(0, i + 1);
+          break;
+        }
+      }
+    }
+    var FACT = [[/^(sizes?|dimensions?|measures?|misure|dimensioni|standard (sizes?|measures?))\b/i, 'dims'], [/^(heights?|altezza)\b/i, 'height'], [/^(finish(ing)?s?|finiture|details)\b/i, 'fin'],
+                [/^(materials?|composition|composizione|materiali)\b/i, 'comp'], [/^(care|washing|maintenance|cura|lavaggio)\b/i, 'care']];
+    function factKey(t) { for (var i = 0; i < FACT.length; i++) if (FACT[i][0].test(t)) return FACT[i][1]; return null; }
+    var cur = null;
+    blocks.forEach(function (b) {
+      if (/slow manufactur|delivery times?|tempi di consegna|made only on request|once the order has been placed/i.test(b.text)) { note.push(b.html); return; }
+      if (b.k === 'h') {
+        var fk = factKey(b.text.replace(/\(.*?\)/g, '').trim());
+        if (fk) { var un = b.text.match(/\((cm|mm)\)/i); cur = { fact: fk, unit: un ? un[1].toLowerCase() : '', items: [] }; facts.push(cur); return; }
+        cur = { head: b.html, items: [] }; parts.push(cur); return;
+      }
+      var lv = b.text.match(/^([A-Za-zÀ-Ž][\wÀ-Ž ()\/]{1,28}):\s*(.{1,200})$/);
+      if (lv && b.k !== 'li') {
+        var fk2 = factKey(lv[1]);
+        if (fk2 || /width|length|weight|larghezza|lunghezza|peso/i.test(lv[1])) { facts.push({ fact: fk2 || 'dims', label: fk2 ? null : lv[1], items: [{ k: 'p', html: lv[2] }] }); cur = null; return; }
+      }
+      if (cur && cur.fact) { cur.items.push(b); return; }
+      if (!cur || cur.fact) { cur = { items: [] }; parts.push(cur); }
+      cur.items.push(b);
+    });
+    // what it is made of, said in the text as percentages ("70% cashmere and 30% silk")
+    var all = blocks.map(function (b) { return b.text; }).join(' ');
+    var comp = all.match(/\b\d{1,3}\s?%\s?(?:(?:extra[- ]?fine|superfine|fine|pure|kid|baby|virgin|merino)\s)*(cashmere|silk|wool|linen|cotton|mohair|alpaca|yak|camel|vicu[ñn]a|merino|viscose|lurex|lyocell|polyamide|polyester|nylon|elastane|leather)\b/gi);
+    if (comp && !facts.some(function (f) { return f.fact === 'comp'; })) {
+      var seen = {}; comp = comp.filter(function (c) { var k = c.toLowerCase().replace(/\s/g, ''); if (seen[k]) return false; seen[k] = 1; return true; });
+      facts.push({ fact: 'comp', items: [{ k: 'p', html: comp.join(', ') }] });
+    }
+    // writing it out
+    function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); }
+    function items(list) {
+      var out = '', inList = false;
+      list.forEach(function (b) {
+        if (b.k === 'li') { if (!inList) { out += '<ul>'; inList = true; } out += '<li>' + b.html + '</li>'; return; }
+        if (inList) { out += '</ul>'; inList = false; }
+        out += b.k === 'a' ? '<p class="ms-desc__link">' + b.html + '</p>' : '<p>' + b.html + '</p>';
+      });
+      return out + (inList ? '</ul>' : '');
+    }
+    var out = '';
+    if (epi) out += '<figure class="ms-desc__epi"><blockquote>' + esc(epi.q) + '</blockquote><figcaption>' + esc(epi.a) + '</figcaption></figure>';
+    var leadAt = null;
+    parts.some(function (g, gi) { return (!g.head || gi === 0) && g.items.some(function (b) { if (b.k === 'p' && b.text.length > 50) { leadAt = b; return true; } }); });
+    if (!leadAt && parts.length && !parts[0].head && parts[0].items[0] && parts[0].items[0].k === 'p') leadAt = parts[0].items[0];
+    parts.forEach(function (g) {
+      if (g.head) out += '<h4 class="ms-desc__h">' + g.head + '</h4>';
+      g.items.forEach(function (b, i) {
+        if (b === leadAt) { out += '<p class="ms-desc__lead">' + b.html + '</p>'; return; }
+        out += items([b]);
+      });
+    });
+    var fl = box.closest('.ms-pm__sticky') && box.closest('.ms-pm__sticky').querySelector('.ms-pm__facts');
+    var have = {};
+    if (fl) fl.querySelectorAll('dt').forEach(function (dt) { have[dt.textContent.trim().toLowerCase()] = dt; });
+    var rest = '';
+    facts.forEach(function (f) {
+      var label = f.label ? f.label.charAt(0).toUpperCase() + f.label.slice(1) : L[f.fact];
+      var body = items(f.items);
+      if (!body) return;
+      // measures written one way: 160 × 220, 4 cm
+      if (f.fact === 'dims' || f.fact === 'height') {
+        body = body.replace(/(\d)\s*[x×X]\s*(?=\d)/g, '$1 × ').replace(/(\d)(cm|mm)\b/gi, function (m, a, u) { return a + ' ' + u.toLowerCase(); });
+        // the unit the heading gave ("Sizes (cm)"), written after each bare measure
+        if (f.unit) body = body.replace(/(\d)(\s*)(<\/(li|p)>)/g, '$1 ' + f.unit + '$3');
+      }
+      var dt = have[label.toLowerCase()];
+      // a row that only says what every piece shares gives way to what this piece's own text says
+      if (fl && dt && dt.parentNode.classList.contains('is-generic')) { dt.nextElementSibling.innerHTML = body; dt.parentNode.classList.remove('is-generic'); dt.parentNode.classList.add('is-from-text'); return; }
+      if (fl && !dt) {
+        var row = document.createElement('div'); row.className = 'is-from-text';
+        row.innerHTML = '<dt>' + esc(label) + '</dt><dd>' + body + '</dd>';
+        fl.appendChild(row); have[label.toLowerCase()] = row;
+      } else if (fl && dt && dt.parentNode.classList.contains('is-from-text')) {
+        dt.nextElementSibling.insertAdjacentHTML('beforeend', body);
+      } else if (fl && dt) {
+        // the house's own row for this already says it
+      } else {
+        rest += '<div><dt>' + esc(label) + '</dt><dd>' + body + '</dd></div>';
+      }
+    });
+    if (rest) out += '<dl class="ms-desc__facts">' + rest + '</dl>';
+    if (note.length) out += '<div class="ms-desc__note"><span>' + esc(L.order) + '</span>' + note.map(function (n) { return '<p>' + n + '</p>'; }).join('') + '</div>';
+    box.innerHTML = out;
+    box.classList.add('ms-desc');
+    // the line under the name, when it was the start of the description: the lead's first sentence
+    var tl = document.querySelector('.ms-pm__tagline[data-ms-auto]');
+    var lead = box.querySelector('.ms-desc__lead');
+    if (tl && !lead) tl.hidden = true;
+    if (tl && lead) {
+      var lt = lead.textContent.trim(), first = lt.match(/^.{12,200}?[.!?](\s|$)/), taken = 0;
+      if (first) taken = first[0].length;
+      else { var cut = lt.slice(0, 200).search(/[:;](?=[^:;]*$)/); if (cut > 40) { first = [lt.slice(0, cut) + '.']; taken = cut + 1; } }
+      tl.textContent = first ? first[0].trim() : lt.split(' ').slice(0, 22).join(' ') + '…';
+      // what the line under the name already says is not said again just below
+      if (first) {
+        if (lt.slice(taken).trim().length < 2) {
+          lead.parentNode.removeChild(lead);
+          var next = box.querySelector(':scope > p:not(.ms-desc__link)');
+          if (next && next.textContent.trim().length > 50) next.className = 'ms-desc__lead';
+        } else {
+          var raw = lead.textContent, skip = raw.length - raw.replace(/^\s+/, '').length + taken;
+          var w = document.createTreeWalker(lead, NodeFilter.SHOW_TEXT), n, fresh = true;
+          while ((n = w.nextNode())) {
+            if (skip > 0) { var c = Math.min(skip, n.nodeValue.length); n.nodeValue = n.nodeValue.slice(c); skip -= c; }
+            if (skip <= 0 && fresh) { var r = n.nodeValue.replace(/^[\s:;,.–—-]+/, ''); n.nodeValue = r ? r.charAt(0).toUpperCase() + r.slice(1) : ''; if (r) fresh = false; }
+          }
+        }
+        // nothing left to read here: the section closes rather than stand empty
+        if (!box.textContent.trim()) { var dtl = box.closest('details'); if (dtl) dtl.hidden = true; }
+      }
+    }
+    // a lead is a sentence or two: a long first paragraph gives the rest of itself to the text
+    var ld = box.querySelector('.ms-desc__lead');
+    if (ld && !ld.children.length && ld.textContent.length > 260) {
+      var ss2 = ld.textContent.trim().split(/(?<=[.!?])\s+/), head2 = '';
+      while (ss2.length > 1 && head2.length < 100) head2 += (head2 ? ' ' : '') + ss2.shift();
+      if (ss2.length) { ld.textContent = head2; var rp = document.createElement('p'); rp.textContent = ss2.join(' '); ld.parentNode.insertBefore(rp, ld.nextSibling); }
+    }
+  })();
+</script>
+
 {% schema %}
 {
   "name": "Product · The system",
@@ -732,9 +1193,9 @@ document.addEventListener('DOMContentLoaded', function () {
     { "type": "text", "id": "cta_primary", "label": "First button", "default": "Request a proposal" },
     { "type": "text", "id": "cta_secondary", "label": "Second link", "default": "Book a private appointment" },
     { "type": "text", "id": "f1_label", "label": "Fact 1 label", "default": "Made" },
-    { "type": "text", "id": "f1_value", "label": "Fact 1", "default": "By hand in Italy, by two artisans, start to finish" },
+    { "type": "text", "id": "f1_value", "label": "Fact 1", "default": "By hand in Italy, to order" },
     { "type": "text", "id": "f2_label", "label": "Fact 2 label", "default": "Dimensions" },
-    { "type": "text", "id": "f2_value", "label": "Fact 2", "default": "Any size, including round, with no tooling charge" },
+    { "type": "text", "id": "f2_value", "label": "Fact 2", "default": "Made to measure, round included" },
     { "type": "text", "id": "cover_label", "label": "Upholstery label", "default": "Upholstery" },
     { "type": "text", "id": "cover_value", "label": "Upholstery", "default": "Natural cloths, chosen with you", "info": "Empty hides the row." },
     { "type": "text", "id": "comfort_label", "label": "Comfort label", "default": "Comfort" },
@@ -745,6 +1206,7 @@ document.addEventListener('DOMContentLoaded', function () {
     { "type": "text", "id": "f3_label", "label": "Fact 3 label", "default": "Service" },
     { "type": "text", "id": "f3_value", "label": "Fact 3", "default": "Regenerated at fifteen years, for fifteen more" },
     { "type": "checkbox", "id": "show_description", "label": "Show the product description", "default": true },
+    { "type": "checkbox", "id": "discreet_build", "label": "Keep the build private in descriptions", "default": true, "info": "Leaves out sentences naming springs, layers or the core. Edit admin to remove them from the source too." },
     { "type": "text", "id": "description_label", "label": "Description label", "default": "About this system" },
     { "type": "text", "id": "enlarge_label", "label": "Enlarge label", "default": "Enlarge" },
     { "type": "header", "content": "Natural fibres" },

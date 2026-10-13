@@ -7,7 +7,7 @@
     "s01": {
       "type": "ms-banner",
       "settings": {
-        "image_fallback": "ms-photo-paisley-throw.jpg",
+        "image_fallback": "ms-photo-flora-wide.jpg",
         "eyebrow": "Upholstery",
         "use_page_title": false,
         "heading": "Loro Piana Interiors",
@@ -387,10 +387,12 @@
             "anchor": "wish",
             "code": "A702384RS",
             "composition": "Bouclé of virgin wool and cashmere",
-            "systems": "Bellini; the base of Flora.",
-            "text": "A bouclé of wool and cashmere, soft and deep, its loops catching the light. It dresses Bellini, and the base of Flora.",
+            "systems": "Bellini; the boxspring of Flora.",
+            "text": "A bouclé of wool and cashmere, soft and deep, its loops catching the light. It dresses Bellini, and the boxspring of Flora.",
             "texture": "boucle",
-            "color": "#CDBEAA"
+            "color": "#CDBEAA",
+            "image_fallback": "ms-lp-wish-l.jpg",
+            "image_caption": "On the Flora boxspring"
           }
         },
         "fabric_42": {
@@ -403,7 +405,9 @@
             "systems": "Flora: the topper.",
             "text": "Loro Piana Interiors’ Fiore di Cardo: wool and cashmere woven with a thistle flower. It dresses the winter face of the Flora topper; the summer face is linen and cotton.",
             "texture": "wool",
-            "color": "#C9B8A6"
+            "color": "#C9B8A6",
+            "image_fallback": "ms-lp-cardi-l.jpg",
+            "image_caption": "On the Flora topper"
           }
         },
         "fabric_43": {
@@ -440,10 +444,11 @@
             "code": "AL2075RS",
             "composition": "100% linen",
             "systems": "Paisley.",
-            "text": "A linen woven with a paisley, from the Paisley book. On Paisley it covers the topper, with Katai, a pure silk (AS1005), on the base.",
+            "text": "A linen woven with a paisley, from the Paisley book. On Paisley it covers the topper, with Katai, a pure silk (AS1005), on the boxspring.",
             "texture": "linen",
             "color": "#E2DACE",
-            "image_fallback": "ms-lp-shadan-l.jpg"
+            "image_fallback": "ms-lp-shadan-l.jpg",
+            "image_caption": "On the Paisley topper"
           }
         }
       },
@@ -513,7 +518,7 @@
         "fallback_1": "https://midsummer-milano.com/cdn/shop/files/Paisleydettaglio.jpg?v=1788246821&width=1400",
         "caption_1": "Shadan, a paisley linen by Loro Piana Interiors, on the topper of Paisley.",
         "fallback_2": "ms-graded-paisley-red.jpg",
-        "caption_2": "Paisley: Katai, a pure silk, on the base and the border of the mattress."
+        "caption_2": "Paisley: Katai, a pure silk, on the boxspring and the border of the mattress."
       }
     },
     "s06": {

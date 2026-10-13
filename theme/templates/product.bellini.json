@@ -88,20 +88,26 @@
       "settings": {
         "link_label": "The fibres inside",
         "link_place": "materials",
-        "text": "[name] is made as one: topper, mattress and base, by the same two artisans, and specified with you.",
+        "text": "[name] is made as one: topper, mattress and boxspring, by hand in Italy, and specified with you.",
         "fibres_label": "Its fibres",
         "part1_lead": "Silk and Cheviot wool for winter; Cheviot wool and Orange Fiber for summer.",
         "part1_text": "Silk and Cheviot wool for winter; Cheviot wool and Orange Fiber for summer.",
         "part1_points": "Orange Fiber is made from Sicilian orange peel: light, breathable and naturally fresh.\nEdged with a grosgrain ribbon.",
         "part1_fibres": "Silk, Cheviot Wool, Orange Fiber",
+        "part1_winter": "Silk, Cheviot Wool",
+        "part1_summer": "Cheviot Wool, Orange Fiber",
         "part2_lead": "Silk, Cheviot wool and horsehair for winter; linen, Ingeo, cotton, Falkland wool and horsehair for summer.",
         "part2_text": "Silk, Cheviot wool and horsehair for winter; linen, Ingeo, cotton, Falkland wool and horsehair for summer.",
         "part2_points": "Its feel is chosen with you, from soft to firm.",
         "part2_fibres": "Silk, Horsehair, Cheviot Wool, Falkland Wool, Linen, Cotton, Ingeo",
+        "part2_winter": "Silk, Cheviot Wool, Horsehair",
+        "part2_summer": "Linen, Ingeo, Cotton, Falkland Wool, Horsehair",
         "part3_lead": "Cheviot wool and linen, upholstered in Loro Piana Interiors Wish.",
         "part3_text": "Cheviot wool and linen, upholstered in Loro Piana Interiors Wish.",
         "part3_points": "Wish is a bouclé of wool and cashmere: it gives the slender base its texture and warmth.",
-        "part3_fibres": "Cheviot Wool, Linen"
+        "part3_fibres": "Cheviot Wool, Linen",
+        "part3_winter": "",
+        "part3_summer": ""
       }
     },
     "s04": {
@@ -118,14 +124,14 @@
           "type": "qa",
           "settings": {
             "q": "What is [product] made of?",
-            "a": "<p>[product] is made by hand in Italy from natural fibres: silk, horsehair, Cheviot wool, Falkland wool, linen, cotton, Ingeo and Orange Fiber. It is upholstered in Loro Piana Interiors Wish, a bouclé of wool and cashmere. It is made to order by two artisans, start to finish.</p>"
+            "a": "<p>[product] is made by hand in Italy from natural fibres: silk, horsehair, Cheviot wool, Falkland wool, linen, cotton, Ingeo and Orange Fiber. It is upholstered in Loro Piana Interiors Wish, a bouclé of wool and cashmere. It is made to order, by hand, one at a time.</p>"
           }
         },
         "qa_02": {
           "type": "qa",
           "settings": {
             "q": "Can [product] be made to my dimensions?",
-            "a": "<p>Yes. Dimensions, heights, fibres, fabric and comfort level are specification decisions rather than exceptions. Non-standard widths, heights and radii, including round, carry no tooling charge.</p>"
+            "a": "<p>Yes. Dimensions, heights, fibres, fabric and comfort level are specification decisions rather than exceptions. Non-standard widths, heights and radii, round included, are worked to your drawing.</p>"
           }
         },
         "qa_03": {

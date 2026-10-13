@@ -79,20 +79,26 @@
       "settings": {
         "link_label": "The fibres inside",
         "link_place": "materials",
-        "text": "[name] is the heart of the bed; a topper and a Midsummer boxspring complete it.",
+        "text": "[name] is the mattress alone, the heart of the bed. A topper and a Midsummer boxspring complete it, and are shown here in outline.",
         "fibres_label": "Its fibres",
         "part1_lead": "A winter topper in Cheviot wool and cashmere, on request.",
         "part1_text": "A winter topper in Cheviot wool and cashmere, on request.",
         "part1_points": "Soft or medium, to warm the bed in the cold months.",
         "part1_fibres": "Cashmere, Cheviot Wool",
+        "part1_winter": "",
+        "part1_summer": "",
         "part2_lead": "Two mattresses, one for each climate.",
         "part2_text": "Two mattresses, one for each climate.",
         "part2_points": "Summer: vegetable horsehair, linen, cotton and Ingeo, to stay dry in humid air.\nWinter: Cheviot wool, silk and cashmere.\nCovered in raw linen and cotton.",
         "part2_fibres": "Vegetable Horsehair, Linen, Cotton, Ingeo, Cashmere, Silk, Cheviot Wool",
-        "part3_lead": "Made to rest on a Midsummer boxspring.",
-        "part3_text": "Made to rest on a Midsummer boxspring.",
-        "part3_points": "Made by the same artisans, to the size of the mattress.\nDressed in natural cloth, with a headboard drawn with you if you wish.",
-        "part3_fibres": "Cheviot Wool"
+        "part2_winter": "Cheviot Wool, Silk, Cashmere",
+        "part2_summer": "Vegetable Horsehair, Linen, Cotton, Ingeo",
+        "part3_lead": "Not part of [name]: it rests on a Midsummer boxspring.",
+        "part3_text": "Not part of [name]: it rests on a Midsummer boxspring.",
+        "part3_points": "Made by hand in Italy, to the size of the mattress.\nDressed in natural cloth, with a headboard drawn with you if you wish.",
+        "part3_fibres": "Cheviot Wool",
+        "part3_winter": "",
+        "part3_summer": ""
       }
     },
     "s04": {
@@ -109,14 +115,14 @@
           "type": "qa",
           "settings": {
             "q": "What is [product] made of?",
-            "a": "<p>[product] is made by hand in Italy from natural fibres: vegetable horsehair, linen, cotton, Ingeo, cashmere, silk and Cheviot wool. It is covered in raw linen and cotton. It is made to order by two artisans, start to finish.</p>"
+            "a": "<p>[product] is made by hand in Italy from natural fibres: vegetable horsehair, linen, cotton, Ingeo, cashmere, silk and Cheviot wool. It is covered in raw linen and cotton. It is made to order, by hand, one at a time.</p>"
           }
         },
         "qa_02": {
           "type": "qa",
           "settings": {
             "q": "Can [product] be made to my dimensions?",
-            "a": "<p>Yes. Dimensions, heights, fibres, fabric and comfort level are specification decisions rather than exceptions. Non-standard widths, heights and radii, including round, carry no tooling charge.</p>"
+            "a": "<p>Yes. Dimensions, heights, fibres, fabric and comfort level are specification decisions rather than exceptions. Non-standard widths, heights and radii, round included, are worked to your drawing.</p>"
           }
         },
         "qa_03": {

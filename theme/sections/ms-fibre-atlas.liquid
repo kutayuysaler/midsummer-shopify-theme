@@ -18,8 +18,9 @@
 {%- if ms_show -%}
 {%- comment -%}
   The fibres, one at a time. On the left, every fibre in our beds, from animals and from plants,
-  read by what matters to the sleeper; choose one and it opens beside the list: its plate (the
-  fibre at its source where we have the photograph, and always the fibre drawn as under the glass),
+  read by what matters to the sleeper; choose one and it opens beside the list: its plate, in up to
+  three views (the fibre at its source, where we have the photograph; under the glass, in its own
+  colour, a touch looking closer; where it comes from, on the map),
   what it does, its figures from the house's catalogue, and the beds made with it, from the store's
   own products. On a phone the list opens in place. #fibre-<name> in the address opens that fibre.
 {%- endcomment -%}
@@ -42,7 +43,10 @@
     {%- capture mk -%}{% render 'ms-kind', p: p %}{%- endcapture -%}
     {%- assign mkp = mk | split: '|' -%}
     {%- if mkp[0] == 'system' and mkp[1] != blank -%}
-      {%- assign beds = beds | append: mkp[1] | append: '>' | append: p.url | append: '>' | append: p.title | append: '^' -%}
+      {%- capture pk -%}{% render 'ms-sys-data', key: mkp[1], part: 'kind' %}{%- endcapture -%}
+      {%- assign pimg = '' -%}
+      {%- if p.featured_image -%}{%- assign pimg = p.featured_image | image_url: width: 240 -%}{%- endif -%}
+      {%- assign beds = beds | append: mkp[1] | append: '>' | append: p.url | append: '>' | append: p.title | append: '>' | append: pimg | append: '>' | append: pk | append: '^' -%}
     {%- endif -%}
   {%- endfor -%}
 {%- endpaginate -%}
@@ -106,21 +110,69 @@
           </button>
         </h3>
         <div class="ms-fa__p{% if forloop.first %} is-on{% endif %}" id="{{ id }}" role="region" aria-labelledby="{{ id }}-tab" {{ b.shopify_attributes }}{% unless forloop.first %} hidden{% endunless %}>
-          <figure class="ms-fa__plate{% if photo != '' %} has-photo{% endif %}" data-fa-plate>
-            <span class="ms-fa__glass"><img class="ms-fa__draw" src="{{ draw }}" alt="{{ s.draw_alt | replace: '[fibre]', bs.name | escape }}" width="800" height="1000" loading="lazy"></span>
-            {%- if photo != '' -%}
-              <img class="ms-fa__photo" src="{{ photo }}" srcset="{{ photo_sm }} 720w, {{ photo }} 1400w" sizes="(max-width: 860px) 92vw, 28vw" alt="{{ bs.alt | escape }}" width="1400" height="1400" loading="lazy">
-              <button type="button" class="ms-fa__lens" data-fa-lens aria-pressed="false" aria-label="{{ s.lens_label | escape }}">
-                <img class="ms-fa__lens-draw" src="{{ draw }}" alt="" width="800" height="1000" loading="lazy">
-                <img class="ms-fa__lens-photo" src="{{ photo_sm }}" alt="" width="720" height="720" loading="lazy">
-              </button>
-            {%- endif -%}
+          {%- liquid
+            assign pts = bs.points | default: '' | split: ';'
+            assign view = 'glass'
+            if photo != ''
+              assign view = 'source'
+            endif
+            # the map is centred between the places it shows
+            assign cx = 0.0
+            assign npt = 0
+            for pt in pts
+              assign ll = pt | split: ','
+              if ll.size == 2
+                assign px = ll[1] | strip | plus: 180.0 | times: 100.0 | divided_by: 360.0
+                assign cx = cx | plus: px
+                assign npt = npt | plus: 1
+              endif
+            endfor
+            if npt > 0
+              assign cx = cx | divided_by: npt
+            endif
+          -%}
+          <div class="ms-fa__pl">
+          <figure class="ms-fa__plate" data-fa-plate data-view="{{ view }}">
+            <div class="ms-fa__views">
+              {%- if photo != '' -%}
+                <div class="ms-fa__v ms-fa__v--source"><img class="ms-fa__photo" src="{{ photo }}" srcset="{{ photo_sm }} 720w, {{ photo }} 1400w" sizes="(max-width: 860px) 92vw, 28vw" alt="{{ bs.alt | escape }}" width="1400" height="1400" loading="lazy"></div>
+              {%- endif -%}
+              <div class="ms-fa__v ms-fa__v--glass">
+                <button type="button" class="ms-fa__field" data-fa-field aria-label="{{ s.zoom_label | escape }}" aria-pressed="false"><img class="ms-fa__draw" src="{{ draw }}" alt="{{ s.draw_alt | replace: '[fibre]', bs.name | escape }}" width="800" height="1000" loading="lazy"></button>
+                <svg class="ms-fa__reticle" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="99" fill="none" stroke="currentColor" stroke-width=".6"/>{%- for t in (0..35) -%}{%- assign tl = 3 -%}{%- assign m9 = t | modulo: 9 -%}{%- if m9 == 0 -%}{%- assign tl = 7 -%}{%- endif -%}<path d="M100 1v{{ tl }}" transform="rotate({{ t | times: 10 }} 100 100)" stroke="currentColor" stroke-width=".6"/>{%- endfor -%}</svg>
+              </div>
+              {%- if npt > 0 -%}
+                <div class="ms-fa__v ms-fa__v--map">
+                  <div class="ms-fa__mapw" style="--cx: {{ cx | round: 2 }}%;">
+                    <img class="ms-fa__world" src="{{ 'ms-fibre-world.svg' | asset_url }}" alt="{{ s.map_label | append: ': ' | append: bs.origin | escape }}" width="1000" height="369" loading="lazy">
+                    {%- for pt in pts -%}
+                      {%- assign ll = pt | split: ',' -%}
+                      {%- if ll.size == 2 -%}
+                        {%- assign px = ll[1] | strip | plus: 180.0 | times: 100.0 | divided_by: 360.0 -%}
+                        {%- assign py = 75.0 | minus: ll[0] | times: 100.0 | divided_by: 133.0 -%}
+                        <span class="ms-fa__pin" style="left: {{ px | round: 2 }}%; top: {{ py | round: 2 }}%;" aria-hidden="true"></span>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </div>
+                  <span class="ms-fa__mapname">{{ bs.origin }}</span>
+                </div>
+              {%- endif -%}
+            </div>
             <figcaption class="ms-fa__cap">
               <span class="ms-fa__pn">{{ s.plate_label }} {{ num }}</span>
-              {%- if photo != '' -%}<span class="ms-fa__cap-photo">{{ s.source_label }}</span>{%- endif -%}
-              <span class="ms-fa__cap-draw">{{ s.glass_label }}</span>
+              {%- if photo != '' -%}<span class="ms-fa__cv ms-fa__cv--source">{{ bs.alt }}</span>{%- endif -%}
+              <span class="ms-fa__cv ms-fa__cv--glass">{{ bs.glass_note | default: s.glass_label }}{%- if s.zoom_hint != blank -%}<em>{{ s.zoom_hint }}</em>{%- endif -%}</span>
+              {%- if npt > 0 -%}<span class="ms-fa__cv ms-fa__cv--map">{{ bs.origin }}</span>{%- endif -%}
             </figcaption>
           </figure>
+          {%- if photo != '' or npt > 0 -%}
+            <div class="ms-fa__tabs" role="group" aria-label="{{ bs.name | escape }}">
+              {%- if photo != '' -%}<button type="button" class="ms-fa__tab" data-fa-view="source" aria-pressed="{% if view == 'source' %}true{% else %}false{% endif %}">{{ s.source_label }}</button>{%- endif -%}
+              <button type="button" class="ms-fa__tab" data-fa-view="glass" aria-pressed="{% if view == 'glass' %}true{% else %}false{% endif %}">{{ s.glass_label }}</button>
+              {%- if npt > 0 -%}<button type="button" class="ms-fa__tab" data-fa-view="map" aria-pressed="false">{{ s.map_label }}</button>{%- endif -%}
+            </div>
+          {%- endif -%}
+          </div>
           <div class="ms-fa__txt">
             <div class="ms-fa__eb">{{ glabel }}<span>{{ forloop.index }} / {{ forloop.length }}</span></div>
             <div class="ms-fa__name">{{ bs.name }}</div>
@@ -158,7 +210,20 @@
                     unless seen contains tprobe
                       assign seen = seen | append: ep[2] | append: '^'
                       if shown < 6
-                        echo '<a href="' | append: ep[1] | append: '">' | append: ep[2] | append: '</a>'
+                        case ep[4]
+                          when 'mattress'
+                            assign kl = s.kind_mattress
+                          when 'topper'
+                            assign kl = s.kind_topper
+                          else
+                            assign kl = s.kind_system
+                        endcase
+                        echo '<a class="ms-fa__bed" href="' | append: ep[1] | append: '"><span class="ms-fa__bimg">'
+                        if ep[3] != blank
+                          assign bal = ep[2] | escape
+                          echo '<img src="' | append: ep[3] | append: '" alt="' | append: bal | append: '" width="120" height="120" loading="lazy">'
+                        endif
+                        echo '</span><span class="ms-fa__bn">' | append: ep[2] | append: '</span><span class="ms-fa__bk">' | append: kl | append: '</span></a>'
                         assign shown = shown | plus: 1
                       else
                         assign more = more | plus: 1
@@ -175,7 +240,7 @@
                 capture links
                   for nm in names
                     if forloop.index <= 6
-                      echo '<span>' | append: nm | append: '</span>'
+                      echo '<span class="ms-fa__bed is-plain"><span class="ms-fa__bn">' | append: nm | append: '</span></span>'
                     else
                       assign more = more | plus: 1
                     endif
@@ -187,7 +252,7 @@
             {%- if links != blank -%}
               <div class="ms-fa__beds">
                 <span class="ms-fa__bl">{{ s.beds_label }}</span>
-                <span class="ms-fa__bs">{{ links }}{%- if more > 0 -%}<a class="ms-fa__more" href="{% render 'ms-link', to: 'compare' %}">{{ s.more_label | replace: '[n]', more }}</a>{%- endif -%}</span>
+                <div class="ms-fa__bs">{{ links }}</div>{%- if more > 0 -%}<a class="ms-fa__more" href="{% render 'ms-link', to: 'compare' %}">{{ s.more_label | replace: '[n]', more }}<span aria-hidden="true">→</span></a>{%- endif -%}
               </div>
             {%- endif -%}
           </div>
@@ -247,26 +312,32 @@
           if (first && (!cur || cur.dim) && !phone.matches) open(first.getAttribute('data-fa-open'));
         });
       });
-      // the lens: the fibre under the glass, or at its source
-      fa.querySelectorAll('[data-fa-lens]').forEach(function (l) {
-        l.addEventListener('click', function () {
-          var pl = l.closest('[data-fa-plate]');
-          var on = !pl.classList.contains('is-glass');
-          pl.classList.toggle('is-glass', on);
-          l.setAttribute('aria-pressed', on ? 'true' : 'false');
+      // the plate: at the source, under the glass, where it comes from
+      fa.querySelectorAll('[data-fa-view]').forEach(function (t) {
+        t.addEventListener('click', function () {
+          var pl = t.closest('.ms-fa__pl'), plate = pl.querySelector('[data-fa-plate]'), v = t.getAttribute('data-fa-view');
+          plate.setAttribute('data-view', v);
+          pl.querySelectorAll('[data-fa-view]').forEach(function (x) { x.setAttribute('aria-pressed', x === t ? 'true' : 'false'); });
+          var fd = plate.querySelector('[data-fa-field]');
+          if (fd && v !== 'glass') { fd.classList.remove('is-zoom'); fd.setAttribute('aria-pressed', 'false'); }
         });
       });
-      // under the glass, the slide moves a little with the hand
-      if (window.matchMedia('(hover: hover) and (prefers-reduced-motion: no-preference)').matches) {
-        fa.querySelectorAll('[data-fa-plate]').forEach(function (pl) {
-          pl.addEventListener('pointermove', function (e) {
-            var r = pl.getBoundingClientRect();
-            pl.style.setProperty('--fa-x', ((e.clientX - r.left) / r.width - 0.5).toFixed(3));
-            pl.style.setProperty('--fa-y', ((e.clientY - r.top) / r.height - 0.5).toFixed(3));
-          });
-          pl.addEventListener('pointerleave', function () { pl.style.setProperty('--fa-x', 0); pl.style.setProperty('--fa-y', 0); });
+      // under the glass: a touch looks closer, where it touched; the hand then moves the slide
+      fa.querySelectorAll('[data-fa-field]').forEach(function (fd) {
+        var img = fd.querySelector('img');
+        function at(e) {
+          var r = fd.getBoundingClientRect();
+          var x = e && e.clientX ? (e.clientX - r.left) / r.width * 100 : 50, y = e && e.clientY ? (e.clientY - r.top) / r.height * 100 : 50;
+          img.style.transformOrigin = Math.max(10, Math.min(90, x)).toFixed(1) + '% ' + Math.max(10, Math.min(90, y)).toFixed(1) + '%';
+        }
+        fd.addEventListener('click', function (e) {
+          var on = !fd.classList.contains('is-zoom');
+          if (on) at(e.detail === 0 ? null : e);
+          fd.classList.toggle('is-zoom', on);
+          fd.setAttribute('aria-pressed', on ? 'true' : 'false');
         });
-      }
+        fd.addEventListener('pointermove', function (e) { if (fd.classList.contains('is-zoom') && e.pointerType === 'mouse') at(e); });
+      });
       function fromHash() {
         var h = (location.hash || '').slice(1);
         if (h.indexOf('fibre-') !== 0) return;
@@ -318,29 +389,43 @@
   .ms-fa__p.is-on { animation: msFaIn .6s cubic-bezier(.2, .7, .2, 1) both; }
   @keyframes msFaIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 
-  .ms-fa__plate { position: relative; margin: 0; aspect-ratio: 4 / 5; background: radial-gradient(120% 90% at 30% 20%, #F3EDE3 0%, #E9E1D4 70%, #E2D8C8 100%); overflow: hidden; --fa-x: 0; --fa-y: 0; }
-  .ms-fa__glass { position: absolute; inset: -4%; display: block; transform: translate(calc(var(--fa-x) * -18px), calc(var(--fa-y) * -18px)); transition: transform .9s cubic-bezier(.2, .7, .2, 1); }
-  .ms-fa__draw { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .ms-fa__p.is-on .ms-fa__draw { animation: msFaFocus 1.1s cubic-bezier(.2, .7, .2, 1) both; }
-  @keyframes msFaFocus { from { filter: blur(3px); opacity: .35; transform: scale(1.04); } to { filter: none; opacity: 1; transform: none; } }
-  .ms-fa__photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .8s ease; transform: translate(calc(var(--fa-x) * -6px), calc(var(--fa-y) * -6px)) scale(1.03); }
-  .ms-fa__p.is-on .ms-fa__photo { animation: msFaPhoto 1.2s cubic-bezier(.2, .7, .2, 1) both; }
-  @keyframes msFaPhoto { from { opacity: 0; } to { opacity: 1; } }
-  .ms-fa__plate.is-glass .ms-fa__photo { opacity: 0; }
-  .ms-site .ms-fa__lens { position: absolute; right: 18px; bottom: 54px; width: 31%; aspect-ratio: 1; padding: 0; border: 0; border-radius: 50%; overflow: hidden; cursor: pointer; background: #EDE6DA; box-shadow: 0 0 0 3px rgba(251, 249, 245, .92), 0 10px 30px rgba(23, 20, 15, .22); transition: transform .5s cubic-bezier(.2, .7, .2, 1); }
-  .ms-site .ms-fa__lens:hover { transform: scale(1.05); }
-  .ms-site .ms-fa__lens:focus-visible { outline: 1px solid #17140F; outline-offset: 5px; }
-  .ms-fa__lens img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .6s ease; }
-  .ms-fa__lens-draw { transform: scale(1.9); }
-  .ms-fa__lens-photo { opacity: 0; }
-  .ms-fa__plate.is-glass .ms-fa__lens-photo { opacity: 1; }
-  .ms-fa__plate.is-glass .ms-fa__lens-draw { opacity: 0; }
-  .ms-fa__cap { position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: space-between; gap: 12px; padding: 14px 18px; font-size: 9.5px; letter-spacing: .22em; text-transform: uppercase; color: #6E675C; background: linear-gradient(transparent, rgba(251, 249, 245, .9) 60%); }
-  .ms-fa__plate.has-photo:not(.is-glass) .ms-fa__cap { color: #FBF9F5; background: linear-gradient(transparent, rgba(23, 20, 15, .45)); }
-  .ms-fa__plate.has-photo .ms-fa__cap-draw { display: none; }
-  .ms-fa__plate.has-photo.is-glass .ms-fa__cap-draw { display: inline; }
-  .ms-fa__plate.has-photo.is-glass .ms-fa__cap-photo { display: none; }
-
+  .ms-fa__pl { min-width: 0; }
+  .ms-fa__plate { position: relative; margin: 0; aspect-ratio: 4 / 5; overflow: hidden; background: #241D18; }
+  .ms-fa__views, .ms-fa__v { position: absolute; inset: 0; }
+  .ms-fa__v { opacity: 0; visibility: hidden; transition: opacity .7s ease, visibility 0s .7s; }
+  .ms-fa__plate[data-view="source"] .ms-fa__v--source, .ms-fa__plate[data-view="glass"] .ms-fa__v--glass, .ms-fa__plate[data-view="map"] .ms-fa__v--map { opacity: 1; visibility: visible; transition: opacity .7s ease; }
+  .ms-fa__photo { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .ms-fa__p.is-on .ms-fa__v--source .ms-fa__photo { animation: msFaPhoto 1.4s cubic-bezier(.2, .7, .2, 1) both; }
+  @keyframes msFaPhoto { from { transform: scale(1.05); } to { transform: none; } }
+  /* under the glass: the round field of a microscope, lit from beneath, with its graduated ring */
+  .ms-fa__v--glass { background: radial-gradient(circle at 50% 46%, #3A2F27 0%, #241D18 70%); }
+  .ms-site .ms-fa__field { position: absolute; left: 50%; top: 46%; width: 86%; aspect-ratio: 1; transform: translate(-50%, -50%); padding: 0; border: 0; border-radius: 50%; overflow: hidden; cursor: zoom-in; background: #EFE5D3; box-shadow: 0 0 0 1px rgba(226, 207, 174, .35), 0 0 60px rgba(0, 0, 0, .45), inset 0 0 40px rgba(60, 40, 20, .35); }
+  .ms-fa__field::after { content: ''; position: absolute; inset: 0; border-radius: 50%; box-shadow: inset 0 0 70px 10px rgba(36, 29, 24, .45); pointer-events: none; }
+  .ms-fa__draw { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .9s cubic-bezier(.2, .7, .2, 1); }
+  .ms-fa__field.is-zoom { cursor: zoom-out; }
+  .ms-fa__field.is-zoom .ms-fa__draw { transform: scale(2.4); }
+  .ms-site .ms-fa__field:focus-visible { outline: 1px solid #E2CFAE; outline-offset: 6px; }
+  .ms-fa__p.is-on .ms-fa__v--glass .ms-fa__draw { animation: msFaFocus 1.3s cubic-bezier(.2, .7, .2, 1) both; }
+  @keyframes msFaFocus { from { filter: blur(6px); } to { filter: none; } }
+  .ms-fa__reticle { position: absolute; left: 50%; top: 46%; width: 92%; aspect-ratio: 1; transform: translate(-50%, -50%); color: rgba(226, 207, 174, .5); pointer-events: none; }
+  /* where it comes from: the world in dots, the place marked */
+  .ms-fa__v--map { background: radial-gradient(120% 90% at 50% 40%, #F6F1E8 0%, #ECE4D6 100%); overflow: hidden; }
+  .ms-fa__mapw { position: absolute; top: 6%; bottom: 14%; left: 50%; aspect-ratio: 1000 / 369; transform: translateX(calc(-1 * var(--cx, 50%))); }
+  .ms-fa__world { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .ms-fa__pin { position: absolute; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; background: #9A5B43; box-shadow: 0 0 0 4px rgba(154, 91, 67, .2); }
+  .ms-fa__pin::after { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 1px solid #9A5B43; animation: msFaPin 2.6s ease-out infinite; }
+  @keyframes msFaPin { from { transform: scale(.6); opacity: .9; } to { transform: scale(3.4); opacity: 0; } }
+  .ms-fa__mapname { position: absolute; left: 18px; top: 16px; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 17px; color: #6E4A36; }
+  .ms-fa__cap { position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; padding: 30px 18px 14px; font-size: 12px; line-height: 1.45; color: #FBF9F5; background: linear-gradient(transparent, rgba(23, 20, 15, .55)); pointer-events: none; }
+  .ms-fa__pn { flex: 0 0 auto; font-size: 9.5px; letter-spacing: .22em; text-transform: uppercase; opacity: .85; padding-bottom: 2px; }
+  .ms-fa__cv { display: none; text-align: right; max-width: 34ch; font-family: Newsreader, Georgia, serif; font-size: 14.5px; }
+  .ms-fa__cv em { display: block; margin-top: 4px; font-family: Nunito Sans, system-ui, sans-serif; font-style: normal; font-size: 9.5px; letter-spacing: .2em; text-transform: uppercase; opacity: .78; }
+  .ms-fa__plate[data-view="source"] .ms-fa__cv--source, .ms-fa__plate[data-view="glass"] .ms-fa__cv--glass, .ms-fa__plate[data-view="map"] .ms-fa__cv--map { display: block; }
+  .ms-fa__plate[data-view="map"] .ms-fa__cap { color: #4A443B; background: linear-gradient(transparent, rgba(246, 241, 232, .95) 50%); }
+  .ms-fa__tabs { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 6px; margin-top: 12px; }
+  .ms-site .ms-fa__tab { min-height: 40px; padding: 0 8px; white-space: nowrap; background: none; border: 1px solid #DDD6C9; font: inherit; font-size: 9.5px; letter-spacing: .16em; text-transform: uppercase; color: #6E675C; cursor: pointer; transition: background .3s, color .3s, border-color .3s; }
+  .ms-site .ms-fa__tab:hover { border-color: #17140F; color: #17140F; }
+  .ms-site .ms-fa__tab[aria-pressed="true"] { background: #17140F; border-color: #17140F; color: #FBF9F5; }
   .ms-fa__txt { padding-top: 4px; }
   .ms-fa__eb { display: flex; justify-content: space-between; font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: #A79C8A; padding-bottom: 14px; border-bottom: 1px solid #ECE6DB; }
   .ms-fa__eb span { font-family: Newsreader, Georgia, serif; font-size: 12px; letter-spacing: 0; }
@@ -356,32 +441,38 @@
   .ms-fa__meta dd { margin: 0; }
   .ms-fa__beds { margin-top: 26px; padding-top: 20px; border-top: 1px solid #ECE6DB; }
   .ms-fa__bl { display: block; font-size: 9.5px; letter-spacing: .22em; text-transform: uppercase; color: #A79C8A; margin-bottom: 10px; }
-  .ms-fa__bs { display: flex; flex-wrap: wrap; gap: 8px 20px; font-family: Newsreader, Georgia, serif; font-size: 17px; line-height: 1.35; color: #4A443B; }
-  .ms-site .ms-fa__bs a { color: #17140F; text-decoration: none; background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .45s cubic-bezier(.2, .7, .2, 1); }
-  .ms-site .ms-fa__bs a:hover { background-size: 100% 1px; }
-  .ms-site .ms-fa__bs a.ms-fa__more { font-family: inherit; color: #8C8273; }
-
+  .ms-fa__bs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .ms-site a.ms-fa__bed, .ms-fa__bed { display: grid; grid-template-columns: 46px minmax(0, 1fr); grid-template-rows: auto auto; column-gap: 12px; align-items: center; padding: 6px 10px 6px 6px; border: 1px solid #ECE6DB; color: #17140F; text-decoration: none; transition: border-color .3s, background .3s; }
+  .ms-site a.ms-fa__bed:hover { border-color: #17140F; background: #F5F1EA; }
+  .ms-fa__bed.is-plain { grid-template-columns: minmax(0, 1fr); }
+  .ms-fa__bimg { grid-row: 1 / span 2; width: 46px; height: 46px; background: #EFEAE1; overflow: hidden; }
+  .ms-fa__bimg img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .ms-fa__bn { font-family: Newsreader, Georgia, serif; font-size: 17px; line-height: 1.2; align-self: end; }
+  .ms-fa__bk { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: #9A8F7E; align-self: start; margin-top: 2px; }
+  .ms-site a.ms-fa__more { display: inline-flex; gap: 8px; margin-top: 12px; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #6E675C; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 4px; }
   @media (max-width: 1240px) {
     .ms-fa__ql { display: none; }
     .ms-site .ms-fa__row { grid-template-columns: 30px 30px minmax(0, 1fr); }
   }
   @media (max-width: 1100px) {
     .ms-fa__p { grid-template-columns: minmax(0, 1fr); }
-    .ms-fa__plate { aspect-ratio: 16 / 10; }
+    .ms-fa__plate { aspect-ratio: 16 / 11; }
+    .ms-site .ms-fa__field, .ms-fa__reticle { width: auto; height: 84%; }
   }
   @media (max-width: 860px) {
     .ms-fa__head { grid-template-columns: minmax(0, 1fr); }
     .ms-fa__grid { grid-template-columns: minmax(0, 1fr); }
     .ms-fa__p { grid-column: 1; grid-row: auto; position: static; padding: 6px 0 34px; gap: 22px; }
-    .ms-fa__plate { aspect-ratio: 4 / 3; }
+    .ms-fa__plate { aspect-ratio: 1 / 1; }
+    .ms-site .ms-fa__field, .ms-fa__reticle { width: 88%; height: auto; }
+    .ms-fa__bs { grid-template-columns: minmax(0, 1fr); }
     .ms-fa__name { font-size: 34px; margin-top: 16px; }
-    .ms-site .ms-fa__lens { width: 28%; bottom: 46px; right: 14px; }
     .ms-fa__eb { display: none; }
     .ms-site .ms-fa__row { padding: 15px 0; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .ms-fa__p.is-on, .ms-fa__p.is-on .ms-fa__draw, .ms-fa__p.is-on .ms-fa__photo { animation: none; }
-    .ms-fa__glass, .ms-fa__photo { transform: none; transition: none; }
+    .ms-fa__p.is-on, .ms-fa__p.is-on .ms-fa__draw, .ms-fa__p.is-on .ms-fa__photo, .ms-fa__pin::after { animation: none; }
+    .ms-fa__draw, .ms-fa__v { transition: none; }
   }
 </style>
 {%- endif -%}
@@ -408,14 +499,19 @@
     { "type": "text", "id": "animal_label", "label": "From animals", "default": "From animals" },
     { "type": "text", "id": "plant_label", "label": "From plants", "default": "From plants" },
     { "type": "text", "id": "plate_label", "label": "Plate", "default": "Plate" },
-    { "type": "text", "id": "source_label", "label": "Photograph caption", "default": "At the source" },
-    { "type": "text", "id": "glass_label", "label": "Drawing caption", "default": "Under the glass" },
-    { "type": "text", "id": "lens_label", "label": "Lens (for screen readers)", "default": "Show the fibre under the glass" },
+    { "type": "text", "id": "source_label", "label": "View: the photograph", "default": "At the source" },
+    { "type": "text", "id": "glass_label", "label": "View: under the glass", "default": "Under the glass" },
+    { "type": "text", "id": "map_label", "label": "View: the map", "default": "Its origin" },
+    { "type": "text", "id": "zoom_hint", "label": "Under the glass: hint", "default": "Touch the glass to look closer" },
+    { "type": "text", "id": "zoom_label", "label": "Under the glass (for screen readers)", "default": "Look closer" },
     { "type": "text", "id": "draw_alt", "label": "Drawing description", "default": "[fibre], drawn as under the glass.", "info": "[fibre] becomes the fibre's name." },
     { "type": "text", "id": "origin_label", "label": "Origin", "default": "Origin" },
     { "type": "text", "id": "species_label", "label": "Species", "default": "Species" },
     { "type": "text", "id": "beds_label", "label": "Beds made with it", "default": "In our beds" },
-    { "type": "text", "id": "more_label", "label": "More beds", "default": "and [n] more", "info": "[n] becomes the number." }
+    { "type": "text", "id": "more_label", "label": "More beds", "default": "and [n] more", "info": "[n] becomes the number." },
+    { "type": "text", "id": "kind_system", "label": "A bed system", "default": "Bed system" },
+    { "type": "text", "id": "kind_mattress", "label": "A mattress", "default": "Mattress" },
+    { "type": "text", "id": "kind_topper", "label": "A topper", "default": "Topper" }
   ],
   "blocks": [
     {
@@ -443,6 +539,8 @@
         { "type": "text", "id": "f3", "label": "Figure 3" },
         { "type": "text", "id": "f3_cap", "label": "Figure 3, said" },
         { "type": "text", "id": "origin", "label": "Origin" },
+        { "type": "text", "id": "points", "label": "Origin on the map", "info": "Latitude,longitude, e.g. -15.5,-70.5; several separated by ;. Empty: no map." },
+        { "type": "text", "id": "glass_note", "label": "Under the glass, said" },
         { "type": "text", "id": "species", "label": "Species" },
         { "type": "select", "id": "photo", "label": "Photograph at the source", "default": "none", "options": [
           { "value": "none", "label": "None: the drawing alone" }, { "value": "vicuna", "label": "Vicuñas" }, { "value": "yak", "label": "Yak" },

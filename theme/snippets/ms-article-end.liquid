@@ -10,7 +10,7 @@
     <div class="ms-art-end__links">
       <a class="ms-art-end__btn" data-ms-enquire data-ms-cta="article-end" href="{% render 'ms-link', to: 'enquire' %}">{{ s.cta }}</a>
       <a class="ms-art-end__all" href="{{ b.url }}"><span aria-hidden="true">←</span> {{ s.all }}</a>
-      {%- if cat != blank -%}<a class="ms-art-end__all" href="{{ b.url }}?cat={{ cat }}">{{ s.same }} {{ kicker }}</a>{%- endif -%}
+      {%- if cat != blank -%}<a class="ms-art-end__all" href="{{ b.url }}?view={{ cat }}">{{ s.same }} {{ kicker }}</a>{%- endif -%}
     </div>
   </div>
 </aside>

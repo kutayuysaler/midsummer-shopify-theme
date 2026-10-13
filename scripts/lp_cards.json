@@ -1,0 +1,213 @@
+{
+ "connemara": [
+  [
+   "1 Dark Indigo",
+   "#2E2A39",
+   "ms-lp-co-01.jpg"
+  ],
+  [
+   "2 Indaco Oxus",
+   "#525C9B",
+   "ms-lp-co-02.jpg"
+  ],
+  [
+   "5 Zen",
+   "#B8A18F",
+   "ms-lp-co-03.jpg"
+  ],
+  [
+   "6 Biancore",
+   "#EAE6E5",
+   "ms-lp-co-04.jpg"
+  ],
+  [
+   "8 Dark Zen",
+   "#66575B",
+   "ms-lp-co-05.jpg"
+  ],
+  [
+   "10 Malachite",
+   "#6E7E8E",
+   "ms-lp-co-06.jpg"
+  ],
+  [
+   "12 Sassicaia",
+   "#5F2F31",
+   "ms-lp-co-07.jpg"
+  ],
+  [
+   "14 Cowes",
+   "#822823",
+   "ms-lp-co-08.jpg"
+  ],
+  [
+   "16 Camargue",
+   "#AB7F5A",
+   "ms-lp-co-09.jpg"
+  ]
+ ],
+ "altai": [
+  [
+   "11 Shaded White",
+   "#F4F3F0",
+   "ms-lp-al-01.jpg"
+  ],
+  [
+   "15 Midnight",
+   "#191A2F",
+   "ms-lp-al-02.jpg"
+  ],
+  [
+   "21 Eucalyptus",
+   "#858893",
+   "ms-lp-al-03.jpg"
+  ],
+  [
+   "24 Diaspro",
+   "#6D2024",
+   "ms-lp-al-04.jpg"
+  ],
+  [
+   "25 Rosso Lacca",
+   "#91181F",
+   "ms-lp-al-05.jpg"
+  ],
+  [
+   "26 Granato",
+   "#2E1B1C",
+   "ms-lp-al-06.jpg"
+  ],
+  [
+   "28 Cammello",
+   "#AC8B7A",
+   "ms-lp-al-07.jpg"
+  ],
+  [
+   "37 Paprika",
+   "#A03604",
+   "ms-lp-al-08.jpg"
+  ],
+  [
+   "38 Henné",
+   "#49201E",
+   "ms-lp-al-09.jpg"
+  ],
+  [
+   "45 Polvere",
+   "#8184A5",
+   "ms-lp-al-10.jpg"
+  ],
+  [
+   "46 Lovat",
+   "#54646C",
+   "ms-lp-al-11.jpg"
+  ],
+  [
+   "47 Green Blue",
+   "#29374C",
+   "ms-lp-al-12.jpg"
+  ],
+  [
+   "51 Pergamena",
+   "#EAE0D6",
+   "ms-lp-al-13.jpg"
+  ],
+  [
+   "1 Biancore",
+   "#CCBCAC",
+   "ms-lp-al-14.jpg"
+  ],
+  [
+   "2 Natural Brown",
+   "#AA9589",
+   "ms-lp-al-15.jpg"
+  ],
+  [
+   "7 Light Marengo",
+   "#76737C",
+   "ms-lp-al-16.jpg"
+  ]
+ ],
+ "mystic": [
+  [
+   "2 Biancore",
+   "#CFCBC6",
+   "ms-lp-my-01.jpg",
+   "ms-lp-my-01-l.jpg"
+  ],
+  [
+   "3 Light Zen",
+   "#CFC4B7",
+   "ms-lp-my-02.jpg",
+   "ms-lp-my-02-l.jpg"
+  ],
+  [
+   "4 Zen",
+   "#BCAF9C",
+   "ms-lp-my-03.jpg",
+   "ms-lp-my-03-l.jpg"
+  ],
+  [
+   "5 Taupe",
+   "#988278",
+   "ms-lp-my-04.jpg",
+   "ms-lp-my-04-l.jpg"
+  ],
+  [
+   "6 Granello di Pepe",
+   "#392325",
+   "ms-lp-my-05.jpg",
+   "ms-lp-my-05-l.jpg"
+  ],
+  [
+   "8 Rosso Terra",
+   "#672022",
+   "ms-lp-my-06.jpg",
+   "ms-lp-my-06-l.jpg"
+  ],
+  [
+   "9 Gensola",
+   "#902121",
+   "ms-lp-my-07.jpg",
+   "ms-lp-my-07-l.jpg"
+  ],
+  [
+   "15 Muschio",
+   "#5C533D",
+   "ms-lp-my-08.jpg",
+   "ms-lp-my-08-l.jpg"
+  ],
+  [
+   "16 Malachite",
+   "#718688",
+   "ms-lp-my-09.jpg",
+   "ms-lp-my-09-l.jpg"
+  ],
+  [
+   "17 Polvere",
+   "#A2B2B9",
+   "ms-lp-my-10.jpg",
+   "ms-lp-my-10-l.jpg"
+  ],
+  [
+   "20 Serenata",
+   "#292942",
+   "ms-lp-my-11.jpg",
+   "ms-lp-my-11-l.jpg"
+  ],
+  [
+   "22 Grey Dune",
+   "#A19793",
+   "ms-lp-my-12.jpg",
+   "ms-lp-my-12-l.jpg"
+  ]
+ ],
+ "shadan": [
+  [
+   "Paisley",
+   "#AF967B",
+   "ms-lp-shadan.jpg",
+   "ms-lp-shadan-l.jpg"
+  ]
+ ]
+}

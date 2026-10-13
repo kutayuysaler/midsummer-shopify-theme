@@ -40,15 +40,15 @@
             when 2
               assign fb = 'ms-photo-atelier-parrots.jpg' | asset_url
             when 3
-              assign fb = 'ms-photo-paisley-throw.jpg' | asset_url
+              assign fb = 'ms-photo-artisan-fibre.jpg' | asset_url
             when 4
-              assign fb = 'ms-photo-shepherd.jpg' | asset_url
+              assign fb = 'ms-photo-flora-corner.jpg' | asset_url
             else
-              assign fb = 'ms-photo-red-throw.jpg' | asset_url
+              assign fb = 'ms-photo-shepherd.jpg' | asset_url
           endcase
         -%}
         <a class="ms-fw__tile" href="{{ ig | default: '#' }}" target="_blank" rel="noopener" aria-label="{{ handle | escape }} on Instagram">
-          <img src="{% if img != blank %}{{ img | image_url: width: 700 }}{% else %}{{ fb }}{% endif %}" alt="" width="700" height="700" loading="lazy">
+          <img src="{% if img != blank %}{{ img | image_url: width: 700 }}{% else %}{{ fb }}{% endif %}" alt="{{ handle | escape }} on Instagram" width="700" height="700" loading="lazy">
           <span class="ms-fw__glyph" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" fill-rule="evenodd" d="M7 1h10a6 6 0 0 1 6 6v10a6 6 0 0 1-6 6H7a6 6 0 0 1-6-6V7a6 6 0 0 1 6-6Zm0 2.1A3.9 3.9 0 0 0 3.1 7v10A3.9 3.9 0 0 0 7 20.9h10a3.9 3.9 0 0 0 3.9-3.9V7A3.9 3.9 0 0 0 17 3.1H7Zm5 3.6a5.3 5.3 0 1 1 0 10.6 5.3 5.3 0 0 1 0-10.6Zm0 2.1a3.2 3.2 0 1 0 0 6.4 3.2 3.2 0 0 0 0-6.4Zm5.6-3.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5Z"/></svg></span>
         </a>
       {%- endfor -%}

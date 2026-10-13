@@ -1,5 +1,5 @@
 /*
- * Midsummer Milano: Handmade in Italy: how a Midsummer bed is made, by two artisans, start to finish.
+ * Midsummer Milano: Handmade in Italy: how a Midsummer bed is made, by hand, start to finish.
  */
 {
   "layout": "ms",
@@ -22,8 +22,8 @@
       "settings": {
         "eyebrow": "The method",
         "use_content": false,
-        "heading": "A Midsummer bed is not assembled. It is made, by the same two pairs of hands, from the core to the last stitch.",
-        "text": "<p>Every piece is built by hand, from start to finish, by the same two Italian artisans: two or three full days of work for each mattress. It is not a marketing promise; it is a method.</p><p>Because one pair of hands follows the bed through every stage, nothing goes inside it that its makers did not choose and place themselves. And because they know it from the inside, the bed can come back to them at fifteen years to be opened, renewed and made ready for fifteen more.</p>"
+        "heading": "A Midsummer bed is not assembled. It is made, by hand, from the first gesture to the last stitch.",
+        "text": "<p>Every piece is built by hand in Italy, from start to finish: two or three full days of work for each mattress. It is not a marketing promise; it is a method.</p><p>Because one pair of hands follows the bed through every stage, nothing goes inside it that its makers did not choose and place themselves. And because they know it from the inside, the bed can come back to them at fifteen years to be opened, renewed and made ready for fifteen more.</p>"
       }
     },
     "s03": {
@@ -73,7 +73,7 @@
           "settings": {
             "image_fallback": "ms-graded-bougainvillea.jpg",
             "title": "The cloth",
-            "text": "<p>Last, the upholstery: Loro Piana Interiors fabrics, chosen for your room. Two or three days after it was begun, the bed is finished by the same two people who started it.</p>"
+            "text": "<p>Last, the upholstery: Loro Piana Interiors fabrics, chosen for your room. Two or three days after it was begun, the bed is finished by hand, as it was begun.</p>"
           }
         }
       },
@@ -90,7 +90,7 @@
       "settings": {
         "eyebrow": "In the atelier",
         "heading": "Slow, by method.",
-        "fallback_1": "ms-photo-seamstress.jpg",
+        "fallback_1": "ms-photo-artisan-wool.jpg",
         "caption_1": "The cloth, cut by hand by our artisans.",
         "fallback_2": "ms-photo-tufting.jpg",
         "caption_2": "Tufted by hand through the whole depth, so every fibre stays where it was laid."

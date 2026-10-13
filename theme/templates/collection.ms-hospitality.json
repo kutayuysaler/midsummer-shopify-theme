@@ -51,8 +51,8 @@
           "settings": {
             "place": "handmade",
             "title": "Handmade in Italy",
-            "text": "The same two artisans for every bed in the programme.",
-            "image_fallback": "ms-photo-seamstress-portrait.jpg"
+            "text": "Every bed in the programme made by hand in Italy.",
+            "image_fallback": "ms-photo-artisan-portrait.jpg"
           }
         },
         "card_04": {
@@ -143,12 +143,147 @@
         "heading": "One bed per room, for thirty years.",
         "text": "An industrial mattress is replaced every eight to ten years. A Midsummer mattress goes back to the artisans who made it at fifteen, and returns to the room for fifteen more."
       }
+    },
+    "sizes": {
+      "type": "ms-sizes",
+      "settings": {
+        "eyebrow": "Systems, measured",
+        "heading": "For every room: heights, sizes and cloths.",
+        "text": "The figures a room plan needs, from the 2026 catalogue. A suite, a villa or a cabin each sets its own width, length and height.",
+        "note": "Other sizes, heights and shapes are made on request.",
+        "link_label": "Start a hotel project"
+      },
+      "blocks": {
+        "system_0": {
+          "type": "system",
+          "settings": {
+            "name": "Amalfi",
+            "handle": "amalfi",
+            "collection": "Essentials",
+            "height": "52 cm",
+            "sizes": "100 × 200, 160 × 200, 180 × 200, 200 × 200; Queen 153 × 203, King 193 × 203",
+            "cloth": "Linen and cotton, in four colours"
+          }
+        },
+        "system_1": {
+          "type": "system",
+          "settings": {
+            "name": "Capri",
+            "handle": "capri",
+            "collection": "Essentials",
+            "height": "55 cm",
+            "sizes": "100 × 200, 160 × 200, 180 × 200, 200 × 200; Queen 153 × 203, King 193 × 203",
+            "cloth": "Loro Piana Interiors Mystic River; or two-tone, natural linen and cotton with Connemara or Mystic River"
+          }
+        },
+        "system_2": {
+          "type": "system",
+          "settings": {
+            "name": "Dreamy",
+            "handle": "dreamy",
+            "collection": "Signature",
+            "height": "62 cm",
+            "sizes": "100 × 200, 160 × 200, 180 × 200, 200 × 200; Queen 153 × 203, King 193 × 203",
+            "cloth": "Loro Piana Interiors Mystic River; or two-tone, natural linen and cotton with Connemara or Mystic River"
+          }
+        },
+        "system_3": {
+          "type": "system",
+          "settings": {
+            "name": "Brera",
+            "handle": "brera",
+            "collection": "Signature",
+            "height": "50 cm",
+            "sizes": "100 × 200, 160 × 200, 180 × 200, 200 × 200; Queen 153 × 203, King 193 × 203",
+            "cloth": "Loro Piana Interiors Connemara linen, the winter side edged in Altai wool and cashmere"
+          }
+        },
+        "system_4": {
+          "type": "system",
+          "settings": {
+            "name": "Top",
+            "handle": "top",
+            "collection": "Icons",
+            "height": "65 cm",
+            "sizes": "100 × 200, 160 × 200, 180 × 200, 200 × 200; Queen 153 × 203, King 193 × 203",
+            "cloth": "Loro Piana Interiors Connemara, Ely’s Harbour and Bangor"
+          }
+        },
+        "system_5": {
+          "type": "system",
+          "settings": {
+            "name": "Giotto Round",
+            "handle": "giotto-round",
+            "collection": "Icons",
+            "height": "55 cm",
+            "sizes": "Ø 225 or 245",
+            "cloth": "Loro Piana Interiors Connemara and Bangor linen"
+          }
+        },
+        "system_6": {
+          "type": "system",
+          "settings": {
+            "name": "Bellini",
+            "handle": "bellini",
+            "collection": "Icons",
+            "height": "65 cm",
+            "sizes": "100 × 200, 160 × 200, 180 × 200, 200 × 200; Queen 153 × 203, King 193 × 203",
+            "cloth": "Loro Piana Interiors Wish, a bouclé of wool and cashmere"
+          }
+        },
+        "system_7": {
+          "type": "system",
+          "settings": {
+            "name": "Storage",
+            "handle": "storage",
+            "collection": "Icons",
+            "height": "55 cm",
+            "sizes": "100 × 200, 160 × 200, 180 × 200, 200 × 200; Queen 153 × 203, King 193 × 203",
+            "cloth": "Loro Piana Interiors Mystic River, drawers included"
+          }
+        },
+        "system_8": {
+          "type": "system",
+          "settings": {
+            "name": "Flora",
+            "handle": "flora",
+            "collection": "Icons",
+            "height": "62 cm",
+            "sizes": "100 × 200, 160 × 200, 180 × 200, 200 × 200; Queen 153 × 203, King 193 × 203",
+            "cloth": "Loro Piana Interiors Cardi on the topper, Wish on the boxspring, both wool and cashmere"
+          }
+        },
+        "system_9": {
+          "type": "system",
+          "settings": {
+            "name": "Paisley",
+            "handle": "paisley",
+            "collection": "Icons",
+            "height": "55 cm",
+            "sizes": "100 × 200, 160 × 200, 180 × 200, 200 × 200; Queen 153 × 203, King 193 × 203",
+            "cloth": "Loro Piana Interiors Shadan linen and Katai silk"
+          }
+        }
+      },
+      "block_order": [
+        "system_0",
+        "system_1",
+        "system_2",
+        "system_3",
+        "system_4",
+        "system_5",
+        "system_6",
+        "system_7",
+        "system_8",
+        "system_9"
+      ]
     }
   },
   "order": [
     "s01",
     "s02",
     "spec",
+    "sizes",
     "s03",
     "years",
     "s04",

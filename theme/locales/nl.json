@@ -347,7 +347,7 @@
   "ms": {
     "home": {
       "h1": "Handmade luxury beds and mattresses, built one by one.",
-      "lede": "We design dreams. Every bed is made by two artisans, start to finish.",
+      "lede": "We design dreams. Every bed is made by hand in Italy, to order, one at a time.",
       "cta": "Book a private appointment",
       "cta_note": "At our Milan atelier, or by video call"
     },
@@ -359,9 +359,9 @@
       "cta_primary": "Request a proposal",
       "cta_secondary": "Book a private appointment",
       "f1_label": "Made",
-      "f1_value": "By hand in Italy, by two artisans, start to finish",
+      "f1_value": "By hand in Italy, to order",
       "f2_label": "Dimensions",
-      "f2_value": "Any size, including round, with no tooling charge",
+      "f2_value": "Made to measure, round included",
       "f3_label": "Service",
       "f3_value": "Regenerated at fifteen years, for fifteen more",
       "cover_label": "Upholstery",
@@ -385,7 +385,26 @@
       "kind_headboard": "Bed with headboard, handmade in Italy",
       "kind_outdoor": "Outdoor bed and seating system, handmade in Italy",
       "description_label_bed": "About this bed",
-      "description_label_outdoor": "About this piece"
+      "description_label_outdoor": "About this piece",
+      "kind_mattress": "Natural-fibre mattress, handmade in Italy",
+      "description_label_mattress": "About this mattress",
+      "description_label_topper": "About this topper",
+      "back": "Back",
+      "all_collections": "All collections",
+      "breadcrumb": "Breadcrumb",
+      "home": "Home",
+      "size_single": "Single",
+      "size_small_double": "Small Double",
+      "size_double": "Double",
+      "size_double_extra": "Double Extra",
+      "size_queen": "Queen",
+      "size_king": "King",
+      "size_super_king": "Super King",
+      "facts_composition": "Composition",
+      "facts_finishings": "Finishings",
+      "facts_care": "Care",
+      "facts_order": "Made to order",
+      "more_at": "More at"
     }
   }
 }

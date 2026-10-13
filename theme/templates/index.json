@@ -26,17 +26,17 @@
         "layout": "split",
         "side": "left",
         "tone": "light",
-        "image_fallback": "ms-photo-seamstress-portrait.jpg",
+        "image_fallback": "ms-photo-artisan-portrait.jpg",
         "numeral": "01",
         "eyebrow": "Handmade in Italy",
-        "heading": "Two artisans. One bed.",
-        "text": "No production line. The same two hands begin the bed and sew its final seam. That is why a change of size, height or fabric is a decision, never an exception.",
-        "stat1_value": "2",
-        "stat1_label": "Artisans build each system, start to finish",
-        "stat2_value": "24",
-        "stat2_label": "Systems across three collections",
+        "heading": "By hand. One bed at a time.",
+        "text": "No production line: each bed is made by hand, from the first stitch to the final seam. That is why a change of size, height or fabric is a decision, never an exception.",
+        "stat1_value": "15 + 15",
+        "stat1_label": "Years: renewed by hand at fifteen, for fifteen more",
+        "stat2_value": "3",
+        "stat2_label": "Collections: Essentials, Signature and Icons",
         "stat3_value": "100%",
-        "stat3_label": "Natural fibres, nothing synthetic",
+        "stat3_label": "Made to order, by hand in Italy",
         "link_label": "Handmade in Italy",
         "link_place": "handmade"
       }
@@ -72,7 +72,7 @@
           "type": "row",
           "settings": {
             "label": "Who makes it",
-            "ours": "Two artisans, start to finish, in Italy.",
+            "ours": "By hand, start to finish, in Italy.",
             "theirs": "A production line, with many hands and no one answerable for the whole."
           }
         },
@@ -96,7 +96,7 @@
           "type": "row",
           "settings": {
             "label": "Size and shape",
-            "ours": "Any size, round included, with no tooling charge.",
+            "ours": "Made to measure, round included.",
             "theirs": "A catalogue of standard sizes."
           }
         },
@@ -203,7 +203,7 @@
         "publication_07": {
           "type": "publication",
           "settings": {
-            "name": "L Officiel",
+            "name": "L’Officiel",
             "row": "1",
             "link": "shopify://blogs/press-lofficiel",
             "logo_file": "ms-press-l-officiel.svg"
@@ -306,7 +306,7 @@
         "publication_18": {
           "type": "publication",
           "settings": {
-            "name": "Lust und Leben",
+            "name": "Lust & Leben",
             "row": "2",
             "link": "shopify://blogs/press-lust-leben",
             "logo_file": "ms-press-lust-und-leben.png"
@@ -362,7 +362,7 @@
         "publication_24": {
           "type": "publication",
           "settings": {
-            "name": "Festival dell Etica",
+            "name": "Festival dell’Etica",
             "row": "2",
             "link": "shopify://blogs/press-festival-delletica",
             "logo_file": "ms-press-festival-dell-etica.svg"

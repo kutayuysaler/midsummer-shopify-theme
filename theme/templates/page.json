@@ -20,14 +20,14 @@
           "type": "question",
           "settings": {
             "question": "Where are Midsummer beds made?",
-            "answer": "<p>By hand in Italy. Every sleep system is built one by one by two artisans, start to finish — the same two hands that begin the bed sew its final seam.</p>"
+            "answer": "<p>By hand in Italy. Every sleep system is built by hand, one by one, from the first stitch to the final seam.</p>"
           }
         },
         "question_02": {
           "type": "question",
           "settings": {
             "question": "Can a bed be made to my dimensions?",
-            "answer": "<p>Yes. Dimensions, heights, fibres, fabric and comfort level are specification decisions rather than exceptions. Non-standard widths, heights and radii, including round, carry no tooling charge.</p>"
+            "answer": "<p>Yes. Dimensions, heights, fibres, fabric and comfort level are specification decisions rather than exceptions. Non-standard widths, heights and radii, round included, are worked to your drawing.</p>"
           }
         },
         "question_03": {
@@ -90,7 +90,7 @@
           "type": "question",
           "settings": {
             "question": "How should I care for the system?",
-            "answer": "<p>Rotate head to foot every three months for the first year, then twice yearly. Air the system when you change the linen. Loro Piana Interiors upholstery should be dry-cleaned by a specialist only; the atelier can arrange this.</p>"
+            "answer": "<p>Rotate head to foot every three months for the first year, then twice yearly. Air the system when you change the linen. Loro Piana Interiors upholstery is removable: clean it as its care label directs, and ask the atelier whenever in doubt.</p>"
           }
         }
       },
@@ -473,6 +473,8 @@
             "quality_label": "Softness · Warmth",
             "lead": "It comes from a small camelid that lives wild in the high Andes; the Inca wove it for their kings, for its lightness and warmth. Its coat is twofold: a fine down that regulates warmth, and longer, silky fibres that protect.",
             "photo": "vicuna",
+            "glass_note": "The finest of all: slender fibres, finely scaled, with a gentle wave.",
+            "points": "-15.5,-70.5",
             "f1": "12 µm",
             "f1_cap": "Across one fibre: finer than the best cashmere, at 15 µm.",
             "f2": "150 g",
@@ -495,6 +497,8 @@
             "quality_label": "Warmth without weight",
             "lead": "The fine undercoat of a goat, combed by hand as the goat moults, never shorn. Soft, silky and velvety, it gives warmth with lightness; even a little cashmere changes a mattress.",
             "photo": "cashmere",
+            "glass_note": "Fine fibres with smooth, shallow scales and a soft wave.",
+            "points": "46.9,103.8",
             "f1": "100–200 g",
             "f1_cap": "Of fine fibre from one goat, in a year.",
             "f2": "Mongolia",
@@ -515,6 +519,8 @@
             "quality_label": "Warmth · Temperature",
             "lead": "It shields the camel from the extremes of the desert, cold and heat, and does the same in a bed. Fine and soft, it holds a great deal of air, and it is more hygroscopic than sheep’s wool: a dry, pleasant warmth.",
             "photo": "none",
+            "glass_note": "Fine hair, scaled, holding a great deal of air.",
+            "points": "43.5,104.5",
             "f1": "700 g",
             "f1_cap": "At most, combed from one young camel in a year.",
             "origin": "Asia",
@@ -532,6 +538,7 @@
             "quality_label": "Warmth · Softness",
             "lead": "A fine, very warm and particularly robust hair, soft and fluffy, with the look of cashmere. The yak is neither shorn nor combed: in May its winter undercoat falls, and the nomads gather it.",
             "photo": "yak",
+            "glass_note": "A fine down, scaled and softly waved, with the look of cashmere.",
             "f1": "May",
             "f1_cap": "When the undercoat falls, and is gathered.",
             "f2": "Never",
@@ -551,6 +558,8 @@
             "quality_label": "Temperature · Hypoallergenic",
             "lead": "From an animal of the high South American ranges, with an abundant fleece, soft and almost silky. The fibre sits between wool and cashmere, nearer to cashmere; alpaca cloth was once kept for the Inca emperors.",
             "photo": "none",
+            "glass_note": "Low scales and a gentle wave: between wool and cashmere.",
+            "points": "-14.5,-71.5",
             "f1": "No lanolin",
             "f1_cap": "And so naturally hypoallergenic.",
             "origin": "The South American highlands",
@@ -567,7 +576,8 @@
             "qualities": "temperature",
             "quality_label": "Warmth without weight",
             "lead": "On the winter side of a bed, with cashmere, silk and wool: warmth without weight.",
-            "photo": "none"
+            "photo": "none",
+            "glass_note": "Long fibres, almost smooth, which give mohair its lustre."
           }
         },
         "fibre_7": {
@@ -581,6 +591,7 @@
             "quality_label": "Temperature · Softness",
             "lead": "The only animal fibre spun by a silkworm, fed on mulberry leaves. A continuous filament, fine and lustrous: light, insulating, elastic and flexible, held to be the finest and softest of the natural fibres.",
             "photo": "silk",
+            "glass_note": "A continuous filament, smooth and lustrous, spun as a pair.",
             "f1": "800–1,000 m",
             "f1_cap": "Of filament from a single cocoon.",
             "species": "Bombyx mori",
@@ -598,10 +609,13 @@
             "quality_label": "Support · Temperature",
             "lead": "The most hygroscopic of the natural fibres. It keeps the body cool when it is warm and warm when it is cold, holds no static and resists mould. Ours comes from small farms: Cheviot, from Scotland, with the longest fibres, and Falkland.",
             "photo": "wool",
+            "glass_note": "Bold scales and a deep crimp, the natural wave of the fibre.",
+            "points": "55.4,-2.2;-51.7,-59.2",
             "f1": "⅓",
             "f1_cap": "Of its own weight in vapour, taken up without feeling wet.",
             "f2": "Small farms",
             "f2_cap": "Never merino from extensive Australian farms.",
+            "origin": "Scotland and the Falkland Islands",
             "species": "Ovis aries",
             "alt": "Sheep in full fleece, close together."
           }
@@ -617,6 +631,8 @@
             "quality_label": "Support · Breathability",
             "lead": "Used in upholstery for centuries because it is elastic and flexible, and curling makes it more so. Like wool, it takes up the moisture of the night and gives it back to the air by day, keeping the bed fresh.",
             "photo": "horsehair",
+            "glass_note": "A thick, strong hair with a core: elastic, and more so curled.",
+            "points": "-36.5,-62",
             "f1": "Argentina",
             "f1_cap": "Where the horses live free.",
             "f2": "Horses only",
@@ -637,6 +653,8 @@
             "quality_label": "Breathability · Freshness",
             "lead": "From the stem of the flax plant, grown in the cool regions of northern Europe. A good conductor of heat, it feels cool against the skin: the fibre of the summer side.",
             "photo": "none",
+            "glass_note": "Straight fibres, marked by the nodes of the flax stem.",
+            "points": "50.4,3.2",
             "f1": "20%",
             "f1_cap": "Of its own weight in moisture, absorbed.",
             "origin": "Northern Europe",
@@ -654,6 +672,7 @@
             "quality_label": "Breathability",
             "lead": "Only from organic farms that keep to fair working conditions, since ordinary cotton crops use huge amounts of chemicals. Fresh and very breathable, for the warm months.",
             "photo": "cotton",
+            "glass_note": "A flat ribbon that twists on itself.",
             "f1": "Organic",
             "f1_cap": "Farms only, with fair working conditions.",
             "species": "Gossypium",
@@ -671,6 +690,8 @@
             "quality_label": "Support · Breathability",
             "lead": "Fibres from the leaves of palms, mainly the dwarf palm of southern Italy and Sicily, known as St Peter’s palm. The leaves are dried, curled and braided into ropes, like horsehair: soft, resilient and practically indestructible.",
             "photo": "none",
+            "glass_note": "Ridged fibres of the palm leaf, curled like horsehair.",
+            "points": "38.6,16.1",
             "f1": "Sicily",
             "f1_cap": "And southern Italy, where the palm grows.",
             "origin": "Southern Italy and Sicily",
@@ -688,6 +709,7 @@
             "quality_label": "Breathability · Freshness",
             "lead": "A sustainable fibre derived from maize. With wool, linen and cotton, it is on the summer side: fresh and breathable.",
             "photo": "none",
+            "glass_note": "Even, smooth filaments, drawn from maize.",
             "f1": "Maize",
             "f1_cap": "The plant it is drawn from."
           }
@@ -703,8 +725,11 @@
             "quality_label": "Freshness · Breathability",
             "lead": "An innovative, sustainable material made from Sicilian orange peels: light, breathable and naturally fresh.",
             "photo": "none",
+            "glass_note": "Fine, even filaments, made from orange peel.",
+            "points": "37.4,14.4",
             "f1": "Orange peel",
-            "f1_cap": "From Sicily’s oranges."
+            "f1_cap": "From Sicily’s oranges.",
+            "origin": "Sicily"
           }
         }
       },

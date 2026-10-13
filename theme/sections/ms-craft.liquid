@@ -7,16 +7,18 @@
 {%- liquid
   assign s = section.settings
   assign eyebrow = s.eyebrow
-  if template.name == 'product' and product != blank and s.eyebrow_product != blank
-    assign eyebrow = s.eyebrow_product | replace: '[name]', product.title
-    assign pt = product.title | downcase
-    if pt contains 'topper'
-      assign start = 'topper'
+  assign pname = ''
+  if template.name == 'product' and product != blank
+    assign pname = product.title
+    if s.eyebrow_product != blank
+      assign eyebrow = s.eyebrow_product | replace: '[name]', product.title
     endif
   endif
-  # on a product page, only a sleep system has a topper, a mattress and a base to show
+  # on a product page: a sleep system has a topper, a mattress and a base; a mattress, a topper or a
+  # boxspring is that part alone, the rest drawn in outline and leading to where it can be found
   # (beds with headboards and the Tangram have sections of their own: snippets/ms-kind)
   assign cr_show = true
+  assign cr_kind = 'system'
   assign ms_key = template.suffix
   if template.name == 'product' and product != blank
     capture mk
@@ -24,8 +26,30 @@
     endcapture
     assign mkp = mk | split: '|'
     assign ms_key = mkp[1]
-    if mkp[0] != 'system' and request.design_mode != true
+    if mkp[0] == 'boxspring'
+      case product.handle
+        when 'dreamy-springs'
+          assign ms_key = 'base-dreamy-springs'
+        when 'my-dream-1'
+          assign ms_key = 'base-my-dream'
+        when 'first-dream-1'
+          assign ms_key = 'base-first-dream'
+        when 'top-dream'
+          assign ms_key = 'base-top-dream'
+        when 'storage-boxspring'
+          assign ms_key = 'base-storage'
+        else
+          assign ms_key = 'base'
+      endcase
+    elsif mkp[0] != 'system' and request.design_mode != true
       assign cr_show = false
+    endif
+    capture ck
+      render 'ms-sys-data', key: ms_key, part: 'kind'
+    endcapture
+    assign ck = ck | strip
+    if ck != blank
+      assign cr_kind = ck
     endif
   endif
   # a system on another's template (the Medium & High and the Thin topper are given the Roma
@@ -34,6 +58,15 @@
   if template.name == 'product' and product != blank and ms_key != '' and ms_key != product.template_suffix
     assign sd = true
   endif
+  assign cr_heading = s.heading
+  case cr_kind
+    when 'mattress'
+      assign cr_heading = s.heading_mattress | default: s.heading
+    when 'topper'
+      assign cr_heading = s.heading_topper | default: s.heading
+    when 'base'
+      assign cr_heading = s.heading_base | default: s.heading
+  endcase
   assign cr_text = s.text
   if sd
     capture cr_text
@@ -55,27 +88,101 @@
       assign lp_free = true
     endif
   endif
-  assign parts = 'topper,mattress,base' | split: ','
+  # the parts a system is made of (snippets/ms-sys-data 'parts'): most have three; Capri and Giotto
+  # Round are a topper and one piece that is mattress and boxspring; Brera one slim piece that is
+  # mattress and topper, on its boxspring. 'opt': a part it takes only if you wish (Storage, Amalfi)
+  capture cr_parts
+    render 'ms-sys-data', key: ms_key, part: 'parts'
+  endcapture
+  assign cr_parts = cr_parts | strip
+  if cr_parts == blank
+    assign cr_parts = 'topper,mattress,base'
+  endif
+  capture cr_opt
+    render 'ms-sys-data', key: ms_key, part: 'opt'
+  endcapture
+  assign cr_opt = cr_opt | strip
+  assign parts = cr_parts | split: ','
   assign nums = 'I,II,III' | split: ','
+  assign n_last = parts.size | minus: 1
+  assign t2 = s.part2_title
+  assign t3 = s.part3_title
+  if parts.size == 2
+    if cr_parts contains 'topper'
+      assign t3 = s.one_base_title | default: s.part3_title
+    else
+      assign t2 = s.one_mattress_title | default: s.part2_title
+    endif
+  endif
+  assign absent_with = s.absent_with | replace: '[name]', pname
+  assign opt_with = s.opt_with | replace: '[name]', pname
+  if cr_kind == 'system'
+    if parts.size == 2 or cr_opt != blank
+      assign cr_heading = s.heading_two | default: cr_heading
+    endif
+  endif
 -%}
 {%- if cr_show -%}
 {%- capture cr_tint -%}{% render 'ms-craft-tint', key: ms_key %}{%- endcapture -%}
-<section class="ms-cr" data-ms-craft{% if start %} data-cr-start="{{ start }}"{% endif %}{% if cr_tint != blank %} style="{{ cr_tint | strip }}"{% endif %}>
+{%- liquid
+  # what completes it: for each part the product does not include, the pieces that do (first link^collection^image^items)
+  assign mate_data = ''
+  for p in parts
+    assign mine = false
+    if cr_kind == 'system' or cr_kind == p
+      assign mine = true
+    endif
+    if cr_opt contains p
+      assign mine = false
+    endif
+    assign md = '-'
+    unless mine
+      capture md
+        render 'ms-craft-mates', key: ms_key, part: p, product: product
+      endcapture
+      assign md = md | strip | replace: '|', '¦'
+    endunless
+    assign mate_data = mate_data | append: md | append: '|'
+  endfor
+  assign mates = mate_data | split: '|'
+-%}
+<section class="ms-cr ms-cr--{{ cr_kind }}" data-ms-craft data-cr-kind="{{ cr_kind }}"{% if cr_tint != blank %} style="{{ cr_tint | strip }}"{% endif %}>
   <div class="ms-cr__in">
     <div class="ms-cr__top">
       <div class="ms-cr__left">
         <div class="ms-cr__intro" data-cr-intro>
           <div class="ms-cr__eyebrow">{{ eyebrow }}</div>
-          <h2 class="ms-cr__title">{{ s.heading }}</h2>
-          {%- if cr_text != blank -%}<p class="ms-cr__text">{% if product != blank %}{{ cr_text | replace: '[name]', product.title }}{% else %}{{ cr_text }}{% endif %}</p>{%- endif -%}
+          <h2 class="ms-cr__title">{{ cr_heading }}</h2>
+          {%- if cr_text != blank -%}<p class="ms-cr__text">{% if pname != '' %}{{ cr_text | replace: '[name]', pname }}{% else %}{{ cr_text }}{% endif %}</p>{%- endif -%}
           <div class="ms-cr__pick">
             {%- if s.hint != blank -%}<p class="ms-cr__hint">{{ s.hint }}</p>{%- endif -%}
-            <div class="ms-cr__picks" role="group" aria-label="{{ s.heading | escape }}">
+            <div class="ms-cr__picks" role="group" aria-label="{{ cr_heading | escape }}">
               {%- for p in parts -%}
-                {%- assign kt = 'part' | append: forloop.index | append: '_title' -%}
-                <button type="button" class="ms-cr__pk" data-cr-open="{{ p }}" aria-expanded="false" aria-controls="cr-{{ section.id }}-{{ p }}"><span>{{ nums[forloop.index0] }}</span>{{ s[kt] }}</button>
+                {%- liquid
+                  assign mine = false
+                  if cr_kind == 'system' or cr_kind == p
+                    assign mine = true
+                  endif
+                  assign isopt = false
+                  if cr_opt contains p
+                    assign mine = false
+                    assign isopt = true
+                  endif
+                  case p
+                    when 'topper'
+                      assign c_title = s.part1_title
+                    when 'mattress'
+                      assign c_title = t2
+                    else
+                      assign c_title = t3
+                  endcase
+                -%}
+                <button type="button" class="ms-cr__pk{% unless mine %} is-absent{% endunless %}{% if isopt %} is-opt{% endif %}" data-cr-open="{{ p }}" aria-expanded="false" aria-controls="cr-{{ section.id }}-{{ p }}"><span>{{ nums[forloop.index0] }}</span>{{ c_title }}{%- unless mine -%}<em class="ms-cr__pk-out">{% if isopt %}{{ s.opt_label }}{% else %}{{ s.absent_label }}{% endif %}</em>{%- endunless -%}</button>
               {%- endfor -%}
             </div>
+            {%- if cr_kind != 'system' -%}
+              <p class="ms-cr__legend"><span class="ms-cr__lg"><i class="ms-cr__lg-in" aria-hidden="true"></i>{{ s.legend_in | replace: '[name]', pname }}</span><span class="ms-cr__lg"><i class="ms-cr__lg-out" aria-hidden="true"></i>{{ s.legend_out }}</span></p>
+            {%- endif -%}
           </div>
           {%- if s.note != blank -%}<p class="ms-cr__note">{{ s.note }}</p>{%- endif -%}
           <div class="ms-cr__links">
@@ -86,16 +193,27 @@
 
         {%- for p in parts -%}
           {%- liquid
-            assign i = forloop.index
-            assign kt = 'part' | append: i | append: '_title'
+            case p
+              when 'topper'
+                assign i = 1
+              when 'mattress'
+                assign i = 2
+              else
+                assign i = 3
+            endcase
             assign kl = 'part' | append: i | append: '_lead'
             assign kp = 'part' | append: i | append: '_points'
             assign kf = 'part' | append: i | append: '_fibres'
+            assign kw = 'part' | append: i | append: '_winter'
+            assign ks = 'part' | append: i | append: '_summer'
             assign kll = 'part' | append: i | append: '_link_label'
-            assign places = 'materials,regen,loro' | split: ','
+            assign kal = 'part' | append: i | append: '_all_label'
+            assign infos = 'materials,regen,loro' | split: ','
             assign c_lead = s[kl]
             assign c_points = s[kp]
             assign c_fibres = s[kf]
+            assign c_winter = s[kw]
+            assign c_summer = s[ks]
             if sd
               assign sk = 'p' | append: i
               capture c_lead
@@ -107,65 +225,151 @@
               capture c_fibres
                 render 'ms-sys-data', key: ms_key, part: sk, f: 'fibres'
               endcapture
+              capture c_winter
+                render 'ms-sys-data', key: ms_key, part: sk, f: 'winter'
+              endcapture
+              capture c_summer
+                render 'ms-sys-data', key: ms_key, part: sk, f: 'summer'
+              endcapture
               assign c_lead = c_lead | strip
               assign c_points = c_points | strip
               assign c_fibres = c_fibres | strip
+              assign c_winter = c_winter | strip
+              assign c_summer = c_summer | strip
             endif
+            assign c_lead = c_lead | replace: '[name]', pname
             assign points = c_points | newline_to_br | split: '<br />'
             assign fibres = c_fibres | split: ','
+            assign mine = false
+            if cr_kind == 'system' or cr_kind == p
+              assign mine = true
+            endif
+            assign isopt = false
+            if cr_opt contains p
+              assign mine = false
+              assign isopt = true
+            endif
+            case p
+              when 'topper'
+                assign c_title = s.part1_title
+              when 'mattress'
+                assign c_title = t2
+              else
+                assign c_title = t3
+            endcase
+            assign mt = mates[forloop.index0] | split: '^'
           -%}
-          <div class="ms-cr__panel" id="cr-{{ section.id }}-{{ p }}" data-cr-panel="{{ p }}" role="region" aria-label="{{ s[kt] | escape }}" hidden>
+          <div class="ms-cr__panel{% unless mine %} is-absent{% endunless %}" id="cr-{{ section.id }}-{{ p }}" data-cr-panel="{{ p }}" role="region" aria-label="{{ c_title | escape }}" hidden>
             <button type="button" class="ms-cr__back" data-cr-close><span aria-hidden="true">←</span> {{ s.back_label }}</button>
-            <div class="ms-cr__pnum">{{ nums[forloop.index0] }} <span>/ III</span></div>
-            <h3 class="ms-cr__ph">{{ s[kt] }}</h3>
+            <div class="ms-cr__pnum">{{ nums[forloop.index0] }} <span>/ {{ nums[n_last] }}</span></div>
+            {%- if cr_kind != 'system' -%}
+              {%- if mine -%}<p class="ms-cr__badge"><i aria-hidden="true"></i>{{ s.own_label | replace: '[name]', pname }}</p>{%- elsif isopt -%}<p class="ms-cr__badge is-out"><i aria-hidden="true"></i>{{ opt_with }}</p>{%- else -%}<p class="ms-cr__badge is-out"><i aria-hidden="true"></i>{{ absent_with }}</p>{%- endif -%}
+            {%- endif -%}
+            <h3 class="ms-cr__ph">{{ c_title }}</h3>
             {%- if c_lead != blank -%}<p class="ms-cr__lead">{{ c_lead }}</p>{%- endif -%}
             {%- if c_points != blank -%}
               <ul class="ms-cr__pts" role="list">
                 {%- for pt in points -%}
                   {%- assign t = pt | strip -%}
                   {%- if lp_free -%}{%- assign t = t | replace: 'Loro Piana Interiors, or in ', '' -%}{%- if t contains 'Loro Piana' -%}{%- assign t = '' -%}{%- endif -%}{%- endif -%}
+                  {%- if t contains '[[' -%}
+                    {%- assign segs = t | split: '[[' -%}
+                    {%- capture t -%}{{ segs[0] }}{%- for sg in segs offset: 1 -%}{%- assign sp = sg | split: ']]' -%}{%- assign hl = sp[0] | split: '|' -%}{%- assign lpp = all_products[hl[0]] -%}{%- if lpp.url != blank -%}<a href="{{ lpp.url }}">{{ hl[1] }}</a>{%- else -%}{{ hl[1] }}{%- endif -%}{{ sp[1] }}{%- endfor -%}{%- endcapture -%}
+                  {%- endif -%}
                   {%- if t != '' -%}<li>{{ t }}</li>{%- endif -%}
                 {%- endfor -%}
               </ul>
             {%- endif -%}
-            {%- if c_fibres != blank -%}
+            {%- if c_winter != blank and c_summer != blank -%}
+              <div class="ms-cr__fl">{{ s.fibres_label }}</div>
+              <div class="ms-cr__faces">
+                {%- for side in (1..2) -%}
+                  {%- if side == 1 -%}{%- assign fl = c_winter | split: ',' -%}{%- assign fh = s.winter_label -%}{%- else -%}{%- assign fl = c_summer | split: ',' -%}{%- assign fh = s.summer_label -%}{%- endif -%}
+                  <div class="ms-cr__fc">
+                    <div class="ms-cr__fh">{%- if side == 1 -%}<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5v13M2.4 4.75l11.2 6.5M2.4 11.25l11.2-6.5M6.3 2.6 8 4.3l1.7-1.7M6.3 13.4 8 11.7l1.7 1.7" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>{%- else -%}<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="8" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.4 1.4M11.55 11.55l1.4 1.4M3.05 12.95l1.4-1.4M11.55 4.45l1.4-1.4" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>{%- endif -%}{{ fh }}</div>
+                    <ul class="ms-cr__fibres" role="list">
+                      {%- for f in fl -%}{%- assign fn = f | strip -%}{%- if fn != '' -%}<li><span class="ms-cr__fi">{% render 'ms-fibre-mark', name: fn, size: 24 %}</span>{{ fn }}</li>{%- endif -%}{%- endfor -%}
+                    </ul>
+                  </div>
+                {%- endfor -%}
+              </div>
+            {%- elsif c_fibres != blank -%}
               <div class="ms-cr__fl">{{ s.fibres_label }}</div>
               <ul class="ms-cr__fibres" role="list">
                 {%- for f in fibres -%}{%- assign fn = f | strip -%}{%- if lp_free and fn contains 'Loro Piana' -%}{%- assign fn = '' -%}{%- endif -%}{%- if fn != '' -%}<li><span class="ms-cr__fi">{% render 'ms-fibre-mark', name: fn, size: 28 %}</span>{{ fn }}</li>{%- endif -%}{%- endfor -%}
               </ul>
             {%- endif -%}
+            {%- unless mine -%}
+              {%- assign m_items = mt[3] | replace: '¦', '|' -%}
+              <div class="ms-cr__mates">
+                <div class="ms-cr__fl">{{ s.mates_label }}</div>
+                {%- if m_items != blank -%}<ul class="ms-cr__mlist" role="list">{{ m_items }}</ul>{%- endif -%}
+                <div class="ms-cr__mlinks">
+                  {%- if mt[1] != blank -%}<a class="ms-cr__link" href="{{ mt[1] }}">{{ s[kal] }}<span aria-hidden="true">→</span></a>{%- endif -%}
+                  <a class="ms-cr__link ms-cr__link--soft" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=appointment' %}#enquire" data-ms-enquire>{{ s.mates_ask | replace: '[name]', pname }}<span aria-hidden="true">→</span></a>
+                </div>
+              </div>
+            {%- endunless -%}
             <div class="ms-cr__pnav">
               {%- liquid
-                assign place = places[forloop.index0]
-                assign show_link = true
-                if place == 'loro' and lp_free
+                assign ii = i | minus: 1
+                assign info = infos[ii]
+                assign show_link = mine
+                if info == 'loro' and lp_free
                   assign show_link = false
                 endif
                 assign hash = ''
-                if place == 'loro' and lp_anchor != blank
+                if info == 'loro' and lp_anchor != blank
                   assign hash = '#' | append: lp_anchor
                 endif
               -%}
-              {%- if s[kll] != blank and show_link -%}<a class="ms-cr__link" href="{% render 'ms-link', to: place %}{{ hash }}">{{ s[kll] }}<span aria-hidden="true">→</span></a>{%- endif -%}
+              {%- if s[kll] != blank and show_link -%}<a class="ms-cr__link" href="{% render 'ms-link', to: info %}{{ hash }}">{{ s[kll] }}<span aria-hidden="true">→</span></a>{%- endif -%}
               {%- unless forloop.last -%}<button type="button" class="ms-cr__next" data-cr-open="{{ parts[forloop.index] }}">{{ s.next_label }} <span aria-hidden="true">↓</span></button>{%- endunless -%}
             </div>
           </div>
         {%- endfor -%}
       </div>
 
-      <div class="ms-cr__draw">
-        {% render 'ms-craft-svg', key: ms_key, u: section.id, aria: s.heading, t1: s.part1_title, t2: s.part2_title, t3: s.part3_title %}
-      </div>
+      <figure class="ms-cr__draw">
+        {% render 'ms-craft-svg', key: ms_key, u: section.id, aria: cr_heading, t0: s.absent_label, to: s.opt_label, t1: s.part1_title, t2: t2, t3: t3 %}
+        {%- if pname != '' -%}
+          {%- liquid
+            case cr_kind
+              when 'mattress'
+                assign cap = s.cap_mattress
+              when 'topper'
+                assign cap = s.cap_topper
+              when 'base'
+                assign cap = s.cap_base
+              else
+                assign cap = s.cap_system
+                if parts.size == 2
+                  assign cap = s.cap_two | default: s.cap_system
+                elsif cr_opt != blank
+                  assign cap = s.cap_opt | default: s.cap_system
+                endif
+            endcase
+          -%}
+          {%- if cap != blank -%}<figcaption class="ms-cr__cap"><em>{{ pname }}</em><span>{{ cap }}</span></figcaption>{%- endif -%}
+        {%- endif -%}
+      </figure>
     </div>
 
     <div class="ms-cr__parts">
       {%- for p in parts -%}
         {%- liquid
-          assign i = forloop.index
-          assign kt = 'part' | append: i | append: '_title'
+          case p
+            when 'topper'
+              assign i = 1
+            when 'mattress'
+              assign i = 2
+            else
+              assign i = 3
+          endcase
           assign kx = 'part' | append: i | append: '_text'
           assign ki = 'part' | append: i | append: '_image'
           assign kf = 'part' | append: i | append: '_fallback'
+          assign kal = 'part' | append: i | append: '_all_label'
           assign c_text = s[kx]
           if sd
             assign sk = 'p' | append: i
@@ -174,32 +378,64 @@
             endcapture
             assign c_text = c_text | strip | default: s[kx]
           endif
-        -%}
-        <button type="button" class="ms-cr__part" data-part="{{ p }}" data-cr-open="{{ p }}" aria-controls="cr-{{ section.id }}-{{ p }}">
-          {%- liquid
-            assign own = nil
-            if product != blank and s[ki] == blank
-              assign mi = forloop.index
-              assign m = product.media[mi]
-              if m and m.media_type == 'image'
-                assign own = m
-              endif
+          assign c_text = c_text | replace: '[name]', pname
+          assign mine = false
+          if cr_kind == 'system' or cr_kind == p
+            assign mine = true
+          endif
+          assign isopt = false
+          if cr_opt contains p
+            assign mine = false
+            assign isopt = true
+          endif
+          case p
+            when 'topper'
+              assign c_title = s.part1_title
+            when 'mattress'
+              assign c_title = t2
+            else
+              assign c_title = t3
+          endcase
+          assign mt = mates[forloop.index0] | split: '^'
+          assign own = nil
+          if mine and product != blank and s[ki] == blank
+            assign mi = forloop.index
+            if cr_kind != 'system'
+              assign mi = 0
             endif
-          -%}
-          <span class="ms-cr__img">{%- if own -%}<img src="{{ own | image_url: width: 1000 }}" srcset="{{ own | image_url: width: 600 }} 600w, {{ own | image_url: width: 1000 }} 1000w" sizes="(max-width: 760px) 90vw, 30vw" alt="{{ own.alt | default: s[kt] | escape }}" width="1000" height="1250" loading="lazy">{%- else -%}<img src="{% render 'ms-img', image: s[ki], fallback: s[kf], width: 1000 %}" alt="{{ s[kt] | escape }}" width="1000" height="1250" loading="lazy">{%- endif -%}</span>
+            assign m = product.media[mi]
+            if m and m.media_type == 'image'
+              assign own = m
+            endif
+          endif
+        -%}
+        {%- if mine or mt[0] == blank -%}
+        <button type="button" class="ms-cr__part{% unless mine %} is-absent{% endunless %}" data-part="{{ p }}" data-cr-open="{{ p }}" aria-controls="cr-{{ section.id }}-{{ p }}">
+        {%- else -%}
+        <a class="ms-cr__part is-absent" data-part="{{ p }}" href="{{ mt[0] }}">
+        {%- endif -%}
+          <span class="ms-cr__img">{%- if own -%}<img src="{{ own | image_url: width: 1000 }}" srcset="{{ own | image_url: width: 600 }} 600w, {{ own | image_url: width: 1000 }} 1000w" sizes="(max-width: 760px) 90vw, 30vw" alt="{{ own.alt | default: c_title | escape }}" width="1000" height="1250" loading="lazy">{%- elsif mine == false and mt[2] != blank -%}<img src="{{ mt[2] }}" alt="{{ c_title | escape }}" width="900" height="1125" loading="lazy">{%- else -%}<img src="{% render 'ms-img', image: s[ki], fallback: s[kf], width: 1000 %}" alt="{{ c_title | escape }}" width="1000" height="1250" loading="lazy">{%- endif -%}{%- unless mine -%}<span class="ms-cr__out">{% if isopt %}{{ s.opt_label }}{% else %}{{ s.absent_label }}{% endif %}</span>{%- endunless -%}</span>
           <span class="ms-cr__cnum">{{ nums[forloop.index0] }}</span>
-          <span class="ms-cr__ptitle">{{ s[kt] }}</span>
+          <span class="ms-cr__ptitle">{{ c_title }}</span>
           <span class="ms-cr__ptext">{% if lp_free %}{{ c_text | replace: ' in Loro Piana Interiors', '' }}{% else %}{{ c_text }}{% endif %}</span>
+          {%- if mine or mt[0] == blank -%}
           <span class="ms-cr__more">{{ s.open_label }} <span aria-hidden="true">↑</span></span>
         </button>
+          {%- else -%}
+          <span class="ms-cr__more">{{ s[kal] }} <span aria-hidden="true">→</span></span>
+        </a>
+          {%- endif -%}
       {%- endfor -%}
     </div>
+    {%- comment -%} the house's marks speak of the mattress and topper; a boxspring alone goes without {%- endcomment -%}
+    {%- if cr_kind != 'base' -%}
     <ul class="ms-cr__marks">
       {%- for i in (1..3) -%}
         {%- assign km = 'mark' | append: i -%}
         {%- if s[km] != blank -%}<li><span class="ms-cr__mk" aria-hidden="true"></span>{{ s[km] }}</li>{%- endif -%}
       {%- endfor -%}
     </ul>
+    {%- endif -%}
   </div>
 </section>
 <style>
@@ -261,7 +497,9 @@
   .ms-cr:not([data-open]) .ms-cr__svg:has(.ms-cr__slab:hover) .ms-cr__slab:not(:hover) { opacity: .5; }
   @media (max-width: 600px) { .ms-cr__nm { display: none; } }
   /* a part the product does not include: drawn as a light outline, still there to explain */
-  .ms-cr__slab.is-ghost .ms-cr__face { fill: rgba(251, 249, 245, .28) !important; stroke: rgba(122, 69, 50, .45); stroke-dasharray: 4 4; }
+  .ms-cr__slab.is-ghost .ms-cr__face { fill: rgba(251, 249, 245, .2) !important; stroke: rgba(122, 69, 50, .5); stroke-dasharray: 3 4; }
+  .ms-cr__slab.is-ghost:hover .ms-cr__face, .ms-cr__slab.is-ghost.is-on .ms-cr__face { fill: rgba(251, 249, 245, .42) !important; stroke: #9A5B43; }
+  .ms-cr__slab.is-ghost .ms-cr__nm { font-style: italic; }
   .ms-cr__slab.is-ghost .ms-cr__pulse, .ms-cr__slab.is-ghost .ms-cr__spot { opacity: .45; }
   .ms-cr__face { stroke: rgba(58, 40, 30, .34); stroke-width: .7; vector-effect: non-scaling-stroke; stroke-linejoin: round; transition: stroke .45s ease; }
   .ms-cr__seam { fill: none; stroke: rgba(255, 238, 228, .55); stroke-width: .8; stroke-dasharray: 2 4; }
@@ -315,6 +553,47 @@
   .ms-cr__leg { fill: #7A5238; }
   .ms-cr__shadow { fill: rgba(110, 60, 40, .3); }
   .ms-cr__part.is-on .ms-cr__ptitle { color: #7A4532; }
+
+  /* a mattress, a topper or a boxspring: the part it is, and the parts that complete it, in outline */
+  .ms-cr__draw { margin: 0; }
+  .ms-cr__pk.is-absent { background: transparent; border-style: dashed; border-color: rgba(42, 31, 25, .3); color: rgba(42, 31, 25, .7); }
+  .ms-cr__pk-out { font-family: Nunito Sans, system-ui, sans-serif; font-style: normal; font-size: 9.5px; letter-spacing: .18em; text-transform: uppercase; color: rgba(122, 69, 50, .78); margin-left: 2px; }
+  .ms-site .ms-cr__legend { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 16px; font-size: 12px; color: rgba(42, 31, 25, .72); }
+  .ms-cr__lg { display: inline-flex; align-items: center; gap: 9px; }
+  .ms-cr__lg i { display: inline-block; width: 22px; height: 12px; }
+  .ms-cr__lg-in { background: rgba(251, 249, 245, .7); border: 1px solid rgba(42, 31, 25, .45); }
+  .ms-cr__lg-out { border: 1px dashed rgba(122, 69, 50, .6); }
+  .ms-site .ms-cr__badge { display: inline-flex; align-items: center; gap: 10px; margin-top: 14px; font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: #2A1F19; }
+  .ms-cr__badge i { width: 8px; height: 8px; border-radius: 50%; background: #9A5B43; }
+  .ms-site .ms-cr__badge.is-out { color: rgba(122, 69, 50, .9); }
+  .ms-cr__badge.is-out i { background: none; border: 1px dashed #9A5B43; }
+  .ms-cr__panel.is-absent .ms-cr__ph { color: rgba(42, 31, 25, .78); }
+  .ms-cr__faces { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 22px; margin-top: 12px; max-width: 560px; }
+  .ms-cr__fc { border-top: 1px solid rgba(42, 31, 25, .16); padding-top: 12px; }
+  .ms-cr__fh { display: flex; align-items: center; gap: 8px; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 16px; color: #7A4532; }
+  .ms-cr__faces .ms-cr__fibres { margin-top: 10px; gap: 6px; }
+  .ms-cr__faces .ms-cr__fibres li { padding: 4px 12px 4px 8px; font-size: 12.5px; }
+  .ms-cr__mates { margin-top: 26px; padding-top: 4px; }
+  .ms-cr__mlist { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 8px; max-width: 460px; }
+  .ms-site a.ms-cr__mate { display: grid; grid-template-columns: 52px minmax(0, 1fr) auto; align-items: center; gap: 16px; padding: 8px 14px 8px 8px; background: rgba(251, 249, 245, .55); border: 1px solid rgba(42, 31, 25, .12); color: #2A1F19; transition: background .3s, border-color .3s; }
+  .ms-site a.ms-cr__mate:hover, .ms-site a.ms-cr__mate:focus-visible { background: rgba(251, 249, 245, .9); border-color: rgba(122, 69, 50, .5); }
+  .ms-cr__mimg { width: 52px; height: 52px; background: rgba(42, 31, 25, .06); overflow: hidden; }
+  .ms-cr__mimg img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .ms-cr__mname { font-family: Newsreader, Georgia, serif; font-size: 19px; line-height: 1.2; }
+  .ms-cr__marr { color: #7A4532; transition: transform .3s; }
+  .ms-cr__mate:hover .ms-cr__marr { transform: translateX(4px); }
+  .ms-cr__mlinks { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; margin-top: 18px; }
+  .ms-site a.ms-cr__link--soft { color: rgba(42, 31, 25, .72); border-bottom-color: rgba(42, 31, 25, .3); }
+  .ms-cr__cap { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: 4px 14px; margin-top: 6px; font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: rgba(42, 31, 25, .62); text-align: center; }
+  .ms-cr__cap em { font-family: Newsreader, Georgia, serif; font-size: 17px; letter-spacing: 0; text-transform: none; color: #7A4532; }
+  .ms-cr__abs { fill: #9A5B43; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 12.5px; opacity: .85; }
+  .ms-cr__part.is-absent .ms-cr__img { position: relative; outline: 1px dashed rgba(122, 69, 50, .45); outline-offset: -1px; }
+  .ms-cr__part.is-absent .ms-cr__img img { filter: grayscale(.55) sepia(.18); opacity: .72; }
+  .ms-cr__part.is-absent:hover .ms-cr__img img { filter: none; opacity: 1; }
+  .ms-cr__out { position: absolute; left: 14px; top: 14px; padding: 6px 12px; background: rgba(251, 249, 245, .88); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #7A4532; }
+  .ms-site a.ms-cr__part { color: inherit; }
+  .ms-cr__part.is-absent .ms-cr__ptitle { color: rgba(42, 31, 25, .72); }
+  @media (max-width: 600px) { .ms-cr__abs { display: none; } .ms-cr__faces { grid-template-columns: minmax(0, 1fr); } .ms-cr__cap em { font-size: 16px; } }
 </style>
 <script>
 (function () {
@@ -345,8 +624,6 @@
       if (g && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); open(g.getAttribute('data-part'), true); }
       if (e.key === 'Escape' && root.hasAttribute('data-open')) open(null, true);
     });
-    // a topper's own page opens on the topper
-    if (root.getAttribute('data-cr-start')) open(root.getAttribute('data-cr-start'), false, true);
     // the bed opens into its parts when it comes into view
     var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var draw = root.querySelector('.ms-cr__draw');
@@ -403,16 +680,47 @@
       "default": "Three parts, made as one."
     },
     {
+      "type": "text",
+      "id": "heading_mattress",
+      "label": "Heading on a mattress",
+      "default": "The mattress, and what completes it."
+    },
+    {
+      "type": "text",
+      "id": "heading_topper",
+      "label": "Heading on a topper",
+      "default": "The topper, and the bed beneath it."
+    },
+    {
+      "type": "text",
+      "id": "heading_base",
+      "label": "Heading on a boxspring",
+      "default": "The boxspring, and the bed above it."
+    },
+    {
       "type": "textarea",
       "id": "text",
       "label": "Text",
-      "default": "Every system is a topper, a mattress and a base, built together by the same two artisans and specified with you: size, firmness, fibres and cloth."
+      "default": "Every system is a topper, a mattress and a boxspring, made together by hand in Italy and specified with you: size, firmness, fibres and cloth."
     },
     {
       "type": "text",
       "id": "hint",
       "label": "Hint",
       "default": "Open a part of the bed"
+    },
+    {
+      "type": "text",
+      "id": "legend_in",
+      "label": "Key: included",
+      "default": "[name]",
+      "info": "[name] becomes the product’s name. Shown on a mattress, topper or boxspring page."
+    },
+    {
+      "type": "text",
+      "id": "legend_out",
+      "label": "Key: not included",
+      "default": "Not included, to complete the bed"
     },
     {
       "type": "textarea",
@@ -489,6 +797,120 @@
       "default": "What we tend to use"
     },
     {
+      "type": "text",
+      "id": "winter_label",
+      "label": "Winter face",
+      "default": "Winter face"
+    },
+    {
+      "type": "text",
+      "id": "summer_label",
+      "label": "Summer face",
+      "default": "Summer face"
+    },
+    {
+      "type": "header",
+      "content": "What a mattress, topper or boxspring does not include"
+    },
+    {
+      "type": "text",
+      "id": "absent_label",
+      "label": "Not included",
+      "default": "Not included"
+    },
+    {
+      "type": "text",
+      "id": "absent_with",
+      "label": "Not included, with the product",
+      "default": "Not included with [name]",
+      "info": "[name] becomes the product’s name."
+    },
+    {
+      "type": "text",
+      "id": "own_label",
+      "label": "Included",
+      "default": "This is [name]"
+    },
+    {
+      "type": "text",
+      "id": "mates_label",
+      "label": "To complete it",
+      "default": "To complete it"
+    },
+    {
+      "type": "text",
+      "id": "mates_ask",
+      "label": "Ask",
+      "default": "Specify it with [name]"
+    },
+    {
+      "type": "text",
+      "id": "cap_system",
+      "label": "Caption: a system",
+      "default": "Topper, mattress and boxspring, made as one"
+    },
+    {
+      "type": "text",
+      "id": "heading_two",
+      "label": "Heading on a system in two parts",
+      "default": "Two parts, made as one."
+    },
+    {
+      "type": "text",
+      "id": "cap_opt",
+      "label": "Caption: a system whose topper is optional",
+      "default": "Mattress and boxspring, made as one; a topper if you wish"
+    },
+    {
+      "type": "text",
+      "id": "cap_two",
+      "label": "Caption: a system in two parts",
+      "default": "Made as one, in two parts"
+    },
+    {
+      "type": "text",
+      "id": "one_base_title",
+      "label": "Part III, when mattress and boxspring are one piece",
+      "default": "Mattress and boxspring, in one"
+    },
+    {
+      "type": "text",
+      "id": "one_mattress_title",
+      "label": "Part II, when mattress and topper are one piece",
+      "default": "Mattress and topper, in one"
+    },
+    {
+      "type": "text",
+      "id": "opt_label",
+      "label": "An optional part",
+      "default": "Optional"
+    },
+    {
+      "type": "text",
+      "id": "opt_with",
+      "label": "An optional part: badge",
+      "default": "Optional with [name]",
+      "info": "[name] becomes the product’s name."
+    },
+    {
+      "type": "text",
+      "id": "cap_mattress",
+      "label": "Caption: a mattress",
+      "default": "The mattress; what completes it, in outline"
+    },
+    {
+      "type": "text",
+      "id": "cap_topper",
+      "label": "Caption: a topper",
+      "default": "The topper; what lies beneath it, in outline"
+    },
+    {
+      "type": "text",
+      "id": "cap_base",
+      "label": "Caption: a boxspring",
+      "default": "The boxspring; what lies above it, in outline"
+    },
+    {
       "type": "header",
       "content": "Part I"
     },
@@ -515,7 +937,7 @@
       "id": "part1_points",
       "label": "Opened: points",
       "info": "One per line.",
-      "default": "A summer face in linen and silk, a winter face in wool and cashmere: turned when the year turns, never replaced.\nFrom a fine topper over an existing bed to the full topper of a system, and Roma, with its own headboard.\nA removable covering in Loro Piana Interiors, embroidered on request."
+      "default": "A summer face in linen and silk, a winter face in wool and cashmere: turned when the year turns, never replaced.\nFrom a fine topper over an existing bed to the full topper of a system, and Roma, with its own headboard."
     },
     {
       "type": "text",
@@ -526,10 +948,27 @@
     },
     {
       "type": "text",
+      "id": "part1_winter",
+      "label": "Fibres, winter face",
+      "info": "Separated by commas. With the summer face, shown side by side in place of the fibres above."
+    },
+    {
+      "type": "text",
+      "id": "part1_summer",
+      "label": "Fibres, summer face"
+    },
+    {
+      "type": "text",
       "id": "part1_link_label",
       "label": "Link",
       "default": "Every fibre",
       "info": "Leads to Natural materials."
+    },
+    {
+      "type": "text",
+      "id": "part1_all_label",
+      "label": "Link, when not included",
+      "default": "All toppers"
     },
     {
       "type": "image_picker",
@@ -569,7 +1008,7 @@
       "id": "part2_points",
       "label": "Opened: points",
       "info": "One per line.",
-      "default": "Built by hand, with natural fibres chosen for you and laid by hand.\nTufted and bordered by hand, by the same two artisans from the first gesture to the last stitch.\nIts feel is chosen with you, from enveloping to firm, and it is made to your size, round included.\nAt fifteen years it comes back to the atelier to be opened, cleaned and rebuilt for fifteen more."
+      "default": "Built by hand, with natural fibres chosen for you and laid by hand.\nTufted and bordered by hand, from the first gesture to the last stitch.\nIts feel is chosen with you, from enveloping to firm, and it is made to your size.\nAt fifteen years it goes back to the artisans who made it, to be opened, cleaned and restored for fifteen more."
     },
     {
       "type": "text",
@@ -580,10 +1019,27 @@
     },
     {
       "type": "text",
+      "id": "part2_winter",
+      "label": "Fibres, winter face",
+      "info": "Separated by commas. With the summer face, shown side by side in place of the fibres above."
+    },
+    {
+      "type": "text",
+      "id": "part2_summer",
+      "label": "Fibres, summer face"
+    },
+    {
+      "type": "text",
       "id": "part2_link_label",
       "label": "Link",
       "default": "Made to last · 15 + 15",
       "info": "Leads to Made to last."
+    },
+    {
+      "type": "text",
+      "id": "part2_all_label",
+      "label": "Link, when not included",
+      "default": "All mattresses"
     },
     {
       "type": "image_picker",
@@ -594,7 +1050,7 @@
       "type": "text",
       "id": "part2_fallback",
       "label": "Photograph address",
-      "default": "ms-photo-tufting.jpg"
+      "default": "ms-photo-flora-side.jpg"
     },
     {
       "type": "header",
@@ -604,13 +1060,13 @@
       "type": "text",
       "id": "part3_title",
       "label": "Title",
-      "default": "The base"
+      "default": "The boxspring"
     },
     {
       "type": "textarea",
       "id": "part3_text",
       "label": "Card text",
-      "default": "The foundation, upholstered for your room in Loro Piana Interiors and made to carry the rest for thirty years."
+      "default": "The foundation, upholstered for your room in Loro Piana Interiors or in other natural fabrics, and made to carry your mattress and topper for many years."
     },
     {
       "type": "textarea",
@@ -623,7 +1079,7 @@
       "id": "part3_points",
       "label": "Opened: points",
       "info": "One per line.",
-      "default": "Upholstered in Loro Piana Interiors, or in natural cloths, coloured linen among them.\nHeadboards drawn with you, in any height and line, without tooling charges.\nWith storage, in a slender profile, or round: the base follows the room.\nMade to carry the rest of the system for thirty years."
+      "default": "Upholstered in Loro Piana Interiors, or in other natural fabrics, coloured linen among them.\nHeadboards drawn with you, in the height and line of the room.\nThree forms beyond the classic: with drawers beneath, as in [[storage|Storage]]; slim, on leather legs, as in [[brera|Brera]]; or round, as in [[giotto-round|Giotto Round]]."
     },
     {
       "type": "text",
@@ -634,10 +1090,27 @@
     },
     {
       "type": "text",
+      "id": "part3_winter",
+      "label": "Fibres, winter face",
+      "info": "Separated by commas. With the summer face, shown side by side in place of the fibres above."
+    },
+    {
+      "type": "text",
+      "id": "part3_summer",
+      "label": "Fibres, summer face"
+    },
+    {
+      "type": "text",
       "id": "part3_link_label",
       "label": "Link",
       "default": "The Loro Piana Interiors cloths",
       "info": "Leads to Loro Piana Interiors."
+    },
+    {
+      "type": "text",
+      "id": "part3_all_label",
+      "label": "Link, when not included",
+      "default": "All boxsprings"
     },
     {
       "type": "image_picker",
@@ -648,7 +1121,7 @@
       "type": "text",
       "id": "part3_fallback",
       "label": "Photograph address",
-      "default": "ms-photo-fabric-weave.jpg"
+      "default": "ms-photo-flora-corner.jpg"
     },
     {
       "type": "header",

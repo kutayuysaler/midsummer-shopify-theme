@@ -43,9 +43,9 @@
             {%- assign f = r | strip | split: '|' -%}
             {%- if f[0] == blank -%}{%- continue -%}{%- endif -%}
             {%- if n == 0 and feature != blank and feature != '' -%}
-              <img src="{{ feature | image_url: width: 900 }}" alt="" width="900" height="1125" loading="lazy" class="is-on">
+              <img src="{{ feature | image_url: width: 900 }}" alt="{{ f[1] | strip | escape }}" width="900" height="1125" loading="lazy" class="is-on">
             {%- else -%}
-              <img src="{{ f[3] | strip }}" alt="" width="900" height="1125" loading="lazy"{% if n == 0 %} class="is-on"{% endif %}>
+              <img src="{{ f[3] | strip }}" alt="{{ f[1] | strip | escape }}" width="900" height="1125" loading="lazy"{% if n == 0 %} class="is-on"{% endif %}>
             {%- endif -%}
             {%- assign n = n | plus: 1 -%}
           {%- endfor -%}

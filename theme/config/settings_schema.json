@@ -2237,6 +2237,23 @@
         "label": "Show a starting price while prices are hidden",
         "info": "Prices stay on request, with \"From €…\" beneath, and search engines get that starting price.",
         "default": false
+      },
+      {
+        "type": "select",
+        "id": "ms_schema_unpriced",
+        "label": "Search engines, while prices are on request",
+        "options": [
+          {
+            "value": "thing",
+            "label": "Describe each bed, without a price"
+          },
+          {
+            "value": "product",
+            "label": "As a product, without a price"
+          }
+        ],
+        "default": "thing",
+        "info": "Google asks a product for a price (or reviews). Without one it reports an error in Search Console; described plainly, it does not. With prices or a starting price shown, the product always carries its offer."
       }
     ]
   },
@@ -2396,6 +2413,31 @@
         "id": "ms_whatsapp_label",
         "label": "WhatsApp button label",
         "default": "Chat with the atelier"
+      }
+    ]
+  },
+  {
+    "name": "Midsummer · Photographs",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "One gentle tone over the site's photographs, so pictures from different shoots sit together: a little warmth, a little softer colour. Fabric swatches, logos, drawings and maps keep their true colours."
+      },
+      {
+        "type": "checkbox",
+        "id": "ms_photo_tone",
+        "label": "Tone the photographs",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "ms_photo_tone_strength",
+        "label": "Strength",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "%",
+        "default": 40
       }
     ]
   }
