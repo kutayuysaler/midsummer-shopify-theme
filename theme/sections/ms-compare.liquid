@@ -44,12 +44,12 @@
                 assign num = 'III'
             endcase
           -%}
-          <a class="ms-cmp__col" href="{{ u }}" role="columnheader">
-            <span class="ms-cmp__img"><img src="{% render 'ms-img', image: s[ki], fallback: s[kf], width: 900 %}" alt="{{ s[kn] | escape }}" width="900" height="1125" loading="lazy"></span>
+          <div class="ms-cmp__colh" role="columnheader"><a class="ms-cmp__col" href="{{ u }}">
+            <span class="ms-cmp__img"><img src="{% render 'ms-img', image: s[ki], fallback: s[kf], width: 900 %}" {% render 'ms-srcset', image: s[ki], fallback: s[kf], width: 900, sizes: '(max-width: 760px) 30vw, 23vw' %} alt="{{ s[kn] | escape }}" width="900" height="1125" loading="lazy"></span>
             <span class="ms-cmp__num">{{ num }}</span>
             <span class="ms-cmp__name">{{ s[kn] }}</span>
             <span class="ms-cmp__line">{{ s[kl] }}</span>
-          </a>
+          </a></div>
         {%- endfor -%}
       </div>
       <div class="ms-cmp__stick" aria-hidden="true"><span>{{ s.col1_name }}</span><span>{{ s.col2_name }}</span><span>{{ s.col3_name }}</span></div>
@@ -63,13 +63,13 @@
             {%- assign vl = v | downcase -%}
             <div class="ms-cmp__cell" role="cell" data-col="{{ i }}">
               <span class="ms-cmp__mlabel" aria-hidden="true">{{ s[kn] }}</span>
-              {%- if vl == 'yes' -%}<span class="ms-cmp__yes" aria-label="Yes"></span>{%- elsif v == '-' or v == '' -%}<span class="ms-cmp__no" aria-label="No">—</span>{%- else -%}{{ v }}{%- endif -%}
+              {%- if vl == 'yes' -%}<span class="ms-cmp__yes" role="img" aria-label="Yes"></span>{%- elsif v == '-' or v == '' -%}<span class="ms-cmp__no" role="img" aria-label="No">—</span>{%- else -%}{{ v }}{%- endif -%}
             </div>
           {%- endfor -%}
         </div>
       {%- endfor -%}
       <div class="ms-cmp__row ms-cmp__row--go" role="row">
-        <div class="ms-cmp__label" role="rowheader"></div>
+        <div class="ms-cmp__label" role="rowheader"><span class="ms-visually-hidden">{{ s.view_label | default: s.eyebrow }}</span></div>
         <div role="cell"><a class="ms-cmp__go" href="{{ u1 }}">{{ s.go_label }} {{ s.col1_name }}<span aria-hidden="true">→</span></a></div>
         <div role="cell"><a class="ms-cmp__go" href="{{ u2 }}">{{ s.go_label }} {{ s.col2_name }}<span aria-hidden="true">→</span></a></div>
         <div role="cell"><a class="ms-cmp__go" href="{{ u3 }}">{{ s.go_label }} {{ s.col3_name }}<span aria-hidden="true">→</span></a></div>
@@ -163,6 +163,7 @@
     .ms-cmp__stick { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; position: sticky; top: 0; z-index: 2; background: rgba(251, 249, 245, .96); backdrop-filter: blur(6px); padding: 12px 0 10px; border-bottom: 1px solid #17140F; font-family: Newsreader, Georgia, serif; font-size: 17px; }
     .ms-site a.ms-cmp__go { font-size: 9.5px; letter-spacing: .06em; gap: 6px; }
   }
+  .ms-cmp__colh { display: contents; }
 </style>
 
 {% schema %}

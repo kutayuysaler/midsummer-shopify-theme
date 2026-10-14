@@ -18,20 +18,22 @@
   assign tier_pos = 'center'
   case tier
     when 'essentials'
-      assign tier_photo = 'ms-photo-glass-house.jpg' | asset_url
+      assign tier_name = 'ms-photo-glass-house.jpg'
+      assign tier_photo = tier_name | asset_url
       assign tier_pos = 'center 62%'
     when 'icons', 'icon'
-      assign tier_photo = 'ms-graded-arches.jpg' | asset_url
+      assign tier_name = 'ms-graded-arches.jpg'
+      assign tier_photo = tier_name | asset_url
       assign tier_pos = 'center 64%'
   endcase
 -%}
 <section style="position: relative; overflow: hidden; background: rgb(23, 20, 15);">
 {%- if section.settings.image != blank -%}
-<img alt="{%- render 'ms-coll-name', c: collection -%}" width="2400" height="1100" src="{{ section.settings.image | image_url: width: 2400 }}" style="width: 100%; height: min(66vh, 640px); object-fit: cover; display: block;">
+<img alt="{%- render 'ms-coll-name', c: collection -%}" width="2400" height="1100" src="{{ section.settings.image | image_url: width: 2400 }}" {% render 'ms-srcset', image: section.settings.image, width: 2400, sizes: '100vw' %} style="width: 100%; height: min(66vh, 640px); object-fit: cover; display: block;">
 {%- elsif tier_photo != blank -%}
-<img alt="{%- render 'ms-coll-name', c: collection -%}" width="1920" height="1280" src="{{ tier_photo }}" style="width: 100%; height: min(66vh, 640px); object-fit: cover; object-position: {{ tier_pos }}; display: block;" fetchpriority="high">
+<img alt="{%- render 'ms-coll-name', c: collection -%}" width="1920" height="1280" src="{{ tier_photo }}" {% render 'ms-srcset', fallback: tier_name, width: 1920, sizes: '100vw' %} style="width: 100%; height: min(66vh, 640px); object-fit: cover; object-position: {{ tier_pos }}; display: block;" fetchpriority="high">
 {%- elsif collection.image != blank -%}
-<img alt="{%- render 'ms-coll-name', c: collection -%}" width="2400" height="1100" src="{{ collection.image | image_url: width: 2400 }}" style="width: 100%; height: min(66vh, 640px); object-fit: cover; display: block;">
+<img alt="{%- render 'ms-coll-name', c: collection -%}" width="2400" height="1100" src="{{ collection.image | image_url: width: 2400 }}" {% render 'ms-srcset', image: collection.image, width: 2400, sizes: '100vw' %} style="width: 100%; height: min(66vh, 640px); object-fit: cover; display: block;">
 {%- else -%}
 <img alt="{%- render 'ms-coll-name', c: collection -%}" width="1400" height="640" src="{{ fallback }}" style="width: 100%; height: min(66vh, 640px); object-fit: cover; display: block;">
 {%- endif -%}

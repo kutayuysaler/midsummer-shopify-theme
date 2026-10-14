@@ -39,7 +39,7 @@
       poster="{% render 'ms-img', image: section.settings.image, fallback: section.settings.image_fallback, width: 2400 %}"
       src="{% if section.settings.video != blank %}{{ section.settings.video.sources | where: 'format', 'mp4' | map: 'url' | first }}{% else %}{{ section.settings.video_url }}{% endif %}"></video>
   {%- else -%}
-    <img class="ms-bn__media" src="{% render 'ms-img', image: section.settings.image, fallback: section.settings.image_fallback, width: 2400 %}"
+    <img class="ms-bn__media" src="{% render 'ms-img', image: section.settings.image, fallback: section.settings.image_fallback, width: 2400 %}" {% render 'ms-srcset', image: section.settings.image, fallback: section.settings.image_fallback, width: 2400, sizes: '100vw' %}
       alt="{{ section.settings.image.alt | default: heading | escape }}" width="2400" height="1350" fetchpriority="high"
       style="object-position: {{ section.settings.focus }};">
   {%- endif -%}

@@ -43,7 +43,7 @@
             {%- assign f = r | strip | split: '|' -%}
             {%- if f[0] == blank -%}{%- continue -%}{%- endif -%}
             {%- if n == 0 and feature != blank and feature != '' -%}
-              <img src="{{ feature | image_url: width: 900 }}" alt="{{ f[1] | strip | escape }}" width="900" height="1125" loading="lazy" class="is-on">
+              <img src="{{ feature | image_url: width: 900 }}" {% render 'ms-srcset', image: feature, width: 900, sizes: '(max-width: 760px) 60vw, 24vw' %} alt="{{ f[1] | strip | escape }}" width="900" height="1125" loading="lazy" class="is-on">
             {%- else -%}
               <img src="{{ f[3] | strip }}" alt="{{ f[1] | strip | escape }}" width="900" height="1125" loading="lazy"{% if n == 0 %} class="is-on"{% endif %}>
             {%- endif -%}

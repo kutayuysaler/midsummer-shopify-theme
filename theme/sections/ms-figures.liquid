@@ -26,6 +26,8 @@
   .ms-fig__l { font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #7E623B; margin-top: 16px; }
   .ms-fig__line { font-size: 14px; line-height: 1.7; color: #6E675C; margin-top: 8px; max-width: 34ch; }
   @media (max-width: 899px) { .ms-fig__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  /* a narrow phone: the longest figure (15 + 15) stays inside its column */
+  @media (max-width: 400px) { .ms-fig__n { font-size: clamp(40px, 13vw, 56px); } }
   @media (prefers-reduced-motion: reduce) { .ms-fig__n { transition: none; } }
 </style>
 

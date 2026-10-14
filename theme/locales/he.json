@@ -421,7 +421,9 @@
       "more_at": "More at",
       "sizes_n": "[n] sizes",
       "sizes_see": "See each size, drawn",
-      "award_gpa": "Awarded in Berlin for its plant-based materials and seasonal construction."
+      "award_gpa": "Awarded in Berlin for its plant-based materials and seasonal construction.",
+      "aria_primary_nav": "Primary",
+      "aria_pages": "Pages"
     }
   }
 }

@@ -200,6 +200,18 @@
 {%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
 {%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
 {%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
+{%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
+{%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
+{%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
+{%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
+{%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
+{%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
+{%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
+{%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
+{%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
+{%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
+{%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
+{%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
 {%- render 'ms-mega-panel', key: 'pro', no: '03', title: ss.t3, lede: ss.mg_pro_lede, items: items, feature: ss.mg_img_pro, foot: foot, cta1_url: u_trade_e, cta1_label: 'Open a project file', cta1_landing: true -%}
 
 {%- comment -%} 04 · Journal: the newest notes, then the subjects {%- endcomment -%}
@@ -238,7 +250,7 @@
       {%- if ms_blog -%}
         {%- for a in ms_blog.articles limit: 3 -%}
           <a class="ms-mg__card ms-mg__card--note" href="{{ a.url }}" style="--i: {{ forloop.index }};">
-            <span class="ms-mg__cimg">{%- if a.image -%}<img src="{{ a.image | image_url: width: 900 }}" alt="{{ a.title | escape }}" width="900" height="600" loading="lazy">{%- endif -%}</span>
+            <span class="ms-mg__cimg">{%- if a.image -%}<img src="{{ a.image | image_url: width: 900 }}" {% render 'ms-srcset', image: a.image, width: 900, sizes: '(max-width: 760px) 60vw, 24vw' %} alt="{{ a.title | escape }}" width="900" height="600" loading="lazy">{%- endif -%}</span>
             {%- capture ac -%}{% render 'ms-note-cat', a: a %}{%- endcapture -%}
             <span class="ms-mg__ctag">{% if ac != '' %}{% render 'ms-note-cat', label: ac %}{% else %}{{ ss.mg_note_label }}{% endif %}</span>
             <span class="ms-mg__cname">{{ a.title }}</span>
@@ -285,7 +297,7 @@
   .ms-site .ms-mg__cta--solid { display: inline-flex; align-items: center; min-height: 46px; padding: 0 22px; border: 0; background: #17140F; color: #FBF9F5; }
   .ms-site .ms-mg__cta--solid:hover { background: #3A332A; color: #FBF9F5; }
   .ms-mg__minor { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; }
-  .ms-mg__grp { margin: 22px 0 10px; padding-top: 16px; border-top: 1px solid #DDD6C9; font-family: Newsreader, Georgia, serif; font-size: 14px; color: #9A8F7E; }
+  .ms-mg__grp { margin: 22px 0 10px; padding-top: 16px; border-top: 1px solid #DDD6C9; font-family: Newsreader, Georgia, serif; font-size: 14px; color: #756b5c; }
   .ms-mg__grp:first-of-type { margin-top: 26px; }
   .ms-site .ms-mg__minor a { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: #4A443B; background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; padding-bottom: 3px; transition: background-size .4s cubic-bezier(.2,.7,.2,1), color .25s ease; }
   .ms-site .ms-mg__minor a:hover { color: #17140F; background-size: 100% 1px; }

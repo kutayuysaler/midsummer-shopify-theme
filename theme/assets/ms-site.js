@@ -401,3 +401,21 @@
     put('Sent from', [(document.title || '').replace(/\s+/g, ' ').trim(), '(' + location.origin + location.pathname + location.search + ')'].filter(Boolean).join(' '), mode);
   }, true);
 })();
+
+// rows that scroll sideways (on a phone): reachable from the keyboard, and named for screen readers
+(function () {
+  function mark() {
+    document.querySelectorAll('[data-ms="rail"]').forEach(function (r) {
+      var scrolls = r.scrollWidth > r.clientWidth + 2;
+      if (scrolls && !r.hasAttribute('tabindex')) {
+        r.setAttribute('tabindex', '0'); r.setAttribute('data-ms-kb', '');
+        if (!r.getAttribute('role')) r.setAttribute('role', 'region');
+        if (!r.getAttribute('aria-label')) { var sec = r.closest('section, .shopify-section'); var h = sec && sec.querySelector('h1, h2, h3'); r.setAttribute('aria-label', h ? h.textContent.trim().slice(0, 80) : document.title); }
+      } else if (!scrolls && r.hasAttribute('data-ms-kb')) {
+        r.removeAttribute('tabindex'); r.removeAttribute('data-ms-kb'); r.removeAttribute('role');
+      }
+    });
+  }
+  mark();
+  window.addEventListener('resize', function () { clearTimeout(mark.t); mark.t = setTimeout(mark, 200); });
+})();

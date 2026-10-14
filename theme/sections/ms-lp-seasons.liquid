@@ -42,7 +42,7 @@
         -%}
         <figure class="ms-lps__face ms-lps__face--{{ key }}{% if side == 1 %} is-on{% endif %}" data-lps-face="{{ key }}">
           <button type="button" class="ms-lps__pick" data-lps="{{ key }}" aria-label="{{ lab | escape }}" tabindex="-1"></button>
-          <span class="ms-lps__cloth"><img src="{% render 'ms-img', image: img, fallback: fb, width: 1400 %}" alt="{{ cloth | escape }}" width="1400" height="1000" loading="lazy"></span>
+          <span class="ms-lps__cloth"><img src="{% render 'ms-img', image: img, fallback: fb, width: 1400 %}" {% render 'ms-srcset', image: img, fallback: fb, width: 1400, sizes: '(max-width: 760px) 95vw, 58vw' %} alt="{{ cloth | escape }}" width="1400" height="1000" loading="lazy"></span>
           <figcaption class="ms-lps__cap">
             <span class="ms-lps__lab">{{ lab }}</span>
             <span class="ms-lps__cn">{{ cloth }}</span>

@@ -38,7 +38,7 @@
     {%- if n -%}
       {%- capture ncat -%}{% render 'ms-note-cat', a: n %}{%- endcapture -%}{%- capture nkick -%}{% render 'ms-note-cat', label: ncat %}{%- endcapture -%}
       <a class="ms-art-nav__a{% if side == 2 %} is-next{% endif %}" href="{{ n.url }}">
-        <span class="ms-art-nav__img">{%- if n.image -%}<img src="{{ n.image | image_url: width: 640 }}" alt="" width="640" height="480" loading="lazy">{%- else -%}<svg aria-hidden="true" width="34" height="34" viewBox="0 0 24 24"><path d="M4 20 C4 11 11 4 20 4 C20 13 13 20 4 20 Z" fill="none" stroke="#7E623B" stroke-width="1"/><path d="M4 20 L16 8" fill="none" stroke="#7E623B" stroke-width="1"/></svg>{%- endif -%}</span>
+        <span class="ms-art-nav__img">{%- if n.image -%}<img src="{{ n.image | image_url: width: 640 }}" {% render 'ms-srcset', image: n.image, width: 640, sizes: '(max-width: 760px) 32vw, 180px' %} alt="" width="640" height="480" loading="lazy">{%- else -%}<svg aria-hidden="true" width="34" height="34" viewBox="0 0 24 24"><path d="M4 20 C4 11 11 4 20 4 C20 13 13 20 4 20 Z" fill="none" stroke="#7E623B" stroke-width="1"/><path d="M4 20 L16 8" fill="none" stroke="#7E623B" stroke-width="1"/></svg>{%- endif -%}</span>
         <span class="ms-art-nav__txt">
           <span class="ms-art-nav__lab">{{ lab }}</span>
           <em>{{ n.title }}</em>

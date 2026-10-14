@@ -1960,3 +1960,80 @@ from.
    - Agents & resellers: zoom into Milan and check that the street map appears.
    - Paisley: confirm the wording.
    - Send one test enquiry.
+
+## 40. Round 18: a full optimisation pass
+
+Every page was measured before and after, on a phone and on a computer, with:
+- Lighthouse (speed, accessibility, best practices, SEO);
+- axe-core (accessibility, WCAG 2.1 AA);
+- a sweep of all 78 templates at 360, 768 and 1440 px.
+
+### Speed: pictures at the width they are seen
+
+**The problem.** A photograph used to be sent at one size, usually 1,600 to 2,600 px wide, whatever the screen. This applied both to photos chosen in the editor and to the theme's own photographs. A phone downloaded the picture a large screen needs.
+
+**The fix.**
+- **Several widths per picture.** Fifty pictures in 31 sections now offer widths from 360 to 2,400 px. The browser takes the one that fits.
+  - Shopify's CDN makes each width.
+  - Where the browser accepts it, the CDN sends WebP, which is lighter than JPEG.
+- **Real display widths.** Each picture states how wide it is actually shown, measured at 390, 900 and 1440 px. For example, the Professionals pairs are 44% of the screen on a computer and 90% on a phone.
+- **One shared snippet,** `ms-srcset`, writes these widths for every section.
+- **Also covered:**
+  - the collection header's own photograph (Essentials, Icons);
+  - the home film's still, now 1,600 px; it shows only until the film plays.
+- **Below the fold:** the press marks and the footer logo now load only when the visitor nears them.
+
+Lighthouse, phone profile, with the CDN's resizing simulated locally:
+
+| Page | Score before → after | Largest paint | Page weight |
+| --- | --- | --- | --- |
+| Home | 61 → 82 | 10.8 s → 4.5 s | 2.5 MB → 1.2 MB |
+| Natural materials | 72 → 77 | 8.4 s → 5.4 s | 1.4 MB → 0.8 MB |
+| Collection (Icons) | 79 → 82 | 5.3 s → 4.6 s | 801 → 617 KB |
+
+- **Product pages:** their pictures come from the store and already offered several widths. They are unchanged.
+- **On the store:** the real numbers depend on Shopify's CDN. Check them with PageSpeed Insights once the theme is published.
+- **Re-encoding:** the photographs themselves were already well compressed (about quality 82). Re-encoding them would have saved only 2%, so it was not done.
+
+### Accessibility (WCAG 2.1 AA)
+
+axe-core went from nine kinds of issue to none on content. The only flags left are the decorative index numerals (01, 02 …), which screen readers already skip and the standard exempts.
+
+- **Small text that was too light now reads clearly.**
+  - Labels, captions and figures in light grey or gold were darkened just enough to meet 4.5:1, in the same hue. This covers the fibre atlas, the collection labels, the opening hours, the size tables and the questions index.
+  - It holds on the ivory and on the beige cards alike.
+- **The process steps** (Atelier, Handmade in Italy) no longer fade the steps that are not in view.
+  - The step in view has its title in ink; the others are in the muted grey.
+  - Every word stays readable.
+- **Page structure:**
+  - The WhatsApp button now sits inside a landmark.
+  - Product pages have their headings in order: the name, then each section.
+  - The header's navigation and the collection pages' page links are named.
+- **Compare:** the yes and no marks are named images. The column heads hold their links. The last row's head says what it is.
+- **Loro Piana Interiors:** each cloth's panel is a proper tab panel.
+- **The *Why Midsummer* table's** empty corner cell now says what its columns are.
+- **Rows that scroll sideways on a phone** can be reached and scrolled from the keyboard, and are named for screen readers.
+- **Collection cards** no longer read the product's name twice (once for the photo, once for the name).
+
+### Fixed
+
+*At a glance:* on a 360 px phone the "15 + 15" figure was 2 px wider than the screen. It now scales down there.
+
+### Checks on this build
+
+| Check | Result |
+| --- | --- |
+| Shopify's Liquid engine (`strict` and `strict2`) | 466 files, 0 errors |
+| Theme Check | 0 errors, 69 warnings (unchanged) |
+| Template values against section schemas | no new issues |
+| Page audit (78 templates) | no script errors, no missing files, one H1 each |
+| Overflow sweep (78 templates × 360, 768, 1440 px) | nothing wider than the screen |
+| axe-core (78 templates × phone, computer) | no issues on content |
+| Interaction tests | 178 pass (new: pictures at their width, steps readable, WhatsApp landmark, heading order, *At a glance* at 360 px, compare roles, card names) |
+| Package | 32.0 MB, 1,017 files; the largest Liquid file is 157 KB |
+
+### To check on the store after uploading
+
+1. Open a page on a phone (Atelier or Natural materials). The photographs should look as sharp as before.
+2. Run PageSpeed Insights on the home page and a product page, and keep the numbers as the baseline for later changes.
+3. The items still open from Rounds 16 and 17 (section 39) stand.

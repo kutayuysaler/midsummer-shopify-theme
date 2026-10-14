@@ -689,7 +689,7 @@
   .ms-site a.ms-pm__back { display: inline-flex; align-items: center; gap: 10px; min-height: 36px; font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: #17140F; text-decoration: none; }
   .ms-pm__back span[aria-hidden] { display: inline-block; transition: transform .35s cubic-bezier(.2, .7, .2, 1); }
   .ms-site a.ms-pm__back:hover span[aria-hidden] { transform: translateX(-4px); }
-  .ms-pm__trail { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 0; font-size: 11.5px; color: #8C8273; }
+  .ms-pm__trail { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 0; font-size: 11.5px; color: #736b5f; }
   .ms-pm__trail li + li::before { content: '/'; margin: 0 9px; color: #C9BFAF; }
   .ms-site .ms-pm__trail a { color: #6E675C; text-decoration: none; }
   .ms-site .ms-pm__trail a:hover { color: #17140F; }
@@ -698,7 +698,7 @@
   /* the description, put in order (the script above): epigraph, lead, text, facts, the small print */
   .ms-desc__epi { margin: 0 0 22px; padding: 4px 0 4px 18px; border-left: 1px solid #C9B9A0; }
   .ms-desc__epi blockquote { margin: 0; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 19px; line-height: 1.45; color: #4A443B; }
-  .ms-desc__epi figcaption { margin-top: 8px; font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: #8C8273; }
+  .ms-desc__epi figcaption { margin-top: 8px; font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: #736b5f; }
   .ms-site .ms-desc__lead { font-family: Newsreader, Georgia, serif; font-size: 19px; line-height: 1.55; color: #2A251E; }
   .ms-desc__h { font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: #6E675C; font-weight: 400; margin: 22px 0 8px; }
   .ms-desc ul, .ms-pm__facts .is-from-text ul { margin: 6px 0 0; padding: 0; list-style: none; }
@@ -708,13 +708,13 @@
   .ms-pm__facts .is-from-text dd p + p { margin-top: 6px; }
   .ms-desc__facts { margin: 22px 0 0; border-top: 1px solid #ECE6DB; }
   .ms-desc__facts > div { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 5fr); gap: 12px; padding: 12px 0; border-bottom: 1px solid #ECE6DB; }
-  .ms-desc__facts dt { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #8C8273; padding-top: 3px; }
+  .ms-desc__facts dt { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #736b5f; padding-top: 3px; }
   .ms-desc__facts dd { margin: 0; }
   .ms-desc__link { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; }
   .ms-desc__link a { color: #17140F; text-decoration: none; border-bottom: 1px solid #A08B6C; padding-bottom: 2px; }
   .ms-desc__link a::after { content: ' ↗'; }
   .ms-desc__note { margin-top: 24px; padding: 14px 16px; background: #F4F0E8; font-size: 12.5px; line-height: 1.7; color: #6E675C; }
-  .ms-desc__note span { display: block; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #8C8273; margin-bottom: 6px; }
+  .ms-desc__note span { display: block; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #736b5f; margin-bottom: 6px; }
   .ms-desc__note p + p { margin-top: 6px; }
   .ms-pm { padding: clamp(28px, 4vw, 64px) clamp(18px, 5vw, 80px) clamp(36px, 5vw, 72px); max-width: 1560px; margin: 0 auto; }
   .ms-pm__grid { display: grid; grid-template-columns: minmax(0, 8fr) minmax(340px, 4fr); gap: clamp(28px, 4vw, 80px); align-items: start; }
@@ -1119,7 +1119,7 @@ document.addEventListener('DOMContentLoaded', function () {
     parts.some(function (g, gi) { return (!g.head || gi === 0) && g.items.some(function (b) { if (b.k === 'p' && b.text.length > 50) { leadAt = b; return true; } }); });
     if (!leadAt && parts.length && !parts[0].head && parts[0].items[0] && parts[0].items[0].k === 'p') leadAt = parts[0].items[0];
     parts.forEach(function (g) {
-      if (g.head) out += '<h4 class="ms-desc__h">' + g.head + '</h4>';
+      if (g.head) out += '<h2 class="ms-desc__h">' + g.head + '</h2>';
       g.items.forEach(function (b, i) {
         if (b === leadAt) { out += '<p class="ms-desc__lead">' + b.html + '</p>'; return; }
         out += items([b]);

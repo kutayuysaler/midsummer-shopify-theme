@@ -150,7 +150,7 @@
       <a href="{{ product.url }}" class="ms-sy__card" data-q="{{ quals }}" data-kind="{{ what }}">
         {%- if product.featured_media -%}
           <span class="ms-card__img">
-            <img alt="{{ product.featured_media.alt | default: product.title | escape }}" src="{{ product.featured_media | image_url: width: 900 }}" srcset="{{ product.featured_media | image_url: width: 600 }} 600w, {{ product.featured_media | image_url: width: 900 }} 900w, {{ product.featured_media | image_url: width: 1400 }} 1400w" sizes="{% if collection.products.size == 1 %}(max-width: 760px) 100vw, 58vw{% else %}(max-width: 760px) 50vw, (max-width: 1080px) 46vw, 30vw{% endif %}" loading="{% if forloop.index > 4 %}lazy{% else %}eager{% endif %}" width="900" height="1125">
+            <img alt="{% if product.featured_media.alt != product.title %}{{ product.featured_media.alt | escape }}{% endif %}" src="{{ product.featured_media | image_url: width: 900 }}" srcset="{{ product.featured_media | image_url: width: 600 }} 600w, {{ product.featured_media | image_url: width: 900 }} 900w, {{ product.featured_media | image_url: width: 1400 }} 1400w" sizes="{% if collection.products.size == 1 %}(max-width: 760px) 100vw, 58vw{% else %}(max-width: 760px) 50vw, (max-width: 1080px) 46vw, 30vw{% endif %}" loading="{% if forloop.index > 4 %}lazy{% else %}eager{% endif %}" width="900" height="1125">
           </span>
         {%- else -%}
           <span class="ms-card__img ms-sy__blank"></span>
@@ -219,7 +219,7 @@
   {%- endif -%}
 
   {%- if paginate.pages > 1 -%}
-    <nav class="ms-sy__pages">
+    <nav class="ms-sy__pages" aria-label="{{ 'ms.product.aria_pages' | t }}">
       {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">← {{ s.prev_label }}</a>{%- endif -%}
       <span>{{ paginate.current_page }} / {{ paginate.pages }}</span>
       {%- if paginate.next -%}<a href="{{ paginate.next.url }}">{{ s.next_label }} →</a>{%- endif -%}
@@ -265,7 +265,7 @@
   .ms-sy__grid:not(.ms-sy__grid--one) .ms-sy__fnames { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   .ms-sy__kinds { display: flex; flex-wrap: wrap; gap: 8px; margin-top: clamp(24px, 3vw, 40px); }
   .ms-sy__kinds button { display: inline-flex; align-items: center; gap: 10px; background: none; border: 1px solid #DDD6C9; padding: 10px 16px 10px 12px; font: inherit; font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: #4A443B; cursor: pointer; transition: border-color .3s, color .3s, background .3s; }
-  .ms-sy__kinds button span { font-family: Newsreader, Georgia, serif; font-size: 13px; letter-spacing: 0; color: #9A8F7E; }
+  .ms-sy__kinds button span { font-family: Newsreader, Georgia, serif; font-size: 13px; letter-spacing: 0; color: #756b5c; }
   .ms-sy__kinds button:hover { border-color: #17140F; color: #17140F; }
   .ms-sy__kinds button.is-on { background: #17140F; border-color: #17140F; color: #FBF9F5; }
   .ms-sy__kinds button.is-on span { color: #C9BBA3; }
@@ -273,9 +273,9 @@
   .ms-kg { display: block; width: 32px; height: 20px; flex: 0 0 auto; overflow: visible; }
   .ms-sy__what { display: flex; align-items: center; gap: 10px; margin-top: 20px; font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: #7E623B; }
   .ms-sy__what .ms-kg { color: #7E623B; }
-  .ms-sy__tier { color: #9A8F7E; }
+  .ms-sy__tier { color: #756b5c; }
   .ms-sy__tier::before { content: '·'; margin-right: 10px; color: #C9BBA3; }
-  .ms-sy__with { font-size: 12px; letter-spacing: .04em; color: #9A8F7E; margin-top: 4px; }
+  .ms-sy__with { font-size: 12px; letter-spacing: .04em; color: #756b5c; margin-top: 4px; }
   .ms-sy__go { display: inline-block; margin-left: 12px; vertical-align: middle; opacity: 0; transform: translateX(-6px); transition: opacity .4s, transform .5s cubic-bezier(.2,.7,.2,1); }
   @media (hover: hover) { .ms-sy__card:hover .ms-sy__go { opacity: 1; transform: none; } }
   .ms-site .ms-sy__card { display: block; color: inherit; transition: opacity .45s ease; }

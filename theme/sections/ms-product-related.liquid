@@ -92,7 +92,7 @@
         <a href="{{ p.url }}" class="ms-rel__card">
           <span class="ms-rel__img">
             {%- if p.featured_media -%}
-              <img src="{{ p.featured_media | image_url: width: 700 }}" srcset="{{ p.featured_media | image_url: width: 500 }} 500w, {{ p.featured_media | image_url: width: 700 }} 700w, {{ p.featured_media | image_url: width: 1000 }} 1000w" sizes="(max-width: 760px) 50vw, 24vw" alt="{{ p.featured_media.alt | default: p.title | escape }}" width="700" height="875" loading="lazy">
+              <img src="{{ p.featured_media | image_url: width: 700 }}" srcset="{{ p.featured_media | image_url: width: 500 }} 500w, {{ p.featured_media | image_url: width: 700 }} 700w, {{ p.featured_media | image_url: width: 1000 }} 1000w" sizes="(max-width: 760px) 50vw, 24vw" alt="{% if p.featured_media.alt != p.title %}{{ p.featured_media.alt | escape }}{% endif %}" width="700" height="875" loading="lazy">
             {%- endif -%}
           </span>
           {%- if wl != blank -%}<span class="ms-rel__what">{% render 'ms-kind-glyph', kind: what %}<span>{{ wl }}</span></span>{%- endif -%}

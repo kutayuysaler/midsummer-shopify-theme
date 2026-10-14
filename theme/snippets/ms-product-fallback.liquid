@@ -7,7 +7,7 @@
   <div class="ms-pf__media">
     {%- for media in product.media limit: 6 -%}
       {%- if media.media_type == 'image' -%}
-        <img src="{{ media | image_url: width: 1400 }}" alt="{{ media.alt | default: product.title | escape }}" width="{{ media.width }}" height="{{ media.height }}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
+        <img src="{{ media | image_url: width: 1400 }}" {% render 'ms-srcset', image: media, width: 1400, sizes: '(max-width: 760px) 100vw, 60vw' %} alt="{{ media.alt | default: product.title | escape }}" width="{{ media.width }}" height="{{ media.height }}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
       {%- endif -%}
     {%- endfor -%}
   </div>

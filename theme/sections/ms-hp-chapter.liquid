@@ -34,12 +34,12 @@
   <div class="ms-ch__in">
     <div class="ms-ch__figure">
       <div class="ms-ch__media">
-        <img src="{% render 'ms-img', image: s.image, fallback: s.image_fallback, width: 2000 %}" alt="{{ s.image.alt | default: s.heading | strip_html | escape }}" width="2000" height="{% if s.shape == 'landscape' %}1500{% else %}2500{% endif %}" loading="lazy">
+        <img src="{% render 'ms-img', image: s.image, fallback: s.image_fallback, width: 2000 %}" {% render 'ms-srcset', image: s.image, fallback: s.image_fallback, width: 2000, sizes: '100vw' %} alt="{{ s.image.alt | default: s.heading | strip_html | escape }}" width="2000" height="{% if s.shape == 'landscape' %}1500{% else %}2500{% endif %}" loading="lazy">
       </div>
       {%- if inset -%}
         {%- comment -%} a second, closer photograph: the hands at work, set over the corner of the first {%- endcomment -%}
         <div class="ms-ch__inset">
-          <img src="{% render 'ms-img', image: s.image_2, fallback: s.image_2_fallback, width: 900 %}" alt="{{ s.image_2.alt | default: s.image_2_caption | default: s.heading | strip_html | escape }}" width="900" height="1125" loading="lazy">
+          <img src="{% render 'ms-img', image: s.image_2, fallback: s.image_2_fallback, width: 900 %}" {% render 'ms-srcset', image: s.image_2, fallback: s.image_2_fallback, width: 900, sizes: '(max-width: 760px) 45vw, 24vw' %} alt="{{ s.image_2.alt | default: s.image_2_caption | default: s.heading | strip_html | escape }}" width="900" height="1125" loading="lazy">
           {%- if s.image_2_caption != blank -%}<span class="ms-ch__cap">{{ s.image_2_caption }}</span>{%- endif -%}
         </div>
       {%- endif -%}

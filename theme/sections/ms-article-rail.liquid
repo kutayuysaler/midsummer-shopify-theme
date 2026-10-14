@@ -61,7 +61,7 @@
     {%- endif -%}
     {%- assign shown = shown | plus: 1 -%}
     <a class="ms-ar__card" href="{{ article.url }}">
-      <span class="ms-ar__img">{%- if article.image -%}<img src="{{ article.image | image_url: width: 900 }}" alt="{{ article.image.alt | default: article.title | escape }}" width="{{ article.image.width }}" height="{{ article.image.height }}" loading="lazy">{%- endif -%}</span>
+      <span class="ms-ar__img">{%- if article.image -%}<img src="{{ article.image | image_url: width: 900 }}" {% render 'ms-srcset', image: article.image, width: 900, sizes: '(max-width: 760px) 72vw, (max-width: 1080px) 44vw, 31vw' %} alt="{{ article.image.alt | default: article.title | escape }}" width="{{ article.image.width }}" height="{{ article.image.height }}" loading="lazy">{%- endif -%}</span>
       <span class="ms-ar__meta">{%- capture rc -%}{% render 'ms-note-cat', a: article %}{%- endcapture -%}{%- if rc != '' -%}{% render 'ms-note-cat', label: rc %} · {% endif -%}{{ article.published_at | date: '%B %Y' }}</span>
       <span class="ms-ar__title">{{ article.title }}</span>
     </a>

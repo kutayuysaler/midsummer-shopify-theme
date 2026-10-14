@@ -1,0 +1,49 @@
+{%- comment -%}
+  The same picture at several widths, written as srcset (and sizes) attributes: the editor's image,
+  else a photograph from the theme's assets, resized by Shopify's CDN. A full address, or a drawing,
+  has no other widths, and then nothing is written.
+  Usage: <img src="..." {% render 'ms-srcset', image: section.settings.image, fallback: section.settings.fallback, width: 2000, sizes: '100vw' %}>
+{%- endcomment -%}
+{%- liquid
+  assign w = width | default: 1800 | plus: 0
+  assign steps = '360,540,720,960,1200,1600,2000,2400' | split: ','
+  assign out = ''
+  if image != blank
+    assign iw = image.width | default: w | plus: 0
+    if iw < w
+      assign w = iw
+    endif
+    for s in steps
+      assign n = s | plus: 0
+      if n < w
+        assign u = image | image_url: width: n
+        assign out = out | append: u | append: ' ' | append: n | append: 'w, '
+      endif
+    endfor
+    assign u = image | image_url: width: w
+    assign out = out | append: u | append: ' ' | append: w | append: 'w'
+  elsif fallback != blank
+    assign fb = fallback | downcase
+    unless fb contains '/'
+      if fb contains '.jpg' or fb contains '.jpeg' or fb contains '.png'
+        for s in steps
+          assign n = s | plus: 0
+          if n < w
+            assign sz = n | append: 'x'
+            assign u = fallback | asset_img_url: sz
+            assign out = out | append: u | append: ' ' | append: n | append: 'w, '
+          endif
+        endfor
+        assign sz = w | append: 'x'
+        assign u = fallback | asset_img_url: sz
+        assign out = out | append: u | append: ' ' | append: w | append: 'w'
+      endif
+    endunless
+  endif
+  if out != blank
+    echo ' srcset="' | append: out | append: '"'
+    if sizes != blank
+      echo ' sizes="' | append: sizes | append: '"'
+    endif
+  endif
+-%}

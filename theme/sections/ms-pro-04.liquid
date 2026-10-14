@@ -35,8 +35,8 @@
       </div>
     </div>
     <figure class="ms-pd__fig">
-      <img class="ms-pd__big" width="1500" height="2000" loading="lazy" alt="A Midsummer bed in a frescoed loft, beneath a spiral stair" src="{% if section.settings.img1 != blank %}{{ section.settings.img1 | image_url: width: 1600 }}{% else %}{{ 'ms-photo-loft.jpg' | asset_url }}{% endif %}">
-      <img class="ms-pd__inset" width="2000" height="1335" loading="lazy" alt="The Midsummer Milano label on a mattress border" src="{{ 'ms-photo-mattress-label.jpg' | asset_url }}">
+      <img class="ms-pd__big" width="1500" height="2000" loading="lazy" alt="A Midsummer bed in a frescoed loft, beneath a spiral stair" src="{% if section.settings.img1 != blank %}{{ section.settings.img1 | image_url: width: 1600 }}{% else %}{{ 'ms-photo-loft.jpg' | asset_url }}{% endif %}" {% render 'ms-srcset', image: section.settings.img1, fallback: 'ms-photo-loft.jpg', width: 1500, sizes: '(max-width: 760px) 82vw, 39vw' %}>
+      <img class="ms-pd__inset" width="2000" height="1335" loading="lazy" alt="The Midsummer Milano label on a mattress border" src="{{ 'ms-photo-mattress-label.jpg' | asset_url }}" {% render 'ms-srcset', fallback: 'ms-photo-mattress-label.jpg', width: 2000, sizes: '(max-width: 760px) 47vw, 21vw' %}>
     </figure>
   </div>
 </section>

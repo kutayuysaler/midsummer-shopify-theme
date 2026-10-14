@@ -92,7 +92,7 @@
             endcase
           -%}
           <a class="ms-ci__card" href="{{ c.url }}">
-            <span class="ms-ci__img">{%- if pic != blank -%}<img src="{{ pic | image_url: width: 900 }}" alt="{{ c.title | escape }}" width="900" height="675" loading="lazy">{%- elsif house != '' -%}<img src="{{ house | asset_url }}" alt="{{ c.title | escape }}" width="900" height="675" loading="lazy">{%- endif -%}</span>
+            <span class="ms-ci__img">{%- if pic != blank -%}<img src="{{ pic | image_url: width: 900 }}" {% render 'ms-srcset', image: pic, width: 900, sizes: '(max-width: 760px) 90vw, (max-width: 1080px) 29vw, 17vw' %} alt="{{ c.title | escape }}" width="900" height="675" loading="lazy">{%- elsif house != '' -%}<img src="{{ house | asset_url }}" {% render 'ms-srcset', fallback: house, width: 1600, sizes: '(max-width: 760px) 90vw, (max-width: 1080px) 29vw, 17vw' %} alt="{{ c.title | escape }}" width="900" height="675" loading="lazy">{%- endif -%}</span>
             <span class="ms-ci__name">{{ s[kn] | default: c.title }}</span>
             <span class="ms-ci__count">{{ c.products_count }}</span>
             {%- if s[kl] != blank -%}<span class="ms-ci__line">{{ s[kl] }}</span>{%- endif -%}

@@ -15,7 +15,7 @@
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: clamp(32px, 5vw, 88px); align-items: start;">
 <div style="border-top: 1px solid rgb(23, 20, 15); padding-top: 22px;">
 <div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgb(126, 98, 59);">{{ section.settings.t1 }}</div>
-<h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">{{ section.settings.t2 }}</h3>
+<h2 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">{{ section.settings.t2 }}</h2>
 <p style="font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 16px; max-width: 34ch;">{{ section.settings.t3 }}</p>
 <div data-ms="sizes" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; margin-top: 24px;">
 <button data-ms-size="" style="background: none; border-width: 0px 0px 1px; border-top-style: initial; border-right-style: initial; border-bottom-style: solid; border-left-style: initial; border-top-color: initial; border-right-color: initial; border-bottom-color: transparent; border-left-color: initial; border-image: initial; padding: 14px 0px 6px; cursor: pointer; font-family: Newsreader, Georgia, serif; font-size: clamp(14px, 1.4vw, 17px); line-height: 1.3; white-space: nowrap; color: rgb(110, 103, 92); transition: color 0.2s, border-color 0.2s;" type="button">{{ section.settings.t4 }}</button>
@@ -39,13 +39,13 @@
 <div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgb(126, 98, 59);">{{ section.settings.t11 }}</div>
 {%- capture ms_cloth -%}{%- if template.name == 'product' -%}{%- capture mk -%}{% render 'ms-kind', p: product %}{%- endcapture -%}{%- assign mkp = mk | split: '|' -%}{% render 'ms-product-cloth', key: mkp[1], handle: '', part: 'reason' %}{%- endif -%}{%- endcapture -%}
 {%- if ms_cloth != blank -%}{{ ms_cloth }}{%- else -%}
-<h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">{{ section.settings.t12 }}</h3>
+<h2 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">{{ section.settings.t12 }}</h2>
 <p style="font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 16px; max-width: 34ch;">{{ section.settings.t13 }}</p>
 {%- endif -%}
 </div>
 <div style="border-top: 1px solid rgb(23, 20, 15); padding-top: 22px;">
 <div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgb(126, 98, 59);">{{ section.settings.t14 }}</div>
-<h3 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">{{ section.settings.t15 }}</h3>
+<h2 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">{{ section.settings.t15 }}</h2>
 <p style="font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 16px; max-width: 34ch;">{{ section.settings.t16 }}</p>
 <a data-ms="cta" href="{% render 'ms-link', to: 'regen' %}" style="display: inline-block; margin-top: 24px; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; border-bottom: 1px solid rgb(23, 20, 15); padding-bottom: 7px;">{{ section.settings.t17 }}</a>
 </div>

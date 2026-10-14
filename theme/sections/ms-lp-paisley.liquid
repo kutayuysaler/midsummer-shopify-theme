@@ -13,7 +13,7 @@
 <section class="ms-lpp">
   <div class="ms-lpp__in">
     <figure class="ms-lpp__room">
-      <img src="{% render 'ms-img', image: s.image, fallback: s.image_fallback, width: 1600 %}" alt="{{ s.image.alt | default: s.image_alt | escape }}" width="1200" height="1500" loading="lazy">
+      <img src="{% render 'ms-img', image: s.image, fallback: s.image_fallback, width: 1600 %}" {% render 'ms-srcset', image: s.image, fallback: s.image_fallback, width: 1600, sizes: '(max-width: 1080px) 90vw, 46vw' %} alt="{{ s.image.alt | default: s.image_alt | escape }}" width="1200" height="1500" loading="lazy">
     </figure>
     <div class="ms-lpp__words">
       {%- if s.eyebrow != blank -%}<div class="ms-lpp__eyebrow">{{ s.eyebrow }}</div>{%- endif -%}
@@ -40,7 +40,7 @@
       </div>
       {%- if s.detail_fallback != blank or s.detail != blank -%}
         <figure class="ms-lpp__detail">
-          <img src="{% render 'ms-img', image: s.detail, fallback: s.detail_fallback, width: 900 %}" alt="{{ s.detail_caption | escape }}" width="900" height="900" loading="lazy">
+          <img src="{% render 'ms-img', image: s.detail, fallback: s.detail_fallback, width: 900 %}" {% render 'ms-srcset', image: s.detail, fallback: s.detail_fallback, width: 900, sizes: '(max-width: 1080px) 90vw, 46vw' %} alt="{{ s.detail_caption | escape }}" width="900" height="900" loading="lazy">
           {%- if s.detail_caption != blank -%}<figcaption>{{ s.detail_caption }}</figcaption>{%- endif -%}
         </figure>
       {%- endif -%}
@@ -71,7 +71,7 @@
     transition: transform .6s cubic-bezier(.22, 1, .36, 1), filter .4s; }
   .ms-lpp__cloth:hover .ms-lpp__sw { transform: translateY(-3px) rotate(-.6deg); filter: drop-shadow(0 10px 12px rgba(23, 20, 15, .2)); }
   .ms-lpp__cn { font-family: Newsreader, Georgia, serif; font-size: 24px; line-height: 1.1; }
-  .ms-lpp__cr { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: #8A7F6E; }
+  .ms-lpp__cr { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: #746b5d; }
   .ms-lpp__cw { font-size: 13px; line-height: 1.6; color: #4A443B; }
   .ms-lpp__detail { margin: clamp(36px, 4.4vw, 60px) 0 0; display: grid; grid-template-columns: minmax(0, 150px) minmax(0, 1fr); gap: 18px; align-items: end; }
   .ms-lpp__detail img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }

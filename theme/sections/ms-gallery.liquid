@@ -8,7 +8,7 @@
       </div>
     {%- endif -%}
   </div>
-  <div class="ms-gl__rail" data-ms="rail-x" tabindex="0" aria-label="{{ section.settings.heading | default: 'Photographs' | escape }}">
+  <div class="ms-gl__rail" data-ms="rail-x" tabindex="0" role="region" aria-label="{{ section.settings.heading | default: 'Photographs' | escape }}">
     {%- for block in section.blocks -%}
       {%- capture src -%}{% render 'ms-img', image: block.settings.image, fallback: block.settings.image_fallback, width: 1600 %}{%- endcapture -%}
       <figure class="ms-gl__fig" {{ block.shopify_attributes }}>

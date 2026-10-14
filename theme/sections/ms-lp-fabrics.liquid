@@ -52,7 +52,7 @@
     {%- assign fab_n = 0 -%}
     {%- for b in section.blocks -%}
       {%- if b.type == 'fabric' -%}
-        {%- if open -%}</ul>{% if no_colours %}{{ none_html }}{% endif %}</div></article>{%- endif -%}
+        {%- if open -%}</ul>{% if no_colours %}{{ none_html }}{% endif %}</div></div>{%- endif -%}
         {%- liquid
           assign open = true
           assign fab_n = fab_n | plus: 1
@@ -93,7 +93,7 @@
             echo '<p class="ms-lf__none">' | append: s.no_palette | append: '</p>'
           endcapture
         -%}
-        <article class="ms-lf__fab{% if no_colours %} is-plain{% endif %}{% if fab_n == 1 %} is-on{% endif %}" id="{{ anchor }}" role="tabpanel" aria-labelledby="lf-tab-{{ anchor }}" data-lf data-lf-cloth="{{ cloth | escape }}" {{ b.shopify_attributes }}>
+        <div class="ms-lf__fab{% if no_colours %} is-plain{% endif %}{% if fab_n == 1 %} is-on{% endif %}" id="{{ anchor }}" role="tabpanel" aria-labelledby="lf-tab-{{ anchor }}" data-lf data-lf-cloth="{{ cloth | escape }}" {{ b.shopify_attributes }}>
           <figure class="ms-lf__view">
             <div class="ms-lf__big ms-lf__big--{{ fs.texture | default: 'linen' }}{% if big_img != '' %} has-img{% endif %}" data-lf-big role="img" aria-label="{{ cloth | escape }}{% unless no_colours %}, {{ cap | escape }}{% endunless %}"
               style="background-color: {{ big_color }};{% if big_img != '' %} background-image: url({{ big_img }});{% endif %}"></div>
@@ -144,7 +144,7 @@
               </li>
       {%- endif -%}
     {%- endfor -%}
-    {%- if open -%}</ul>{% if no_colours %}{{ none_html }}{% endif %}</div></article>{%- endif -%}
+    {%- if open -%}</ul>{% if no_colours %}{{ none_html }}{% endif %}</div></div>{%- endif -%}
 
     {%- if s.footnote != blank -%}<p class="ms-lf__foot">{{ s.footnote }}</p>{%- endif -%}
   </div>
