@@ -80,9 +80,9 @@ ATLAS = [
       'From an animal of the high South American ranges, with an abundant fleece, soft and almost silky. The fibre sits between wool and cashmere, '
       'nearer to cashmere; alpaca cloth was once kept for the Inca emperors.',
       [('No lanolin', 'And so naturally hypoallergenic.')],
-      origin='The South American highlands', species='Vicugna pacos', photo='alpaca', alt='Baby alpaca, its long, soft fleece close up.'),
+      origin='The South American highlands', species='Vicugna pacos', photo='alpaca', alt='An alpaca in its long fleece, standing in a field of dry grass.'),
     F('mohair', 'Mohair', 'animal', 'Mohair', 'temperature', 'Warmth without weight',
-      'On the winter side of a bed, with cashmere, silk and wool: warmth without weight.', photo='mohair', alt='Tufts of mohair on a sample card, in many shades.'),
+      'On the winter side of a bed, with cashmere, silk and wool: warmth without weight.', photo='mohair', alt='A mohair throw, soft and long-haired, falling to its fringe.'),
     F('silk', 'Silk', 'animal', 'Silk', 'softness temperature', 'Temperature · Softness',
       'The only animal fibre spun by a silkworm, fed on mulberry leaves. A continuous filament, fine and lustrous: light, insulating, '
       'elastic and flexible, held to be the finest and softest of the natural fibres.',
@@ -102,7 +102,7 @@ ATLAS = [
       'From the stem of the flax plant, grown in the cool regions of northern Europe. A good conductor of heat, it feels cool against the skin: '
       'the fibre of the summer side.',
       [('20%', 'Of its own weight in moisture, absorbed.')],
-      origin='Northern Europe', species='Linum usitatissimum', photo='linen', alt='Linen cloth, in soft folds.'),
+      origin='Northern Europe', species='Linum usitatissimum', photo='linen', alt='Linen cloth, its weave close up.'),
     F('cotton', 'Organic cotton', 'plant', 'Cotton', 'breathability', 'Breathability',
       'Only from organic farms that keep to fair working conditions, since ordinary cotton crops use huge amounts of chemicals. '
       'Fresh and very breathable, for the warm months.',
@@ -115,8 +115,8 @@ ATLAS = [
       origin='Southern Italy and Sicily', species='Chamaerops humilis', photo='vegetable', alt='The fan-shaped leaves of a palm against the sky.'),
     F('ingeo', 'Ingeo', 'plant', 'Ingeo', 'breathability', 'Breathability · Freshness',
       'A sustainable fibre derived from maize. With wool, linen and cotton, it is on the summer side: fresh and breathable.',
-      [('Maize', 'The plant it is drawn from.')], photo='ingeo', alt='A soft white tuft of maize fibre with cotton.'),
+      [('Maize', 'The plant it is drawn from.')], photo='ingeo', alt='Maize fibre, soft and white, close up.'),
     F('orange', 'Orange Fiber', 'plant', 'Orange Fiber', 'breathability', 'Freshness · Breathability',
       'An innovative, sustainable material made from Sicilian orange peels: light, breathable and naturally fresh.',
-      [('Orange peel', 'From Sicily’s oranges.')], origin='Sicily', photo='orange', alt='Oranges, the fruit whose peel becomes Orange Fiber, under a Top mattress.'),
+      [('Orange peel', 'From Sicily’s oranges.')], origin='Sicily', photo='orange', alt='An orange cut across: the fruit whose peel becomes Orange Fiber.'),
 ]

@@ -16,12 +16,13 @@ SPEC = {
   'cotton':    ('shutterstock_127061399-3624055.jpg',    .56, .5, 1.0),
   # Round 15: the seven that had only their drawing
   'camel':     ('shutterstock_390845494.jpg',            .47, .5, 1.0),
-  'alpaca':    ('ALPACA_BEIGE.jpg',                      .5, .5, 1.0),
-  'mohair':    ('MOhair colors.jpeg',                    .62, .42, .62),
-  'linen':     ('lino.jpg',                              .5, .5, .9),
+  # Round 17: the animal itself, the cloth itself, the fruit itself
+  'alpaca':    ('sebastien-goldberg-xgQZ1rXbYa4-unsplash-2.jpg', .5, .56, .96),
+  'mohair':    ('COPERTA_shutterstock_mohair grigio bordo.jpg', .62, .62, .62),
+  'linen':     ('lino.jpg',                              .35, .55, .35),
   'vegetable': ('nika-akin-b9UKi6t3xh0-unsplash (1).jpg', .5, .3, 1.0),
-  'ingeo':     ('cotone+fibra mais.JPG',                 .56, .5, .72),
-  'orange':    ('Top_arance.jpg',                        .5, .79, .42),
+  'ingeo':     ('cotone+fibra mais.JPG',                 .6, .5, .8),
+  'orange':    ('joshua-earle-a9bpgsbdknw-unsplash.jpg', .5, .5, 1.0),
 }
 # warm monochrome: shadows of dark walnut, light of the page's ivory
 STOPS = [(0.0, (34, 28, 22)), (0.42, (122, 106, 88)), (0.78, (205, 192, 172)), (1.0, (247, 242, 233))]
@@ -52,7 +53,8 @@ for name, (f, cx, cy, s) in SPEC.items():
     w, h = im.size; side = int(min(w, h) * s)
     x0 = min(max(0, int(cx * w - side / 2)), w - side); y0 = min(max(0, int(cy * h - side / 2)), h - side)
     c = im.crop((x0, y0, x0 + side, y0 + side))
-    c = tone(c, soft=(name == 'silk')) if mode == 'tone' else c.convert('RGB')
+    # the orange keeps a little more of its colour: in monochrome alone a citrus cut reads as anything
+    c = tone(c, keep=(.30 if name == 'orange' else .14), soft=(name == 'silk')) if mode == 'tone' else c.convert('RGB')
     for suffix, width in (('', 1400), ('-sm', 720)):
         o = c.resize((width, width), Image.LANCZOS)
         o = o.filter(ImageFilter.UnsharpMask(radius=1.1, percent=40 if width < side else 25, threshold=2))

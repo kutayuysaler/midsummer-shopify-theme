@@ -411,7 +411,10 @@
       "facts_finishings": "Finiture",
       "facts_care": "Cura",
       "facts_order": "Su ordinazione",
-      "more_at": "Di più su"
+      "more_at": "Di più su",
+      "sizes_n": "[n] misure",
+      "sizes_see": "Ogni misura, disegnata",
+      "award_gpa": "Premiato a Berlino per i materiali di origine vegetale e la costruzione stagionale."
     }
   }
 }

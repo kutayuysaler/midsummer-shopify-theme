@@ -1847,3 +1847,116 @@ On a phone the gallery is two columns.
    the boxspring).
 3. Send one test enquiry and check it reaches info@midsummer-milano.com.
 4. After the upload finishes, Shopify's list of rejected files should be empty.
+
+## 39. Round 17: before release
+
+### Product pages
+
+- **The foot of the page: *More from the collection*.** This replaces the thin *Also in Icon*
+  row.
+  - Four pieces from the product's own collection (Essentials, Signature or Icons), with pieces
+    of the same kind first: another bed system after a bed system, another mattress after a
+    mattress.
+  - Each card is drawn as on the collection page: photograph, what it is, name, one line and its
+    fibres.
+  - On the right, a link to the whole collection (*All of Icons →*).
+  - The section is *Product · Also in*. Its settings hold the label, the link text and the name
+    of each kind.
+- **Sizes are said once.** Some descriptions list every size, which used to show up again in the
+  specifications and again under the drawing. Now, when a description lists the sizes (Jungle
+  Dreams, for example):
+  - The specifications say them in one line (*6 sizes: 100 × 200 · …*) with a link, *See each
+    size, drawn ↓*.
+  - The size drawing switches to the piece's own sizes, smallest first, each with its note (for
+    example, the headboard).
+
+  This only happens when the list is clearly a list of sizes: more than one size, and at least
+  four lines in five read as sizes. Every other product keeps its usual drawing.
+- **Inside the bed: three different photographs.** Topper, mattress and boxspring each show
+  their own photograph, never the same one twice. This covers Paisley, Flora, Roma, Dreamy and
+  First Dream. None of the photographs shows the inside of a bed.
+- **Top: the Green Product Award.**
+  - Under the name: the award's mark, *Green Product Award 2025*, and *Awarded in Berlin for its
+    plant-based materials and seasonal construction*.
+  - It links to the award's page for Top (gp-award.com).
+  - It is also in the product's structured data for search engines.
+  - Another product can carry an award through the product section's *Award* setting.
+
+### Collection pages
+
+The register is gone. Products now sit in an even grid:
+- three columns on a computer, two on a tablet and a phone;
+- every photograph the same size, the names lined up;
+- no numbers and no cloth cut on the cards;
+- views reduced to *Gallery* and *Compare*, and shown only when a collection has more than one
+  bed system.
+
+### Handmade in Italy
+
+*Slow, by method* has two new photographs:
+- an artisan cutting the cloth by hand;
+- a finished Roma corner, captioned *Every tuft tied by hand, every border stitched by hand*.
+
+### The Professionals bar
+
+- **It no longer disappears.** It stays in view while the page scrolls, just under the header,
+  and moves up when the header hides on a phone.
+- **It now also appears on the Portfolio** (the journal called *projects* or *portfolio*), with
+  Portfolio marked.
+- **On a phone** the row of links scrolls sideways. It opens on the page you are on, and fades
+  at the edge where more links follow.
+
+### Agents & resellers map
+
+- **The map opens on the whole world**, with every place on it and *World* marked. Each region
+  is one tap away.
+- **The kind filter** (*All · Showrooms · Boutiques · Agents*, each with its count) is one quiet
+  row of tabs, the chosen one underlined.
+  - Every name is shown whole at every width from 320 px up.
+  - Before this, *Agents* was cut off.
+
+### Natural materials
+
+Five fibre photographs are replaced:
+
+| Fibre | New photograph |
+| --- | --- |
+| Alpaca | the animal in its long fleece |
+| Mohair | a mohair throw falling to its fringe |
+| Linen | the close weave of linen cloth |
+| Ingeo | the maize fibre itself, on a dark ground |
+| Orange Fiber | an orange cut across |
+
+The orange keeps a little more of its colour than the other plates; in monochrome alone it read
+as eggs. The photographs come from the house's library. The stock sites could not be reached
+from where the theme is built, so there was no flax field, maize plant or Angora goat to choose
+from.
+
+### Package
+
+- Zip: 32.0 MB, 1,016 files. The largest Liquid file is 161 KB.
+- Part photographs nothing uses any more are left out, and so is the cloth-cut snippet the old
+  register used.
+
+### Checks on this build
+
+| Check | Result |
+| --- | --- |
+| Shopify's Liquid engine (Ruby, `strict` and `strict2` parsing) | 465 files, 0 errors |
+| Theme Check | 0 errors (69 warnings, of the same kinds as before) |
+| Template values against section schemas | no new issues |
+| Page audit (every template, computer and phone) | no script errors, no missing files |
+| Interaction tests | 171 pass (new: Top's award, the product foot, sizes said once, the bar staying in view and on the Portfolio, the map on the world, its kinds whole at 1440, 390 and 320 px, the new photographs) |
+
+### To check on the store after uploading
+
+1. **The "Loro Piana patch".** I took this to mean the small pinked cloth cut on each collection
+   card, and removed it. The pinked colour chips on the Loro Piana page are unchanged. If you
+   meant those, say so.
+2. **Top:** the award shows under the name, and its link opens the Green Product Award page.
+3. **A product whose description lists its sizes** (Jungle Dreams): the specifications should say
+   the sizes once, and the drawing should step through them.
+4. **Still open from Round 16:**
+   - Agents & resellers: zoom into Milan and check that the street map appears.
+   - Paisley: confirm the wording.
+   - Send one test enquiry.

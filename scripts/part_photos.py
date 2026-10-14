@@ -10,21 +10,17 @@ AS = os.path.join(HERE, '..', 'v5', 'assets')
 OUT = os.path.join(HERE, '..', 'vendor', 'r16', 'parts')
 CUTS = {
     # the house's studio photographs: any system's parts
-    'topper-pure': (SRC + '/PURE_TOPPER_DSC4462 APRILE 2021.jpg', (0, 0, 1637, 2046)),
     'mattress-detail': (AS + '/ms-photo-mattress-detail.jpg', (810, 0, 1920, 1387)),
     'base-studio': (SRC + '/SOMMIER_02_A4.jpg', (320, 1150, 3520, 5150)),
     'base-pure': (SRC + '/PURE_TOPPER_DSC4462 APRILE 2021.jpg', (555, 1100, 1637, 2453)),
     # Dreamy, First Dream
     'topper-dreamy': (SRC + '/DREAMY_TOPPER_ALTO-IMG_7459.jpg', (0, 0, 1011, 1264)),
-    'mattress-dreamy': (SRC + '/DREAMY_TOPPER_ALTO-IMG_7459.jpg', (150, 480, 861, 1369)),
     'base-dreamy': (SRC + '/DREAMY_TOPPER_ALTO-IMG_7459.jpg', (411, 750, 1011, 1500)),
     'topper-firstdream': (SRC + '/FIRST_DREAM_IMG_9742 TOPPER.jpg', (0, 0, 1041, 1301)),
-    'mattress-firstdream': (SRC + '/FIRST_DREAM_IMG_9742 TOPPER MEDIUM.jpg', (200, 600, 1000, 1600)),
     'base-firstdream': (SRC + '/FIRST_DREAM_IMG_9742 TOPPER MEDIUM.jpg', (649, 1000, 1249, 1750)),
     # Roma, in Loro Piana Interiors
     'topper-roma': (SRC + '/LOROPIANA_IMG_9596.jpg', (0, 0, 1500, 1875)),
     'mattress-roma': (SRC + '/loropiana_IMG_0184.jpg', (0, 0, 1512, 1890)),
-    'base-roma': (SRC + '/loropiana_IMG_0181.jpg', (1000, 480, 1800, 1480)),
     # Flora, Cardi and Wish
     'topper-flora': (AS + '/ms-photo-flora-wide.jpg', (500, 0, 1310, 1012)),
     'mattress-flora': (AS + '/ms-photo-flora-side.jpg', (0, 0, 1000, 1250)),
@@ -32,7 +28,8 @@ CUTS = {
     # Paisley, Shadan and Katai
     'topper-paisley': (SRC + '/Paisley_IMG_4918_low.jpg', (0, 0, 1428, 1785)),
     'mattress-paisley': (SRC + '/Paisley dettaglio.jpg', (0, 154, 1192, 1644)),
-    'base-paisley': (SRC + '/Paisley_IMG_5161_low.jpg', (300, 1020, 1109, 2032)),
+    # Round 17: the boxspring card, the whole bed in its room (the edge close-up is the mattress's)
+    'base-paisley': (AS + '/ms-photo-lp-paisley-front.jpg', (0, 0, 1209, 1511)),
 }
 
 

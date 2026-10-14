@@ -431,6 +431,26 @@
         -%}
         <h1 class="ms-pm__title">{{ product.title }}{% if kind != blank %}<span class="ms-pm__kind"><span class="ms-vh"> – </span>{{ kind }}</span>{% endif %}</h1>
         {%- if tagline != blank -%}<p class="ms-pm__tagline"{% if tagline_auto %} data-ms-auto{% endif %}>{{ tagline }}</p>{%- endif -%}
+        {%- comment -%} a recognition the piece has received: the Top system, the Green Product Award 2025 {%- endcomment -%}
+        {%- liquid
+          assign ms_award = section.settings.award
+          if ms_award == blank
+            case product.handle
+              when 'top', 'top-2'
+                assign ms_award = 'Green Product Award 2025'
+            endcase
+          endif
+        -%}
+        {%- if ms_award != blank -%}
+          {%- if ms_award contains 'Green Product Award' -%}
+            <a class="ms-pm__award" href="https://www.gp-award.com/en/produkte/top-bed-system" target="_blank" rel="noopener">
+              <img src="{{ 'ms-press-green-product-award.svg' | asset_url }}" alt="Green Product Award" width="150" height="35" loading="lazy">
+              <span class="ms-pm__award-t"><strong>{{ ms_award }}</strong><span>{{ 'ms.product.award_gpa' | t }}</span></span>
+            </a>
+          {%- else -%}
+            <p class="ms-pm__award"><span class="ms-pm__award-t"><strong>{{ ms_award }}</strong></span></p>
+          {%- endif -%}
+        {%- endif -%}
 
         <div class="ms-pm__price">
           <div class="ms-pm__label">{{ t_price_label }}</div>
@@ -461,7 +481,7 @@
         {%- if product.description != blank and section.settings.show_description -%}
           <details class="ms-pm__more" open>
             <summary>{{ t_desc }}</summary>
-            <div class="ms-pm__desc" data-ms-desc{% if section.settings.discreet_build %} data-discreet{% endif %} data-l-dims="{{ t_f2l | strip | escape }}" data-l-height="{{ t_height | strip | escape }}" data-l-comp="{{ 'ms.product.facts_composition' | t | escape }}" data-l-fin="{{ 'ms.product.facts_finishings' | t | escape }}" data-l-care="{{ 'ms.product.facts_care' | t | escape }}" data-l-order="{{ 'ms.product.facts_order' | t | escape }}" data-l-more="{{ 'ms.product.more_at' | t | escape }}">{{ product.description }}</div>
+            <div class="ms-pm__desc" data-ms-desc{% if section.settings.discreet_build %} data-discreet{% endif %} data-l-dims="{{ t_f2l | strip | escape }}" data-l-height="{{ t_height | strip | escape }}" data-l-comp="{{ 'ms.product.facts_composition' | t | escape }}" data-l-fin="{{ 'ms.product.facts_finishings' | t | escape }}" data-l-care="{{ 'ms.product.facts_care' | t | escape }}" data-l-order="{{ 'ms.product.facts_order' | t | escape }}" data-l-more="{{ 'ms.product.more_at' | t | escape }}" data-l-sizes="{{ 'ms.product.sizes_n' | t | escape }}" data-l-see="{{ 'ms.product.sizes_see' | t | escape }}">{{ product.description }}</div>
           </details>
         {%- endif -%}
 
@@ -615,8 +635,8 @@
     {%- if fibre_list.size > 0 %}
     "material": {{ fibre_list | join: ', ' | json }},
     {%- endif %}
-    {%- if ss.award != blank %}
-    "award": {{ ss.award | json }},
+    {%- if ms_award != blank %}
+    "award": {{ ms_award | json }},
     {%- endif %}
     "countryOfOrigin": { "@type": "Country", "name": "Italy" },
     "additionalProperty": [
@@ -737,6 +757,14 @@
   .ms-pm__kind { display: block; font-family: "Red Hat Text", system-ui, sans-serif; font-size: 11px; line-height: 1.7; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 400; color: #6E675C; margin-top: clamp(14px, 1.4vw, 20px); text-wrap: balance; }
   .ms-vh { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .ms-pm__tagline { font-family: Newsreader, Georgia, serif; font-size: clamp(19px, 1.9vw, 25px); line-height: 1.45; letter-spacing: -0.015em; font-weight: 200; color: #4A443B; margin-top: clamp(18px, 2.2vw, 30px); max-width: 30ch; }
+  .ms-site .ms-pm__tosizes { margin-top: 8px; }
+  .ms-site .ms-pm__tosizes a { font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: #17140F; border-bottom: 1px solid currentColor; padding-bottom: 3px; }
+  .ms-site .ms-pm__award { display: flex; align-items: center; gap: 18px; margin-top: clamp(20px, 2.4vw, 30px); padding: 14px 18px; background: #F4EFE6; border: 1px solid #E4DDD1; color: #17140F; max-width: 460px; transition: border-color .3s; }
+  .ms-site a.ms-pm__award:hover { border-color: #7E623B; }
+  .ms-pm__award img { flex: 0 0 auto; width: 132px; height: auto; display: block; }
+  .ms-pm__award-t { display: grid; gap: 3px; font-size: 12.5px; line-height: 1.5; color: #4A443B; }
+  .ms-pm__award-t strong { font-weight: 400; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #17140F; }
+  @media (max-width: 480px) { .ms-site .ms-pm__award { gap: 12px; padding: 12px 14px; } .ms-pm__award img { width: 100px; } }
   .ms-pm__price { border-top: 1px solid #DDD6C9; margin-top: clamp(28px, 3.4vw, 44px); padding-top: 22px; }
   .ms-pm__label { font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: #6E675C; }
   .ms-pm__from { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: #7E623B; margin-top: 10px; }
@@ -1100,11 +1128,26 @@ document.addEventListener('DOMContentLoaded', function () {
     var fl = box.closest('.ms-pm__sticky') && box.closest('.ms-pm__sticky').querySelector('.ms-pm__facts');
     var have = {};
     if (fl) fl.querySelectorAll('dt').forEach(function (dt) { have[dt.textContent.trim().toLowerCase()] = dt; });
-    var rest = '';
+    var rest = '', sizes = [];
     facts.forEach(function (f) {
       var label = f.label ? f.label.charAt(0).toUpperCase() + f.label.slice(1) : L[f.fact];
       var body = items(f.items);
       if (!body) return;
+      // a list of sizes ("King 193 x 203 - headboard 241 x 219 x 103h"): read once, for the size drawing
+      // further down the page, which shows them one by one (sections/ms-product-reasons)
+      if (f.fact === 'dims' && !f.label) {
+        var lis = f.items.filter(function (b) { return b.k === 'li'; }), got = [];
+        lis.forEach(function (b) {
+          var m = b.text.replace(/\s+/g, ' ').trim().match(/^(?:([A-Za-z][A-Za-z ]{1,16}?)\s+)?(\d{2,3})\s*[x×X]\s*(\d{2,3})(?:\s*[x×X]\s*\d{1,3}\s*h?)?\s*(?:cm\b)?\s*(?:[-–—:]\s*(.+))?$/);
+          if (!m) return;
+          var w = +m[2], l = +m[3];
+          if (got.some(function (g) { return g.w === w && g.l === l; })) return;
+          var note = (m[4] || '').replace(/(\d)\s*[x×X]\s*(?=\d)/g, '$1 × ').replace(/(\d)\s*h\b/g, '$1 h').replace(/\s+/g, ' ').trim();
+          got.push({ name: m[1] ? m[1].trim() : '', w: w, l: l, note: note });
+        });
+        got.sort(function (a, b) { return (a.name ? 1 : 0) - (b.name ? 1 : 0) || a.w - b.w || a.l - b.l; });
+        if (got.length > 1 && got.length >= lis.length * .8) sizes = got;
+      }
       // measures written one way: 160 × 220, 4 cm
       if (f.fact === 'dims' || f.fact === 'height') {
         body = body.replace(/(\d)\s*[x×X]\s*(?=\d)/g, '$1 × ').replace(/(\d)(cm|mm)\b/gi, function (m, a, u) { return a + ' ' + u.toLowerCase(); });
@@ -1126,6 +1169,11 @@ document.addEventListener('DOMContentLoaded', function () {
         rest += '<div><dt>' + esc(label) + '</dt><dd>' + body + '</dd></div>';
       }
     });
+    if (sizes.length && fl) {
+      var dk = have[(L.dims || '').toLowerCase()];
+      var dd = dk && (dk.tagName === 'DT' ? dk.nextElementSibling : dk.querySelector('dd'));
+      if (dd) { dd.setAttribute('data-ms-dims', ''); window.MS_SIZES = sizes; }
+    }
     if (rest) out += '<dl class="ms-desc__facts">' + rest + '</dl>';
     if (note.length) out += '<div class="ms-desc__note"><span>' + esc(L.order) + '</span>' + note.map(function (n) { return '<p>' + n + '</p>'; }).join('') + '</div>';
     box.innerHTML = out;

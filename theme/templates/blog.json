@@ -23,9 +23,16 @@
     "projects": {
       "type": "ms-projects",
       "settings": {}
+    },
+    "pronav": {
+      "type": "ms-pro-nav",
+      "settings": {
+        "current": "portfolio"
+      }
     }
   },
   "order": [
+    "pronav",
     "s01",
     "projects",
     "s02",

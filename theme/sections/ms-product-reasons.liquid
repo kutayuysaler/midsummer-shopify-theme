@@ -58,6 +58,23 @@
   var dims = JSON.parse(document.currentScript.previousElementSibling.textContent);
   var chips = root.querySelectorAll('[data-ms-size]');
   var sz = root.querySelector('[data-ms-sz]'), cur = null, raf = 0;
+  var own = window.MS_SIZES;
+  function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); }
+  if (own && own.length > 1 && chips.length) {
+    var holder = chips[0].parentNode, proto = chips[0].cloneNode(false);
+    Array.prototype.forEach.call(chips, function (c) { c.parentNode.removeChild(c); });
+    dims = own.map(function (o) { return [o.w, o.l, o.note]; });
+    own.forEach(function (o) { var b = proto.cloneNode(false); b.textContent = o.name || (o.w + ' × ' + o.l); holder.appendChild(b); });
+    chips = holder.querySelectorAll('[data-ms-size]');
+    if (!root.id) root.id = 'ms-sizes';
+    var dd = document.querySelector('[data-ms-dims]'), dbox = document.querySelector('[data-ms-desc]');
+    if (dd) {
+      var ln = (dbox && dbox.getAttribute('data-l-sizes')) || '[n] sizes', see = (dbox && dbox.getAttribute('data-l-see')) || 'See each size, drawn';
+      var keep = Array.prototype.filter.call(dd.querySelectorAll('p'), function (p) { return !/\d\s*[×x]\s*\d/.test(p.textContent); }).map(function (p) { return p.outerHTML; }).join('');
+      dd.innerHTML = '<p>' + esc(ln.replace('[n]', own.length)) + ': ' + own.map(function (o) { return esc(o.name || (o.w + ' × ' + o.l)); }).join(' · ') + '</p>' + keep +
+        '<p class="ms-pm__tosizes"><a href="#' + root.id + '">' + esc(see) + ' ↓</a></p>';
+    }
+  }
       var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
       var big = dims.reduce(function (m, d) { return [Math.max(m[0], +d[0] || 0), Math.max(m[1], +d[1] || 0)]; }, [0, 0]);
       var S = Math.min(150 / (big[0] || 200), 136 / (big[1] || 210)), CX = 110, TOP = 14;
@@ -97,10 +114,11 @@
     var d = dims[i] || [160, 200];
     draw(d);
     var nm = root.querySelector('[data-ms-size-name]'); if (nm && chips[i]) nm.textContent = chips[i].textContent;
-    var fg = root.querySelector('[data-ms-size-figure]'); if (fg) fg.textContent = d[0] + ' × ' + d[1] + ' cm';
+    var fg = root.querySelector('[data-ms-size-figure]'); if (fg) fg.textContent = d[0] + ' × ' + d[1] + ' cm' + (d[2] ? ' · ' + d[2] : '');
   }
   chips.forEach(function (c, k) { c.addEventListener('click', function () { pick(k); }); });
   var start = 0; chips.forEach(function (c, k) { if (c.textContent.trim() === 'Small Double') start = k; });
+  if (own && own.length > 1) { start = 0; dims.forEach(function (d, k) { if (!start && +d[0] >= 160 && +d[0] <= 180) start = k; }); }
   pick(start);
 })();
 </script>

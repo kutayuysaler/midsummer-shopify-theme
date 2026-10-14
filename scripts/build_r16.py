@@ -38,11 +38,13 @@ for _f in glob.glob(THEME + '/assets/ms-part-*.jpg'):
         os.remove(_f)
 # which photograph each card shows: a system photographed has its own; the boxsprings alone the
 # studio's; every other the house's photographs of a topper, a mattress, a boxspring
+# (topper, mattress, boxspring): within a bed, three different photographs (Round 17); where a bed's own
+# photographs repeat one another, the house's photograph of that part stands in
 PART_PHOTOS = {
-    'roma': ('roma', 'roma', 'roma'), 'topper-roma': ('roma', 'roma', 'roma'),
+    'roma': ('roma', 'roma', 'studio'), 'topper-roma': ('roma', 'roma', 'studio'),
     'flora': ('flora', 'flora', 'flora'), 'paisley': ('paisley', 'paisley', 'paisley'),
-    'first-dream': ('firstdream', 'firstdream', 'firstdream'), 'base-first-dream': ('firstdream', 'firstdream', 'firstdream'),
-    'dreamy-2': ('dreamy', 'dreamy', 'dreamy'), 'dreamy-springs': ('dreamy', 'dreamy', 'dreamy'), 'base-dreamy-springs': ('dreamy', 'dreamy', 'dreamy'),
+    'first-dream': ('firstdream', 'detail', 'firstdream'), 'base-first-dream': ('firstdream', 'detail', 'firstdream'),
+    'dreamy-2': ('dreamy', 'detail', 'dreamy'), 'dreamy-springs': ('dreamy', 'detail', 'dreamy'), 'base-dreamy-springs': ('dreamy', 'detail', 'dreamy'),
     'base': ('dreamy', 'detail', 'studio'), 'base-my-dream': ('dreamy', 'detail', 'studio'), 'base-top-dream': ('dreamy', 'detail', 'studio'),
     'base-storage': ('dreamy', 'detail', 'studio'),
 }

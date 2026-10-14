@@ -432,7 +432,10 @@
       "facts_finishings": "Finishings",
       "facts_care": "Care",
       "facts_order": "Made to order",
-      "more_at": "More at"
+      "more_at": "More at",
+      "sizes_n": "[n] sizes",
+      "sizes_see": "See each size, drawn",
+      "award_gpa": "Awarded in Berlin for its plant-based materials and seasonal construction."
     }
   }
 }
