@@ -7,6 +7,12 @@
 {%- endcomment -%}
 {%- liquid
   assign s = section.settings
+  # the two ways of looking at a collection (Shopify takes at most forty settings a section)
+  assign tx_gallery = 'Gallery'
+  if s.grid_label != blank and s.grid_label != 'Grid'
+    assign tx_gallery = s.grid_label
+  endif
+  assign tx_index = 'Index'
   assign kh = collection.handle
   if kh == 'icon'
     assign kh = 'icons'
@@ -60,8 +66,11 @@
   </div>
   {%- endif -%}
 
-  {%- if n_sys > 1 -%}
-  <div class="ms-sy__bar">
+  {%- assign show_views = false -%}
+  {%- if collection.products.size > 3 or n_sys > 1 -%}{%- assign show_views = true -%}{%- endif -%}
+  {%- if show_views -%}
+  <div class="ms-sy__bar{% if n_sys <= 1 %} ms-sy__bar--views{% endif %}">
+    {%- if n_sys > 1 -%}
     <div class="ms-sy__needs" role="group" aria-label="{{ s.need_label | escape }}">
       <span class="ms-sy__ask">{{ s.need_label }}</span>
       <button type="button" class="is-on" data-need="" aria-pressed="true">{{ s.all_label }}</button>
@@ -71,11 +80,15 @@
       <button type="button" data-need="breathability" aria-pressed="false">{{ s.breathability_label }}</button>
       <button type="button" data-need="hypoallergenic" aria-pressed="false">{{ s.hypoallergenic_label }}</button>
     </div>
+    {%- endif -%}
     <div class="ms-sy__views" role="group" aria-label="{{ s.view_label | escape }}">
-      <button type="button" class="is-on" data-sy-view="grid" aria-pressed="true">{{ s.grid_label }}</button>
-      <button type="button" data-sy-view="table" aria-pressed="false">{{ s.compare_label }}</button>
+      <button type="button" class="is-on" data-sy-view="grid" aria-pressed="true"><svg viewBox="0 0 14 14" width="13" height="13" aria-hidden="true"><path d="M1 1h7v7H1zM10 1h3v4h-3zM10 7h3v6h-3zM1 10h7v3H1z" fill="none" stroke="currentColor" stroke-width="1"/></svg>{{ tx_gallery }}</button>
+      <button type="button" data-sy-view="index" aria-pressed="false"><svg viewBox="0 0 14 14" width="13" height="13" aria-hidden="true"><path d="M1 2.5h12M1 7h12M1 11.5h12" fill="none" stroke="currentColor" stroke-width="1"/></svg>{{ tx_index }}</button>
+      {%- if n_sys > 1 -%}<button type="button" data-sy-view="table" aria-pressed="false"><svg viewBox="0 0 14 14" width="13" height="13" aria-hidden="true"><path d="M1 1.5h12v11H1zM1 5h12M5 1.5v11" fill="none" stroke="currentColor" stroke-width="1"/></svg>{{ s.compare_label }}</button>{%- endif -%}
     </div>
   </div>
+  {%- endif -%}
+  {%- if n_sys > 1 -%}
   <p class="ms-sy__hint" data-sy-hint aria-live="polite">{{ s.hint_all }}</p>
   <template data-sy-hints>
     <span data-k="">{{ s.hint_all }}</span>
@@ -88,7 +101,10 @@
   {%- endif -%}
 
   {%- paginate collection.products by 48 -%}
-  <div class="ms-sy__grid{% if collection.products.size == 1 %} ms-sy__grid--one{% else %} ms-sy__grid--track{% endif %}" data-sy-panel="grid"{% if collection.products.size > 1 %} data-sy-track tabindex="0" role="region" aria-label="{{ collection.title | escape }}"{% endif %}>
+  {%- comment -%} the gallery: a register in a rhythm of ten, a wide photograph and an upright one, three
+    in a row, then the pair the other way round, three again; the filters keep the rhythm (below) {%- endcomment -%}
+  {%- assign rhythm = 'xl a,l a,s,s,s,l c,xl c,s,s,s' | split: ',' -%}
+  <div class="ms-sy__grid{% if collection.products.size == 1 %} ms-sy__grid--one{% else %} ms-sy__grid--ed{% endif %}" data-sy-panel="grid" data-sy-ed>
     {%- for product in collection.products -%}
       {%- capture mk -%}{% render 'ms-kind', p: product %}{%- endcapture -%}{%- assign mkp = mk | split: '|' -%}{%- capture facts -%}{% render 'ms-system-facts', key: mkp[1], handle: '', title: product.title %}{%- endcapture -%}
       {%- assign fparts = facts | split: '~' -%}
@@ -134,10 +150,24 @@
         endunless
         assign wi = 'with_' | append: what
       -%}
-      <a href="{{ product.url }}" class="ms-sy__card" data-q="{{ quals }}" data-kind="{{ what }}">
+      {%- liquid
+        assign ri = forloop.index0 | modulo: 10
+        assign rz = rhythm[ri] | split: ' '
+        assign no = forloop.index
+        if no < 10
+          assign no = '0' | append: no
+        endif
+        capture cloth
+          render 'ms-cloth-swatch', key: mkp[1], kind: mkp[0]
+        endcapture
+        assign cloth = cloth | strip | split: '^'
+      -%}
+      <a href="{{ product.url }}" class="ms-sy__card is-{{ rz[0] }}{% if rz[1] %} is-{{ rz[1] }}{% endif %}" data-q="{{ quals }}" data-kind="{{ what }}">
+        <span class="ms-sy__num" data-sy-no>{{ no }}</span>
         {%- if product.featured_media -%}
           <span class="ms-card__img">
-            <img alt="{{ product.featured_media.alt | default: product.title | escape }}" src="{{ product.featured_media | image_url: width: 900 }}" srcset="{{ product.featured_media | image_url: width: 600 }} 600w, {{ product.featured_media | image_url: width: 900 }} 900w, {{ product.featured_media | image_url: width: 1400 }} 1400w" sizes="{% if collection.products.size == 1 %}(max-width: 760px) 100vw, 55vw{% else %}(max-width: 760px) 50vw, 30vw{% endif %}" loading="{% if forloop.index > 4 %}lazy{% else %}eager{% endif %}" width="900" height="1125">
+            {%- if cloth[0] != blank -%}<span class="ms-sy__sw" style="background-image: url('{{ cloth[0] | asset_url }}');" title="{{ cloth[1] | escape }}" aria-hidden="true"></span>{%- endif -%}
+            <img alt="{{ product.featured_media.alt | default: product.title | escape }}" src="{{ product.featured_media | image_url: width: 900 }}" srcset="{{ product.featured_media | image_url: width: 600 }} 600w, {{ product.featured_media | image_url: width: 900 }} 900w, {{ product.featured_media | image_url: width: 1400 }} 1400w" sizes="{% if collection.products.size == 1 or rz[0] == 'xl' %}(max-width: 760px) 100vw, 58vw{% else %}(max-width: 760px) 50vw, 32vw{% endif %}" loading="{% if forloop.index > 4 %}lazy{% else %}eager{% endif %}" width="900" height="1125">
           </span>
         {%- else -%}
           <span class="ms-card__img ms-sy__blank"></span>
@@ -165,12 +195,46 @@
       <p class="ms-sy__empty">{{ s.empty }}</p>
     {%- endfor -%}
   </div>
-  {%- if collection.products.size > 1 -%}
-  <div class="ms-sy__rail" data-sy-panel="grid" data-sy-rail>
-    <span class="ms-sy__count"><b data-sy-at>01</b><span> / </span><span data-sy-of>{{ collection.products.size }}</span></span>
-    <span class="ms-sy__prog" aria-hidden="true"><i data-sy-prog></i></span>
-    <button type="button" class="ms-sy__arrow" data-sy-prev aria-label="{{ 'Previous' }}"><svg viewBox="0 0 20 10" width="20" height="10" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><path d="M20 5H2M6 1L2 5l4 4"/></svg></button>
-    <button type="button" class="ms-sy__arrow" data-sy-next aria-label="{{ 'Next' }}"><svg viewBox="0 0 20 10" width="20" height="10" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><path d="M0 5h18M14 1l4 4-4 4"/></svg></button>
+  {%- if show_views -%}
+  {%- comment -%} the index: the collection as a list, name by name; with a mouse, the photograph follows {%- endcomment -%}
+  <div class="ms-sy__index" data-sy-panel="index" hidden>
+    <ol class="ms-sy__rows" role="list">
+      {%- for product in collection.products -%}
+        {%- capture mk -%}{% render 'ms-kind', p: product %}{%- endcapture -%}{%- assign mkp = mk | split: '|' -%}{%- capture facts -%}{% render 'ms-system-facts', key: mkp[1], handle: '', title: product.title %}{%- endcapture -%}
+        {%- assign fparts = facts | split: '~' -%}
+        {%- assign quals = fparts[1] | strip -%}
+        {%- liquid
+          assign what = mkp[0]
+          if what == 'system'
+            capture what
+              render 'ms-what', key: mkp[1]
+            endcapture
+            assign what = what | strip | default: 'system'
+          endif
+          assign wl = 'what_' | append: what
+          assign no = forloop.index
+          if no < 10
+            assign no = '0' | append: no
+          endif
+          capture cloth
+            render 'ms-cloth-swatch', key: mkp[1], kind: mkp[0]
+          endcapture
+          assign cloth = cloth | strip | split: '^'
+        -%}
+        <li data-q="{{ quals }}" data-kind="{{ what }}">
+          <a href="{{ product.url }}" class="ms-sy__row"{% if product.featured_media %} data-peek="{{ product.featured_media | image_url: width: 700 }}"{% endif %}>
+            <span class="ms-sy__rno" data-sy-no>{{ no }}</span>
+            <span class="ms-sy__rimg">{%- if product.featured_media -%}<img src="{{ product.featured_media | image_url: width: 200 }}" alt="" width="64" height="80" loading="lazy">{%- endif -%}</span>
+            <span class="ms-sy__rname">{{ product.title }}</span>
+            <span class="ms-sy__rwhat">{% render 'ms-kind-glyph', kind: what %}{{ s[wl] }}</span>
+            <span class="ms-sy__rcloth">{%- if cloth[0] != blank -%}<i style="background-image: url('{{ cloth[0] | asset_url }}');" aria-hidden="true"></i>{{ cloth[1] }}{%- endif -%}</span>
+            <span class="ms-sy__rprice">{%- if settings.ms_show_prices -%}{% if product.price_varies %}{%- assign from_price = product.price_min | money -%}{{ 'ms.product.price_from' | t: price: from_price }}{% else %}{{ product.price | money }}{% endif %}{%- elsif settings.ms_price_from and product.price_min > 0 -%}{%- assign from_price = product.price_min | money -%}{{ 'ms.product.price_from' | t: price: from_price }}{%- endif -%}</span>
+            <svg class="ms-sy__rgo" viewBox="0 0 20 10" width="20" height="10" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><path d="M0 5h18M14 1l4 4-4 4"/></svg>
+          </a>
+        </li>
+      {%- endfor -%}
+    </ol>
+    <figure class="ms-sy__peek" aria-hidden="true"><img alt="" width="350" height="440"></figure>
   </div>
   {%- endif -%}
 
@@ -247,29 +311,61 @@
   .ms-sy__needs button:hover, .ms-sy__views button:hover { color: #17140F; }
   .ms-sy__needs button.is-on, .ms-sy__views button.is-on { color: #17140F; border-bottom-color: #17140F; }
   .ms-sy__views { display: flex; gap: 2px; }
+  .ms-sy__views button { display: inline-flex; align-items: center; gap: 8px; }
+  .ms-sy__bar--views { justify-content: flex-end; }
   .ms-sy__hint { font-family: Newsreader, Georgia, serif; font-weight: 200; font-size: clamp(18px, 1.7vw, 22px); line-height: 1.5; color: #4A443B; max-width: 62ch; margin: 22px 0 clamp(30px, 3.6vw, 52px); min-height: 3em; }
   .ms-sy__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(44px, 5vw, 80px) clamp(18px, 2.6vw, 40px); }
-  /* the products as one horizontal line: snap, drag and a rail beneath */
-  .ms-sy__grid.ms-sy__grid--track { --sy-gap: clamp(18px, 2.4vw, 36px); position: relative; grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: calc((100% - 3 * var(--sy-gap)) / 3.35); column-gap: var(--sy-gap);
-    overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; padding-bottom: 6px; outline: none;
-    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 90px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 90px), transparent); transition: -webkit-mask-image .3s; }
-  .ms-sy__grid--track::-webkit-scrollbar { display: none; }
-  .ms-sy__grid--track.is-end { -webkit-mask-image: none; mask-image: none; }
-  .ms-sy__grid--track > .ms-sy__card { scroll-snap-align: start; }
-  .ms-sy__grid--track > .ms-sy__empty { grid-column: 1 / -1; }
-  @media (hover: hover) and (pointer: fine) { .ms-sy__grid--track { cursor: grab; } .ms-sy__grid--track.is-drag { cursor: grabbing; scroll-snap-type: none; scroll-behavior: auto; } .ms-sy__grid--track.is-drag .ms-sy__card { pointer-events: none; } }
-  .ms-sy__grid--track:focus-visible { outline: 1px solid #17140F; outline-offset: 8px; }
-  .ms-sy__rail { display: flex; align-items: center; gap: clamp(14px, 2vw, 24px); margin-top: clamp(26px, 3vw, 40px); }
-  .ms-sy__rail[hidden] { display: none; }
-  .ms-sy__count { font-family: Newsreader, Georgia, serif; font-size: 15px; color: #9A8F7E; min-width: 64px; font-variant-numeric: tabular-nums; }
-  .ms-sy__count b { font-weight: 400; color: #17140F; }
-  .ms-sy__prog { position: relative; flex: 1 1 auto; height: 1px; background: #DDD6C9; overflow: hidden; }
-  .ms-sy__prog i { position: absolute; inset: 0; background: #17140F; transform-origin: 0 50%; transform: scaleX(.1); transition: transform .35s cubic-bezier(.22, 1, .36, 1); }
-  .ms-sy__arrow { width: 46px; height: 46px; border-radius: 50%; border: 1px solid #CFC6B6; background: none; color: #17140F; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: background .25s, color .25s, border-color .25s, opacity .25s; }
-  .ms-sy__arrow:hover:not(:disabled) { background: #17140F; color: #FBF9F5; border-color: #17140F; }
-  .ms-sy__arrow:disabled { opacity: .3; cursor: default; }
-  @media (max-width: 1080px) and (min-width: 761px) { .ms-sy__grid.ms-sy__grid--track { grid-template-columns: none; grid-auto-columns: calc((100% - 2 * var(--sy-gap)) / 2.3); } }
-  @media (max-width: 760px) { .ms-sy__grid.ms-sy__grid--track { grid-template-columns: none; grid-auto-columns: 78%; column-gap: 14px; -webkit-mask-image: none; mask-image: none; } .ms-sy__arrow { width: 40px; height: 40px; } }
+  /* the register: a gallery in a rhythm of ten (rows of a wide and an upright photograph, then three),
+     each numbered, with a pinked cut of its own cloth on the photograph */
+  .ms-sy__grid.ms-sy__grid--ed { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: clamp(56px, 6.4vw, 104px) clamp(16px, 2vw, 32px); align-items: start; }
+  .ms-sy__grid--ed > .ms-sy__card { grid-column: span 4; position: relative; }
+  .ms-sy__grid--ed > .ms-sy__card.is-xl.is-a { grid-column: 1 / span 7; }
+  .ms-sy__grid--ed > .ms-sy__card.is-l.is-a { grid-column: 9 / span 4; margin-top: clamp(48px, 9vw, 150px); }
+  .ms-sy__grid--ed > .ms-sy__card.is-l.is-c { grid-column: 1 / span 4; margin-top: clamp(48px, 9vw, 150px); }
+  .ms-sy__grid--ed > .ms-sy__card.is-xl.is-c { grid-column: 6 / span 7; }
+  .ms-sy__grid--ed > .ms-sy__card.is-solo { grid-column: 1 / span 7; margin-top: 0; }
+  .ms-sy__grid--ed > .ms-sy__empty { grid-column: 1 / -1; }
+  .ms-sy__grid--ed .ms-sy__card.is-xl .ms-card__img img { aspect-ratio: 4 / 3; }
+  .ms-sy__grid--ed .ms-sy__card.is-xl .ms-sy__name { font-size: clamp(30px, 3vw, 44px); }
+  .ms-sy__grid--ed .ms-sy__card.is-xl .ms-sy__sub { font-size: 14.5px; max-width: 46ch; }
+  .ms-sy__num { display: block; font-family: Newsreader, Georgia, serif; font-size: 15px; color: #9A8F7E; font-variant-numeric: tabular-nums; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid #E4DDD1; transition: color .4s, border-color .4s; }
+  .ms-sy__card:hover .ms-sy__num { color: #17140F; border-color: #17140F; }
+  .ms-sy__grid--one .ms-sy__num { display: none; }
+  .ms-sy__sw { --z: 4px; position: absolute; left: 14px; bottom: 14px; z-index: 1; width: 46px; aspect-ratio: 3 / 2; background-size: 140%; background-position: center; box-shadow: 0 0 0 1px rgba(251, 249, 245, .5);
+    -webkit-mask: conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) top / var(--z) 51% repeat-x, conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / var(--z) 51% repeat-x;
+    mask: conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) top / var(--z) 51% repeat-x, conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / var(--z) 51% repeat-x;
+    filter: drop-shadow(0 4px 6px rgba(23, 20, 15, .25)); transition: transform .6s cubic-bezier(.22, 1, .36, 1); }
+  .ms-sy__card:hover .ms-sy__sw { transform: translateY(-3px) rotate(-2deg); }
+  .ms-sy__card.is-xl .ms-sy__sw { width: 62px; left: 18px; bottom: 18px; }
+  /* the index: name by name, the photograph following the mouse */
+  .ms-sy__rows { list-style: none; margin: 0; padding: 0; border-top: 1px solid #17140F; }
+  .ms-sy__rows li[hidden] { display: none; }
+  .ms-site .ms-sy__row { display: grid; grid-template-columns: 48px minmax(0, 2.2fr) minmax(0, 1.3fr) minmax(0, 2fr) minmax(0, 1fr) 24px; gap: 22px; align-items: center; padding: 22px 0; border-bottom: 1px solid #E4DDD1; color: #17140F; transition: padding .45s cubic-bezier(.22, 1, .36, 1), background .3s; }
+  .ms-sy__rno { font-family: Newsreader, Georgia, serif; font-size: 14px; color: #9A8F7E; font-variant-numeric: tabular-nums; }
+  .ms-sy__rimg { display: none; }
+  .ms-sy__rname { font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: clamp(24px, 2.4vw, 36px); line-height: 1.1; letter-spacing: -0.02em; }
+  .ms-sy__rwhat { display: flex; align-items: center; gap: 10px; font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: #7E623B; }
+  .ms-sy__rwhat .ms-kg { color: #7E623B; }
+  .ms-sy__rcloth { display: flex; align-items: center; gap: 10px; font-size: 12.5px; line-height: 1.45; color: #6E675C; }
+  .ms-sy__rcloth i { flex: 0 0 auto; width: 26px; height: 26px; border-radius: 50%; background-size: 160%; background-position: center; box-shadow: 0 0 0 1px rgba(23, 20, 15, .1); }
+  .ms-sy__rprice { font-size: 12.5px; letter-spacing: .06em; color: #6E675C; text-align: right; }
+  .ms-sy__rgo { justify-self: end; opacity: .35; transition: opacity .3s, transform .45s cubic-bezier(.22, 1, .36, 1); }
+  @media (hover: hover) {
+    .ms-sy__row:hover { padding-left: 14px; padding-right: 6px; background: #F6F1EA; }
+    .ms-sy__row:hover .ms-sy__rgo { opacity: 1; transform: translateX(4px); }
+  }
+  .ms-sy__peek { position: fixed; left: 0; top: 0; z-index: 30; width: 260px; aspect-ratio: 4 / 5; margin: 0; pointer-events: none; opacity: 0; transform: translate(-50%, -50%) scale(.92); transition: opacity .35s ease, transform .5s cubic-bezier(.22, 1, .36, 1); box-shadow: 0 26px 50px -20px rgba(23, 20, 15, .45); }
+  .ms-sy__peek img { width: 100%; height: 100%; object-fit: cover; display: block; background: #F1ECE3; }
+  .ms-sy__peek.is-on { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  @media (hover: none), (max-width: 900px) { .ms-sy__peek { display: none; } }
+  @media (max-width: 1080px) and (min-width: 761px) {
+    .ms-sy__grid.ms-sy__grid--ed { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .ms-sy__grid--ed > .ms-sy__card, .ms-sy__grid--ed > .ms-sy__card.is-l.is-a, .ms-sy__grid--ed > .ms-sy__card.is-l.is-c { grid-column: auto; margin-top: 0; }
+    .ms-sy__grid--ed > .ms-sy__card.is-xl.is-a, .ms-sy__grid--ed > .ms-sy__card.is-xl.is-c, .ms-sy__grid--ed > .ms-sy__card.is-solo { grid-column: 1 / -1; }
+    .ms-site .ms-sy__row { grid-template-columns: 40px 64px minmax(0, 2fr) minmax(0, 1.6fr) minmax(0, 1fr) 20px; }
+    .ms-sy__rimg { display: block; } .ms-sy__rimg img { width: 64px; height: 80px; object-fit: cover; display: block; }
+    .ms-sy__rcloth { display: none; }
+  }
   .ms-sy__kinds { display: flex; flex-wrap: wrap; gap: 8px; margin-top: clamp(24px, 3vw, 40px); }
   .ms-sy__kinds button { display: inline-flex; align-items: center; gap: 10px; background: none; border: 1px solid #DDD6C9; padding: 10px 16px 10px 12px; font: inherit; font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: #4A443B; cursor: pointer; transition: border-color .3s, color .3s, background .3s; }
   .ms-sy__kinds button span { font-family: Newsreader, Georgia, serif; font-size: 13px; letter-spacing: 0; color: #9A8F7E; }
@@ -320,9 +416,21 @@
   .ms-sy__help { display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px 28px; margin-top: clamp(48px, 6vw, 88px); padding-top: 24px; border-top: 1px solid #DDD6C9; }
   .ms-sy__help p { font-family: Newsreader, Georgia, serif; font-size: 19px; font-weight: 300; color: #17140F; margin: 0 auto 0 0; }
   .ms-site .ms-sy__help a { font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: #17140F; border-bottom: 1px solid currentColor; padding-bottom: 3px; }
-  @media (max-width: 1080px) and (min-width: 761px) { .ms-sy__grid:not(.ms-sy__grid--track) { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 1080px) and (min-width: 761px) { .ms-sy__grid:not(.ms-sy__grid--ed):not(.ms-sy__grid--one) { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 760px) {
-    .ms-sy__grid:not(.ms-sy__grid--track) { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 34px 14px; }
+    .ms-sy__grid:not(.ms-sy__grid--one), .ms-sy__grid.ms-sy__grid--ed { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 14px; }
+    .ms-sy__grid--ed > .ms-sy__card, .ms-sy__grid--ed > .ms-sy__card.is-l.is-a, .ms-sy__grid--ed > .ms-sy__card.is-l.is-c { grid-column: auto; margin-top: 0; }
+    .ms-sy__grid--ed > .ms-sy__card.is-xl.is-a, .ms-sy__grid--ed > .ms-sy__card.is-xl.is-c, .ms-sy__grid--ed > .ms-sy__card.is-solo { grid-column: 1 / -1; }
+    .ms-sy__grid--ed .ms-sy__card.is-xl .ms-sy__name { font-size: 26px; }
+    .ms-sy__num { font-size: 12px; margin-bottom: 8px; padding-bottom: 6px; }
+    .ms-sy__sw { width: 34px; left: 8px; bottom: 8px; }
+    .ms-sy__card.is-xl .ms-sy__sw { width: 44px; left: 12px; bottom: 12px; }
+    .ms-site .ms-sy__row { grid-template-columns: 26px 56px minmax(0, 1fr) 16px; gap: 12px; padding: 14px 0; }
+    .ms-sy__rimg { display: block; } .ms-sy__rimg img { width: 56px; height: 70px; object-fit: cover; display: block; }
+    .ms-sy__rname { font-size: 22px; }
+    .ms-sy__rwhat, .ms-sy__rcloth { display: none; }
+    .ms-sy__rprice { grid-column: 3; text-align: left; margin-top: -6px; font-size: 11.5px; }
+    .ms-sy__rgo { grid-row: 1; grid-column: 4; }
     .ms-sy__what { gap: 6px; font-size: 9.5px; letter-spacing: .16em; margin-top: 14px; flex-wrap: wrap; }
     .ms-sy__what .ms-kg { width: 26px; height: 16px; }
     .ms-sy__tier::before { margin-right: 6px; }
@@ -386,58 +494,38 @@
 </script>
 <script>
   (function () {
-    document.querySelectorAll('[data-sy-track]:not([data-sy-on])').forEach(function (track) {
-      track.setAttribute('data-sy-on', '');
-      var root = track.closest('[data-ms-sy]') || document;
-      var rail = root.querySelector('[data-sy-rail]');
-      var at = rail && rail.querySelector('[data-sy-at]'), of = rail && rail.querySelector('[data-sy-of]'), prog = rail && rail.querySelector('[data-sy-prog]');
-      var prev = rail && rail.querySelector('[data-sy-prev]'), next = rail && rail.querySelector('[data-sy-next]');
-      function cards() { return Array.prototype.filter.call(track.children, function (c) { return c.classList.contains('ms-sy__card') && !c.hidden; }); }
+    document.querySelectorAll('[data-ms-sy]:not([data-sy-reg])').forEach(function (root) {
+      root.setAttribute('data-sy-reg', '');
+      // the rhythm and the numbers follow what is shown, so a filtered register reads as one
+      var R = [['xl', 'a'], ['l', 'a'], ['s'], ['s'], ['s'], ['l', 'c'], ['xl', 'c'], ['s'], ['s'], ['s']];
+      var grid = root.querySelector('[data-sy-ed]');
       function pad(n) { return (n < 10 ? '0' : '') + n; }
-      function step() { var c = cards(); if (c.length < 2) return track.clientWidth; return c[1].offsetLeft - c[0].offsetLeft; }
-      var raf = 0;
-      function update() {
-        raf = 0;
-        var max = track.scrollWidth - track.clientWidth, x = track.scrollLeft, list = cards();
-        var p = max > 4 ? Math.min(1, x / max) : 1;
-        var shown = Math.max(1, Math.round(track.clientWidth / Math.max(1, step())));
-        if (prog) prog.style.transform = 'scaleX(' + Math.max(shown / Math.max(list.length, 1), p).toFixed(4) + ')';
-        var i = 0; for (var k = 0; k < list.length; k++) { if (list[k].offsetLeft - list[0].offsetLeft <= x + 8) i = k; }
-        if (at) at.textContent = pad(Math.min(list.length, i + 1));
-        if (of) of.textContent = pad(list.length);
-        if (prev) prev.disabled = x <= 4;
-        if (next) next.disabled = x >= max - 4;
-        track.classList.toggle('is-end', x >= max - 4);
-        if (rail) rail.hidden = max <= 4;
-      }
-      function soon() { if (!raf) raf = requestAnimationFrame(update); }
-      track.addEventListener('scroll', soon, { passive: true });
-      window.addEventListener('resize', soon);
-      if (prev) prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
-      if (next) next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); });
-      // the filters show and hide cards: the rail follows
-      if (window.MutationObserver) new MutationObserver(function () { track.scrollLeft = 0; soon(); }).observe(track, { subtree: true, attributes: true, attributeFilter: ['hidden'] });
-      // with a mouse, the line can be drawn along by hand; a drag is not a click
-      var down = false, moved = false, sx = 0, sl = 0;
-      track.addEventListener('pointerdown', function (e) { if (e.pointerType !== 'mouse' || e.button !== 0) return; down = true; moved = false; sx = e.clientX; sl = track.scrollLeft; });
-      window.addEventListener('pointermove', function (e) {
-        if (!down) return;
-        var dx = e.clientX - sx;
-        if (!moved && Math.abs(dx) > 6) { moved = true; track.classList.add('is-drag'); }
-        if (moved) { track.scrollLeft = sl - dx; e.preventDefault(); }
-      });
-      window.addEventListener('pointerup', function () {
-        if (!down) return; down = false;
-        if (moved) {
-          track.classList.remove('is-drag');
-          var s = step(), target = Math.round(track.scrollLeft / s) * s;
-          track.scrollTo({ left: target, behavior: 'smooth' });
-          track.addEventListener('click', function stop(ev) { ev.preventDefault(); ev.stopPropagation(); track.removeEventListener('click', stop, true); }, true);
-          setTimeout(function () { moved = false; }, 0);
+      function reflow() {
+        if (grid && grid.classList.contains('ms-sy__grid--ed')) {
+          var cards = Array.prototype.filter.call(grid.children, function (c) { return c.classList.contains('ms-sy__card') && !c.hidden; });
+          cards.forEach(function (c, i) {
+            c.classList.remove('is-xl', 'is-l', 'is-s', 'is-a', 'is-c', 'is-solo');
+            var z = R[i % 10];
+            if (cards.length === 1) z = ['xl', 'solo'];
+            c.classList.add('is-' + z[0]); if (z[1]) c.classList.add('is-' + z[1]);
+            var no = c.querySelector('[data-sy-no]'); if (no) no.textContent = pad(i + 1);
+          });
         }
-      });
-      track.addEventListener('dragstart', function (e) { e.preventDefault(); });
-      update();
+        var rows = root.querySelectorAll('.ms-sy__rows > li:not([hidden]) [data-sy-no]');
+        Array.prototype.forEach.call(rows, function (n, i) { n.textContent = pad(i + 1); });
+      }
+      if (window.MutationObserver) new MutationObserver(reflow).observe(root, { subtree: true, attributes: true, attributeFilter: ['hidden'] });
+      // the index: the photograph of the row under the mouse, beside it
+      var peek = root.querySelector('.ms-sy__peek'), img = peek && peek.querySelector('img');
+      if (peek && window.matchMedia('(hover: hover) and (min-width: 901px)').matches) {
+        var x = 0, y = 0, raf = 0;
+        function place() { raf = 0; peek.style.left = (x + 170) + 'px'; peek.style.top = y + 'px'; }
+        root.querySelectorAll('[data-peek]').forEach(function (a) {
+          a.addEventListener('mouseenter', function () { if (img.getAttribute('src') !== a.getAttribute('data-peek')) img.src = a.getAttribute('data-peek'); peek.classList.add('is-on'); });
+          a.addEventListener('mouseleave', function () { peek.classList.remove('is-on'); });
+          a.addEventListener('mousemove', function (e) { x = Math.min(e.clientX, window.innerWidth - 320); y = Math.max(160, Math.min(e.clientY, window.innerHeight - 160)); if (!raf) raf = requestAnimationFrame(place); });
+        });
+      }
     });
   })();
 </script>

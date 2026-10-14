@@ -1,0 +1,126 @@
+{%- comment -%}
+  Loro Piana Interiors, season by season: a winter face in wool and cashmere and a summer face in
+  linen, the two cloths side by side. Choose a season and its cloth opens wide, the other steps
+  back; the bed is turned when the season changes, not replaced.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+-%}
+<section class="ms-lps" data-ms-lps>
+  <div class="ms-lps__in">
+    <div class="ms-lps__head">
+      <div>
+        {%- if s.eyebrow != blank -%}<div class="ms-lps__eyebrow">{{ s.eyebrow }}</div>{%- endif -%}
+        <h2 class="ms-lps__title">{{ s.heading }}</h2>
+      </div>
+      <div class="ms-lps__aside">
+        {%- if s.text != blank -%}<p class="ms-lps__text">{{ s.text }}</p>{%- endif -%}
+        <div class="ms-lps__switch" role="group" aria-label="{{ s.heading | escape }}">
+          <button type="button" class="ms-lps__sb is-on" data-lps="winter" aria-pressed="true"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1.5v13M2.4 4.75l11.2 6.5M2.4 11.25l11.2-6.5M6.3 2.6 8 4.3l1.7-1.7M6.3 13.4 8 11.7l1.7 1.7" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>{{ s.winter_label }}</button>
+          <button type="button" class="ms-lps__sb" data-lps="summer" aria-pressed="false"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="8" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.4 1.4M11.55 11.55l1.4 1.4M3.05 12.95l1.4-1.4M11.55 4.45l1.4-1.4" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>{{ s.summer_label }}</button>
+        </div>
+      </div>
+    </div>
+    <div class="ms-lps__faces" data-on="winter">
+      {%- for side in (1..2) -%}
+        {%- liquid
+          if side == 1
+            assign key = 'winter'
+            assign img = s.winter_image
+            assign fb = s.winter_fallback
+            assign lab = s.winter_label
+            assign cloth = s.winter_cloth
+            assign note = s.winter_note
+          else
+            assign key = 'summer'
+            assign img = s.summer_image
+            assign fb = s.summer_fallback
+            assign lab = s.summer_label
+            assign cloth = s.summer_cloth
+            assign note = s.summer_note
+          endif
+        -%}
+        <figure class="ms-lps__face ms-lps__face--{{ key }}{% if side == 1 %} is-on{% endif %}" data-lps-face="{{ key }}">
+          <button type="button" class="ms-lps__pick" data-lps="{{ key }}" aria-label="{{ lab | escape }}" tabindex="-1"></button>
+          <span class="ms-lps__cloth"><img src="{% render 'ms-img', image: img, fallback: fb, width: 1400 %}" alt="{{ cloth | escape }}" width="1400" height="1000" loading="lazy"></span>
+          <figcaption class="ms-lps__cap">
+            <span class="ms-lps__lab">{{ lab }}</span>
+            <span class="ms-lps__cn">{{ cloth }}</span>
+            {%- if note != blank -%}<span class="ms-lps__note">{{ note }}</span>{%- endif -%}
+          </figcaption>
+        </figure>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+<style>
+  .ms-lps { background: #EFE9E0; color: #17140F; padding: clamp(80px, 10vw, 150px) clamp(18px, 5vw, 80px); }
+  .ms-lps__in { max-width: 1440px; margin: 0 auto; }
+  .ms-lps__head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 6vw, 110px); align-items: end; }
+  .ms-lps__eyebrow { font-size: 10px; letter-spacing: .28em; text-transform: uppercase; color: #7E623B; }
+  .ms-lps__title { font-family: Newsreader, Georgia, serif; font-weight: 200; font-size: clamp(36px, 4.4vw, 64px); line-height: 1.02; letter-spacing: -0.03em; margin: 16px 0 0; }
+  .ms-lps__text { font-size: 14.5px; line-height: 1.9; color: #4A443B; margin: 0; max-width: 46ch; }
+  .ms-lps__switch { display: inline-flex; margin-top: 26px; border: 1px solid rgba(23, 20, 15, .22); border-radius: 999px; padding: 3px; }
+  .ms-lps__sb { display: inline-flex; align-items: center; gap: 9px; font: inherit; font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: #6E675C; background: none; border: 0; border-radius: 999px; padding: 10px 18px; cursor: pointer; transition: background .35s, color .35s; }
+  .ms-lps__sb.is-on { background: #17140F; color: #FBF9F5; }
+  .ms-lps__sb:focus-visible { outline: 1px solid #17140F; outline-offset: 3px; }
+  .ms-lps__faces { display: flex; gap: clamp(12px, 1.6vw, 24px); margin-top: clamp(40px, 5vw, 72px); height: clamp(360px, 42vw, 600px); }
+  .ms-lps__face { position: relative; margin: 0; flex: 1 1 0; min-width: 0; overflow: hidden; transition: flex-grow .9s cubic-bezier(.22, 1, .36, 1); }
+  .ms-lps__face.is-on { flex-grow: 1.9; }
+  .ms-lps__pick { position: absolute; inset: 0; z-index: 2; background: none; border: 0; cursor: pointer; }
+  .ms-lps__face.is-on .ms-lps__pick { cursor: default; }
+  .ms-lps__cloth { position: absolute; inset: 0; display: block; }
+  .ms-lps__cloth img { width: 100%; height: 100%; object-fit: cover; display: block; transform: scale(1.06); transition: transform 1.4s cubic-bezier(.22, 1, .36, 1), filter .9s; filter: saturate(.8) brightness(.94); }
+  .ms-lps__face.is-on .ms-lps__cloth img { transform: scale(1); filter: none; }
+  .ms-lps__cloth::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(23, 20, 15, 0) 45%, rgba(23, 20, 15, .55)); }
+  .ms-lps__cap { position: absolute; left: clamp(18px, 2.4vw, 36px); right: clamp(18px, 2.4vw, 36px); bottom: clamp(18px, 2.4vw, 34px); z-index: 1; color: #FBF9F5; display: grid; gap: 8px; }
+  .ms-lps__lab { font-size: 10px; letter-spacing: .26em; text-transform: uppercase; color: rgba(251, 249, 245, .82); }
+  .ms-lps__cn { font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: clamp(22px, 2.4vw, 34px); line-height: 1.1; letter-spacing: -0.015em; }
+  .ms-lps__note { font-size: 13px; line-height: 1.6; color: rgba(251, 249, 245, .8); max-width: 44ch; opacity: 0; transform: translateY(8px); transition: opacity .6s .25s, transform .6s .25s; }
+  .ms-lps__face.is-on .ms-lps__note { opacity: 1; transform: none; }
+  @media (max-width: 760px) {
+    .ms-lps__head { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+    .ms-lps__faces { flex-direction: column; height: auto; }
+    .ms-lps__face { flex: none; height: 230px; transition: height .8s cubic-bezier(.22, 1, .36, 1); }
+    .ms-lps__face.is-on { height: 340px; }
+    .ms-lps__note { opacity: 1; transform: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { .ms-lps__face, .ms-lps__cloth img, .ms-lps__note { transition: none; } }
+</style>
+<script>
+  (function () {
+    document.querySelectorAll('[data-ms-lps]').forEach(function (root) {
+      if (root.dataset.ready) return;
+      root.dataset.ready = '1';
+      function show(k) {
+        root.querySelectorAll('[data-lps-face]').forEach(function (f) { f.classList.toggle('is-on', f.getAttribute('data-lps-face') === k); });
+        root.querySelectorAll('.ms-lps__sb').forEach(function (b) { var on = b.getAttribute('data-lps') === k; b.classList.toggle('is-on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+        root.querySelector('.ms-lps__faces').setAttribute('data-on', k);
+      }
+      root.querySelectorAll('[data-lps]').forEach(function (b) { b.addEventListener('click', function () { show(b.getAttribute('data-lps')); }); });
+    });
+  })();
+</script>
+{% schema %}
+{
+  "name": "Loro Piana · Seasons",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Label", "default": "Seasonal upholstery" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Dressed for both seasons." },
+    { "type": "textarea", "id": "text", "label": "Text" },
+    { "type": "header", "content": "Winter face" },
+    { "type": "text", "id": "winter_label", "label": "Name", "default": "Winter face" },
+    { "type": "image_picker", "id": "winter_image", "label": "Cloth" },
+    { "type": "text", "id": "winter_fallback", "label": "Cloth address" },
+    { "type": "text", "id": "winter_cloth", "label": "Cloth line", "default": "Wool and cashmere" },
+    { "type": "textarea", "id": "winter_note", "label": "Where" },
+    { "type": "header", "content": "Summer face" },
+    { "type": "text", "id": "summer_label", "label": "Name", "default": "Summer face" },
+    { "type": "image_picker", "id": "summer_image", "label": "Cloth" },
+    { "type": "text", "id": "summer_fallback", "label": "Cloth address" },
+    { "type": "text", "id": "summer_cloth", "label": "Cloth line", "default": "Linen" },
+    { "type": "textarea", "id": "summer_note", "label": "Where" }
+  ],
+  "presets": [{ "name": "Loro Piana · Seasons" }]
+}
+{% endschema %}

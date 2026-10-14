@@ -209,25 +209,27 @@
                   if keys contains probe
                     unless seen contains tprobe
                       assign seen = seen | append: ep[2] | append: '^'
+                      case ep[4]
+                        when 'mattress'
+                          assign kl = s.kind_mattress
+                        when 'topper'
+                          assign kl = s.kind_topper
+                        else
+                          assign kl = s.kind_system
+                      endcase
+                      # every bed is listed; past the sixth they wait behind 'Show more'
                       if shown < 6
-                        case ep[4]
-                          when 'mattress'
-                            assign kl = s.kind_mattress
-                          when 'topper'
-                            assign kl = s.kind_topper
-                          else
-                            assign kl = s.kind_system
-                        endcase
                         echo '<a class="ms-fa__bed" href="' | append: ep[1] | append: '"><span class="ms-fa__bimg">'
-                        if ep[3] != blank
-                          assign bal = ep[2] | escape
-                          echo '<img src="' | append: ep[3] | append: '" alt="' | append: bal | append: '" width="120" height="120" loading="lazy">'
-                        endif
-                        echo '</span><span class="ms-fa__bn">' | append: ep[2] | append: '</span><span class="ms-fa__bk">' | append: kl | append: '</span></a>'
-                        assign shown = shown | plus: 1
                       else
+                        echo '<a class="ms-fa__bed is-extra" hidden href="' | append: ep[1] | append: '"><span class="ms-fa__bimg">'
                         assign more = more | plus: 1
                       endif
+                      if ep[3] != blank
+                        assign bal = ep[2] | escape
+                          echo '<img src="' | append: ep[3] | append: '" alt="' | append: bal | append: '" width="120" height="120" loading="lazy">'
+                      endif
+                      echo '</span><span class="ms-fa__bn">' | append: ep[2] | append: '</span><span class="ms-fa__bk">' | append: kl | append: '</span></a>'
+                      assign shown = shown | plus: 1
                     endunless
                   endif
                 endfor
@@ -242,6 +244,7 @@
                     if forloop.index <= 6
                       echo '<span class="ms-fa__bed is-plain"><span class="ms-fa__bn">' | append: nm | append: '</span></span>'
                     else
+                      echo '<span class="ms-fa__bed is-plain is-extra" hidden><span class="ms-fa__bn">' | append: nm | append: '</span></span>'
                       assign more = more | plus: 1
                     endif
                   endfor
@@ -252,7 +255,7 @@
             {%- if links != blank -%}
               <div class="ms-fa__beds">
                 <span class="ms-fa__bl">{{ s.beds_label }}</span>
-                <div class="ms-fa__bs">{{ links }}</div>{%- if more > 0 -%}<a class="ms-fa__more" href="{% render 'ms-link', to: 'compare' %}">{{ s.more_label | replace: '[n]', more }}<span aria-hidden="true">→</span></a>{%- endif -%}
+                <div class="ms-fa__bs" id="fa-{{ section.id }}-{{ slug }}-beds">{{ links }}</div>{%- if more > 0 -%}<button type="button" class="ms-fa__more" data-fa-more aria-expanded="false" aria-controls="fa-{{ section.id }}-{{ slug }}-beds" data-less="{{ s.less_label | escape }}"><span data-fa-more-l>{{ s.more_label | replace: '[n]', more }}</span><span class="ms-fa__more-i" aria-hidden="true">+</span></button>{%- endif -%}
               </div>
             {%- endif -%}
           </div>
@@ -293,6 +296,17 @@
           var live = rows.filter(function (r) { return !r.parentNode.classList.contains('is-dim'); });
           var j = live.indexOf(b) + (e.key === 'ArrowDown' ? 1 : -1);
           if (live[j]) { live[j].focus(); live[j].click(); }
+        });
+      });
+      // every bed made with the fibre: the first six shown, the rest a click away
+      fa.querySelectorAll('[data-fa-more]').forEach(function (m) {
+        var l = m.querySelector('[data-fa-more-l]'), more = l.textContent, less = m.getAttribute('data-less') || more;
+        m.addEventListener('click', function () {
+          var on = m.getAttribute('aria-expanded') !== 'true';
+          m.setAttribute('aria-expanded', on ? 'true' : 'false');
+          l.textContent = on ? less : more;
+          var list = document.getElementById(m.getAttribute('aria-controls'));
+          if (list) list.querySelectorAll('.is-extra').forEach(function (x) { x.hidden = !on; });
         });
       });
       // what matters most: the fibres that answer it stay lit, the others step back
@@ -449,7 +463,13 @@
   .ms-fa__bimg img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .ms-fa__bn { font-family: Newsreader, Georgia, serif; font-size: 17px; line-height: 1.2; align-self: end; }
   .ms-fa__bk { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: #9A8F7E; align-self: start; margin-top: 2px; }
-  .ms-site a.ms-fa__more { display: inline-flex; gap: 8px; margin-top: 12px; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #6E675C; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 4px; }
+  .ms-fa__more { display: inline-flex; align-items: center; gap: 10px; margin-top: 14px; font: inherit; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #6E675C; background: none; border: 0; border-bottom: 1px solid currentColor; padding: 0 0 4px; cursor: pointer; transition: color .25s; }
+  .ms-fa__more:hover { color: #17140F; }
+  .ms-fa__more-i { display: inline-block; font-size: 13px; line-height: 1; transition: transform .35s cubic-bezier(.22, 1, .36, 1); }
+  .ms-fa__more[aria-expanded="true"] .ms-fa__more-i { transform: rotate(45deg); }
+  .ms-fa__bed.is-extra:not([hidden]) { animation: ms-fa-in .45s cubic-bezier(.22, 1, .36, 1) both; }
+  @keyframes ms-fa-in { from { opacity: 0; transform: translateY(6px); } }
+  @media (prefers-reduced-motion: reduce) { .ms-fa__bed.is-extra:not([hidden]) { animation: none; } }
   @media (max-width: 1240px) {
     .ms-fa__ql { display: none; }
     .ms-site .ms-fa__row { grid-template-columns: 30px 30px minmax(0, 1fr); }
@@ -508,7 +528,8 @@
     { "type": "text", "id": "origin_label", "label": "Origin", "default": "Origin" },
     { "type": "text", "id": "species_label", "label": "Species", "default": "Species" },
     { "type": "text", "id": "beds_label", "label": "Beds made with it", "default": "In our beds" },
-    { "type": "text", "id": "more_label", "label": "More beds", "default": "and [n] more", "info": "[n] becomes the number." },
+    { "type": "text", "id": "more_label", "label": "More beds", "default": "Show [n] more", "info": "[n] becomes the number." },
+    { "type": "text", "id": "less_label", "label": "Fewer beds", "default": "Show fewer" },
     { "type": "text", "id": "kind_system", "label": "A bed system", "default": "Bed system" },
     { "type": "text", "id": "kind_mattress", "label": "A mattress", "default": "Mattress" },
     { "type": "text", "id": "kind_topper", "label": "A topper", "default": "Topper" }

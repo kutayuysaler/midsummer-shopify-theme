@@ -164,7 +164,7 @@
 §{{ u_handmade }}|{{ ss.mg_h2 }}|{{ ss.mg_h2_note }}|{{ 'ms-photo-artisan-wool.jpg' | asset_url }}|
 §{{ u_culture }}|{{ ss.mg_h3 }}|{{ ss.mg_h3_note }}|{{ 'ms-photo-window-chair.jpg' | asset_url }}|
 §{{ u_materials }}|{{ ss.mg_h4 }}|{{ ss.mg_h4_note }}|{{ 'ms-photo-shepherd.jpg' | asset_url }}|
-§{{ u_loro }}|{{ ss.mg_h5 }}|{{ ss.mg_h5_note }}|{{ 'ms-photo-paisley-throw.jpg' | asset_url }}|
+§{{ u_loro }}|{{ ss.mg_h5 }}|{{ ss.mg_h5_note }}|{{ 'ms-photo-lp-paisley-front.jpg' | asset_url }}|
 §{{ u_regen }}|{{ ss.mg_h6 }}|{{ ss.mg_h6_note }}|{{ 'ms-photo-drapes-fireplace.jpg' | asset_url }}|
 {%- endcapture -%}
 {%- render 'ms-mega-panel', key: 'heritage', no: '02', title: ss.t2, lede: ss.mg_heritage_lede, items: items, feature: ss.mg_img_heritage, foot: foot -%}
@@ -174,9 +174,26 @@
 {{ u_pro }}|{{ ss.mg_p1 }}|{{ ss.mg_p1_note }}|{{ 'ms-photo-fresco-bed.jpg' | asset_url }}|
 §{{ u_hosp }}|{{ ss.mg_p2 }}|{{ ss.mg_p2_note }}|{{ 'ms-photo-glass-house.jpg' | asset_url }}|
 §{{ u_portfolio }}|{{ ss.mg_p3 }}|{{ ss.mg_p3_note }}|{{ 'ms-graded-arches.jpg' | asset_url }}|
-§{{ u_agents }}|{{ ss.mg_pro_cta1 }}|Where to see the beds, and how to represent them|{{ 'ms-photo-atelier-pure.jpg' | asset_url }}|
+§{{ u_partner }}#enquire|{{ ss.mg_p4 }}|{{ ss.mg_p4_note }}|{{ 'ms-photo-atelier-pure.jpg' | asset_url }}|landing
 §{{ u_trade }}#enquire|{{ ss.mg_p5 }}|{{ ss.mg_p5_note }}|{{ cdn }}Vicuna-mattress.jpg?width=900|landing
 {%- endcapture -%}
+{%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
+{%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
+{%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
+{%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
+{%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
+{%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
+{%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
+{%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
+{%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
+{%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
+{%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
+{%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
+{%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
+{%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
+{%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
+{%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
+{%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
 {%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
 {%- render 'ms-mega-panel', key: 'pro', no: '03', title: ss.t3, lede: ss.mg_pro_lede, items: items, feature: ss.mg_img_pro, foot: foot, cta1_url: u_trade_e, cta1_label: 'Open a project file', cta1_landing: true -%}
 

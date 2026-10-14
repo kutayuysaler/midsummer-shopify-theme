@@ -899,7 +899,8 @@
       W = Math.max(1, Math.round(r.width)); H = Math.max(1, Math.round(r.height));
       svg.attr('viewBox', '0 0 ' + W + ' ' + H);
       proj.fitExtent([[12, 12], [W - 12, H - 12]], { type: 'FeatureCollection', features: G.base.land });
-      KMAX = Math.max(40, kForZoom(10));
+      // with the detailed map, down to the street; without it, as far as the drawing has detail
+      KMAX = Math.max(40, kForZoom(TILES ? 18 : 10));
       zoom.scaleExtent([1, KMAX]);
       stores.forEach(function (p) { var xy = proj([p.lon, p.lat]); p.px = xy[0]; p.py = xy[1]; });
       zoom.extent([[0, 0], [W, H]]).translateExtent([[-W * .25, -H * .25], [W * 1.25, H * 1.25]]);
@@ -907,14 +908,16 @@
       render();
       tiles();
     }
-    /* the detailed map: a quiet, light map (CARTO Positron, from OpenStreetMap) laid in grey on the
+    /* the detailed map: a light street map (OpenStreetMap, or the provider set in the section) laid in grey on the
        house's cream, fading in as you come closer; the drawing gives way entirely, the pins stay */
     function tiles() {
-      if (!tilesEl || !TILES || !W) { if (world) world.style('opacity', 1); return; }
+      var drawnNames = svg.select('[data-ms-sl-labels]');
+      if (!tilesEl || !TILES || !W) { if (world) world.style('opacity', 1); drawnNames.style('opacity', 1); return; }
       var fade = Math.max(0, Math.min(1, (t.k - TK0) / (TK1 - TK0)));
       tilesEl.style.opacity = fade;
-      // the drawing steps back only once the detailed map has arrived
+      // the drawing steps back only once the detailed map has arrived; the detailed map names its own streets
       world.style('opacity', tilesOK ? 1 - fade : 1);
+      drawnNames.style('opacity', tilesOK ? 1 - fade : 1);
       if (creditEl) creditEl.classList.toggle('is-on', fade > 0 && tilesOK);
       if (fade <= 0) return;
       var s0 = proj.scale(), tr = proj.translate(), size = 2 * Math.PI * s0 * t.k;
@@ -935,7 +938,15 @@
           img = document.createElement('img');
           img.alt = ''; img.decoding = 'async'; img.draggable = false; img.className = 'ms-sl__tile';
           var ii = ((i % n) + n) % n;
-          img.onerror = function () { tileErr++; if (tileErr > 1 && !tilesOK) { TILES = null; tilesEl.style.opacity = 0; tilesEl.innerHTML = ''; tileImgs = {}; world.style('opacity', 1); if (creditEl) creditEl.classList.remove('is-on'); } };
+          img.onerror = function () {
+            tileErr++;
+            if (tileErr > 1 && !tilesOK && TILES) {
+              // the detailed map cannot be reached: the drawing alone, and only as close as it has detail
+              TILES = null; tilesEl.style.opacity = 0; tilesEl.innerHTML = ''; tileImgs = {}; world.style('opacity', 1); svg.select('[data-ms-sl-labels]').style('opacity', 1); if (creditEl) creditEl.classList.remove('is-on');
+              KMAX = Math.max(40, kForZoom(10)); zoom.scaleExtent([1, KMAX]);
+              if (t.k > KMAX) svg.transition().duration(reduce ? 0 : 500).call(zoom.scaleTo, KMAX);
+            }
+          };
           img.onload = function () { this.classList.add('is-on'); tilesOK = true; if (!tileTick) tileTick = requestAnimationFrame(function () { tileTick = null; tiles(); }); };
           img.src = TILES.replace('{z}', z).replace('{x}', ii).replace('{y}', j).replace('{s}', 'abc'.charAt((ii + j) % 3)).replace('{r}', (window.devicePixelRatio || 1) > 1.5 ? '@2x' : '');
           tilesEl.appendChild(img); tileImgs[key] = img;
@@ -1085,8 +1096,9 @@
       else { flying = true; svg.transition().duration(dur).call(zoom.transform, tr).on('end interrupt', function () { flying = false; render(); layout(); }); }
     }
     function fit(list) { go(viewFor(list && list.length ? list : stores, 40, list && list.length > 3 ? (narrow() ? 28 : 56) : null)); setView(''); }
+    // a place: with the detailed map, close enough to read its street; without it, its city
     function flyTo(p) {
-      var k = Math.min(KMAX, Math.max(t.k, kForZoom(9)));
+      var k = Math.min(KMAX, Math.max(t.k, kForZoom(TILES ? 16 : 9)));
       go(d3.zoomIdentity.translate(W / 2 - k * p.px, H / 2 - k * p.py).scale(k));
     }
     function setView(v) { root.querySelectorAll('[data-ms-sl-view]').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-ms-sl-view') === v ? 'true' : 'false'); }); }
@@ -1218,8 +1230,8 @@
     { "type": "text", "id": "list_label", "label": "List label", "default": "Places" },
     { "type": "text", "id": "map_label", "label": "Map label", "default": "Map of Midsummer Milano showrooms, agents and resellers" },
     { "type": "checkbox", "id": "street_map", "label": "Street map (test before turning on)", "default": false, "info": "OpenFreeMap tiles, zoomable to the street. Off: the drawn map." },
-    { "type": "text", "id": "tiles_url", "label": "Detailed map tiles (address)", "info": "For the drawn map only (street map off). Optional; shown as you zoom in." },
-    { "type": "text", "id": "tiles_credit", "label": "Map tiles credit", "default": "© OpenStreetMap contributors © CARTO" },
+    { "type": "text", "id": "tiles_url", "label": "Map tiles to the street (address)", "default": "https://tile.openstreetmap.org/{z}/{x}/{y}.png", "info": "Shown as you zoom in, down to the street. Empty: the drawn map alone, to city level." },
+    { "type": "text", "id": "tiles_credit", "label": "Map tiles credit", "default": "© OpenStreetMap contributors" },
     { "type": "text", "id": "search_placeholder", "label": "Search placeholder", "default": "Search a city, country or name" },
     { "type": "text", "id": "type_label", "label": "Type filter label", "default": "Type" },
     { "type": "text", "id": "all_label", "label": "All", "default": "All" },

@@ -393,7 +393,6 @@
           endcase
           assign kx = 'part' | append: i | append: '_text'
           assign ki = 'part' | append: i | append: '_image'
-          assign kf = 'part' | append: i | append: '_fallback'
           assign ai = i | minus: 1
           assign c_text = s[kx]
           if sd
@@ -422,24 +421,19 @@
               assign c_title = t3
           endcase
           assign mt = mates[forloop.index0] | split: '^'
-          assign own = nil
-          if mine and product != blank and s[ki] == blank
-            assign mi = forloop.index
-            if cr_kind != 'system'
-              assign mi = 0
-            endif
-            assign m = product.media[mi]
-            if m and m.media_type == 'image'
-              assign own = m
-            endif
-          endif
+          # each card a photograph of its own part: the system's own where it was photographed,
+          # else the house's studio photographs of a topper, a mattress, a boxspring
+          capture cphoto
+            render 'ms-craft-photo', key: ms_key, part: p
+          endcapture
+          assign cphoto = cphoto | strip
         -%}
         {%- if mine or mt[0] == blank -%}
         <button type="button" class="ms-cr__part{% unless mine %} is-absent{% endunless %}" data-part="{{ p }}" data-cr-open="{{ p }}" aria-controls="cr-{{ section.id }}-{{ p }}">
         {%- else -%}
         <a class="ms-cr__part is-absent" data-part="{{ p }}" href="{{ mt[0] }}">
         {%- endif -%}
-          <span class="ms-cr__img">{%- if own -%}<img src="{{ own | image_url: width: 1000 }}" srcset="{{ own | image_url: width: 600 }} 600w, {{ own | image_url: width: 1000 }} 1000w" sizes="(max-width: 760px) 90vw, 30vw" alt="{{ own.alt | default: c_title | escape }}" width="1000" height="1250" loading="lazy">{%- elsif mine == false and mt[2] != blank -%}<img src="{{ mt[2] }}" alt="{{ c_title | escape }}" width="900" height="1125" loading="lazy">{%- else -%}<img src="{% render 'ms-img', image: s[ki], fallback: s[kf], width: 1000 %}" alt="{{ c_title | escape }}" width="1000" height="1250" loading="lazy">{%- endif -%}{%- unless mine -%}<span class="ms-cr__out">{% if isopt %}{{ tx_opt_label }}{% else %}{{ tx_absent_label }}{% endif %}</span>{%- endunless -%}</span>
+          <span class="ms-cr__img">{%- if s[ki] != blank -%}<img src="{{ s[ki] | image_url: width: 1000 }}" srcset="{{ s[ki] | image_url: width: 600 }} 600w, {{ s[ki] | image_url: width: 1000 }} 1000w" sizes="(max-width: 760px) 90vw, 30vw" alt="{{ s[ki].alt | default: c_title | escape }}" width="1000" height="1250" loading="lazy">{%- elsif mine == false and mt[2] != blank -%}<img src="{{ mt[2] }}" alt="{{ c_title | escape }}" width="900" height="1125" loading="lazy">{%- else -%}<img src="{{ cphoto | asset_url }}" alt="{{ c_title | escape }}{% if pname != '' and mine %}, {{ pname | escape }}{% endif %}" width="720" height="900" loading="lazy">{%- endif -%}{%- unless mine -%}<span class="ms-cr__out">{% if isopt %}{{ tx_opt_label }}{% else %}{{ tx_absent_label }}{% endif %}</span>{%- endunless -%}</span>
           <span class="ms-cr__cnum">{{ nums[forloop.index0] }}</span>
           <span class="ms-cr__ptitle">{{ c_title }}</span>
           <span class="ms-cr__ptext">{% if lp_free %}{{ c_text | replace: ' in Loro Piana Interiors', '' }}{% else %}{{ c_text }}{% endif %}</span>
@@ -546,7 +540,7 @@
   .ms-cr[data-open="base"] .ms-cr__slab[data-part="base"] { transform: translate(-26px, 50px); }
   .ms-cr__slab.is-on .ms-cr__face { stroke: rgba(122, 69, 50, .7); }
   .ms-cr__slab.is-on { filter: drop-shadow(0 14px 22px rgba(110, 60, 40, .18)); }
-  .ms-cr__parts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(18px, 2.6vw, 44px); margin-top: clamp(56px, 7vw, 110px); }
+  .ms-cr__parts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(18px, 2.6vw, 44px); margin-top: clamp(56px, 7vw, 110px); align-items: start; }
   .ms-cr__part { display: block; text-align: left; font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
   .ms-cr__img { display: block; aspect-ratio: 4 / 5; overflow: hidden; background: rgba(42, 31, 25, .05); }
   .ms-cr__img img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: .94; transition: opacity .6s ease, transform 1.2s cubic-bezier(.2, .7, .2, 1); }
@@ -839,12 +833,6 @@
       "label": "Photograph"
     },
     {
-      "type": "text",
-      "id": "part1_fallback",
-      "label": "Photograph address",
-      "default": "ms-photo-mattress-detail.jpg"
-    },
-    {
       "type": "header",
       "content": "Part II"
     },
@@ -893,12 +881,6 @@
       "label": "Photograph"
     },
     {
-      "type": "text",
-      "id": "part2_fallback",
-      "label": "Photograph address",
-      "default": "ms-photo-flora-side.jpg"
-    },
-    {
       "type": "header",
       "content": "Part III"
     },
@@ -945,12 +927,6 @@
       "type": "image_picker",
       "id": "part3_image",
       "label": "Photograph"
-    },
-    {
-      "type": "text",
-      "id": "part3_fallback",
-      "label": "Photograph address",
-      "default": "ms-photo-flora-corner.jpg"
     },
     {
       "type": "header",

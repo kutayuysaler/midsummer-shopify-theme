@@ -1,0 +1,116 @@
+{%- comment -%}
+  Paisley, in its two Loro Piana Interiors cloths: the bed in its room beside the two cloths, each
+  cut with pinked edges as on a sample card, with its name, its reference, what it is made of and
+  where it goes on the bed; and a closer look at the bed's edge.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign pp = nil
+  if s.product_handle != blank
+    assign pp = all_products[s.product_handle]
+  endif
+-%}
+<section class="ms-lpp">
+  <div class="ms-lpp__in">
+    <figure class="ms-lpp__room">
+      <img src="{% render 'ms-img', image: s.image, fallback: s.image_fallback, width: 1600 %}" alt="{{ s.image.alt | default: s.image_alt | escape }}" width="1200" height="1500" loading="lazy">
+    </figure>
+    <div class="ms-lpp__words">
+      {%- if s.eyebrow != blank -%}<div class="ms-lpp__eyebrow">{{ s.eyebrow }}</div>{%- endif -%}
+      <h2 class="ms-lpp__title">{{ s.heading }}</h2>
+      {%- if s.text != blank -%}<p class="ms-lpp__text">{{ s.text }}</p>{%- endif -%}
+      <div class="ms-lpp__cloths">
+        {%- for i in (1..2) -%}
+          {%- liquid
+            assign kn = 'cloth' | append: i | append: '_name'
+            assign kr = 'cloth' | append: i | append: '_ref'
+            assign kw = 'cloth' | append: i | append: '_where'
+            assign ki = 'cloth' | append: i | append: '_image'
+            assign kf = 'cloth' | append: i | append: '_fallback'
+          -%}
+          {%- if s[kn] != blank -%}
+            <div class="ms-lpp__cloth">
+              <span class="ms-lpp__sw" style="background-image: url('{% render 'ms-img', image: s[ki], fallback: s[kf], width: 700 %}');" role="img" aria-label="{{ s[kn] | escape }}"></span>
+              <span class="ms-lpp__cn">{{ s[kn] }}</span>
+              {%- if s[kr] != blank -%}<span class="ms-lpp__cr">{{ s[kr] }}</span>{%- endif -%}
+              {%- if s[kw] != blank -%}<span class="ms-lpp__cw">{{ s[kw] }}</span>{%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      {%- if s.detail_fallback != blank or s.detail != blank -%}
+        <figure class="ms-lpp__detail">
+          <img src="{% render 'ms-img', image: s.detail, fallback: s.detail_fallback, width: 900 %}" alt="{{ s.detail_caption | escape }}" width="900" height="900" loading="lazy">
+          {%- if s.detail_caption != blank -%}<figcaption>{{ s.detail_caption }}</figcaption>{%- endif -%}
+        </figure>
+      {%- endif -%}
+      {%- if s.link_label != blank -%}
+        {%- if pp != blank and pp.url != blank -%}
+          <a class="ms-lpp__link" href="{{ pp.url }}">{{ s.link_label }}<span aria-hidden="true">→</span></a>
+        {%- else -%}
+          <a class="ms-lpp__link" href="{% render 'ms-link', to: 'icons' %}">{{ s.link_label }}<span aria-hidden="true">→</span></a>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+<style>
+  .ms-lpp { background: #F6F1EA; color: #17140F; padding: clamp(80px, 10vw, 160px) clamp(18px, 5vw, 80px); overflow: hidden; }
+  .ms-lpp__in { max-width: 1440px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(36px, 6vw, 110px); align-items: start; }
+  .ms-lpp__room { margin: 0; aspect-ratio: 4 / 5; overflow: hidden; background: rgba(23, 20, 15, .06); position: sticky; top: 110px; }
+  .ms-lpp__room img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .ms-lpp__words { padding-top: clamp(0px, 3vw, 40px); }
+  .ms-lpp__eyebrow { font-size: 10px; letter-spacing: .28em; text-transform: uppercase; color: #7E623B; }
+  .ms-lpp__title { font-family: Newsreader, Georgia, serif; font-weight: 200; font-size: clamp(36px, 4.2vw, 62px); line-height: 1.02; letter-spacing: -0.03em; margin: 16px 0 0; }
+  .ms-lpp__text { font-size: 15px; line-height: 1.9; color: #4A443B; margin: clamp(20px, 2.2vw, 28px) 0 0; max-width: 48ch; }
+  .ms-lpp__cloths { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(18px, 2.4vw, 34px); margin-top: clamp(32px, 4vw, 52px); }
+  .ms-lpp__cloth { display: grid; gap: 6px; align-content: start; }
+  .ms-lpp__sw { --z: 7px; display: block; aspect-ratio: 3 / 2; background-size: cover; background-position: center; margin-bottom: 10px;
+    -webkit-mask: conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) top / var(--z) 51% repeat-x, conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / var(--z) 51% repeat-x;
+    mask: conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) top / var(--z) 51% repeat-x, conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / var(--z) 51% repeat-x;
+    transition: transform .6s cubic-bezier(.22, 1, .36, 1), filter .4s; }
+  .ms-lpp__cloth:hover .ms-lpp__sw { transform: translateY(-3px) rotate(-.6deg); filter: drop-shadow(0 10px 12px rgba(23, 20, 15, .2)); }
+  .ms-lpp__cn { font-family: Newsreader, Georgia, serif; font-size: 24px; line-height: 1.1; }
+  .ms-lpp__cr { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: #8A7F6E; }
+  .ms-lpp__cw { font-size: 13px; line-height: 1.6; color: #4A443B; }
+  .ms-lpp__detail { margin: clamp(36px, 4.4vw, 60px) 0 0; display: grid; grid-template-columns: minmax(0, 150px) minmax(0, 1fr); gap: 18px; align-items: end; }
+  .ms-lpp__detail img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+  .ms-lpp__detail figcaption { font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 15px; line-height: 1.55; color: #6E675C; max-width: 34ch; }
+  .ms-site .ms-lpp__link { display: inline-flex; gap: 12px; align-items: center; margin-top: clamp(32px, 3.6vw, 48px); font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #17140F; border-bottom: 1px solid currentColor; padding-bottom: 6px; }
+  @media (max-width: 900px) {
+    .ms-lpp__in { grid-template-columns: minmax(0, 1fr); }
+    .ms-lpp__room { position: static; aspect-ratio: 4 / 4.4; }
+  }
+  @media (max-width: 480px) { .ms-lpp__detail { grid-template-columns: 110px minmax(0, 1fr); } .ms-lpp__cn { font-size: 21px; } }
+</style>
+{% schema %}
+{
+  "name": "Loro Piana · Paisley",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Label", "default": "Paisley" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Shadan linen and Katai silk." },
+    { "type": "textarea", "id": "text", "label": "Text" },
+    { "type": "image_picker", "id": "image", "label": "Photograph" },
+    { "type": "text", "id": "image_fallback", "label": "Photograph address" },
+    { "type": "text", "id": "image_alt", "label": "Photograph description" },
+    { "type": "header", "content": "The two cloths" },
+    { "type": "text", "id": "cloth1_name", "label": "Cloth 1", "default": "Shadan" },
+    { "type": "text", "id": "cloth1_ref", "label": "Cloth 1 reference" },
+    { "type": "text", "id": "cloth1_where", "label": "Cloth 1: where" },
+    { "type": "image_picker", "id": "cloth1_image", "label": "Cloth 1 sample" },
+    { "type": "text", "id": "cloth1_fallback", "label": "Cloth 1 sample address" },
+    { "type": "text", "id": "cloth2_name", "label": "Cloth 2", "default": "Katai" },
+    { "type": "text", "id": "cloth2_ref", "label": "Cloth 2 reference" },
+    { "type": "text", "id": "cloth2_where", "label": "Cloth 2: where" },
+    { "type": "image_picker", "id": "cloth2_image", "label": "Cloth 2 sample" },
+    { "type": "text", "id": "cloth2_fallback", "label": "Cloth 2 sample address" },
+    { "type": "header", "content": "Closer" },
+    { "type": "image_picker", "id": "detail", "label": "Detail" },
+    { "type": "text", "id": "detail_fallback", "label": "Detail address" },
+    { "type": "text", "id": "detail_caption", "label": "Detail caption" },
+    { "type": "text", "id": "link_label", "label": "Link", "default": "Paisley" },
+    { "type": "text", "id": "product_handle", "label": "Product handle", "default": "paisley", "info": "The link leads to this product; without it, to the Icons." }
+  ],
+  "presets": [{ "name": "Loro Piana · Paisley" }]
+}
+{% endschema %}

@@ -26,7 +26,7 @@
         "layout": "split",
         "side": "left",
         "tone": "light",
-        "image_fallback": "ms-photo-artisan-portrait.jpg",
+        "image_fallback": "ms-photo-artisan-fibre.jpg",
         "numeral": "01",
         "eyebrow": "Handmade in Italy",
         "heading": "By hand. One bed at a time.",
@@ -38,7 +38,10 @@
         "stat3_value": "100%",
         "stat3_label": "Made to order, by hand in Italy",
         "link_label": "Handmade in Italy",
-        "link_place": "handmade"
+        "link_place": "handmade",
+        "shape": "landscape",
+        "image_2_fallback": "ms-photo-artisan-hands.jpg",
+        "image_2_caption": "Wool, smoothed by hand along the edge of the bed."
       }
     },
     "build": {
@@ -53,7 +56,7 @@
         "layout": "split",
         "side": "right",
         "tone": "sand",
-        "image_fallback": "ms-photo-teal-throw.jpg",
+        "image_fallback": "ms-photo-lp-paisley-front.jpg",
         "numeral": "03",
         "eyebrow": "Natural fibres · Loro Piana Interiors",
         "heading": "Only what nature makes. Dressed in Loro Piana Interiors.",

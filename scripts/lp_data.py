@@ -266,7 +266,7 @@ CRAFT = {
         'base': ('A slender base that holds two or four upholstered drawers.', ['Cheviot wool on top; the drawers in the same Mystic River.'], ['Cheviot Wool'])},
     'paisley': {'kind': 'system',
         'topper': ('Cheviot wool and silk for winter; Cheviot wool and linen for summer.', ['Upholstered in Loro Piana Interiors Shadan, a paisley linen.'], ['Silk', 'Cheviot Wool', 'Linen']),
-        'mattress': ('Cheviot wool and baby alpaca for winter; Cheviot wool and linen for summer.', ['Its border in Katai silk.'], ['Baby Alpaca', 'Cheviot Wool', 'Linen']),
+        'mattress': ('Cheviot wool and baby alpaca for winter; Cheviot wool and linen for summer.', ['Its border in Shadan, like the topper.'], ['Baby Alpaca', 'Cheviot Wool', 'Linen']),
         'base': ('Linen and Cheviot wool, upholstered in Loro Piana Interiors Katai silk.', ['With or without a headboard.'], ['Linen', 'Cheviot Wool'])},
     'topper-roma': {'kind': 'topper',
         'topper': ('Two faces: cashmere, silk, mohair and Falkland wool for winter; silk, linen, Ingeo and Falkland wool for summer.',

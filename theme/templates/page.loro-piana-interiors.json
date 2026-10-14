@@ -7,12 +7,13 @@
     "s01": {
       "type": "ms-banner",
       "settings": {
-        "image_fallback": "ms-photo-flora-wide.jpg",
+        "image_fallback": "ms-photo-lp-paisley-room.jpg",
         "eyebrow": "Upholstery",
         "use_page_title": false,
         "heading": "Loro Piana Interiors",
         "height": "tall",
-        "text": "The cloths our systems are made in, colour by colour."
+        "text": "The cloths our systems are made in, colour by colour.",
+        "focus": "center"
       }
     },
     "s02": {
@@ -527,27 +528,6 @@
         "fabric_45"
       ]
     },
-    "s04": {
-      "type": "ms-statement",
-      "settings": {
-        "tone": "stone",
-        "eyebrow": "Seasonal upholstery",
-        "heading": "Dressed for both seasons.",
-        "text": "<p>On Flora and Top, wool and cashmere dress the winter face and linen the summer face, so the bed is turned when the season changes, not replaced.</p>"
-      }
-    },
-    "s05": {
-      "type": "ms-image-pair",
-      "settings": {
-        "eyebrow": "Paisley",
-        "heading": "Shadan linen and Katai silk.",
-        "image_1": "shopify://shop_images/Paisleydettaglio.jpg",
-        "fallback_1": "https://midsummer-milano.com/cdn/shop/files/Paisleydettaglio.jpg?v=1788246821&width=1400",
-        "caption_1": "Shadan, a paisley linen by Loro Piana Interiors, on the topper of Paisley.",
-        "fallback_2": "ms-graded-paisley-red.jpg",
-        "caption_2": "Paisley: Katai, a pure silk, on the boxspring and the border of the mattress."
-      }
-    },
     "s06": {
       "type": "ms-collection-cards",
       "settings": {
@@ -610,14 +590,64 @@
       "settings": {
         "current": "loro"
       }
+    },
+    "seasons": {
+      "type": "ms-lp-seasons",
+      "settings": {
+        "eyebrow": "Seasonal upholstery",
+        "heading": "Dressed for both seasons.",
+        "text": "Some systems have two faces, in two cloths: wool and cashmere for winter, linen for summer. The bed is turned when the season changes, not replaced.",
+        "winter_label": "Winter face",
+        "winter_fallback": "ms-lp-cardi-l.jpg",
+        "winter_cloth": "Wool and cashmere",
+        "winter_note": "Cardi on the topper of Flora; Ely’s Harbour on the mattress of Top.",
+        "summer_label": "Summer face",
+        "summer_fallback": "ms-lp-co-04-l.jpg",
+        "summer_cloth": "Linen",
+        "summer_note": "Connemara on the mattress of Top."
+      }
+    },
+    "paisley": {
+      "type": "ms-lp-paisley",
+      "settings": {
+        "eyebrow": "Paisley",
+        "heading": "Shadan linen and Katai silk.",
+        "text": "Paisley is dressed in two Loro Piana Interiors cloths: Shadan, a linen woven with a paisley, and Katai, a pure silk, in a deep red that runs from the boxspring to the piping.",
+        "image_fallback": "ms-photo-lp-paisley-side.jpg",
+        "image_alt": "Paisley in its room: the topper and mattress in Shadan, the boxspring and headboard in Katai",
+        "cloth1_name": "Shadan",
+        "cloth1_ref": "AL2075RS · 100% linen",
+        "cloth1_where": "On the topper and the border of the mattress.",
+        "cloth1_fallback": "ms-lp-shadan-l.jpg",
+        "cloth2_name": "Katai",
+        "cloth2_ref": "AS1005 · Pure silk",
+        "cloth2_where": "On the boxspring.",
+        "cloth2_fallback": "ms-lp-katai-l.jpg",
+        "detail_fallback": "ms-photo-lp-paisley-detail.jpg",
+        "detail_caption": "The edge of the bed: Shadan on the topper and the mattress, a brass vent, the Katai below.",
+        "link_label": "Paisley",
+        "product_handle": "paisley"
+      }
+    },
+    "roma": {
+      "type": "ms-image-pair",
+      "settings": {
+        "eyebrow": "Roma",
+        "heading": "Mystic River, as it stands at the atelier.",
+        "fallback_1": "ms-photo-lp-roma-topper.jpg",
+        "caption_1": "The Roma topper, in Loro Piana Interiors Mystic River, tufted by hand.",
+        "fallback_2": "ms-photo-lp-roma-corner.jpg",
+        "caption_2": "Roma: the mattress in the same cloth, on its boxspring."
+      }
     }
   },
   "order": [
     "s01",
     "s02",
     "s03",
-    "s04",
-    "s05",
+    "seasons",
+    "paisley",
+    "roma",
     "s06",
     "s07",
     "next"

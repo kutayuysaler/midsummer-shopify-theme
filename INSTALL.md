@@ -1711,3 +1711,139 @@ The products of a collection run in one horizontal line:
 | Interaction tests | 152 pass (new: the collection line and its arrow) |
 
 After uploading, check the list Shopify shows when the upload finishes. It should name no files.
+
+## 38. Round 16: ready for launch
+
+### Home
+
+- **Chapter I, *By hand. One bed at a time*:** a wide photograph of the artisan working the
+  fibre, with a second, smaller photograph of hands smoothing wool along the edge of a bed. It
+  carries the caption *Wool, smoothed by hand along the edge of the bed*.
+  - The section (*Home chapter*) has a new *Shape* setting (upright or wide) and an optional
+    second photograph with its caption.
+  - On a phone the second photograph is smaller and its caption is hidden.
+- **Chapter III, Loro Piana Interiors:** the teal throw is replaced by a real Loro Piana bed:
+  Paisley, in Shadan and Katai.
+
+### Inside the bed (home and product pages)
+
+- **Each part card shows its own product.**
+  - Flora, Paisley, Roma, the Dreamy line and the First Dream line each show their own topper,
+    mattress and boxspring, cut from the house's photographs.
+  - Every other bed shows the house's photographs of a topper, a mattress and a boxspring.
+  - The topper card always shows a topper.
+  - None of the photographs shows the inside of a bed.
+- **The drawings are redrawn:**
+  - Each part is dressed in its own cloth, taken from photographs of the real cloths: Shadan
+    paisley, Katai silk, the Cardi damask, Wish bouclé, the Mystic River weave and linen.
+  - Each has piping, hand tufts, a stitched border and brass vents.
+  - Integrated systems show the mattress inside.
+  - Nothing describes layers or construction.
+- **Paisley, corrected from the photographs:** the paisley linen (Shadan) is on the topper and
+  the border of the mattress. The boxspring is Katai silk, in deep red. The old drawing put the
+  paisley on the boxspring. The card texts and the Loro Piana page say the same now.
+  **Please confirm this is right.**
+- The three part cards now line up at the top. They had sat about 10px apart when one card had
+  more text.
+
+### Loro Piana Interiors page
+
+- **The page opens on Paisley in its room** (the real Loro Piana photograph).
+- **The colour chips have their pinked edges back**, with a dot on the chosen colour.
+- **Two plain sections are replaced by three new ones:**
+  - **Seasons.** The winter face (wool and cashmere) and the summer face (linen) sit side by
+    side. Choosing one opens it wide.
+  - **Paisley.** The bed beside its two cloths, each cut with pinked edges and labelled:
+    - Shadan, AL2075RS, 100% linen: on the topper and the mattress border.
+    - Katai, AS1005, pure silk: on the boxspring.
+
+    A close-up of the bed's edge and a link to Paisley follow.
+  - **Roma.** The Roma topper and mattress in Mystic River, as they stand at the atelier.
+- **Other Loro Piana cards** (the menu's Heritage panel, the Professionals page and the *next
+  read* card at the foot of pages) now show the Paisley bed, not a throw.
+
+### Natural materials
+
+Under each fibre, *In our beds* now lists every bed. After the sixth, a *Show N more* button
+opens the rest in place, and *Show fewer* closes them. It no longer leads to the compare page.
+
+### Collection pages: a register instead of the horizontal line
+
+The horizontal line of products is gone. Products are laid out like a printed register:
+- **Gallery**, in a set rhythm:
+  - one wide photograph and one upright beside it;
+  - then three smaller ones;
+  - then the pair reversed.
+
+  Each entry is numbered (01, 02 …). Each sleep product carries a small pinked cut of its own
+  cloth. Filtering keeps the rhythm and renumbers from 01.
+- **Index:** every product on one line each, with what it is, its cloth and its fibres. On a
+  computer, the product's photograph follows the cursor.
+- **Compare**, as before.
+
+On a phone the gallery is two columns.
+
+### Agents & resellers: down to the street
+
+- **The map goes from the drawn world down to the street.**
+  - Zooming in fades in a street map (OpenStreetMap, credited in the corner).
+  - Choosing a place in the list, or a pin, flies to its street.
+  - The drawn city names step back once the street map is in.
+- **The tiles come from OpenStreetMap by default.** The section setting is *Map tiles to the
+  street (address)*.
+  - OpenStreetMap allows modest use with the credit shown. If the site's traffic grows, put a
+    keyed provider's address (MapTiler, Stadia, CARTO …) in that setting.
+  - Leaving the setting empty keeps the drawn map alone, down to city level.
+- **If the tiles cannot be reached,** the map goes back to the drawn map by itself, zoomed to
+  city level, with every pin.
+- **Testing:** OpenStreetMap cannot be reached from where the theme is built. The map was tested
+  with stand-in tiles:
+  - The atelier, Via Andegari 4, landed on the right street tile (zoom 16).
+  - The fallback was tested with tiles that fail.
+
+  **Look at it once on the store:** zoom into Milan and check that the streets appear.
+
+### Navigation
+
+- **The Professionals bar:**
+  - It appears only on the Architects and Hospitality pages.
+  - It holds *Architects & Designers · Hospitality & Contract · Portfolio*, and *Open a
+    project file* on the right.
+  - Agents & resellers is filed under Contact in the menu, so the bar no longer appears there.
+- **The menu's Professionals panel:** *Become a partner* (the partner enquiry) replaces Agents &
+  resellers. The phone menu matches.
+- **The footer follows the menu:**
+
+  | Column | Links |
+  | --- | --- |
+  | Professionals | Architects & interior designers, Hospitality, Portfolio (shown when the store has the page) |
+  | Speak to the atelier | Enquire, Agents & resellers, Care and maintenance |
+  | Heritage & Craft | its existing links, plus Journal |
+
+  The *Speak to the atelier* heading now lines up with the other column headings.
+
+### Package
+
+- Five photographs nothing uses any more are left out (the teal and paisley throws, two old Flora
+  views, a ceiling fresco).
+- Zip: 32.5 MB, 1,019 files. The largest Liquid file is 161 KB.
+
+### Checks on this build
+
+| Check | Result |
+| --- | --- |
+| Shopify's Liquid engine (Ruby, `strict` and `strict2` parsing) | 466 files, 0 errors |
+| The same engine rendering the homepage and every product handle (30, systems, mattresses, toppers, boxsprings) | no errors; each product's own part photographs |
+| Theme Check | 0 errors (69 warnings, of the same kinds as before) |
+| Template values against section schemas | no new issues |
+| Page audit (78 templates, computer and phone) | no script errors, no missing files, one H1 each |
+| Interaction tests | 159 pass (new: register gallery and index, Professionals bar, agents under Contact, footer, street map and its fallback) |
+
+### To check on the store after uploading
+
+1. Agents & resellers: zoom into Milan and choose the atelier in the list. The street map
+   should appear, with the pin on Via Andegari.
+2. Paisley: confirm the wording (Shadan linen on the topper and mattress border; Katai silk on
+   the boxspring).
+3. Send one test enquiry and check it reaches info@midsummer-milano.com.
+4. After the upload finishes, Shopify's list of rejected files should be empty.

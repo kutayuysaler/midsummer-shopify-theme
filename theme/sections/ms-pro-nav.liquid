@@ -1,7 +1,8 @@
 {%- comment -%}
   The professionals' own bar, the same on each of their pages: architects and interior designers,
-  hospitality and contract, the portfolio, agents and resellers, and the trade desk. The page you
-  are on is marked; the trade desk opens a project file on the enquiry page.
+  hospitality and contract, the portfolio, and the trade desk. The page you are on is marked; the
+  trade desk opens a project file on the enquiry page. Agents and resellers are filed under Contact,
+  as in the menu, so the bar is not shown there.
 {%- endcomment -%}
 {%- liquid
   assign s = section.settings
@@ -14,9 +15,6 @@
   capture u_portfolio
     render 'ms-link', to: 'portfolio', strict: true
   endcapture
-  capture u_agents
-    render 'ms-link', to: 'agents'
-  endcapture
   capture u_trade
     render 'ms-link', to: 'enquire', q: 'enquiry=trade'
   endcapture
@@ -28,7 +26,6 @@
       <li><a href="{{ u_pro | strip }}"{% if s.current == 'architects' %} aria-current="page"{% endif %}>{{ s.l_architects }}</a></li>
       <li><a href="{{ u_hosp | strip }}"{% if s.current == 'hospitality' %} aria-current="page"{% endif %}>{{ s.l_hospitality }}</a></li>
       {%- if u_portfolio != blank -%}<li><a href="{{ u_portfolio | strip }}"{% if s.current == 'portfolio' %} aria-current="page"{% endif %}>{{ s.l_portfolio }}</a></li>{%- endif -%}
-      <li><a href="{{ u_agents | strip }}"{% if s.current == 'agents' %} aria-current="page"{% endif %}>{{ s.l_agents }}</a></li>
     </ul>
     <a class="ms-pn__cta" href="{{ u_trade | strip }}#enquire" data-ms-landing>{{ s.l_trade }}<span aria-hidden="true">→</span></a>
   </div>
@@ -57,12 +54,11 @@
   "settings": [
     { "type": "select", "id": "current", "label": "This page", "default": "architects", "options": [
       { "value": "architects", "label": "Architects & Interior Designers" }, { "value": "hospitality", "label": "Hospitality & Contract" },
-      { "value": "portfolio", "label": "Portfolio" }, { "value": "agents", "label": "Agents & Resellers" } ] },
+      { "value": "portfolio", "label": "Portfolio" } ] },
     { "type": "text", "id": "label", "label": "Bar title", "default": "Professionals" },
     { "type": "text", "id": "l_architects", "label": "Architects", "default": "Architects & Designers" },
     { "type": "text", "id": "l_hospitality", "label": "Hospitality", "default": "Hospitality & Contract" },
     { "type": "text", "id": "l_portfolio", "label": "Portfolio", "default": "Portfolio" },
-    { "type": "text", "id": "l_agents", "label": "Agents", "default": "Agents & Resellers" },
     { "type": "text", "id": "l_trade", "label": "Trade desk", "default": "Open a project file" }
   ],
   "presets": [{ "name": "Professionals bar" }]

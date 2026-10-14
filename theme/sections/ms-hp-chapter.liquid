@@ -22,10 +22,27 @@
     endif
   endif
 -%}
-<section class="ms-ch ms-ch--{{ s.layout }} ms-ch--{{ s.tone }}{% if s.side == 'right' %} ms-ch--flip{% endif %}" style="--bg: {{ bg }};">
+{%- liquid
+  assign inset = false
+  if s.layout == 'split'
+    if s.image_2 != blank or s.image_2_fallback != blank
+      assign inset = true
+    endif
+  endif
+-%}
+<section class="ms-ch ms-ch--{{ s.layout }} ms-ch--{{ s.tone }}{% if s.side == 'right' %} ms-ch--flip{% endif %}{% if s.shape == 'landscape' %} ms-ch--wide{% endif %}{% if inset %} ms-ch--inset{% endif %}" style="--bg: {{ bg }};">
   <div class="ms-ch__in">
-    <div class="ms-ch__media">
-      <img src="{% render 'ms-img', image: s.image, fallback: s.image_fallback, width: 2000 %}" alt="{{ s.image.alt | default: s.heading | strip_html | escape }}" width="2000" height="2500" loading="lazy">
+    <div class="ms-ch__figure">
+      <div class="ms-ch__media">
+        <img src="{% render 'ms-img', image: s.image, fallback: s.image_fallback, width: 2000 %}" alt="{{ s.image.alt | default: s.heading | strip_html | escape }}" width="2000" height="{% if s.shape == 'landscape' %}1500{% else %}2500{% endif %}" loading="lazy">
+      </div>
+      {%- if inset -%}
+        {%- comment -%} a second, closer photograph: the hands at work, set over the corner of the first {%- endcomment -%}
+        <div class="ms-ch__inset">
+          <img src="{% render 'ms-img', image: s.image_2, fallback: s.image_2_fallback, width: 900 %}" alt="{{ s.image_2.alt | default: s.image_2_caption | default: s.heading | strip_html | escape }}" width="900" height="1125" loading="lazy">
+          {%- if s.image_2_caption != blank -%}<span class="ms-ch__cap">{{ s.image_2_caption }}</span>{%- endif -%}
+        </div>
+      {%- endif -%}
     </div>
     <div class="ms-ch__words">
       <div class="ms-ch__mark">{%- if s.numeral != blank -%}<span class="ms-ch__num">{{ s.numeral }}</span>{%- endif -%}<span class="ms-ch__eyebrow">{{ s.eyebrow }}</span></div>
@@ -49,8 +66,16 @@
   .ms-ch { background: var(--bg); color: #17140F; padding: clamp(96px, 12vw, 200px) clamp(18px, 5vw, 80px); }
   .ms-ch--dark { color: #FBF9F5; }
   .ms-ch__in { max-width: 1560px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(40px, 7vw, 140px); align-items: center; }
-  .ms-ch--flip .ms-ch__media { order: 2; }
+  .ms-ch--flip .ms-ch__figure { order: 2; }
+  .ms-ch__figure { position: relative; min-width: 0; }
   .ms-ch__media { overflow: hidden; aspect-ratio: 4 / 5; max-height: 86vh; background: rgba(23, 20, 15, .06); }
+  .ms-ch--wide .ms-ch__media { aspect-ratio: 4 / 3; }
+  .ms-ch--inset .ms-ch__figure { padding-bottom: clamp(56px, 7vw, 120px); }
+  .ms-ch__inset { position: absolute; right: clamp(-56px, -3vw, -24px); bottom: 0; width: 34%; z-index: 1; }
+  .ms-ch--flip .ms-ch__inset { right: auto; left: clamp(-56px, -3vw, -24px); }
+  .ms-ch__inset img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; outline: clamp(6px, .8vw, 12px) solid var(--bg); }
+  .ms-ch__cap { display: block; margin-top: 12px; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 14px; line-height: 1.45; color: #6E675C; }
+  .ms-ch--dark .ms-ch__cap { color: rgba(251, 249, 245, .6); }
   .ms-ch__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .ms-ch__words { max-width: 460px; }
   .ms-ch__mark { display: flex; align-items: baseline; gap: 18px; }
@@ -62,7 +87,8 @@
   .ms-ch--dark .ms-ch__num, .ms-ch--dark .ms-ch__eyebrow { color: #C9A97A; }
   .ms-ch__stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin: clamp(30px, 3.4vw, 46px) 0 0; padding-top: 24px; border-top: 1px solid rgba(23, 20, 15, .16); }
   .ms-ch--dark .ms-ch__stats { border-top-color: rgba(251, 249, 245, .2); }
-  .ms-ch__stats dt { font-family: Newsreader, Georgia, serif; font-weight: 200; font-size: clamp(34px, 3.4vw, 50px); line-height: 1; letter-spacing: -0.03em; }
+  .ms-ch__stats { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 1fr); }
+  .ms-ch__stats dt { font-family: Newsreader, Georgia, serif; font-weight: 200; font-size: clamp(30px, 3vw, 46px); line-height: 1; letter-spacing: -0.03em; white-space: nowrap; }
   .ms-ch__stats dd { margin: 10px 0 0; font-size: 12px; line-height: 1.6; color: #6E675C; }
   .ms-ch--dark .ms-ch__stats dd { color: rgba(251, 249, 245, .6); }
   .ms-site .ms-ch__link { display: inline-flex; gap: 14px; align-items: center; margin-top: clamp(32px, 3.6vw, 50px); font-size: 11px; letter-spacing: .26em; text-transform: uppercase; color: inherit; border-bottom: 1px solid currentColor; padding-bottom: 7px; }
@@ -72,6 +98,7 @@
   /* full: the photograph across the screen, the words over it */
   .ms-ch--full { position: relative; padding: 0; color: #FBF9F5; min-height: 100vh; min-height: 100svh; display: flex; align-items: flex-end; overflow: hidden; }
   .ms-ch--full .ms-ch__in { display: block; max-width: none; width: 100%; padding: clamp(96px, 12vw, 200px) clamp(18px, 5vw, 80px) clamp(56px, 7vw, 110px); }
+  .ms-ch--full .ms-ch__figure { position: static; }
   .ms-ch--full .ms-ch__media { position: absolute; inset: 0; aspect-ratio: auto; max-height: none; z-index: 0; }
   .ms-ch--full .ms-ch__media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(23, 20, 15, .55), rgba(23, 20, 15, 0) 62%), linear-gradient(180deg, rgba(23, 20, 15, 0) 40%, rgba(23, 20, 15, .55)); }
   .ms-ch--full .ms-ch__words { max-width: 640px; position: relative; z-index: 1; }
@@ -82,8 +109,12 @@
 
   @media (max-width: 900px) {
     .ms-ch__in { grid-template-columns: minmax(0, 1fr); }
-    .ms-ch--flip .ms-ch__media { order: 0; }
+    .ms-ch--flip .ms-ch__figure { order: 0; }
     .ms-ch__media { max-height: 70vh; }
+    .ms-ch__inset, .ms-ch--flip .ms-ch__inset { right: 0; left: auto; width: 38%; }
+    .ms-ch--inset .ms-ch__figure { padding-bottom: 26vw; }
+    .ms-ch--inset .ms-ch__media { width: 88%; }
+    .ms-ch__cap { display: none; }
     .ms-ch--full { min-height: 88svh; }
   }
 </style>
@@ -97,6 +128,10 @@
     { "type": "select", "id": "tone", "label": "Ground", "default": "light", "options": [{"value":"light","label":"Ivory"},{"value":"sand","label":"Sand"},{"value":"dark","label":"Ink"}] },
     { "type": "image_picker", "id": "image", "label": "Photograph" },
     { "type": "text", "id": "image_fallback", "label": "Photograph address", "info": "Used when no photograph is picked." },
+    { "type": "select", "id": "shape", "label": "Photograph shape", "default": "portrait", "options": [{"value":"portrait","label":"Upright"},{"value":"landscape","label":"Wide"}] },
+    { "type": "image_picker", "id": "image_2", "label": "Second photograph", "info": "A closer detail, set over the corner of the first." },
+    { "type": "text", "id": "image_2_fallback", "label": "Second photograph address" },
+    { "type": "text", "id": "image_2_caption", "label": "Second photograph caption" },
     { "type": "text", "id": "numeral", "label": "Chapter number", "default": "I" },
     { "type": "text", "id": "eyebrow", "label": "Label", "default": "Handmade in Italy" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "By hand. One bed at a time." },
