@@ -172,7 +172,10 @@
         <span data-legend="agent"><i class="ms-sl__mark is-agent"></i>{{ s.agent_kind }}</span>
       </div>
       <div class="ms-sl__hint" data-ms-sl-hint aria-hidden="true"></div>
-      {%- if s.tiles_url != blank and s.tiles_credit != blank -%}<a class="ms-sl__credit" data-ms-sl-credit href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">{{ s.tiles_credit }}</a>{%- endif -%}
+      {%- if s.street_map or s.tiles_url != blank -%}<span class="ms-sl__credit" data-ms-sl-credit>
+        {%- if s.street_map -%}<span data-ms-sl-credit-vec hidden><a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a> © <a href="https://www.openmaptiles.org/" target="_blank" rel="noopener">OpenMapTiles</a> Data from <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></span>{%- endif -%}
+        {%- if s.tiles_url != blank and s.tiles_credit != blank -%}<a data-ms-sl-credit-tiles hidden href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">{{ s.tiles_credit }}</a>{%- endif -%}
+      </span>{%- endif -%}
       <div class="ms-sl__pop" data-ms-sl-pop hidden></div>
     </div>
   </div>
@@ -310,8 +313,14 @@
   .ms-sl__tiles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; opacity: 0; transition: opacity .35s ease; background: #F3EDE3; isolation: isolate; }
   .ms-site .ms-sl__tiles img.ms-sl__tile { position: absolute; left: 0; top: 0; max-width: none; transform-origin: 0 0; opacity: 0; transition: opacity .3s ease; user-select: none; -webkit-user-drag: none; filter: grayscale(1) contrast(1.04); mix-blend-mode: multiply; }
   .ms-site .ms-sl__tiles img.ms-sl__tile.is-on { opacity: 1; }
-  .ms-site a.ms-sl__credit { position: absolute; right: 64px; bottom: 16px; z-index: 3; font-size: 10px; letter-spacing: .02em; color: #6E675C; background: rgba(251, 249, 245, .82); padding: 3px 7px; opacity: 0; pointer-events: none; transition: opacity .3s ease; }
-  .ms-site a.ms-sl__credit.is-on { opacity: 1; pointer-events: auto; }
+  .ms-site .ms-sl__credit { position: absolute; right: 64px; bottom: 16px; z-index: 3; font-size: 10px; letter-spacing: .02em; color: #6E675C; background: rgba(251, 249, 245, .82); padding: 3px 7px; opacity: 0; pointer-events: none; transition: opacity .3s ease; }
+  .ms-site .ms-sl__credit.is-on { opacity: 1; pointer-events: auto; }
+  .ms-site .ms-sl__credit a { color: inherit; }
+  .ms-site .ms-sl__credit a:hover { color: #17140F; }
+  /* the street map, under the drawing */
+  .ms-sl__vec { position: absolute; inset: 0; }
+  .ms-sl__vec canvas { outline: none; }
+  .ms-sl__tiles.is-vec { background: #F3EEE5; }
   .ms-sl__pin { position: absolute; left: 0; top: 0; pointer-events: auto; width: 30px; height: 30px; margin: -15px 0 0 -15px; padding: 0; border: 0; background: none; cursor: pointer; display: flex; align-items: center; justify-content: center; will-change: transform; }
   .ms-sl__pin .ms-sl__mark { width: 12px; height: 12px; transition: transform .25s ease; box-shadow: 0 0 0 2px rgba(251, 249, 245, .9); }
   .ms-sl__pin .ms-sl__mark.is-boutique { box-shadow: inset 0 0 0 1.6px var(--ink), 0 0 0 2px rgba(251, 249, 245, .9); background-color: var(--ivory); }
@@ -528,211 +537,11 @@
 
     /* ── the map ── */
     var map = null;
-    /* a real map, to the street: MapLibre with OpenFreeMap's vector tiles (from OpenStreetMap),
-       in the house's colours. The drawn map below stays for a browser without WebGL, or if the
-       tiles cannot be reached. */
+    /* the street map: MapLibre with OpenFreeMap's vector tiles (from OpenStreetMap), in the house's colours,
+       drawn sharp at any size; it lies under the drawing and follows it, coming in as you zoom towards a city */
     var GL_ON = {{ s.street_map | json }}, GLJS = {{ 'ms-maplibre.js' | asset_url | json }}, GLCSS = {{ 'ms-maplibre.css' | asset_url | json }};
     function webgl() { try { var c = document.createElement('canvas'); return !!(window.WebGLRenderingContext && (c.getContext('webgl2') || c.getContext('webgl'))); } catch (e) { return false; } }
-    if (GL_ON && webgl() && document.querySelector('script[data-ms-sl-style]')) street(drawn); else drawn();
-
-    function street(fallback) {
-      var dead = false, live = false, gl = null, holder = null, ml = null;
-      var pinEls = {}, clusterEls = {}, W = 0, H = 0;
-      function fail(why) {
-        if (dead || live) return;
-        dead = true; clearTimeout(timer);
-        if (window.console) console.warn('[agents map] the street map could not load; the drawn map instead.', why || '');
-        try { if (gl) gl.remove(); } catch (e) {}
-        if (holder && holder.parentNode) holder.parentNode.removeChild(holder);
-        pinsEl.innerHTML = ''; hidePop();
-        mapEl.classList.remove('is-gl', 'is-gl-ready');
-        map = null;
-        fallback();
-      }
-      var timer = setTimeout(function () { fail('timeout'); }, 15000);
-      if (!document.querySelector('link[data-ms-gl]')) { var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = GLCSS; l.setAttribute('data-ms-gl', ''); document.head.appendChild(l); }
-      if (window.maplibregl) go();
-      else { var sc = document.createElement('script'); sc.src = GLJS; sc.async = true; sc.onload = go; sc.onerror = function () { fail('script'); }; document.head.appendChild(sc); }
-
-      function esc(x) { return String(x || '').replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); }
-      function pad() { return narrow() ? { top: 64, bottom: 48, left: 32, right: 32 } : { top: 88, bottom: 72, left: 72, right: 72 }; }
-      function boundsOf(list) { var b = new ml.LngLatBounds(); list.forEach(function (p) { b.extend([p.lon, p.lat]); }); return b; }
-      function xy(p) { var q = gl.project([p.lon, p.lat]); return { x: q.x, y: q.y }; }
-      function setView(v) { root.querySelectorAll('[data-ms-sl-view]').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-ms-sl-view') === v ? 'true' : 'false'); }); }
-
-      function go() {
-        ml = window.maplibregl;
-        if (dead) return;
-        if (!ml || !ml.Map) return fail('no maplibre');
-        var style;
-        try { style = JSON.parse(document.querySelector('script[data-ms-sl-style]').textContent); } catch (e) { return fail(e); }
-        // names in the visitor's language, then in Latin letters, then as written there
-        var lang = (document.documentElement.lang || 'en').slice(0, 2).toLowerCase();
-        var nm = lang === 'en' ? ['coalesce', ['get', 'name_en'], ['get', 'name:en'], ['get', 'name:latin'], ['get', 'name']]
-          : ['coalesce', ['get', 'name:' + lang], ['get', 'name_en'], ['get', 'name:latin'], ['get', 'name']];
-        style.layers.forEach(function (L) { if (L.layout && L.layout['text-field'] === '@name') L.layout['text-field'] = nm; });
-        holder = document.createElement('div'); holder.className = 'ms-sl__gl'; holder.setAttribute('aria-hidden', 'true');
-        mapEl.insertBefore(holder, mapEl.firstChild);
-        mapEl.classList.add('is-gl');
-        var at0 = stores.filter(function (p) { return p.kind === 'atelier'; })[0];
-        var reg0 = []; // every place in view at first (World), each region one tap away
-        var first = reg0.length > 1 ? reg0 : stores;
-        try {
-          gl = new ml.Map({
-            container: holder, style: style, bounds: boundsOf(first), fitBoundsOptions: { padding: pad(), maxZoom: 12 },
-            minZoom: 1, maxZoom: 19, attributionControl: false, dragRotate: false, pitchWithRotate: false, touchPitch: false,
-            cooperativeGestures: true, renderWorldCopies: true, fadeDuration: 200,
-            locale: { 'CooperativeGesturesHandler.WindowsHelpText': T.wheel, 'CooperativeGesturesHandler.MacHelpText': T.wheel, 'CooperativeGesturesHandler.MobileHelpText': T.touch }
-          });
-        } catch (e) { return fail(e); }
-        if (gl.touchZoomRotate) gl.touchZoomRotate.disableRotation();
-        if (gl.keyboard && gl.keyboard.disableRotation) gl.keyboard.disableRotation();
-        gl.addControl(new ml.AttributionControl({ compact: true, customAttribution: '<a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a> <a href="https://www.openmaptiles.org/" target="_blank" rel="noopener">© OpenMapTiles</a> Data from <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>' }), 'bottom-right');
-        if (reg0.length > 1) setView(at0.region);
-        // the map counts as arrived with its first tile; until then, errors send us to the drawn map
-        var errs = 0;
-        gl.on('error', function (e) { if (live || dead) return; errs++; if ((e && e.sourceId === 'openmaptiles' && !e.tile) || errs > 2) fail(e && e.error); });
-        gl.on('sourcedata', function (e) {
-          if (live || dead || !e.tile) return;
-          live = true; clearTimeout(timer);
-          mapEl.classList.add('is-gl-ready');
-        });
-        gl.on('move', layout);
-        gl.on('click', function () { hidePop(); });
-        gl.on('load', function () { size(); layout(); });
-        size();
-        map = { layout: layout, fit: fit, flyTo: flyTo };
-        layout();
-        if (location.hash === '#atelier' && at0) setTimeout(function () { select(at0, { scrollList: true }); }, 350);
-        if (window.ResizeObserver) { var rt; new ResizeObserver(function () { clearTimeout(rt); rt = setTimeout(function () { if (dead) return; gl.resize(); size(); layout(); }, 120); }).observe(mapEl); }
-      }
-      function size() { W = mapEl.clientWidth; H = mapEl.clientHeight; }
-
-      /* pins: one per place, gathered where they would touch */
-      function pinFor(p) {
-        if (pinEls[p.id]) return pinEls[p.id];
-        var b = document.createElement('button');
-        b.type = 'button'; b.className = 'ms-sl__pin';
-        b.setAttribute('aria-label', p.name + ', ' + p.city + ' (' + KINDS[p.kind] + ')');
-        b.innerHTML = '<i class="ms-sl__mark is-' + p.kind + '"></i><span class="ms-sl__tag"></span>';
-        b.querySelector('.ms-sl__tag').innerHTML = esc(p.name) + '<em>' + esc(p.city) + '</em>';
-        b.addEventListener('click', function (e) { e.stopPropagation(); hidePop(); select(p, { fromMap: true }); });
-        pinsEl.appendChild(b); pinEls[p.id] = b; return b;
-      }
-      function layout() {
-        if (dead || !gl) return;
-        if (!W) size();
-        var vis = stores.filter(shown);
-        var pts = vis.map(function (p) { var q = xy(p); return { p: p, x: q.x, y: q.y }; });
-        var R = 30, groups = [], used = {};
-        pts.sort(function (a, b) { return (a.p.kind === 'atelier' ? -1 : 0) - (b.p.kind === 'atelier' ? -1 : 0); });
-        pts.forEach(function (a) {
-          if (used[a.p.id]) return;
-          var g = [a]; used[a.p.id] = 1;
-          if (a.p !== state.sel) pts.forEach(function (b) {
-            if (used[b.p.id] || b.p === state.sel) return;
-            if (Math.abs(a.x - b.x) < R && Math.abs(a.y - b.y) < R) { g.push(b); used[b.p.id] = 1; }
-          });
-          groups.push(g);
-        });
-        var live2 = {};
-        var off = function (x, y) { return x < -24 || y < -24 || x > W + 24 || y > H + 24; };
-        stores.forEach(function (p) { if (pinEls[p.id]) pinEls[p.id].hidden = true; });
-        groups.forEach(function (g) {
-          if (g.length === 1) {
-            if (off(g[0].x, g[0].y)) return;
-            var el = pinFor(g[0].p);
-            el.hidden = false;
-            el.style.transform = 'translate(' + g[0].x.toFixed(1) + 'px,' + g[0].y.toFixed(1) + 'px)';
-            el.classList.toggle('is-on', g[0].p === state.sel);
-            return;
-          }
-          var ids = g.map(function (a) { return a.p.id; }).sort().join(',');
-          var cx = 0, cy = 0; g.forEach(function (a) { cx += a.x; cy += a.y; }); cx /= g.length; cy /= g.length;
-          if (off(cx, cy)) return;
-          var c = clusterEls[ids];
-          if (!c) {
-            c = document.createElement('button'); c.type = 'button'; c.className = 'ms-sl__pin is-cluster';
-            c.innerHTML = '<b>' + g.length + '</b><span class="ms-sl__tag"></span>';
-            var cities = []; g.forEach(function (a) { if (cities.indexOf(a.p.city) < 0) cities.push(a.p.city); });
-            c.querySelector('.ms-sl__tag').innerHTML = esc(cities.slice(0, 3).join(' · ')) + (cities.length > 3 ? ' …' : '') + '<em>' + g.length + ' ' + esc(T.places) + '</em>';
-            c.setAttribute('aria-label', g.length + ' ' + T.places + ': ' + g.map(function (a) { return a.p.name; }).join(', '));
-            if (g.some(function (a) { return a.p.kind === 'atelier'; })) c.classList.add('has-atelier');
-            c._members = g.map(function (a) { return a.p; });
-            c.addEventListener('click', function (e) { e.stopPropagation(); openCluster(c); });
-            pinsEl.appendChild(c); clusterEls[ids] = c;
-          }
-          c.hidden = false; c._x = cx; c._y = cy;
-          c.style.transform = 'translate(' + cx.toFixed(1) + 'px,' + cy.toFixed(1) + 'px)';
-          live2[ids] = 1;
-        });
-        Object.keys(clusterEls).forEach(function (k) { if (!live2[k]) clusterEls[k].hidden = true; });
-        if (!pop.hidden && pop._cluster && pop._cluster.hidden) hidePop();
-      }
-
-      /* views */
-      function fit(list) {
-        if (dead || !gl) return;
-        list = list && list.length ? list : stores;
-        if (list.length === 1) { flyTo(list[0]); return; }
-        gl.fitBounds(boundsOf(list), { padding: pad(), maxZoom: 12, duration: reduce ? 0 : 1100 });
-        setView('');
-      }
-      // a place: close enough to see its street and the buildings around it
-      function flyTo(p) {
-        if (dead || !gl) return;
-        gl.flyTo({ center: [p.lon, p.lat], zoom: Math.max(gl.getZoom(), 16), duration: reduce ? 0 : 1800, essential: true });
-      }
-      root.querySelectorAll('[data-ms-sl-view]').forEach(function (b) {
-        b.addEventListener('click', function () {
-          if (dead || !gl) return;
-          var v = b.getAttribute('data-ms-sl-view');
-          hidePop();
-          var vis = stores.filter(shown).filter(function (p) { return !v || p.region === v; });
-          if (!vis.length) vis = stores.filter(function (p) { return !v || p.region === v; });
-          if (!v) gl.fitBounds(boundsOf(vis), { padding: pad(), maxZoom: 4, duration: reduce ? 0 : 1100 });
-          else if (vis.length === 1) flyTo(vis[0]);
-          else gl.fitBounds(boundsOf(vis), { padding: pad(), maxZoom: 12, duration: reduce ? 0 : 1100 });
-          setView(v);
-          if (v && !narrow()) { var r = root.querySelector('[data-ms-sl-region="' + v + '"]'); if (r && !r.hidden) list.scrollTo({ top: r.offsetTop - list.offsetTop, behavior: reduce ? 'auto' : 'smooth' }); }
-        });
-      });
-      root.querySelectorAll('[data-ms-sl-zoom]').forEach(function (b) {
-        b.addEventListener('click', function () {
-          if (dead || !gl) return;
-          var z = b.getAttribute('data-ms-sl-zoom');
-          hidePop();
-          if (z === 'fit') { select(null); fit(stores.filter(shown)); return; }
-          if (z === 'in') gl.zoomIn({ duration: reduce ? 0 : 400 }); else gl.zoomOut({ duration: reduce ? 0 : 400 });
-        });
-      });
-      /* clusters: closer until they part; places in the same street are listed instead */
-      function openCluster(c) {
-        var m = c._members, b = boundsOf(m);
-        var span = Math.max(Math.abs(b.getEast() - b.getWest()), Math.abs(b.getNorth() - b.getSouth()));
-        if (span < .0006 || gl.getZoom() >= 17.5) { showPop(c); return; }
-        hidePop();
-        gl.fitBounds(b, { padding: pad(), maxZoom: 18, duration: reduce ? 0 : 1000 });
-      }
-      function showPop(c) {
-        var m = c._members;
-        pop.innerHTML = '<div class="ms-sl__label"><span>' + esc(m.length + ' ' + T.here) + '</span><button type="button" aria-label="Close" data-x><svg viewBox="0 0 16 16" width="11" height="11"><path d="M1 1 L15 15 M15 1 L1 15" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></button></div><ul></ul>';
-        var ul = pop.querySelector('ul');
-        m.forEach(function (p) {
-          var li = document.createElement('li');
-          li.innerHTML = '<button type="button"><i class="ms-sl__mark is-' + p.kind + '"></i><span>' + esc(p.name) + '</span><em>' + esc(KINDS[p.kind]) + '</em></button>';
-          li.firstChild.addEventListener('click', function (e) { e.stopPropagation(); hidePop(); select(p, { fromMap: true, fly: false }); });
-          ul.appendChild(li);
-        });
-        pop.querySelector('[data-x]').addEventListener('click', function (e) { e.stopPropagation(); hidePop(); });
-        pop.hidden = false; pop._cluster = c;
-        var pw = pop.offsetWidth, ph = pop.offsetHeight;
-        var x = Math.min(Math.max(12, c._x - pw / 2), W - pw - 12), y = c._y - ph - 26;
-        if (y < 60) y = c._y + 28;
-        pop.style.left = x + 'px'; pop.style.top = Math.min(y, H - ph - 12) + 'px';
-      }
-      function hidePop() { pop.hidden = true; pop._cluster = null; }
-    }
+    drawn();
 
     function drawn() {
     if (!window.d3 || !window.topojson) return;
@@ -745,6 +554,54 @@
     var KMAX = 220, homeView = null, touched = false;
     var TILES = {{ s.tiles_url | json }}, tilesEl = root.querySelector('[data-ms-sl-tiles]'), creditEl = root.querySelector('[data-ms-sl-credit]');
     var tileImgs = {}, tileTick = null, tilesOK = false, tileErr = 0, TK0 = 2.2, TK1 = 4.5;
+    var styleEl = document.querySelector('script[data-ms-sl-style]');
+    var VEC = GL_ON && styleEl && webgl() ? 'wanted' : null, vmap = null, vholder = null, vReady = false, vTimer = null, vErr = 0;
+    function vecOn() { return !!VEC && VEC !== 'failed'; }
+    // the drawing's view, as MapLibre's centre and zoom (both are Mercator; MapLibre's world is 512 px at zoom 0)
+    function view() {
+      var ll = proj.invert([(W / 2 - t.x) / t.k, (H / 2 - t.y) / t.k]);
+      return { c: [ll[0], ll[1]], z: Math.max(0, Math.log(2 * Math.PI * proj.scale() * t.k / 512) / Math.LN2) };
+    }
+    function vecStart() {
+      if (VEC !== 'wanted') return;
+      VEC = 'loading';
+      vTimer = setTimeout(function () { if (!vReady) vecFail('timeout'); }, 12000);
+      if (!document.querySelector('link[data-ms-gl]')) { var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = GLCSS; l.setAttribute('data-ms-gl', ''); document.head.appendChild(l); }
+      if (window.maplibregl) vecGo();
+      else { var sc = document.createElement('script'); sc.src = GLJS; sc.async = true; sc.onload = vecGo; sc.onerror = function () { vecFail('script'); }; document.head.appendChild(sc); }
+    }
+    function vecGo() {
+      var ml = window.maplibregl;
+      if (VEC !== 'loading') return;
+      if (!ml || !ml.Map) return vecFail('no maplibre');
+      var style;
+      try { style = JSON.parse(styleEl.textContent); } catch (e) { return vecFail(e); }
+      // names in the visitor's language, then in Latin letters, then as written there
+      var lang = (document.documentElement.lang || 'en').slice(0, 2).toLowerCase();
+      var nm = lang === 'en' ? ['coalesce', ['get', 'name_en'], ['get', 'name:en'], ['get', 'name:latin'], ['get', 'name']]
+        : ['coalesce', ['get', 'name:' + lang], ['get', 'name_en'], ['get', 'name:latin'], ['get', 'name']];
+      style.layers.forEach(function (L) { if (L.layout && L.layout['text-field'] === '@name') L.layout['text-field'] = nm; });
+      vholder = document.createElement('div'); vholder.className = 'ms-sl__vec';
+      tilesEl.appendChild(vholder);
+      var v = view();
+      try { vmap = new ml.Map({ container: vholder, style: style, center: v.c, zoom: v.z, interactive: false, attributionControl: false, fadeDuration: 0 }); }
+      catch (e) { return vecFail(e); }
+      vholder.msMap = vmap; // for the theme's own tests
+      // it has arrived once the first piece of the map has (not just its style); a source that cannot be reached
+      // hands over at once, a few missing pieces are allowed
+      vmap.on('sourcedata', function (e) { if (!vReady && e.tile) { vReady = true; VEC = 'ready'; clearTimeout(vTimer); tilesOK = true; tilesEl.classList.add('is-vec'); tiles(); } });
+      vmap.on('error', function (e) { if (vReady || !e || !e.sourceId) return; if (!e.tile || ++vErr > 6) vecFail(e.error); });
+    }
+    function vecFail(why) {
+      if (VEC === 'failed') return;
+      VEC = 'failed'; clearTimeout(vTimer);
+      if (window.console) console.warn('[agents map] the street map could not load; ' + (TILES ? 'the tiles instead.' : 'the drawing alone.'), why || '');
+      try { if (vmap) vmap.remove(); } catch (e) {}
+      vmap = null; if (vholder && vholder.parentNode) vholder.parentNode.removeChild(vholder);
+      tilesEl.classList.remove('is-vec'); tilesOK = false;
+      if (!TILES) { KMAX = Math.max(40, kForZoom(10)); zoom.scaleExtent([1, KMAX]); if (t.k > KMAX) svg.transition().duration(reduce ? 0 : 500).call(zoom.scaleTo, KMAX); }
+      tiles();
+    }
     ['pointerdown', 'wheel', 'keydown'].forEach(function (ev) { mapEl.addEventListener(ev, function () { touched = true; }, { passive: true }); });
     function kForZoom(z) { return 256 * Math.pow(2, z) / (2 * Math.PI * proj.scale()); }
     var zoom = d3.zoom().scaleExtent([1, KMAX]).filter(function (e) {
@@ -905,7 +762,8 @@
       svg.attr('viewBox', '0 0 ' + W + ' ' + H);
       proj.fitExtent([[12, 12], [W - 12, H - 12]], { type: 'FeatureCollection', features: G.base.land });
       // with the detailed map, down to the street; without it, as far as the drawing has detail
-      KMAX = Math.max(40, kForZoom(TILES ? 18 : 10));
+      KMAX = Math.max(40, kForZoom(TILES || vecOn() ? 18 : 10));
+      if (vmap) vmap.resize();
       zoom.scaleExtent([1, KMAX]);
       stores.forEach(function (p) { var xy = proj([p.lon, p.lat]); p.px = xy[0]; p.py = xy[1]; });
       zoom.extent([[0, 0], [W, H]]).translateExtent([[-W * .25, -H * .25], [W * 1.25, H * 1.25]]);
@@ -917,14 +775,21 @@
        house's cream, fading in as you come closer; the drawing gives way entirely, the pins stay */
     function tiles() {
       var drawnNames = svg.select('[data-ms-sl-labels]');
-      if (!tilesEl || !TILES || !W) { if (world) world.style('opacity', 1); drawnNames.style('opacity', 1); return; }
+      if (!tilesEl || !(TILES || vecOn()) || !W) { if (world) world.style('opacity', 1); drawnNames.style('opacity', 1); if (creditEl) creditEl.classList.remove('is-on'); return; }
       var fade = Math.max(0, Math.min(1, (t.k - TK0) / (TK1 - TK0)));
       tilesEl.style.opacity = fade;
       // the drawing steps back only once the detailed map has arrived; the detailed map names its own streets
       world.style('opacity', tilesOK ? 1 - fade : 1);
       drawnNames.style('opacity', tilesOK ? 1 - fade : 1);
-      if (creditEl) creditEl.classList.toggle('is-on', fade > 0 && tilesOK);
+      if (creditEl) {
+        creditEl.classList.toggle('is-on', fade > 0 && tilesOK);
+        var cv = creditEl.querySelector('[data-ms-sl-credit-vec]'), ct = creditEl.querySelector('[data-ms-sl-credit-tiles]');
+        if (cv) cv.hidden = !vecOn(); if (ct) ct.hidden = vecOn();
+      }
+      // the street map is fetched a little before it is needed, so it is there as the drawing gives way
+      if (VEC === 'wanted' && t.k > TK0 * .7) vecStart();
       if (fade <= 0) return;
+      if (vecOn()) { if (vmap) { var v = view(); vmap.jumpTo({ center: v.c, zoom: v.z }); } return; }
       var s0 = proj.scale(), tr = proj.translate(), size = 2 * Math.PI * s0 * t.k;
       var z = Math.max(1, Math.min(18, Math.round(Math.log(size / 256) / Math.LN2)));
       var n = Math.pow(2, z), x0 = t.x + t.k * (tr[0] - Math.PI * s0), y0 = t.y + t.k * (tr[1] - Math.PI * s0);
@@ -1234,7 +1099,7 @@
     { "type": "header", "content": "List and map" },
     { "type": "text", "id": "list_label", "label": "List label", "default": "Places" },
     { "type": "text", "id": "map_label", "label": "Map label", "default": "Map of Midsummer Milano showrooms, agents and resellers" },
-    { "type": "checkbox", "id": "street_map", "label": "Street map (test before turning on)", "default": false, "info": "OpenFreeMap tiles, zoomable to the street. Off: the drawn map." },
+    { "type": "checkbox", "id": "street_map", "label": "Street map, sharp at any size", "default": true, "info": "Zooming in shows the streets in the house's colours (OpenFreeMap). Off: the tiles below." },
     { "type": "text", "id": "tiles_url", "label": "Map tiles to the street (address)", "default": "https://tile.openstreetmap.org/{z}/{x}/{y}.png", "info": "Shown as you zoom in, down to the street. Empty: the drawn map alone, to city level." },
     { "type": "text", "id": "tiles_credit", "label": "Map tiles credit", "default": "© OpenStreetMap contributors" },
     { "type": "text", "id": "search_placeholder", "label": "Search placeholder", "default": "Search a city, country or name" },

@@ -467,15 +467,23 @@
           <a href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-cta="product-appointment" class="ms-pm__secondary">{{ t_cta2 }}</a>
         </div>
 
-        <dl class="ms-pm__facts" aria-label="{{ t_specs | strip | escape }}">
-          <div><dt>{{ t_f1l }}</dt><dd>{{ t_f1v }}</dd></div>
-          {%- unless pkind == 'other' -%}<div{% if pkind == 'headboard' or pkind == 'boxspring' %} class="is-generic"{% endif %}><dt>{{ t_f2l }}</dt><dd>{{ t_f2v }}</dd></div>{%- endunless -%}
+        {%- comment -%}
+          Each fact once, in its best place: where the page has its own sections for the sizes (drawn), the cloth
+          and the 15 + 15 service, and the name already says "handmade in Italy", the list keeps only what is said
+          nowhere else (comfort, height, lead time, the product's own notes). Setting: "Sizes, cloth and service
+          only in their sections".
+        {%- endcomment -%}
+        {%- assign lean = false -%}
+        {%- if section.settings.said_below -%}{%- if pkind == 'system' or pkind == 'headboard' or pkind == 'boxspring' or pkind == 'outdoor' -%}{%- assign lean = true -%}{%- endif -%}{%- endif -%}
+        <dl class="ms-pm__facts"{% if lean %} data-ms-lean{% endif %} aria-label="{{ t_specs | strip | escape }}">
+          {%- unless lean -%}<div><dt>{{ t_f1l }}</dt><dd>{{ t_f1v }}</dd></div>{%- endunless -%}
+          {%- unless pkind == 'other' or lean -%}<div{% if pkind == 'headboard' or pkind == 'boxspring' %} class="is-generic"{% endif %}><dt>{{ t_f2l }}</dt><dd>{{ t_f2v }}</dd></div>{%- endunless -%}
           {%- if sizes != blank -%}<div><dt>{{ t_sizes }}</dt><dd>{{ sizes }}</dd></div>{%- endif -%}
           {%- if height != blank -%}<div><dt>{{ t_height }}</dt><dd>{{ height }}</dd></div>{%- endif -%}
-          {%- if ss.cover_value != blank and t_cover_v != blank -%}<div><dt>{{ t_cover_l }}</dt><dd>{{ t_cover_v }}</dd></div>{%- endif -%}
+          {%- if ss.cover_value != blank and t_cover_v != blank and lean == false -%}<div><dt>{{ t_cover_l }}</dt><dd>{{ t_cover_v }}</dd></div>{%- endif -%}
           {%- if comfort != blank and ss.comfort_value != blank -%}<div><dt>{{ t_comfort_l }}</dt><dd>{{ comfort }}</dd></div>{%- endif -%}
           {%- if lead != blank -%}<div><dt>{{ t_lead }}</dt><dd>{{ lead }}</dd></div>{%- endif -%}
-          {%- unless pkind == 'outdoor' or pkind == 'other' -%}<div><dt>{{ t_f3l }}</dt><dd>{{ t_f3v }}</dd></div>{%- endunless -%}
+          {%- unless pkind == 'outdoor' or pkind == 'other' or lean -%}<div><dt>{{ t_f3l }}</dt><dd>{{ t_f3v }}</dd></div>{%- endunless -%}
         </dl>
 
         {%- if product.description != blank and section.settings.show_description -%}
@@ -776,6 +784,7 @@
   .ms-pm__facts { margin: clamp(30px, 3.4vw, 44px) 0 0; display: grid; gap: 0; }
   .ms-pm__facts > div { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 18px; padding: 14px 0; border-top: 1px solid #DDD6C9; }
   .ms-pm__facts > div:last-child { border-bottom: 1px solid #DDD6C9; }
+  .ms-pm__facts:not(:has(> div)) { display: none; }
   .ms-pm__facts dt { font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: #6E675C; padding-top: 3px; }
   .ms-pm__facts dd { margin: 0; font-size: 14px; line-height: 1.7; color: #4A443B; }
   .ms-pm__more { margin-top: 22px; }
@@ -1254,6 +1263,7 @@ document.addEventListener('DOMContentLoaded', function () {
     { "type": "text", "id": "f3_label", "label": "Fact 3 label", "default": "Service" },
     { "type": "text", "id": "f3_value", "label": "Fact 3", "default": "Regenerated at fifteen years, for fifteen more" },
     { "type": "checkbox", "id": "show_description", "label": "Show the product description", "default": true },
+    { "type": "checkbox", "id": "said_below", "label": "Sizes, cloth and service only in their sections", "default": true, "info": "The list at the top leaves out what the sections below show better. Off: it lists them too." },
     { "type": "checkbox", "id": "discreet_build", "label": "Keep the build private in descriptions", "default": true, "info": "Leaves out sentences naming springs, layers or the core. Edit admin to remove them from the source too." },
     { "type": "text", "id": "description_label", "label": "Description label", "default": "About this system" },
     { "type": "text", "id": "enlarge_label", "label": "Enlarge label", "default": "Enlarge" },

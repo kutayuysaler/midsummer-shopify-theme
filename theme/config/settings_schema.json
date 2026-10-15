@@ -2330,6 +2330,18 @@
         "label": "Enquiry page"
       },
       {
+        "type": "url",
+        "id": "ms_link_privacy",
+        "label": "Privacy policy",
+        "info": "For example your iubenda privacy policy. Empty: the store's own policy page."
+      },
+      {
+        "type": "url",
+        "id": "ms_link_cookies",
+        "label": "Cookie policy",
+        "info": "For example your iubenda cookie policy. Empty: the privacy policy."
+      },
+      {
         "type": "text",
         "id": "ms_projects_blogs",
         "label": "Blogs shown as projects",
@@ -2353,9 +2365,9 @@
       },
       {
         "type": "text",
-        "id": "ms_instagram_token",
-        "label": "Instagram access token (latest posts)",
-        "info": "Optional. With a token from Instagram (Meta for Developers → Instagram API with Instagram Login), the Follow section shows the account's latest posts and keeps the token renewed. Without it, it shows the photographs chosen in the section. See INSTALL.md."
+        "id": "ms_instagram_feed",
+        "label": "Instagram feed address (latest posts)",
+        "info": "Optional. A JSON feed address, e.g. from behold.so, shows the latest posts. See INSTALL.md, section 41."
       },
       {
         "type": "text",
@@ -2438,6 +2450,33 @@
         "step": 5,
         "unit": "%",
         "default": 40
+      }
+    ]
+  },
+  {
+    "name": "Midsummer · Cookies and search",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Cookie banner: the theme has none of its own. With iubenda, add its app embed (App embeds) and turn off Shopify's own banner (Settings → Customer privacy). The footer's Cookies link then opens iubenda's preferences, and the theme's measurement waits for the visitor's consent. See INSTALL.md, section 41."
+      },
+      {
+        "type": "text",
+        "id": "ms_verify_google",
+        "label": "Google Search Console code",
+        "info": "The content of Google's verification meta tag, or the whole tag."
+      },
+      {
+        "type": "text",
+        "id": "ms_verify_bing",
+        "label": "Bing Webmaster code",
+        "info": "The content of Bing's msvalidate.01 meta tag, or the whole tag."
+      },
+      {
+        "type": "text",
+        "id": "ms_verify_pinterest",
+        "label": "Pinterest code",
+        "info": "The content of Pinterest's p:domain_verify meta tag, or the whole tag."
       }
     ]
   }

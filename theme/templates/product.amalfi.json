@@ -88,13 +88,6 @@
             "a": "<p>[product] is made by hand in Italy from natural fibres: silk, Cheviot wool, cotton and Ingeo. It is covered in linen and cotton, in four colours. It is made to order, by hand, one at a time.</p>"
           }
         },
-        "qa_02": {
-          "type": "qa",
-          "settings": {
-            "q": "Can [product] be made to my dimensions?",
-            "a": "<p>Yes. Dimensions, heights, fibres, fabric and comfort level are specification decisions rather than exceptions. Non-standard widths, heights and radii, round included, are worked to your drawing.</p>"
-          }
-        },
         "qa_03": {
           "type": "qa",
           "settings": {
@@ -123,23 +116,14 @@
             "when_hidden": true,
             "a": "<p>Because every system is made to order, and the price follows the specification: dimensions, height, fibres, fabric and comfort level. We quote after the consultation.</p>"
           }
-        },
-        "qa_07": {
-          "type": "qa",
-          "settings": {
-            "q": "What is the 15 + 15 service?",
-            "a": "<p>Our regeneration service. At year fifteen the mattress returns to the Italian artisans who made it, and its comfort, integrity and life are restored for the fifteen years ahead, rather than the system being replaced.</p>"
-          }
         }
       },
       "block_order": [
         "qa_01",
-        "qa_02",
         "qa_03",
         "qa_04",
         "qa_05",
-        "qa_06",
-        "qa_07"
+        "qa_06"
       ]
     },
     "s05": {

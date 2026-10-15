@@ -5,6 +5,13 @@
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
     {%- endif -%}
     {%- render 'meta-tags' -%}
+    {%- comment -%} site verification (Theme settings → Midsummer · Cookies and search): the code, or the whole tag pasted {%- endcomment -%}
+    {%- assign vpairs = 'google-site-verification:ms_verify_google,msvalidate.01:ms_verify_bing,p:domain_verify:ms_verify_pinterest' | split: ',' -%}
+    {%- for pair in vpairs -%}
+      {%- assign kv = pair | split: ':ms_' -%}{%- assign sk = 'ms_' | append: kv[1] -%}{%- assign code = settings[sk] | strip -%}
+      {%- if code contains 'content=' -%}{%- assign code = code | split: 'content=' | last | remove: '"' | remove: "'" | split: ' ' | first | remove: '/>' | remove: '>' -%}{%- endif -%}
+      {%- if code != blank -%}<meta name="{{ kv[0] }}" content="{{ code | escape }}">{%- endif -%}
+    {%- endfor -%}
     <link rel="preload" href="{{ 'ms-newsreader-4.woff2' | asset_url }}" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="{{ 'ms-red-hat-text-6.woff2' | asset_url }}" as="font" type="font/woff2" crossorigin>
     {%- render 'ms-fonts' -%}

@@ -274,7 +274,7 @@ CRAFT = {
                    ['Cashmere', 'Mohair', 'Silk', 'Falkland Wool', 'Linen', 'Ingeo'])},
     # the 2026 catalogue, page 110
     'topper-high': {'kind': 'topper',
-        'topper': ('High, 9 to 10 cm, or medium, 5 cm: silk, wool, linen and Ingeo; the high one also in vicuña, the medium one also in wool and horsehair.',
+        'topper': ('High or medium: silk, wool, linen and Ingeo; the high one also in vicuña, the medium one also in wool and horsehair.',
                    ['The body rests on the mattress, gently held by the softness of the fibres above it.',
                     'Warm for the winter, cool and breathable for the summer.',
                     'Upholstered in Loro Piana Interiors linen and cotton, or cashmere, in a range of colours.'],

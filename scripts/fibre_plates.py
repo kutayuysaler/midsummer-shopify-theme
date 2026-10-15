@@ -18,7 +18,7 @@ SPEC = {
   'camel':     ('shutterstock_390845494.jpg',            .47, .5, 1.0),
   # Round 17: the animal itself, the cloth itself, the fruit itself
   'alpaca':    ('sebastien-goldberg-xgQZ1rXbYa4-unsplash-2.jpg', .5, .56, .96),
-  'mohair':    ('COPERTA_shutterstock_mohair grigio bordo.jpg', .62, .62, .62),
+  'mohair':    ('COPERTA_Mohair.jpg',                    .225, .262, .30),
   'linen':     ('lino.jpg',                              .35, .55, .35),
   'vegetable': ('nika-akin-b9UKi6t3xh0-unsplash (1).jpg', .5, .3, 1.0),
   'ingeo':     ('cotone+fibra mais.JPG',                 .6, .5, .8),

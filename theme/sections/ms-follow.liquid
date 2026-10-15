@@ -1,6 +1,6 @@
 {%- comment -%}
-  Follow the atelier: the house's accounts, large, with a row of photographs that lead to
-  Instagram. Accounts come from Theme settings → Midsummer · Social and WhatsApp.
+  Follow the atelier: the house's accounts, large, with a row of the latest Instagram posts
+  (or, until a feed is set, photographs that lead to the account). Accounts come from Theme settings → Midsummer · Social and WhatsApp.
 {%- endcomment -%}
 {%- liquid
   assign ig = settings.ms_social_instagram
@@ -29,54 +29,78 @@
     {%- if app_blocks.size > 0 -%}
       <div class="ms-fw__app">{%- for block in section.blocks -%}{%- if block.type == '@app' -%}{% render block %}{%- endif -%}{%- endfor -%}</div>
     {%- else -%}
-    <div class="ms-fw__grid" data-ms-ig="{{ settings.ms_instagram_token | escape }}">
+    <div class="ms-fw__grid" data-ms-ig-feed="{{ settings.ms_instagram_feed | escape }}" data-ms-ig-handle="{{ handle | escape }}">
       {%- for i in (1..5) -%}
         {%- liquid
           assign k = 'image_' | append: i
           assign img = section.settings[k]
           case i
             when 1
-              assign fb = 'ms-photo-fresco-bed.jpg' | asset_url
+              assign fb = 'ms-photo-fresco-bed.jpg'
             when 2
-              assign fb = 'ms-photo-atelier-parrots.jpg' | asset_url
+              assign fb = 'ms-photo-atelier-parrots.jpg'
             when 3
-              assign fb = 'ms-photo-artisan-fibre.jpg' | asset_url
+              assign fb = 'ms-photo-artisan-fibre.jpg'
             when 4
-              assign fb = 'ms-photo-flora-corner.jpg' | asset_url
+              assign fb = 'ms-photo-flora-corner.jpg'
             else
-              assign fb = 'ms-photo-shepherd.jpg' | asset_url
+              assign fb = 'ms-photo-shepherd.jpg'
           endcase
         -%}
-        <a class="ms-fw__tile" href="{{ ig | default: '#' }}" target="_blank" rel="noopener" aria-label="{{ handle | escape }} on Instagram">
-          <img src="{% if img != blank %}{{ img | image_url: width: 700 }}{% else %}{{ fb }}{% endif %}" alt="{{ handle | escape }} on Instagram" width="700" height="700" loading="lazy">
+        <a class="ms-fw__tile" href="{{ ig | default: '#' }}" target="_blank" rel="noopener">
+          <img src="{% render 'ms-img', image: img, fallback: fb, width: 700 %}" {% render 'ms-srcset', image: img, fallback: fb, width: 700, sizes: '(max-width: 760px) 50vw, 20vw' %} alt="{{ handle | escape }} on Instagram" width="700" height="700" loading="lazy">
+          <span class="ms-fw__kind" aria-hidden="true"></span>
           <span class="ms-fw__glyph" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" fill-rule="evenodd" d="M7 1h10a6 6 0 0 1 6 6v10a6 6 0 0 1-6 6H7a6 6 0 0 1-6-6V7a6 6 0 0 1 6-6Zm0 2.1A3.9 3.9 0 0 0 3.1 7v10A3.9 3.9 0 0 0 7 20.9h10a3.9 3.9 0 0 0 3.9-3.9V7A3.9 3.9 0 0 0 17 3.1H7Zm5 3.6a5.3 5.3 0 1 1 0 10.6 5.3 5.3 0 0 1 0-10.6Zm0 2.1a3.2 3.2 0 1 0 0 6.4 3.2 3.2 0 0 0 0-6.4Zm5.6-3.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5Z"/></svg></span>
         </a>
       {%- endfor -%}
     </div>
-    {%- if settings.ms_instagram_token != blank -%}
+    {%- if settings.ms_instagram_feed != blank -%}
     <script>
-      /* the latest posts, straight from Instagram; an hour's memory; the photographs above if it cannot answer */
+      /* The latest posts, from the feed address in Theme settings (a feed service that holds the Instagram
+         connection, such as Behold; or any address that answers with Instagram's own fields). Asked for when the
+         row comes near, remembered for an hour; the photographs above stay if the feed cannot answer. */
       (function () {
-        var g = document.currentScript.previousElementSibling, tok = g && g.getAttribute('data-ms-ig');
-        if (!tok) return;
-        var KEY = 'ms-ig-v1', now = Date.now(), cached = null;
+        var g = document.currentScript.previousElementSibling, url = g && g.getAttribute('data-ms-ig-feed');
+        if (!url) return;
+        var KEY = 'ms-ig-feed-v2', TTL = 36e5, cached = null, handle = g.getAttribute('data-ms-ig-handle') || '';
         try { cached = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) {}
+        if (cached && cached.url !== url) cached = null;
+        function pick(p) {
+          if (!p || !p.permalink) return null;
+          var type = String(p.mediaType || p.media_type || ''), video = /VIDEO/i.test(type) || p.isReel;
+          var sz = p.sizes || {}, m = sz.medium || sz.large || sz.full || {};
+          var src = m.mediaUrl || (video ? (p.thumbnailUrl || p.thumbnail_url) : (p.mediaUrl || p.media_url)) || p.thumbnailUrl || p.thumbnail_url;
+          if (!src) return null;
+          return { src: src, href: p.permalink, kind: video ? 'video' : (/CAROUSEL/i.test(type) ? 'album' : ''),
+                   text: String(p.prunedCaption || p.caption || '').split('\n')[0].trim().slice(0, 140) };
+        }
         function paint(items) {
           var tiles = g.querySelectorAll('.ms-fw__tile');
-          items.slice(0, tiles.length).forEach(function (it, i) {
-            var src = it.media_type === 'VIDEO' ? it.thumbnail_url : it.media_url; if (!src) return;
-            var a = tiles[i], img = a.querySelector('img');
-            a.href = it.permalink; img.src = src; img.alt = (it.caption || '').split('\n')[0].slice(0, 120); a.classList.add('is-live');
+          items.slice(0, tiles.length).forEach(function (it, n) {
+            var a = tiles[n], img = a.querySelector('img');
+            img.removeAttribute('srcset'); img.removeAttribute('sizes');
+            img.src = it.src; img.alt = it.text || (handle + ' on Instagram');
+            a.href = it.href; a.setAttribute('data-kind', it.kind);
           });
           g.classList.add('is-live');
         }
-        if (cached && cached.items && now - cached.t < 36e5) paint(cached.items);
-        else fetch('https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,thumbnail_url,permalink,timestamp&limit=12&access_token=' + encodeURIComponent(tok))
-          .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
-          .then(function (j) { var items = (j.data || []).filter(function (x) { return x.media_url || x.thumbnail_url; }); if (!items.length) return; paint(items); try { localStorage.setItem(KEY, JSON.stringify({ t: now, items: items.slice(0, 12) })); } catch (e) {} })
-          .catch(function () { if (cached && cached.items) paint(cached.items); });
-        // once a week, ask Instagram to extend the token, so it never lapses while the site is visited
-        try { var last = +localStorage.getItem('ms-ig-refresh') || 0; if (now - last > 6048e5) { localStorage.setItem('ms-ig-refresh', String(now)); fetch('https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=' + encodeURIComponent(tok)).catch(function () {}); } } catch (e) {}
+        function load() {
+          fetch(url, { credentials: 'omit' })
+            .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+            .then(function (j) {
+              var list = Array.isArray(j) ? j : (j.posts || j.data || []);
+              var items = list.map(pick).filter(Boolean);
+              if (!items.length) return;
+              paint(items);
+              try { localStorage.setItem(KEY, JSON.stringify({ url: url, t: Date.now(), items: items.slice(0, 12) })); } catch (e) {}
+            })
+            .catch(function () { if (cached) paint(cached.items); });
+        }
+        if (cached && Date.now() - cached.t < TTL) { paint(cached.items); return; }
+        if ('IntersectionObserver' in window) {
+          var io = new IntersectionObserver(function (e) { if (e[0].isIntersecting) { io.disconnect(); load(); } }, { rootMargin: '800px 0px' });
+          io.observe(g);
+        } else load();
       })();
     </script>
     {%- endif -%}
@@ -102,6 +126,10 @@
   .ms-fw__tile:hover img { transform: scale(1.06); }
   .ms-fw__app { margin-top: clamp(40px, 5vw, 72px); }
   .ms-fw__tile:hover .ms-fw__glyph { opacity: 1; }
+  .ms-fw__kind { position: absolute; top: 10px; right: 10px; width: 18px; height: 18px; display: none; color: #FBF9F5; filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .35)); }
+  .ms-fw__tile[data-kind="video"] .ms-fw__kind, .ms-fw__tile[data-kind="album"] .ms-fw__kind { display: block; }
+  .ms-fw__tile[data-kind="video"] .ms-fw__kind { background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23FBF9F5' d='M8 5.5v13l11-6.5z'/%3E%3C/svg%3E"); }
+  .ms-fw__tile[data-kind="album"] .ms-fw__kind { background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23FBF9F5' stroke-width='1.6' d='M7 7h12v12H7zM4 16V4h12'/%3E%3C/svg%3E"); }
   @media (max-width: 860px) {
     .ms-fw__head { grid-template-columns: minmax(0, 1fr); }
     .ms-fw__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -122,7 +150,7 @@
     { "type": "image_picker", "id": "image_3", "label": "Photograph 3" },
     { "type": "image_picker", "id": "image_4", "label": "Photograph 4" },
     { "type": "image_picker", "id": "image_5", "label": "Photograph 5" },
-    { "type": "paragraph", "content": "The latest posts appear by themselves with an Instagram access token (Theme settings → Midsummer · Social and WhatsApp), or with an Instagram feed app's block added here. The photographs above are shown until then." }
+    { "type": "paragraph", "content": "The latest posts appear by themselves once an Instagram feed address is set in Theme settings → Midsummer · Social and WhatsApp (see INSTALL.md, section 41), or with an Instagram feed app's block added here. Until then, the photographs above are shown, each leading to the account." }
   ],
   "blocks": [{ "type": "@app" }],
   "presets": [{ "name": "Follow the atelier" }]

@@ -304,10 +304,12 @@
     setTimeout(function () { hit.scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' }); }, 120);
   })();
 
-  /* Cookies: Shopify's own preferences, when the store's cookie banner is on */
+  /* Cookies: the banner's preferences (iubenda's, or Shopify's own); otherwise the cookie policy */
   document.addEventListener('click', function (e) {
     var a = e.target.closest('[data-ms-cookies]');
     if (!a) return;
+    var iub = window._iub && window._iub.cs && window._iub.cs.api;
+    if (iub && typeof iub.openPreferences === 'function') { e.preventDefault(); iub.openPreferences(); return; }
     var pb = window.privacyBanner;
     if (pb && typeof pb.showPreferences === 'function') { e.preventDefault(); pb.showPreferences(); }
   });

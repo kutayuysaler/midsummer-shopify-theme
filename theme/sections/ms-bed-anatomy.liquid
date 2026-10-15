@@ -27,9 +27,6 @@
   capture line
     render 'ms-bed-data', key: bed, part: 'line'
   endcapture
-  capture height
-    render 'ms-bed-data', key: bed, part: 'height'
-  endcapture
 -%}
 <section class="ms-ba" data-ms-ba data-bed="{{ bed }}" aria-labelledby="ba-{{ section.id }}">
   <div class="ms-ba__in">
@@ -53,15 +50,11 @@
               <p class="ms-ba__lead">{% render 'ms-bed-data', key: bed, part: 'hb' %}</p>
               <dl class="ms-ba__rows">
                 <div><dt>{{ s.uph_label }}</dt><dd>{% render 'ms-bed-data', key: bed, part: 'uph' %}</dd></div>
-                <div><dt>{{ s.height_label }}</dt><dd>{{ height }} cm</dd></div>
                 <div><dt>{{ s.width_label }}</dt><dd>{% render 'ms-bed-data', key: bed, part: 'width' %}</dd></div>
               </dl>
               {%- if bed == 'beating-of-wings' -%}<button type="button" class="ms-ba__flap" data-ba-flap>{{ s.wings_label }}</button>{%- endif -%}
             {%- when 'mattress' -%}
               <p class="ms-ba__lead">{{ s.mattress_text }}</p>
-              <dl class="ms-ba__rows">
-                <div><dt>{{ s.sizes_label }}</dt><dd>{{ s.sizes_value }}</dd></div>
-              </dl>
               {%- if s.mattress_link != blank -%}<a class="ms-ba__link" href="{% render 'ms-link', to: 'mattresses' %}">{{ s.mattress_link }}<span aria-hidden="true">→</span></a>{%- endif -%}
             {%- else -%}
               <p class="ms-ba__lead">{% render 'ms-bed-data', key: bed, part: 'base' %}</p>
@@ -71,10 +64,20 @@
           {%- endcase -%}
         </div>
       {%- endfor -%}
-      <figure class="ms-ba__quote">
+      <figure class="ms-ba__quote" data-ms-ba-quote>
         <blockquote>{% render 'ms-bed-data', key: bed, part: 'quote' %}</blockquote>
         <figcaption>{% render 'ms-bed-data', key: bed, part: 'author' %}</figcaption>
       </figure>
+      <script>
+        /* the same lines already open the description at the top of the page: said once, there */
+        (function () {
+          var f = document.currentScript.previousElementSibling, d = document.querySelector('[data-ms-desc]');
+          if (!f || !d) return;
+          var norm = function (t) { return String(t || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim(); };
+          var q = norm(f.querySelector('blockquote').textContent);
+          if (q.length > 12 && norm(d.textContent).indexOf(q.slice(0, 40)) > -1) f.hidden = true;
+        })();
+      </script>
       <div class="ms-ba__links">
         {%- if s.button != blank -%}<a class="ms-ba__btn" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=appointment' %}#enquire" data-ms-enquire>{{ s.button }}</a>{%- endif -%}
         {%- capture hbl -%}{% render 'ms-link', to: 'headboards', strict: true %}{%- endcapture -%}
@@ -176,11 +179,8 @@
     { "type": "text", "id": "mattress_title", "label": "Part II", "default": "The mattress" },
     { "type": "text", "id": "base_title", "label": "Part III", "default": "The boxspring" },
     { "type": "text", "id": "uph_label", "label": "Upholstery label", "default": "Upholstery" },
-    { "type": "text", "id": "height_label", "label": "Height label", "default": "Height" },
     { "type": "text", "id": "width_label", "label": "Width label", "default": "Width" },
     { "type": "text", "id": "legs_label", "label": "Legs label", "default": "Legs" },
-    { "type": "text", "id": "sizes_label", "label": "Sizes label", "default": "Sizes" },
-    { "type": "text", "id": "sizes_value", "label": "Sizes", "default": "Single to King, and made to measure" },
     { "type": "textarea", "id": "mattress_text", "label": "The mattress", "default": "Any Midsummer mattress, chosen for the way you sleep: from the Raffaello in baby alpaca to the Vicuña, the rarest fibre of all." },
     { "type": "text", "id": "mattress_link", "label": "Mattresses link", "default": "The mattresses" },
     { "type": "text", "id": "wings_label", "label": "Beating of Wings: wings button", "default": "Fold the wings" },

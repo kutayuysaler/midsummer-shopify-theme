@@ -2037,3 +2037,120 @@ axe-core went from nine kinds of issue to none on content. The only flags left a
 1. Open a page on a phone (Atelier or Natural materials). The photographs should look as sharp as before.
 2. Run PageSpeed Insights on the home page and a product page, and keep the numbers as the baseline for later changes.
 3. The items still open from Rounds 16 and 17 (section 39) stand.
+
+## 41. Round 19: Instagram, the street map, each fact once, iubenda, and the fibres under the glass
+
+### Instagram: the latest posts, live
+
+The *Follow us* section on the home page can now show the account's latest posts, each tile leading to its own post. Without a feed it shows the house's photographs, leading to the account, as before.
+
+Instagram does not let a page read an account's posts without a key, and a key must never sit in a page's code. A feed service holds the key and gives the theme a plain address instead. The theme reads [Behold](https://behold.so)'s feeds (the free plan covers one account) and any feed that uses Instagram's own fields.
+
+1. Sign in at behold.so, connect the *midsummermilano* Instagram account and create a feed (JSON).
+2. Copy the feed's address (it looks like `https://feeds.behold.so/…`).
+3. In the theme editor: **Theme settings → Midsummer · Social and WhatsApp → Instagram feed address (latest posts)**. Paste it and save.
+
+How it behaves:
+- The posts load only when the section comes near the screen, and are kept for an hour in the visitor's browser.
+- Films and albums carry a small mark. Each post's first line is the picture's description.
+- If the feed is missing or does not answer, the house's photographs stay.
+- No access token appears anywhere in the theme.
+
+### Agents and showrooms: a street map that stays sharp
+
+Zooming into a city now draws the streets themselves (OpenFreeMap vector data) in the house's colours, sharp at any size and on any screen. It replaces the blurred, too-bright street tiles.
+
+- The map library is a theme asset (`ms-maplibre.js`). It loads only when someone zooms in.
+- The streets draw only once their data has arrived. If OpenFreeMap cannot be reached, the drawn map (or the older tiles) stays, never an empty frame.
+- The credit (OpenFreeMap © OpenMapTiles, data from OpenStreetMap) shows while the streets are on.
+- **Setting:** *Agents and resellers* section → **Street map, sharp at any size** (on by default). Off: the older tiles.
+
+### Product pages: each fact said once, in its best place
+
+- **The facts list at the top** no longer repeats what the sections below show better:
+  - the sizes (drawn, with each headboard, in the sizes band);
+  - the cloth;
+  - the service.
+  - **Setting:** *Product* section → **Sizes, cloth and service only in their sections** (on by default). Off: the list shows them too.
+- ***Specified, not selected:*** the dimensions row is gone when the page already shows the sizes.
+- ***Inside the bed* (headboard beds):**
+  - the *Height* and *Sizes* rows are gone (the sizes band shows them);
+  - the quote is hidden when the product description already opens with it.
+- **Questions:** 52 answers on product pages that repeated the reasons or the specifications are left out.
+
+### iubenda, and Avada evicted
+
+The theme has no cookie banner of its own. It works with iubenda, or with any banner that reports through Shopify's Customer Privacy API.
+
+**To switch iubenda on:**
+1. Install iubenda's Shopify app and set up the cookie banner there.
+2. **Online Store → Themes → Customize → App embeds:** turn on iubenda's embed.
+3. **Settings → Customer privacy:** turn off Shopify's own cookie banner, so visitors see one banner, not two.
+4. **Theme settings → Midsummer · Where links go:** paste your iubenda **Privacy policy** and **Cookie policy** addresses. Empty: the store's own policy page.
+
+**What the theme then does:**
+- The footer's *Cookies* link opens iubenda's preferences. With no banner it opens the cookie policy.
+- The theme's own measurement (the AI-referral note) keeps nothing beyond the page until the visitor allows analytics.
+
+**Avada SEO Suite.** Its app embeds are removed from the theme's settings. The theme's own titles, descriptions, structured data and sitemaps cover what Avada did.
+
+To finish in the admin:
+1. **Settings → Apps and sales channels:** uninstall *Avada SEO Suite* (and *SEOon Blog*, if installed).
+2. The URL redirects Avada created stay in **Online Store → Navigation → URL redirects**. Keep them: they protect old links.
+3. Search Console, Bing and Pinterest verification codes now have their own fields: **Theme settings → Midsummer · Cookies and search**. Paste the code or the whole meta tag. If Avada was what verified the site, paste the codes there before uninstalling it.
+
+### Natural materials
+
+**Mohair.** The plate now shows mohair close up, from the house's own photograph of a mohair cover: the long, lustrous, wavy hair of the Angora goat. It replaces the generic tuft. The library has no photograph of an Angora goat. Send one and the plate script will process it like the others.
+
+**Under the glass, redrawn to scale.**
+- **Real proportions.** Every fibre is drawn at its real width (2 px per micron, a field 0.4 mm across). Behind each one lies a pale human hair, about 70 µm, at the same scale. A 100 µm bar sits at the head of the field.
+- **What a customer sees:**
+  - vicuña at a sixth of a hair;
+  - wool's bold scales and crimp;
+  - silk's paired filament, with no scales;
+  - linen's nodes;
+  - cotton's twisted ribbon;
+  - horsehair dwarfing the hair behind it.
+- **What each fibre's surface is drawn with:**
+  - smooth, flat, faint, wavy or jagged scale edges;
+  - the air-filled core of alpaca and horsehair;
+  - the fine central channel of linen;
+  - the ridges of the palm.
+- **The caption on the plate** says how fine the fibre is, for example "25–33 µm across. The pale band is a human hair, about 70 µm." The number is left out where a figure beside it already gives it (vicuña's 12 µm).
+- **Beside each fibre,** a short *Under the glass* note says what the glass shows and what it means in a bed. Examples:
+  - the finer a fibre, the more readily it bends, which the skin feels as softness;
+  - the crimp keeps wool full of air.
+  
+  The notes are general fibre science, kept to what the drawing shows, and do not repeat the fibre's own text.
+- **Where the numbers come from.** Vicuña's and cashmere's widths are the catalogue's. The others are the usual ranges for each fibre. The made fibres (Ingeo, Orange Fiber) and the palm fibre have no number.
+- **Editing:** each fibre block has **Across one fibre, in µm** and **Under the glass, said**.
+- **Figures that repeated the text beside them** were removed, for example *Mongolia* next to "Origin: Mongolia", and the yak's *May*. The map view names the place once.
+- **On a phone,** the three view buttons now hold their words.
+
+### Fixed
+
+Two of the build's own patches were adding the same lines again on every build. They now apply once, and two builds in a row give identical files. Neither changed what a visitor saw.
+- The *Cookies* link's script had five extra copies of one check.
+- The Professionals menu had 45 extra copies of one line.
+
+### Checks on this build
+
+| Check | Result |
+| --- | --- |
+| Shopify's Liquid engine (`strict` and `strict2`) | 469 files, 0 errors |
+| Theme Check | 0 errors, 69 warnings (unchanged) |
+| Template values against section schemas | no new issues |
+| Page audit (78 templates) | no script errors, no missing files, one H1 each |
+| Overflow sweep (78 templates × 360, 768, 1440 px) | nothing wider than the screen |
+| axe-core (78 templates × phone, computer) | no issues on content (only the decorative numerals) |
+| Interaction tests | 194 pass. New: Instagram live, film and album marks, a failing feed, no token; the street map, aligned, and its fallback; the fibres to scale with their notes and captions; figures that do not repeat; the view buttons on a phone; the quote said once; facts said once; iubenda's preferences from the *Cookies* link; consent before anything is kept |
+
+### To check on the store after uploading
+
+1. **Instagram:** paste the Behold feed address (above), then open the home page. The latest posts should replace the photographs.
+2. **Agents and resellers:** zoom into Milan. The streets should draw sharp. OpenFreeMap could not be reached from the test environment, so the streets were tested with generated map data.
+3. **iubenda:** with the app embed on and Shopify's banner off, check that only one banner appears and that the footer's *Cookies* link opens its preferences.
+4. **Avada:** uninstall it, after moving any verification codes (above).
+5. **A headboard bed's page,** for example Cashmere Couture: the sizes are said once, in the sizes band.
+6. **Natural materials:** open *Under the glass* for wool and for vicuña.

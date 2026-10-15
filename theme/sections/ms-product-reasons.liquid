@@ -68,6 +68,7 @@
     chips = holder.querySelectorAll('[data-ms-size]');
     if (!root.id) root.id = 'ms-sizes';
     var dd = document.querySelector('[data-ms-dims]'), dbox = document.querySelector('[data-ms-desc]');
+    if (dd && dd.closest('[data-ms-lean]')) { var drow = dd.closest('.ms-pm__facts > div') || dd.parentNode; if (drow && drow.parentNode) drow.parentNode.removeChild(drow); dd = null; }
     if (dd) {
       var ln = (dbox && dbox.getAttribute('data-l-sizes')) || '[n] sizes', see = (dbox && dbox.getAttribute('data-l-see')) || 'See each size, drawn';
       var keep = Array.prototype.filter.call(dd.querySelectorAll('p'), function (p) { return !/\d\s*[×x]\s*\d/.test(p.textContent); }).map(function (p) { return p.outerHTML; }).join('');

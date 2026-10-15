@@ -130,6 +130,16 @@
             if npt > 0
               assign cx = cx | divided_by: npt
             endif
+            # under the glass: how fine, beside the human hair drawn behind it (the number once: not where a figure gives it)
+            assign um = bs.microns | default: '' | strip
+            if bs.f1 contains 'µm' or bs.f2 contains 'µm' or bs.f3 contains 'µm'
+              assign um = ''
+            endif
+            if um != '' and s.fine_line != blank
+              assign measure = s.fine_line | replace: '[n]', um
+            else
+              assign measure = s.hair_line
+            endif
           -%}
           <div class="ms-fa__pl">
           <figure class="ms-fa__plate" data-fa-plate data-view="{{ view }}">
@@ -154,14 +164,13 @@
                       {%- endif -%}
                     {%- endfor -%}
                   </div>
-                  <span class="ms-fa__mapname">{{ bs.origin }}</span>
                 </div>
               {%- endif -%}
             </div>
             <figcaption class="ms-fa__cap">
               <span class="ms-fa__pn">{{ s.plate_label }} {{ num }}</span>
               {%- if photo != '' -%}<span class="ms-fa__cv ms-fa__cv--source">{{ bs.alt }}</span>{%- endif -%}
-              <span class="ms-fa__cv ms-fa__cv--glass">{{ bs.glass_note | default: s.glass_label }}{%- if s.zoom_hint != blank -%}<em>{{ s.zoom_hint }}</em>{%- endif -%}</span>
+              <span class="ms-fa__cv ms-fa__cv--glass">{{ measure | default: s.glass_label }}{%- if s.zoom_hint != blank -%}<em>{{ s.zoom_hint }}</em>{%- endif -%}</span>
               {%- if npt > 0 -%}<span class="ms-fa__cv ms-fa__cv--map">{{ bs.origin }}</span>{%- endif -%}
             </figcaption>
           </figure>
@@ -178,6 +187,7 @@
             <div class="ms-fa__name">{{ bs.name }}</div>
             {%- if bs.quality_label != blank -%}<p class="ms-fa__qs">{{ bs.quality_label }}</p>{%- endif -%}
             {%- if bs.lead != blank -%}<p class="ms-fa__lead">{{ bs.lead }}</p>{%- endif -%}
+            {%- if bs.glass_note != blank -%}<p class="ms-fa__gl"><span>{{ s.glass_label }}</span>{{ bs.glass_note }}</p>{%- endif -%}
             {%- if bs.f1 != blank or bs.f2 != blank or bs.f3 != blank -%}
               <dl class="ms-fa__figs">
                 {%- for i in (1..3) -%}
@@ -429,7 +439,6 @@
   .ms-fa__pin { position: absolute; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; background: #9A5B43; box-shadow: 0 0 0 4px rgba(154, 91, 67, .2); }
   .ms-fa__pin::after { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 1px solid #9A5B43; animation: msFaPin 2.6s ease-out infinite; }
   @keyframes msFaPin { from { transform: scale(.6); opacity: .9; } to { transform: scale(3.4); opacity: 0; } }
-  .ms-fa__mapname { position: absolute; left: 18px; top: 16px; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 17px; color: #6E4A36; }
   .ms-fa__cap { position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; padding: 30px 18px 14px; font-size: 12px; line-height: 1.45; color: #FBF9F5; background: linear-gradient(transparent, rgba(23, 20, 15, .55)); pointer-events: none; }
   .ms-fa__pn { flex: 0 0 auto; font-size: 9.5px; letter-spacing: .22em; text-transform: uppercase; opacity: .85; padding-bottom: 2px; }
   .ms-fa__cv { display: none; text-align: right; max-width: 34ch; font-family: Newsreader, Georgia, serif; font-size: 14.5px; }
@@ -446,6 +455,8 @@
   .ms-fa__name { font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: clamp(36px, 3.4vw, 52px); line-height: 1.05; margin: 22px 0 10px; }
   .ms-fa__qs { margin: 0 0 22px; font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: #8d6248; }
   .ms-fa__lead { margin: 0; font-size: 15.5px; line-height: 1.75; color: #4A443B; max-width: 52ch; }
+  .ms-fa__gl { margin: 22px 0 0; padding-left: 16px; border-left: 1px solid #D9CBB3; font-size: 14px; line-height: 1.7; color: #5C554B; max-width: 52ch; }
+  .ms-fa__gl span { display: block; margin-bottom: 4px; font-size: 9.5px; letter-spacing: .22em; text-transform: uppercase; color: #8C6A4E; }
   .ms-fa__figs { display: grid; grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); gap: 18px 24px; margin: 28px 0 0; padding: 22px 0 0; border-top: 1px solid #ECE6DB; }
   .ms-fa__figs dt { font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: 28px; line-height: 1.1; color: #17140F; }
   .ms-fa__figs dd { margin: 8px 0 0; font-size: 12.5px; line-height: 1.55; color: #6E675C; }
@@ -484,6 +495,8 @@
     .ms-fa__grid { grid-template-columns: minmax(0, 1fr); }
     .ms-fa__p { grid-column: 1; grid-row: auto; position: static; padding: 6px 0 34px; gap: 22px; }
     .ms-fa__plate { aspect-ratio: 1 / 1; }
+    .ms-fa__cv { font-size: 13px; }
+    .ms-site .ms-fa__tab { padding: 4px; letter-spacing: .1em; white-space: normal; line-height: 1.3; }
     .ms-site .ms-fa__field, .ms-fa__reticle { width: 88%; height: auto; }
     .ms-fa__bs { grid-template-columns: minmax(0, 1fr); }
     .ms-fa__name { font-size: 34px; margin-top: 16px; }
@@ -524,7 +537,9 @@
     { "type": "text", "id": "map_label", "label": "View: the map", "default": "Its origin" },
     { "type": "text", "id": "zoom_hint", "label": "Under the glass: hint", "default": "Touch the glass to look closer" },
     { "type": "text", "id": "zoom_label", "label": "Under the glass (for screen readers)", "default": "Look closer" },
-    { "type": "text", "id": "draw_alt", "label": "Drawing description", "default": "[fibre], drawn as under the glass.", "info": "[fibre] becomes the fibre's name." },
+    { "type": "text", "id": "draw_alt", "label": "Drawing description", "default": "[fibre] under the microscope, drawn to scale beside a human hair.", "info": "[fibre] becomes the fibre's name." },
+    { "type": "text", "id": "fine_line", "label": "Under the glass: how fine", "default": "[n] µm across. The pale band is a human hair, about 70 µm.", "info": "[n] becomes the fibre's microns, from its block." },
+    { "type": "text", "id": "hair_line", "label": "Under the glass: without a number", "default": "The pale band is a human hair, about 70 µm, at the same scale." },
     { "type": "text", "id": "origin_label", "label": "Origin", "default": "Origin" },
     { "type": "text", "id": "species_label", "label": "Species", "default": "Species" },
     { "type": "text", "id": "beds_label", "label": "Beds made with it", "default": "In our beds" },
@@ -561,7 +576,8 @@
         { "type": "text", "id": "f3_cap", "label": "Figure 3, said" },
         { "type": "text", "id": "origin", "label": "Origin" },
         { "type": "text", "id": "points", "label": "Origin on the map", "info": "Latitude,longitude, e.g. -15.5,-70.5; several separated by ;. Empty: no map." },
-        { "type": "text", "id": "glass_note", "label": "Under the glass, said" },
+        { "type": "textarea", "id": "glass_note", "label": "Under the glass, said", "info": "What the glass shows, and what it means in a bed. Shown beside the fibre." },
+        { "type": "text", "id": "microns", "label": "Across one fibre, in µm", "info": "E.g. 15 or 25–33. Empty: the caption gives the hair alone." },
         { "type": "text", "id": "species", "label": "Species" },
         { "type": "select", "id": "photo", "label": "Photograph at the source", "default": "none", "options": [
           { "value": "none", "label": "None: the drawing alone" }, { "value": "vicuna", "label": "Vicuñas" }, { "value": "yak", "label": "Yak" },

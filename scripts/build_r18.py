@@ -313,3 +313,145 @@ if 'data-ms-kb' not in _s:
 """
     open(_p, 'w', encoding='utf-8').write(_s)
 print('accessibility: landmarks, headings, roles, names, keyboard rows')
+
+# Product pages, each fact once: where the list at the top is lean (its sizes are drawn below), the sizes row
+# taken from the description goes too, rather than repeating the drawing in one line
+_p = THEME + '/sections/ms-product-reasons.liquid'
+_s = open(_p, encoding='utf-8').read()
+_a = "    if (dd) {\n      var ln = "
+if 'data-ms-lean' not in _s:
+    assert _s.count(_a) == 1, 'reasons dims block changed'
+    _s = _s.replace(_a, "    if (dd && dd.closest('[data-ms-lean]')) { var drow = dd.closest('.ms-pm__facts > div') || dd.parentNode; if (drow && drow.parentNode) drow.parentNode.removeChild(drow); dd = null; }\n" + _a)
+    open(_p, 'w', encoding='utf-8').write(_s)
+print('product: each fact once')
+
+# The questions at the foot of a product page: where the page shows the sizes (drawn) and the 15 + 15 service
+# in sections of their own, the two questions that only repeated them go
+_dropq = ('Can [product] be made to my dimensions?', 'What is the 15 + 15 service?')
+_nq = 0
+for _f in sorted(glob.glob(THEME + '/templates/product*.json')):
+    _name = os.path.basename(_f)
+    _h, _d = tpl_load(_name)
+    _types = [v.get('type') for v in _d['sections'].values()]
+    if 'ms-product-reasons' not in _types:
+        continue
+    _ch = False
+    for _sec in _d['sections'].values():
+        if _sec.get('type') != 'ms-qa':
+            continue
+        for _k in list(_sec.get('block_order', [])):
+            _b = _sec['blocks'].get(_k, {})
+            if (_b.get('settings') or {}).get('q') in _dropq:
+                _sec['block_order'].remove(_k); del _sec['blocks'][_k]; _ch = True; _nq += 1
+    if _ch:
+        tpl_save(_name, _h, _d)
+print('product questions: %d repeats left out' % _nq)
+
+# ── iubenda (or any consent banner that speaks Shopify's Customer Privacy API), and Avada evicted ──
+_p = THEME + '/config/settings_schema.json'
+_sch = json.loads(open(_p, encoding='utf-8').read())
+_ch = False
+for _g in _sch:
+    if _g.get('name') == 'Midsummer · Where links go' and not any(x.get('id') == 'ms_link_privacy' for x in _g['settings']):
+        _i = next(i for i, x in enumerate(_g['settings']) if x.get('id') == 'ms_link_enquire') + 1
+        _g['settings'][_i:_i] = [
+            {"type": "url", "id": "ms_link_privacy", "label": "Privacy policy", "info": "For example your iubenda privacy policy. Empty: the store's own policy page."},
+            {"type": "url", "id": "ms_link_cookies", "label": "Cookie policy", "info": "For example your iubenda cookie policy. Empty: the privacy policy."}]
+        _ch = True
+if not any(g.get('name') == 'Midsummer · Cookies and search' for g in _sch):
+    _sch.append({"name": "Midsummer · Cookies and search", "settings": [
+        {"type": "paragraph", "content": "Cookie banner: the theme has none of its own. With iubenda, add its app embed (App embeds) and turn off Shopify's own banner (Settings → Customer privacy). The footer's Cookies link then opens iubenda's preferences, and the theme's measurement waits for the visitor's consent. See INSTALL.md, section 41."},
+        {"type": "text", "id": "ms_verify_google", "label": "Google Search Console code", "info": "The content of Google's verification meta tag, or the whole tag."},
+        {"type": "text", "id": "ms_verify_bing", "label": "Bing Webmaster code", "info": "The content of Bing's msvalidate.01 meta tag, or the whole tag."},
+        {"type": "text", "id": "ms_verify_pinterest", "label": "Pinterest code", "info": "The content of Pinterest's p:domain_verify meta tag, or the whole tag."}]})
+    _ch = True
+if _ch:
+    open(_p, 'w', encoding='utf-8').write(json.dumps(_sch, indent=2, ensure_ascii=False) + '\n')
+
+# site verification, in the head (what an SEO app used to add)
+_p = THEME + '/layout/ms.liquid'
+_s = open(_p, encoding='utf-8').read()
+if 'ms_verify_google' not in _s:
+    _a = "{%- render 'meta-tags' -%}"
+    assert _s.count(_a) == 1, 'layout head changed'
+    _s = _s.replace(_a, _a + """
+    {%- comment -%} site verification (Theme settings → Midsummer · Cookies and search): the code, or the whole tag pasted {%- endcomment -%}
+    {%- assign vpairs = 'google-site-verification:ms_verify_google,msvalidate.01:ms_verify_bing,p:domain_verify:ms_verify_pinterest' | split: ',' -%}
+    {%- for pair in vpairs -%}
+      {%- assign kv = pair | split: ':ms_' -%}{%- assign sk = 'ms_' | append: kv[1] -%}{%- assign code = settings[sk] | strip -%}
+      {%- if code contains 'content=' -%}{%- assign code = code | split: 'content=' | last | remove: '"' | remove: "'" | split: ' ' | first | remove: '/>' | remove: '>' -%}{%- endif -%}
+      {%- if code != blank -%}<meta name="{{ kv[0] }}" content="{{ code | escape }}">{%- endif -%}
+    {%- endfor -%}""", 1)
+    open(_p, 'w', encoding='utf-8').write(_s)
+
+# the footer's Cookies link: the cookie policy chosen, and iubenda's preferences when iubenda is on the page
+_p = THEME + '/sections/ms-footer.liquid'
+_s = open(_p, encoding='utf-8').read()
+_a = """<a href="{% render 'ms-link', to: 'privacy' %}#cookies" style="color: rgb(110, 103, 92);" data-ms-cookies="">"""
+if _a in _s:
+    _s = _s.replace(_a, """<a href="{% if settings.ms_link_cookies != blank %}{{ settings.ms_link_cookies }}{% else %}{% render 'ms-link', to: 'privacy' %}#cookies{% endif %}" style="color: rgb(110, 103, 92);" data-ms-cookies="">""")
+    open(_p, 'w', encoding='utf-8').write(_s)
+_s = open(_p, encoding='utf-8').read()
+if ' class="iubenda-cs-preferences-link"' in _s:
+    open(_p, 'w', encoding='utf-8').write(_s.replace(' class="iubenda-cs-preferences-link"', ''))
+_p = THEME + '/assets/ms-site.js'
+_s = open(_p, encoding='utf-8').read()
+_a = """    var pb = window.privacyBanner;
+    if (pb && typeof pb.showPreferences === 'function') { e.preventDefault(); pb.showPreferences(); }"""
+if _a in _s and 'window._iub' not in _s:
+    _s = _s.replace(_a, """    var iub = window._iub && window._iub.cs && window._iub.cs.api;
+    if (iub && typeof iub.openPreferences === 'function') { e.preventDefault(); iub.openPreferences(); return; }
+    var pb = window.privacyBanner;
+    if (pb && typeof pb.showPreferences === 'function') { e.preventDefault(); pb.showPreferences(); }""")
+    _s = _s.replace("  /* Cookies: Shopify's own preferences, when the store's cookie banner is on */", "  /* Cookies: the banner's preferences (iubenda's, or Shopify's own); otherwise the cookie policy */")
+    open(_p, 'w', encoding='utf-8').write(_s)
+
+# the theme's own measurement keeps nothing beyond the page until the visitor allows analytics (Shopify's
+# Customer Privacy API, which iubenda's Shopify app and Shopify's own banner both set)
+_p = THEME + '/sections/ms-tracking.liquid'
+_s = open(_p, encoding='utf-8').read()
+if 'analyticsProcessingAllowed' not in _s:
+    _a = """    var aiSource = '';
+    try { aiSource = window.sessionStorage.getItem('ms_ai_source') || ''; } catch (e) {}
+    if (!aiSource) {
+      aiSource = aiFrom();
+      if (aiSource) {
+        try { window.sessionStorage.setItem('ms_ai_source', aiSource); } catch (e) {}
+        push('ms_ai_referral', { ai_source: aiSource, landing_page: window.location.pathname, page_template: {{ template.name | json }} });
+      }
+    }"""
+    assert _s.count(_a) == 1, 'tracking ai block changed'
+    _s = _s.replace(_a, """    // consent: as the store's banner records it (iubenda's or Shopify's own, through Shopify's Customer
+    // Privacy API); with a banner on the page but no answer yet, nothing is kept beyond this page
+    function analyticsOK() {
+      var cp = window.Shopify && window.Shopify.customerPrivacy;
+      if (cp && typeof cp.analyticsProcessingAllowed === 'function') return !!cp.analyticsProcessingAllowed();
+      return !(window._iub && window._iub.cs) && !window.privacyBanner;
+    }
+    var aiSource = '';
+    try { aiSource = window.sessionStorage.getItem('ms_ai_source') || ''; } catch (e) {}
+    function keepSource() { if (aiSource && analyticsOK()) { try { window.sessionStorage.setItem('ms_ai_source', aiSource); } catch (e) {} } }
+    if (!aiSource) {
+      aiSource = aiFrom();
+      if (aiSource) {
+        keepSource();
+        push('ms_ai_referral', { ai_source: aiSource, landing_page: window.location.pathname, page_template: {{ template.name | json }} });
+      }
+    }
+    document.addEventListener('visitorConsentCollected', keepSource);
+    try { if (window.Shopify && window.Shopify.loadFeatures && !window.Shopify.customerPrivacy) window.Shopify.loadFeatures([{ name: 'consent-tracking-api', version: '0.1' }], function (err) { if (!err) keepSource(); }); } catch (e) {}""")
+    open(_p, 'w', encoding='utf-8').write(_s)
+
+# Avada SEO Suite and SEOon Blog (Avada's): their app embeds leave the theme altogether; the theme's own
+# structured data, meta tags and verification codes cover what they did
+_p = THEME + '/config/settings_data.json'
+_raw = open(_p, encoding='utf-8').read()
+if 'avada' in _raw.lower():
+    _m = _re.match(r'^(\s*/\*.*?\*/\s*)?', _raw, _re.S); _hd = _m.group(0) if _m else ''
+    _dd = json.loads(_raw[len(_hd):])
+    for _pre in [_dd.get('current', {})] + [v for v in (_dd.get('presets') or {}).values()]:
+        if isinstance(_pre, dict) and isinstance(_pre.get('blocks'), dict):
+            for _k in [k for k, v in _pre['blocks'].items() if 'avada' in json.dumps(v).lower()]:
+                del _pre['blocks'][_k]
+    open(_p, 'w', encoding='utf-8').write(_hd + json.dumps(_dd, indent=2, ensure_ascii=False) + '\n')
+print('iubenda: consent respected; Avada: gone')

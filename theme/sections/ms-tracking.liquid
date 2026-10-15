@@ -44,15 +44,25 @@
       for (var j = 0; j < AI_WORDS.length; j++) if (src && src.indexOf(AI_WORDS[j]) > -1) return src;
       return '';
     }
+    // consent: as the store's banner records it (iubenda's or Shopify's own, through Shopify's Customer
+    // Privacy API); with a banner on the page but no answer yet, nothing is kept beyond this page
+    function analyticsOK() {
+      var cp = window.Shopify && window.Shopify.customerPrivacy;
+      if (cp && typeof cp.analyticsProcessingAllowed === 'function') return !!cp.analyticsProcessingAllowed();
+      return !(window._iub && window._iub.cs) && !window.privacyBanner;
+    }
     var aiSource = '';
     try { aiSource = window.sessionStorage.getItem('ms_ai_source') || ''; } catch (e) {}
+    function keepSource() { if (aiSource && analyticsOK()) { try { window.sessionStorage.setItem('ms_ai_source', aiSource); } catch (e) {} } }
     if (!aiSource) {
       aiSource = aiFrom();
       if (aiSource) {
-        try { window.sessionStorage.setItem('ms_ai_source', aiSource); } catch (e) {}
+        keepSource();
         push('ms_ai_referral', { ai_source: aiSource, landing_page: window.location.pathname, page_template: {{ template.name | json }} });
       }
     }
+    document.addEventListener('visitorConsentCollected', keepSource);
+    try { if (window.Shopify && window.Shopify.loadFeatures && !window.Shopify.customerPrivacy) window.Shopify.loadFeatures([{ name: 'consent-tracking-api', version: '0.1' }], function (err) { if (!err) keepSource(); }); } catch (e) {}
     // Segment is read from the page first, then the clicked element, then falls
     // back to private — so a CTA on the Hospitality page is attributed to
     // hospitality without anyone tagging the button.
