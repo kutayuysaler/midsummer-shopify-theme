@@ -95,6 +95,7 @@
     <span data-k="softness">{{ s.hint_softness }}</span>
     <span data-k="breathability">{{ s.hint_breathability }}</span>
     <span data-k="hypoallergenic">{{ s.hint_hypoallergenic }}</span>
+    <span data-k="and">{{ s.and_label | default: 'and' }}</span>
   </template>
   {%- endif -%}
 
@@ -147,7 +148,7 @@
         endunless
         assign wi = 'with_' | append: what
       -%}
-      <a href="{{ product.url }}" class="ms-sy__card" data-q="{{ quals }}" data-kind="{{ what }}">
+      <a href="{{ product.url }}" class="ms-sy__card" data-q="{{ quals }}" data-d="{{ fparts[2] | strip | escape }}" data-kind="{{ what }}">
         {%- if product.featured_media -%}
           <span class="ms-card__img">
             <img alt="{% if product.featured_media.alt != product.title %}{{ product.featured_media.alt | escape }}{% endif %}" src="{{ product.featured_media | image_url: width: 900 }}" srcset="{{ product.featured_media | image_url: width: 600 }} 600w, {{ product.featured_media | image_url: width: 900 }} 900w, {{ product.featured_media | image_url: width: 1400 }} 1400w" sizes="{% if collection.products.size == 1 %}(max-width: 760px) 100vw, 58vw{% else %}(max-width: 760px) 50vw, (max-width: 1080px) 46vw, 30vw{% endif %}" loading="{% if forloop.index > 4 %}lazy{% else %}eager{% endif %}" width="900" height="1125">
@@ -343,14 +344,62 @@
     var tpl = root.querySelector('[data-sy-hints]');
     if (tpl) Array.prototype.forEach.call(tpl.content.querySelectorAll('[data-k]'), function (n) { hints[n.getAttribute('data-k')] = n.textContent; });
     var need = '', kind = '';
+    /* the line under the needs names only the fibres of the beds shown: each bed is chosen for a need
+       by its three most telling fibres (data-d, "Fibre:need need|…"), and those are the ones named.
+       In the line, {fibres} is that list and {carry/carries} the verb for several or for one. */
+    var FN = { 'Baby Alpaca': 'baby alpaca', 'Alpaca': 'alpaca', 'Alpaca Wool': 'alpaca', 'Wool': 'wool', 'Cheviot Wool': 'Cheviot wool',
+      'Falkland Wool': 'Falkland wool', 'Falkland': 'Falkland wool', 'Horsehair': 'horsehair', 'Vegetable Horsehair': 'vegetable horsehair',
+      'Yak Hair': 'yak hair', 'Vicuña': 'vicuña', 'Cashmere': 'cashmere', 'Mongolian Cashmere': 'cashmere', 'Mohair': 'mohair',
+      'Camel Hair': 'camel hair', 'Linen': 'linen', 'Silk': 'silk', 'Cotton': 'cotton', 'Organic Cotton': 'cotton', 'Ingeo': 'Ingeo', 'Orange Fiber': 'Orange Fiber' };
+    var FAM = { 'baby alpaca': 'alpaca', 'Cheviot wool': 'wool', 'Falkland wool': 'wool' };
+    function fibresFor(n) {
+      var count = {}, order = [];
+      root.querySelectorAll('.ms-sy__card').forEach(function (c) {
+        if (c.hidden) return;
+        (c.getAttribute('data-d') || '').split('|').forEach(function (e) {
+          var i = e.lastIndexOf(':'); if (i < 0) return;
+          if ((' ' + e.slice(i + 1) + ' ').indexOf(' ' + n + ' ') < 0) return;
+          var f = FN[e.slice(0, i)] || e.slice(0, i).toLowerCase();
+          if (!(f in count)) { count[f] = 0; order.push(f); }
+          count[f]++;
+        });
+      });
+      /* one family named once: baby alpaca with alpaca is alpaca; two wools are wool */
+      var fams = {};
+      order.forEach(function (f) { var g = FAM[f] || (f === 'alpaca' || f === 'wool' ? f : null); if (g) (fams[g] = fams[g] || []).push(f); });
+      Object.keys(fams).forEach(function (g) {
+        if (fams[g].length < 2) return;
+        var total = 0; fams[g].forEach(function (f) { total += count[f]; delete count[f]; });
+        order = order.filter(function (f) { return f in count || f === g; });
+        if (order.indexOf(g) < 0) order.push(g);
+        count[g] = total;
+      });
+      order = order.filter(function (f) { return f in count; });
+      order.sort(function (a, b) { return count[b] - count[a]; });
+      return order.slice(0, 4);
+    }
+    function say(n) {
+      var t = hints[n] || '';
+      if (!n || t.indexOf('{fibres}') < 0) return t || hints[''] || '';
+      var fs = fibresFor(n);
+      if (!fs.length) return hints[''] || '';
+      var list = fs.length === 1 ? fs[0] : fs.slice(0, -1).join(', ') + ' ' + (hints['and'] || 'and') + ' ' + fs[fs.length - 1];
+      t = t.replace(/\{([^{}\/]+)\/([^{}]+)\}/g, function (m, many, one) { return fs.length > 1 ? many : one; }).replace('{fibres}', list);
+      return t.replace(/(^|[.!?]\s+)([a-z])/g, function (m, a, b) { return a + b.toUpperCase(); });
+    }
     function apply() {
       root.querySelectorAll('[data-q]').forEach(function (el) {
         var q = ' ' + el.getAttribute('data-q') + ' ', k = el.getAttribute('data-kind');
         el.hidden = (!!need && q.indexOf(' ' + need + ' ') < 0) || (!!kind && k !== null && k !== kind);
       });
       root.querySelectorAll('[data-col]').forEach(function (c) { c.classList.toggle('is-need', !!need && c.getAttribute('data-col') === need); });
-      if (hint) hint.textContent = hints[need] || hints[''] || '';
+      if (hint) hint.textContent = say(need);
     }
+    root.querySelectorAll('button[data-need]').forEach(function (b) {
+      /* a need no bed in this listing answers is not offered */
+      var n = b.getAttribute('data-need');
+      if (n && !root.querySelector('.ms-sy__card[data-q~="' + n + '"]')) b.hidden = true;
+    });
     root.querySelectorAll('[data-need]').forEach(function (b) {
       b.addEventListener('click', function () {
         need = b.getAttribute('data-need');
@@ -411,11 +460,12 @@
     { "type": "text", "id": "breathability_label", "label": "Breathability", "default": "Breathability" },
     { "type": "text", "id": "hypoallergenic_label", "label": "Hypoallergenic", "default": "Hypoallergenic" },
     { "type": "textarea", "id": "hint_all", "label": "Line: everything", "default": "Every system is made to order. The fibres are where it starts; the comfort is set with you, at the atelier or by video." },
-    { "type": "textarea", "id": "hint_temperature", "label": "Line: temperature", "default": "If you run warm or cold: wool, alpaca, camel hair and cashmere carry warmth and moisture away, so the bed stays even through the night." },
-    { "type": "textarea", "id": "hint_support", "label": "Line: support", "default": "Horsehair and Cheviot wool hold their shape. On your back the lumbar curve needs support; on your front, a flatter, firmer surface keeps the neck neutral." },
-    { "type": "textarea", "id": "hint_softness", "label": "Line: softness", "default": "Yak hair, cashmere and vicuña give the surface its softness: for side sleepers, whose hips and shoulders need to sink a little." },
-    { "type": "textarea", "id": "hint_breathability", "label": "Line: breathability", "default": "Horsehair, vegetable horsehair and cotton keep air moving: for warm rooms and humid climates." },
-    { "type": "textarea", "id": "hint_hypoallergenic", "label": "Line: hypoallergenic", "default": "Alpaca contains no lanolin. Tell us about any allergy at the consultation, and the specification is adapted." },
+    { "type": "textarea", "id": "hint_temperature", "label": "Line: temperature", "default": "If you run warm or cold: {fibres} {carry/carries} warmth and moisture away, so the bed stays even through the night.", "info": "{fibres} becomes the fibres of the beds shown; {carry/carries} the verb for several fibres or for one." },
+    { "type": "textarea", "id": "hint_support", "label": "Line: support", "default": "{fibres} {hold/holds} the shape of the bed. On your back the lumbar curve needs support; on your front, a flatter, firmer surface keeps the neck neutral.", "info": "{fibres} becomes the fibres of the beds shown; {carry/carries} the verb for several fibres or for one." },
+    { "type": "textarea", "id": "hint_softness", "label": "Line: softness", "default": "{fibres} {give/gives} the surface its softness: for side sleepers, whose hips and shoulders need to sink a little.", "info": "{fibres} becomes the fibres of the beds shown; {carry/carries} the verb for several fibres or for one." },
+    { "type": "textarea", "id": "hint_breathability", "label": "Line: breathability", "default": "{fibres} {keep/keeps} air moving: for warm rooms and humid climates.", "info": "{fibres} becomes the fibres of the beds shown; {carry/carries} the verb for several fibres or for one." },
+    { "type": "textarea", "id": "hint_hypoallergenic", "label": "Line: hypoallergenic", "default": "{fibres} {contain/contains} no lanolin. Tell us about any allergy at the consultation, and the specification is adapted.", "info": "{fibres} becomes the fibres of the beds shown; {carry/carries} the verb for several fibres or for one." },
+    { "type": "text", "id": "and_label", "label": "The word joining the last two fibres", "default": "and" },
     { "type": "header", "content": "Compare" },
     { "type": "text", "id": "view_label", "label": "Views label", "default": "View" },
     { "type": "text", "id": "grid_label", "label": "Grid", "default": "Grid" },

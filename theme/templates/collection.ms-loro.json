@@ -172,7 +172,7 @@
           "type": "colour",
           "settings": {
             "name": "1 Dark Indigo",
-            "color": "#2E2A39",
+            "color": "#302C3B",
             "image_fallback": "ms-lp-co-01.jpg",
             "large_fallback": "ms-lp-co-01-l.jpg"
           }
@@ -181,7 +181,7 @@
           "type": "colour",
           "settings": {
             "name": "2 Indaco Oxus",
-            "color": "#525C9B",
+            "color": "#5560A0",
             "image_fallback": "ms-lp-co-02.jpg",
             "large_fallback": "ms-lp-co-02-l.jpg"
           }
@@ -190,7 +190,7 @@
           "type": "colour",
           "settings": {
             "name": "5 Zen",
-            "color": "#B8A18F",
+            "color": "#BDA594",
             "image_fallback": "ms-lp-co-03.jpg",
             "large_fallback": "ms-lp-co-03-l.jpg"
           }
@@ -199,7 +199,7 @@
           "type": "colour",
           "settings": {
             "name": "6 Biancore",
-            "color": "#EAE6E5",
+            "color": "#EFECEA",
             "image_fallback": "ms-lp-co-04.jpg",
             "large_fallback": "ms-lp-co-04-l.jpg"
           }
@@ -208,7 +208,7 @@
           "type": "colour",
           "settings": {
             "name": "8 Dark Zen",
-            "color": "#66575B",
+            "color": "#695A5E",
             "image_fallback": "ms-lp-co-05.jpg",
             "large_fallback": "ms-lp-co-05-l.jpg"
           }
@@ -217,7 +217,7 @@
           "type": "colour",
           "settings": {
             "name": "10 Malachite",
-            "color": "#6E7E8E",
+            "color": "#728293",
             "image_fallback": "ms-lp-co-06.jpg",
             "large_fallback": "ms-lp-co-06-l.jpg"
           }
@@ -226,7 +226,7 @@
           "type": "colour",
           "settings": {
             "name": "12 Sassicaia",
-            "color": "#5F2F31",
+            "color": "#623233",
             "image_fallback": "ms-lp-co-07.jpg",
             "large_fallback": "ms-lp-co-07-l.jpg"
           }
@@ -235,7 +235,7 @@
           "type": "colour",
           "settings": {
             "name": "14 Cowes",
-            "color": "#822823",
+            "color": "#862A25",
             "image_fallback": "ms-lp-co-08.jpg",
             "large_fallback": "ms-lp-co-08-l.jpg"
           }
@@ -244,7 +244,7 @@
           "type": "colour",
           "settings": {
             "name": "16 Camargue",
-            "color": "#AB7F5A",
+            "color": "#AF835D",
             "image_fallback": "ms-lp-co-09.jpg",
             "large_fallback": "ms-lp-co-09-l.jpg"
           }
@@ -266,7 +266,7 @@
           "type": "colour",
           "settings": {
             "name": "11 Shaded White",
-            "color": "#F4F3F0",
+            "color": "#FAF9F5",
             "image_fallback": "ms-lp-al-01.jpg",
             "large_fallback": "ms-lp-al-01-l.jpg"
           }
@@ -275,7 +275,7 @@
           "type": "colour",
           "settings": {
             "name": "15 Midnight",
-            "color": "#191A2F",
+            "color": "#1A1B30",
             "image_fallback": "ms-lp-al-02.jpg",
             "large_fallback": "ms-lp-al-02-l.jpg"
           }
@@ -284,7 +284,7 @@
           "type": "colour",
           "settings": {
             "name": "21 Eucalyptus",
-            "color": "#858893",
+            "color": "#898C98",
             "image_fallback": "ms-lp-al-03.jpg",
             "large_fallback": "ms-lp-al-03-l.jpg"
           }
@@ -293,7 +293,7 @@
           "type": "colour",
           "settings": {
             "name": "24 Diaspro",
-            "color": "#6D2024",
+            "color": "#702226",
             "image_fallback": "ms-lp-al-04.jpg",
             "large_fallback": "ms-lp-al-04-l.jpg"
           }
@@ -302,7 +302,7 @@
           "type": "colour",
           "settings": {
             "name": "25 Rosso Lacca",
-            "color": "#91181F",
+            "color": "#951921",
             "image_fallback": "ms-lp-al-05.jpg",
             "large_fallback": "ms-lp-al-05-l.jpg"
           }
@@ -311,7 +311,7 @@
           "type": "colour",
           "settings": {
             "name": "26 Granato",
-            "color": "#2E1B1C",
+            "color": "#301C1E",
             "image_fallback": "ms-lp-al-06.jpg",
             "large_fallback": "ms-lp-al-06-l.jpg"
           }
@@ -320,7 +320,7 @@
           "type": "colour",
           "settings": {
             "name": "28 Cammello",
-            "color": "#AC8B7A",
+            "color": "#B18F7D",
             "image_fallback": "ms-lp-al-07.jpg",
             "large_fallback": "ms-lp-al-07-l.jpg"
           }
@@ -329,7 +329,7 @@
           "type": "colour",
           "settings": {
             "name": "37 Paprika",
-            "color": "#A03604",
+            "color": "#A43805",
             "image_fallback": "ms-lp-al-08.jpg",
             "large_fallback": "ms-lp-al-08-l.jpg"
           }
@@ -338,7 +338,7 @@
           "type": "colour",
           "settings": {
             "name": "38 Henné",
-            "color": "#49201E",
+            "color": "#4B2220",
             "image_fallback": "ms-lp-al-09.jpg",
             "large_fallback": "ms-lp-al-09-l.jpg"
           }
@@ -347,7 +347,7 @@
           "type": "colour",
           "settings": {
             "name": "45 Polvere",
-            "color": "#8184A5",
+            "color": "#8488A9",
             "image_fallback": "ms-lp-al-10.jpg",
             "large_fallback": "ms-lp-al-10-l.jpg"
           }
@@ -356,7 +356,7 @@
           "type": "colour",
           "settings": {
             "name": "46 Lovat",
-            "color": "#54646C",
+            "color": "#57676F",
             "image_fallback": "ms-lp-al-11.jpg",
             "large_fallback": "ms-lp-al-11-l.jpg"
           }
@@ -365,7 +365,7 @@
           "type": "colour",
           "settings": {
             "name": "47 Green Blue",
-            "color": "#29374C",
+            "color": "#2A394E",
             "image_fallback": "ms-lp-al-12.jpg",
             "large_fallback": "ms-lp-al-12-l.jpg"
           }
@@ -374,7 +374,7 @@
           "type": "colour",
           "settings": {
             "name": "51 Pergamena",
-            "color": "#EAE0D6",
+            "color": "#F0E6DB",
             "image_fallback": "ms-lp-al-13.jpg",
             "large_fallback": "ms-lp-al-13-l.jpg"
           }
@@ -382,8 +382,8 @@
         "colour_38": {
           "type": "colour",
           "settings": {
-            "name": "1 Biancore mélange",
-            "color": "#CCBCAC",
+            "name": "1 Biancore",
+            "color": "#D1C0B0",
             "image_fallback": "ms-lp-al-14.jpg",
             "large_fallback": "ms-lp-al-14-l.jpg"
           }
@@ -391,8 +391,8 @@
         "colour_39": {
           "type": "colour",
           "settings": {
-            "name": "2 Natural Brown mélange",
-            "color": "#AA9589",
+            "name": "2 Natural Brown",
+            "color": "#AF9A8D",
             "image_fallback": "ms-lp-al-15.jpg",
             "large_fallback": "ms-lp-al-15-l.jpg"
           }
@@ -400,8 +400,8 @@
         "colour_40": {
           "type": "colour",
           "settings": {
-            "name": "7 Light Marengo mélange",
-            "color": "#76737C",
+            "name": "7 Light Marengo",
+            "color": "#7A7881",
             "image_fallback": "ms-lp-al-16.jpg",
             "large_fallback": "ms-lp-al-16-l.jpg"
           }

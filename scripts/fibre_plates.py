@@ -11,7 +11,8 @@ SPEC = {
   'yak':       ('toomas-tartes-4QTBhzYm7Z8-unsplash.jpeg', .47, .5, 1.0),
   'cashmere':  ('shutterstock_535793413.jpg',            .66, .5, 1.0),
   'wool':      ('shutterstock_104115377-3393434.jpg',    .40, .5, 1.0),
-  'silk':      ('seta.jpg',                              .66, .55, .82),
+  # Round 21: the raw material, silk floss as it comes from the cocoon, not a satin cloth
+  'silk':      ('seta_floss.jpg',                        .55, .42, .62),
   'horsehair': ('shutterstock_356083304-5878250.jpg',    .60, .5, 1.0),
   'cotton':    ('shutterstock_127061399-3624055.jpg',    .56, .5, 1.0),
   # Round 15: the seven that had only their drawing
@@ -39,7 +40,7 @@ LUT = lut()
 def tone(im, keep=.14, soft=False):
     g = im.convert('L')
     if soft:
-        # silk: keep its light, only deepen the folds a little
+        # a cloth photographed in folds (the satin, until Round 21): keep its light, only deepen the folds a little
         g = ImageOps.autocontrast(g.filter(ImageFilter.GaussianBlur(2.4)), cutoff=(1, .3))
         g = g.point(lambda v: int(255 * (.30 + .68 * (v / 255) ** 1.15)))
     else:
@@ -48,13 +49,16 @@ def tone(im, keep=.14, soft=False):
     if im.mode == 'RGB' and keep:
         mono = Image.blend(mono, im, keep)
     return mono
+ONLY = sys.argv[4].split(',') if len(sys.argv) > 4 else None
 for name, (f, cx, cy, s) in SPEC.items():
+    if ONLY and name not in ONLY:
+        continue
     im = ImageOps.exif_transpose(Image.open(os.path.join(src, f)))
     w, h = im.size; side = int(min(w, h) * s)
     x0 = min(max(0, int(cx * w - side / 2)), w - side); y0 = min(max(0, int(cy * h - side / 2)), h - side)
     c = im.crop((x0, y0, x0 + side, y0 + side))
     # the orange keeps a little more of its colour: in monochrome alone a citrus cut reads as anything
-    c = tone(c, keep=(.30 if name == 'orange' else .14), soft=(name == 'silk')) if mode == 'tone' else c.convert('RGB')
+    c = tone(c, keep=(.30 if name == 'orange' else .14), soft=False) if mode == 'tone' else c.convert('RGB')
     for suffix, width in (('', 1400), ('-sm', 720)):
         o = c.resize((width, width), Image.LANCZOS)
         o = o.filter(ImageFilter.UnsharpMask(radius=1.1, percent=40 if width < side else 25, threshold=2))

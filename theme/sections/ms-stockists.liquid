@@ -255,8 +255,9 @@
   .ms-sl__row:hover .ms-sl__name { color: var(--gold); }
   .ms-sl__item.is-open .ms-sl__chev { transform: rotate(180deg); }
   .ms-sl__item.is-open .ms-sl__name { color: var(--ink); }
-  .ms-sl__item.is-open { background: linear-gradient(90deg, rgba(154, 123, 79, .07), transparent 70%); }
-  .ms-sl__row:focus-visible { outline: 1px solid var(--gold); outline-offset: -1px; }
+  .ms-sl__item.is-open { margin: 0 -14px; padding: 0 14px; background: linear-gradient(90deg, rgba(154, 123, 79, .08), rgba(154, 123, 79, .015) 85%); }
+  .ms-site .ms-sl__row:focus-visible { outline: none; }
+  .ms-site .ms-sl__row:focus-visible .ms-sl__name { color: var(--gold); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; }
   .ms-sl__more { padding: 0 0 18px 24px; }
   .ms-sl__who { font-family: Newsreader, Georgia, serif; font-size: 15px; font-style: italic; color: var(--body); }
   .ms-sl__addr { font-size: 13.5px; line-height: 1.75; color: var(--body); margin-top: 6px; }
@@ -278,39 +279,39 @@
   .ms-sl__mark.is-agent { box-shadow: inset 0 0 0 1.4px var(--ink); }
 
   /* the map */
-  .ms-sl__map { position: relative; overflow: hidden; background: #DCE6EB; border: 1px solid var(--rule); user-select: none; -webkit-user-select: none; }
+  .ms-sl__map { position: relative; overflow: hidden; background: #E6E9E5; border: 1px solid var(--rule); user-select: none; -webkit-user-select: none; }
   .ms-sl__svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: grab; touch-action: pan-x pan-y; }
   .ms-sl__svg:active { cursor: grabbing; }
   .ms-sl__grat { fill: none; stroke: rgba(23, 20, 15, .06); stroke-width: .6; vector-effect: non-scaling-stroke; }
-  .ms-sl__land { fill: #F4F2EE; stroke: rgba(112, 110, 104, .36); stroke-width: .7; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-  .ms-sl__home { fill: #EEE9E0; stroke: rgba(112, 110, 104, .36); stroke-width: .7; vector-effect: non-scaling-stroke; }
+  .ms-sl__land { fill: #F3EEE5; stroke: rgba(110, 104, 92, .42); stroke-width: .7; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .ms-sl__home { fill: #ECE3D3; stroke: rgba(110, 104, 92, .42); stroke-width: .7; vector-effect: non-scaling-stroke; }
   .ms-sl__borders { fill: none; stroke: rgba(126, 98, 59, .42); stroke-width: .8; stroke-dasharray: 5 2 1 2; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-  .ms-sl__lakes { fill: #DCE6EB; stroke: rgba(110, 140, 156, .4); stroke-width: .6; vector-effect: non-scaling-stroke; }
-  .ms-sl__rivers, .ms-sl__river1, .ms-sl__river2 { fill: none; stroke: #A6C1CF; stroke-width: .9; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-  .ms-sl__river2 { stroke-width: .6; stroke: #BBD0DB; }
-  .ms-sl__depth { fill: none; stroke: #CBDBE3; stroke-width: .7; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-  .ms-sl__depth.is-d200 { stroke: #C1D4DE; }
-  .ms-sl__depth.is-d2000, .ms-sl__depth.is-d3000 { stroke: #D4E1E7; }
-  .ms-sl__urban { fill: #E8E3DA; stroke: rgba(140, 132, 118, .28); stroke-width: .5; vector-effect: non-scaling-stroke; }
+  .ms-sl__lakes { fill: #E6E9E5; stroke: rgba(118, 136, 138, .45); stroke-width: .6; vector-effect: non-scaling-stroke; }
+  .ms-sl__rivers, .ms-sl__river1, .ms-sl__river2 { fill: none; stroke: #A9BBBE; stroke-width: .9; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .ms-sl__river2 { stroke-width: .6; stroke: #B8C6C7; }
+  .ms-sl__depth { fill: none; stroke: #C9D2D0; stroke-width: .7; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .ms-sl__depth.is-d200 { stroke: #BFCAC8; }
+  .ms-sl__depth.is-d2000, .ms-sl__depth.is-d3000 { stroke: #D3DAD8; }
+  .ms-sl__urban { fill: #E7DBC6; stroke: rgba(150, 128, 98, .32); stroke-width: .5; vector-effect: non-scaling-stroke; }
   .ms-sl__states { fill: none; stroke: rgba(126, 98, 59, .32); stroke-width: .6; stroke-dasharray: 1 3; stroke-linecap: round; vector-effect: non-scaling-stroke; }
   .ms-sl__rail { fill: none; stroke: rgba(110, 96, 78, .42); stroke-width: .6; stroke-dasharray: 4 3; vector-effect: non-scaling-stroke; }
-  .ms-sl__minor { fill: none; stroke: #D3CCC0; stroke-width: .9; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-  .ms-sl__case { fill: none; stroke: #CBBE9F; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .ms-sl__minor { fill: none; stroke: #CDBFA7; stroke-width: .9; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .ms-sl__case { fill: none; stroke: #B7A485; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
   .ms-sl__major { fill: none; stroke: #FFFDF8; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
   [data-ms-sl-lay] { transition: opacity .5s ease; }
   .ms-sl__labels { pointer-events: none; }
-  .ms-sl__labels text { font-family: "Red Hat Text", system-ui, sans-serif; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; fill: #6E675C; paint-order: stroke; stroke: rgba(244, 242, 238, .92); stroke-width: 3.5px; stroke-linejoin: round; }
+  .ms-sl__labels text { font-family: "Red Hat Text", system-ui, sans-serif; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; fill: #6E675C; paint-order: stroke; stroke: rgba(243, 238, 229, .92); stroke-width: 3.5px; stroke-linejoin: round; }
   .ms-sl__labels .r1 text { font-family: Newsreader, Georgia, serif; font-size: 16px; letter-spacing: .02em; text-transform: none; fill: #2F2A24; }
   .ms-sl__labels .r2 text { font-family: Newsreader, Georgia, serif; font-size: 14px; letter-spacing: .02em; text-transform: none; fill: #4A443B; }
-  .ms-sl__labels circle { fill: #6E675C; stroke: rgba(244, 242, 238, .95); stroke-width: 1.5px; }
-  .ms-sl__labels .is-sea text { font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 13.5px; letter-spacing: .1em; text-transform: none; fill: #6A8A9A; stroke: none; }
+  .ms-sl__labels circle { fill: #6E675C; stroke: rgba(243, 238, 229, .95); stroke-width: 1.5px; }
+  .ms-sl__labels .is-sea text { font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 13.5px; letter-spacing: .1em; text-transform: none; fill: #7F9496; stroke: none; }
   .ms-sl__labels .is-range text { font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 12px; letter-spacing: .32em; text-transform: uppercase; fill: rgba(126, 98, 59, .55); stroke: none; }
   .ms-sl__pins { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
   .ms-sl__svg { z-index: 1; }
   /* the controls and the places stay above the drawing */
   .ms-sl__views, .ms-sl__zoom, .ms-sl__legend, .ms-sl__hint { z-index: 4; }
   .ms-sl__pop { z-index: 5; }
-  .ms-sl__tiles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; opacity: 0; transition: opacity .35s ease; background: #F2F1ED; isolation: isolate; }
+  .ms-sl__tiles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; opacity: 0; transition: opacity .35s ease; background: #F3EDE3; isolation: isolate; }
   .ms-site .ms-sl__tiles img.ms-sl__tile { position: absolute; left: 0; top: 0; max-width: none; transform-origin: 0 0; opacity: 0; transition: opacity .3s ease; user-select: none; -webkit-user-drag: none; filter: grayscale(1) contrast(1.04); mix-blend-mode: multiply; }
   .ms-site .ms-sl__tiles img.ms-sl__tile.is-on { opacity: 1; }
   .ms-site .ms-sl__credit { position: absolute; right: 64px; bottom: 16px; z-index: 3; font-size: 10px; letter-spacing: .02em; color: #6E675C; background: rgba(251, 249, 245, .82); padding: 3px 7px; opacity: 0; pointer-events: none; transition: opacity .3s ease; }
@@ -320,7 +321,7 @@
   /* the street map, under the drawing */
   .ms-sl__vec { position: absolute; inset: 0; }
   .ms-sl__vec canvas { outline: none; }
-  .ms-sl__tiles.is-vec { background: #F2F1ED; }
+  .ms-sl__tiles.is-vec { background: #F3EEE5; }
   .ms-sl__pin { position: absolute; left: 0; top: 0; pointer-events: auto; width: 30px; height: 30px; margin: -15px 0 0 -15px; padding: 0; border: 0; background: none; cursor: pointer; display: flex; align-items: center; justify-content: center; will-change: transform; }
   .ms-sl__pin .ms-sl__mark { width: 12px; height: 12px; transition: transform .25s ease; box-shadow: 0 0 0 2px rgba(251, 249, 245, .9); }
   .ms-sl__pin .ms-sl__mark.is-boutique { box-shadow: inset 0 0 0 1.6px var(--ink), 0 0 0 2px rgba(251, 249, 245, .9); background-color: var(--ivory); }
@@ -556,7 +557,8 @@
     var tileImgs = {}, tileTick = null, tilesOK = false, tileErr = 0, TK0 = 2.2, TK1 = 4.5;
     var styleEl = document.querySelector('script[data-ms-sl-style]');
     var VEC = GL_ON && styleEl && webgl() ? 'wanted' : null, vmap = null, vholder = null, vReady = false, vTimer = null, vErr = 0;
-    function vecOn() { return !!VEC && VEC !== 'failed'; }
+    // 'slow': the street map is late, the tiles stand in, and it takes over the moment it arrives
+    function vecOn() { return !!VEC && VEC !== 'failed' && VEC !== 'slow'; }
     // the drawing's view, as MapLibre's centre and zoom (both are Mercator; MapLibre's world is 512 px at zoom 0)
     function view() {
       var ll = proj.invert([(W / 2 - t.x) / t.k, (H / 2 - t.y) / t.k]);
@@ -565,14 +567,14 @@
     function vecStart() {
       if (VEC !== 'wanted') return;
       VEC = 'loading';
-      vTimer = setTimeout(function () { if (!vReady) vecFail('timeout'); }, 12000);
+      vTimer = setTimeout(function () { if (!vReady && VEC === 'loading') { VEC = 'slow'; if (window.console) console.warn('[agents map] the street map is slow; the tiles meanwhile.'); tiles(); } }, 15000);
       if (!document.querySelector('link[data-ms-gl]')) { var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = GLCSS; l.setAttribute('data-ms-gl', ''); document.head.appendChild(l); }
       if (window.maplibregl) vecGo();
       else { var sc = document.createElement('script'); sc.src = GLJS; sc.async = true; sc.onload = vecGo; sc.onerror = function () { vecFail('script'); }; document.head.appendChild(sc); }
     }
     function vecGo() {
       var ml = window.maplibregl;
-      if (VEC !== 'loading') return;
+      if (VEC !== 'loading' && VEC !== 'slow') return;
       if (!ml || !ml.Map) return vecFail('no maplibre');
       var style;
       try { style = JSON.parse(styleEl.textContent); } catch (e) { return vecFail(e); }
@@ -589,7 +591,13 @@
       vholder.msMap = vmap; // for the theme's own tests
       // it has arrived once the first piece of the map has (not just its style); a source that cannot be reached
       // hands over at once, a few missing pieces are allowed
-      vmap.on('sourcedata', function (e) { if (!vReady && e.tile) { vReady = true; VEC = 'ready'; clearTimeout(vTimer); tilesOK = true; tilesEl.classList.add('is-vec'); tiles(); } });
+      vmap.on('sourcedata', function (e) {
+        if (vReady || !e.tile || VEC === 'failed') return;
+        vReady = true; VEC = 'ready'; clearTimeout(vTimer); tilesOK = true; tilesEl.classList.add('is-vec');
+        // the tiles that stood in step aside
+        Object.keys(tileImgs).forEach(function (k) { var im = tileImgs[k]; if (im && im.parentNode) im.parentNode.removeChild(im); }); tileImgs = {};
+        tiles();
+      });
       vmap.on('error', function (e) { if (vReady || !e || !e.sourceId) return; if (!e.tile || ++vErr > 6) vecFail(e.error); });
     }
     function vecFail(why) {
@@ -789,7 +797,8 @@
       // the street map is fetched a little before it is needed, so it is there as the drawing gives way
       if (VEC === 'wanted' && t.k > TK0 * .7) vecStart();
       if (fade <= 0) return;
-      if (vecOn()) { if (vmap) { var v = view(); vmap.jumpTo({ center: v.c, zoom: v.z }); } return; }
+      if (vmap) { var v = view(); vmap.jumpTo({ center: v.c, zoom: v.z }); }
+      if (vecOn()) return;
       var s0 = proj.scale(), tr = proj.translate(), size = 2 * Math.PI * s0 * t.k;
       var z = Math.max(1, Math.min(18, Math.round(Math.log(size / 256) / Math.LN2)));
       var n = Math.pow(2, z), x0 = t.x + t.k * (tr[0] - Math.PI * s0), y0 = t.y + t.k * (tr[1] - Math.PI * s0);
@@ -806,7 +815,7 @@
         var img = tileImgs[key];
         if (!img) {
           img = document.createElement('img');
-          img.alt = ''; img.decoding = 'async'; img.draggable = false; img.className = 'ms-sl__tile';
+          img.alt = ''; img.decoding = 'async'; img.draggable = false; img.className = 'ms-sl__tile ms-no-tone';
           var ii = ((i % n) + n) % n;
           img.onerror = function () {
             tileErr++;

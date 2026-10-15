@@ -7,7 +7,7 @@
     "s01": {
       "type": "ms-product-main",
       "settings": {
-        "cover_value": "Loro Piana Interiors Mystic River; or two-tone, natural linen and cotton with Connemara or Mystic River"
+        "cover_value": "Loro Piana Interiors Mystic River fabric; or two-tone, natural linen and cotton with Connemara or Mystic River fabric"
       },
       "blocks": {
         "fibre_01": {
@@ -73,9 +73,9 @@
         "part2_text": "Cheviot wool, camel hair and silk.",
         "part2_points": "Its feel is chosen with you, from soft to firm.",
         "part2_fibres": "Camel Hair, Cheviot Wool, Silk",
-        "part3_lead": "Silk and Cheviot wool, upholstered in Loro Piana Interiors Mystic River.",
-        "part3_text": "Silk and Cheviot wool, upholstered in Loro Piana Interiors Mystic River.",
-        "part3_points": "All in Mystic River, or two-tone with natural linen and cotton.\nA headboard to match, on request.",
+        "part3_lead": "Silk and Cheviot wool, upholstered in Loro Piana Interiors Mystic River fabric.",
+        "part3_text": "Silk and Cheviot wool, upholstered in Loro Piana Interiors Mystic River fabric.",
+        "part3_points": "All in Mystic River fabric, or two-tone with natural linen and cotton.\nA headboard to match, on request.",
         "part3_fibres": "Silk, Cheviot Wool"
       }
     },
@@ -93,7 +93,7 @@
           "type": "qa",
           "settings": {
             "q": "What is [product] made of?",
-            "a": "<p>[product] is made by hand in Italy from natural fibres: camel hair, silk, Cheviot wool, horsehair and linen. It is upholstered in Loro Piana Interiors Mystic River, or two-tone, in natural linen and cotton with Connemara or Mystic River. It is made to order, by hand, one at a time.</p>"
+            "a": "<p>[product] is made by hand in Italy from natural fibres: camel hair, silk, Cheviot wool, horsehair and linen. It is upholstered in Loro Piana Interiors Mystic River fabric, or two-tone, in natural linen and cotton with Connemara or Mystic River fabric. It is made to order, by hand, one at a time.</p>"
           }
         },
         "qa_03": {

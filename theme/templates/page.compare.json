@@ -32,7 +32,7 @@
           "type": "row",
           "settings": {
             "label": "Cloth",
-            "v1": "Cotton, or linen and cotton; Capri in Loro Piana Interiors Mystic River",
+            "v1": "Cotton, or linen and cotton; Capri in Loro Piana Interiors Mystic River fabric",
             "v2": "Raw linen and cotton; Dreamy and Brera in Loro Piana Interiors",
             "v3": "Loro Piana Interiors on most systems",
             "shared": false
@@ -81,7 +81,7 @@
         "row_08": {
           "type": "row",
           "settings": {
-            "label": "Regenerated at fifteen years",
+            "label": "Support, set to how you sleep",
             "v1": "yes",
             "v2": "yes",
             "v3": "yes",

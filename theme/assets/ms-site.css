@@ -32,7 +32,7 @@ body.ms-site { margin: 0; background: #FBF9F5; color: #17140F; font-family: "Red
 /* The house grade, matched to the photographs graded by hand: warm, matte,
    blacks lifted, highlights held. Files with "graded" in the name carry it already. */
 .ms-site { --ms-grade: sepia(.1) saturate(.96) contrast(.9) brightness(.98); }
-.ms-site img:not([src*="graded"]):not([src*="logo"]), .ms-site video { filter: var(--ms-grade); }
+.ms-site img:not([src*="graded"]):not([src*=".svg"]):not([src*="ms-lp-"]):not([data-ms-logo]):not(.ms-no-tone), .ms-site video { filter: var(--ms-grade); }
 
 /* hover states the preview set on individual buttons */
 .ms-site .scp0:hover { background: #2A251E !important; color: #FBF9F5 !important; }

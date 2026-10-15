@@ -7,7 +7,7 @@
     "s01": {
       "type": "ms-product-main",
       "settings": {
-        "cover_value": "Loro Piana Interiors Mystic River, drawers included",
+        "cover_value": "Loro Piana Interiors Mystic River fabric, drawers included",
         "kind": "storage"
       },
       "blocks": {
@@ -56,11 +56,11 @@
         "part1_fibres": "Silk, Cheviot Wool, Linen",
         "part2_lead": "Cheviot wool, silk and cashmere.",
         "part2_text": "Cheviot wool, silk and cashmere.",
-        "part2_points": "Upholstered in Loro Piana Interiors Mystic River, to match its base.",
+        "part2_points": "Upholstered in Loro Piana Interiors Mystic River fabric, to match its base.",
         "part2_fibres": "Cashmere, Silk, Cheviot Wool",
         "part3_lead": "A slender base that holds two or four upholstered drawers.",
         "part3_text": "A slender base that holds two or four upholstered drawers.",
-        "part3_points": "Cheviot wool on top; the drawers in the same Mystic River.",
+        "part3_points": "Cheviot wool on top; the drawers in the same Mystic River fabric.",
         "part3_fibres": "Cheviot Wool"
       }
     },
@@ -78,7 +78,7 @@
           "type": "qa",
           "settings": {
             "q": "What is [product] made of?",
-            "a": "<p>[product] is made by hand in Italy from natural fibres: cashmere, silk and Cheviot wool. It is upholstered in Loro Piana Interiors Mystic River, a linen and cotton, drawers included. It is made to order, by hand, one at a time.</p>"
+            "a": "<p>[product] is made by hand in Italy from natural fibres: cashmere, silk and Cheviot wool. It is upholstered in Loro Piana Interiors Mystic River fabric, a linen and cotton, drawers included. It is made to order, by hand, one at a time.</p>"
           }
         },
         "qa_03": {

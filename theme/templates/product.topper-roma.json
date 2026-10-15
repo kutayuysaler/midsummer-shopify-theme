@@ -8,7 +8,7 @@
       "type": "ms-product-main",
       "settings": {
         "specs": "<p><strong>Single</strong> 100 × 200 × 10 cm</p><p><strong>Queen</strong> 153 × 203 × 10 cm</p><p><strong>Small Double</strong> 160 × 200 × 10 cm</p><p><strong>Double</strong> 180 × 200 × 10 cm</p><p><strong>King</strong> 193 × 203 × 10 cm</p><p><strong>Double Extra</strong> 200 × 200 × 10 cm</p>",
-        "cover_value": "Loro Piana Interiors Mystic River"
+        "cover_value": "Loro Piana Interiors Mystic River fabric"
       },
       "blocks": {
         "fibre_01": {
@@ -76,7 +76,7 @@
         "fibres_label": "Its fibres",
         "part1_lead": "Two faces: cashmere, silk, mohair and Falkland wool for winter; silk, linen, Ingeo and Falkland wool for summer.",
         "part1_text": "Two faces: cashmere, silk, mohair and Falkland wool for winter; silk, linen, Ingeo and Falkland wool for summer.",
-        "part1_points": "Upholstered in Loro Piana Interiors Mystic River.\nSoft or medium, to sit on the mattress beneath it.",
+        "part1_points": "Upholstered in Loro Piana Interiors Mystic River fabric.\nSoft or medium, to sit on the mattress beneath it.",
         "part1_fibres": "Cashmere, Mohair, Silk, Falkland Wool, Linen, Ingeo",
         "part2_lead": "Not part of [name]: it sits on the mattress beneath it.",
         "part2_text": "Not part of [name]: it sits on the mattress beneath it.",
@@ -102,7 +102,7 @@
           "type": "qa",
           "settings": {
             "q": "What is [product] made of?",
-            "a": "<p>[product] is made by hand in Italy from natural fibres: cashmere, mohair, silk, Falkland wool, linen and Ingeo. It is upholstered in Loro Piana Interiors Mystic River, a linen and cotton. It is made to order, by hand, one at a time.</p>"
+            "a": "<p>[product] is made by hand in Italy from natural fibres: cashmere, mohair, silk, Falkland wool, linen and Ingeo. It is upholstered in Loro Piana Interiors Mystic River fabric, a linen and cotton. It is made to order, by hand, one at a time.</p>"
           }
         },
         "qa_03": {

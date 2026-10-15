@@ -2,129 +2,129 @@
  "connemara": [
   [
    "1 Dark Indigo",
-   "#2E2A39",
+   "#302C3B",
    "ms-lp-co-01.jpg"
   ],
   [
    "2 Indaco Oxus",
-   "#525C9B",
+   "#5560A0",
    "ms-lp-co-02.jpg"
   ],
   [
    "5 Zen",
-   "#B8A18F",
+   "#BDA594",
    "ms-lp-co-03.jpg"
   ],
   [
    "6 Biancore",
-   "#EAE6E5",
+   "#EFECEA",
    "ms-lp-co-04.jpg"
   ],
   [
    "8 Dark Zen",
-   "#66575B",
+   "#695A5E",
    "ms-lp-co-05.jpg"
   ],
   [
    "10 Malachite",
-   "#6E7E8E",
+   "#728293",
    "ms-lp-co-06.jpg"
   ],
   [
    "12 Sassicaia",
-   "#5F2F31",
+   "#623233",
    "ms-lp-co-07.jpg"
   ],
   [
    "14 Cowes",
-   "#822823",
+   "#862A25",
    "ms-lp-co-08.jpg"
   ],
   [
    "16 Camargue",
-   "#AB7F5A",
+   "#AF835D",
    "ms-lp-co-09.jpg"
   ]
  ],
  "altai": [
   [
    "11 Shaded White",
-   "#F4F3F0",
+   "#FAF9F5",
    "ms-lp-al-01.jpg"
   ],
   [
    "15 Midnight",
-   "#191A2F",
+   "#1A1B30",
    "ms-lp-al-02.jpg"
   ],
   [
    "21 Eucalyptus",
-   "#858893",
+   "#898C98",
    "ms-lp-al-03.jpg"
   ],
   [
    "24 Diaspro",
-   "#6D2024",
+   "#702226",
    "ms-lp-al-04.jpg"
   ],
   [
    "25 Rosso Lacca",
-   "#91181F",
+   "#951921",
    "ms-lp-al-05.jpg"
   ],
   [
    "26 Granato",
-   "#2E1B1C",
+   "#301C1E",
    "ms-lp-al-06.jpg"
   ],
   [
    "28 Cammello",
-   "#AC8B7A",
+   "#B18F7D",
    "ms-lp-al-07.jpg"
   ],
   [
    "37 Paprika",
-   "#A03604",
+   "#A43805",
    "ms-lp-al-08.jpg"
   ],
   [
    "38 Henné",
-   "#49201E",
+   "#4B2220",
    "ms-lp-al-09.jpg"
   ],
   [
    "45 Polvere",
-   "#8184A5",
+   "#8488A9",
    "ms-lp-al-10.jpg"
   ],
   [
    "46 Lovat",
-   "#54646C",
+   "#57676F",
    "ms-lp-al-11.jpg"
   ],
   [
    "47 Green Blue",
-   "#29374C",
+   "#2A394E",
    "ms-lp-al-12.jpg"
   ],
   [
    "51 Pergamena",
-   "#EAE0D6",
+   "#F0E6DB",
    "ms-lp-al-13.jpg"
   ],
   [
-   "1 Biancore mélange",
-   "#CCBCAC",
+   "1 Biancore",
+   "#D1C0B0",
    "ms-lp-al-14.jpg"
   ],
   [
-   "2 Natural Brown mélange",
-   "#AA9589",
+   "2 Natural Brown",
+   "#AF9A8D",
    "ms-lp-al-15.jpg"
   ],
   [
-   "7 Light Marengo mélange",
-   "#76737C",
+   "7 Light Marengo",
+   "#7A7881",
    "ms-lp-al-16.jpg"
   ]
  ],

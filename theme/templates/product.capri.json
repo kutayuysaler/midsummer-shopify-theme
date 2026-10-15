@@ -7,7 +7,7 @@
     "s01": {
       "type": "ms-product-main",
       "settings": {
-        "cover_value": "Loro Piana Interiors Mystic River; or two-tone, natural linen and cotton with Connemara or Mystic River",
+        "cover_value": "Loro Piana Interiors Mystic River fabric; or two-tone, natural linen and cotton with Connemara or Mystic River fabric",
         "kind": "boxspring_mattress"
       },
       "blocks": {
@@ -68,7 +68,7 @@
         "part2_fibres": "Horsehair, Linen, Cheviot Wool",
         "part3_lead": "The mattress and the boxspring are one piece, padded with linen, Cheviot wool and horsehair.",
         "part3_text": "The mattress and the boxspring are one piece, padded with linen, Cheviot wool and horsehair.",
-        "part3_points": "Our most compact system: one clean line from the floor to the topper.\nIts feel is chosen with you, from soft to firm.\nUpholstered in Loro Piana Interiors Mystic River, in any of its twelve colours, or two-tone with natural linen and cotton.\nSplit in two on request, for the wider sizes.",
+        "part3_points": "Our most compact system: one clean line from the floor to the topper.\nIts feel is chosen with you, from soft to firm.\nUpholstered in Loro Piana Interiors Mystic River fabric, in any of its twelve colours, or two-tone with natural linen and cotton.\nSplit in two on request, for the wider sizes.",
         "part3_fibres": "Horsehair, Linen, Cheviot Wool"
       }
     },
@@ -86,7 +86,7 @@
           "type": "qa",
           "settings": {
             "q": "What is [product] made of?",
-            "a": "<p>[product] is made by hand in Italy from natural fibres: horsehair, linen, Cheviot wool and silk. It is upholstered in Loro Piana Interiors Mystic River, or two-tone, in natural linen and cotton with Connemara or Mystic River. It is made to order, by hand, one at a time.</p>"
+            "a": "<p>[product] is made by hand in Italy from natural fibres: horsehair, linen, Cheviot wool and silk. It is upholstered in Loro Piana Interiors Mystic River fabric, or two-tone, in natural linen and cotton with Connemara or Mystic River fabric. It is made to order, by hand, one at a time.</p>"
           }
         },
         "qa_03": {

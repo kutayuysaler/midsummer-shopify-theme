@@ -1,7 +1,8 @@
 """Inside the bed's three cards, each a photograph of that part: a topper that is a topper, a
 mattress, a boxspring; for the systems photographed (Roma, Flora, Paisley, First Dream, Dreamy) their
 own, for the others the house's studio photographs. Cut at 4:5 into vendor/r16/parts.
-usage: python3 part_photos.py [--sheet]"""
+usage: python3 part_photos.py [--sheet] [--only name,name]  (--only: cut just those; some Round 16 sources
+were later retired from the theme's assets, so their cuts are kept as they are in vendor/r16/parts)"""
 import os, sys
 from PIL import Image, ImageOps, ImageFilter
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -9,10 +10,12 @@ SRC = os.path.join(HERE, '..', 'fib2', 'src')
 AS = os.path.join(HERE, '..', 'v5', 'assets')
 OUT = os.path.join(HERE, '..', 'vendor', 'r16', 'parts')
 CUTS = {
-    # the house's studio photographs: any system's parts
-    'mattress-detail': (AS + '/ms-photo-mattress-detail.jpg', (810, 0, 1920, 1387)),
-    'base-studio': (SRC + '/SOMMIER_02_A4.jpg', (320, 1150, 3520, 5150)),
-    'base-pure': (SRC + '/PURE_TOPPER_DSC4462 APRILE 2021.jpg', (555, 1100, 1637, 2453)),
+    # the house's studio photographs: any system's parts (Round 21: current, calmer photographs)
+    'topper-house': (SRC + '/Top_harrods_neutral_beige.jpg', (120, 300, 1160, 1600)),
+    'mattress-house': (SRC + '/particolare_materasso_01.jpg', (0, 250, 1414, 2018)),
+    'base-house': (SRC + '/My_dream_Belmont_MG_9728.jpg', (0, 250, 1000, 1500)),
+    # Dreamy Springs, at its corner (Round 21: the whole corner rather than the side alone)
+    'mattress-detail': (SRC + '/MATERASSO_DREAMY_SPRINGS_DETTAGLIO.jpg', (300, 0, 1180, 1100)),
     # Dreamy, First Dream
     'topper-dreamy': (SRC + '/DREAMY_TOPPER_ALTO-IMG_7459.jpg', (0, 0, 1011, 1264)),
     'base-dreamy': (SRC + '/DREAMY_TOPPER_ALTO-IMG_7459.jpg', (411, 750, 1011, 1500)),
@@ -36,7 +39,8 @@ CUTS = {
 def cut(name):
     f, box = CUTS[name]
     im = ImageOps.exif_transpose(Image.open(f)).convert('RGB').crop(box)
-    w = 720 if im.width >= 640 else 640
+    # Round 21: sharper on dense screens, up to 1000 wide where the photograph allows
+    w = next(x for x in (1000, 880, 720, 640) if im.width >= x or x == 640)
     out = im.resize((w, w * 5 // 4), Image.LANCZOS)
     if im.width < w:
         out = out.filter(ImageFilter.UnsharpMask(radius=1.2, percent=60, threshold=2))
@@ -46,6 +50,8 @@ def cut(name):
 if __name__ == '__main__':
     os.makedirs(OUT, exist_ok=True)
     names = sorted(CUTS)
+    if '--only' in sys.argv:
+        names = sys.argv[sys.argv.index('--only') + 1].split(',')
     for n in names:
         cut(n).save(os.path.join(OUT, 'ms-part-%s.jpg' % n), quality=82, optimize=True, progressive=True)
     if '--sheet' in sys.argv:

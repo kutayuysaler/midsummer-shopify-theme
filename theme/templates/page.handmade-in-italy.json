@@ -7,14 +7,13 @@
     "s01": {
       "type": "ms-banner",
       "settings": {
-        "image": "shopify://shop_images/Untitled_Project_5_b49a7740-07fa-45f1-8b4f-464d951b0772.jpg",
-        "image_fallback": "https://midsummer-milano.com/cdn/shop/files/Untitled_Project_5_b49a7740-07fa-45f1-8b4f-464d951b0772.jpg?width=2400",
+        "image_fallback": "ms-photo-artisan-fibre-bw.jpg",
         "eyebrow": "Heritage & craft",
         "use_page_title": false,
         "heading": "Handmade in Italy",
         "height": "tall",
         "focus": "center",
-        "text": "Two Italian artisans. Two or three full days. One bed."
+        "text": "Italian artisans. Two or three full days. One bed."
       }
     },
     "s02": {
@@ -23,7 +22,7 @@
         "eyebrow": "The method",
         "use_content": false,
         "heading": "A Midsummer bed is not assembled. It is made, by hand, from the first gesture to the last stitch.",
-        "text": "<p>Every piece is built by hand in Italy, from start to finish: two or three full days of work for each mattress. It is not a marketing promise; it is a method.</p><p>Because one pair of hands follows the bed through every stage, nothing goes inside it that its makers did not choose and place themselves. And because they know it from the inside, the bed can come back to them at fifteen years to be opened, renewed and made ready for fifteen more.</p>"
+        "text": "<p>Every piece is built by hand in Italy, from start to finish: two or three full days of work for each mattress. It is not a marketing promise; it is a method.</p><p>Because the bed is made by hand at every stage, nothing goes inside it that its makers did not choose and place themselves. And because they know it from the inside, the bed can come back to them at fifteen years to be opened, renewed and made ready for fifteen more.</p>"
       }
     },
     "s03": {
@@ -71,7 +70,7 @@
         "step_05": {
           "type": "step",
           "settings": {
-            "image_fallback": "ms-graded-bougainvillea.jpg",
+            "image_fallback": "ms-photo-lp-paisley-side.jpg",
             "title": "The cloth",
             "text": "<p>Last, the upholstery: Loro Piana Interiors fabrics, chosen for your room. Two or three days after it was begun, the bed is finished by hand, as it was begun.</p>"
           }

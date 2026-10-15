@@ -2218,3 +2218,106 @@ The old drawing showed bare iron posts and a wide walnut band, which the real be
 2. **The home page:** *Follow the atelier* shows the account only, until a feed or an app block is added (above).
 3. **Soft to the Touch:** the drawing in *part by part*.
 4. **Agents and resellers:** zoom into Milan and check the new map colours with the real street data. OpenFreeMap could not be reached from the test environment, so the colours were checked on generated streets.
+
+## 43. Round 21: true Loro Piana colours, new photographs, one tone everywhere, and the owner's corrections
+
+### Loro Piana Interiors colours, true to the cards
+
+Connemara and Altai were measured again from the cards in the atelier's swatch folder (Drive), and redrawn.
+- **Measured against the paper beside each swatch.** The photograph of each card is lit unevenly, so the far swatches had come out dull.
+- **Averaged as the eye sees it.** Each colour is now the average in linear light; the old average ran a little dark.
+- **Drawn with the card's own cloth.** Connemara now shows its open linen weave and Altai its milled wool, taken from the large swatch on each card. Before, a fine line texture stood in for both.
+- **Shown without the house tone.** The site's photo tone had been warming and greying the cloth pictures. A colour chosen on screen is now the colour of the card.
+
+Mystic River keeps its photographed colours. Wish, Cardi, Ely's Harbour, Bangor and Shadan keep their pictures.
+
+The swatch folder also holds Papeete, Dingle, Tiepolo, Alchemy, Sherpas and Palmier. No Midsummer product uses them, so they are not on the site.
+
+The official Loro Piana Interiors website could not be reached from the build environment, so it was not used.
+
+### One tone over every photograph
+
+- **Product photographs.** Some product photographs had escaped the house tone. The tone skipped any picture whose file name contained the word "logo", so photographs exported as "… no logo.jpg" were left out. Logos are now recognised by their markup instead: SVG files, the press marks, and the header and footer logo.
+- **The cart page.** It uses the base theme's layout and now carries the tone too.
+- **Exceptions.** Only the logos, the drawings and the Loro Piana cloths are left untoned.
+
+### "What matters most to you?"
+
+On collection pages, the line under the needs now names only fibres of the beds listed.
+- **What it names.** Each bed is chosen for a need by its three most telling fibres, as the Natural materials page describes each fibre. The line names those fibres, for the beds shown at that moment.
+- **Hidden needs.** A need that no listed bed answers is not offered.
+- **Classifications checked.** Toppers are no longer listed under *Support*: a topper is the surface of a bed, not its support.
+- **Warmth.** Wool and silk also temper a bed, but they are in nearly every system. Warmth is therefore credited to cashmere, camel hair, yak, alpaca, mohair and vicuña; otherwise *Temperature* would list 23 of the 25 systems.
+- **Editing the lines.** In the theme editor, *{fibres}* in a line becomes the list, and *{carry/carries}* picks the verb for several fibres or for one.
+
+### Cloth names read as fabrics
+
+- **The rule.** Wherever a product is described, a Loro Piana Interiors cloth is named as a fabric: *Mystic River fabric*, *Mystic River and Connemara fabrics*.
+- **Where a material already follows.** The name stays as it is: *Connemara linen*, *Katai silk*, *Wish bouclé*.
+- **Italian and Russian.** The product lines say *tessuto* and *ткань*.
+- **The Loro Piana Interiors page.** There each name is the title of a cloth, so it stays bare.
+
+### Photographs
+
+- **Inside the bed.** Products photographed on their own (Roma, Flora, Paisley, First Dream, Dreamy) keep their own photographs. Every other product now shows three current studio photographs:
+  - a Top system in neutral beige, for the topper;
+  - a cream mattress with rust piping, for the mattress;
+  - a sand boxspring on legs, for the boxspring.
+  
+  Dreamy's mattress card shows its whole corner. None of these photographs shows the inside of a bed.
+- **Handmade in Italy.** The opening photograph is now an artisan opening fibre by hand over the wool, in black and white so it differs from the home page. The previous photograph showed a panel being upholstered.
+- ***The cloth* step.** It now shows Paisley dressed in Loro Piana Interiors (Shadan and Katai) instead of a terrace on the coast.
+- **Natural materials.** Silk is now shown as raw floss, the raw material, instead of a satin cloth.
+
+### Copy
+
+- **Home page, delivery.** "Then a check-up when year fifteen arrives." (no longer "free").
+- **15 + 15.** One quiet sentence: "The regeneration is offered by the house; the transport, there and back, is at your charge."
+- **Our story, in figures.**
+  - 24: *Products across three collections*.
+  - Under *Made to order*: "Down to the fibres: the warmest for winter, the freshest for summer."
+  - The first figure is now *2–3 · Full days of handwork in every mattress*, in place of a count of artisans.
+- **Handmade in Italy.**
+  - The subtitle reads "Italian artisans. Two or three full days. One bed."
+  - "One pair of hands follows the bed" became "the bed is made by hand at every stage".
+- **Compare the collections.** *Regenerated at fifteen years* became *Support, set to how you sleep*.
+
+### The Green Product Award on Top
+
+The award box on the Top product page used to appear in only two cases: when the product used the Top template, or when its handle was exactly *top*. A Top product renamed in admin, or set to the default template, lost it. It now appears for the Top system however the store names it:
+- by its system (template or handle);
+- by its title: *Top*, *Top Sleeping System*, *Top bed system*, *Sistema Top*;
+- or from a product metafield, **custom.award** (single-line text), which can show any award on any product.
+
+*Top Dream* is a different bed and does not show it.
+
+### Also in this round
+
+- **Agents and resellers.** The open place's shading keeps clear of its dot, with no box drawn round it.
+- **Round sizes.** Only Giotto shows round sizes, by diameter: Giotto Round Ø 225 and 245, the Giotto mattress Ø 225, the Giotto bed Ø 255. The round option is gone from every other product.
+- **Product facts.** *Comfort* and the other facts sit on one line with their labels.
+- **The street map.**
+  - Its Round 19 colours are back.
+  - If the detailed map is slow to load, the plain map stands in, in grey, until it arrives.
+
+### Checks on this build
+
+| Check | Result |
+| --- | --- |
+| Shopify's Liquid engine (`strict` and `strict2`) | 469 files, 0 errors |
+| Theme Check | 0 errors, 68 warnings (unchanged) |
+| Template values against section schemas | no new issues |
+| Page audit (78 templates) | no script errors, no missing files, one H1 each |
+| axe-core (78 templates × phone, computer) | no issues on content (only the decorative numerals) |
+| Layout sweep (360, 768, 1440 px) | no sideways scroll, no script errors |
+| Two builds in a row | identical files |
+| Interaction tests | 222 pass. New: each need line names only fibres of the beds shown; product photographs toned, including one named "… no logo"; logos and Loro Piana cloths untoned; the house photographs on Top; Handmade in Italy opening and cloth step; the support row on Compare; the check-up and the 15 + 15 note; Our story figures; raw silk; cloth names as fabrics; the award on Top, under another name and template, and not on Top Dream |
+
+### To check on the store after uploading
+
+1. **A collection page.** Choose each need under *What matters most to you?*: the line should name only fibres of the beds listed.
+2. **Top:** the *Green Product Award 2025* box under the title.
+3. **A product page without its own photographs** (for example Top). The three *Inside the bed* cards should show the new house photographs. On any product page, check that all photographs share the same warm tone, and that the Loro Piana cloth swatches are untoned.
+4. **Loro Piana Interiors.** Compare Connemara and Altai on screen with the physical cards. The colours now follow the cards, but every screen differs a little.
+5. **Handmade in Italy, Our story, 15 + 15, Compare the collections.** Check the new photograph and the new lines.
+6. **Giotto.** The 2026 catalogue gives the Giotto bed Ø 255 cm. If the store's own text still says 235, correct it in the product description.

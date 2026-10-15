@@ -395,12 +395,16 @@
         {%- if tagline != blank -%}<p class="ms-pm__tagline"{% if tagline_auto %} data-ms-auto{% endif %}>{{ tagline }}</p>{%- endif -%}
         {%- comment -%} a recognition the piece has received: the Top system, the Green Product Award 2025 {%- endcomment -%}
         {%- liquid
-          assign ms_award = section.settings.award
+          assign ms_award = section.settings.award | default: product.metafields.custom.award.value
           if ms_award == blank
-            case product.handle
-              when 'top', 'top-2'
+            # the Top system however the store names it: its system (template or handle), or its title;
+            # Top Dream is another bed
+            assign ms_tt = product.title | downcase | strip
+            if mk0[1] == 'top-2' or product.handle == 'top' or product.handle == 'top-2' or ms_tt == 'top' or ms_tt contains 'top sleeping system' or ms_tt contains 'top bed system' or ms_tt contains 'top system' or ms_tt contains 'sistema top' or ms_tt contains 'sistema letto top'
+              unless ms_tt contains 'dream'
                 assign ms_award = 'Green Product Award 2025'
-            endcase
+              endunless
+            endif
           endif
         -%}
         {%- if ms_award != blank -%}
@@ -742,10 +746,10 @@
   .ms-site .ms-pm__primary:hover { background: #2A251E; color: #FBF9F5; }
   .ms-pm__secondary { font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; border-bottom: 1px solid #17140F; padding-bottom: 7px; }
   .ms-pm__facts { margin: clamp(30px, 3.4vw, 44px) 0 0; display: grid; gap: 0; }
-  .ms-pm__facts > div { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 18px; padding: 14px 0; border-top: 1px solid #DDD6C9; }
+  .ms-pm__facts > div { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 18px; align-items: baseline; padding: 14px 0; border-top: 1px solid #DDD6C9; }
   .ms-pm__facts > div:last-child { border-bottom: 1px solid #DDD6C9; }
   .ms-pm__facts:not(:has(> div)) { display: none; }
-  .ms-pm__facts dt { font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: #6E675C; padding-top: 3px; }
+  .ms-pm__facts dt { font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: #6E675C; }
   .ms-pm__facts dd { margin: 0; font-size: 14px; line-height: 1.7; color: #4A443B; }
   .ms-pm__more { margin-top: 22px; }
   /* the fibres of this system, beside the photographs */

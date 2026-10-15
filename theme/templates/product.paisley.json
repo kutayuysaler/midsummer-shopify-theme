@@ -59,11 +59,11 @@
         "fibres_label": "Its fibres",
         "part1_lead": "Cheviot wool and silk for winter; Cheviot wool and linen for summer.",
         "part1_text": "Cheviot wool and silk for winter; Cheviot wool and linen for summer.",
-        "part1_points": "Upholstered in Loro Piana Interiors Shadan, a paisley linen.",
+        "part1_points": "Upholstered in Loro Piana Interiors Shadan fabric, a paisley linen.",
         "part1_fibres": "Silk, Cheviot Wool, Linen",
         "part2_lead": "Cheviot wool and baby alpaca for winter; Cheviot wool and linen for summer.",
         "part2_text": "Cheviot wool and baby alpaca for winter; Cheviot wool and linen for summer.",
-        "part2_points": "Its border in Shadan, like the topper.",
+        "part2_points": "Its border in Shadan fabric, like the topper.",
         "part2_fibres": "Baby Alpaca, Cheviot Wool, Linen",
         "part3_lead": "Linen and Cheviot wool, upholstered in Loro Piana Interiors Katai silk.",
         "part3_text": "Linen and Cheviot wool, upholstered in Loro Piana Interiors Katai silk.",
@@ -85,7 +85,7 @@
           "type": "qa",
           "settings": {
             "q": "What is [product] made of?",
-            "a": "<p>[product] is made by hand in Italy from natural fibres: baby alpaca, Cheviot wool, silk and linen. It is upholstered in Loro Piana Interiors: Shadan, a paisley linen, on the topper, and Katai silk on the boxspring. It is made to order, by hand, one at a time.</p>"
+            "a": "<p>[product] is made by hand in Italy from natural fibres: baby alpaca, Cheviot wool, silk and linen. It is upholstered in Loro Piana Interiors: Shadan fabric, a paisley linen, on the topper, and Katai silk on the boxspring. It is made to order, by hand, one at a time.</p>"
           }
         },
         "qa_03": {

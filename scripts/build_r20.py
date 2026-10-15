@@ -8,16 +8,36 @@ import re as _re
 _p = THEME + '/sections/ms-product-reasons.liquid'
 _s = open(_p, encoding='utf-8').read()
 if 'data-ms-szo' not in _s:
-    _s = _s.replace('<section data-dc-tpl="764" ', '<section data-dc-tpl="764" data-ms-title="{{ product.title | escape }}" ', 1)
+    _s = _s.replace('<section data-dc-tpl="764" ', '''{%- liquid
+  # the round beds (Giotto) are drawn and asked for by their diameter alone, from the 2026 catalogue:
+  # Giotto Round, Ø 225 and 245; the Giotto mattress, Ø 225; the Giotto bed, Ø 255
+  assign ms_round = ''
+  assign ms_ph = product.handle | default: ''
+  if ms_ph contains 'giotto'
+    if ms_ph contains 'round'
+      assign ms_round = '225,245'
+    elsif ms_ph == 'giotto-1' or ms_ph contains 'mattress'
+      assign ms_round = '225'
+    else
+      assign ms_round = '255'
+    endif
+  endif
+-%}
+<section data-dc-tpl="764" data-ms-round="{{ ms_round }}" data-ms-title="{{ product.title | escape }}" ''', 1)
     _a = _s.index('<div data-ms="sizes"')
     _b = _s.index('<div class="ms-sz" data-ms-sz>')
     _s = _s[:_a] + """<div class="ms-szp">
 <span class="ms-szp__k">{{ section.settings.sizes_label }}</span>
 <div data-ms="sizes" class="ms-szp__row">
+{%- if ms_round != '' -%}
+  {%- assign ms_ds = ms_round | split: ',' -%}
+  {%- for d in ms_ds -%}<button type="button" class="ms-szp__c" data-ms-size data-w="{{ d }}" data-l="{{ d }}" aria-pressed="false">Ø {{ d }}</button>{%- endfor -%}
+{%- else -%}
 {%- for i in (1..6) -%}
   {%- assign kw = 's' | append: i | append: '_w' -%}{%- assign kl = 's' | append: i | append: '_l' -%}
   {%- if section.settings[kw] != blank and section.settings[kl] != blank -%}<button type="button" class="ms-szp__c" data-ms-size data-w="{{ section.settings[kw] | escape }}" data-l="{{ section.settings[kl] | escape }}" aria-pressed="false">{{ section.settings[kw] }} × {{ section.settings[kl] }}</button>{%- endif -%}
 {%- endfor -%}
+{%- endif -%}
 <button type="button" class="ms-szp__c ms-szp__own" data-ms-size-own aria-pressed="false" aria-controls="ms-szo-{{ section.id }}" aria-expanded="false">{{ section.settings.own_label }}</button>
 </div>
 </div>
@@ -27,9 +47,12 @@ if 'data-ms-szo' not in _s:
     _c = _s.index('</div>', _s.index('</div>', _c) + 6) + 6
     _s = _s[:_c] + """
 <div class="ms-szo" id="ms-szo-{{ section.id }}" data-ms-szo hidden>
-  <label class="ms-szo__f"><span data-szo-wl data-w-label="{{ section.settings.own_w | escape }}" data-d-label="{{ section.settings.own_d | escape }}">{{ section.settings.own_w }}</span><b><input type="number" inputmode="numeric" min="70" max="320" step="1" value="170" data-szo-w><i>cm</i></b></label>
-  <label class="ms-szo__f" data-szo-lbox><span>{{ section.settings.own_l }}</span><b><input type="number" inputmode="numeric" min="150" max="320" step="1" value="210" data-szo-l><i>cm</i></b></label>
-  <label class="ms-szo__r"><input type="checkbox" data-szo-round><span>{{ section.settings.own_round }}</span></label>
+  {%- if ms_round != '' -%}
+  <label class="ms-szo__f"><span>{{ section.settings.own_d }}</span><b><input type="number" inputmode="numeric" min="150" max="320" step="1" value="{{ ms_round | split: ',' | first }}" data-szo-w><i>cm</i></b></label>
+  {%- else -%}
+  <label class="ms-szo__f"><span>{{ section.settings.own_w }}</span><b><input type="number" inputmode="numeric" min="70" max="320" step="1" value="170" data-szo-w><i>cm</i></b></label>
+  <label class="ms-szo__f"><span>{{ section.settings.own_l }}</span><b><input type="number" inputmode="numeric" min="150" max="320" step="1" value="210" data-szo-l><i>cm</i></b></label>
+  {%- endif -%}
   <a class="ms-szo__cta" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=proposal' %}#enquire" data-ms-enquire data-ms-enquiry="proposal" data-szo-cta>{{ section.settings.own_cta }}<span aria-hidden="true"> →</span></a>
 </div>""" + _s[_c:]
     # the old fixed list of six, and its script, give way
@@ -42,12 +65,12 @@ if 'data-ms-szo' not in _s:
   var sz = root && root.querySelector && root.querySelector('[data-ms-sz]');
   if (!sz) return;
   var row = root.querySelector('[data-ms="sizes"]'), ownBtn = root.querySelector('[data-ms-size-own]'), form = root.querySelector('[data-ms-szo]');
-  var title = root.getAttribute('data-ms-title') || '';
+  var title = root.getAttribute('data-ms-title') || '', ROUND = !!root.getAttribute('data-ms-round');
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function fmt(w, l) { return Math.round(w) + ' × ' + Math.round(l); }
+  function fmt(w, l) { return ROUND ? 'Ø ' + Math.round(w) : Math.round(w) + ' × ' + Math.round(l); }
   // the sizes this product's own description lists, when it lists them: all written the same way
   var own = window.MS_SIZES;
-  if (own && own.length > 1 && row) {
+  if (!ROUND && own && own.length > 1 && row) {
     own = own.slice().sort(function (a, b) { return a.w - b.w || a.l - b.l; });
     Array.prototype.slice.call(row.querySelectorAll('[data-ms-size]')).forEach(function (c) { c.parentNode.removeChild(c); });
     own.forEach(function (o) {
@@ -73,7 +96,7 @@ if 'data-ms-szo' not in _s:
   function paint(c) {
     var w = c[0], l = c[1], rd = c[2];
     var S = Math.min(150 / Math.max(big[0], w), 136 / Math.max(big[1], l));
-    box(q('[data-sz-ref]'), CX - big[0] * S / 2, TOP, big[0] * S, big[1] * S);
+    box(q('[data-sz-ref]'), CX - big[0] * S / 2, TOP, big[0] * S, big[1] * S, ROUND ? big[0] * S / 2 : 0);
     var W = w * S, L = l * S, x = CX - W / 2, y = TOP;
     box(q('[data-sz-rect]'), x, y, W, L, 2 + rd * (Math.min(W, L) / 2 - 2));
     q('[data-sz-turn]').setAttribute('d', rd > .5 ? '' : 'M' + (x + 3).toFixed(1) + ' ' + (y + L * .3).toFixed(1) + 'H' + (x + W - 3).toFixed(1));
@@ -110,34 +133,31 @@ if 'data-ms-szo' not in _s:
     press(chips[i]);
     if (form) { form.hidden = true; if (ownBtn) ownBtn.setAttribute('aria-expanded', 'false'); }
     var d = dims[i] || [160, 200, ''];
-    draw([d[0], d[1], 0]);
+    draw([d[0], d[1], ROUND ? 1 : 0]);
     say(fmt(d[0], d[1]) + ' cm', d[2]);
   }
   chips.forEach(function (c, k) { c.addEventListener('click', function () { pick(k); }); });
   // your size: as typed, kept within what can be drawn; a round bed has one measure, its diameter
   if (ownBtn && form) {
-    var iw = form.querySelector('[data-szo-w]'), il = form.querySelector('[data-szo-l]'), ir = form.querySelector('[data-szo-round]');
-    var lbox = form.querySelector('[data-szo-lbox]'), wl = form.querySelector('[data-szo-wl]'), cta = form.querySelector('[data-szo-cta]');
+    var iw = form.querySelector('[data-szo-w]'), il = form.querySelector('[data-szo-l]'), cta = form.querySelector('[data-szo-cta]');
     var note = root.getAttribute('data-ms-own-note') || '';
     function clamp(v, a, b, dflt) { v = Math.round(+v); return isNaN(v) || !v ? dflt : Math.max(a, Math.min(b, v)); }
     function mine() {
-      var round = ir.checked, w = clamp(iw.value, 70, 320, 170), l = round ? w : clamp(il.value, 150, 320, 210);
-      lbox.hidden = round;
-      wl.textContent = round ? wl.getAttribute('data-d-label') : wl.getAttribute('data-w-label');
-      draw([w, l, round ? 1 : 0]);
-      var said = round ? 'Ø ' + w + ' cm' : fmt(w, l) + ' cm';
+      var w = clamp(iw.value, ROUND ? 150 : 70, 320, +iw.defaultValue), l = ROUND || !il ? w : clamp(il.value, 150, 320, 210);
+      draw([w, l, ROUND ? 1 : 0]);
+      var said = fmt(w, l) + ' cm';
       say(said, note);
-      if (cta) cta.setAttribute('data-ms-note', (title ? title + ', ' : '') + (round ? said + ', round' : said));
+      if (cta) cta.setAttribute('data-ms-note', (title ? title + ', ' : '') + said);
     }
     ownBtn.addEventListener('click', function () {
       press(ownBtn); form.hidden = false; ownBtn.setAttribute('aria-expanded', 'true'); mine();
       if (window.matchMedia('(hover: hover)').matches) iw.focus({ preventScroll: true });
     });
-    [iw, il, ir].forEach(function (el) { el.addEventListener('input', mine); el.addEventListener('change', mine); });
-    [iw, il].forEach(function (el) { el.addEventListener('blur', function () { if (el.value !== '') el.value = clamp(el.value, +el.min, +el.max, +el.defaultValue); mine(); }); });
+    [iw, il].filter(Boolean).forEach(function (el) { el.addEventListener('input', mine); el.addEventListener('change', mine); });
+    [iw, il].filter(Boolean).forEach(function (el) { el.addEventListener('blur', function () { if (el.value !== '') el.value = clamp(el.value, +el.min, +el.max, +el.defaultValue); mine(); }); });
   }
   var start = 0;
-  dims.forEach(function (d, k) { if (!start && d[0] >= 160 && d[0] <= 180) start = k; });
+  if (!ROUND) dims.forEach(function (d, k) { if (!start && d[0] >= 160 && d[0] <= 180) start = k; });
   if (chips.length) pick(start);
 })();
 </script>""" + _s[_b:]
@@ -162,8 +182,6 @@ if 'data-ms-szo' not in _s:
       .ms-szo__f input:focus-visible { outline: 1px solid #7E623B; outline-offset: 4px; }
       .ms-szo__f b { display: inline-flex; align-items: baseline; gap: 6px; font-weight: 400; }
       .ms-szo__f i { font-style: normal; font-size: 12px; letter-spacing: .06em; text-transform: none; color: #6E675C; }
-      .ms-szo__r { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; font-size: 13px; color: #4A443B; cursor: pointer; }
-      .ms-szo__r input { width: 16px; height: 16px; accent-color: #17140F; }
       .ms-site a.ms-szo__cta { display: inline-flex; align-items: center; min-height: 40px; font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: #17140F; border-bottom: 1px solid #17140F; }
       .ms-szo__cta span { margin-left: 8px; }""", 1)
     # the settings: six names out (the sizes now say themselves), the words for "Your size" in
@@ -179,8 +197,7 @@ if 'data-ms-szo' not in _s:
         {'type': 'text', 'id': 'own_label', 'label': 'Your own size', 'default': 'Your size'},
         {'type': 'text', 'id': 'own_w', 'label': 'Your size: width', 'default': 'Width'},
         {'type': 'text', 'id': 'own_l', 'label': 'Your size: length', 'default': 'Length'},
-        {'type': 'text', 'id': 'own_d', 'label': 'Your size: diameter (round)', 'default': 'Diameter'},
-        {'type': 'text', 'id': 'own_round', 'label': 'Your size: round', 'default': 'Round'},
+        {'type': 'text', 'id': 'own_d', 'label': 'Your size: diameter (Giotto)', 'default': 'Diameter'},
         {'type': 'text', 'id': 'own_note', 'label': 'Your size: said under it', 'default': 'Made to your measure'},
         {'type': 'text', 'id': 'own_cta', 'label': 'Your size: ask for it', 'default': 'Ask for this size'},
     ]

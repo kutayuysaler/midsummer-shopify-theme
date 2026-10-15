@@ -7,7 +7,7 @@
     "s01": {
       "type": "ms-product-main",
       "settings": {
-        "cover_value": "Natural linen and cotton, or Loro Piana Interiors Mystic River"
+        "cover_value": "Natural linen and cotton, or Loro Piana Interiors Mystic River fabric"
       },
       "blocks": {
         "fibre_01": {
@@ -79,7 +79,7 @@
         "part1_fibres": "Silk, Cheviot Wool, Linen",
         "part2_lead": "Cashmere, camel hair, Cheviot wool and horsehair for winter; linen, Ingeo, Cheviot wool and horsehair for summer.",
         "part2_text": "Cashmere, camel hair, Cheviot wool and horsehair for winter; linen, Ingeo, Cheviot wool and horsehair for summer.",
-        "part2_points": "Capitonné on the surface, designed to deepen sleep.\nIn natural linen and cotton, or Loro Piana Interiors Mystic River, edged in Midsummer pink.",
+        "part2_points": "Capitonné on the surface, designed to deepen sleep.\nIn natural linen and cotton, or Loro Piana Interiors Mystic River fabric, edged in Midsummer pink.",
         "part2_fibres": "Cashmere, Camel Hair, Horsehair, Cheviot Wool, Linen, Ingeo",
         "part3_lead": "Not part of [name]: it rests on a Midsummer boxspring.",
         "part3_text": "Not part of [name]: it rests on a Midsummer boxspring.",
@@ -101,7 +101,7 @@
           "type": "qa",
           "settings": {
             "q": "What is [product] made of?",
-            "a": "<p>[product] is made by hand in Italy from natural fibres: cashmere, camel hair, horsehair, Cheviot wool, linen and Ingeo. It is covered in natural linen and cotton, or upholstered in Loro Piana Interiors Mystic River. It is made to order, by hand, one at a time.</p>"
+            "a": "<p>[product] is made by hand in Italy from natural fibres: cashmere, camel hair, horsehair, Cheviot wool, linen and Ingeo. It is covered in natural linen and cotton, or upholstered in Loro Piana Interiors Mystic River fabric. It is made to order, by hand, one at a time.</p>"
           }
         },
         "qa_03": {
