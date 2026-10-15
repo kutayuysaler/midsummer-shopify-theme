@@ -2437,3 +2437,11 @@ Also:
 2. **The sizes.** For example Top: *Single, US Queen, Queen, King, US King, Super King*, each with its measure beneath.
 3. **Brera and Capri, under *The cloth*.** Every colour of each cloth.
 4. **A product photographed on white**, if the shop has one. It should sit on the page without a white box.
+
+## 45. Round 22, continued: Ingeo at its source
+
+- **The Ingeo plate.** Natural materials now shows Ingeo at its source: an ear of maize, ripe in the field, in the same warm monochrome as the other plates. The previous plate was a close-up of the white wadding. The photograph is a Shutterstock image from the house's own catalogue folder (*foto catalogo*); please confirm its licence covers the website, as for the other Shutterstock plates.
+- **Ingeo's entry.** It now gives the plant's name, *Zea mays*, like linen, cotton and the palm.
+- **Giotto Round sizes.** Checked against the 2026 catalogue: Ø 225 and Ø 245, as on the site. The store's *Giotto* product (with its headboard) gives 235 cm overall for a 225 cm mattress; that is a different product, and its description is unchanged.
+- **The six other cloths in the swatch folder** (Papeete, Dingle, Tiepolo, Alchemy, Sherpa, Palmier). They are not added. They appear in Loro Piana's trade list but in no Midsummer bed or catalogue page, and the Loro Piana Interiors page shows the cloths of our beds. If the atelier offers them on request, say so and they can be shown as such.
+- **Checks.** Build twice identical; Liquid strict 0 errors; Theme Check 0 errors; 238 interaction tests pass (new: the Ingeo plate shows the maize, named *Zea mays*).

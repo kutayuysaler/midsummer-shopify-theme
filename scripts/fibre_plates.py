@@ -22,7 +22,8 @@ SPEC = {
   'mohair':    ('COPERTA_Mohair.jpg',                    .225, .262, .30),
   'linen':     ('lino.jpg',                              .35, .55, .35),
   'vegetable': ('nika-akin-b9UKi6t3xh0-unsplash (1).jpg', .5, .3, 1.0),
-  'ingeo':     ('cotone+fibra mais.JPG',                 .6, .5, .8),
+  # Round 22: Ingeo at its source, the maize in the field at summer's end (the wadding, white on black, said little)
+  'ingeo':     ('shutterstock_313649711.jpg',            .33, .5, 1.0),
   'orange':    ('joshua-earle-a9bpgsbdknw-unsplash.jpg', .5, .5, 1.0),
 }
 # warm monochrome: shadows of dark walnut, light of the page's ivory

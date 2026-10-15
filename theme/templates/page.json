@@ -714,7 +714,8 @@
             "lead": "A sustainable fibre derived from maize. With wool, linen and cotton, it is on the summer side: fresh and breathable.",
             "photo": "ingeo",
             "glass_note": "Made, not grown: smooth, round filaments, all of one size, with none of the scales, nodes or twists of the natural fibres.",
-            "alt": "Maize fibre, soft and white, close up."
+            "species": "Zea mays",
+            "alt": "An ear of maize, ripe in the field."
           }
         },
         "fibre_14": {
