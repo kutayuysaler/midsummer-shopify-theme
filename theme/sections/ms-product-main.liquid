@@ -316,44 +316,6 @@
   capture t_fibl
     render 'ms-tr', value: ss.fibres_link, default: 'All the fibres', key: 'ms.product.fibres_link'
   endcapture
-  # the standard sizes, when the product offers them as a choice (Size, Misura, Dimensioni …)
-  assign sizes = ''
-  for option in product.options_with_values
-    assign on = option.name | downcase
-    if on contains 'size' or on contains 'misur' or on contains 'dimens' or on contains 'размер'
-      # the standard names in the visitor's language (a translation in Translate & Adapt wins)
-      for v in option.values
-        assign vk = v | downcase | strip
-        case vk
-          when 'single'
-            assign vn = 'ms.product.size_single' | t
-          when 'small double'
-            assign vn = 'ms.product.size_small_double' | t
-          when 'double'
-            assign vn = 'ms.product.size_double' | t
-          when 'double extra'
-            assign vn = 'ms.product.size_double_extra' | t
-          when 'queen'
-            assign vn = 'ms.product.size_queen' | t
-          when 'king'
-            assign vn = 'ms.product.size_king' | t
-          when 'super king'
-            assign vn = 'ms.product.size_super_king' | t
-          else
-            assign vn = v
-        endcase
-        if forloop.first
-          assign sizes = vn
-        else
-          assign sizes = sizes | append: ' · ' | append: vn
-        endif
-      endfor
-      break
-    endif
-  endfor
-  capture t_sizes
-    render 'ms-tr', value: ss.sizes_label, default: 'Standard sizes', key: 'ms.product.sizes_label'
-  endcapture
   assign height = product.metafields.custom.height | metafield_text
   assign lead = product.metafields.custom.lead_time | metafield_text
 -%}
@@ -478,7 +440,6 @@
         <dl class="ms-pm__facts"{% if lean %} data-ms-lean{% endif %} aria-label="{{ t_specs | strip | escape }}">
           {%- unless lean -%}<div><dt>{{ t_f1l }}</dt><dd>{{ t_f1v }}</dd></div>{%- endunless -%}
           {%- unless pkind == 'other' or lean -%}<div{% if pkind == 'headboard' or pkind == 'boxspring' %} class="is-generic"{% endif %}><dt>{{ t_f2l }}</dt><dd>{{ t_f2v }}</dd></div>{%- endunless -%}
-          {%- if sizes != blank -%}<div><dt>{{ t_sizes }}</dt><dd>{{ sizes }}</dd></div>{%- endif -%}
           {%- if height != blank -%}<div><dt>{{ t_height }}</dt><dd>{{ height }}</dd></div>{%- endif -%}
           {%- if ss.cover_value != blank and t_cover_v != blank and lean == false -%}<div><dt>{{ t_cover_l }}</dt><dd>{{ t_cover_v }}</dd></div>{%- endif -%}
           {%- if comfort != blank and ss.comfort_value != blank -%}<div><dt>{{ t_comfort_l }}</dt><dd>{{ comfort }}</dd></div>{%- endif -%}
@@ -651,7 +612,6 @@
       {%- if tier %}{ "@type": "PropertyValue", "name": "Collection", "value": {{ tier.title | append: ' (' | append: numeral | append: ')' | json }} },{% endif %}
       { "@type": "PropertyValue", "name": {{ t_f1l | strip | json }}, "value": {{ t_f1v | strip | json }} },
       { "@type": "PropertyValue", "name": {{ t_f2l | strip | json }}, "value": {{ t_f2v | strip | json }} },
-      {%- if sizes != blank %}{ "@type": "PropertyValue", "name": {{ t_sizes | strip | json }}, "value": {{ sizes | json }} },{% endif %}
       {%- if height != blank %}{ "@type": "PropertyValue", "name": {{ t_height | strip | json }}, "value": {{ height | json }} },{% endif %}
       {%- if ss.cover_value != blank %}{ "@type": "PropertyValue", "name": {{ t_cover_l | strip | json }}, "value": {{ t_cover_v | strip | json }} },{% endif %}
       {%- if comfort != blank and ss.comfort_value != blank %}{ "@type": "PropertyValue", "name": {{ t_comfort_l | strip | json }}, "value": {{ comfort | strip | json }} },{% endif %}
@@ -1257,7 +1217,6 @@ document.addEventListener('DOMContentLoaded', function () {
     { "type": "text", "id": "cover_value", "label": "Upholstery", "default": "Natural cloths, chosen with you", "info": "Empty hides the row." },
     { "type": "text", "id": "comfort_label", "label": "Comfort label", "default": "Comfort" },
     { "type": "text", "id": "comfort_value", "label": "Comfort", "default": "Set with you, at the atelier or by video", "info": "Metafield custom.firmness replaces it." },
-    { "type": "text", "id": "sizes_label", "label": "Standard sizes label", "default": "Standard sizes" },
     { "type": "text", "id": "height_label", "label": "Height label", "default": "Height" },
     { "type": "text", "id": "lead_label", "label": "Lead time label", "default": "Lead time" },
     { "type": "text", "id": "f3_label", "label": "Fact 3 label", "default": "Service" },

@@ -2154,3 +2154,67 @@ Two of the build's own patches were adding the same lines again on every build. 
 4. **Avada:** uninstall it, after moving any verification codes (above).
 5. **A headboard bed's page,** for example Cashmere Couture: the sizes are said once, in the sizes band.
 6. **Natural materials:** open *Under the glass* for wool and for vicuña.
+
+## 42. Round 20: sizes made to measure, Instagram without stand-ins, Soft to the Touch redrawn, a fresher map
+
+### Sizes: any size, shown as such
+
+Every bed is made to measure, so the product pages no longer read as a menu of fixed sizes.
+
+- **The "Standard sizes" row at the top of product pages is gone,** on every product. It listed names (Single, Queen, Small Double …) that the sizes section below already shows, and it suggested the sizes were fixed. It is also out of the product's structured data.
+- **The sizes section** (*Specified, not selected.*):
+  - Every size is written the same way: width × length in centimetres, narrowest first, under the label "For example, in cm". No more mixed "100 × 200 … Queen, King".
+  - A product whose description lists its own sizes (for example Jungle Dreams, Soft to the Touch) shows those, still in centimetres. The headboard measure stays under the drawing, for example "headboard 208 × 216 × 103 h".
+  - **New: + Your size.** The customer types a width and a length, or ticks **Round** and types a diameter, and the drawing redraws to that size. **Ask for this size** opens the enquiry form, already filled with the product and the measure (for example "Jungle Dreams, 172 × 213 cm" or "Ø 240 cm, round").
+  - **Settings:** *Product · Three reasons* section → **Sizes** (the label above the sizes, and the words for *Your size*). The six old size-name settings were removed.
+- **The size guide on the Questions page** now opens "Any size, made to measure." and presents the usual sizes as reference only.
+
+### Instagram: the latest posts, or nothing
+
+The *Follow the atelier* section no longer shows stand-in photographs.
+
+- **With a feed** (Theme settings → Midsummer · Social and WhatsApp → *Instagram feed address*, see section 41), or **with an Instagram feed app's block** added to the section, the row shows the account's real latest posts.
+- **Without either,** the section shows the account name, its link and the social icons, and no pictures.
+- If the feed is set but cannot answer, the row stays hidden rather than showing old photographs.
+
+To show the posts, either of these is enough:
+1. **Behold (free, one account):** connect *midsummermilano* at behold.so, create a JSON feed, and paste its address into the setting.
+2. **An Instagram feed app:** install one from the Shopify App Store that offers a theme app block (for example Instafeed). Then, in the theme editor, select the home page's *Follow the atelier* section, choose **Add block**, and pick the app's block.
+
+### Soft to the Touch: redrawn from the bed itself
+
+The *Soft to the touch, part by part* drawing was redrawn from the house's own front photograph of the bed:
+- two soft cushions curled over a slim upholstered headboard, resting on a thin inlay of Canaletto walnut;
+- a padded frame on walnut-stained legs;
+- a piped mattress, two pillows and a throw laid across the foot.
+
+The old drawing showed bare iron posts and a wide walnut band, which the real bed does not have. Height stays at the catalogue's 107 cm, and the part-by-part interaction (headboard, mattress, boxspring) is unchanged.
+
+**The other headboard beds** (Cashmere Couture, Silk Flowers, Beating of Wings, Jungle Dreams, Tulip, Pure, Giotto) keep their headboards. Their bedding is now drawn the same way: real pillows and a throw draped across the foot, in place of the small square in one corner, with tapered wooden legs and a soft shadow under the bed.
+
+### The agents map: lighter and current
+
+- **The street map** has a clean, current palette:
+  - pale stone land, clear blue water, fresh green parks;
+  - white streets on soft grey edges, the main roads in a light warm tone;
+  - charcoal place names on white halos.
+- **The world view** before zooming uses matching tones, so zooming from the world into the streets has no jump in colour.
+- **The pins, the legend and the controls** are unchanged.
+
+### Checks on this build
+
+| Check | Result |
+| --- | --- |
+| Shopify's Liquid engine (`strict` and `strict2`) | 469 files, 0 errors |
+| Theme Check | 0 errors, 68 warnings (one fewer than before) |
+| Template values against section schemas | no new issues |
+| Page audit (78 templates) | no script errors, no missing files, one H1 each |
+| Two builds in a row | identical files |
+| Interaction tests | 203 pass. New: sizes in cm and narrowest first; no sizes at the top; *Your size*, straight and round, and its enquiry note; Instagram with no feed (no pictures) and with a failing feed (no row); Soft to the Touch drawn as photographed |
+
+### To check on the store after uploading
+
+1. **A product page,** for example Jungle Dreams: the top list has no sizes. The sizes section shows centimetres only, and *+ Your size* draws and asks for any size.
+2. **The home page:** *Follow the atelier* shows the account only, until a feed or an app block is added (above).
+3. **Soft to the Touch:** the drawing in *part by part*.
+4. **Agents and resellers:** zoom into Milan and check the new map colours with the real street data. OpenFreeMap could not be reached from the test environment, so the colours were checked on generated streets.
