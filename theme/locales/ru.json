@@ -407,9 +407,9 @@
       "all_collections": "Все коллекции",
       "breadcrumb": "Навигация",
       "home": "Главная",
-      "size_single": "Односпальный",
-      "size_small_double": "Двуспальный малый",
-      "size_double": "Двуспальный",
+      "size_single": "Односпальная",
+      "size_small_double": "Полуторная",
+      "size_double": "Двуспальная",
       "size_double_extra": "Двуспальный большой",
       "size_queen": "Queen",
       "size_king": "King",
@@ -423,7 +423,9 @@
       "sizes_see": "Каждый размер на схеме",
       "award_gpa": "Награда в Берлине за растительные материалы и сезонную конструкцию.",
       "aria_primary_nav": "Основное меню",
-      "aria_pages": "Страницы"
+      "aria_pages": "Страницы",
+      "size_us_queen": "Queen (США)",
+      "size_us_king": "King (США)"
     }
   }
 }

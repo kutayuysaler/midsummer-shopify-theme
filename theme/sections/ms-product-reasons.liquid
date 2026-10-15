@@ -26,7 +26,7 @@
     endif
   endif
 -%}
-<section data-dc-tpl="764" data-ms-round="{{ ms_round }}" data-ms-title="{{ product.title | escape }}" style="padding: clamp(40px, 5vw, 84px) clamp(18px, 5vw, 80px) clamp(56px, 6vw, 96px); max-width: 1560px; margin: 0px auto;">
+<section data-dc-tpl="764" data-ms-round="{{ ms_round }}" data-ms-size-names="{{ 'ms.product.size_single' | t | escape }}|{{ 'ms.product.size_small_double' | t | escape }}|{{ 'ms.product.size_double' | t | escape }}|{{ 'ms.product.size_queen' | t | escape }}|{{ 'ms.product.size_king' | t | escape }}|{{ 'ms.product.size_super_king' | t | escape }}|{{ 'ms.product.size_us_queen' | t | escape }}|{{ 'ms.product.size_us_king' | t | escape }}" data-ms-title="{{ product.title | escape }}" style="padding: clamp(40px, 5vw, 84px) clamp(18px, 5vw, 80px) clamp(56px, 6vw, 96px); max-width: 1560px; margin: 0px auto;">
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: clamp(32px, 5vw, 88px); align-items: start;">
 <div style="border-top: 1px solid rgb(23, 20, 15); padding-top: 22px;">
 <div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgb(126, 98, 59);">{{ section.settings.t1 }}</div>
@@ -41,7 +41,27 @@
 {%- else -%}
 {%- for i in (1..6) -%}
   {%- assign kw = 's' | append: i | append: '_w' -%}{%- assign kl = 's' | append: i | append: '_l' -%}
-  {%- if section.settings[kw] != blank and section.settings[kl] != blank -%}<button type="button" class="ms-szp__c" data-ms-size data-w="{{ section.settings[kw] | escape }}" data-l="{{ section.settings[kl] | escape }}" aria-pressed="false">{{ section.settings[kw] }} × {{ section.settings[kl] }}</button>{%- endif -%}
+  {%- if section.settings[kw] != blank and section.settings[kl] != blank -%}<button type="button" class="ms-szp__c" data-ms-size data-w="{{ section.settings[kw] | escape }}" data-l="{{ section.settings[kl] | escape }}" aria-pressed="false">{%- liquid
+    assign ms_sw = section.settings[kw] | plus: 0
+    assign ms_sl = section.settings[kl] | plus: 0
+    if ms_sl >= 202 and ms_sl <= 204 and ms_sw >= 150 and ms_sw <= 155
+      assign ms_sn = 'ms.product.size_us_queen' | t
+    elsif ms_sl >= 202 and ms_sl <= 204 and ms_sw >= 190 and ms_sw <= 195
+      assign ms_sn = 'ms.product.size_us_king' | t
+    elsif ms_sw < 110
+      assign ms_sn = 'ms.product.size_single' | t
+    elsif ms_sw < 130
+      assign ms_sn = 'ms.product.size_small_double' | t
+    elsif ms_sw < 150
+      assign ms_sn = 'ms.product.size_double' | t
+    elsif ms_sw < 170
+      assign ms_sn = 'ms.product.size_queen' | t
+    elsif ms_sw < 190
+      assign ms_sn = 'ms.product.size_king' | t
+    else
+      assign ms_sn = 'ms.product.size_super_king' | t
+    endif
+  -%}<span class="ms-szp__n">{{ ms_sn }}</span><span class="ms-szp__d">{{ section.settings[kw] }} × {{ section.settings[kl] }}</span></button>{%- endif -%}
 {%- endfor -%}
 {%- endif -%}
 <button type="button" class="ms-szp__c ms-szp__own" data-ms-size-own aria-pressed="false" aria-controls="ms-szo-{{ section.id }}" aria-expanded="false">{{ section.settings.own_label }}</button>
@@ -92,6 +112,10 @@
   var title = root.getAttribute('data-ms-title') || '', ROUND = !!root.getAttribute('data-ms-round');
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   function fmt(w, l) { return ROUND ? 'Ø ' + Math.round(w) : Math.round(w) + ' × ' + Math.round(l); }
+  // the name of a size, by its width, the same on every product: Single … Super King
+  var NAMES = (root.getAttribute('data-ms-size-names') || 'Single|Small double|Double|Queen|King|Super King|US Queen|US King').split('|');
+  function nameOf(w, l) { w = +w; l = +l; if (l >= 202 && l <= 204 && w >= 150 && w <= 155) return NAMES[6] || ''; if (l >= 202 && l <= 204 && w >= 190 && w <= 195) return NAMES[7] || '';
+    return NAMES[w < 110 ? 0 : w < 130 ? 1 : w < 150 ? 2 : w < 170 ? 3 : w < 190 ? 4 : 5] || ''; }
   // the sizes this product's own description lists, when it lists them: all written the same way
   var own = window.MS_SIZES;
   if (!ROUND && own && own.length > 1 && row) {
@@ -101,7 +125,11 @@
       var b = document.createElement('button');
       b.type = 'button'; b.className = 'ms-szp__c'; b.setAttribute('data-ms-size', ''); b.setAttribute('aria-pressed', 'false');
       b.setAttribute('data-w', o.w); b.setAttribute('data-l', o.l); if (o.note) b.setAttribute('data-note', o.note);
-      b.textContent = fmt(o.w, o.l);
+      if (ROUND) { b.textContent = fmt(o.w, o.l); } else {  // a round bed keeps its diameter alone
+        var n = document.createElement('span'); n.className = 'ms-szp__n'; n.textContent = nameOf(o.w, o.l);
+        var dd = document.createElement('span'); dd.className = 'ms-szp__d'; dd.textContent = fmt(o.w, o.l);
+        b.appendChild(n); b.appendChild(dd);
+      }
       row.insertBefore(b, ownBtn);
     });
     // said here, so not again among the facts at the top
@@ -158,7 +186,7 @@
     if (form) { form.hidden = true; if (ownBtn) ownBtn.setAttribute('aria-expanded', 'false'); }
     var d = dims[i] || [160, 200, ''];
     draw([d[0], d[1], ROUND ? 1 : 0]);
-    say(fmt(d[0], d[1]) + ' cm', d[2]);
+    say((ROUND ? '' : nameOf(d[0], d[1]) + ' · ') + fmt(d[0], d[1]) + ' cm', d[2]);
   }
   chips.forEach(function (c, k) { c.addEventListener('click', function () { pick(k); }); });
   // your size: as typed, kept within what can be drawn; a round bed has one measure, its diameter
@@ -200,7 +228,10 @@
       .ms-szp { margin-top: 24px; }
       .ms-szp__k { display: block; font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: #6E675C; }
       .ms-szp__row { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 18px; margin-top: 6px; }
-      .ms-site .ms-szp__c { background: none; border: 0; border-bottom: 1px solid transparent; padding: 12px 0 6px; cursor: pointer; font-family: Newsreader, Georgia, serif; font-size: clamp(14px, 1.4vw, 17px); line-height: 1.3; white-space: nowrap; color: #6E675C; font-variant-numeric: tabular-nums; transition: color .2s, border-color .2s; }
+      .ms-szp__n, .ms-szp__d { display: block; }
+      .ms-szp__d { margin-top: 3px; font-family: "Red Hat Text", system-ui, sans-serif; font-size: 10.5px; letter-spacing: .1em; color: #7A7266; }
+      .ms-site .ms-szp__c[aria-pressed="true"] .ms-szp__d { color: #4A443B; }
+      .ms-site .ms-szp__c { text-align: left; background: none; border: 0; border-bottom: 1px solid transparent; padding: 12px 0 6px; cursor: pointer; font-family: Newsreader, Georgia, serif; font-size: clamp(14px, 1.4vw, 17px); line-height: 1.3; white-space: nowrap; color: #6E675C; font-variant-numeric: tabular-nums; transition: color .2s, border-color .2s; }
       .ms-site .ms-szp__c:hover { color: #17140F; }
       .ms-site .ms-szp__c[aria-pressed="true"] { color: #17140F; border-bottom-color: #17140F; }
       .ms-site .ms-szp__own { font-style: italic; color: #7E623B; border-bottom: 1px dashed rgba(126, 98, 59, .55); }
@@ -295,7 +326,7 @@
     },
     {
       "type": "paragraph",
-      "content": "Every bed is made to measure: the sizes below are examples, shown as width × length in cm. A product that lists its own sizes in its description shows those instead."
+      "content": "Every bed is made to measure: the sizes below are examples, each named by its width (Single under 110 cm, Small double 120, Double 140, Queen 160, King 180, Super King from 190; the American 153 × 203 and 193 × 203 are US Queen and US King) with its width × length in cm beneath. A product that lists its own sizes in its description shows those instead."
     },
     {
       "type": "text",

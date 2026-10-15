@@ -408,7 +408,7 @@
       "breadcrumb": "Breadcrumb",
       "home": "Home",
       "size_single": "Single",
-      "size_small_double": "Small Double",
+      "size_small_double": "Small double",
       "size_double": "Double",
       "size_double_extra": "Double Extra",
       "size_queen": "Queen",
@@ -423,7 +423,9 @@
       "sizes_see": "See each size, drawn",
       "award_gpa": "Awarded in Berlin for its plant-based materials and seasonal construction.",
       "aria_primary_nav": "Primary",
-      "aria_pages": "Pages"
+      "aria_pages": "Pages",
+      "size_us_queen": "US Queen",
+      "size_us_king": "US King"
     }
   }
 }

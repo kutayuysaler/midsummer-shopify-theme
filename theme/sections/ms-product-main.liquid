@@ -791,7 +791,7 @@
 
   @media (max-width: 900px) {
     .ms-pm__grid { grid-template-columns: minmax(0, 1fr); gap: 30px; }
-    .ms-pm__gallery { position: static; grid-template-columns: minmax(0, 1fr); margin-inline: calc(-1 * clamp(18px, 5vw, 80px)); margin-top: calc(-1 * clamp(28px, 4vw, 64px)); }
+    .ms-pm__gallery { position: static; grid-template-columns: minmax(0, 1fr); margin-inline: calc(-1 * clamp(18px, 5vw, 80px)); margin-top: 0; }
     .ms-pm__thumbs, .ms-pm__half, .ms-pm__zoom, .ms-pm__enl { display: none !important; }
     .ms-pm__track { display: flex; aspect-ratio: auto; max-height: none; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
     .ms-pm__track::-webkit-scrollbar { display: none; }
@@ -886,10 +886,11 @@
     .ms-pm-bar { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 79; align-items: center; justify-content: space-between; gap: 14px; padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); background: rgba(251, 249, 245, .96); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-top: 1px solid #DDD6C9; transform: translateY(110%); transition: transform .45s cubic-bezier(.2,.7,.2,1); }
     .ms-pm-bar.is-on { transform: none; }
     .ms-pm-bar__name { display: flex; flex-direction: column; min-width: 0; }
-    .ms-pm-bar__name span { font-family: Newsreader, Georgia, serif; font-size: 19px; line-height: 1.1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .ms-pm-bar__name span { font-family: Newsreader, Georgia, serif; font-size: 19px; line-height: 1.1; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; overflow-wrap: break-word; }
     .ms-pm-bar__name small { font-size: 11px; color: #6E675C; margin-top: 3px; }
     .ms-site a.ms-pm-bar__cta { flex: 0 0 auto; display: inline-flex; align-items: center; min-height: 46px; padding: 0 18px; background: #17140F; color: #FBF9F5; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; }
-    body.ms-bar-on .ms-wa { bottom: calc(80px + env(safe-area-inset-bottom)) !important; }
+    @media (max-width: 360px) { .ms-pm-bar { gap: 10px; } .ms-pm-bar__name span { font-size: 16px; } .ms-site a.ms-pm-bar__cta { padding: 0 12px; letter-spacing: .13em; } }
+    body.ms-bar-on .ms-wa { bottom: calc(var(--ms-bar-h, 80px) + 12px) !important; }
   }
 </style>
 <script>
@@ -904,6 +905,7 @@ document.addEventListener('DOMContentLoaded', function () {
     bar.setAttribute('aria-hidden', on ? 'false' : 'true');
     bar.querySelector('a').tabIndex = on ? 0 : -1;
     document.body.classList.toggle('ms-bar-on', on);
+    if (on) document.body.style.setProperty('--ms-bar-h', bar.offsetHeight + 'px');
   }
   new IntersectionObserver(function (e) { past = !e[0].isIntersecting && e[0].boundingClientRect.top < 0; set(); }).observe(cta);
   if (foot) new IntersectionObserver(function (e) { atFoot = e[0].isIntersecting; set(); }).observe(foot);

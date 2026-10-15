@@ -2321,3 +2321,119 @@ The award box on the Top product page used to appear in only two cases: when the
 4. **Loro Piana Interiors.** Compare Connemara and Altai on screen with the physical cards. The colours now follow the cards, but every screen differs a little.
 5. **Handmade in Italy, Our story, 15 + 15, Compare the collections.** Check the new photograph and the new lines.
 6. **Giotto.** The 2026 catalogue gives the Giotto bed Ø 255 cm. If the store's own text still says 235, correct it in the product description.
+
+## 44. Round 22: atelier photographs, named sizes, every colour of each cloth, needs from the catalogue, phones checked, drawings checked against the catalogue
+
+### Inside the bed: one session at the atelier
+
+The three studio photographs from Round 21 did not belong to the house. Every product without its own photographs now shows three pictures from one session at the atelier:
+
+- **The topper.** The topper on its mattress, with the ochre bed behind it.
+- **The mattress.** The mattress on its boxspring, with the Midsummer label.
+- **The boxspring.** The ochre boxspring on its walnut legs, on the herringbone floor.
+
+The three photographs share one light, one wallpaper in gold and blue, and one floor. None shows the inside of a bed. Roma, Flora, Paisley, First Dream and Dreamy keep their own photographs.
+
+### Sizes named again
+
+Each size on a product page now has a name above its measure:
+
+| Width | Name (EN) | IT | RU |
+|---|---|---|---|
+| under 110 cm | Single | Singolo | Односпальная |
+| 120 cm | Small double | Una piazza e mezza | Полуторная |
+| 140 cm | Double | Francese | Двуспальная |
+| 160 cm | Queen | Queen | Queen |
+| 180 cm | King | King | King |
+| 190 cm and wider | Super King | Super King | Super King |
+| 153 × 203 (American) | US Queen | Queen americano | Queen (США) |
+| 193 × 203 (American) | US King | King americano | King (США) |
+
+- **One rule for every product.** The name comes from the width. The two American sizes (length 203 cm) keep their American names, so no two sizes on a page share a name.
+- **The chosen size.** It is said with its name, for example *Queen · 160 × 200 cm*.
+- **Unnamed sizes.** *Your size* stays a plain measure, and Giotto Round keeps its diameters.
+- **Translations.** The names are in the theme's languages: *Online Store → Themes → Edit default theme content*, under *ms.product.size_…*.
+
+### Every colour of each cloth
+
+Under *The cloth*, a product dressed in more than one Loro Piana Interiors cloth now shows every palette, each linking to its cloth on the Loro Piana Interiors page:
+
+- **Capri and Dreamy.** Mystic River and Connemara (nine colours).
+- **Brera.** Connemara and Altai (sixteen colours).
+
+Before, only the first cloth was shown, and no palette went past twelve colours.
+
+### *What matters most to you*: from the catalogue
+
+A bed still qualifies for a need through its first three fibres. Where the 2026 catalogue says more of a product in its own words, that now counts too:
+
+- **Top.** Linen and horsehair for breathability; horsehair and Cheviot wool for support.
+- **Paisley.** Linen for breathability.
+- **Vivaldi and Vivaldi Plus.** Cotton for breathability.
+- **Raffaello.** Baby alpaca for softness.
+- **Roma.** Its cashmere winter topper for warmth.
+- **Monteverdi.** Vegetable horsehair and linen for temperature.
+
+Toppers are still never offered for support.
+
+### Phones: nothing cut, nothing covered
+
+- **The way back to the collection.** On a phone, the product photographs were drawn up over "← Icons" and cut it in half. The photographs now start below it.
+- **The bar at the foot of a product page.** On a small phone the name was cut short ("Dreamy Spri…"). It now takes two lines when it needs them. On the narrowest phones the name and the button are set a little tighter, so *Dreamy Springs Boxspring* reads in full.
+- **The WhatsApp button.** It now rises above the bar by the bar's own height, so it never sits on it.
+- **The check.** Every page was opened at 320, 360, 390 and 430 px wide, looking for text that another element covers or that a box cuts. Nothing else was found. The rows that scroll sideways (collection filters, the Loro Piana cloths, the journal's next articles) show part of the next item on purpose, as a sign that the row moves.
+
+### Product photographs on a white ground
+
+A product photographed on a white studio ground showed as a white sheet on the house's paper. Each product photograph is now looked at as it loads:
+
+- **White all round its edge.** The photograph is laid into the ground it sits on (as a print is on paper). Its white takes the page's colour; the product keeps its own.
+- **Taken in a room.** The photograph is left as it is.
+
+This covers the gallery and its thumbnails, the collection cards, *From the same collection*, the comparison, the shop's own product cards, the cart and the search. It needs the photographs to be served from the shop's own address (*/cdn/shop/…*), as Shopify does by default.
+
+If a photograph still looks too white, send me its product and position in the gallery.
+
+### Inside the bed: every drawing checked against the 2026 catalogue
+
+Each drawing was compared with the finishes listed for its product in the 2026 catalogue (rows of side stitching, air vents, handles with the Midsummer logo, ribbon). Corrected:
+
+| Product | Before | Now, as the catalogue says |
+|---|---|---|
+| Raffaello | three rows | two rows |
+| Flora | three rows | two rows |
+| Vivaldi Plus | four rows | three rows |
+| My Dream | two rows | three rows |
+| Monteverdi | two rows, no handles | three rows, handles |
+| Amalfi, Ultra Dry | no handles | handles |
+| Brera | no handles, no vents | handles and air vents |
+| Vicuña | handles | no handles (the catalogue lists hand tufting instead) |
+
+Also:
+
+- **Long part names.** "Mattress and boxspring, in one" (Capri, Giotto) ran past the drawing's edge. It is now set in short lines, broken after a comma, in any language.
+- **The topper's shadow.** The shadow on the mattress beneath it is lighter; on a white mattress it read as a smudge.
+
+### Not done in this round
+
+- **Ingeo's photograph.** It is unchanged. No photograph of corn (Ingeo's source) was found in the Drive or the Dropbox, and image libraries are blocked from this workspace. Upload a licensed photograph to the Drive and it will replace the plate.
+
+### Checks
+
+| Check | Result |
+|---|---|
+| Build twice | identical |
+| Liquid strict (two parsers) | 470 files, 0 errors |
+| Theme Check | 0 errors; 68 warnings (unchanged) |
+| Interaction tests | 237 pass. New: sizes named (Queen · 160 × 200 cm; US Queen and US King; no name twice); every palette of a product's cloths; Top's catalogue needs; the way back whole at 320, 390 and 430 px; the bar at the foot with a long name, WhatsApp clear; white grounds laid into the paper, room photographs untouched; part names inside the drawing |
+| Every page at four phone widths | nothing covered or cut |
+| Audit of 78 pages | clean |
+| Accessibility (axe) | only the decorative numerals, as before |
+| Sideways overflow | none |
+
+### After installing, check
+
+1. **A product page on a phone.** "← Icons" (or the collection's name) sits whole above the photographs. Scroll down: the bar at the foot shows the whole name, with the WhatsApp button above it.
+2. **The sizes.** For example Top: *Single, US Queen, Queen, King, US King, Super King*, each with its measure beneath.
+3. **Brera and Capri, under *The cloth*.** Every colour of each cloth.
+4. **A product photographed on white**, if the shop has one. It should sit on the page without a white box.

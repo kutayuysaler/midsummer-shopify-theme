@@ -41,25 +41,29 @@ def P(col, h, tex='linen', **kw):
 # damask, paisley; own=True keeps the photographed cloth's own colour). ribbon: the piping; rows:
 # the stitched rows of the border; handles, vents; band: a coloured band on the border (Top's
 # coral, Brera's Altai edge); legs: wood, leather, fabric (in the cloth), none; drawers.
+# The rows, handles and vents follow each product's finishes in the 2026 catalogue (Round 22): two rows
+# on Raffaello, Flora, Amalfi, Paisley, Bellagio, Ultra Dry; three on Top, Dreamy, Bellini, Vivaldi,
+# Vivaldi Plus, Roma, My Dream, Monteverdi; four on Dreamy Springs and Vicuña. Handles with the
+# Midsummer logo wherever the catalogue lists them (not on Bellagio, My Dream or Vicuña).
 SYS = {
     'essenziale': dict(topper=P(IVORY, 18), mattress=P(IVORY, 50, ribbon=PINK, rows=2, vents=2), base=P(LINEN, 44)),
-    'raffaello': dict(topper=P(IVORY, 18), mattress=P(IVORY, 62, ribbon=PINK, rows=3, handles=True, vents=3), base=P(LINEN, 48)),
-    'amalfi': dict(topper=P('#C9D3D6', 20, ribbon='#7E98A3'), mattress=P('#BCC9CD', 56, rows=2, vents=2), base=P('#8FA6AF', 48)),
+    'raffaello': dict(topper=P(IVORY, 18), mattress=P(IVORY, 62, ribbon=PINK, rows=2, handles=True, vents=3), base=P(LINEN, 48)),
+    'amalfi': dict(topper=P('#C9D3D6', 20, ribbon='#7E98A3'), mattress=P('#BCC9CD', 56, rows=2, handles=True, vents=2), base=P('#8FA6AF', 48)),
     'capri': dict(topper=P('#D3C9BC', 22, 'mystic', ribbon=PINK), mattress=P('#EEE9E1', 58, 'mystic', rows=3, handles=True, vents=3), base=P('#B8A18F', 48, 'mystic')),
     'bellagio': dict(topper=P(RAW, 18), mattress=P(RAW, 60, ribbon=ORANGE, rows=2, rowcol=ORANGE, vents=2), base=P(LINEN, 48)),
     'vivaldi-2': dict(topper=P(IVORY, 18), mattress=P(LINEN, 62, ribbon=PINK, rows=3, handles=True, vents=3), base=P('#D5C9B5', 48)),
-    'vivaldi-plus': dict(topper=P(IVORY, 18), mattress=P(LINEN, 66, ribbon=PINK, rows=4, handles=True, vents=3), base=P('#CBBDA7', 48)),
-    'monteverdi': dict(topper=P(RAW, 18), mattress=P('#D6CAB4', 58, ribbon='#C9B48F', rows=2, vents=2), base=P('#C9BBA2', 48)),
-    'ultra-dry': dict(topper=P(RAW, 18), mattress=P(RAW, 60, ribbon=PINK, rows=2, vents=2), base=P(LINEN, 48)),
+    'vivaldi-plus': dict(topper=P(IVORY, 18), mattress=P(LINEN, 66, ribbon=PINK, rows=3, handles=True, vents=3), base=P('#CBBDA7', 48)),
+    'monteverdi': dict(topper=P(RAW, 18), mattress=P('#D6CAB4', 58, ribbon='#C9B48F', rows=3, handles=True, vents=2), base=P('#C9BBA2', 48)),
+    'ultra-dry': dict(topper=P(RAW, 18), mattress=P(RAW, 60, ribbon=PINK, rows=2, handles=True, vents=2), base=P(LINEN, 48)),
     'dreamy-2': dict(topper=P('#D3D0CB', 24, 'mystic', ribbon=PINK), mattress=P('#EEEAE4', 60, 'mystic', rows=3, handles=True, vents=3), base=P('#A2B2B9', 48, 'mystic')),
-    'brera': dict(topper=P('#F2EFEA', 22), mattress=P('#F2EFEA', 30, band='#22233A', rows=1), base=P('#B8A18F', 34, legs='leather')),
+    'brera': dict(topper=P('#F2EFEA', 22), mattress=P('#F2EFEA', 30, band='#22233A', rows=1, handles=True, vents=2), base=P('#B8A18F', 34, legs='leather')),
     'roma': dict(topper=P('#F3F0EA', 18, 'mystic', ribbon=PINK), mattress=P('#F3F0EA', 62, 'mystic', ribbon=PINK, rows=3, handles=True, vents=3), base=P('#A09B97', 48, 'mystic')),
     'dreamy-springs': dict(topper=P(IVORY, 18), mattress=P('#EFEBE4', 66, ribbon=PINK, rows=4, handles=True, vents=3), base=P('#BCAF9C', 48)),
-    'my-dream': dict(topper=P(IVORY, 18, 'silk'), mattress=P('#F5F2EC', 56, 'silk', ribbon=PINK, rows=2, vents=2), base=P(LINEN, 46)),
+    'my-dream': dict(topper=P(IVORY, 18, 'silk'), mattress=P('#F5F2EC', 56, 'silk', ribbon=PINK, rows=3, vents=2), base=P(LINEN, 46)),
     'bellini': dict(topper=P('#ECE6DB', 22, ribbon='#CDBFA9'), mattress=P('#F1ECE4', 58, rows=3, handles=True, vents=3), base=P('#DCD3C5', 48, 'boucle')),
     'giotto': dict(shape='round', topper=P('#F1ECE3', 16, ribbon='#B98A47'), mattress=P('#EEE8DE', 40, rows=2), base=P('#B98A47', 52, legs='none')),
-    'vicuna': dict(topper=P(IVORY, 18), mattress=P('#F6F3EE', 66, ribbon='#B4875B', rows=4, handles=True, vents=3), base=P('#A87A50', 50)),
-    'flora': dict(topper=P('#DED5C6', 24, 'damask', ribbon='#9A6E4C'), mattress=P('#F0EBE3', 58, ribbon='#9A6E4C', rows=3, handles=True, vents=3), base=P('#D6CDBF', 48, 'boucle')),
+    'vicuna': dict(topper=P(IVORY, 18), mattress=P('#F6F3EE', 66, ribbon='#B4875B', rows=4, vents=3), base=P('#A87A50', 50)),
+    'flora': dict(topper=P('#DED5C6', 24, 'damask', ribbon='#9A6E4C'), mattress=P('#F0EBE3', 58, ribbon='#9A6E4C', rows=2, handles=True, vents=3), base=P('#D6CDBF', 48, 'boucle')),
     'top-2': dict(topper=P('#F4F0E9', 26, ribbon='#C55A48'), mattress=P('#F1ECE4', 58, band='#C55A48', rows=3, handles=True, vents=3), base=P('#B54A3F', 50, legs='fabric')),
     'storage': dict(topper=P('#D3C9BC', 20, 'mystic', ribbon=PINK), mattress=P('#EEE9E1', 54, 'mystic', rows=3, handles=True, vents=3), base=P('#BCAF9C', 56, 'mystic', legs='none', drawers=2)),
     # Paisley, as its photograph shows it: Shadan on the topper, piped in Katai; the border piped
@@ -183,10 +187,16 @@ def label(part, x, y, ghost=False, num=None, note='[t0]'):
     product does not include (or that is optional) says so beneath its name"""
     nm = LABEL[part]
     if num and part != 'topper':
-        # a part in one piece with another has a longer name: on two lines, broken at "and"
+        # a part in one piece with another has a longer name ("Mattress and boxspring, in one"): set
+        # in short lines, word by word and after a comma, so it never runs past the drawing's edge,
+        # in any language
         v = 't2' if part == 'mattress' else 't3'
-        nm = ('{%%- assign tw = %s | split: \' and \' -%%}{%%- if tw.size > 1 -%%}<tspan x="%s" dy="-7">{{ tw[0] | escape }} and</tspan><tspan x="%s" dy="14">{{ tw[1] | escape }}</tspan>'
-              '{%%- else -%%}{{ %s | escape }}{%%- endif -%%}') % (v, f(LX + 26), f(LX + 26), v)
+        nm = ('{%%- assign tw = %s | split: \' \' -%%}{%%- assign tl = \'\' -%%}{%%- assign tls = \'\' -%%}'
+              '{%%- for w in tw -%%}{%%- assign tc = tl | append: \' \' | append: w | strip -%%}'
+              '{%%- if tc.size > 14 and tl != blank -%%}{%%- assign tls = tls | append: tl | append: \'|\' -%%}{%%- assign tl = w -%%}{%%- else -%%}{%%- assign tl = tc -%%}{%%- endif -%%}'
+              '{%%- assign wl = w | slice: -1 -%%}{%%- if wl == \',\' -%%}{%%- assign tls = tls | append: tl | append: \'|\' -%%}{%%- assign tl = \'\' -%%}{%%- endif -%%}{%%- endfor -%%}'
+              '{%%- if tl != blank -%%}{%%- assign tls = tls | append: tl -%%}{%%- endif -%%}{%%- assign tls = tls | split: \'|\' -%%}{%%- assign tup = tls.size | minus: 1 | times: -7.5 -%%}'
+              '{%%- for l in tls -%%}<tspan x="%s" dy="{%%- if forloop.first -%%}{{ tup }}{%%- else -%%}15{%%- endif -%%}">{{ l | escape }}</tspan>{%%- endfor -%%}') % (v, f(LX + 26))
     out = ('<g class="ms-cr__lbl" pointer-events="none"><path class="ms-cr__lead" d="M%s,%s H%s"/><circle class="ms-cr__dot" cx="%s" cy="%s" r="1.6"/>'
            '<text x="%s" y="%s" class="ms-cr__num">%s</text><text x="%s" y="%s" class="ms-cr__nm">%s</text>'
            % (f(x), f(y), f(LX - 6), f(x), f(y), f(LX), f(y + 5), num or NUM[part], f(LX + 26), f(y + 4.5), nm))

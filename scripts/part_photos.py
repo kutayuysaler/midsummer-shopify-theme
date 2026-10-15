@@ -10,10 +10,12 @@ SRC = os.path.join(HERE, '..', 'fib2', 'src')
 AS = os.path.join(HERE, '..', 'v5', 'assets')
 OUT = os.path.join(HERE, '..', 'vendor', 'r16', 'parts')
 CUTS = {
-    # the house's studio photographs: any system's parts (Round 21: current, calmer photographs)
-    'topper-house': (SRC + '/Top_harrods_neutral_beige.jpg', (120, 300, 1160, 1600)),
-    'mattress-house': (SRC + '/particolare_materasso_01.jpg', (0, 250, 1414, 2018)),
-    'base-house': (SRC + '/My_dream_Belmont_MG_9728.jpg', (0, 250, 1000, 1500)),
+    # the house's photographs of any system's parts: one session at the atelier, one room, one low
+    # sun (the Pure bed, its ochre base, the gold and blue wallpaper): the topper strapped on its
+    # mattress, the mattress at its label, the boxspring on its walnut legs (Round 21, second choice)
+    'topper-house': (SRC + '/PURE_atelier_DSC4466.jpg', (0, 0, 1335, 1669)),
+    'mattress-house': (SRC + '/PURE_atelier_DSC4424.jpg', (0, 166, 1335, 1835)),
+    'base-house': (SRC + '/PURE_atelier_DSC4415.jpg', (0, 331, 1335, 2000)),
     # Dreamy Springs, at its corner (Round 21: the whole corner rather than the side alone)
     'mattress-detail': (SRC + '/MATERASSO_DREAMY_SPRINGS_DETTAGLIO.jpg', (300, 0, 1180, 1100)),
     # Dreamy, First Dream

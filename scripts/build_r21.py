@@ -177,4 +177,36 @@ _r21_sub(THEME + '/snippets/ms-photo-tone.liquid', [
 _r21_sub(THEME + '/assets/ms-site.css', [
     ('.ms-site img:not([src*="graded"]):not([src*=".svg"]):not([data-ms-logo]):not(.ms-no-tone),', '.ms-site img:not([src*="graded"]):not([src*=".svg"]):not([src*="ms-lp-"]):not([data-ms-logo]):not(.ms-no-tone),')])
 
+# ── Sizes named again (the owner's request), one rule for every product, by width: Single under 110 cm,
+#    Small double 120, Double 140, Queen 160, King 180, Super King from 190 (the American 153 × 203 and 193 × 203
+#    are US Queen and US King, so no two sizes share a name); each with its width × length
+#    beneath. Round beds (Giotto) keep their diameters. The names are the theme's translations.
+_r21_sub(THEME + '/sections/ms-product-reasons.liquid', [
+    ('<section data-dc-tpl="764" data-ms-round="{{ ms_round }}"',
+     '<section data-dc-tpl="764" data-ms-round="{{ ms_round }}" data-ms-size-names="{{ \'ms.product.size_single\' | t | escape }}|{{ \'ms.product.size_small_double\' | t | escape }}|{{ \'ms.product.size_double\' | t | escape }}|{{ \'ms.product.size_queen\' | t | escape }}|{{ \'ms.product.size_king\' | t | escape }}|{{ \'ms.product.size_super_king\' | t | escape }}|{{ \'ms.product.size_us_queen\' | t | escape }}|{{ \'ms.product.size_us_king\' | t | escape }}"'),
+    ('aria-pressed="false">{{ section.settings[kw] }} × {{ section.settings[kl] }}</button>',
+     'aria-pressed="false">{%- liquid\n    assign ms_sw = section.settings[kw] | plus: 0\n    assign ms_sl = section.settings[kl] | plus: 0\n    if ms_sl >= 202 and ms_sl <= 204 and ms_sw >= 150 and ms_sw <= 155\n      assign ms_sn = \'ms.product.size_us_queen\' | t\n    elsif ms_sl >= 202 and ms_sl <= 204 and ms_sw >= 190 and ms_sw <= 195\n      assign ms_sn = \'ms.product.size_us_king\' | t\n    elsif ms_sw < 110\n      assign ms_sn = \'ms.product.size_single\' | t\n    elsif ms_sw < 130\n      assign ms_sn = \'ms.product.size_small_double\' | t\n    elsif ms_sw < 150\n      assign ms_sn = \'ms.product.size_double\' | t\n    elsif ms_sw < 170\n      assign ms_sn = \'ms.product.size_queen\' | t\n    elsif ms_sw < 190\n      assign ms_sn = \'ms.product.size_king\' | t\n    else\n      assign ms_sn = \'ms.product.size_super_king\' | t\n    endif\n  -%}<span class="ms-szp__n">{{ ms_sn }}</span><span class="ms-szp__d">{{ section.settings[kw] }} × {{ section.settings[kl] }}</span></button>'),
+    ("  function fmt(w, l) { return ROUND ? 'Ø ' + Math.round(w) : Math.round(w) + ' × ' + Math.round(l); }",
+     "  function fmt(w, l) { return ROUND ? 'Ø ' + Math.round(w) : Math.round(w) + ' × ' + Math.round(l); }\n"
+     "  // the name of a size, by its width, the same on every product: Single … Super King\n"
+     "  var NAMES = (root.getAttribute('data-ms-size-names') || 'Single|Small double|Double|Queen|King|Super King|US Queen|US King').split('|');\n"
+     "  function nameOf(w, l) { w = +w; l = +l; if (l >= 202 && l <= 204 && w >= 150 && w <= 155) return NAMES[6] || ''; if (l >= 202 && l <= 204 && w >= 190 && w <= 195) return NAMES[7] || '';\n"
+     "    return NAMES[w < 110 ? 0 : w < 130 ? 1 : w < 150 ? 2 : w < 170 ? 3 : w < 190 ? 4 : 5] || ''; }"),
+    ("      b.textContent = fmt(o.w, o.l);",
+     "      if (ROUND) { b.textContent = fmt(o.w, o.l); } else {  // a round bed keeps its diameter alone\n"
+     "        var n = document.createElement('span'); n.className = 'ms-szp__n'; n.textContent = nameOf(o.w, o.l);\n"
+     "        var dd = document.createElement('span'); dd.className = 'ms-szp__d'; dd.textContent = fmt(o.w, o.l);\n"
+     "        b.appendChild(n); b.appendChild(dd);\n"
+     "      }"),
+    ("    say(fmt(d[0], d[1]) + ' cm', d[2]);",
+     "    say((ROUND ? '' : nameOf(d[0], d[1]) + ' · ') + fmt(d[0], d[1]) + ' cm', d[2]);"),
+    ('      .ms-site .ms-szp__c { background: none; border: 0; border-bottom: 1px solid transparent; padding: 12px 0 6px; cursor: pointer;',
+     '      .ms-szp__n, .ms-szp__d { display: block; }\n'
+     '      .ms-szp__d { margin-top: 3px; font-family: "Red Hat Text", system-ui, sans-serif; font-size: 10.5px; letter-spacing: .1em; color: #7A7266; }\n'
+     '      .ms-site .ms-szp__c[aria-pressed="true"] .ms-szp__d { color: #4A443B; }\n'
+     '      .ms-site .ms-szp__c { text-align: left; background: none; border: 0; border-bottom: 1px solid transparent; padding: 12px 0 6px; cursor: pointer;'),
+    ('"content": "Every bed is made to measure: the sizes below are examples, shown as width × length in cm. A product that lists its own sizes in its description shows those instead."',
+     '"content": "Every bed is made to measure: the sizes below are examples, each named by its width (Single under 110 cm, Small double 120, Double 140, Queen 160, King 180, Super King from 190; the American 153 × 203 and 193 × 203 are US Queen and US King) with its width × length in cm beneath. A product that lists its own sizes in its description shows those instead."'),
+])
+
 print('round 21: %d files changed' % _r21_n)

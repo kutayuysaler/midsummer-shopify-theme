@@ -402,7 +402,7 @@
       "home": "Home",
       "size_single": "Singolo",
       "size_small_double": "Una piazza e mezza",
-      "size_double": "Matrimoniale",
+      "size_double": "Francese",
       "size_double_extra": "Matrimoniale extra",
       "size_queen": "Queen",
       "size_king": "King",
@@ -416,7 +416,9 @@
       "sizes_see": "Ogni misura, disegnata",
       "award_gpa": "Premiato a Berlino per i materiali di origine vegetale e la costruzione stagionale.",
       "aria_primary_nav": "Principale",
-      "aria_pages": "Pagine"
+      "aria_pages": "Pagine",
+      "size_us_queen": "Queen americano",
+      "size_us_king": "King americano"
     }
   }
 }
