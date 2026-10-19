@@ -95,7 +95,7 @@ ATLAS = [
       'The only animal fibre spun by a silkworm, fed on mulberry leaves. A continuous filament, fine and lustrous: light, insulating, '
       'elastic and flexible, held to be the finest and softest of the natural fibres.',
       [('800–1,000 m', 'Of filament from a single cocoon.')],
-      species='Bombyx mori', photo='silk', alt='Raw silk floss, its filaments catching the light.'),
+      species='Bombyx mori', photo='silk', alt='Silk satin falling in soft folds, catching the light.'),
     F('wool', 'Wool', 'animal', 'Wool', 'support temperature', 'Support · Temperature',
       'The most hygroscopic of the natural fibres. It keeps the body cool when it is warm and warm when it is cold, holds no static and resists mould. '
       'Ours comes from small farms: Cheviot, from Scotland, with the longest fibres, and Falkland.',

@@ -154,6 +154,81 @@
       "settings": {
         "map_url": "https://www.google.com/maps/search/?api=1&query=Via+Andegari+4+20121+Milano"
       }
+    },
+    "rooms": {
+      "type": "ms-gallery",
+      "settings": {
+        "eyebrow": "The rooms",
+        "heading": "Inside Via Andegari."
+      },
+      "blocks": {
+        "p01": {
+          "type": "photo",
+          "settings": {
+            "image_fallback": "ms-photo-atelier-leopard.jpg",
+            "caption": "The leopard room, a bed made up for the night."
+          }
+        },
+        "p02": {
+          "type": "photo",
+          "settings": {
+            "image_fallback": "ms-photo-atelier-teal.jpg",
+            "caption": "Teal bedding, printed with flowers and birds."
+          }
+        },
+        "p03": {
+          "type": "photo",
+          "settings": {
+            "image_fallback": "ms-photo-atelier-parrot-room.jpg",
+            "caption": "The parrot room."
+          }
+        },
+        "p04": {
+          "type": "photo",
+          "settings": {
+            "image_fallback": "ms-photo-atelier-blue-gold-made.jpg",
+            "caption": "The blue-and-gold room, the bed made up."
+          }
+        },
+        "p05": {
+          "type": "photo",
+          "settings": {
+            "image_fallback": "ms-photo-atelier-lacquer.jpg",
+            "caption": "Walnut and orange lacquer."
+          }
+        },
+        "p06": {
+          "type": "photo",
+          "settings": {
+            "image_fallback": "ms-photo-atelier-red-wall.jpg",
+            "caption": "A golden branch on a red wall."
+          }
+        },
+        "p07": {
+          "type": "photo",
+          "settings": {
+            "image_fallback": "ms-photo-atelier-edge.jpg",
+            "caption": "The edge of a mattress, piped and stitched by hand."
+          }
+        },
+        "p08": {
+          "type": "photo",
+          "settings": {
+            "image_fallback": "ms-photo-atelier-linen.jpg",
+            "caption": "Linen, folded and ready for the bed."
+          }
+        }
+      },
+      "block_order": [
+        "p01",
+        "p02",
+        "p03",
+        "p04",
+        "p05",
+        "p06",
+        "p07",
+        "p08"
+      ]
     }
   },
   "order": [
@@ -162,6 +237,7 @@
     "hours",
     "s03",
     "s04",
+    "rooms",
     "s05",
     "s06"
   ]

@@ -120,13 +120,29 @@
             "q": "How are the beds delivered and installed?",
             "a": "<p>By our own team, in phases aligned to your floor handovers: each bed is brought into the room, assembled and dressed.</p>"
           }
+        },
+        "r25_q15": {
+          "type": "qa",
+          "settings": {
+            "q": "Does the 15 + 15 programme apply to hotel orders?",
+            "a": "<p>No. 15 + 15 is our programme for beds in private homes. Hotel, residence and other contract orders are specified, delivered and looked after under the agreement drawn up for each project.</p>"
+          }
+        },
+        "r25_jets": {
+          "type": "qa",
+          "settings": {
+            "q": "Do you make beds for yachts and private jets?",
+            "a": "<p>Yes. We have made beds for yachts and for private jets: drawn to the cabin, made to its exact sizes and by hand in Italy, like every Midsummer bed.</p>"
+          }
         }
       },
       "block_order": [
         "qa_01",
+        "r25_q15",
         "qa_02",
         "qa_03",
-        "qa_04"
+        "qa_04",
+        "r25_jets"
       ]
     },
     "spec": {

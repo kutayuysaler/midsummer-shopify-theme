@@ -1,0 +1,155 @@
+{%- comment -%}
+  A night, as the bed lives it: the hours from lying down to waking, on one line under the arc of the
+  moon. Choose an hour and its words come forward; the sky warms towards morning as the night goes on.
+  Nothing here says how a bed is built: only what the fibres and the bed do through the night. Round 25.
+{%- endcomment -%}
+{%- assign s = section.settings -%}
+{%- assign nb = section.blocks.size -%}
+<section class="ms-nt" data-ms-nt style="--p: 0;">
+  <div class="ms-nt__dawn" aria-hidden="true"></div>
+  <div class="ms-nt__in">
+    <div class="ms-nt__head">
+      <div>
+        {%- if s.eyebrow != blank -%}<div class="ms-nt__eyebrow">{% render 'ms-t', v: s.eyebrow %}</div>{%- endif -%}
+        <h2 class="ms-nt__title">{% render 'ms-t', v: s.heading %}</h2>
+      </div>
+      {%- if s.text != blank -%}<p class="ms-nt__text">{% render 'ms-t', v: s.text %}</p>{%- endif -%}
+    </div>
+    {%- if nb > 0 -%}
+      <div class="ms-nt__sky" aria-hidden="true">
+        <svg class="ms-nt__arc" viewBox="0 0 1000 200" preserveAspectRatio="none"><path d="M10 196 Q500 -60 990 196" fill="none" stroke="currentColor" stroke-width="1" vector-effect="non-scaling-stroke" stroke-dasharray="1 7" stroke-linecap="round"/></svg>
+        <span class="ms-nt__moon" data-ms-nt-moon></span>
+      </div>
+      <div class="ms-nt__line" role="tablist" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.heading %}{% endcapture %}{{ ms_t_out | escape }}">
+        {%- for block in section.blocks -%}
+          <button type="button" role="tab" class="ms-nt__hour{% if forloop.first %} is-on{% endif %}" id="nt-{{ section.id }}-{{ forloop.index }}" aria-controls="ntp-{{ section.id }}-{{ forloop.index }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" tabindex="{% if forloop.first %}0{% else %}-1{% endif %}" data-i="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+            <span class="ms-nt__time">{% render 'ms-t', v: block.settings.time %}</span>
+            <span class="ms-nt__name">{% render 'ms-t', v: block.settings.name %}</span>
+          </button>
+        {%- endfor -%}
+      </div>
+      <div class="ms-nt__panels">
+        {%- for block in section.blocks -%}
+          <div class="ms-nt__panel{% if forloop.first %} is-on{% endif %}" role="tabpanel" id="ntp-{{ section.id }}-{{ forloop.index }}" aria-labelledby="nt-{{ section.id }}-{{ forloop.index }}"{% unless forloop.first %} hidden{% endunless %}>
+            <div class="ms-nt__ph"><span>{% render 'ms-t', v: block.settings.time %}</span>{% render 'ms-t', v: block.settings.name %}</div>
+            <p>{% render 'ms-t', v: block.settings.text %}</p>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+    {%- if s.link_label != blank -%}
+      <a class="ms-nt__more" href="{% render 'ms-link', to: 'materials' %}">{% render 'ms-t', v: s.link_label %} <span aria-hidden="true">→</span></a>
+    {%- endif -%}
+  </div>
+</section>
+<style>
+  .ms-nt { position: relative; overflow: hidden; background: #15161D; color: #EDE6D8; padding: clamp(72px, 9vw, 140px) 0; isolation: isolate; }
+  .ms-nt::before { content: ''; position: absolute; inset: 0; z-index: -2; background:
+      radial-gradient(1px 1px at 12% 22%, rgba(255,255,255,.55), transparent 60%), radial-gradient(1px 1px at 27% 12%, rgba(255,255,255,.4), transparent 60%),
+      radial-gradient(1px 1px at 46% 30%, rgba(255,255,255,.35), transparent 60%), radial-gradient(1px 1px at 63% 9%, rgba(255,255,255,.5), transparent 60%),
+      radial-gradient(1px 1px at 78% 26%, rgba(255,255,255,.4), transparent 60%), radial-gradient(1px 1px at 90% 14%, rgba(255,255,255,.45), transparent 60%),
+      linear-gradient(180deg, #121219 0%, #1B1C26 70%, #23222B 100%);
+    opacity: calc(1 - var(--p) * .55); transition: opacity 1.2s ease; }
+  .ms-nt__dawn { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(36,34,44,0) 0%, rgba(92,72,66,.55) 62%, rgba(176,128,92,.62) 100%); opacity: calc(var(--p) * var(--p)); transition: opacity 1.2s ease; }
+  .ms-nt__in { max-width: 1240px; margin: 0 auto; padding: 0 clamp(18px, 5vw, 80px); }
+  .ms-nt__head { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 5vw, 80px); align-items: end; }
+  .ms-nt__eyebrow { font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: #C9A46A; }
+  .ms-nt__title { font-family: Newsreader, Georgia, serif; font-weight: 200; font-size: clamp(34px, 4.6vw, 64px); line-height: 1.04; letter-spacing: -.03em; margin: 14px 0 0; color: #F4EEE2; }
+  .ms-nt__text { font-size: 15px; line-height: 1.8; color: rgba(237,230,216,.72); max-width: 46ch; margin: 0; }
+  .ms-nt__sky { position: relative; height: clamp(90px, 13vw, 180px); margin-top: clamp(40px, 6vw, 80px); color: rgba(237,230,216,.32); }
+  .ms-nt__arc { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .ms-nt__moon { position: absolute; left: var(--mx, 1%); top: var(--my, 98%); width: 18px; height: 18px; margin: -9px 0 0 -9px; border-radius: 50%;
+    background: radial-gradient(circle at 38% 35%, #FFF8EA 0%, #EDE2C8 55%, #CDBE9C 100%); box-shadow: 0 0 0 6px rgba(237,226,200,.07), 0 0 34px 8px rgba(237,226,200,.18);
+    transition: left 1.1s cubic-bezier(.3,.7,.2,1), top 1.1s cubic-bezier(.3,.7,.2,1), background .9s ease, box-shadow .9s ease; }
+  .ms-nt.is-dawn .ms-nt__moon { background: radial-gradient(circle at 40% 38%, #FFF1D6 0%, #F2C98E 60%, #D99A5E 100%); box-shadow: 0 0 0 8px rgba(242,201,142,.10), 0 0 46px 14px rgba(242,180,110,.30); }
+  .ms-nt__line { display: grid; grid-template-columns: repeat({{ nb | at_least: 1 }}, minmax(0, 1fr)); border-top: 1px solid rgba(237,230,216,.18); }
+  .ms-nt__hour { position: relative; background: none; border: 0; color: rgba(237,230,216,.55); padding: 18px 8px 0 0; text-align: left; cursor: pointer; font: inherit; display: flex; flex-direction: column; gap: 6px; transition: color .4s ease; }
+  .ms-nt__hour::before { content: ''; position: absolute; left: 0; top: -1px; height: 1px; width: 0; background: #C9A46A; transition: width .6s cubic-bezier(.3,.7,.2,1); }
+  .ms-nt__hour.is-on, .ms-nt__hour:hover { color: #F4EEE2; }
+  .ms-nt__hour.is-on::before { width: 100%; }
+  .ms-nt__hour:focus-visible { outline: 1px solid #C9A46A; outline-offset: 4px; }
+  .ms-nt__time { font-family: Newsreader, Georgia, serif; font-size: clamp(20px, 2.2vw, 30px); font-weight: 200; letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+  .ms-nt__name { font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; }
+  .ms-nt__panels { display: grid; margin-top: clamp(30px, 4vw, 52px); min-height: 7.5em; }
+  .ms-nt__panel { grid-area: 1 / 1; }
+  .ms-nt__panel.is-on { animation: msNtIn .8s cubic-bezier(.2,.7,.2,1) both; }
+  .ms-nt__ph { display: none; font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: #C9A46A; margin-bottom: 12px; }
+  .ms-nt__ph span { margin-right: 12px; }
+  .ms-nt__panel p { font-family: Newsreader, Georgia, serif; font-weight: 200; font-size: clamp(21px, 2.4vw, 32px); line-height: 1.38; letter-spacing: -.012em; max-width: 34ch; margin: 0; color: #F4EEE2; text-wrap: pretty; }
+  .ms-site .ms-nt__more { display: inline-block; margin-top: clamp(30px, 4vw, 48px); font-size: 10.5px; letter-spacing: .26em; text-transform: uppercase; color: #F4EEE2; border-bottom: 1px solid rgba(237,230,216,.55); padding-bottom: 4px; }
+  @keyframes msNtIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  @media (max-width: 760px) {
+    .ms-nt__head { grid-template-columns: 1fr; align-items: start; }
+    .ms-nt__name { display: none; }
+    .ms-nt__time { font-size: 19px; }
+    .ms-nt__ph { display: block; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ms-nt__moon, .ms-nt::before, .ms-nt__dawn, .ms-nt__hour::before { transition: none; }
+    .ms-nt__panel.is-on { animation: none; }
+  }
+</style>
+<script>
+  (function () {
+    var roots = document.querySelectorAll('[data-ms-nt]:not([data-ms-nt-on])');
+    roots.forEach(function (root) {
+      root.setAttribute('data-ms-nt-on', '');
+      var tabs = Array.prototype.slice.call(root.querySelectorAll('.ms-nt__hour'));
+      var panels = root.querySelectorAll('.ms-nt__panel');
+      var moon = root.querySelector('[data-ms-nt-moon]');
+      if (!tabs.length) return;
+      function place(i) {
+        var t = tabs.length > 1 ? i / (tabs.length - 1) : 0;
+        // the point on the arc M10 196 Q500 -60 990 196, as a share of the 1000 x 200 sky
+        var x = (1 - t) * (1 - t) * 10 + 2 * (1 - t) * t * 500 + t * t * 990;
+        var y = (1 - t) * (1 - t) * 196 + 2 * (1 - t) * t * -60 + t * t * 196;
+        if (moon) { moon.style.setProperty('--mx', (x / 10) + '%'); moon.style.setProperty('--my', (y / 2) + '%'); }
+        root.style.setProperty('--p', t.toFixed(3));
+        root.classList.toggle('is-dawn', t > .9);
+      }
+      function show(i, focus) {
+        tabs.forEach(function (b, k) {
+          var on = k === i;
+          b.classList.toggle('is-on', on); b.setAttribute('aria-selected', on ? 'true' : 'false'); b.tabIndex = on ? 0 : -1;
+          if (panels[k]) { panels[k].classList.toggle('is-on', on); panels[k].hidden = !on; }
+        });
+        if (focus) tabs[i].focus();
+        place(i);
+      }
+      tabs.forEach(function (b, k) {
+        b.addEventListener('click', function () { show(k); });
+        b.addEventListener('keydown', function (e) {
+          var j = e.key === 'ArrowRight' ? k + 1 : e.key === 'ArrowLeft' ? k - 1 : e.key === 'Home' ? 0 : e.key === 'End' ? tabs.length - 1 : null;
+          if (j === null) return;
+          e.preventDefault(); show((j + tabs.length) % tabs.length, true);
+        });
+      });
+      place(0);
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "A night",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Label", "default": "From lying down to waking" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "A night, as the bed lives it." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Eight hours, give or take, in one place. Choose an hour to see what the bed is doing while you sleep." },
+    { "type": "text", "id": "link_label", "label": "Link to the fibres", "default": "The fibres, one by one" }
+  ],
+  "blocks": [
+    {
+      "type": "hour",
+      "name": "Hour",
+      "settings": [
+        { "type": "text", "id": "time", "label": "Hour", "default": "23:00" },
+        { "type": "text", "id": "name", "label": "Name", "default": "Lying down" },
+        { "type": "textarea", "id": "text", "label": "Text" }
+      ]
+    }
+  ],
+  "max_blocks": 7,
+  "presets": [ { "name": "A night" } ]
+}
+{% endschema %}

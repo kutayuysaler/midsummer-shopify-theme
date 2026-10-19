@@ -46,7 +46,7 @@
     elsif ms_desc_blog == 'press'
       assign ms_desc = 'The press on ' | append: ms_brand | append: ': magazines, newspapers and awards on the house’s beds and mattresses, made by hand in Italy from natural fibres.'
     elsif ms_desc_blog contains 'project' or ms_desc_blog contains 'progett' or ms_desc_blog contains 'portfolio' or ms_desc_blog contains 'hotel'
-      assign ms_desc = 'Projects by ' | append: ms_brand | append: ': handmade beds for homes, hotels, villas and yachts, specified with the Milan atelier and made to measure in Italy.'
+      assign ms_desc = 'Projects by ' | append: ms_brand | append: ': handmade beds for homes, hotels, villas, yachts and private jets, specified with the Milan atelier and made to measure in Italy.'
     elsif ms_desc_blog contains 'collab'
       assign ms_desc = 'Collaborations by ' | append: ms_brand | append: ': designers, houses and artisans the atelier has worked with, and the beds made together.'
     else
@@ -111,7 +111,7 @@
         assign ms_desc = 'Made-to-measure beds, mattresses and Loro Piana Interiors fabrics for architects and interior designers, with trade support from the Milan atelier.'
       when 'ms-hospitality'
         assign ms_view_title = 'Hospitality & Contract'
-        assign ms_desc = 'Handmade beds and mattresses for hotels, villas, yachts and residences, specified with the Midsummer Milano atelier and made by hand in Italy.'
+        assign ms_desc = 'Handmade beds and mattresses for hotels, villas, yachts, private jets and residences, specified with the Midsummer Milano atelier and made by hand in Italy.'
       when 'ms-agents'
         assign ms_view_title = 'Agents & Resellers'
         assign ms_desc = 'Find a Midsummer Milano agent or reseller near you, or visit the atelier on Via Andegari in Milan, by appointment.'

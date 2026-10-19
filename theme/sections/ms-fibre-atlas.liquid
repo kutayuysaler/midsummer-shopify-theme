@@ -160,7 +160,7 @@
           <figure class="ms-fa__plate" data-fa-plate data-view="{{ view }}">
             <div class="ms-fa__views">
               {%- if photo != '' -%}
-                <div class="ms-fa__v ms-fa__v--source"><img class="ms-fa__photo" src="{{ photo }}" srcset="{{ photo_sm }} 720w, {{ photo }} 1400w" sizes="(max-width: 860px) 92vw, 28vw" alt="{% capture ms_t_out %}{% render 'ms-t', v: bs.alt %}{% endcapture %}{{ ms_t_out | escape }}" width="1400" height="1400" loading="lazy"></div>
+                <div class="ms-fa__v ms-fa__v--source"><img class="ms-fa__photo" src="{{ photo }}"{% if bs.image != blank %} style="filter: grayscale(1) sepia(.42) contrast(1.05) brightness(1.03) !important;"{% endif %} srcset="{{ photo_sm }} 720w, {{ photo }} 1400w" sizes="(max-width: 860px) 92vw, 28vw" alt="{% capture ms_t_out %}{% render 'ms-t', v: bs.alt %}{% endcapture %}{{ ms_t_out | escape }}" width="1400" height="1400" loading="lazy"></div>
               {%- endif -%}
               <div class="ms-fa__v ms-fa__v--glass">
                 <button type="button" class="ms-fa__field" data-fa-field aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.zoom_label %}{% endcapture %}{{ ms_t_out | escape }}" aria-pressed="false"><img class="ms-fa__draw" src="{{ draw }}" alt="{% capture ms_t_out %}{% render 'ms-t', v: s.draw_alt %}{% endcapture %}{{ ms_t_out | replace: '[fibre]', bs.name | escape }}" width="800" height="1000" loading="lazy"></button>

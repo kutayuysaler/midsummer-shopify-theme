@@ -288,22 +288,23 @@ def headboard(key, u):
             out.append('<path d="M%.1f %.1f V%.1f" stroke="#141A2E" stroke-width="1.1" opacity=".7"/>' % (fx, yt, G))
         out.append('</g>')
     elif k == 'soft':
-        # as in the house's front photograph: a slim upholstered headboard, narrower than the bed, and two soft
-        # cushions curled over its top, resting on a thin inlay of Canaletto walnut
+        # an upholstered headboard as wide as the padded frame (Round 25: the house's photograph is taken in
+        # perspective, which made it look narrower), and two soft cushions curled over its top, side by side
+        # across the whole width, resting on a thin inlay of Canaletto walnut
         cl, cd = '#B7AEA2', '#968C7F'
         defs.append(grad(u + '-hb', cl, cd))
         defs.append(grad(u + '-hp', shade(cd, -.12), shade(cd, -.28)))
         defs.append('<radialGradient id="%s-hl" cx=".38" cy=".18" r=".75"><stop offset="0" stop-color="#FFF" stop-opacity=".30"/><stop offset=".6" stop-color="#FFF" stop-opacity="0"/></radialGradient>' % u)
         defs.append(grad(u + '-wn', '#7A5236', '#4E3322'))
         defs.append('<pattern id="%s-tc" width="5" height="5" patternUnits="userSpaceOnUse"><circle cx="1.2" cy="1.4" r=".55" fill="#FFF" fill-opacity=".22"/><circle cx="3.6" cy="3.5" r=".5" fill="#000" fill-opacity=".10"/></pattern>' % u)
-        ph, top = 66, 97
+        ph, top = BED['soft-to-the-touch']['half'] + 1, 97
         # the headboard behind, with the walnut inlay along its top
         out.append('<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" rx="4" fill="url(#%s-hp)"/>' % (x(-ph), y(top), 2 * ph * S, (top - 56) * S, u))
         out.append('<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" rx="2" fill="url(#%s-wn)"/>' % (x(-ph - .5), y(top + 2.6), (2 * ph + 1) * S, 2.6 * S, u))
         out.append('<path d="M%.1f %.1f H%.1f" stroke="#B88A62" stroke-opacity=".55" stroke-width=".7"/>' % (x(-ph), y(top + 2.6) + 1.1, x(ph)))
         # the two cushions, soft at every edge, the curl over the top read as a welt and a highlight
         for sx in (-1, 1):
-            c, hw = sx * 33.5, 31.5
+            c, hw = sx * ph / 2, ph / 2 - 2
             x0, x1 = x(c - hw), x(c + hw)
             yt, yb = y(H), y(55)
             r = 12 * S

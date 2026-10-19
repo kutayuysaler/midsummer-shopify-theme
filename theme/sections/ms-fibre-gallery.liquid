@@ -41,7 +41,7 @@
           -%}
           <figure class="ms-fg__slide{% if forloop.first %} is-on{% endif %}" data-ms-fg-slide="{{ forloop.index0 }}"{% unless forloop.first %} aria-hidden="true"{% endunless %}>
             {%- if src != blank -%}
-              <img src="{{ src_sm }}" srcset="{{ src_sm }} 720w, {{ src }} 1400w" sizes="(min-width: 900px) 52vw, 100vw" alt="{% capture ms_d1 %}{% render 'ms-t', v: bs.name %}{% endcapture %}{% capture ms_t_out %}{% render 'ms-t', v: bs.alt %}{% endcapture %}{{ ms_t_out | default: ms_d1 | escape }}" width="1400" height="1400" loading="{% if forloop.first %}lazy{% else %}lazy{% endif %}" decoding="async">
+              <img src="{{ src_sm }}"{% if bs.image != blank %} style="filter: grayscale(1) sepia(.42) contrast(1.05) brightness(1.03) !important;"{% endif %} srcset="{{ src_sm }} 720w, {{ src }} 1400w" sizes="(min-width: 900px) 52vw, 100vw" alt="{% capture ms_d1 %}{% render 'ms-t', v: bs.name %}{% endcapture %}{% capture ms_t_out %}{% render 'ms-t', v: bs.alt %}{% endcapture %}{{ ms_t_out | default: ms_d1 | escape }}" width="1400" height="1400" loading="{% if forloop.first %}lazy{% else %}lazy{% endif %}" decoding="async">
             {%- endif -%}
             <figcaption class="ms-fg__cap">
               <span class="ms-fg__capno">{% render 'ms-t', v: s.plate_label %} {{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>

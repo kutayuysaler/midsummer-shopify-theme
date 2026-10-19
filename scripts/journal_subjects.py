@@ -1,0 +1,179 @@
+"""The Journal's subjects, and how a note finds its own: weighted words, read in the title (three
+times over), the tags (four times) and the opening of the text (once, a few mentions at most).
+The highest score wins; a tag can always decide (cat:sleep, or the subject's name). One list, used
+by the Journal, the article pages and the menu. snippets/ms-note-cat.liquid is generated from here,
+and classify() below is the same reckoning, to test on the store's own notes."""
+
+ORDER = ['projects', 'news', 'regen', 'materials', 'craft', 'design', 'italy', 'sleep']   # ties go left
+LABELS = {'sleep': 'Sleep', 'materials': 'Materials', 'craft': 'Craft', 'design': 'The bedroom',
+          'italy': 'Italian living', 'regen': 'Sustainability', 'projects': 'Projects', 'news': 'News & press'}
+SHOWN = ['sleep', 'materials', 'craft', 'design', 'italy', 'regen', 'projects', 'news']    # in the filters, in this order
+# a tag with any of these names files the note at once
+TAGS = {
+    'sleep': ['sleep', 'sonno', 'сон', 'sleep science', 'rest'],
+    'materials': ['materials', 'materiali', 'материалы', 'fibres', 'fibers', 'natural fibres', 'natural materials'],
+    'craft': ['craft', 'artigianato', 'handmade', 'ремесло', 'atelier'],
+    'design': ['the bedroom', 'bedroom', 'design', 'interiors', 'camera da letto', 'спальня'],
+    'italy': ['italian living', 'italy', 'italia', 'vivere italiano', 'travel', 'food'],
+    'regen': ['sustainability', 'sostenibilità', 'устойчивость', 'regeneration', 'longevity'],
+    'projects': ['projects', 'progetti', 'проекты', 'project', 'hospitality', 'portfolio', 'hotels'],
+    'news': ['news', 'press', 'stampa', 'новости', 'events', 'eventi'],
+}
+# word (lower case, may be a stem or a phrase) : weight
+WORDS = {
+    'sleep': {'sleep': 2, 'sonno': 2, 'сон ': 2, 'slumber': 3, 'insomn': 4, 'bedtime': 3, 'nap ': 3, 'naps': 3, 'napping': 3, 'dream': 1, 'sogn': 1,
+              'circadian': 4, 'melatonin': 4, 'wake up': 2, 'snor': 3, 'sleepwalk': 4, 'jet lag': 3, 'restful': 2, 'night owl': 3, 'early bird': 3,
+              'sleeping position': 4, 'better sleep': 3, 'sleep quality': 3, 'hot sleepers': 3, 'warm milk': 3, 'hydration': 2, 'gut health': 3,
+              'yoga': 2, 'white noise': 3, 'moon phase': 3, 'daylight saving': 3, 'beauty sleep': 3, 'power nap': 4, 'ritual': 1, 'blood circulation': 3,
+              'back pain': 3, 'ergonom': 3, 'posture': 2, 'aging': 2, 'children': 1, 'athletic': 2, 'skin health': 2,
+              'too hot': 3, 'heat': 2, 'sweet dreams': 3, 'seasons': 1, 'holosync': 4, 'meditation': 2, 'wellness': 1, 'rest ': 1, 'resting': 2,
+              # Round 25: guides that fell through to News
+              'first 30 nights': 4, 'feels different at home': 3, 'every generation': 3, 'princess and the pea': 4, "summer's rhythm": 3, 'rhythm': 2},
+    'materials': {'wool': 3, 'lana ': 2, 'шерст': 3, 'cashmere': 3, 'vicuñ': 4, 'vicun': 4, 'alpaca': 3, 'yak ': 3, 'yak hair': 4, 'horsehair': 3, 'horse hair': 3,
+                  'crine': 3, 'linen': 2, 'silk': 2, 'seta ': 2, 'шелк': 3, 'шёлк': 3, 'cotton': 2, 'hemp': 3, 'canapa': 3, 'fibre': 3, 'fiber': 3, 'fibra': 3,
+                  'fabric': 2, 'tessut': 2, 'ткан': 2, 'loro piana': 3, 'natural material': 4, 'materiali naturali': 4, 'materials': 2, 'mohair': 3,
+                  'camel': 2, 'merino': 3, 'falkland': 4, 'sheep': 2, 'penguin': 1, 'coconut': 2, 'plant fibre': 3, 'banana': 1, 'topper': 2},
+    'craft': {'handmade': 3, 'hand-made': 3, 'by hand': 3, 'a mano': 3, 'вручную': 3, 'artisan': 3, 'artigian': 3, 'craftsman': 3, 'craftsmanship': 3,
+              'crafting': 3, 'slow manufactur': 4, 'manufactur': 2, 'workshop': 2, 'bottega': 2, 'tufting': 3, 'stitch': 2, 'made in italy': 2,
+              'masterpiece': 2, 'boxspring': 2, 'timeless italian craftsmanship': 4, 'heritage': 2, 'masters': 2, 'making the best': 3, 'how a ': 1, 'the making of': 3, 'mattress tale': 3, 'one mattress at a time': 3,
+              'micro-spring': 2, 'speed is the enemy': 4, 'enemy of beauty': 3},
+    'design': {'bedroom': 2, 'camera da letto': 2, 'спальн': 2, 'interior design': 3, 'interior': 1, 'decor': 2, 'arredament': 2, 'feng shui': 4, 'hygge': 4,
+               'zen ': 3, 'vastu': 4, 'boho': 4, 'bohemian': 4, 'eclectic': 3, 'minimalis': 2, 'colour': 2, 'colors': 2, 'colore': 2, 'famous bedroom': 5,
+               'layout': 2, 'aesthetic': 2, 'boiserie': 3, 'lighting': 2, 'indoor plants': 3, 'acoustic': 3, 'scents': 2, 'harmony': 1, 'cozy': 2,
+               'japanese': 2, 'vintage': 2, 'van gogh': 3, 'frida kahlo': 3, 'saint laurent': 3, 'john and yoko': 3, 'must haves': 3, 'make a bed': 3,
+               'multi-sensory': 3, 'symbol': 1, 'sanctuary': 1, 'pet-friendly': 2, 'design': 2, 'imperfection': 3, 'emotional': 2, 'architect': 2, 'fashion': 1},
+    'italy': {'italian': 1, 'italy': 1, 'italia': 1, 'итал': 1, 'dolce vita': 4, 'recipe': 4, 'ricetta': 4, 'risotto': 4, 'pasta': 3, 'ravioli': 4,
+              'cuisine': 4, 'foodie': 4, 'food': 2, 'italian journey': 5, 'journey to italy': 5, 'langhe': 5, 'umbria': 5, 'portofino': 5, 'amalfi coast': 5,
+              'tuscany': 3, 'toscana': 3, 'travel': 2, 'vacation': 2, 'vacanz': 2, 'goethe': 4, 'music': 2, 'musica': 2, 'poem': 2, 'poetry': 2,
+              'dostoyevsky': 4, 'readings': 3, 'live like an italian': 5, 'places to relax': 4, 'places to stay': 4, 'living slowly': 3, 'shakespeare': 3,
+              'summer\'s day': 3, 'stoic': 3, 'novel': 2, 'opera': 2, 'chill out': 2, 'italian way': 4, 'way of living': 3, 'wine': 2, 'slow escape': 4},
+    'regen': {'sustainab': 3, 'sostenib': 3, 'recycl': 3, 'ricicl': 3, 'circular': 3, 'circolar': 3, 'landfill': 4, 'discarica': 4, 'animal welfare': 5,
+              'cruelty-free': 4, 'cruelty free': 4, 'eco-friendl': 3, 'environment': 2, 'waste': 2, 'rifiut': 2, 'regenerat': 3, 'rigener': 3,
+              '15 + 15': 4, '15+15': 4, 'maintenance': 3, 'manutenzion': 3, 'disposal': 4, 'longevity': 3, 'lifetime': 1, 'durab': 2, 'planet': 2,
+              'conscious': 2, 'use them again': 3, 'use and use again': 4},
+    'projects': {'villa ': 3, 'apartment': 3, 'appartament': 3, 'квартир': 3, 'residence': 2, 'hotel collaboration': 5, 'hotel': 1, 'yacht': 3,
+                 'project': 2, 'progett': 2, 'suite': 2, 'abbey': 3, 'abbazia': 3, 'loft': 2, 'industrial space': 4, 'family villa': 4, 'city walls': 3,
+                 'bedroom of': 1, 'penelope': 2, 'castagnara': 4, 'ideal bedroom': 2, 'interior project': 4, 'our client': 3, 'commission': 2},
+    'news': {'salone': 4, 'fuori salone': 4, 'press': 2, 'magazine': 3, 'elle decor': 5, 'architectural digest': 5, 'architectural design': 4, 'vanity fair': 5,
+             'marie claire': 5, 'kommersant': 5, 'robb report': 5, 'interiors monthly': 5, "l'officiel": 5, 'rbc style': 5, 'advert': 4, 'launch': 2, 'lancio': 2,
+             'new collection': 3, 'collaboration': 2, 'collaborazion': 2, 'award': 3, 'premio': 3, 'exhibit': 2, 'mostra': 2, 'event': 1, 'greetings': 3,
+             'our day': 3, 'introductory video': 4, 'now available': 4, 'introducing': 2, 'join us': 3, 'tangram': 2, 'daniela puppa': 3, 'firmamento': 3,
+             'michela nicoli': 3, 'vanity': 2, 'issue': 1, 'edition': 1, 'italians are coming': 4, 'collaboration with': 3, 'honorable mention': 5, 'festival': 3, 'il sole 24 ore': 5, 'toast': 2, 'the story of midsummer': 4, "what's in a name": 4,
+             # Round 25: magazines and features that read as the bedroom
+             'hospitality design usa': 6, 'the design issue': 5, 'salon interior': 5, 'the symbol': 4, 'style interiors': 5, 'stil interiery': 5,
+             'features midsummer': 5, 'featured in': 4, 'moto boho': 6, 'official bespoke': 5, 'ten years ago': 5, 'was born': 2, 'christmas': 2, 'new year': 2},
+}
+BLOG_PRIOR = {'/blogs/press/': ('news', 12), '/blogs/projects/': ('projects', 12), '/blogs/hotels/': ('projects', 12), '/blogs/collaborations/': ('news', 6)}
+TITLE_X, TAG_X, BODY_CAP, BODY_TOTAL, BODY_LEN, FLOOR = 4, 4, 2, 7, 1500, 3
+FALLBACK = 'news'
+
+
+def count(hay, w):
+    return len(('|' + hay + '|').split(w)) - 1
+
+
+def classify(title, body='', tags=(), url=''):
+    for t in tags:
+        tl = t.lower().strip()
+        if tl.startswith('cat:'):
+            return tl[4:].strip()
+        for k, names in TAGS.items():
+            if tl in names:
+                return k
+    t = ' ' + title.lower() + ' '
+    g = ' ' + ' '.join(tags).lower() + ' '
+    b = ' ' + body.lower()[:BODY_LEN] + ' '
+    score = {k: 0 for k in ORDER}
+    for k in ORDER:
+        sb = 0
+        for w, wt in WORDS[k].items():
+            if w in t:
+                score[k] += count(t, w) * wt * TITLE_X
+            if w in g:
+                score[k] += count(g, w) * wt * TAG_X
+            if w in b:
+                sb += min(count(b, w), BODY_CAP) * wt
+        score[k] += min(sb, BODY_TOTAL)
+    for frag, (k, wt) in BLOG_PRIOR.items():
+        if frag in url:
+            score[k] += wt
+    best = max(ORDER, key=lambda k: (score[k], -ORDER.index(k)))
+    return best if score[best] >= FLOOR else FALLBACK
+
+
+def liquid():
+    """snippets/ms-note-cat.liquid: the same reckoning, in Liquid"""
+    esc = lambda s: s.replace("'", "’") if "'" in s and False else s
+    L = ["{%- comment -%}",
+         "  The Journal's subjects, one list used everywhere (the Journal's filters, the notes, the menu), and the",
+         "  way a note finds its own: weighted words read in its title (three times over), its tags (four times)",
+         "  and the opening of its text; the highest score wins. A tag decides at once: cat:sleep, or a subject's",
+         "  name (Sleep, Materiali …). Nothing to set up: write the note, it files itself. Generated by",
+         "  bin/build_more.py from bin/journal_subjects.py, where the same reckoning is tested on the store's notes.",
+         "    {% render 'ms-note-cat', a: article %}     → " + ' | '.join(SHOWN),
+         "    {% render 'ms-note-cat', label: 'sleep' %}  → Sleep",
+         "    {% render 'ms-note-cat', list: true %}      → " + ','.join(SHOWN),
+         "{%- endcomment -%}",
+         "{%- liquid",
+         "  if list",
+         "    echo '%s'" % ','.join(SHOWN),
+         "  elsif label != blank",
+         "    case label"]
+    for k in SHOWN:
+        L += ["      when '%s'" % k, "        echo '%s'" % LABELS[k].replace("'", "’")]
+    L += ["    endcase", "  else",
+          "    assign found = ''",
+          "    for tg in a.tags",
+          "      assign tl = tg | downcase | strip",
+          "      if tl contains 'cat:'",
+          "        assign found = tl | remove_first: 'cat:' | strip",
+          "        break",
+          "      endif",
+          "      case tl"]
+    for k, names in TAGS.items():
+        L += ["        when %s" % ', '.join('"%s"' % n for n in names), "          assign found = '%s'" % k]
+    L += ["      endcase", "      if found != ''", "        break", "      endif", "    endfor",
+          "    if found == ''",
+          "      assign t = a.title | downcase | prepend: ' ' | append: ' '",
+          "      assign g = a.tags | join: ' ' | downcase | prepend: ' ' | append: ' '",
+          "      assign b = a.excerpt_or_content | strip_html | downcase | slice: 0, %d | prepend: ' ' | append: ' '" % BODY_LEN,
+          "      assign t = '|' | append: t | append: '|'",
+          "      assign g = '|' | append: g | append: '|'",
+          "      assign b = '|' | append: b | append: '|'",
+          "      assign best = '%s'" % FALLBACK,
+          "      assign top = %d" % (FLOOR - 1)]
+    for k in ORDER:
+        pairs = ','.join('%s:%d' % (w, wt) for w, wt in WORDS[k].items())
+        assert '|' not in pairs and '"' not in pairs
+        L += ["      assign sc = 0", "      assign sb = 0",
+              '      assign ws = "%s" | split: ","' % pairs,
+              "      for pw in ws",
+              "        assign pp = pw | split: ':'",
+              "        assign w = pp[0]",
+              "        assign wt = pp[1] | plus: 0",
+              "        if t contains w",
+              "          assign n = t | split: w | size | minus: 1",
+              "          assign sc = n | times: wt | times: %d | plus: sc" % TITLE_X,
+              "        endif",
+              "        if g contains w",
+              "          assign n = g | split: w | size | minus: 1",
+              "          assign sc = n | times: wt | times: %d | plus: sc" % TAG_X,
+              "        endif",
+              "        if b contains w",
+              "          assign n = b | split: w | size | minus: 1",
+              "          if n > %d" % BODY_CAP,
+              "            assign n = %d" % BODY_CAP,
+              "          endif",
+              "          assign sb = n | times: wt | plus: sb",
+              "        endif",
+              "      endfor",
+              "      if sb > %d" % BODY_TOTAL,
+              "        assign sb = %d" % BODY_TOTAL,
+              "      endif",
+              "      assign sc = sc | plus: sb"]
+        for frag, (kk, wt) in BLOG_PRIOR.items():
+            if kk == k:
+                L += ["      if a.url contains '%s'" % frag, "        assign sc = sc | plus: %d" % wt, "      endif"]
+        L += ["      if sc > top", "        assign top = sc", "        assign best = '%s'" % k, "      endif"]
+    L += ["      assign found = best", "    endif", "    echo found", "  endif", "-%}"]
+    return '\n'.join(L) + '\n'

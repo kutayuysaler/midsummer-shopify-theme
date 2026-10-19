@@ -1,9 +1,9 @@
 {%- comment -%}
   Recognition and press. One publication at a time: its mark, the headline of its piece
   (taken live from that publication's press blog, or the line set in the block), and a
-  link to read it. The award opens the sequence. Beneath, the marks of the most recent
-  publications run in one slow line; hover or tap a mark to bring its piece forward. A
-  publication with nothing to read (an empty press blog, no headline) is not shown.
+  link to read it. The award opens the sequence. Beneath, every publication's mark, one still
+  line at a time: those with a piece first (hover or tap one to bring its piece forward), then
+  the others. The arrows beneath turn to the next line; nothing moves on its own.
 {%- endcomment -%}
 {%- liquid
   assign s = section.settings
@@ -46,6 +46,7 @@
   # its block); a mark with nothing to read is not shown. Most recent first, as many as set; the
   # rest are on the press page.
   assign recs = ''
+  assign rest = ''
   for block in section.blocks
     assign handle = block.settings.link | split: '/blogs/' | last | split: '/' | first
     if handle contains 'green-product-award'
@@ -80,9 +81,6 @@
         assign href = ''
       endif
     endif
-    if line == blank
-      continue
-    endif
     if block.settings.logo != blank
       assign src = block.settings.logo | image_url: width: 300
     elsif block.settings.logo_file != blank
@@ -90,12 +88,22 @@
     else
       assign src = ''
     endif
+    if line == blank
+      # nothing to read: the mark is still shown, among the others on the line
+      if src != blank
+        capture ms_d4
+          render 'ms-t', v: block.settings.name
+        endcapture
+        assign rest = rest | append: src | append: '¤' | append: ms_d4 | append: '¦'
+      endif
+      continue
+    endif
     assign yk = when | default: '0000' | slice: 0, 4
     assign ik = 99 | minus: forloop.index | prepend: '0' | slice: -2, 2
-    capture ms_d4
+    capture ms_d5
       render 'ms-t', v: block.settings.name
     endcapture
-    assign rec = yk | append: '~' | append: ik | append: '¤' | append: line | append: '¤' | append: href | append: '¤' | append: when | append: '¤' | append: src | append: '¤' | append: ms_d4 | append: '¤' | append: block.shopify_attributes
+    assign rec = yk | append: '~' | append: ik | append: '¤' | append: line | append: '¤' | append: href | append: '¤' | append: when | append: '¤' | append: src | append: '¤' | append: ms_d5 | append: '¤' | append: block.shopify_attributes
     assign recs = recs | append: rec | append: '¦'
   endfor
   assign recs = recs | split: '¦' | sort | reverse
@@ -133,10 +141,10 @@
         endif
         echo '</span>'
         if href != blank
-          capture ms_d5
+          capture ms_d6
             render 'ms-t', v: s.read_label
           endcapture
-          echo '<a href="' | append: href | append: '">' | append: ms_d5 | append: ' <span aria-hidden="true">→</span></a>'
+          echo '<a href="' | append: href | append: '">' | append: ms_d6 | append: ' <span aria-hidden="true">→</span></a>'
         endif
         echo '</figcaption></figure>'
       endcapture
@@ -149,6 +157,20 @@
       endif
       echo '</button></li>'
       assign n = n | plus: 1
+    endfor
+    # the rest of the press: the pieces beyond those shown, then every other publication
+    for r in recs offset: max
+      assign f = r | split: '¤'
+      if f[4] != blank
+        assign ename = f[5] | escape
+        echo '<li class="ms-pr__logo is-plain"><span class="ms-pr__pm"><img src="' | append: f[4] | append: '" alt="' | append: ename | append: '" width="150" height="40" loading="lazy"></span></li>'
+      endif
+    endfor
+    assign rl = rest | split: '¦'
+    for r in rl
+      assign f = r | split: '¤'
+      assign ename = f[1] | escape
+      echo '<li class="ms-pr__logo is-plain"><span class="ms-pr__pm"><img src="' | append: f[0] | append: '" alt="' | append: ename | append: '" width="150" height="40" loading="lazy"></span></li>'
     endfor
   endcapture
   capture press_url
@@ -172,7 +194,12 @@
     <div class="ms-pr__strip">
       <div class="ms-pr__label">{% render 'ms-t', v: s.press_label %}</div>
       <div class="ms-pr__rail" data-ms-pr-rail>
-        <ul class="ms-pr__run" role="list">{{ strip }}</ul>
+        <ul class="ms-pr__run" role="list" data-ms="pressrow">{{ strip }}</ul>
+      </div>
+      <div class="ms-pr__pager" data-ms-pr-pager hidden>
+        <button type="button" class="ms-pr__turn" data-ms-pr-turn="-1" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: 'Previous' %}{% endcapture %}{{ ms_t_out | escape }}"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10 3.5 5.5 8l4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.1"/></svg></button>
+        <span class="ms-pr__pages" data-ms-pr-pages role="group" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.press_label %}{% endcapture %}{{ ms_t_out | escape }}"></span>
+        <button type="button" class="ms-pr__turn" data-ms-pr-turn="1" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: 'Next' %}{% endcapture %}{{ ms_t_out | escape }}"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.1"/></svg></button>
       </div>
       {%- if press_url != blank and s.all_label != blank -%}<a class="ms-pr__all" href="{{ press_url }}">{% render 'ms-t', v: s.all_label %} <span aria-hidden="true">→</span></a>{%- endif -%}
     </div>
@@ -232,8 +259,42 @@
   .ms-pr__run { animation: none; flex: 1 1 auto; flex-wrap: wrap; justify-content: center; max-width: 1180px; }
   .ms-pr__logo > * { width: auto; height: 48px; padding: 0 clamp(12px, 1.6vw, 22px); }
   .ms-pr__run { flex-wrap: nowrap; overflow: hidden; }
+  /* Round 25: every publication's mark, one still line at a time, those with a piece first; the
+     arrows beneath turn to the next line, and nothing moves on its own */
+  .ms-pr__rail { margin-top: 16px; }
+  .ms-site .ms-pr .ms-pr__run { width: 100%; max-width: 1160px; margin: 0 auto; flex-wrap: nowrap; justify-content: center; overflow: hidden; transition: opacity .26s ease; }
+  .ms-pr__run.is-turning { opacity: 0; }
+  .ms-pr__run > li { display: flex; flex: 0 1 158px; min-width: 0; justify-content: center; }
   .ms-pr__run > li:nth-child(n+9) { display: none; }
-  @media (max-width: 760px) { .ms-pr__run { flex-wrap: wrap; } .ms-pr__run > li:nth-child(n+7) { display: none; } .ms-pr__logo > * { height: 42px; } }
+  .ms-pr.is-paged .ms-pr__run > li { display: flex; }
+  .ms-pr.is-paged .ms-pr__run > li[hidden] { display: none; }
+  .ms-pr__logo > * { width: 100%; height: 64px; padding: 0 10px; }
+  .ms-site .ms-pr .ms-pr__logo img { height: 24px; width: auto; max-width: 100%; max-height: 34px; opacity: .58; }
+  .ms-site .ms-pr .ms-pr__logo > button:hover img, .ms-site .ms-pr .ms-pr__logo > button:focus-visible img, .ms-site .ms-pr .ms-pr__logo.is-on img { opacity: 1; }
+  .ms-pr__logo.is-plain > * { cursor: default; }
+  .ms-pr__pager { display: flex; align-items: center; justify-content: center; gap: 4px; margin-top: 6px; }
+  .ms-pr__pager[hidden] { display: none; }
+  .ms-pr__turn { width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; padding: 0; background: none; border: 0; border-radius: 50%; color: #8A8276; cursor: pointer; transition: color .3s ease, background-color .3s ease; }
+  .ms-pr__turn:hover, .ms-pr__turn:focus-visible { color: #17140F; background: #F1ECE2; }
+  .ms-pr__turn svg { width: 15px; height: 15px; }
+  .ms-pr__pages { display: flex; gap: 4px; margin: 0 6px; }
+  .ms-pr__pages button { width: 24px; height: 24px; padding: 0; background: none; border: 0; cursor: pointer; display: flex; align-items: center; }
+  .ms-pr__pages button span { display: block; width: 100%; height: 1px; background: #DDD6C9; transition: background-color .3s ease; }
+  .ms-pr__pages button:hover span { background: #A89F90; }
+  .ms-pr__pages button[aria-current="true"] span { background: #17140F; }
+  @media (max-width: 760px) {
+    .ms-site .ms-pr .ms-pr__run { flex-wrap: wrap; }
+    .ms-pr__run > li { flex: 0 0 33.333%; }
+    .ms-pr__run > li:nth-child(n+7) { display: none; }
+    .ms-pr__logo > * { height: 56px; padding: 0 6px; }
+    .ms-site .ms-pr .ms-pr__logo img { height: 20px; max-height: 28px; }
+    .ms-pr__pages button { width: 18px; }
+  }
+  @media (max-width: 520px) {
+    .ms-pr__run > li { flex-basis: 50%; }
+    .ms-pr__run > li:nth-child(n+5) { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { .ms-pr__run { transition: none; } }
 </style>
 <script>
   (function () {
@@ -284,6 +345,80 @@
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) { if (!paused) show(at); } else clearTimeout(timer); }); }, { threshold: 0.3 }).observe(root);
     } else { schedule(); }
+
+    // Round 25: every publication's mark, one still line at a time; the arrows turn to the next line
+    var run = root.querySelector('.ms-pr__run'), pager = root.querySelector('[data-ms-pr-pager]');
+    if (!run) return;
+    var marks = [].slice.call(run.children), pages = [], page = 0, turning = null, x0 = null;
+    var wide = window.matchMedia('(min-width: 1101px)'), narrow = window.matchMedia('(max-width: 760px)'), small = window.matchMedia('(max-width: 520px)');
+    function weigh(img) {
+      // one optical weight for marks of every shape: a long wordmark is drawn lower than a compact one
+      var ar = img.naturalWidth / img.naturalHeight;
+      if (!ar || !isFinite(ar)) return;
+      var k = narrow.matches ? .8 : 1, wmax = small.matches ? 128 : narrow.matches ? 110 : 136;
+      var h = Math.max(12, Math.min(30, 24 * Math.pow(4 / ar, .42))) * k;
+      if (h * ar > wmax) h = Math.max(9, wmax / ar);
+      img.style.height = h.toFixed(1) + 'px'; img.style.width = 'auto'; img.style.maxHeight = 'none';
+    }
+    function weighAll() {
+      marks.forEach(function (m) {
+        var i = m.querySelector('img');
+        if (!i) return;
+        if (i.complete && i.naturalWidth) weigh(i); else i.addEventListener('load', function () { weigh(i); }, { once: true });
+      });
+    }
+    function turn(i, now) {
+      if (!pages.length) return;
+      page = (i + pages.length) % pages.length;
+      function go() {
+        marks.forEach(function (m) { m.hidden = pages[page].indexOf(m) < 0; });
+        if (pager) pager.querySelectorAll('[data-ms-pr-page]').forEach(function (d, k) { d.setAttribute('aria-current', k === page ? 'true' : 'false'); });
+        run.classList.remove('is-turning');
+      }
+      clearTimeout(turning);
+      if (now || reduce) go(); else { run.classList.add('is-turning'); turning = setTimeout(go, 260); }
+    }
+    function cut() {
+      // lines of as even a length as the marks allow: 27 marks on a wide screen are 7, 7, 7 and 6
+      var max = wide.matches ? 8 : small.matches ? 4 : 6, n = marks.length, p = Math.max(1, Math.ceil(n / max)), q = Math.floor(n / p), r = n % p, k = 0, i;
+      pages = [];
+      for (i = 0; i < p; i++) { var c = q + (i < r ? 1 : 0); pages.push(marks.slice(k, k + c)); k += c; }
+      root.classList.toggle('is-paged', p > 1);
+      if (pager) {
+        pager.hidden = p < 2;
+        var dots = pager.querySelector('[data-ms-pr-pages]');
+        dots.innerHTML = '';
+        for (i = 0; i < p; i++) {
+          var d = document.createElement('button');
+          d.type = 'button'; d.setAttribute('data-ms-pr-page', i); d.setAttribute('aria-label', (i + 1) + ' / ' + p);
+          d.appendChild(document.createElement('span')); dots.appendChild(d);
+        }
+      }
+      turn(Math.min(page, p - 1), true);
+      weighAll();
+    }
+    if (pager) pager.addEventListener('click', function (e) {
+      var t = e.target.closest('[data-ms-pr-turn]'), d = e.target.closest('[data-ms-pr-page]');
+      if (t) turn(page + +t.getAttribute('data-ms-pr-turn'));
+      else if (d) turn(+d.getAttribute('data-ms-pr-page'));
+    });
+    run.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+    run.addEventListener('touchend', function (e) {
+      if (x0 === null || pages.length < 2) return;
+      var dx = e.changedTouches[0].clientX - x0; x0 = null;
+      if (Math.abs(dx) > 40) turn(page + (dx < 0 ? 1 : -1));
+    }, { passive: true });
+    [wide, narrow, small].forEach(function (mq) { if (mq.addEventListener) mq.addEventListener('change', cut); else if (mq.addListener) mq.addListener(cut); });
+    // the marks of the other lines are fetched as the section nears, so that a turn shows them at once
+    if ('IntersectionObserver' in window) {
+      var near = new IntersectionObserver(function (es) {
+        if (!es[0].isIntersecting) return;
+        near.disconnect();
+        marks.forEach(function (m) { var i = m.querySelector('img'); if (i) i.loading = 'eager'; });
+      }, { rootMargin: '600px 0px' });
+      near.observe(root);
+    }
+    cut();
   })();
 </script>
 
@@ -301,7 +436,7 @@
     { "type": "text", "id": "read_label", "label": "Read link", "default": "Read the piece" },
     { "type": "range", "id": "interval", "label": "Seconds per piece", "min": 4, "max": 12, "step": 1, "default": 6 },
     { "type": "text", "id": "press_label", "label": "Strip label", "default": "As featured in" },
-    { "type": "range", "id": "max_logos", "label": "Publications shown", "min": 4, "max": 30, "step": 1, "default": 8, "info": "Only those with a piece to read, most recent first. The rest are on the press page." },
+    { "type": "range", "id": "max_logos", "label": "Publications shown", "min": 4, "max": 30, "step": 1, "default": 8, "info": "Those with a piece to read, most recent first; every other publication's mark follows on the line." },
     { "type": "text", "id": "all_label", "label": "Link to the press page", "default": "All the press" }
   ],
   "blocks": [

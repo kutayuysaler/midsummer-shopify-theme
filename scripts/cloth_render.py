@@ -1,7 +1,7 @@
 """Each Loro Piana Interiors colour drawn as cloth rather than a flat chip. The surface comes from
 real photographs: a linen plain weave (atelier photograph IMG_3196) for Connemara and Bangor; the
-brand's alpaca close-up, brought down to the fine nap of a milled wool, for Altai; both together for
-Ely's Harbour, linen and cashmere. The photograph gives only its relief; the colour is the tone
+house's photograph of a milled wool and cashmere cloth (Cashmere_grigio) for Altai, since Round 25;
+the alpaca close-up and the linen together for Ely's Harbour, linen and cashmere. The photograph gives only its relief; the colour is the tone
 measured on the Loro Piana card, and a soft light falls across the sample.
 Writes the chip (240 px) and the large view (1000 px).
 usage: python3 cloth_render.py OUTDIR"""
@@ -15,6 +15,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 SRC = {
     'linen': (os.path.join(HERE, 'raw', 'tess-3196.jpg'), (250, 350, 2650, 2750)),
     'nap': (os.path.join(HERE, '..', 'fib2', 'src', 'ALPACA_BEIGE.jpg'), (100, 40, 1340, 1280)),
+    'cash': (os.path.join(HERE, 'raw', 'cashmere_grigio.jpg'), (160, 260, 1760, 2660)),
 }
 
 
@@ -56,7 +57,7 @@ def light(size, amount):
 RECIPES = {
     # weave: list of (photograph, share of the photograph shown, weight); relief amplitude
     'linen': ([('linen', 1.0, 1.0)], .22),
-    'wool': ([('nap', 1.0, .7), ('linen', .55, .4)], .11),
+    'wool': ([('cash', .62, 1.0)], .10),
     'soft': ([('linen', .8, .8), ('nap', .5, .45)], .19),
 }
 
@@ -68,6 +69,10 @@ def render(hexc, recipe, size, chip=False):
     d = sum(detail(n, size, sc * (.42 if chip else 1)) * w for n, sc, w in parts)
     d = d / (d.std() + 1e-9)
     lum = float(base @ [.2126, .7152, .0722])
+    if recipe == 'wool' and lum > .78:
+        # a white wool photographed is never paper white: brought down so its nap shows
+        base = base * (.78 / lum) ** .8
+        lum = float(base @ [.2126, .7152, .0722])
     # pale cloth shows its weave in the shadows, dark cloth in the light on its threads
     a = amp * (.75 if lum > .6 else 1.0 if lum > .2 else 1.35)
     s = (1 + a * d) * light(size, .07 if chip else .10)

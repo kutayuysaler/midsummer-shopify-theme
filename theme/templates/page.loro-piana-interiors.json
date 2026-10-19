@@ -418,7 +418,7 @@
             "texture": "boucle",
             "color": "#CDBEAA",
             "image_fallback": "ms-lp-wish-l.jpg",
-            "image_caption": "The bouclé, close up: wool and cashmere"
+            "image_caption": "The bouclé, close up: wool and cashmere, in two of its colours"
           }
         },
         "fabric_42": {
@@ -602,7 +602,7 @@
         "winter_cloth": "Wool and cashmere",
         "winter_note": "Cardi on the topper of Flora; Ely’s Harbour on the mattress of Top.",
         "summer_label": "Summer face",
-        "summer_fallback": "ms-lp-co-04-l.jpg",
+        "summer_fallback": "ms-lp-linen-summer.jpg",
         "summer_cloth": "Linen",
         "summer_note": "Connemara on the mattress of Top."
       }

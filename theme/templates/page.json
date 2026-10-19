@@ -76,7 +76,7 @@
           "type": "question",
           "settings": {
             "question": "Do you supply hotels and contract projects?",
-            "answer": "<p>Yes. We supply hotels, branded residences and yachts with phased production aligned to floor handovers, fire-retardancy and contract certification prepared per market, housekeeping protocols per system, and the 15 + 15 service written into the agreement.</p>"
+            "answer": "<p>Yes. We supply hotels, branded residences, yachts and private jets with phased production aligned to floor handovers, fire-retardancy and contract certification prepared per market, and housekeeping protocols per system.</p>"
           }
         },
         "question_10": {
@@ -599,7 +599,7 @@
             "f1": "800–1,000 m",
             "f1_cap": "Of filament from a single cocoon.",
             "species": "Bombyx mori",
-            "alt": "Raw silk floss, its filaments catching the light."
+            "alt": "Silk satin falling in soft folds, catching the light."
           }
         },
         "fibre_8": {

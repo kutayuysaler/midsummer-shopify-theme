@@ -2552,3 +2552,97 @@ These are store content, so I can't change them from the theme. The corrected En
 3. **A product with *Specification at a glance*.** In the elevation, the boxspring is as wide as the mattress.
 4. **The Thin Topper** in the Toppers collection. Its photograph sits with the others.
 5. **The home page, *Inside the bed*.** The tufted topper with orange piping, the orange-piped mattress, and the boxspring's woven corner.
+
+## 47. Round 25: the press, photographs, hotels and private jets, Sleep Culture and the atelier, the journal's subjects
+
+### The press
+
+- **One still line, turned by hand.** The ruled wall of every logo is gone. Beneath the piece shown, the marks sit in a single, airy line with no boxes or rules: up to eight on a wide screen (27 marks make lines of 7, 7, 7 and 6), six on a tablet, and two by two on a phone. Beneath the line, a quiet ‹ — — — — › turns to the next line. A phone can also swipe. Nothing moves on its own, as you asked when the old carousel felt intrusive.
+- **Every publication is there.** First the marks with a piece behind them: hover or tap one to bring its headline forward. Then every other publication in the section, with its mark only and no link (a mark never leads to an empty page).
+- **One weight for every mark.** A long wordmark (Architectural Digest, Villegiardini) is drawn lower and a compact one (AD, Festival dell'Etica) higher, so that no logo shouts. The SVG marks are trimmed to their ink; Salone del Mobile had been shown tiny inside a wide empty frame. The PNG marks are redrawn in one ink, which is what makes **Rent** visible again.
+- **No flash.** The site's scroll reveal used to fade each mark up to full black before it settled back to grey. The press line is now left out of it.
+- **In the editor** (*Home · Recognition*): *Publications shown* is how many publications with a piece lead the line. Every other publication block follows automatically. Add a publication as a block with its logo, and it joins the line.
+
+### Photographs
+
+- **Loro Piana Interiors page.**
+  - **Altai.** The swatches are redrawn from the cashmere photograph. *Shaded White* no longer reads as paper white.
+  - **Wish.** The bouclé, close up, in its two photographed colours.
+  - ***Dressed for both seasons*.** The summer face is the atelier's own photograph of a linen weave, not a drawn colour.
+  - ***Mystic River, as it stands at the atelier*.** The Roma topper and the Roma corner, in two sharper frames.
+- **Collection photographs.** Those already graded in their files are no longer toned a second time by the theme. That was the "double filter".
+- **Natural materials.**
+  - **Silk** is now silk satin falling in soft folds.
+  - **Linen** is kept, as you suggested.
+  - **Mohair:** there is no Angora goat photograph in the Drive or Dropbox, and the image libraries on the web are blocked from where I build. To add one, open the Natural materials page in the theme editor, select *Fibres · Atlas* → the *Mohair* block, and choose a picture under *Or a picture from the store*. Any photo chosen there is now toned automatically to match the other plates.
+- ***Soft to the touch, part by part*.** In the drawing, the headboard is now as wide as the rest of the bed.
+
+### Hotels, yachts and private jets
+
+- **15 + 15 is for private homes.** The Hotels & Residences questions now begin with *Does the 15 + 15 programme apply to hotel orders?* The answer: *No. 15 + 15 is our programme for beds in private homes. Hotel, residence and other contract orders are specified, delivered and looked after under the agreement drawn up for each project.* One copy of the hotel answer, in the default page template (used when a page has no template of its own), still promised the service in the agreement. That line is removed.
+- **Yachts and private jets.** It is said where people and search engines look:
+  - **On the pages:** the Hotels & Residences opening line and introduction, and a new question there (*Do you make beds for yachts and private jets?*); the hotel answer on the Questions page; the *At a glance* page.
+  - **For search engines and AI assistants:** the page descriptions for search results, the Organization data (its description and *knowsAbout*: hotel beds, yacht beds, private jet beds), and `/llms.txt`.
+  - **In Italian and Russian:** all of it.
+
+### Sleep Culture and the Milano atelier
+
+- **Sleep Culture: *A night*.** A new chapter after the opening: a night sky that turns to dawn, with the moon on its arc. Five hours (23:00 lying down, 01:00 deep sleep, 03:00 the coolest hour, 05:00 lighter sleep, 07:00 waking) each say what the bed does at that hour. The text stays with what the fibres and a handmade bed do, nothing about construction.
+- **Sleep Culture: *Rooms kept for rest*.** Five photographs of beds made up for the night, including Tulip in blue velvet.
+- **The Milano atelier: *Inside Via Andegari*.** Eight photographs of the atelier's rooms: the leopard room, the teal bedding printed with flowers and birds, the parrot room, the blue and gold room, the walnut and orange lacquer, the golden branch on the red wall, a hand-piped mattress edge, folded linen.
+- **In the editor:** both galleries are ordinary sections with one photograph and caption per block. Replace or reorder them there.
+
+### The journal's subjects
+
+**Every subject is filled.** Run over the store's 337 notes (from the October export), the sorting gives:
+
+| Sleep | News & press | Materials | The bedroom | Italian living | Craft | Sustainability | Projects |
+|---|---|---|---|---|---|---|---|
+| 101 | 72 | 45 | 41 | 34 | 23 | 13 | 8 |
+
+**How a new post is sorted.** Nothing to do: each post finds its subject on its own, when the page is shown. The theme reads three things:
+
+- **the title**, which counts most;
+- **the tags**;
+- **the opening of the text.**
+
+It weighs the words of each subject (*sleep, nap, insomnia…*; *wool, cashmere, Loro Piana…*; *handmade, artisan…*; *bedroom, interior design…*; *Salone, featured in, Elle Decor…*), in English, Italian and Russian, and the strongest subject wins. This round taught it a few more: *the first 30 nights*, *rhythm*, *topper*, *speed is the enemy of beauty*, *featured in*, *the design issue*, *Christmas*, *new year*.
+
+**To decide it yourself.** Give the post a tag:
+
+- the subject's name, such as `Sleep`, `Materials`, `Craft`, `The bedroom`, `News & press`, `Projects`, `Sustainability` or `Italian living` (the Italian and Russian names work too);
+- or `cat:` followed by the subject's key: `cat:sleep`, `cat:materials`, `cat:craft`, `cat:design`, `cat:news`, `cat:projects`, `cat:regen`, `cat:italy`.
+
+A tag always wins over the words.
+
+### Translations
+
+- **New texts.** The 41 new texts are in Italian and Russian: the night, the galleries' captions, the hotel and jet questions, and the Wish and silk captions. The press line's arrows reuse *Previous* and *Next*, already translated. Every page with a change was rendered in both languages.
+- **Coverage.** The theme's 1,918 texts match key for key in English, Italian and Russian.
+- **Names** of products, cloths and publications stay as they are.
+
+### Checks
+
+| Check | Result |
+|---|---|
+| Build twice | identical |
+| Liquid strict | 475 files, 0 errors |
+| Theme Check | 0 errors; the same 68 warnings as before |
+| Every template rendered and run in a browser (78 pages) | no script errors, no missing files, one H1 each; the same four templates the local renderer cannot draw (cart, appointment, `llms.txt`, `robots.txt`), as before |
+| Phones at 320, 360, 390 and 430 px | nothing covered or cut. The new photo rails scroll sideways, like the others. |
+| Interaction tests | 248 pass. New: the hotel page names 15 + 15 only to say it is for private homes; yachts and private jets; silk shown as satin; the press line holds at most eight marks, all on one line, and the arrows reach every publication; on a phone, two marks across with none cut |
+
+### After installing, check
+
+1. **The home page, *Recognition & press*.** One line of marks. The arrows beneath turn to the next lines, and *Rent* is visible.
+2. **Loro Piana Interiors.** Altai, Wish, the summer face of *Dressed for both seasons*, and the two Roma photographs.
+3. **Natural materials.** Silk.
+4. **Mohair:** upload a goat photograph if you have one (see above).
+5. **Hotels & Residences.** The 15 + 15 question and the yachts and private jets question.
+6. **Sleep Culture.** *A night*: tap the hours. Then *Rooms kept for rest*.
+7. **The Milano atelier.** *Inside Via Andegari*.
+8. **A collection page.** The photographs look as they do in their files, with no second tone.
+9. **Still to do in the admin, from §46:**
+   - delete the Paisley render photograph;
+   - upload the four `store-images/` photographs;
+   - import `store-translations/Midsummer-Milano_translations_import.csv`.

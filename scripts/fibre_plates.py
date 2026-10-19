@@ -11,8 +11,8 @@ SPEC = {
   'yak':       ('toomas-tartes-4QTBhzYm7Z8-unsplash.jpeg', .47, .5, 1.0),
   'cashmere':  ('shutterstock_535793413.jpg',            .66, .5, 1.0),
   'wool':      ('shutterstock_104115377-3393434.jpg',    .40, .5, 1.0),
-  # Round 21: the raw material, silk floss as it comes from the cocoon, not a satin cloth
-  'silk':      ('seta_floss.jpg',                        .55, .42, .62),
+  # Round 25: back to the satin, falling in soft folds (the floss of Round 21 read as stuffing)
+  'silk':      ('seta.jpg',                              .56, .5, .92),
   'horsehair': ('shutterstock_356083304-5878250.jpg',    .60, .5, 1.0),
   'cotton':    ('shutterstock_127061399-3624055.jpg',    .56, .5, 1.0),
   # Round 15: the seven that had only their drawing
@@ -41,9 +41,23 @@ LUT = lut()
 def tone(im, keep=.14, soft=False):
     g = im.convert('L')
     if soft:
-        # a cloth photographed in folds (the satin, until Round 21): keep its light, only deepen the folds a little
-        g = ImageOps.autocontrast(g.filter(ImageFilter.GaussianBlur(2.4)), cutoff=(1, .3))
-        g = g.point(lambda v: int(255 * (.30 + .68 * (v / 255) ** 1.15)))
+        # a cloth photographed in folds (the satin): keep its light, only deepen the folds a little. Worked in
+        # floating point and smoothed first, since the satin's long gradients fall into bands in 8 bits
+        import numpy as np
+        from scipy import ndimage
+        raw = np.asarray(g, float) / 255
+        flat = ndimage.gaussian_filter(raw, max(2.0, min(g.size) / 260))     # the long light, without its bands
+        fine = ndimage.gaussian_filter(raw, max(1.0, min(g.size) / 1400))    # the folds, kept sharp
+        edge = np.hypot(ndimage.sobel(fine, 0), ndimage.sobel(fine, 1))
+        w = np.clip(ndimage.gaussian_filter(edge, 3) * 14, 0, 1)
+        f = w * fine + (1 - w) * flat
+        lo, hi = np.percentile(f, 1), np.percentile(f, 99.7)
+        f = np.clip((f - lo) / (hi - lo), 0, 1)
+        f = .30 + .68 * f ** 1.15
+        st = np.array([s for s, _ in STOPS]); cs = np.array([c for _, c in STOPS], float)
+        rgb = np.stack([np.interp(f, st, cs[:, k]) for k in range(3)], -1)
+        rgb = rgb + np.random.default_rng(25).normal(0, 1.6, f.shape)[..., None]
+        return Image.fromarray(np.clip(rgb, 0, 255).astype('uint8'))
     else:
         g = ImageOps.autocontrast(g, cutoff=(.4, .2))
     mono = Image.merge('RGB', (g, g, g)).point(LUT)
@@ -59,7 +73,7 @@ for name, (f, cx, cy, s) in SPEC.items():
     x0 = min(max(0, int(cx * w - side / 2)), w - side); y0 = min(max(0, int(cy * h - side / 2)), h - side)
     c = im.crop((x0, y0, x0 + side, y0 + side))
     # the orange keeps a little more of its colour: in monochrome alone a citrus cut reads as anything
-    c = tone(c, keep=(.30 if name == 'orange' else .14), soft=False) if mode == 'tone' else c.convert('RGB')
+    c = tone(c, keep=(.30 if name == 'orange' else .14), soft=(name == 'silk')) if mode == 'tone' else c.convert('RGB')
     for suffix, width in (('', 1400), ('-sm', 720)):
         o = c.resize((width, width), Image.LANCZOS)
         o = o.filter(ImageFilter.UnsharpMask(radius=1.1, percent=40 if width < side else 25, threshold=2))

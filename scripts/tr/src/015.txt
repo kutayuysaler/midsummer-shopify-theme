@@ -1,0 +1,159 @@
+@de4d6e6
+Le stanze
+Комнаты
+
+@85f5ab1
+Dentro via Andegari.
+Внутри Via Andegari.
+
+@533cb2c
+La stanza dei leopardi, un letto preparato per la notte.
+Комната с леопардами: кровать, застеленная на ночь.
+
+@0d265bd
+Biancheria color petrolio, stampata a fiori e uccelli.
+Постельное бельё цвета морской волны с принтом из цветов и птиц.
+
+@0529cab
+La stanza dei pappagalli.
+Комната с попугаями.
+
+@c2fdb07
+La stanza blu e oro, il letto rifatto.
+Сине-золотая комната, кровать застелена.
+
+@5abb3b1
+Noce e lacca arancione.
+Орех и оранжевый лак.
+
+@9667270
+Un ramo dorato su una parete rossa.
+Золотая ветвь на красной стене.
+
+@f58eb94
+Il bordo di un materasso, profilato e cucito a mano.
+Край матраса с кантом, прошитый вручную.
+
+@c7da58f
+La biancheria, piegata e pronta per il letto.
+Бельё, сложенное и готовое для кровати.
+
+@d3c2456
+Case private, architetti e interior designer, hotel, ville, yacht e jet privati.
+Частные дома, архитекторы и дизайнеры интерьера, отели, виллы, яхты и частные самолёты.
+
+@4a49172
+Sì. Forniamo hotel, branded residence, yacht e jet privati con una produzione per fasi allineata alle consegne dei piani, certificazioni ignifughe e contract preparate per ciascun mercato, e protocolli di housekeeping per ogni sistema.
+Да. Мы поставляем кровати для отелей, брендированных резиденций, яхт и частных самолётов: поэтапное производство в соответствии со сдачей этажей, сертификаты огнестойкости и контрактные сертификаты для каждого рынка и протоколы ухода для каждой системы.
+
+@20d0f20
+Sì. Abbiamo realizzato letti per yacht e per jet privati: disegnati sulla cabina, fatti sulle sue misure esatte e a mano in Italia, come ogni letto Midsummer.
+Да. Мы создавали кровати для яхт и частных самолётов: по чертежу каюты, точно по её размерам и вручную в Италии, как каждую кровать Midsummer.
+
+@da695a8
+Realizzate letti per yacht e jet privati?
+Вы делаете кровати для яхт и частных самолётов?
+
+@4b5768c
+No. 15 + 15 è il nostro programma per i letti delle case private. Gli ordini di hotel, residenze e gli altri ordini contract sono specificati, consegnati e seguiti secondo l’accordo redatto per ciascun progetto.
+Нет. 15 + 15 — наша программа для кроватей в частных домах. Заказы отелей, резиденций и другие контрактные заказы подбираются, поставляются и обслуживаются по соглашению, составленному для каждого проекта.
+
+@8f33629
+Il programma 15 + 15 vale anche per gli ordini degli hotel?
+Распространяется ли программа 15 + 15 на заказы отелей?
+
+@faa991c
+Il bouclé da vicino: lana e cashmere, in due dei suoi colori
+Букле крупным планом: шерсть и кашемир, в двух из его цветов
+
+@c2a3c28
+Raso di seta che cade in morbide pieghe, catturando la luce.
+Шёлковый атлас, ниспадающий мягкими складками и ловящий свет.
+
+@a2594d4
+Da quando ci si corica al risveglio
+От того, как ложишься, до пробуждения
+
+@8393b92
+Coricarsi
+Отход ко сну
+
+@7d2bb33
+Il corpo lascia andare la giornata e cede il suo calore. Le fibre naturali lo accolgono e lo lasciano passare, così il letto non è né freddo né soffocante.
+Тело отпускает прожитый день и отдаёт своё тепло. Натуральные волокна принимают его и пропускают дальше, поэтому кровать не кажется ни холодной, ни душной.
+
+@5a0b6e3
+Sonno profondo
+Глубокий сон
+
+@ea1260f
+Il corpo è al suo massimo peso e alla sua massima quiete. Un letto fatto a mano ne segue la linea, così spalle e fianchi riposano senza premere.
+Тело тяжелее и неподвижнее всего. Кровать ручной работы повторяет его линию, и плечи и бёдра отдыхают, не испытывая давления.
+
+@5c4ffe5
+L’ora più fresca
+Самый прохладный час
+
+@e415446
+Nelle ore piccole il corpo è al suo punto più fresco. D’inverno la lana tiene vicino il calore; d’estate lino e seta lo lasciano andare.
+Глубокой ночью тело прохладнее всего. Зимой шерсть удерживает тепло рядом, летом лён и шёлк его отпускают.
+
+@bf68b84
+Sonno più leggero
+Более лёгкий сон
+
+@dbe1e58
+Il sonno si fa più leggero e ci si gira più spesso. Il letto risponde a ogni movimento in silenzio, e torna a posarsi.
+Сон становится легче, и вы чаще поворачиваетесь. Кровать тихо отвечает на каждый поворот и снова успокаивается.
+
+@d36de73
+Il risveglio
+Пробуждение
+
+@16d5506
+Lascia le coperte rivoltate per un po’: le fibre cedono all’aria l’umidità della notte, e la sera il letto è di nuovo fresco.
+Оставьте одеяло откинутым на какое-то время: волокна отдают воздуху ночную влагу, и к вечеру кровать снова свежая.
+
+@ff0e500
+Una notte, come la vive il letto.
+Ночь глазами кровати.
+
+@acf1fe8
+Le fibre, una per una
+Волокна, одно за другим
+
+@0c369fe
+Otto ore, più o meno, nello stesso posto. Scegli un’ora per vedere che cosa fa il letto mentre dormi.
+Около восьми часов на одном месте. Выберите час, чтобы увидеть, что делает кровать, пока вы спите.
+
+@051b1a0
+Stanze dedicate al riposo.
+Комнаты, отведённые для отдыха.
+
+@cf194e6
+Tulip, in velluto blu, preparato per la notte.
+Tulip в синем бархате, застеленная на ночь.
+
+@808f3d7
+Cuscini contro una testiera imbottita.
+Подушки у мягкого изголовья.
+
+@0094301
+Rimboccato per la notte.
+Постель расстелена на ночь.
+
+@1fa8dba
+Un plaid ripiegato ai piedi del letto.
+Плед, откинутый в изножье кровати.
+
+@391b852
+Un letto preparato nella stanza blu e oro.
+Кровать, застеленная в сине-золотой комнате.
+
+@9e6df5d
+Letti fatti a mano per hotel, residenze, yacht e jet privati: specificati per ogni stanza, consegnati per fasi, installati dalla nostra squadra.
+Кровати ручной работы для отелей, резиденций, яхт и частных самолётов: подобраны под каждый номер, поставляются поэтапно и устанавливаются нашей собственной командой.
+
+@76762d0
+Midsummer fornisce a hotel, branded residence, yacht e jet privati gli stessi sistemi in fibre naturali fatti a mano che realizziamo per i clienti privati, specificati per la vita contract e consegnati per fasi, stanza dopo stanza.
+Midsummer поставляет отелям, брендированным резиденциям, яхтам и частным самолётам те же спальные системы ручной работы из натуральных волокон, что и частным клиентам, — подобранные для контрактной эксплуатации и поставляемые поэтапно, номер за номером.

@@ -90,12 +90,123 @@
       "settings": {
         "current": "sleep-culture"
       }
+    },
+    "night": {
+      "type": "ms-night",
+      "settings": {
+        "eyebrow": "From lying down to waking",
+        "heading": "A night, as the bed lives it.",
+        "text": "Eight hours, give or take, in one place. Choose an hour to see what the bed is doing while you sleep.",
+        "link_label": "The fibres, one by one"
+      },
+      "blocks": {
+        "h1": {
+          "type": "hour",
+          "settings": {
+            "time": "23:00",
+            "name": "Lying down",
+            "text": "The body lets go of the day and gives off its warmth. Natural fibres take it in and let it pass, so the bed feels neither cold nor close."
+          }
+        },
+        "h2": {
+          "type": "hour",
+          "settings": {
+            "time": "01:00",
+            "name": "Deep sleep",
+            "text": "The body is at its heaviest and stillest. A bed made by hand follows its line, so that the shoulders and the hips rest without pressing."
+          }
+        },
+        "h3": {
+          "type": "hour",
+          "settings": {
+            "time": "03:00",
+            "name": "The coolest hour",
+            "text": "In the small hours the body runs at its coolest. Wool keeps the warmth close in winter; in summer, linen and silk let it go."
+          }
+        },
+        "h4": {
+          "type": "hour",
+          "settings": {
+            "time": "05:00",
+            "name": "Lighter sleep",
+            "text": "Sleep grows lighter and you turn more often. The bed answers each turn quietly, and settles again."
+          }
+        },
+        "h5": {
+          "type": "hour",
+          "settings": {
+            "time": "07:00",
+            "name": "Waking",
+            "text": "Leave the covers turned back for a while: the fibres give up the night’s moisture to the air, and the bed is fresh again by evening."
+          }
+        }
+      },
+      "block_order": [
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "h5"
+      ]
+    },
+    "rooms": {
+      "type": "ms-gallery",
+      "settings": {
+        "eyebrow": "The bedroom",
+        "heading": "Rooms kept for rest."
+      },
+      "blocks": {
+        "p01": {
+          "type": "photo",
+          "settings": {
+            "image_fallback": "ms-photo-sleep-tulip.jpg",
+            "caption": "Tulip, in blue velvet, made up for the night."
+          }
+        },
+        "p02": {
+          "type": "photo",
+          "settings": {
+            "image_fallback": "ms-photo-sleep-pillows.jpg",
+            "caption": "Pillows against a padded headboard."
+          }
+        },
+        "p03": {
+          "type": "photo",
+          "settings": {
+            "image_fallback": "ms-photo-sleep-turned-down.jpg",
+            "caption": "Turned down for the night."
+          }
+        },
+        "p04": {
+          "type": "photo",
+          "settings": {
+            "image_fallback": "ms-photo-sleep-throw.jpg",
+            "caption": "A throw folded back at the foot of the bed."
+          }
+        },
+        "p05": {
+          "type": "photo",
+          "settings": {
+            "image_fallback": "ms-photo-sleep-made-up.jpg",
+            "caption": "A bed made up in the blue-and-gold room."
+          }
+        }
+      },
+      "block_order": [
+        "p01",
+        "p02",
+        "p03",
+        "p04",
+        "p05"
+      ]
     }
   },
   "order": [
     "s01",
     "s02",
+    "night",
     "s03",
+    "rooms",
     "s04",
     "s05",
     "next"

@@ -56,7 +56,7 @@ FABRICS = [
      'colours': [(n, h, f, f[:-4] + '-l.jpg') for (n, h, f) in CARDS['altai']]},
     {'key': 'wish', 'name': 'Wish', 'code': 'A702384RS', 'comp': 'Bouclé of virgin wool and cashmere', 'texture': 'boucle',
      'text': 'A bouclé of wool and cashmere, soft and deep, its loops catching the light. It dresses Bellini, and the boxspring of Flora.',
-     'systems': 'Bellini; the boxspring of Flora.', 'image': 'ms-lp-wish-l.jpg', 'caption': 'The bouclé, close up: wool and cashmere', 'colours': []},
+     'systems': 'Bellini; the boxspring of Flora.', 'image': 'ms-lp-wish-l.jpg', 'caption': 'The bouclé, close up: wool and cashmere, in two of its colours', 'colours': []},
     {'key': 'cardi', 'name': 'Cardi', 'code': 'Fiore di Cardo, A702050RS', 'comp': '90% virgin wool, 10% cashmere', 'texture': 'wool',
      'text': 'Loro Piana Interiors’ Fiore di Cardo: wool and cashmere woven with a thistle flower. It dresses the winter face of the Flora topper; the summer face is linen and cotton.',
      'systems': 'Flora: the topper.', 'image': 'ms-lp-cardi-l.jpg', 'caption': 'On the Flora topper', 'colours': []},
