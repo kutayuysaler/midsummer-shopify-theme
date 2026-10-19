@@ -1,0 +1,639 @@
+@1ac9af5
+Topper, materasso e boxspring, fatti come un tutt’uno
+Топпер, матрас и бокс-спринг, созданные как единое целое
+
+@b99a181
+Due parti, fatte come una.
+Две части, созданные как одна.
+
+@557744b
+Materasso e boxspring, fatti come un tutt’uno; un topper, se lo desideri
+Матрас и бокс-спринг, созданные как единое целое; топпер — по желанию
+
+@0b743a9
+Fatto come un tutt’uno, in due parti
+Единое целое из двух частей
+
+@8150f9d
+Materasso e boxspring, in uno
+Матрас и бокс-спринг в одном
+
+@334f5d1
+Materasso e topper, in uno
+Матрас и топпер в одном
+
+@ebb0619
+Opzionale
+По желанию
+
+@7ef11e5
+Opzionale con [name]
+По желанию с [name]
+
+@576768b
+Il materasso; ciò che lo completa, a contorno
+Матрас; то, что его дополняет, — контуром
+
+@66ded55
+Il topper; ciò che sta sotto, a contorno
+Топпер; то, что под ним, — контуром
+
+@12a5470
+Il boxspring; ciò che sta sopra, a contorno
+Бокс-спринг; то, что над ним, — контуром
+
+@36a7d16
+Tutti i topper|Tutti i materassi|Tutti i boxspring
+Все топперы|Все матрасы|Все бокс-спринги
+
+@e0267b8
+Il letto intero
+Вся кровать
+
+@49db0fc
+Dentro un letto Midsummer
+Внутри кровати Midsummer
+
+@dde2fbd
+Cosa usiamo di solito
+Что мы обычно используем
+
+@512a325
+Tre parti, fatte come una.
+Три части, созданные как одна.
+
+@3dc98f5
+Apri una parte del letto
+Откройте часть кровати
+
+@e1b7b03
+Capitonné a mano
+Простёгано вручную
+
+@398c652
+Bordi cuciti a mano
+Кромки прошиты вручную
+
+@3e93430
+Parte successiva
+Следующая часть
+
+@5efa2c7
+La costruzione esatta di ogni sistema si mostra in atelier, con le fibre tra le mani.
+Точное исполнение каждой системы показывают в ателье — с волокнами в ваших руках.
+
+@c3bf447
+Apri
+Открыть
+
+@9960119
+La superficie che senti per prima, e la parte che segue le stagioni.
+Поверхность, которую вы чувствуете первой, и часть, которая следует за сезонами.
+
+@6e80584
+Ogni fibra
+Все волокна
+
+@d0e1a86
+La superficie che senti per prima. Fibre naturali scelte per la stagione, da girare quando l’anno gira.
+Поверхность, которую вы чувствуете первой. Натуральные волокна, подобранные по сезону, — её переворачивают, когда меняется год.
+
+@72423f4
+Il topper
+Топпер
+
+@b3befbd
+Il cuore del sistema: un sostegno che segue il corpo per tutta la notte.
+Сердце системы: поддержка, которая следует за телом всю ночь.
+
+@773c4b3
+Il cuore del sistema. Un sostegno che segue il corpo per tutta la notte, rifinito a mano fino all’ultimo punto.
+Сердце системы. Поддержка, которая следует за телом всю ночь, завершённая вручную до последнего стежка.
+
+@0b39054
+La base, e la parte del letto che la stanza vede.
+Основание — и та часть кровати, которую видит комната.
+
+@f3c2a91
+I tessuti Loro Piana Interiors
+Ткани Loro Piana Interiors
+
+@4f1ba4a
+La base, rivestita per la tua stanza in Loro Piana Interiors o in altri tessuti naturali, e fatta per portare materasso e topper per molti anni.
+Основание, обитое для вашей комнаты тканями Loro Piana Interiors или другими натуральными тканями и созданное, чтобы много лет нести ваш матрас и топпер.
+
+@e6a36f0
+Ogni sistema è un topper, un materasso e un boxspring, fatti insieme a mano in Italia e specificati con te: misura, rigidità, fibre e tessuto.
+Каждая система — это топпер, матрас и бокс-спринг, созданные вместе вручную в Италии и подобранные с вами: размер, жёсткость, волокна и ткань.
+
+@bbbbe70
+Confronta le tre collezioni
+Сравнить три коллекции
+
+@2a16fc6
+Ogni sistema di questa collezione si vede in atelier ed è realizzato su ordinazione. Chiedici l’elenco completo, con le fotografie.
+Каждую систему этой коллекции можно увидеть в ателье, и каждая создаётся на заказ. Попросите у нас полный список с фотографиями.
+
+@031a056
+Prenota un appuntamento|appointment,Richiedi una proposta|proposal,Richiedi la brochure|brochure,Richiedi una chiamata|callback,Richiesta professionale|trade,Diventa partner|partner,Lascia un messaggio|message
+Записаться на встречу|appointment,Запросить предложение|proposal,Запросить брошюру|brochure,Заказать обратный звонок|callback,Запрос для профессионалов|trade,Стать партнёром|partner,Оставить сообщение|message
+
+@b7a1df8
+Prenota un appuntamento
+Записаться на встречу
+
+@28d04c2
+Dal lunedì al venerdì
+С понедельника по пятницу
+
+@c485fdc
+Atelier e showroom
+Ателье и шоурум
+
+@f130905
+I sistemi, le fibre e i tessuti Loro Piana Interiors, inviati dall’atelier.
+Системы, волокна и ткани Loro Piana Interiors — ателье пришлёт их вам.
+
+@b6411bf
+Dicci quando ti è comodo; una persona dell’atelier ti chiamerà.
+Скажите, когда вам удобно, — вам позвонит сотрудник ателье.
+
+@ff882f3
+Tutto il resto: rigenerazione, cura o stampa.
+Всё остальное: обновление, уход или пресса.
+
+@12af8b6
+Rappresenta Midsummer Milano nel tuo mercato, come showroom o agente.
+Представляйте Midsummer Milano на вашем рынке — как шоурум или агент.
+
+@93bc2a6
+Una specifica scritta con il suo prezzo, per il tuo sistema, la tua misura e la tua stanza.
+Письменная спецификация с ценой — для вашей системы, размера и комнаты.
+
+@078a824
+Architetti, interior designer e hospitality: disegni, campioni e condizioni.
+Архитекторы, дизайнеры интерьера и гостиничный бизнес: чертежи, образцы и условия.
+
+@52c4c8f
+Oppure parlaci direttamente.
+Или свяжитесь с нами напрямую.
+
+@0c488d1
+Grazie. L’atelier risponderà entro un giorno lavorativo.
+Спасибо. Ателье ответит в течение одного рабочего дня.
+
+@00b2b18
+Entro un giorno lavorativo, da una persona
+В течение одного рабочего дня — от человека
+
+@25d8df6
+Risposta
+Ответ
+
+@0149d12
+Via Andegari 4, Milano, o in video
+Via Andegari 4, Милан, или по видеосвязи
+
+@b3c5b21
+Dove
+Где
+
+@92314c7
+Su richiesta; lo determina la specifica
+По запросу; её определяет спецификация
+
+@2078a6e
+La tua richiesta
+Ваш запрос
+
+@e5d38ee
+Contatta l’atelier.
+Свяжитесь с ателье.
+
+@0d1a98c
+Dal lunedì al venerdì, 09:00–12:00 e 13:00–18:00, ora di Milano. Su appuntamento.
+С понедельника по пятницу, 09:00–12:00 и 13:00–18:00 по миланскому времени. По предварительной записи.
+
+@e5592c1
+Sette modi per raggiungere l’atelier. Qualunque tu scelga, una persona segue la tua richiesta dal primo messaggio al giorno in cui il letto è preparato nella tua stanza.
+Семь способов связаться с ателье. Какой бы вы ни выбрали, один человек ведёт ваш запрос от первого сообщения до дня, когда кровать застелют в вашей комнате.
+
+@9788e5c
+Da un messaggio a un letto preparato.
+От сообщения до застеленной кровати.
+
+@a273f1b
+Cosa succede dopo
+Что дальше
+
+@c36624f
+Trova uno showroom vicino a te.
+Найдите шоурум рядом с вами.
+
+@c5df4c4
+Stampa e rigenerazione
+Пресса и обновление
+
+@bd5b551
+Lascia un messaggio
+Оставить сообщение
+
+@727d7d0
+Per stampa, cura e rigenerazione dopo quindici anni di un letto che possiedi, lascia un messaggio e arriverà alla persona giusta.
+По вопросам прессы, ухода и обновления вашей кровати через пятнадцать лет оставьте сообщение — оно дойдёт до нужного человека.
+
+@8939aae
+Risponde una persona, entro un giorno lavorativo.
+Отвечает человек — в течение одного рабочего дня.
+
+@b89d44c
+Entro un giorno lavorativo, dalla persona che seguirà la tua richiesta fino alla fine.
+В течение одного рабочего дня — от человека, который будет вести ваш запрос до конца.
+
+@e3333a0
+Una risposta da una persona
+Ответ от человека
+
+@29a288a
+Nell’atelier di Via Andegari, in video, o sul tuo progetto: la stanza, il tuo modo di dormire, il tessuto.
+В ателье на Виа Андегари, по видеосвязи или на вашем объекте: комната, то, как вы спите, ткань.
+
+@79414b1
+Una conversazione
+Разговор
+
+@48ff810
+Disegni, materiali e prezzo per iscritto. Poi il letto è fatto a mano, dall’inizio alla fine, e la nostra squadra lo consegna.
+Чертежи, материалы и цена — письменно. Затем кровать создают вручную, от начала до конца, и доставляет её наша собственная команда.
+
+@11a3db5
+Una specifica, poi la realizzazione
+Спецификация, затем изготовление
+
+@8b777eb
+=
+=
+
+@9cc8272
+Scrivici o mandaci un messaggio
+Напишите нам
+
+@c2165a1
+Richiesta
+Запрос
+
+@e062622
+Seleziona
+Выберите
+
+@2c9b5b1
+Sig.
+Г-н
+
+@7f2a1b5
+Sig.ra
+Г-жа
+
+@78e8eaa
+Sig.na
+Г-жа
+
+@611e23e
+Dott.
+Д-р
+
+@0488192
+Arch.
+Арх.
+
+@7d991d8
+Nome*
+Имя*
+
+@d2cd101
+Cognome*
+Фамилия*
+
+@763edb7
+=
+Эл. почта*
+
+@f0b2b18
+Telefono*
+Телефон*
+
+@7d1f277
+Scrivi all’atelier.
+Напишите в ателье.
+
+@c70fa14
+Data preferita*
+Желаемая дата*
+
+@f4c6f85
+Note
+Примечания
+
+@9b2a22d
+Inviando accetti i nostri termini e condizioni e l’informativa sulla privacy.
+Отправляя форму, вы соглашаетесь с нашими условиями и политикой конфиденциальности.
+
+@a4d3b16
+Invia
+Отправить
+
+@bd2ecf6
+Apri la pagina completa delle richieste →
+Открыть полную страницу запросов →
+
+@b859b31
+Oppure parlaci
+Или поговорите с нами
+
+@33574cd
+Lun–Ven, 09:00–18:00
+Пн–Пт, 09:00–18:00
+
+@b74b767
+Vieni in atelier in Via Andegari, o incontraci in video. Confermiamo entro un giorno lavorativo.
+Приходите в ателье на Виа Андегари или встретьтесь с нами по видеосвязи. Мы подтвердим в течение одного рабочего дня.
+
+@73af0f6
+Vorrei
+Я хочу
+
+@d2d82a1
+Richiedi la brochure
+Запросить брошюру
+
+@779356e
+Richiedi una chiamata
+Заказать обратный звонок
+
+@70c514b
+Titolo*
+Обращение*
+
+@bbaff12
+Contatti
+Контакты
+
+@b4cfe91
+Scrivi all’atelier
+Написать в ателье
+
+@78848b5
+In breve
+Коротко
+
+@1ab826f
+Midsummer Milano in breve
+Midsummer Milano коротко
+
+@8b90d34
+Cosa si chiede prima di decidere.
+О чём спрашивают, прежде чем решиться.
+
+@da2a987
+Risposte su come sono fatti i letti, come si specificano e come se ne ha cura.
+Ответы о том, как создаются кровати, как их подбирают и как за ними ухаживать.
+
+@34ac805
+Argomenti
+Темы
+
+@a97ea56
+Domanda
+Вопрос
+
+@528c4e1
+Non c’è?
+Не нашли ответа?
+
+@9585b70
+Scrivi all’atelier e una persona ti risponderà entro un giorno lavorativo.
+Напишите в ателье — человек ответит вам в течение одного рабочего дня.
+
+@135a767
+Chiedicelo direttamente
+Спросите нас напрямую
+
+@709468a
+Tutte
+Все
+
+@4d2458f
+Dagli animali
+Животного происхождения
+
+@25fb4b1
+Nei nostri letti
+В наших кроватях
+
+@46f3057
+Le fibre
+Волокна
+
+@532c36b
+Cosa conta di più per te?
+Что для вас важнее всего?
+
+@b87fdf7
+Sotto la lente
+Под лупой
+
+@bb1c914
+La fascia chiara è un capello umano, circa 70 µm, alla stessa scala.
+Светлая полоса — человеческий волос, около 70 мкм, в том же масштабе.
+
+@f42f185
+Materasso
+Матрас
+
+@090c0ac
+Sistema letto
+Спальная система
+
+@a78e29d
+=
+Топпер
+
+@cb49831
+Mostra meno
+Показать меньше
+
+@79bb17c
+La sua origine
+Его происхождение
+
+@3edf8ca
+Origine
+Происхождение
+
+@543bcd9
+Dalle piante
+Растительного происхождения
+
+@bc9a805
+Tavola
+Таблица
+
+@dd2bb7b
+All’origine
+У истоков
+
+@e1520b5
+Specie
+Вид
+
+@f9f21c1
+=
+=
+
+@b368a57
+=
+=
+
+@8fd0037
+=
+=
+
+@b0478fc
+=
+=
+
+@47b2959
+=
+=
+
+@9f8de3d
+=
+=
+
+@7ded5da
+=
+=
+
+@f5f94d3
+=
+=
+
+@e452a43
+=
+=
+
+@926f9b9
+=
+=
+
+@b3e977e
+=
+=
+
+@ff8a824
+=
+=
+
+@a0d273c
+=
+=
+
+@fcd5a50
+=
+=
+
+@b368d7f
+Cifre
+Цифры
+
+@08ab965
+In cifre
+В цифрах
+
+@1ce804d
+Segui l’atelier
+Следите за ателье
+
+@526fb39
+I letti nelle case per cui sono stati fatti, le fibre come arrivano e i nostri artigiani al lavoro. Seguici, o scrivici su WhatsApp.
+Кровати в домах, для которых они созданы, волокна в момент их поступления и наши мастера за работой. Подписывайтесь или пишите нам в WhatsApp.
+
+@5e764a7
+Fotografie
+Фотографии
+
+@f8c4e69
+Letti e materassi artigianali di lusso, realizzati uno per uno.
+Роскошные кровати и матрасы ручной работы, созданные по одному.
+
+@b938eea
+Disegniamo sogni. Ogni letto è fatto a mano in Italia, su ordinazione, uno alla volta.
+Мы создаём мечты. Каждую кровать делают вручную в Италии, на заказ, по одной.
+
+@cc2b710
+Nel nostro atelier di Milano, o in videochiamata
+В нашем ателье в Милане или по видеосвязи
+
+@3518669
+C’è un modo di dormire che va oltre il riposo. È bellezza, benessere e rispetto per la natura.
+Есть сон, который больше, чем отдых. Это красота, благополучие и уважение к природе.
+
+@594cf12
+Midsummer Milano nasce dall’incontro tra il design italiano, un artigianato d’eccezione e i materiali naturali più pregiati. Ogni sistema letto è realizzato a mano, uno per uno, dall’inizio alla fine. Questa continuità artigianale rende possibile una vera personalizzazione: nelle dimensioni, nelle altezze, nei materiali, nei tessuti e nei livelli di comfort. Non un’eccezione, ma il nostro standard.
+Midsummer Milano рождается из встречи итальянского дизайна, исключительного мастерства и лучших натуральных материалов. Каждая спальная система создаётся вручную, по одной, от начала до конца. Эта ремесленная непрерывность делает возможной подлинную персонализацию — размеров, высоты, материалов, тканей и уровня комфорта. Не исключение, а наш стандарт.
+
+@3477b94
+Lavoriamo con lana, cashmere, seta, crine di cavallo, lino e Orange Fiber. Rivestiamo i nostri sistemi con tessuti Loro Piana Interiors, che cambiano con le stagioni come cambiano le nostre esigenze.
+Мы работаем с шерстью, кашемиром, шёлком, конским волосом, льном и Orange Fiber. Мы обиваем наши системы тканями Loro Piana Interiors, которые меняются вместе с сезонами, как меняются и наши потребности.
+
+@238ad99
+Tre collezioni
+Три коллекции
+
+@7b5ff26
+I pezzi più importanti che realizziamo. Completamente su misura, senza equivalenti sul mercato.
+Самые значимые наши изделия. Полностью по индивидуальному заказу, без аналогов на рынке.
+
+@3af0df0
+Tutti i sistemi →
+Все системы →
+
+@3296dd2
+Il punto d’ingresso nel mondo Midsummer. Fibre naturali, autentica lavorazione artigianale, linee pulite.
+Точка входа в мир Midsummer. Натуральные волокна, подлинное ремесленное исполнение, чистые линии.
+
+@696f186
+Il cuore della collezione. Fibre naturali preziose, in lino naturale o Loro Piana Interiors, pensate per il massimo comfort.
+Сердце коллекции. Драгоценные натуральные волокна, в натуральном льне или Loro Piana Interiors, для высочайшего комфорта.
+
+@aed6cab
+Il letto Paisley in seta e lino Shadan di Loro Piana Interiors
+Кровать Paisley из шёлка и льна Shadan от Loro Piana Interiors
+
+@557845b
+Tessuto Loro Piana Interiors Shadan in seta e lino, su baby alpaca, lana e lino. Caldo d’inverno, traspirante d’estate.
+Ткань Loro Piana Interiors Shadan из шёлка и льна поверх бэби-альпаки, шерсти и льна. Тёплая зимой, дышащая летом.
+
+@7d56063
+Vedi il sistema
+Смотреть систему
+
+@64cbae0
+Dettaglio cucito a mano
+Деталь, прошитая вручную
+
+@8e37dbb
+A mano.
+Вручную.
+
+@7fcaec1
+Un letto alla volta.
+По одной кровати.
+
+@8a884c4
+Nessuna catena di montaggio. Ogni letto è fatto a mano dal primo all’ultimo punto, ed è per questo che cambiare dimensione, altezza o tessuto è una scelta e non un’eccezione.
+Никакого конвейера. Каждую кровать создают вручную от первого до последнего стежка — поэтому другой размер, высота или ткань это решение, а не исключение.
+
+@21a0e16
+Fianco cucito a mano, Paisley. Via Andegari 4, Milano.
+Боковина, прошитая вручную, Paisley. Via Andegari 4, Милан.

@@ -55,20 +55,20 @@
   <div class="ms-fa__in">
     <div class="ms-fa__head">
       <div>
-        {%- if s.eyebrow != blank -%}<div class="ms-fa__eyebrow">{{ s.eyebrow }}</div>{%- endif -%}
-        <h2 class="ms-fa__title">{{ s.heading }}</h2>
+        {%- if s.eyebrow != blank -%}<div class="ms-fa__eyebrow">{% render 'ms-t', v: s.eyebrow %}</div>{%- endif -%}
+        <h2 class="ms-fa__title">{% render 'ms-t', v: s.heading %}</h2>
       </div>
-      {%- if s.text != blank -%}<p class="ms-fa__text">{{ s.text }}</p>{%- endif -%}
+      {%- if s.text != blank -%}<p class="ms-fa__text">{% render 'ms-t', v: s.text %}</p>{%- endif -%}
     </div>
 
     <div class="ms-fa__grid" style="--fa-rows: {{ n_rows }};">
-      <div class="ms-fa__filter" role="group" aria-label="{{ s.filter_label | escape }}">
-        <span class="ms-fa__fl">{{ s.filter_label }}</span>
+      <div class="ms-fa__filter" role="group" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.filter_label %}{% endcapture %}{{ ms_t_out | escape }}">
+        <span class="ms-fa__fl">{% render 'ms-t', v: s.filter_label %}</span>
         <div class="ms-fa__qs-list">
-          <button type="button" class="ms-fa__q is-on" data-fa-q="" aria-pressed="true">{{ s.all_label }}</button>
+          <button type="button" class="ms-fa__q is-on" data-fa-q="" aria-pressed="true">{% render 'ms-t', v: s.all_label %}</button>
           {%- for q in qs -%}
             {%- assign ql = 'q_' | append: q -%}
-            {%- if s[ql] != blank -%}<button type="button" class="ms-fa__q" data-fa-q="{{ q }}" aria-pressed="false">{{ s[ql] }}</button>{%- endif -%}
+            {%- if s[ql] != blank -%}<button type="button" class="ms-fa__q" data-fa-q="{{ q }}" aria-pressed="false">{% render 'ms-t', v: s[ql] %}</button>{%- endif -%}
           {%- endfor -%}
         </div>
       </div>
@@ -82,9 +82,13 @@
           assign id = 'fibre-' | append: slug
           assign num = forloop.index | prepend: '0' | slice: -2, 2
           if g == 'plant'
-            assign glabel = s.plant_label
+            capture glabel
+              render 'ms-t', v: s.plant_label
+            endcapture
           else
-            assign glabel = s.animal_label
+            capture glabel
+              render 'ms-t', v: s.animal_label
+            endcapture
           endif
           assign draw = 'ms-fibre-draw-' | append: slug | append: '.svg' | asset_url
           assign photo = ''
@@ -105,13 +109,16 @@
           <button type="button" class="ms-fa__row{% if forloop.first %} is-on{% endif %}" id="{{ id }}-tab" data-fa-open="{{ id }}" aria-controls="{{ id }}" aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}">
             <span class="ms-fa__n" aria-hidden="true">{{ num }}</span>
             <span class="ms-fa__mk" aria-hidden="true">{% render 'ms-fibre-mark', name: bs.mark, size: 26 %}</span>
-            <span class="ms-fa__nm">{{ bs.name }}</span>
-            {%- if bs.quality_label != blank -%}<span class="ms-fa__ql">{{ bs.quality_label }}</span>{%- endif -%}
+            <span class="ms-fa__nm">{% render 'ms-t', v: bs.name %}</span>
+            {%- if bs.quality_label != blank -%}<span class="ms-fa__ql">{% render 'ms-t', v: bs.quality_label %}</span>{%- endif -%}
           </button>
         </h3>
         <div class="ms-fa__p{% if forloop.first %} is-on{% endif %}" id="{{ id }}" role="region" aria-labelledby="{{ id }}-tab" {{ b.shopify_attributes }}{% unless forloop.first %} hidden{% endunless %}>
           {%- liquid
-            assign pts = bs.points | default: '' | split: ';'
+            capture pts
+              render 'ms-t', v: bs.points
+            endcapture
+            assign pts = pts | default: '' | split: ';'
             assign view = 'glass'
             if photo != ''
               assign view = 'source'
@@ -131,30 +138,38 @@
               assign cx = cx | divided_by: npt
             endif
             # under the glass: how fine, beside the human hair drawn behind it (the number once: not where a figure gives it)
-            assign um = bs.microns | default: '' | strip
+            capture um
+              render 'ms-t', v: bs.microns
+            endcapture
+            assign um = um | default: '' | strip
             if bs.f1 contains 'µm' or bs.f2 contains 'µm' or bs.f3 contains 'µm'
               assign um = ''
             endif
             if um != '' and s.fine_line != blank
-              assign measure = s.fine_line | replace: '[n]', um
+              capture measure
+                render 'ms-t', v: s.fine_line
+              endcapture
+              assign measure = measure | replace: '[n]', um
             else
-              assign measure = s.hair_line
+              capture measure
+                render 'ms-t', v: s.hair_line
+              endcapture
             endif
           -%}
           <div class="ms-fa__pl">
           <figure class="ms-fa__plate" data-fa-plate data-view="{{ view }}">
             <div class="ms-fa__views">
               {%- if photo != '' -%}
-                <div class="ms-fa__v ms-fa__v--source"><img class="ms-fa__photo" src="{{ photo }}" srcset="{{ photo_sm }} 720w, {{ photo }} 1400w" sizes="(max-width: 860px) 92vw, 28vw" alt="{{ bs.alt | escape }}" width="1400" height="1400" loading="lazy"></div>
+                <div class="ms-fa__v ms-fa__v--source"><img class="ms-fa__photo" src="{{ photo }}" srcset="{{ photo_sm }} 720w, {{ photo }} 1400w" sizes="(max-width: 860px) 92vw, 28vw" alt="{% capture ms_t_out %}{% render 'ms-t', v: bs.alt %}{% endcapture %}{{ ms_t_out | escape }}" width="1400" height="1400" loading="lazy"></div>
               {%- endif -%}
               <div class="ms-fa__v ms-fa__v--glass">
-                <button type="button" class="ms-fa__field" data-fa-field aria-label="{{ s.zoom_label | escape }}" aria-pressed="false"><img class="ms-fa__draw" src="{{ draw }}" alt="{{ s.draw_alt | replace: '[fibre]', bs.name | escape }}" width="800" height="1000" loading="lazy"></button>
+                <button type="button" class="ms-fa__field" data-fa-field aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.zoom_label %}{% endcapture %}{{ ms_t_out | escape }}" aria-pressed="false"><img class="ms-fa__draw" src="{{ draw }}" alt="{% capture ms_t_out %}{% render 'ms-t', v: s.draw_alt %}{% endcapture %}{{ ms_t_out | replace: '[fibre]', bs.name | escape }}" width="800" height="1000" loading="lazy"></button>
                 <svg class="ms-fa__reticle" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="99" fill="none" stroke="currentColor" stroke-width=".6"/>{%- for t in (0..35) -%}{%- assign tl = 3 -%}{%- assign m9 = t | modulo: 9 -%}{%- if m9 == 0 -%}{%- assign tl = 7 -%}{%- endif -%}<path d="M100 1v{{ tl }}" transform="rotate({{ t | times: 10 }} 100 100)" stroke="currentColor" stroke-width=".6"/>{%- endfor -%}</svg>
               </div>
               {%- if npt > 0 -%}
                 <div class="ms-fa__v ms-fa__v--map">
                   <div class="ms-fa__mapw" style="--cx: {{ cx | round: 2 }}%;">
-                    <img class="ms-fa__world" src="{{ 'ms-fibre-world.svg' | asset_url }}" alt="{{ s.map_label | append: ': ' | append: bs.origin | escape }}" width="1000" height="369" loading="lazy">
+                    <img class="ms-fa__world" src="{{ 'ms-fibre-world.svg' | asset_url }}" alt="{% capture ms_d1 %}{% render 'ms-t', v: bs.origin %}{% endcapture %}{% capture ms_t_out %}{% render 'ms-t', v: s.map_label %}{% endcapture %}{{ ms_t_out | append: ': ' | append: ms_d1 | escape }}" width="1000" height="369" loading="lazy">
                     {%- for pt in pts -%}
                       {%- assign ll = pt | split: ',' -%}
                       {%- if ll.size == 2 -%}
@@ -168,38 +183,38 @@
               {%- endif -%}
             </div>
             <figcaption class="ms-fa__cap">
-              <span class="ms-fa__pn">{{ s.plate_label }} {{ num }}</span>
-              {%- if photo != '' -%}<span class="ms-fa__cv ms-fa__cv--source">{{ bs.alt }}</span>{%- endif -%}
-              <span class="ms-fa__cv ms-fa__cv--glass">{{ measure | default: s.glass_label }}{%- if s.zoom_hint != blank -%}<em>{{ s.zoom_hint }}</em>{%- endif -%}</span>
-              {%- if npt > 0 -%}<span class="ms-fa__cv ms-fa__cv--map">{{ bs.origin }}</span>{%- endif -%}
+              <span class="ms-fa__pn">{% render 'ms-t', v: s.plate_label %} {{ num }}</span>
+              {%- if photo != '' -%}<span class="ms-fa__cv ms-fa__cv--source">{% render 'ms-t', v: bs.alt %}</span>{%- endif -%}
+              <span class="ms-fa__cv ms-fa__cv--glass">{% capture ms_d2 %}{% render 'ms-t', v: s.glass_label %}{% endcapture %}{{ measure | default: ms_d2 }}{%- if s.zoom_hint != blank -%}<em>{% render 'ms-t', v: s.zoom_hint %}</em>{%- endif -%}</span>
+              {%- if npt > 0 -%}<span class="ms-fa__cv ms-fa__cv--map">{% render 'ms-t', v: bs.origin %}</span>{%- endif -%}
             </figcaption>
           </figure>
           {%- if photo != '' or npt > 0 -%}
-            <div class="ms-fa__tabs" role="group" aria-label="{{ bs.name | escape }}">
-              {%- if photo != '' -%}<button type="button" class="ms-fa__tab" data-fa-view="source" aria-pressed="{% if view == 'source' %}true{% else %}false{% endif %}">{{ s.source_label }}</button>{%- endif -%}
-              <button type="button" class="ms-fa__tab" data-fa-view="glass" aria-pressed="{% if view == 'glass' %}true{% else %}false{% endif %}">{{ s.glass_label }}</button>
-              {%- if npt > 0 -%}<button type="button" class="ms-fa__tab" data-fa-view="map" aria-pressed="false">{{ s.map_label }}</button>{%- endif -%}
+            <div class="ms-fa__tabs" role="group" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: bs.name %}{% endcapture %}{{ ms_t_out | escape }}">
+              {%- if photo != '' -%}<button type="button" class="ms-fa__tab" data-fa-view="source" aria-pressed="{% if view == 'source' %}true{% else %}false{% endif %}">{% render 'ms-t', v: s.source_label %}</button>{%- endif -%}
+              <button type="button" class="ms-fa__tab" data-fa-view="glass" aria-pressed="{% if view == 'glass' %}true{% else %}false{% endif %}">{% render 'ms-t', v: s.glass_label %}</button>
+              {%- if npt > 0 -%}<button type="button" class="ms-fa__tab" data-fa-view="map" aria-pressed="false">{% render 'ms-t', v: s.map_label %}</button>{%- endif -%}
             </div>
           {%- endif -%}
           </div>
           <div class="ms-fa__txt">
             <div class="ms-fa__eb">{{ glabel }}<span>{{ forloop.index }} / {{ forloop.length }}</span></div>
-            <div class="ms-fa__name">{{ bs.name }}</div>
-            {%- if bs.quality_label != blank -%}<p class="ms-fa__qs">{{ bs.quality_label }}</p>{%- endif -%}
-            {%- if bs.lead != blank -%}<p class="ms-fa__lead">{{ bs.lead }}</p>{%- endif -%}
-            {%- if bs.glass_note != blank -%}<p class="ms-fa__gl"><span>{{ s.glass_label }}</span>{{ bs.glass_note }}</p>{%- endif -%}
+            <div class="ms-fa__name">{% render 'ms-t', v: bs.name %}</div>
+            {%- if bs.quality_label != blank -%}<p class="ms-fa__qs">{% render 'ms-t', v: bs.quality_label %}</p>{%- endif -%}
+            {%- if bs.lead != blank -%}<p class="ms-fa__lead">{% render 'ms-t', v: bs.lead %}</p>{%- endif -%}
+            {%- if bs.glass_note != blank -%}<p class="ms-fa__gl"><span>{% render 'ms-t', v: s.glass_label %}</span>{% render 'ms-t', v: bs.glass_note %}</p>{%- endif -%}
             {%- if bs.f1 != blank or bs.f2 != blank or bs.f3 != blank -%}
               <dl class="ms-fa__figs">
                 {%- for i in (1..3) -%}
                   {%- assign fk = 'f' | append: i -%}{%- assign fc = 'f' | append: i | append: '_cap' -%}
-                  {%- if bs[fk] != blank -%}<div><dt>{{ bs[fk] }}</dt><dd>{{ bs[fc] }}</dd></div>{%- endif -%}
+                  {%- if bs[fk] != blank -%}<div><dt>{{ bs[fk] }}</dt><dd>{% render 'ms-t', v: bs[fc] %}</dd></div>{%- endif -%}
                 {%- endfor -%}
               </dl>
             {%- endif -%}
             {%- if bs.species != blank or bs.origin != blank -%}
               <dl class="ms-fa__meta">
-                {%- if bs.origin != blank -%}<div><dt>{{ s.origin_label }}</dt><dd>{{ bs.origin }}</dd></div>{%- endif -%}
-                {%- if bs.species != blank -%}<div><dt>{{ s.species_label }}</dt><dd>{{ bs.species }}</dd></div>{%- endif -%}
+                {%- if bs.origin != blank -%}<div><dt>{% render 'ms-t', v: s.origin_label %}</dt><dd>{% render 'ms-t', v: bs.origin %}</dd></div>{%- endif -%}
+                {%- if bs.species != blank -%}<div><dt>{% render 'ms-t', v: s.species_label %}</dt><dd>{% render 'ms-t', v: bs.species %}</dd></div>{%- endif -%}
               </dl>
             {%- endif -%}
             {%- liquid
@@ -221,11 +236,17 @@
                       assign seen = seen | append: ep[2] | append: '^'
                       case ep[4]
                         when 'mattress'
-                          assign kl = s.kind_mattress
+                          capture kl
+                            render 'ms-t', v: s.kind_mattress
+                          endcapture
                         when 'topper'
-                          assign kl = s.kind_topper
+                          capture kl
+                            render 'ms-t', v: s.kind_topper
+                          endcapture
                         else
-                          assign kl = s.kind_system
+                          capture kl
+                            render 'ms-t', v: s.kind_system
+                          endcapture
                       endcase
                       # every bed is listed; past the sixth they wait behind 'Show more'
                       if shown < 6
@@ -264,8 +285,8 @@
             -%}
             {%- if links != blank -%}
               <div class="ms-fa__beds">
-                <span class="ms-fa__bl">{{ s.beds_label }}</span>
-                <div class="ms-fa__bs" id="fa-{{ section.id }}-{{ slug }}-beds">{{ links }}</div>{%- if more > 0 -%}<button type="button" class="ms-fa__more" data-fa-more aria-expanded="false" aria-controls="fa-{{ section.id }}-{{ slug }}-beds" data-less="{{ s.less_label | escape }}"><span data-fa-more-l>{{ s.more_label | replace: '[n]', more }}</span><span class="ms-fa__more-i" aria-hidden="true">+</span></button>{%- endif -%}
+                <span class="ms-fa__bl">{% render 'ms-t', v: s.beds_label %}</span>
+                <div class="ms-fa__bs" id="fa-{{ section.id }}-{{ slug }}-beds">{{ links }}</div>{%- if more > 0 -%}<button type="button" class="ms-fa__more" data-fa-more aria-expanded="false" aria-controls="fa-{{ section.id }}-{{ slug }}-beds" data-less="{% capture ms_t_out %}{% render 'ms-t', v: s.less_label %}{% endcapture %}{{ ms_t_out | escape }}"><span data-fa-more-l>{% capture ms_t_out %}{% render 'ms-t', v: s.more_label %}{% endcapture %}{{ ms_t_out | replace: '[n]', more }}</span><span class="ms-fa__more-i" aria-hidden="true">+</span></button>{%- endif -%}
               </div>
             {%- endif -%}
           </div>

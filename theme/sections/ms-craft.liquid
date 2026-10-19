@@ -8,36 +8,88 @@
   assign s = section.settings
   # the words around the drawing live here rather than in the editor: Shopify takes a section
   # of at most forty settings, and Inside the bed is on the homepage and every product page
-  assign tx_heading_mattress = 'The mattress, and what completes it.'
-  assign tx_heading_topper = 'The topper, and the bed beneath it.'
-  assign tx_heading_base = 'The boxspring, and the bed above it.'
+  capture tx_heading_mattress
+    render 'ms-t', v: 'The mattress, and what completes it.'
+  endcapture
+  capture tx_heading_topper
+    render 'ms-t', v: 'The topper, and the bed beneath it.'
+  endcapture
+  capture tx_heading_base
+    render 'ms-t', v: 'The boxspring, and the bed above it.'
+  endcapture
   assign tx_legend_in = '[name]'
-  assign tx_legend_out = 'Not included, to complete the bed'
-  assign tx_winter_label = 'Winter face'
-  assign tx_summer_label = 'Summer face'
-  assign tx_absent_label = 'Not included'
-  assign tx_absent_with = 'Not included with [name]'
-  assign tx_own_label = 'This is [name]'
-  assign tx_mates_label = 'To complete it'
-  assign tx_mates_ask = 'Specify it with [name]'
-  assign tx_cap_system = 'Topper, mattress and boxspring, made as one'
-  assign tx_heading_two = 'Two parts, made as one.'
-  assign tx_cap_opt = 'Mattress and boxspring, made as one; a topper if you wish'
-  assign tx_cap_two = 'Made as one, in two parts'
-  assign tx_one_base_title = 'Mattress and boxspring, in one'
-  assign tx_one_mattress_title = 'Mattress and topper, in one'
-  assign tx_opt_label = 'Optional'
-  assign tx_opt_with = 'Optional with [name]'
-  assign tx_cap_mattress = 'The mattress; what completes it, in outline'
-  assign tx_cap_topper = 'The topper; what lies beneath it, in outline'
-  assign tx_cap_base = 'The boxspring; what lies above it, in outline'
-  assign tx_all = 'All toppers|All mattresses|All boxsprings' | split: '|'
-  assign eyebrow = s.eyebrow
+  capture tx_legend_out
+    render 'ms-t', v: 'Not included, to complete the bed'
+  endcapture
+  capture tx_winter_label
+    render 'ms-t', v: 'Winter face'
+  endcapture
+  capture tx_summer_label
+    render 'ms-t', v: 'Summer face'
+  endcapture
+  capture tx_absent_label
+    render 'ms-t', v: 'Not included'
+  endcapture
+  capture tx_absent_with
+    render 'ms-t', v: 'Not included with [name]'
+  endcapture
+  capture tx_own_label
+    render 'ms-t', v: 'This is [name]'
+  endcapture
+  capture tx_mates_label
+    render 'ms-t', v: 'To complete it'
+  endcapture
+  capture tx_mates_ask
+    render 'ms-t', v: 'Specify it with [name]'
+  endcapture
+  capture tx_cap_system
+    render 'ms-t', v: 'Topper, mattress and boxspring, made as one'
+  endcapture
+  capture tx_heading_two
+    render 'ms-t', v: 'Two parts, made as one.'
+  endcapture
+  capture tx_cap_opt
+    render 'ms-t', v: 'Mattress and boxspring, made as one; a topper if you wish'
+  endcapture
+  capture tx_cap_two
+    render 'ms-t', v: 'Made as one, in two parts'
+  endcapture
+  capture tx_one_base_title
+    render 'ms-t', v: 'Mattress and boxspring, in one'
+  endcapture
+  capture tx_one_mattress_title
+    render 'ms-t', v: 'Mattress and topper, in one'
+  endcapture
+  capture tx_opt_label
+    render 'ms-t', v: 'Optional'
+  endcapture
+  capture tx_opt_with
+    render 'ms-t', v: 'Optional with [name]'
+  endcapture
+  capture tx_cap_mattress
+    render 'ms-t', v: 'The mattress; what completes it, in outline'
+  endcapture
+  capture tx_cap_topper
+    render 'ms-t', v: 'The topper; what lies beneath it, in outline'
+  endcapture
+  capture tx_cap_base
+    render 'ms-t', v: 'The boxspring; what lies above it, in outline'
+  endcapture
+  capture tx_all
+    render 'ms-t', v: 'All toppers|All mattresses|All boxsprings'
+  endcapture
+  assign tx_all = tx_all | split: '|'
+  capture eyebrow
+    render 'ms-t', v: s.eyebrow
+  endcapture
   assign pname = ''
   if template.name == 'product' and product != blank
     assign pname = product.title
     if s.eyebrow_product != blank
-      assign eyebrow = s.eyebrow_product | replace: '[name]', product.title
+      capture eyebrow
+        render 'ms-t', v: s.eyebrow_product
+      endcapture
+      assign eyebrow = eyebrow | replace: '[name]', product.title
     endif
   endif
   # on a product page: a sleep system has a topper, a mattress and a base; a mattress, a topper or a
@@ -84,21 +136,37 @@
   if template.name == 'product' and product != blank and ms_key != '' and ms_key != product.template_suffix
     assign sd = true
   endif
-  assign cr_heading = s.heading
+  capture cr_heading
+    render 'ms-t', v: s.heading
+  endcapture
   case cr_kind
     when 'mattress'
-      assign cr_heading = tx_heading_mattress | default: s.heading
+      capture ms_d1
+        render 'ms-t', v: s.heading
+      endcapture
+      assign cr_heading = tx_heading_mattress | default: ms_d1
     when 'topper'
-      assign cr_heading = tx_heading_topper | default: s.heading
+      capture ms_d2
+        render 'ms-t', v: s.heading
+      endcapture
+      assign cr_heading = tx_heading_topper | default: ms_d2
     when 'base'
-      assign cr_heading = tx_heading_base | default: s.heading
+      capture ms_d3
+        render 'ms-t', v: s.heading
+      endcapture
+      assign cr_heading = tx_heading_base | default: ms_d3
   endcase
-  assign cr_text = s.text
+  capture cr_text
+    render 'ms-t', v: s.text
+  endcapture
   if sd
     capture cr_text
       render 'ms-sys-data', key: ms_key, part: 'text'
     endcapture
-    assign cr_text = cr_text | strip | default: s.text
+    capture ms_d4
+      render 'ms-t', v: s.text
+    endcapture
+    assign cr_text = cr_text | strip | default: ms_d4
   endif
   # on a system's page, Loro Piana Interiors is named only if the system is made in it
   assign lp_free = false
@@ -131,13 +199,23 @@
   assign parts = cr_parts | split: ','
   assign nums = 'I,II,III' | split: ','
   assign n_last = parts.size | minus: 1
-  assign t2 = s.part2_title
-  assign t3 = s.part3_title
+  capture t2
+    render 'ms-t', v: s.part2_title
+  endcapture
+  capture t3
+    render 'ms-t', v: s.part3_title
+  endcapture
   if parts.size == 2
     if cr_parts contains 'topper'
-      assign t3 = tx_one_base_title | default: s.part3_title
+      capture ms_d5
+        render 'ms-t', v: s.part3_title
+      endcapture
+      assign t3 = tx_one_base_title | default: ms_d5
     else
-      assign t2 = tx_one_mattress_title | default: s.part2_title
+      capture ms_d6
+        render 'ms-t', v: s.part2_title
+      endcapture
+      assign t2 = tx_one_mattress_title | default: ms_d6
     endif
   endif
   assign absent_with = tx_absent_with | replace: '[name]', pname
@@ -181,7 +259,7 @@
           <h2 class="ms-cr__title">{{ cr_heading }}</h2>
           {%- if cr_text != blank -%}<p class="ms-cr__text">{% if pname != '' %}{{ cr_text | replace: '[name]', pname }}{% else %}{{ cr_text }}{% endif %}</p>{%- endif -%}
           <div class="ms-cr__pick">
-            {%- if s.hint != blank -%}<p class="ms-cr__hint">{{ s.hint }}</p>{%- endif -%}
+            {%- if s.hint != blank -%}<p class="ms-cr__hint">{% render 'ms-t', v: s.hint %}</p>{%- endif -%}
             <div class="ms-cr__picks" role="group" aria-label="{{ cr_heading | escape }}">
               {%- for p in parts -%}
                 {%- liquid
@@ -196,7 +274,9 @@
                   endif
                   case p
                     when 'topper'
-                      assign c_title = s.part1_title
+                      capture c_title
+                        render 'ms-t', v: s.part1_title
+                      endcapture
                     when 'mattress'
                       assign c_title = t2
                     else
@@ -210,10 +290,10 @@
               <p class="ms-cr__legend"><span class="ms-cr__lg"><i class="ms-cr__lg-in" aria-hidden="true"></i>{{ tx_legend_in | replace: '[name]', pname }}</span><span class="ms-cr__lg"><i class="ms-cr__lg-out" aria-hidden="true"></i>{{ tx_legend_out }}</span></p>
             {%- endif -%}
           </div>
-          {%- if s.note != blank -%}<p class="ms-cr__note">{{ s.note }}</p>{%- endif -%}
+          {%- if s.note != blank -%}<p class="ms-cr__note">{% render 'ms-t', v: s.note %}</p>{%- endif -%}
           <div class="ms-cr__links">
-            {%- if s.button != blank -%}<a class="ms-cr__btn" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=appointment' %}#enquire" data-ms-enquire>{{ s.button }}</a>{%- endif -%}
-            {%- if s.link_label != blank -%}<a class="ms-cr__link" href="{% render 'ms-link', to: s.link_place %}">{{ s.link_label }}<span aria-hidden="true">→</span></a>{%- endif -%}
+            {%- if s.button != blank -%}<a class="ms-cr__btn" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=appointment' %}#enquire" data-ms-enquire>{% render 'ms-t', v: s.button %}</a>{%- endif -%}
+            {%- if s.link_label != blank -%}<a class="ms-cr__link" href="{% render 'ms-link', to: s.link_place %}">{% render 'ms-t', v: s.link_label %}<span aria-hidden="true">→</span></a>{%- endif -%}
           </div>
         </div>
 
@@ -233,9 +313,15 @@
             assign kll = 'part' | append: i | append: '_link_label'
             assign ai = i | minus: 1
             assign infos = 'materials,regen,loro' | split: ','
-            assign c_lead = s[kl]
-            assign c_points = s[kp]
-            assign c_fibres = s[kf]
+            capture c_lead
+              render 'ms-t', v: s[kl]
+            endcapture
+            capture c_points
+              render 'ms-t', v: s[kp]
+            endcapture
+            capture c_fibres
+              render 'ms-t', v: s[kf]
+            endcapture
             assign sk = 'p' | append: i
             capture c_winter
               render 'ms-sys-data', key: ms_key, part: sk, f: 'winter'
@@ -276,7 +362,9 @@
             endif
             case p
               when 'topper'
-                assign c_title = s.part1_title
+                capture c_title
+                  render 'ms-t', v: s.part1_title
+                endcapture
               when 'mattress'
                 assign c_title = t2
               else
@@ -285,7 +373,7 @@
             assign mt = mates[forloop.index0] | split: '^'
           -%}
           <div class="ms-cr__panel{% unless mine %} is-absent{% endunless %}" id="cr-{{ section.id }}-{{ p }}" data-cr-panel="{{ p }}" role="region" aria-label="{{ c_title | escape }}" hidden>
-            <button type="button" class="ms-cr__back" data-cr-close><span aria-hidden="true">←</span> {{ s.back_label }}</button>
+            <button type="button" class="ms-cr__back" data-cr-close><span aria-hidden="true">←</span> {% render 'ms-t', v: s.back_label %}</button>
             <div class="ms-cr__pnum">{{ nums[forloop.index0] }} <span>/ {{ nums[n_last] }}</span></div>
             {%- if cr_kind != 'system' -%}
               {%- if mine -%}<p class="ms-cr__badge"><i aria-hidden="true"></i>{{ tx_own_label | replace: '[name]', pname }}</p>{%- elsif isopt -%}<p class="ms-cr__badge is-out"><i aria-hidden="true"></i>{{ opt_with }}</p>{%- else -%}<p class="ms-cr__badge is-out"><i aria-hidden="true"></i>{{ absent_with }}</p>{%- endif -%}
@@ -306,7 +394,7 @@
               </ul>
             {%- endif -%}
             {%- if c_winter != blank and c_summer != blank -%}
-              <div class="ms-cr__fl">{{ s.fibres_label }}</div>
+              <div class="ms-cr__fl">{% render 'ms-t', v: s.fibres_label %}</div>
               <div class="ms-cr__faces">
                 {%- for side in (1..2) -%}
                   {%- if side == 1 -%}{%- assign fl = c_winter | split: ',' -%}{%- assign fh = tx_winter_label -%}{%- else -%}{%- assign fl = c_summer | split: ',' -%}{%- assign fh = tx_summer_label -%}{%- endif -%}
@@ -319,7 +407,7 @@
                 {%- endfor -%}
               </div>
             {%- elsif c_fibres != blank -%}
-              <div class="ms-cr__fl">{{ s.fibres_label }}</div>
+              <div class="ms-cr__fl">{% render 'ms-t', v: s.fibres_label %}</div>
               <ul class="ms-cr__fibres" role="list">
                 {%- for f in fibres -%}{%- assign fn = f | strip -%}{%- if lp_free and fn contains 'Loro Piana' -%}{%- assign fn = '' -%}{%- endif -%}{%- if fn != '' -%}<li><span class="ms-cr__fi">{% render 'ms-fibre-mark', name: fn, size: 28 %}</span>{{ fn }}</li>{%- endif -%}{%- endfor -%}
               </ul>
@@ -348,15 +436,15 @@
                   assign hash = '#' | append: lp_anchor
                 endif
               -%}
-              {%- if s[kll] != blank and show_link -%}<a class="ms-cr__link" href="{% render 'ms-link', to: info %}{{ hash }}">{{ s[kll] }}<span aria-hidden="true">→</span></a>{%- endif -%}
-              {%- unless forloop.last -%}<button type="button" class="ms-cr__next" data-cr-open="{{ parts[forloop.index] }}">{{ s.next_label }} <span aria-hidden="true">↓</span></button>{%- endunless -%}
+              {%- if s[kll] != blank and show_link -%}<a class="ms-cr__link" href="{% render 'ms-link', to: info %}{{ hash }}">{% render 'ms-t', v: s[kll] %}<span aria-hidden="true">→</span></a>{%- endif -%}
+              {%- unless forloop.last -%}<button type="button" class="ms-cr__next" data-cr-open="{{ parts[forloop.index] }}">{% render 'ms-t', v: s.next_label %} <span aria-hidden="true">↓</span></button>{%- endunless -%}
             </div>
           </div>
         {%- endfor -%}
       </div>
 
       <figure class="ms-cr__draw">
-        {% render 'ms-craft-svg', key: ms_key, u: section.id, aria: cr_heading, t0: tx_absent_label, to: tx_opt_label, t1: s.part1_title, t2: t2, t3: t3 %}
+        {% capture ms_d8 %}{% render 'ms-t', v: s.part1_title %}{% endcapture %}{% render 'ms-craft-svg', key: ms_key, u: section.id, aria: cr_heading, t0: tx_absent_label, to: tx_opt_label, t1: ms_d8, t2: t2, t3: t3 %}
         {%- if pname != '' -%}
           {%- liquid
             case cr_kind
@@ -394,13 +482,18 @@
           assign kx = 'part' | append: i | append: '_text'
           assign ki = 'part' | append: i | append: '_image'
           assign ai = i | minus: 1
-          assign c_text = s[kx]
+          capture c_text
+            render 'ms-t', v: s[kx]
+          endcapture
           if sd
             assign sk = 'p' | append: i
             capture c_text
               render 'ms-sys-data', key: ms_key, part: sk, f: 'lead'
             endcapture
-            assign c_text = c_text | strip | default: s[kx]
+            capture ms_d7
+              render 'ms-t', v: s[kx]
+            endcapture
+            assign c_text = c_text | strip | default: ms_d7
           endif
           assign c_text = c_text | replace: '[name]', pname
           assign mine = false
@@ -414,7 +507,9 @@
           endif
           case p
             when 'topper'
-              assign c_title = s.part1_title
+              capture c_title
+                render 'ms-t', v: s.part1_title
+              endcapture
             when 'mattress'
               assign c_title = t2
             else
@@ -438,7 +533,7 @@
           <span class="ms-cr__ptitle">{{ c_title }}</span>
           <span class="ms-cr__ptext">{% if lp_free %}{{ c_text | replace: ' in Loro Piana Interiors', '' }}{% else %}{{ c_text }}{% endif %}</span>
           {%- if mine or mt[0] == blank -%}
-          <span class="ms-cr__more">{{ s.open_label }} <span aria-hidden="true">↑</span></span>
+          <span class="ms-cr__more">{% render 'ms-t', v: s.open_label %} <span aria-hidden="true">↑</span></span>
         </button>
           {%- else -%}
           <span class="ms-cr__more">{{ tx_all[ai] }} <span aria-hidden="true">→</span></span>
@@ -451,7 +546,7 @@
     <ul class="ms-cr__marks">
       {%- for i in (1..3) -%}
         {%- assign km = 'mark' | append: i -%}
-        {%- if s[km] != blank -%}<li><span class="ms-cr__mk" aria-hidden="true"></span>{{ s[km] }}</li>{%- endif -%}
+        {%- if s[km] != blank -%}<li><span class="ms-cr__mk" aria-hidden="true"></span>{% render 'ms-t', v: s[km] %}</li>{%- endif -%}
       {%- endfor -%}
     </ul>
     {%- endif -%}

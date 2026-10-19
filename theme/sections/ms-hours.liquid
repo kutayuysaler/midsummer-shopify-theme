@@ -5,18 +5,21 @@
 {%- endcomment -%}
 {%- liquid
   assign s = section.settings
-  assign days = s.days | split: ','
+  capture days
+    render 'ms-t', v: s.days
+  endcapture
+  assign days = days | split: ','
 -%}
-<section class="ms-hr" id="ms-hr-{{ section.id }}" aria-labelledby="ms-hr-h-{{ section.id }}" data-am="{{ s.am_open }}-{{ s.am_close }}" data-pm="{{ s.pm_open }}-{{ s.pm_close }}" data-days="{{ s.open_days }}">
+<section class="ms-hr" id="ms-hr-{{ section.id }}" aria-labelledby="ms-hr-h-{{ section.id }}" data-am="{{ s.am_open }}-{{ s.am_close }}" data-pm="{{ s.pm_open }}-{{ s.pm_close }}" data-days="{% render 'ms-t', v: s.open_days %}">
   <div class="ms-hr__wrap">
     <div class="ms-hr__plate">
-      {%- if s.eyebrow != blank -%}<div class="ms-hr__eyebrow">{{ s.eyebrow }}</div>{%- endif -%}
-      <h2 class="ms-hr__h" id="ms-hr-h-{{ section.id }}">{{ s.heading }}</h2>
-      <address class="ms-hr__addr">{{ s.address | newline_to_br }}</address>
-      <p class="ms-hr__now" data-ms-hr-now aria-live="polite">{{ s.appointment_note }}</p>
+      {%- if s.eyebrow != blank -%}<div class="ms-hr__eyebrow">{% render 'ms-t', v: s.eyebrow %}</div>{%- endif -%}
+      <h2 class="ms-hr__h" id="ms-hr-h-{{ section.id }}">{% render 'ms-t', v: s.heading %}</h2>
+      <address class="ms-hr__addr">{% capture ms_t_out %}{% render 'ms-t', v: s.address %}{% endcapture %}{{ ms_t_out | newline_to_br }}</address>
+      <p class="ms-hr__now" data-ms-hr-now aria-live="polite">{% render 'ms-t', v: s.appointment_note %}</p>
       <div class="ms-hr__links">
-        <a class="ms-hr__btn" href="{% render 'ms-link', to: 'enquire' %}">{{ s.book_label }}</a>
-        {%- if s.map_url != blank -%}<a class="ms-hr__map" href="{{ s.map_url }}" target="_blank" rel="noopener">{{ s.map_label }}<svg viewBox="0 0 20 10" width="20" height="10" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><path d="M0 5h18M14 1l4 4-4 4"/></svg></a>{%- endif -%}
+        <a class="ms-hr__btn" href="{% render 'ms-link', to: 'enquire' %}">{% render 'ms-t', v: s.book_label %}</a>
+        {%- if s.map_url != blank -%}<a class="ms-hr__map" href="{{ s.map_url }}" target="_blank" rel="noopener">{% render 'ms-t', v: s.map_label %}<svg viewBox="0 0 20 10" width="20" height="10" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><path d="M0 5h18M14 1l4 4-4 4"/></svg></a>{%- endif -%}
       </div>
     </div>
     <figure class="ms-hr__week">
@@ -34,13 +37,13 @@
               <span class="ms-hr__bar" style="left: {{ a0 }}%; width: {{ a1 }}%"></span>
               <span class="ms-hr__bar" style="left: {{ p0 }}%; width: {{ p1 }}%"></span>
             {%- else -%}
-              <span class="ms-hr__off">{{ s.closed_label }}</span>
+              <span class="ms-hr__off">{% render 'ms-t', v: s.closed_label %}</span>
             {%- endif -%}
             <span class="ms-hr__nowline" hidden></span>
           </div>
         </div>
       {%- endfor -%}
-      <figcaption class="ms-hr__fc">{{ s.footnote }}</figcaption>
+      <figcaption class="ms-hr__fc">{% render 'ms-t', v: s.footnote %}</figcaption>
     </figure>
   </div>
 </section>
@@ -104,7 +107,7 @@
     }
     var now = root.querySelector('[data-ms-hr-now]');
     var hhmm = get('hour') + ':' + get('minute');
-    now.innerHTML = '<i class="' + (open ? 'is-open' : '') + '"></i><span><b>' + (open ? {{ s.open_label | json }} : {{ s.closed_now_label | json }}) + '</b> · ' + {{ s.milan_label | json }} + ' ' + hhmm + '. ' + {{ s.appointment_note | json }} + '</span>';
+    now.innerHTML = '<i class="' + (open ? 'is-open' : '') + '"></i><span><b>' + (open ? {% capture ms_t_out %}{% render 'ms-t', v: s.open_label %}{% endcapture %}{{ ms_t_out | json }} : {% capture ms_t_out %}{% render 'ms-t', v: s.closed_now_label %}{% endcapture %}{{ ms_t_out | json }}) + '</b> · ' + {% capture ms_t_out %}{% render 'ms-t', v: s.milan_label %}{% endcapture %}{{ ms_t_out | json }} + ' ' + hhmm + '. ' + {% capture ms_t_out %}{% render 'ms-t', v: s.appointment_note %}{% endcapture %}{{ ms_t_out | json }} + '</span>';
   })();
 </script>
 

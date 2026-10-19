@@ -6,6 +6,8 @@ theme on the store's Atelier 4.1.5 export.
 - `midsummer-milano-atelier.zip`: upload this file as it is, under Online Store → Themes → Add theme → Upload zip file.
 - `theme/`: the same theme as source files.
 - `INSTALL.md`: page templates, and the store data the design reads.
+- `store-images/`: photographs to upload in the admin (product media, article and collection images); see INSTALL.md §46.
+- `store-translations/`: the store's own words in Italian and Russian, for *Settings → Languages → Import*; see INSTALL.md §46.
 
 ## How it's built
 
@@ -30,4 +32,7 @@ theme on the store's Atelier 4.1.5 export.
   `sections/ms-enquiry-drawer.liquid`.
 - **Site-wide rules and behaviour:** `assets/ms-site.css` and `assets/ms-site.js`.
 - **Fonts:** Newsreader and Red Hat Text, in `snippets/ms-fonts.liquid` and `assets/ms-*.woff2`.
+- **Languages:** every text the theme writes passes through `snippets/ms-t.liquid`, which
+  finds its Italian or Russian under `ms_tx` in `locales/it.json` and `ru.json` (written by
+  `scripts/build_r23.py` from `scripts/tr/src/*.txt`; product and cloth names stay as they are).
 - **Stock Atelier:** everything else, used by the cart, password and gift card pages.

@@ -1,0 +1,787 @@
+@4090b66
+Boxspring
+Бокс-спринг
+
+@e4fa546
+Letto con testiera
+Кровать с изголовьем
+
+@fc61394
+Spilli messi a mano, come tutto il resto qui.
+Булавки расставлены вручную — как и всё остальное здесь.
+
+@a824596
+Mappa d’Italia con i luoghi dei nostri progetti
+Карта Италии с местами наших проектов
+
+@bf32f0a
+Altri progetti
+Другие проекты
+
+@03e4721
+luoghi sulla mappa
+мест на карте
+
+@35a2864
+progetti
+проектов
+
+@25d6694
+Vedi il progetto
+Смотреть проект
+
+@e3b68b3
+Ville sui laghi, appartamenti nei centri storici, il piano di un’ex fabbrica: le stanze in cui ci hanno chiamati, e i letti che vi abbiamo realizzato.
+Виллы на озёрах, квартиры в старых центрах городов, этаж бывшей фабрики: комнаты, куда нас пригласили, и кровати, которые мы для них создали.
+
+@62ce4c2
+Per te realizzeremmo il
+Для вас мы создали бы
+
+@028896f
+Come dormi?
+Как вы спите?
+
+@fa9309c
+← Indietro
+← Назад
+
+@d6ac5a6
+Ricomincia
+Начать заново
+
+@6f6cb72
+Misura
+Размер
+
+@90f5d32
+Una donna che riposa su un materasso Midsummer
+Женщина отдыхает на матрасе Midsummer
+
+@3276733
+Sul fianco
+На боку
+
+@eb8a063
+Fianchi e spalle devono affondare un poco.
+Бёдрам и плечам нужно немного погружаться.
+
+@3b5eb26
+Sulla schiena
+На спине
+
+@f75ce22
+La curva lombare deve restare sostenuta.
+Поясничный изгиб должен оставаться поддержанным.
+
+@033fde2
+A pancia in giù
+На животе
+
+@65044c8
+Una superficie più piana e più rigida mantiene il collo in posizione neutra.
+Более ровная и жёсткая поверхность держит шею в нейтральном положении.
+
+@037d559
+Dipende
+По-разному
+
+@9c23254
+Una superficie equilibrata che funziona in ogni posizione.
+Сбалансированная поверхность, удобная в любом положении.
+
+@d4a4133
+Come deve essere il letto?
+Каким должно ощущаться ложе?
+
+@7b547e4
+Avvolgente
+Обволакивающим
+
+@4a4659d
+Prima la morbidezza, con il sostegno al di sotto.
+Сначала мягкость, а под ней — поддержка.
+
+@c6589f5
+Equilibrato
+Сбалансированным
+
+@ad69669
+Né morbido né rigido — la risposta più scelta.
+Ни мягкое, ни жёсткое — самый частый выбор.
+
+@854cc9d
+Strutturato
+Структурированным
+
+@41ee935
+Rigido, elastico, vicino alla tradizione costruttiva italiana.
+Жёсткое, упругое, близкое к традиционной итальянской работе.
+
+@d343113
+Quanto è calda la stanza di notte?
+Насколько тепло в комнате ночью?
+
+@1829711
+Calda
+Тепло
+
+@b514f9c
+Costiera, meridionale, o una stanza che trattiene il calore.
+У моря, на юге или в комнате, которая держит тепло.
+
+@e832806
+Temperata
+Умеренно
+
+@c1028bf
+Quattro stagioni vere.
+Четыре настоящих времени года.
+
+@1a3c2e9
+Fredda
+Прохладно
+
+@7d237df
+Montagna, nord, o una casa tenuta fresca.
+Горы, север или дом, где поддерживают прохладу.
+
+@0a7eaf7
+Con quale misura lavori?
+С каким размером вы работаете?
+
+@4070ff0
+Queen o King
+Queen или King
+
+@839e352
+=
+170–180 × 200 см
+
+@07acbf3
+Decide la parete, non il catalogo.
+Решает стена, а не каталог.
+
+@2a51cfb
+Fin dove deve spingersi il su misura?
+Насколько индивидуальным должно быть исполнение?
+
+@07c2602
+L’essenziale, fatto bene
+Главное, сделанное как следует
+
+@2c4c0c1
+Fibre naturali e una costruzione onesta.
+Натуральные волокна и честная работа.
+
+@438303a
+Senza limiti
+Без ограничений
+
+@4147776
+Vigogna e cashmere. Nessun dettaglio trascurato.
+Викунья и кашемир. Ни одна деталь не упущена.
+
+@dc0a723
+=
+=
+
+@0f742fd
+Baby alpaca, cucito a mano.
+Бэби-альпака, сшит вручную.
+
+@f4db09e
+Superficie capitonné, comfort avvolgente.
+Поверхность капитоне, обволакивающий комфорт.
+
+@4929f87
+Loro Piana Interiors Shadan, in seta e lino.
+Loro Piana Interiors Shadan, шёлк и лён.
+
+@db2b6dd
+Lino colorato, peso estivo.
+Цветной лён, летний вес.
+
+@38228d8
+=
+=
+
+@0b8a50c
+La costruzione equilibrata, la più scelta di tutte.
+Сбалансированное исполнение — самое востребованное из всех.
+
+@4ae8005
+Boxspring sottile, proporzioni da balcone.
+Тонкий бокс-спринг, пропорции балкона.
+
+@c04933b
+Boxspring e materasso, in un’unica linea pulita.
+Бокс-спринг и матрас — одной чистой линией.
+
+@cdaf2d4
+Sostegno strutturato, proporzione milanese.
+Структурированная поддержка, миланские пропорции.
+
+@c56eed1
+Il sistema più completo della casa.
+Самая полная система дома.
+
+@b9efbd5
+sul fianco
+на боку
+
+@36f747f
+sulla schiena
+на спине
+
+@f663b4f
+a pancia in giù
+на животе
+
+@7fce8e2
+in ogni posizione
+в любом положении
+
+@a1df643
+misura francese
+в двуспальном размере
+
+@2209c44
+misura queen o king
+в размере queen или king
+
+@7753ece
+una misura fatta per te
+в индивидуальном размере
+
+@682160f
+Morbido
+Мягкий
+
+@de86126
+Rigido
+Жёсткий
+
+@87f8a6a
+Medio
+Средний
+
+@77401ad
+Lino, cotone biologico e seta — traspiranti, per stanze calde
+Лён, органический хлопок и шёлк — дышащие, для тёплых комнат
+
+@bafc2e0
+Baby alpaca, yak e lana Cheviot — calore senza peso
+Бэби-альпака, як и шерсть чевиот — тепло без тяжести
+
+@484957e
+Lana Cheviot, crine di cavallo e lino — caldi d’inverno, freschi d’estate
+Шерсть чевиот, конский волос и лён — тепло зимой, свежо летом
+
+@5a76104
+avvolgente
+обволакивающей
+
+@b336df6
+equilibrata
+сбалансированной
+
+@3223451
+strutturata
+структурированной
+
+@15af617
+Dormi {posture} e desideri una superficie {feel}. Per te realizzeremmo il {name} della collezione {collection}, con comfort {firm}, in {size}.
+Вы спите {posture} и хотите, чтобы поверхность была {feel}. Мы создали бы для вас {name} из коллекции {collection} с {firm} комфортом, {size}.
+
+@dc58a79
+morbido
+мягким
+
+@748369c
+rigido
+жёстким
+
+@075a3e3
+medio
+средним
+
+@9ff4b06
+Le mani degli artigiani al lavoro su un materasso
+Руки мастеров за работой над матрасом
+
+@09598dd
+Midsummer Milano × Sostenibilità
+Midsummer Milano × Устойчивость
+
+@d6d74f1
+Il servizio di rigenerazione del materasso 15 + 15.
+Сервис обновления матраса 15 + 15.
+
+@cfbeb00
+Costruito così bene che, quindici anni dopo, non ha quasi bisogno di nulla.
+Сделан так хорошо, что через пятнадцать лет ему почти ничего не нужно.
+
+@d510254
+La promessa
+Обещание
+
+@774134f
+Un materasso che torna a casa.
+Матрас, который возвращается домой.
+
+@217e55c
+La maggior parte dei materassi industriali finisce in discarica dopo otto o dieci anni. Solo in Europa, più di trenta milioni di materassi diventano rifiuti ogni anno. Un materasso Midsummer è costruito in modo diverso. A mano, in Italia, con lana di piccoli allevamenti italiani, crine di cavallo e nobili fibre naturali.
+Большинство промышленных матрасов оказываются на свалке через восемь–десять лет. Только в Европе более тридцати миллионов матрасов ежегодно становятся отходами. Матрас Midsummer создаётся иначе. Вручную, в Италии, из шерсти с небольших итальянских ферм, конского волоса и благородных натуральных волокон.
+
+@792b4da
+Dopo quindici anni torna dai nostri artigiani per uno dei servizi più semplici e discreti nel mondo del letto di lusso: una rigenerazione che, il più delle volte, non toglie quasi nulla. Non un programma di marketing. Un metodo.
+Через пятнадцать лет он возвращается к нашим мастерам ради одной из самых простых и тихих услуг в мире роскошных кроватей: обновления, которое чаще всего почти ничего не убирает. Не маркетинговая программа. Метод.
+
+@9ede660
+Cosa facciamo al quindicesimo anno.
+Что мы делаем на пятнадцатый год.
+
+@030170f
+Sostituire il pannello esterno, solo se rovinato.
+Заменить внешнюю панель — только если она повреждена.
+
+@e065379
+Solo sui nostri materassi con rivestimento bianco, e solo quando il pannello si è rovinato negli anni. Il tessuto Loro Piana Interiors non viene mai sostituito.
+Только на наших матрасах с белым чехлом и только если панель повредилась за эти годы. Ткань Loro Piana Interiors никогда не заменяется.
+
+@9315d36
+Tre cose. Non di più. Se abbiamo costruito bene la prima volta, la seconda serve pochissimo.
+Три вещи. Не больше. Если в первый раз всё сделано хорошо, во второй нужно совсем немного.
+
+@cff1e0a
+Controllare il cuore.
+Осмотреть основу.
+
+@5bf8ed3
+Pezzo per pezzo. L’integrità del cuore, la sua elasticità e lo stato di ogni fibra naturale.
+Деталь за деталью. Целостность основы, её упругость и состояние каждого натурального волокна.
+
+@661de00
+Ricardare la lana.
+Заново прочесать шерсть.
+
+@45b97ee
+La stessa lana che è sempre stata nel tuo materasso viene aperta e ricardata a mano. Le fibre ritrovano volume, traspirabilità ed elasticità.
+Та же шерсть, что всё это время была в вашем матрасе, раскрывается и заново прочёсывается вручную. Волокна возвращают объём, воздухопроницаемость и упругость.
+
+@e3d1d1f
+La promessa 15 + 15
+Обещание 15 + 15
+
+@68545b0
+Anni 15 – 30
+Годы 15 – 30
+
+@55a1add
+Lo stesso materasso torna a casa per altri quindici anni di sonno. Stessa struttura. Stesso tessuto. Stesso carattere.
+Тот же матрас возвращается домой ещё на пятнадцать лет сна. Та же конструкция. Та же ткань. Тот же характер.
+
+@ded3eb0
+Un materasso che non ha bisogno di essere ricostruito è il materasso più sostenibile di tutti.
+Матрас, который не нужно перестраивать, — самый экологичный матрас из всех.
+
+@edc9040
+Quindici anni di vita. Una breve visita in Italia. Altri quindici anni.
+Пятнадцать лет жизни. Короткий визит в Италию. Ещё пятнадцать лет.
+
+@556c555
+Anni 0 – 15
+Годы 0 – 15
+
+@b9c277a
+La prima vita. Costruito a mano in Italia con lana, crine di cavallo e fibre nobili. Cucito interamente dai nostri artigiani.
+Первая жизнь. Создан вручную в Италии из шерсти, конского волоса и благородных волокон. Полностью сшит нашими мастерами.
+
+@09c9f70
+Anno 15
+Год 15
+
+@1313005
+Il materasso torna dai nostri artigiani. Il cuore controllato, la lana ricardata, una parte rinnovata solo dove serve.
+Матрас возвращается к нашим мастерам. Основа осмотрена, шерсть заново прочёсана, деталь обновлена только там, где это нужно.
+
+@576f126
+Per i nostri clienti
+Для наших клиентов
+
+@ba024e4
+Riporta a casa il tuo materasso.
+Верните матрас домой.
+
+@8822e95
+Se possiedi un materasso Midsummer e sono passati quindici anni, scrivici. Organizzeremo il ritiro del tuo materasso e seguiremo la sua rigenerazione con i nostri artigiani italiani. La rigenerazione è offerta dalla casa; il trasporto, andata e ritorno, è a tuo carico.
+Если у вас есть матрас Midsummer и прошло пятнадцать лет, напишите нам. Мы организуем вывоз вашего матраса и проследим за его обновлением у наших итальянских мастеров. Обновление предоставляет дом; транспортировка в обе стороны — за ваш счёт.
+
+@3de2a73
+Contatta l’atelier
+Связаться с ателье
+
+@498ff1e
+Il nostro impegno per una sostenibilità autentica nella realizzazione di materassi di lusso è stato riconosciuto a livello internazionale.
+Наша приверженность подлинной устойчивости в создании роскошных матрасов получила международное признание.
+
+@60905d0
+Atelier e showroom — Via Andegari 4, Milano
+Ателье и шоурум — Via Andegari 4, Милан
+
+@f5ff46b
+Trent’anni
+Тридцать лет
+
+@69315f9
+Un materasso, trent’anni.
+Один матрас — тридцать лет.
+
+@950c089
+Un materasso industriale
+Промышленный матрас
+
+@f6b1ee0
+Un materasso Midsummer
+Матрас Midsummer
+
+@64b5165
+materasso
+матрас
+
+@985a5c9
+materassi
+матраса
+
+@1bc55c4
+Anno 15 · rinnovato a mano in Italia
+Год 15 · обновлён вручную в Италии
+
+@c8972b0
+La maggior parte dei materassi industriali viene sostituita ogni otto-dieci anni. Un materasso Midsummer torna al quindicesimo anno dagli artigiani che lo hanno realizzato, e rientra a casa per altri quindici.
+Большинство промышленных матрасов меняют каждые восемь–десять лет. Матрас Midsummer на пятнадцатый год возвращается к мастерам, которые его создали, и снова служит дома ещё пятнадцать лет.
+
+@2e67c0a
+Cosa stai cercando?
+Что вы ищете?
+
+@1334844
+Cerca
+Поиск
+
+@b31df23
+sistemi
+систем
+
+@54b5307
+sistema
+система
+
+@193cfc9
+Pagina
+Страница
+
+@184f63d
+=
+=
+
+@5982adc
+In tutto il mondo
+По всему миру
+
+@27b2b01
+=
+=
+
+@3695b37
+=
+Милан
+
+@a055562
+=
+=
+
+@2b0d4b9
+Personalizzazione
+Индивидуализация
+
+@59f15fa
+Dimensioni, altezze, fibre, tessuto e livello di comfort su misura
+Размеры, высоты, волокна, ткань и уровень комфорта — по индивидуальному заказу
+
+@88e8df8
+=
+=
+
+@a129ef8
+Lavorazione
+Изготовление
+
+@d7a9ec5
+A mano, dall’inizio alla fine, in Italia
+Вручную, от начала до конца, в Италии
+
+@d2f8d08
+Prezzo su richiesta. Ogni sistema è realizzato su ordinazione e quotato dopo la specifica.
+Цена по запросу. Каждая система создаётся на заказ, а стоимость рассчитывается после спецификации.
+
+@fd860de
+Una consulenza nell’atelier di Via Andegari, o in video, dopo la quale dimensioni, altezze, fibre, tessuto e livello di comfort vengono specificati e il sistema viene costruito a mano.
+Консультация в ателье на Виа Андегари или по видеосвязи, после которой определяются размеры, высоты, волокна, ткань и уровень комфорта, а система создаётся вручную.
+
+@6809234
+Consulenza per un sistema letto su misura
+Консультация по индивидуальной системе для сна
+
+@3122590
+Disegniamo sogni.
+Мы создаём мечты.
+
+@9f935e0
+Misure standard (cm)
+Стандартные размеры (см)
+
+@a45da96
+Sistema
+Система
+
+@ad40e3c
+Altezze, misure e tessuti, sistema per sistema.
+Высоты, размеры и ткани — система за системой.
+
+@38705f2
+Richiedi una specifica
+Запросить спецификацию
+
+@c0b30e3
+Le cifre che servono a un disegno, dal catalogo 2026. Ognuna è un punto di partenza: larghezza, lunghezza, altezza e tessuto si definiscono in base alla stanza.
+Цифры, нужные для чертежа, — из каталога 2026 года. Каждая из них — отправная точка: ширина, длина, высота и ткань подбираются под комнату.
+
+@7a10e79
+=
+=
+
+@fa83cb1
+Topper, materasso e boxspring, sulla misura della stanza e sull’altezza degli altri arredi.
+Топпер, матрас и бокс-спринг — по размеру комнаты и высоте остальной мебели в ней.
+
+@abbb4a8
+Tondo, di qualsiasi diametro: interamente su misura, come Giotto.
+Круглая, любого диаметра: полностью по индивидуальным размерам, как Giotto.
+
+@fd34929
+Per le misure più larghe, il boxspring può essere diviso in due, su richiesta.
+Для широких размеров бокс-спринг по запросу можно разделить на две части.
+
+@61436e2
+qualsiasi diametro
+любой диаметр
+
+@2d9d713
+altezza, sul tuo disegno
+высота — по вашему чертежу
+
+@f9e75b3
+lunghezza, su misura
+длина — по размеру
+
+@fc021d5
+raggio
+радиус
+
+@c84b6fe
+larghezza, su misura
+ширина — по размеру
+
+@ca5f2e4
+Un letto in pianta e in prospetto, con le sue dimensioni
+Кровать в плане и на фасаде, с размерами
+
+@10e7732
+Prospetto
+Фасад
+
+@8f58d33
+La specifica in breve
+Спецификация вкратце
+
+@a3b000b
+Qualsiasi larghezza, lunghezza o altezza, letti tondi compresi, realizzata sul tuo disegno.
+Любая ширина, длина или высота, включая круглые кровати, — по вашему чертежу.
+
+@f4843c1
+Dimensioni
+Размеры
+
+@313d05a
+Rigidità e fibre scelte con te, per chi dorme e per il clima.
+Жёсткость и волокна подбираются вместе с вами — под того, кто спит, и под климат.
+
+@6456174
+Comfort
+Комфорт
+
+@8cd2d1b
+Loro Piana Interiors o lino e cotone naturali, scelti in base alla stanza.
+Loro Piana Interiors или натуральный лён и хлопок, подобранные под комнату.
+
+@cd176ae
+Disegnato per la tua stanza, non per un catalogo.
+По чертежу вашей комнаты, а не по каталогу.
+
+@0b6cbdf
+Pianta
+План
+
+@a79bfc4
+DIVISO IN DUE, SU RICHIESTA
+РАЗДЕЛЁН НА ДВЕ ЧАСТИ, ПО ЗАПРОСУ
+
+@7545c5d
+Rettangolare
+Прямоугольная
+
+@b7f41fc
+Tondo
+Круглая
+
+@8a9e64d
+Diviso
+Раздельная
+
+@7a3a150
+Ogni sistema Midsummer è realizzato su ordinazione. Larghezza, lunghezza e altezza, un raggio o una divisione, si definiscono con te e si disegnano prima che si realizzi qualsiasi cosa.
+Каждая система Midsummer создаётся на заказ. Ширина, длина и высота, радиус или разделение определяются вместе с вами и вычерчиваются до начала работы.
+
+@d0560f2
+Un progetto, passo dopo passo
+Проект шаг за шагом
+
+@0dc887c
+Dal tuo disegno al letto vestito.
+От вашего чертежа до застеленной кровати.
+
+@afdfe3d
+Apri un progetto
+Открыть проект
+
+@3490412
+Europa,Medio Oriente,Americhe,Asia-Pacifico
+Европа,Ближний Восток,Америка,Азиатско-Тихоокеанский регион
+
+@7b91156
+Ingrandisci
+Приблизить
+
+@52ebc26
+Riduci
+Отдалить
+
+@5a3467e
+Mostra tutti i luoghi
+Показать все места
+
+@32fa6f0
+=
+=
+
+@bce003e
+=
+=
+
+@2815551
+Dati di
+Данные
+
+@7e9cea4
+=
+=
+
+@7446050
+Agente
+Агент
+
+@375099f
+Agenti
+Агенты
+
+@b7ba6ba
+Allora veniamo noi da te.
+Тогда мы приедем к вам.
+
+@e2be57c
+Non sulla mappa
+Нет на карте
+
+@3402c55
+Prenota una consulenza
+Записаться на консультацию
+
+@910fb99
+Dove non c’è ancora uno showroom, l’atelier segue la richiesta direttamente — specifica in video, campioni di tessuto per posta e consegna white-glove dalla nostra squadra.
+Там, где шоурума пока нет, ателье ведёт запрос напрямую — спецификация по видеосвязи, образцы тканей по почте и доставка «в белых перчатках» нашей собственной командой.
+
+@cfaf936
+=
+Бутик
+
+@e884e22
+Boutique
+Бутики
+
+@57d056e
+Città
+Город
+
+@bd9e6e2
+luoghi qui
+мест здесь
+
+@e909c2d
+paese
+страна
+
+@ebed715
+luogo
+место
+
+@ab7dc89
+luoghi
+мест
+
+@d737db3
+Showroom, agenti e rivenditori
+Шоурумы, агенты и дилеры
+
+@f778e0d
+Dove trovarci.
+Где нас найти.
+
+@162defe
+Usa due dita per spostare la mappa
+Перемещайте карту двумя пальцами
+
+@53ac36d
+Tieni premuto Ctrl (⌘ su Mac) e scorri per lo zoom
+Удерживайте Ctrl (⌘ на Mac) и прокручивайте для масштабирования
+
+@0581e89
+Richiedi una presentazione
+Запросить знакомство
+
+@65fc312
+I letti sono fatti a mano in Italia e si possono provare nell’atelier di Milano. Altrove, uno showroom, un agente o un rivenditore ti accoglierà — su appuntamento, in una stanza, non in un magazzino.
+Кровати делают вручную в Италии, и их можно опробовать в ателье в Милане. В других местах вас примет шоурум, агент или дилер — по записи, в комнате, а не на складе.
+
+@78d77a0
+Luoghi
+Места
+
+@4dfbb09
+Email
+Почта
+
+@f4a9d5d
+Mappa degli showroom, agenti e rivenditori Midsummer Milano
+Карта шоурумов, агентов и дилеров Midsummer Milano

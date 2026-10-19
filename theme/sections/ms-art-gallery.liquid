@@ -6,10 +6,10 @@
   <div class="ms-ag__in">
     {%- if section.settings.heading != blank or section.settings.eyebrow != blank -%}
     <header class="ms-ag__head">
-      {%- if section.settings.eyebrow != blank -%}<div class="ms-ag__eyebrow">{{ section.settings.eyebrow }}</div>{%- endif -%}
-      {%- if section.settings.heading != blank -%}<h2 class="ms-ag__heading">{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.eyebrow != blank -%}<div class="ms-ag__eyebrow">{% render 'ms-t', v: section.settings.eyebrow %}</div>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="ms-ag__heading">{% render 'ms-t', v: section.settings.heading %}</h2>{%- endif -%}
       {%- if section.settings.link_label != blank and section.settings.link != blank -%}
-        <a data-ms="cta" class="ms-ag__link" href="{{ section.settings.link }}" target="_blank" rel="noopener">{{ section.settings.link_label }}</a>
+        <a data-ms="cta" class="ms-ag__link" href="{{ section.settings.link }}" target="_blank" rel="noopener">{% render 'ms-t', v: section.settings.link_label %}</a>
       {%- endif -%}
     </header>
     {%- endif -%}
@@ -18,28 +18,28 @@
         {%- capture src -%}{% render 'ms-img', image: block.settings.image, fallback: block.settings.image_fallback, width: 1600 %}{%- endcapture -%}
         {%- capture full -%}{% render 'ms-img', image: block.settings.image, fallback: block.settings.image_fallback, width: 2600 %}{%- endcapture -%}
         <figure class="ms-ag__work{% cycle ' is-wide', '', '', ' is-wide' %}" {{ block.shopify_attributes }}>
-          <button type="button" class="ms-ag__frame" data-ms-ag-open="{{ forloop.index0 }}" aria-label="Enlarge: {{ block.settings.artist | escape }}, {{ block.settings.title | strip_html | escape }}">
+          <button type="button" class="ms-ag__frame" data-ms-ag-open="{{ forloop.index0 }}" aria-label="Enlarge: {% capture ms_t_out %}{% render 'ms-t', v: block.settings.artist %}{% endcapture %}{{ ms_t_out | escape }}, {% capture ms_t_out %}{% render 'ms-t', v: block.settings.title %}{% endcapture %}{{ ms_t_out | strip_html | escape }}">
             {%- if src != blank -%}
-              <img src="{{ src }}" data-full="{{ full }}" alt="{{ block.settings.artist | escape }}, {{ block.settings.title | strip_html | escape }}" loading="{% if forloop.index > 2 %}lazy{% else %}eager{% endif %}" width="1600" height="1200">
+              <img src="{{ src }}" data-full="{{ full }}" alt="{% capture ms_t_out %}{% render 'ms-t', v: block.settings.artist %}{% endcapture %}{{ ms_t_out | escape }}, {% capture ms_t_out %}{% render 'ms-t', v: block.settings.title %}{% endcapture %}{{ ms_t_out | strip_html | escape }}" loading="{% if forloop.index > 2 %}lazy{% else %}eager{% endif %}" width="1600" height="1200">
             {%- else -%}
               <span class="ms-ag__empty"></span>
             {%- endif -%}
           </button>
           <figcaption class="ms-ag__cap">
             <span class="ms-ag__n">{{ forloop.index | prepend: '00' | slice: -2, 2 }}</span>
-            <span class="ms-ag__who">{{ block.settings.artist }}</span>
-            <span class="ms-ag__title">{{ block.settings.title }}</span>
-            {%- if block.settings.text != blank -%}<span class="ms-ag__text">{{ block.settings.text }}</span>{%- endif -%}
+            <span class="ms-ag__who">{% render 'ms-t', v: block.settings.artist %}</span>
+            <span class="ms-ag__title">{% render 'ms-t', v: block.settings.title %}</span>
+            {%- if block.settings.text != blank -%}<span class="ms-ag__text">{% render 'ms-t', v: block.settings.text %}</span>{%- endif -%}
           </figcaption>
         </figure>
       {%- endfor -%}
     </div>
   </div>
-  <div class="ms-ag__viewer" data-ms-ag-viewer hidden role="dialog" aria-modal="true" aria-label="{{ section.settings.heading | escape }}">
-    <button type="button" class="ms-ag__vbtn is-close" data-ms-ag-close aria-label="Close"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M1 1 L15 15 M15 1 L1 15" fill="none" stroke="currentColor" stroke-width="1.1"/></svg></button>
-    <button type="button" class="ms-ag__vbtn is-prev" data-ms-ag-step="-1" aria-label="Previous"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.1"/></svg></button>
+  <div class="ms-ag__viewer" data-ms-ag-viewer hidden role="dialog" aria-modal="true" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: section.settings.heading %}{% endcapture %}{{ ms_t_out | escape }}">
+    <button type="button" class="ms-ag__vbtn is-close" data-ms-ag-close aria-label="{% render 'ms-t', v: 'Close' %}"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M1 1 L15 15 M15 1 L1 15" fill="none" stroke="currentColor" stroke-width="1.1"/></svg></button>
+    <button type="button" class="ms-ag__vbtn is-prev" data-ms-ag-step="-1" aria-label="{% render 'ms-t', v: 'Previous' %}"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.1"/></svg></button>
     <figure class="ms-ag__vfig"><img data-ms-ag-full alt="" width="1600" height="1200"><figcaption data-ms-ag-cap></figcaption></figure>
-    <button type="button" class="ms-ag__vbtn is-next" data-ms-ag-step="1" aria-label="Next"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"/></svg></button>
+    <button type="button" class="ms-ag__vbtn is-next" data-ms-ag-step="1" aria-label="{% render 'ms-t', v: 'Next' %}"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.1"/></svg></button>
   </div>
 </section>
 <style>

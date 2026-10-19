@@ -31,7 +31,7 @@
     // Copilot …), by referrer or utm_source: recorded once per visit as ms_ai_referral, and
     // carried as ai_source on the enquiry events that follow, so GA4 can count the enquiries
     // an AI answer started.
-    var AI_HOSTS = {{ section.settings.ai_sources | json }}.split(',').map(function (h) { return h.trim().toLowerCase(); }).filter(Boolean);
+    var AI_HOSTS = {% capture ms_t_out %}{% render 'ms-t', v: section.settings.ai_sources %}{% endcapture %}{{ ms_t_out | json }}.split(',').map(function (h) { return h.trim().toLowerCase(); }).filter(Boolean);
     var AI_WORDS = ['chatgpt', 'openai', 'perplexity', 'gemini', 'claude', 'copilot', 'mistral', 'deepseek', 'grok'];
     function aiFrom() {
       var host = '', src = '';
@@ -66,7 +66,7 @@
     // Segment is read from the page first, then the clicked element, then falls
     // back to private — so a CTA on the Hospitality page is attributed to
     // hospitality without anyone tagging the button.
-    var PAGE_SEGMENT = {{ section.settings.page_segments | json }};
+    var PAGE_SEGMENT = {% capture ms_t_out %}{% render 'ms-t', v: section.settings.page_segments %}{% endcapture %}{{ ms_t_out | json }};
 
     function pageSegment() {
       var path = window.location.pathname;

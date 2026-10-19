@@ -5,7 +5,10 @@
 {%- endcomment -%}
 
 {%- liquid
-  assign shop_name = section.settings.legal_name | default: shop.name
+  capture shop_name
+    render 'ms-t', v: section.settings.legal_name
+  endcapture
+  assign shop_name = shop_name | default: shop.name
   assign logo = section.settings.logo
 -%}
 
@@ -16,7 +19,7 @@
       "@type": ["Organization", "FurnitureStore"],
       "@id": "{{ shop.url }}/#organization",
       "name": {{ shop_name | json }},
-      "alternateName": {{ section.settings.alternate_name | json }},
+      "alternateName": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.alternate_name %}{% endcapture %}{{ ms_t_out | json }},
       "url": "{{ shop.url }}",
       {%- if logo != blank %}
       "logo": {
@@ -31,17 +34,17 @@
       "image": "https:{{ 'ms-photo-atelier-blue-gold.jpg' | asset_url }}",
       "foundingLocation": { "@type": "Place", "name": "Milan, Italy" },
       {%- if section.settings.founding_date != blank %}
-      "foundingDate": {{ section.settings.founding_date | json }},
+      "foundingDate": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.founding_date %}{% endcapture %}{{ ms_t_out | json }},
       {%- endif %}
       {%- if section.settings.award != blank %}
-      "award": {{ section.settings.award | json }},
+      "award": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.award %}{% endcapture %}{{ ms_t_out | json }},
       {%- endif %}
       {%- if section.settings.vat_id != blank %}
       "vatID": {{ section.settings.vat_id | json }},
       {%- endif %}
-      "hasMap": "https://www.google.com/maps/search/?api=1&query={{ section.settings.street | append: ', ' | append: section.settings.postal_code | append: ' ' | append: section.settings.city | url_encode }}",
+      "hasMap": "https://www.google.com/maps/search/?api=1&query={% capture ms_d1 %}{% render 'ms-t', v: section.settings.city %}{% endcapture %}{% capture ms_t_out %}{% render 'ms-t', v: section.settings.street %}{% endcapture %}{{ ms_t_out | append: ', ' | append: section.settings.postal_code | append: ' ' | append: ms_d1 | url_encode }}",
       {%- if section.settings.founder != blank %}
-      "founder": { "@type": "Person", "name": {{ section.settings.founder | json }}, "jobTitle": "Founder" },
+      "founder": { "@type": "Person", "name": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.founder %}{% endcapture %}{{ ms_t_out | json }}, "jobTitle": "Founder" },
       {%- endif %}
       "contactPoint": {
         "@type": "ContactPoint",
@@ -50,59 +53,62 @@
         {%- if section.settings.telephone != blank %}"telephone": {{ section.settings.telephone | json }},{%- endif %}
         "availableLanguage": ["Italian", "English", "Russian"]
       },
-      "description": {{ section.settings.description | json }},
-      "slogan": {{ section.settings.slogan | json }},
+      "description": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.description %}{% endcapture %}{{ ms_t_out | json }},
+      "slogan": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.slogan %}{% endcapture %}{{ ms_t_out | json }},
       "email": {{ section.settings.email | json }},
       {%- if section.settings.telephone != blank %}
       "telephone": {{ section.settings.telephone | json }},
       {%- endif %}
-      "priceRange": {{ section.settings.price_range | json }},
-      "currenciesAccepted": {{ section.settings.currencies | json }},
-      "areaServed": {{ section.settings.area_served | json }},
+      "priceRange": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.price_range %}{% endcapture %}{{ ms_t_out | json }},
+      "currenciesAccepted": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.currencies %}{% endcapture %}{{ ms_t_out | json }},
+      "areaServed": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.area_served %}{% endcapture %}{{ ms_t_out | json }},
       "knowsAbout": [
-        {%- assign topics = section.settings.knows_about | split: ',' -%}
+        {%- capture topics %}{% render 'ms-t', v: section.settings.knows_about %}{% endcapture -%}{%- assign topics = topics | split: ',' -%}
         {%- for topic in topics -%}
           {{ topic | strip | json }}{%- unless forloop.last -%},{%- endunless -%}
         {%- endfor -%}
       ],
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": {{ section.settings.street | json }},
-        "addressLocality": {{ section.settings.city | json }},
+        "streetAddress": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.street %}{% endcapture %}{{ ms_t_out | json }},
+        "addressLocality": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.city %}{% endcapture %}{{ ms_t_out | json }},
         "postalCode": {{ section.settings.postal_code | json }},
         "addressCountry": {{ section.settings.country_code | json }}
       },
       {%- if section.settings.latitude != blank and section.settings.longitude != blank %}
       "geo": {
         "@type": "GeoCoordinates",
-        "latitude": {{ section.settings.latitude | json }},
-        "longitude": {{ section.settings.longitude | json }}
+        "latitude": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.latitude %}{% endcapture %}{{ ms_t_out | json }},
+        "longitude": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.longitude %}{% endcapture %}{{ ms_t_out | json }}
       },
       {%- endif %}
       "openingHoursSpecification": [
         {
           "@type": "OpeningHoursSpecification",
           "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-          "opens": {{ section.settings.opens_morning | json }},
-          "closes": {{ section.settings.closes_morning | json }}
+          "opens": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.opens_morning %}{% endcapture %}{{ ms_t_out | json }},
+          "closes": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.closes_morning %}{% endcapture %}{{ ms_t_out | json }}
         },
         {
           "@type": "OpeningHoursSpecification",
           "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-          "opens": {{ section.settings.opens_afternoon | json }},
-          "closes": {{ section.settings.closes_afternoon | json }}
+          "opens": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.opens_afternoon %}{% endcapture %}{{ ms_t_out | json }},
+          "closes": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.closes_afternoon %}{% endcapture %}{{ ms_t_out | json }}
         }
       ],
       "makesOffer": {
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
-          "name": {{ section.settings.service_name | json }},
-          "description": {{ section.settings.service_description | json }}
+          "name": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.service_name %}{% endcapture %}{{ ms_t_out | json }},
+          "description": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.service_description %}{% endcapture %}{{ ms_t_out | json }}
         }
       },
       {%- liquid
-        assign profiles = section.settings.same_as | append: ',' | append: settings.ms_social_instagram | append: ',' | append: settings.ms_social_facebook | append: ',' | append: settings.ms_social_pinterest | append: ',' | append: settings.ms_social_linkedin | append: ',' | append: settings.ms_social_youtube | append: ',' | append: settings.ms_social_tiktok | append: ',' | append: settings.ms_social_telegram | append: ',' | append: settings.ms_social_vk
+        capture profiles
+          render 'ms-t', v: section.settings.same_as
+        endcapture
+        assign profiles = profiles | append: ',' | append: settings.ms_social_instagram | append: ',' | append: settings.ms_social_facebook | append: ',' | append: settings.ms_social_pinterest | append: ',' | append: settings.ms_social_linkedin | append: ',' | append: settings.ms_social_youtube | append: ',' | append: settings.ms_social_tiktok | append: ',' | append: settings.ms_social_telegram | append: ',' | append: settings.ms_social_vk
         assign profiles = profiles | split: ',' | compact | uniq
         assign sep = ''
       -%}
@@ -161,7 +167,7 @@
           {
             "@type": "ListItem",
             "position": 1,
-            "name": {{ section.settings.home_label | json }},
+            "name": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.home_label %}{% endcapture %}{{ ms_t_out | json }},
             "item": "{{ shop.url }}"
           },
           {%- if crumbs == 'product' -%}
@@ -247,17 +253,17 @@
       {%- if product.metafields.custom.materials != blank -%}
       "material": {{ product.metafields.custom.materials | metafield_text | strip_html | truncate: 200 | json }},
       {%- endif -%}
-      "countryOfOrigin": { "@type": "Country", "name": {{ section.settings.country_of_origin | json }} },
+      "countryOfOrigin": { "@type": "Country", "name": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.country_of_origin %}{% endcapture %}{{ ms_t_out | json }} },
       "additionalProperty": [
         {
           "@type": "PropertyValue",
-          "name": {{ section.settings.made_label | json }},
-          "value": {{ section.settings.made_value | json }}
+          "name": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.made_label %}{% endcapture %}{{ ms_t_out | json }},
+          "value": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.made_value %}{% endcapture %}{{ ms_t_out | json }}
         },
         {
           "@type": "PropertyValue",
-          "name": {{ section.settings.customisation_label | json }},
-          "value": {{ section.settings.customisation_value | json }}
+          "name": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.customisation_label %}{% endcapture %}{{ ms_t_out | json }},
+          "value": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.customisation_value %}{% endcapture %}{{ ms_t_out | json }}
         }
       ]
       {%- if settings.ms_show_prices and section.settings.price_on_request == false and product.price > 0 -%},

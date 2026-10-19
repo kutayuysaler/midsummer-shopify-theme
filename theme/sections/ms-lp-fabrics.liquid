@@ -19,14 +19,14 @@
   <div class="ms-lf__in">
     <header class="ms-lf__head">
       <div>
-        {%- if s.eyebrow != blank -%}<div class="ms-lf__eyebrow">{{ s.eyebrow }}</div>{%- endif -%}
-        <h2 class="ms-lf__heading">{{ s.heading }}</h2>
+        {%- if s.eyebrow != blank -%}<div class="ms-lf__eyebrow">{% render 'ms-t', v: s.eyebrow %}</div>{%- endif -%}
+        <h2 class="ms-lf__heading">{% render 'ms-t', v: s.heading %}</h2>
       </div>
-      {%- if s.text != blank -%}<div class="ms-lf__text">{{ s.text }}</div>{%- endif -%}
+      {%- if s.text != blank -%}<div class="ms-lf__text">{% render 'ms-t', v: s.text %}</div>{%- endif -%}
     </header>
 
     {%- if n_fab > 1 -%}
-      <div class="ms-lf__tabs" role="tablist" aria-label="{{ s.nav_label | escape }}">
+      <div class="ms-lf__tabs" role="tablist" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.nav_label %}{% endcapture %}{{ ms_t_out | escape }}">
         {%- assign tab_n = 0 -%}
         {%- for b in section.blocks -%}
           {%- if b.type == 'fabric' -%}
@@ -40,9 +40,12 @@
                 endif
                 assign nc = nc | plus: 1
               endfor
-              assign anchor = b.settings.anchor | default: b.settings.name | handleize
+              capture ms_d1
+                render 'ms-t', v: b.settings.name
+              endcapture
+              assign anchor = b.settings.anchor | default: ms_d1 | handleize
             -%}
-            <a class="ms-lf__tab{% if tab_n == 1 %} is-on{% endif %}" role="tab" id="lf-tab-{{ anchor }}" href="#{{ anchor }}" aria-controls="{{ anchor }}" aria-selected="{% if tab_n == 1 %}true{% else %}false{% endif %}">{{ b.settings.name }}{% if nc > 0 %}<sup>{{ nc }}</sup>{% endif %}</a>
+            <a class="ms-lf__tab{% if tab_n == 1 %} is-on{% endif %}" role="tab" id="lf-tab-{{ anchor }}" href="#{{ anchor }}" aria-controls="{{ anchor }}" aria-selected="{% if tab_n == 1 %}true{% else %}false{% endif %}">{% render 'ms-t', v: b.settings.name %}{% if nc > 0 %}<sup>{{ nc }}</sup>{% endif %}</a>
           {%- endif -%}
         {%- endfor -%}
       </div>
@@ -57,8 +60,13 @@
           assign open = true
           assign fab_n = fab_n | plus: 1
           assign fs = b.settings
-          assign cloth = fs.name
-          assign anchor = fs.anchor | default: fs.name | handleize
+          capture cloth
+            render 'ms-t', v: fs.name
+          endcapture
+          capture ms_d2
+            render 'ms-t', v: fs.name
+          endcapture
+          assign anchor = fs.anchor | default: ms_d2 | handleize
           assign first = section.blocks[forloop.index]
           assign no_colours = true
           if first and first.type == 'colour'
@@ -66,31 +74,52 @@
           endif
           assign big_color = fs.color
           assign big_img = ''
-          assign cap = s.no_palette_caption
+          capture cap
+            render 'ms-t', v: s.no_palette_caption
+          endcapture
           if no_colours
             if fs.image != blank
               assign big_img = fs.image | image_url: width: 900
             elsif fs.image_fallback != blank
-              assign big_img = fs.image_fallback | asset_url
+              capture big_img
+                render 'ms-t', v: fs.image_fallback
+              endcapture
+              assign big_img = big_img | asset_url
             endif
             if big_img != '' and fs.image_caption != blank
-              assign cap = fs.image_caption
+              capture cap
+                render 'ms-t', v: fs.image_caption
+              endcapture
             endif
           else
             assign big_color = first.settings.color
-            assign cap = first.settings.name
+            capture cap
+              render 'ms-t', v: first.settings.name
+            endcapture
             if first.settings.image != blank
               assign big_img = first.settings.image | image_url: width: 900
             elsif first.settings.large_fallback != blank
-              assign big_img = first.settings.large_fallback | asset_url
+              capture big_img
+                render 'ms-t', v: first.settings.large_fallback
+              endcapture
+              assign big_img = big_img | asset_url
             endif
           endif
-          assign note = s.ask_note | replace: '[cloth]', cloth | replace: '[colour]', cap
+          capture note
+            render 'ms-t', v: s.ask_note
+          endcapture
+          assign note = note | replace: '[cloth]', cloth | replace: '[colour]', cap
           if no_colours
-            assign note = s.ask_cloth_note | replace: '[cloth]', cloth
+            capture note
+              render 'ms-t', v: s.ask_cloth_note
+            endcapture
+            assign note = note | replace: '[cloth]', cloth
           endif
           capture none_html
-            echo '<p class="ms-lf__none">' | append: s.no_palette | append: '</p>'
+            capture ms_d3
+              render 'ms-t', v: s.no_palette
+            endcapture
+            echo '<p class="ms-lf__none">' | append: ms_d3 | append: '</p>'
           endcapture
         -%}
         <div class="ms-lf__fab{% if no_colours %} is-plain{% endif %}{% if fab_n == 1 %} is-on{% endif %}" id="{{ anchor }}" role="tabpanel" aria-labelledby="lf-tab-{{ anchor }}" data-lf data-lf-cloth="{{ cloth | escape }}" {{ b.shopify_attributes }}>
@@ -100,7 +129,7 @@
             <figcaption class="ms-lf__cap">
               <span class="ms-lf__capn" data-lf-cname>{{ cap }}</span>
               {%- if s.ask_label != blank -%}
-                <a class="ms-lf__ask" href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-cta="lp-colour" data-lf-ask data-ms-note="{{ note | escape }}">{% if no_colours %}{{ s.ask_cloth_label }}{% else %}{{ s.ask_label }}{% endif %}</a>
+                <a class="ms-lf__ask" href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-cta="lp-colour" data-lf-ask data-ms-note="{{ note | escape }}">{% if no_colours %}{% render 'ms-t', v: s.ask_cloth_label %}{% else %}{% render 'ms-t', v: s.ask_label %}{% endif %}</a>
               {%- endif -%}
             </figcaption>
           </figure>
@@ -109,11 +138,11 @@
             <h3 class="ms-lf__name">{{ cloth }}</h3>
             <dl class="ms-lf__facts">
               {%- if fs.code != blank -%}<div><dt>{{ s.code_label }}</dt><dd>{{ fs.code }}</dd></div>{%- endif -%}
-              {%- if fs.composition != blank -%}<div><dt>{{ s.comp_label }}</dt><dd>{{ fs.composition }}</dd></div>{%- endif -%}
-              {%- if fs.systems != blank -%}<div><dt>{{ s.systems_label }}</dt><dd>{{ fs.systems }}</dd></div>{%- endif -%}
+              {%- if fs.composition != blank -%}<div><dt>{% render 'ms-t', v: s.comp_label %}</dt><dd>{% render 'ms-t', v: fs.composition %}</dd></div>{%- endif -%}
+              {%- if fs.systems != blank -%}<div><dt>{% render 'ms-t', v: s.systems_label %}</dt><dd>{% render 'ms-t', v: fs.systems %}</dd></div>{%- endif -%}
             </dl>
-            {%- if fs.text != blank -%}<p class="ms-lf__desc">{{ fs.text }}</p>{%- endif -%}
-            <ul class="ms-lf__grid" role="list" aria-label="{{ s.palette_label | escape }}: {{ cloth | escape }}">
+            {%- if fs.text != blank -%}<p class="ms-lf__desc">{% render 'ms-t', v: fs.text %}</p>{%- endif -%}
+            <ul class="ms-lf__grid" role="list" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.palette_label %}{% endcapture %}{{ ms_t_out | escape }}: {{ cloth | escape }}">
       {%- elsif b.type == 'colour' and open -%}
         {%- liquid
           assign cs = b.settings
@@ -122,9 +151,15 @@
             assign thumb = cs.image | image_url: width: 240
             assign img_l = cs.image | image_url: width: 900
           elsif cs.image_fallback != blank
-            assign thumb = cs.image_fallback | asset_url
+            capture thumb
+              render 'ms-t', v: cs.image_fallback
+            endcapture
+            assign thumb = thumb | asset_url
             if cs.large_fallback != blank
-              assign img_l = cs.large_fallback | asset_url
+              capture img_l
+                render 'ms-t', v: cs.large_fallback
+              endcapture
+              assign img_l = img_l | asset_url
             endif
           else
             assign thumb = ''
@@ -137,16 +172,16 @@
         -%}
               <li {{ b.shopify_attributes }}>
                 <button type="button" class="ms-lf__chip{% if is_first %} is-sel{% endif %}" aria-pressed="{{ is_first }}"
-                  data-name="{{ cs.name | escape }}" data-color="{{ cs.color }}" data-img="{{ img_l }}">
+                  data-name="{% capture ms_t_out %}{% render 'ms-t', v: cs.name %}{% endcapture %}{{ ms_t_out | escape }}" data-color="{{ cs.color }}" data-img="{{ img_l }}">
                   <span class="ms-lf__sw" style="background-color: {{ cs.color }};{% if thumb != '' %} background-image: url({{ thumb }});{% endif %}"></span>
-                  <span class="ms-lf__cn">{{ cs.name }}</span>
+                  <span class="ms-lf__cn">{% render 'ms-t', v: cs.name %}</span>
                 </button>
               </li>
       {%- endif -%}
     {%- endfor -%}
     {%- if open -%}</ul>{% if no_colours %}{{ none_html }}{% endif %}</div></div>{%- endif -%}
 
-    {%- if s.footnote != blank -%}<p class="ms-lf__foot">{{ s.footnote }}</p>{%- endif -%}
+    {%- if s.footnote != blank -%}<p class="ms-lf__foot">{% render 'ms-t', v: s.footnote %}</p>{%- endif -%}
   </div>
 </section>
 <style>
@@ -222,7 +257,7 @@
     if (!root || !root.matches('[data-ms-lf]')) root = document.querySelector('[data-ms-lf]:not([data-lf-ready])');
     if (!root) return;
     root.setAttribute('data-lf-ready', '');
-    var tpl = {{ section.settings.ask_note | json }}, nextTpl = {{ section.settings.next_label | json }};
+    var tpl = {% capture ms_t_out %}{% render 'ms-t', v: section.settings.ask_note %}{% endcapture %}{{ ms_t_out | json }}, nextTpl = {% capture ms_t_out %}{% render 'ms-t', v: section.settings.next_label %}{% endcapture %}{{ ms_t_out | json }};
     var tabs = [].slice.call(root.querySelectorAll('.ms-lf__tab')), fabs = [].slice.call(root.querySelectorAll('[data-lf]'));
     /* one cloth at a time: the row above chooses it, a link to #its-name opens it */
     function open(id, focus) {

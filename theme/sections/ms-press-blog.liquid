@@ -14,17 +14,19 @@
   endfor
   assign pub = blog.title | remove: 'Press - ' | remove: 'Press – ' | remove: 'Press — ' | remove: 'Press: ' | remove: 'Press ' | strip
   if here
-    assign pub = here.settings.name
+    capture pub
+      render 'ms-t', v: here.settings.name
+    endcapture
   endif
 -%}
 <section class="ms-pb">
   <header class="ms-pb__head">
-    <div class="ms-pb__eyebrow">{{ section.settings.eyebrow }}</div>
+    <div class="ms-pb__eyebrow">{% render 'ms-t', v: section.settings.eyebrow %}</div>
     {%- if here and here.settings.logo_file != blank -%}
       <img class="ms-pb__logo" src="{{ here.settings.logo_file | asset_url }}" alt="{{ pub | escape }}" width="320" height="80">
     {%- endif -%}
     <h1 class="ms-pb__title">{{ pub }}</h1>
-    {%- if blog.articles_count > 0 -%}<p class="ms-pb__count">{{ blog.articles_count }} {% if blog.articles_count == 1 %}{{ section.settings.one_piece }}{% else %}{{ section.settings.pieces }}{% endif %}</p>{%- endif -%}
+    {%- if blog.articles_count > 0 -%}<p class="ms-pb__count">{{ blog.articles_count }} {% if blog.articles_count == 1 %}{% render 'ms-t', v: section.settings.one_piece %}{% else %}{% render 'ms-t', v: section.settings.pieces %}{% endif %}</p>{%- endif -%}
   </header>
 
   {%- paginate blog.articles by 12 -%}
@@ -41,34 +43,34 @@
         <span class="ms-pb__meta">{{ article.published_at | date: '%B %Y' }}</span>
         <span class="ms-pb__ptitle">{{ article.title }}</span>
         {%- if article.excerpt != blank -%}<span class="ms-pb__excerpt">{{ article.excerpt | strip_html | truncatewords: 26 }}</span>{%- endif -%}
-        <span class="ms-pb__read">{{ section.settings.read_label }}</span>
+        <span class="ms-pb__read">{% render 'ms-t', v: section.settings.read_label %}</span>
       </a>
     {%- else -%}
-      <p class="ms-pb__empty">{{ section.settings.empty }}</p>
+      <p class="ms-pb__empty">{% render 'ms-t', v: section.settings.empty %}</p>
     {%- endfor -%}
   </div>
   {%- if paginate.pages > 1 -%}
-    <nav class="ms-pb__pages" aria-label="Pages">
-      {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">{{ section.settings.prev_label }}</a>{%- endif -%}
+    <nav class="ms-pb__pages" aria-label="{% render 'ms-t', v: 'Pages' %}">
+      {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">{% render 'ms-t', v: section.settings.prev_label %}</a>{%- endif -%}
       <span>{{ paginate.current_page }} / {{ paginate.pages }}</span>
-      {%- if paginate.next -%}<a href="{{ paginate.next.url }}">{{ section.settings.next_label }}</a>{%- endif -%}
+      {%- if paginate.next -%}<a href="{{ paginate.next.url }}">{% render 'ms-t', v: section.settings.next_label %}</a>{%- endif -%}
     </nav>
   {%- endif -%}
   {%- endpaginate -%}
 
   {%- if section.blocks.size > 1 -%}
   <div class="ms-pb__others">
-    <div class="ms-pb__label">{{ section.settings.others_label }}</div>
+    <div class="ms-pb__label">{% render 'ms-t', v: section.settings.others_label %}</div>
     <ul class="ms-pb__logos" role="list">
       {%- for block in section.blocks -%}
         {%- assign h = block.settings.link | split: '/' | last -%}
         {%- comment -%} only publications with a piece to read: a mark never leads to an empty page {%- endcomment -%}
         {%- unless blogs[h].articles_count > 0 or h == blog.handle -%}{%- continue -%}{%- endunless -%}
         <li {{ block.shopify_attributes }}>
-          <a href="{{ block.settings.link }}"{% if h == blog.handle %} aria-current="page"{% endif %} title="{{ block.settings.name | escape }}">
+          <a href="{{ block.settings.link }}"{% if h == blog.handle %} aria-current="page"{% endif %} title="{% capture ms_t_out %}{% render 'ms-t', v: block.settings.name %}{% endcapture %}{{ ms_t_out | escape }}">
             {%- if block.settings.logo_file != blank -%}
-              <img src="{{ block.settings.logo_file | asset_url }}" alt="{{ block.settings.name | escape }}" loading="lazy" width="160" height="40">
-            {%- else -%}{{ block.settings.name }}{%- endif -%}
+              <img src="{{ block.settings.logo_file | asset_url }}" alt="{% capture ms_t_out %}{% render 'ms-t', v: block.settings.name %}{% endcapture %}{{ ms_t_out | escape }}" loading="lazy" width="160" height="40">
+            {%- else -%}{% render 'ms-t', v: block.settings.name %}{%- endif -%}
           </a>
         </li>
       {%- endfor -%}

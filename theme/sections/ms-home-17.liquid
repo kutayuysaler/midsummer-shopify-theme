@@ -1,12 +1,12 @@
 <section data-dc-tpl="548" style="background: rgb(23, 20, 15); color: rgb(251, 249, 245); padding: clamp(70px, 10vw, 160px) clamp(18px, 5vw, 80px);">
 <div style="max-width: 1560px; margin: 0px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: clamp(32px, 6vw, 96px); align-items: end;">
 <div>
-<div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(251, 249, 245, 0.55);">{{ section.settings.t1 }}</div>
-<h2 style="font-family: Newsreader, Georgia, serif; font-size: clamp(30px, 4.2vw, 58px); line-height: 1.04; letter-spacing: -0.025em; margin-top: 20px;">{{ section.settings.t2 }}</h2>
+<div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(251, 249, 245, 0.55);">{% render 'ms-t', v: section.settings.t1 %}</div>
+<h2 style="font-family: Newsreader, Georgia, serif; font-size: clamp(30px, 4.2vw, 58px); line-height: 1.04; letter-spacing: -0.025em; margin-top: 20px;">{% render 'ms-t', v: section.settings.t2 %}</h2>
 </div>
 <div style="display: flex; flex-direction: column; gap: 22px;">
-<p style="font-size: 15px; line-height: 1.95; color: rgba(251, 249, 245, 0.78); max-width: 46ch;">{{ section.settings.t3 }}</p>
-<a data-ms="cta" data-ms-enquire="" href="{% render 'ms-link', to: 'contact' %}" style="color: rgb(251, 249, 245); font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; border-bottom: 1px solid rgba(251, 249, 245, 0.55); padding-bottom: 8px; width: fit-content;">{{ section.settings.t4 }}</a>
+<p style="font-size: 15px; line-height: 1.95; color: rgba(251, 249, 245, 0.78); max-width: 46ch;">{% render 'ms-t', v: section.settings.t3 %}</p>
+<a data-ms="cta" data-ms-enquire="" href="{% render 'ms-link', to: 'contact' %}" style="color: rgb(251, 249, 245); font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; border-bottom: 1px solid rgba(251, 249, 245, 0.55); padding-bottom: 8px; width: fit-content;">{% render 'ms-t', v: section.settings.t4 %}</a>
 </div>
 </div>
 </section>

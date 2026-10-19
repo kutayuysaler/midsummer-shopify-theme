@@ -23,7 +23,10 @@
 -%}
 {%- if show -%}
 {%- liquid
-  assign title = product.title | default: 'Cashmere Couture'
+  capture ms_l6
+    render 'ms-t', v: 'Cashmere Couture'
+  endcapture
+  assign title = product.title | default: ms_l6
   capture line
     render 'ms-bed-data', key: bed, part: 'line'
   endcapture
@@ -31,15 +34,15 @@
 <section class="ms-ba" data-ms-ba data-bed="{{ bed }}" aria-labelledby="ba-{{ section.id }}">
   <div class="ms-ba__in">
     <div class="ms-ba__left">
-      <div class="ms-ba__eyebrow">{{ s.eyebrow | replace: '[name]', title }}</div>
-      <h2 class="ms-ba__title" id="ba-{{ section.id }}">{{ s.heading | replace: '[name]', title }}</h2>
+      <div class="ms-ba__eyebrow">{% capture ms_t_out %}{% render 'ms-t', v: s.eyebrow %}{% endcapture %}{{ ms_t_out | replace: '[name]', title }}</div>
+      <h2 class="ms-ba__title" id="ba-{{ section.id }}">{% capture ms_t_out %}{% render 'ms-t', v: s.heading %}{% endcapture %}{{ ms_t_out | replace: '[name]', title }}</h2>
       <p class="ms-ba__line">{{ line }}</p>
-      <div class="ms-ba__picks" role="group" aria-label="{{ s.heading | replace: '[name]', title | escape }}">
+      <div class="ms-ba__picks" role="group" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.heading %}{% endcapture %}{{ ms_t_out | replace: '[name]', title | escape }}">
         {%- assign parts = 'headboard,mattress,base' | split: ',' -%}
         {%- assign nums = 'I,II,III' | split: ',' -%}
         {%- for p in parts -%}
           {%- assign kt = p | append: '_title' -%}
-          <button type="button" class="ms-ba__pk{% if forloop.first %} is-on{% endif %}" data-ba-open="{{ p }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"><span>{{ nums[forloop.index0] }}</span>{{ s[kt] }}</button>
+          <button type="button" class="ms-ba__pk{% if forloop.first %} is-on{% endif %}" data-ba-open="{{ p }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"><span>{{ nums[forloop.index0] }}</span>{% render 'ms-t', v: s[kt] %}</button>
         {%- endfor -%}
       </div>
       {%- for p in parts -%}
@@ -49,17 +52,17 @@
             {%- when 'headboard' -%}
               <p class="ms-ba__lead">{% render 'ms-bed-data', key: bed, part: 'hb' %}</p>
               <dl class="ms-ba__rows">
-                <div><dt>{{ s.uph_label }}</dt><dd>{% render 'ms-bed-data', key: bed, part: 'uph' %}</dd></div>
+                <div><dt>{% render 'ms-t', v: s.uph_label %}</dt><dd>{% render 'ms-bed-data', key: bed, part: 'uph' %}</dd></div>
                 <div><dt>{{ s.width_label }}</dt><dd>{% render 'ms-bed-data', key: bed, part: 'width' %}</dd></div>
               </dl>
-              {%- if bed == 'beating-of-wings' -%}<button type="button" class="ms-ba__flap" data-ba-flap>{{ s.wings_label }}</button>{%- endif -%}
+              {%- if bed == 'beating-of-wings' -%}<button type="button" class="ms-ba__flap" data-ba-flap>{% render 'ms-t', v: s.wings_label %}</button>{%- endif -%}
             {%- when 'mattress' -%}
-              <p class="ms-ba__lead">{{ s.mattress_text }}</p>
-              {%- if s.mattress_link != blank -%}<a class="ms-ba__link" href="{% render 'ms-link', to: 'mattresses' %}">{{ s.mattress_link }}<span aria-hidden="true">→</span></a>{%- endif -%}
+              <p class="ms-ba__lead">{% render 'ms-t', v: s.mattress_text %}</p>
+              {%- if s.mattress_link != blank -%}<a class="ms-ba__link" href="{% render 'ms-link', to: 'mattresses' %}">{% render 'ms-t', v: s.mattress_link %}<span aria-hidden="true">→</span></a>{%- endif -%}
             {%- else -%}
               <p class="ms-ba__lead">{% render 'ms-bed-data', key: bed, part: 'base' %}</p>
               <dl class="ms-ba__rows">
-                <div><dt>{{ s.legs_label }}</dt><dd>{% render 'ms-bed-data', key: bed, part: 'legs' %}</dd></div>
+                <div><dt>{% render 'ms-t', v: s.legs_label %}</dt><dd>{% render 'ms-bed-data', key: bed, part: 'legs' %}</dd></div>
               </dl>
           {%- endcase -%}
         </div>
@@ -79,14 +82,14 @@
         })();
       </script>
       <div class="ms-ba__links">
-        {%- if s.button != blank -%}<a class="ms-ba__btn" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=appointment' %}#enquire" data-ms-enquire>{{ s.button }}</a>{%- endif -%}
+        {%- if s.button != blank -%}<a class="ms-ba__btn" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=appointment' %}#enquire" data-ms-enquire>{% render 'ms-t', v: s.button %}</a>{%- endif -%}
         {%- capture hbl -%}{% render 'ms-link', to: 'headboards', strict: true %}{%- endcapture -%}
-        {%- if s.all_label != blank and hbl != blank -%}<a class="ms-ba__link" href="{{ hbl }}">{{ s.all_label }}<span aria-hidden="true">→</span></a>{%- endif -%}
+        {%- if s.all_label != blank and hbl != blank -%}<a class="ms-ba__link" href="{{ hbl }}">{% render 'ms-t', v: s.all_label %}<span aria-hidden="true">→</span></a>{%- endif -%}
       </div>
     </div>
     <div class="ms-ba__draw">
-      {% render 'ms-bed-drawing', key: bed, u: section.id, crop: true, l_aria: title, l_headboard: s.headboard_title, l_mattress: s.mattress_title, l_base: s.base_title %}
-      {%- if s.hint != blank -%}<p class="ms-ba__hint">{{ s.hint }}</p>{%- endif -%}
+      {% capture ms_d1 %}{% render 'ms-t', v: s.headboard_title %}{% endcapture %}{% capture ms_d2 %}{% render 'ms-t', v: s.mattress_title %}{% endcapture %}{% capture ms_d3 %}{% render 'ms-t', v: s.base_title %}{% endcapture %}{% render 'ms-bed-drawing', key: bed, u: section.id, crop: true, l_aria: title, l_headboard: ms_d1, l_mattress: ms_d2, l_base: ms_d3 %}
+      {%- if s.hint != blank -%}<p class="ms-ba__hint">{% render 'ms-t', v: s.hint %}</p>{%- endif -%}
     </div>
   </div>
 </section>

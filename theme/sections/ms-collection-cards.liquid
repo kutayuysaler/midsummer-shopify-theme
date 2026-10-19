@@ -3,10 +3,10 @@
   <div class="ms-cc__in">
     <div class="ms-cc__head">
       <div>
-        {%- if section.settings.eyebrow != blank -%}<div class="ms-cc__eyebrow">{{ section.settings.eyebrow }}</div>{%- endif -%}
-        <h2 class="ms-cc__heading">{{ section.settings.heading }}</h2>
+        {%- if section.settings.eyebrow != blank -%}<div class="ms-cc__eyebrow">{% render 'ms-t', v: section.settings.eyebrow %}</div>{%- endif -%}
+        <h2 class="ms-cc__heading">{% render 'ms-t', v: section.settings.heading %}</h2>
       </div>
-      {%- if section.settings.link_label != blank -%}<a data-ms="cta" class="ms-cc__all" href="{% render 'ms-link', to: 'collections' %}">{{ section.settings.link_label }}</a>{%- endif -%}
+      {%- if section.settings.link_label != blank -%}<a data-ms="cta" class="ms-cc__all" href="{% render 'ms-link', to: 'collections' %}">{% render 'ms-t', v: section.settings.link_label %}</a>{%- endif -%}
     </div>
     <div class="ms-cc__grid" data-ms="rail">
       {%- for block in section.blocks -%}
@@ -28,7 +28,10 @@
               endcapture
             endif
           endif
-          assign title = block.settings.title | default: c.title
+          capture title
+            render 'ms-t', v: block.settings.title
+          endcapture
+          assign title = title | default: c.title
         -%}
         <a class="ms-cc__card" href="{{ url }}" {{ block.shopify_attributes }}>
           <span class="ms-cc__img">
@@ -40,8 +43,8 @@
               <img src="{{ c.image | image_url: width: 1200 }}" {% render 'ms-srcset', image: c.image, width: 1200, sizes: '(max-width: 760px) 72vw, 29vw' %} alt="{{ title | escape }}" loading="lazy" width="1200" height="1500">
             {%- endif -%}
           </span>
-          <span class="ms-cc__name"><span class="ms-cc__num">{{ block.settings.numeral }}</span>{{ title }}</span>
-          {%- if block.settings.text != blank -%}<span class="ms-cc__text">{{ block.settings.text }}</span>{%- endif -%}
+          <span class="ms-cc__name"><span class="ms-cc__num">{% render 'ms-t', v: block.settings.numeral %}</span>{{ title }}</span>
+          {%- if block.settings.text != blank -%}<span class="ms-cc__text">{% render 'ms-t', v: block.settings.text %}</span>{%- endif -%}
         </a>
       {%- endfor -%}
     </div>

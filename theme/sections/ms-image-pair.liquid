@@ -3,8 +3,8 @@
   <div class="ms-ip__in">
     {%- if section.settings.heading != blank -%}
       <div class="ms-ip__head">
-        {%- if section.settings.eyebrow != blank -%}<div class="ms-ip__eyebrow">{{ section.settings.eyebrow }}</div>{%- endif -%}
-        <h2 class="ms-ip__heading">{{ section.settings.heading }}</h2>
+        {%- if section.settings.eyebrow != blank -%}<div class="ms-ip__eyebrow">{% render 'ms-t', v: section.settings.eyebrow %}</div>{%- endif -%}
+        <h2 class="ms-ip__heading">{% render 'ms-t', v: section.settings.heading %}</h2>
       </div>
     {%- endif -%}
     <div class="ms-ip__grid">
@@ -15,8 +15,8 @@
           assign kc = 'caption_' | append: i
         -%}
         <figure class="ms-ip__fig">
-          <img src="{% render 'ms-img', image: section.settings[ki], fallback: section.settings[kf], width: 1600 %}" {% render 'ms-srcset', image: section.settings[ki], fallback: section.settings[kf], width: 1600, sizes: '(max-width: 760px) 90vw, 44vw' %} alt="{{ section.settings[kc] | strip_html | escape }}" loading="lazy" width="1600" height="2000">
-          {%- if section.settings[kc] != blank -%}<figcaption>{{ section.settings[kc] }}</figcaption>{%- endif -%}
+          <img src="{% render 'ms-img', image: section.settings[ki], fallback: section.settings[kf], width: 1600 %}" {% render 'ms-srcset', image: section.settings[ki], fallback: section.settings[kf], width: 1600, sizes: '(max-width: 760px) 90vw, 44vw' %} alt="{% capture ms_t_out %}{% render 'ms-t', v: section.settings[kc] %}{% endcapture %}{{ ms_t_out | strip_html | escape }}" loading="lazy" width="1600" height="2000">
+          {%- if section.settings[kc] != blank -%}<figcaption>{% render 'ms-t', v: section.settings[kc] %}</figcaption>{%- endif -%}
         </figure>
       {%- endfor -%}
     </div>

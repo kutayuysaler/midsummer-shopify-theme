@@ -22,9 +22,9 @@
   assign prev_k = keys[prev_i]
   assign next_k = keys[next_i]
 -%}
-<nav class="ms-nr" aria-label="{{ section.settings.label | escape }}">
+<nav class="ms-nr" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: section.settings.label %}{% endcapture %}{{ ms_t_out | escape }}">
   <div class="ms-nr__in">
-    <div class="ms-nr__eyebrow">{{ section.settings.label }}</div>
+    <div class="ms-nr__eyebrow">{% render 'ms-t', v: section.settings.label %}</div>
     <ol class="ms-nr__chapters" role="list">
       {%- for k in keys -%}
         <li><a href="{% render 'ms-link', to: k %}"{% if k == cur %} aria-current="page"{% endif %}><span>{{ forloop.index | prepend: '0' }}</span>{% render 'ms-next-read-data', k: k, f: 'title' %}</a></li>
@@ -32,7 +32,7 @@
     </ol>
     <div class="ms-nr__pair">
       {%- for k in (1..2) -%}
-        {%- if k == 1 -%}{%- assign key = prev_k -%}{%- assign dir = section.settings.prev -%}{%- else -%}{%- assign key = next_k -%}{%- assign dir = section.settings.next -%}{%- endif -%}
+        {%- if k == 1 -%}{%- assign key = prev_k -%}{%- capture dir %}{% render 'ms-t', v: section.settings.prev %}{% endcapture -%}{%- else -%}{%- assign key = next_k -%}{%- capture dir %}{% render 'ms-t', v: section.settings.next %}{% endcapture -%}{%- endif -%}
         {%- capture img -%}{% render 'ms-next-read-data', k: key, f: 'image' %}{%- endcapture -%}
         <a class="ms-nr__card{% if k == 2 %} is-next{% endif %}" href="{% render 'ms-link', to: key %}">
           <span class="ms-nr__img">{%- capture nr_alt -%}{% render 'ms-next-read-data', k: key, f: 'title' %}{%- endcapture -%}<img src="{{ img | asset_url }}" {% render 'ms-srcset', fallback: img, width: 1600, sizes: '(max-width: 760px) 90vw, 44vw' %} alt="{{ nr_alt | strip | escape }}" width="1200" height="800" loading="lazy"></span>

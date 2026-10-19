@@ -8,9 +8,13 @@
 {%- liquid
   assign s = section.settings
   # the two ways of looking at a collection (Shopify takes at most forty settings a section)
-  assign tx_gallery = 'Gallery'
+  capture tx_gallery
+    render 'ms-t', v: 'Gallery'
+  endcapture
   if s.grid_label != blank and s.grid_label != 'Grid'
-    assign tx_gallery = s.grid_label
+    capture tx_gallery
+      render 'ms-t', v: s.grid_label
+    endcapture
   endif
   assign kh = collection.handle
   if kh == 'icon'
@@ -53,13 +57,13 @@
 -%}
 <section class="ms-sy" data-ms-sy>
   {%- if n_kinds > 1 -%}
-  <div class="ms-sy__kinds" role="group" aria-label="{{ s.kind_label | escape }}">
-    <button type="button" class="is-on" data-kind="" aria-pressed="true">{{ s.all_kinds_label }} <span>{{ kinds_list.size }}</span></button>
+  <div class="ms-sy__kinds" role="group" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.kind_label %}{% endcapture %}{{ ms_t_out | escape }}">
+    <button type="button" class="is-on" data-kind="" aria-pressed="true">{% render 'ms-t', v: s.all_kinds_label %} <span>{{ kinds_list.size }}</span></button>
     {%- for k in kind_order -%}
       {%- if kinds_list contains k -%}
         {%- assign kc = 0 -%}{%- for x in kinds_list -%}{%- if x == k -%}{%- assign kc = kc | plus: 1 -%}{%- endif -%}{%- endfor -%}
         {%- assign kp = 'kinds_' | append: k -%}
-        <button type="button" data-kind="{{ k }}" aria-pressed="false">{% render 'ms-kind-glyph', kind: k %}{{ s[kp] }} <span>{{ kc }}</span></button>
+        <button type="button" data-kind="{{ k }}" aria-pressed="false">{% render 'ms-kind-glyph', kind: k %}{% render 'ms-t', v: s[kp] %} <span>{{ kc }}</span></button>
       {%- endif -%}
     {%- endfor -%}
   </div>
@@ -70,32 +74,49 @@
   {%- if show_views -%}
   <div class="ms-sy__bar{% if n_sys <= 1 %} ms-sy__bar--views{% endif %}">
     {%- if n_sys > 1 -%}
-    <div class="ms-sy__needs" role="group" aria-label="{{ s.need_label | escape }}">
-      <span class="ms-sy__ask">{{ s.need_label }}</span>
-      <button type="button" class="is-on" data-need="" aria-pressed="true">{{ s.all_label }}</button>
-      <button type="button" data-need="temperature" aria-pressed="false">{{ s.temperature_label }}</button>
-      <button type="button" data-need="support" aria-pressed="false">{{ s.support_label }}</button>
-      <button type="button" data-need="softness" aria-pressed="false">{{ s.softness_label }}</button>
-      <button type="button" data-need="breathability" aria-pressed="false">{{ s.breathability_label }}</button>
-      <button type="button" data-need="hypoallergenic" aria-pressed="false">{{ s.hypoallergenic_label }}</button>
+    <div class="ms-sy__needs" role="group" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.need_label %}{% endcapture %}{{ ms_t_out | escape }}">
+      <span class="ms-sy__ask">{% render 'ms-t', v: s.need_label %}</span>
+      <button type="button" class="is-on" data-need="" aria-pressed="true">{% render 'ms-t', v: s.all_label %}</button>
+      <button type="button" data-need="temperature" aria-pressed="false">{% render 'ms-t', v: s.temperature_label %}</button>
+      <button type="button" data-need="support" aria-pressed="false">{% render 'ms-t', v: s.support_label %}</button>
+      <button type="button" data-need="softness" aria-pressed="false">{% render 'ms-t', v: s.softness_label %}</button>
+      <button type="button" data-need="breathability" aria-pressed="false">{% render 'ms-t', v: s.breathability_label %}</button>
+      <button type="button" data-need="hypoallergenic" aria-pressed="false">{% render 'ms-t', v: s.hypoallergenic_label %}</button>
     </div>
     {%- endif -%}
-    <div class="ms-sy__views" role="group" aria-label="{{ s.view_label | escape }}">
+    <div class="ms-sy__views" role="group" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.view_label %}{% endcapture %}{{ ms_t_out | escape }}">
       <button type="button" class="is-on" data-sy-view="grid" aria-pressed="true"><svg viewBox="0 0 14 14" width="13" height="13" aria-hidden="true"><path d="M1 1h7v7H1zM10 1h3v4h-3zM10 7h3v6h-3zM1 10h7v3H1z" fill="none" stroke="currentColor" stroke-width="1"/></svg>{{ tx_gallery }}</button>
-      {%- if n_sys > 1 -%}<button type="button" data-sy-view="table" aria-pressed="false"><svg viewBox="0 0 14 14" width="13" height="13" aria-hidden="true"><path d="M1 1.5h12v11H1zM1 5h12M5 1.5v11" fill="none" stroke="currentColor" stroke-width="1"/></svg>{{ s.compare_label }}</button>{%- endif -%}
+      {%- if n_sys > 1 -%}<button type="button" data-sy-view="table" aria-pressed="false"><svg viewBox="0 0 14 14" width="13" height="13" aria-hidden="true"><path d="M1 1.5h12v11H1zM1 5h12M5 1.5v11" fill="none" stroke="currentColor" stroke-width="1"/></svg>{% render 'ms-t', v: s.compare_label %}</button>{%- endif -%}
     </div>
   </div>
   {%- endif -%}
   {%- if n_sys > 1 -%}
-  <p class="ms-sy__hint" data-sy-hint aria-live="polite">{{ s.hint_all }}</p>
+  <p class="ms-sy__hint" data-sy-hint aria-live="polite">{% render 'ms-t', v: s.hint_all %}</p>
   <template data-sy-hints>
-    <span data-k="">{{ s.hint_all }}</span>
-    <span data-k="temperature">{{ s.hint_temperature }}</span>
-    <span data-k="support">{{ s.hint_support }}</span>
-    <span data-k="softness">{{ s.hint_softness }}</span>
-    <span data-k="breathability">{{ s.hint_breathability }}</span>
-    <span data-k="hypoallergenic">{{ s.hint_hypoallergenic }}</span>
-    <span data-k="and">{{ s.and_label | default: 'and' }}</span>
+    <span data-k="">{% render 'ms-t', v: s.hint_all %}</span>
+    <span data-k="temperature">{% render 'ms-t', v: s.hint_temperature %}</span>
+    <span data-k="support">{% render 'ms-t', v: s.hint_support %}</span>
+    <span data-k="softness">{% render 'ms-t', v: s.hint_softness %}</span>
+    <span data-k="breathability">{% render 'ms-t', v: s.hint_breathability %}</span>
+    <span data-k="hypoallergenic">{% render 'ms-t', v: s.hint_hypoallergenic %}</span>
+    <span data-k="and">{% capture ms_t_out %}{% render 'ms-t', v: s.and_label %}{% endcapture %}{{ ms_t_out | default: 'and' }}</span>
+    <span data-f="baby alpaca">{% render 'ms-t', v: 'baby alpaca' %}</span>
+    <span data-f="alpaca">{% render 'ms-t', v: 'alpaca' %}</span>
+    <span data-f="wool">{% render 'ms-t', v: 'wool' %}</span>
+    <span data-f="Cheviot wool">{% render 'ms-t', v: 'Cheviot wool' %}</span>
+    <span data-f="Falkland wool">{% render 'ms-t', v: 'Falkland wool' %}</span>
+    <span data-f="horsehair">{% render 'ms-t', v: 'horsehair' %}</span>
+    <span data-f="vegetable horsehair">{% render 'ms-t', v: 'vegetable horsehair' %}</span>
+    <span data-f="yak hair">{% render 'ms-t', v: 'yak hair' %}</span>
+    <span data-f="vicuña">{% render 'ms-t', v: 'vicuña' %}</span>
+    <span data-f="cashmere">{% render 'ms-t', v: 'cashmere' %}</span>
+    <span data-f="mohair">{% render 'ms-t', v: 'mohair' %}</span>
+    <span data-f="camel hair">{% render 'ms-t', v: 'camel hair' %}</span>
+    <span data-f="linen">{% render 'ms-t', v: 'linen' %}</span>
+    <span data-f="silk">{% render 'ms-t', v: 'silk' %}</span>
+    <span data-f="cotton">{% render 'ms-t', v: 'cotton' %}</span>
+    <span data-f="Ingeo">{% render 'ms-t', v: 'Ingeo' %}</span>
+    <span data-f="Orange Fiber">{% render 'ms-t', v: 'Orange Fiber' %}</span>
   </template>
   {%- endif -%}
 
@@ -116,9 +137,9 @@
         {%- capture bl -%}{% render 'ms-bed-data', key: mkp[2], part: 'line' %}{%- endcapture -%}
         {%- capture bh -%}{% render 'ms-bed-data', key: mkp[2], part: 'height' %}{%- endcapture -%}
         {%- assign sub = product.metafields.custom.subtitle.value | default: bl -%}
-        {%- assign spec = s.headboard_label | append: ' ' | append: bh | append: ' cm' -%}
+        {%- capture spec %}{% render 'ms-t', v: s.headboard_label %}{% endcapture -%}{%- assign spec = spec | append: ' ' | append: bh | append: ' cm' -%}
       {%- elsif mkp[0] == 'outdoor' -%}
-        {%- assign sub = product.metafields.custom.subtitle.value | default: s.outdoor_line -%}
+        {% capture ms_d1 %}{% render 'ms-t', v: s.outdoor_line %}{% endcapture %}{%- assign sub = product.metafields.custom.subtitle.value | default: ms_d1 -%}
       {%- endif -%}
       {%- liquid
         assign what = mkp[0]
@@ -129,17 +150,25 @@
           assign what = what | strip | default: 'system'
         endif
         assign wl = 'what_' | append: what
-        assign what_label = s[wl]
+        capture what_label
+          render 'ms-t', v: s[wl]
+        endcapture
         assign tier = ''
         unless is_tier
           for c in product.collections
             case c.handle
               when 'essentials'
-                assign tier = s.tab1
+                capture tier
+                  render 'ms-t', v: s.tab1
+                endcapture
               when 'signature'
-                assign tier = s.tab2
+                capture tier
+                  render 'ms-t', v: s.tab2
+                endcapture
               when 'icons', 'icon'
-                assign tier = s.tab3
+                capture tier
+                  render 'ms-t', v: s.tab3
+                endcapture
             endcase
             if tier != ''
               break
@@ -161,22 +190,22 @@
           <p class="ms-sy__what">{% render 'ms-kind-glyph', kind: what %}<span>{{ what_label }}</span>{%- if tier != '' -%}<span class="ms-sy__tier">{{ tier }}</span>{%- endif -%}</p>
         {%- endif -%}
         <h2 class="ms-sy__name">{{ product.title }}<svg class="ms-sy__go" viewBox="0 0 20 10" width="20" height="10" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><path d="M0 5h18M14 1l4 4-4 4"/></svg></h2>
-        {%- if s[wi] != blank -%}<p class="ms-sy__with">{{ s[wi] }}</p>{%- endif -%}
+        {%- if s[wi] != blank -%}<p class="ms-sy__with">{% render 'ms-t', v: s[wi] %}</p>{%- endif -%}
         {%- if sub != blank -%}<p class="ms-sy__sub">{{ sub }}</p>{%- endif -%}
         {%- if spec != blank -%}<p class="ms-sy__spec">{{ spec }}</p>{%- endif -%}
         {%- if fibres.size > 0 and fparts[0] != blank -%}
           <div class="ms-sy__fibres">
             <ul class="ms-sy__marks" role="list">
-              {%- for f in fibres -%}<li title="{{ f | escape }}">{% render 'ms-fibre-mark', name: f, size: 26 %}<span class="ms-sy__vh">{{ f }}</span></li>{%- endfor -%}
+              {%- for f in fibres -%}{%- capture ft -%}{% render 'ms-t', v: f %}{%- endcapture -%}<li title="{{ ft | escape }}">{% render 'ms-fibre-mark', name: f, size: 26 %}<span class="ms-sy__vh">{{ ft }}</span></li>{%- endfor -%}
             </ul>
-            <p class="ms-sy__fnames" aria-hidden="true">{{ fibres | join: ' · ' }}</p>
+            <p class="ms-sy__fnames" aria-hidden="true">{%- for f in fibres -%}{%- unless forloop.first %} · {% endunless -%}{% render 'ms-t', v: f %}{%- endfor -%}</p>
           </div>
         {%- endif -%}
         {%- if settings.ms_show_prices -%}<p class="ms-sy__price">{% if product.price_varies %}{%- assign from_price = product.price_min | money -%}{{ 'ms.product.price_from' | t: price: from_price }}{% else %}{{ product.price | money }}{% endif %}</p>{%- endif -%}{%- if settings.ms_show_prices == false and settings.ms_price_from and product.price_min > 0 -%}{%- assign from_price = product.price_min | money -%}<p class="ms-sy__price">{{ 'ms.product.price_from' | t: price: from_price }}</p>{%- endif -%}
         </div>
       </a>
     {%- else -%}
-      <p class="ms-sy__empty">{{ s.empty }}</p>
+      <p class="ms-sy__empty">{% render 'ms-t', v: s.empty %}</p>
     {%- endfor -%}
   </div>
 
@@ -185,13 +214,13 @@
     <table class="ms-sy__table">
       <thead>
         <tr>
-          <th scope="col">{{ s.col_system }}</th>
-          <th scope="col">{{ s.col_fibres }}</th>
-          <th scope="col" data-col="temperature">{{ s.temperature_label }}</th>
-          <th scope="col" data-col="support">{{ s.support_label }}</th>
-          <th scope="col" data-col="softness">{{ s.softness_label }}</th>
-          <th scope="col" data-col="breathability">{{ s.breathability_label }}</th>
-          <th scope="col" data-col="hypoallergenic">{{ s.hypoallergenic_label }}</th>
+          <th scope="col">{% render 'ms-t', v: s.col_system %}</th>
+          <th scope="col">{% render 'ms-t', v: s.col_fibres %}</th>
+          <th scope="col" data-col="temperature">{% render 'ms-t', v: s.temperature_label %}</th>
+          <th scope="col" data-col="support">{% render 'ms-t', v: s.support_label %}</th>
+          <th scope="col" data-col="softness">{% render 'ms-t', v: s.softness_label %}</th>
+          <th scope="col" data-col="breathability">{% render 'ms-t', v: s.breathability_label %}</th>
+          <th scope="col" data-col="hypoallergenic">{% render 'ms-t', v: s.hypoallergenic_label %}</th>
         </tr>
       </thead>
       <tbody>
@@ -206,32 +235,32 @@
                 <span>{{ product.title }}</span>
               </a>
             </th>
-            <td class="ms-sy__tf">{{ fparts[0] | replace: ',', ', ' | default: '–' }}</td>
+            <td class="ms-sy__tf">{%- assign tfs = fparts[0] | split: ',' -%}{%- for f in tfs -%}{%- unless forloop.first -%}, {% endunless -%}{% render 'ms-t', v: f %}{%- else -%}–{%- endfor -%}</td>
             {%- assign needs = 'temperature,support,softness,breathability,hypoallergenic' | split: ',' -%}
             {%- for n in needs -%}
-              <td data-col="{{ n }}">{%- if quals contains n -%}<i class="ms-sy__dot" aria-label="{{ s.yes_label | escape }}"></i>{%- else -%}<span class="ms-sy__no" aria-hidden="true"></span>{%- endif -%}</td>
+              <td data-col="{{ n }}">{%- if quals contains n -%}<i class="ms-sy__dot" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.yes_label %}{% endcapture %}{{ ms_t_out | escape }}"></i>{%- else -%}<span class="ms-sy__no" aria-hidden="true"></span>{%- endif -%}</td>
             {%- endfor -%}
           </tr>
         {%- endfor -%}
       </tbody>
     </table>
-    <p class="ms-sy__note">{{ s.table_note }}</p>
+    <p class="ms-sy__note">{% render 'ms-t', v: s.table_note %}</p>
   </div>
   {%- endif -%}
 
   {%- if paginate.pages > 1 -%}
     <nav class="ms-sy__pages" aria-label="{{ 'ms.product.aria_pages' | t }}">
-      {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">← {{ s.prev_label }}</a>{%- endif -%}
+      {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">← {% render 'ms-t', v: s.prev_label %}</a>{%- endif -%}
       <span>{{ paginate.current_page }} / {{ paginate.pages }}</span>
-      {%- if paginate.next -%}<a href="{{ paginate.next.url }}">{{ s.next_label }} →</a>{%- endif -%}
+      {%- if paginate.next -%}<a href="{{ paginate.next.url }}">{% render 'ms-t', v: s.next_label %} →</a>{%- endif -%}
     </nav>
   {%- endif -%}
   {%- endpaginate -%}
 
   <div class="ms-sy__help">
-    <p>{{ s.help_text }}</p>
-    <a href="{% render 'ms-link', to: 'quiz' %}" data-ms-quiz-link>{{ s.quiz_label }}<span aria-hidden="true"> →</span></a>
-    <a href="{% render 'ms-link', to: 'compare' %}">{{ s.compare_collections_label }}<span aria-hidden="true"> →</span></a>
+    <p>{% render 'ms-t', v: s.help_text %}</p>
+    <a href="{% render 'ms-link', to: 'quiz' %}" data-ms-quiz-link>{% render 'ms-t', v: s.quiz_label %}<span aria-hidden="true"> →</span></a>
+    <a href="{% render 'ms-link', to: 'compare' %}">{% render 'ms-t', v: s.compare_collections_label %}<span aria-hidden="true"> →</span></a>
   </div>
 </section>
 
@@ -343,6 +372,8 @@
     var hints = {};
     var tpl = root.querySelector('[data-sy-hints]');
     if (tpl) Array.prototype.forEach.call(tpl.content.querySelectorAll('[data-k]'), function (n) { hints[n.getAttribute('data-k')] = n.textContent; });
+    var ft = {};
+    if (tpl) Array.prototype.forEach.call(tpl.content.querySelectorAll('[data-f]'), function (n) { ft[n.getAttribute('data-f')] = n.textContent; });
     var need = '', kind = '';
     /* the line under the needs names only the fibres of the beds shown: each bed is chosen for a need
        by its three most telling fibres (data-d, "Fibre:need need|…"), and those are the ones named.
@@ -381,7 +412,7 @@
     function say(n) {
       var t = hints[n] || '';
       if (!n || t.indexOf('{fibres}') < 0) return t || hints[''] || '';
-      var fs = fibresFor(n);
+      var fs = fibresFor(n).map(function (f) { return ft[f] || f; });
       if (!fs.length) return hints[''] || '';
       var list = fs.length === 1 ? fs[0] : fs.slice(0, -1).join(', ') + ' ' + (hints['and'] || 'and') + ' ' + fs[fs.length - 1];
       t = t.replace(/\{([^{}\/]+)\/([^{}]+)\}/g, function (m, many, one) { return fs.length > 1 ? many : one; }).replace('{fibres}', list);

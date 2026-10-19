@@ -1,16 +1,16 @@
 {%- comment -%} The end of a Journal note: a sign-off from the atelier, then the notes either side with their pictures.
   Usage: {% render 'ms-article-end', s: section.settings, art: article, b: blog %} {%- endcomment -%}
 {%- capture cat -%}{% render 'ms-note-cat', a: art %}{%- endcapture -%}{%- capture kicker -%}{% render 'ms-note-cat', label: cat %}{%- endcapture -%}
-<aside class="ms-art-end" aria-label="{{ s.end_label | escape }}">
+<aside class="ms-art-end" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.end_label %}{% endcapture %}{{ ms_t_out | escape }}">
   <div class="ms-art-end__in">
     <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" class="ms-art-end__leaf"><path d="M4 20 C4 11 11 4 20 4 C20 13 13 20 4 20 Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1"/><path d="M4 20 L16 8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1"/></svg>
-    <div class="ms-art-end__eyebrow">{{ s.end_label }}</div>
-    <p class="ms-art-end__h">{{ s.end_heading }}</p>
-    {%- if s.end_text != blank -%}<p class="ms-art-end__t">{{ s.end_text }}</p>{%- endif -%}
+    <div class="ms-art-end__eyebrow">{% render 'ms-t', v: s.end_label %}</div>
+    <p class="ms-art-end__h">{% render 'ms-t', v: s.end_heading %}</p>
+    {%- if s.end_text != blank -%}<p class="ms-art-end__t">{% render 'ms-t', v: s.end_text %}</p>{%- endif -%}
     <div class="ms-art-end__links">
-      <a class="ms-art-end__btn" data-ms-enquire data-ms-cta="article-end" href="{% render 'ms-link', to: 'enquire' %}">{{ s.cta }}</a>
-      <a class="ms-art-end__all" href="{{ b.url }}"><span aria-hidden="true">←</span> {{ s.all }}</a>
-      {%- if cat != blank -%}<a class="ms-art-end__all" href="{{ b.url }}?view={{ cat }}">{{ s.same }} {{ kicker }}</a>{%- endif -%}
+      <a class="ms-art-end__btn" data-ms-enquire data-ms-cta="article-end" href="{% render 'ms-link', to: 'enquire' %}">{% render 'ms-t', v: s.cta %}</a>
+      <a class="ms-art-end__all" href="{{ b.url }}"><span aria-hidden="true">←</span> {% render 'ms-t', v: s.all %}</a>
+      {%- if cat != blank -%}<a class="ms-art-end__all" href="{{ b.url }}?view={{ cat }}">{% render 'ms-t', v: s.same %} {{ kicker }}</a>{%- endif -%}
     </div>
   </div>
 </aside>
@@ -32,9 +32,9 @@
   endfor
 -%}
 {%- if older or newer -%}
-<nav class="ms-art-nav{% unless older and newer %} is-solo{% endunless %}" aria-label="{{ s.more | escape }}">
+<nav class="ms-art-nav{% unless older and newer %} is-solo{% endunless %}" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.more %}{% endcapture %}{{ ms_t_out | escape }}">
   {%- for side in (1..2) -%}
-    {%- if side == 1 -%}{%- assign n = older -%}{%- assign lab = s.older -%}{%- else -%}{%- assign n = newer -%}{%- assign lab = s.newer -%}{%- endif -%}
+    {%- if side == 1 -%}{%- assign n = older -%}{%- capture lab %}{% render 'ms-t', v: s.older %}{% endcapture -%}{%- else -%}{%- assign n = newer -%}{%- capture lab %}{% render 'ms-t', v: s.newer %}{% endcapture -%}{%- endif -%}
     {%- if n -%}
       {%- capture ncat -%}{% render 'ms-note-cat', a: n %}{%- endcapture -%}{%- capture nkick -%}{% render 'ms-note-cat', label: ncat %}{%- endcapture -%}
       <a class="ms-art-nav__a{% if side == 2 %} is-next{% endif %}" href="{{ n.url }}">

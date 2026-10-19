@@ -6,10 +6,10 @@
 <section class="ms-pf">
   <div class="ms-pf__in">
     <div class="ms-pf__lead">
-      <div class="ms-pf__eyebrow">{{ section.settings.eyebrow }}</div>
-      <h2 class="ms-pf__heading">{{ section.settings.heading }}</h2>
+      <div class="ms-pf__eyebrow">{% render 'ms-t', v: section.settings.eyebrow %}</div>
+      <h2 class="ms-pf__heading">{% render 'ms-t', v: section.settings.heading %}</h2>
       {%- if section.settings.link_label != blank -%}
-        <a data-ms="cta" class="ms-pf__link" href="{% render 'ms-link', to: 'materials' %}">{{ section.settings.link_label }}</a>
+        <a data-ms="cta" class="ms-pf__link" href="{% render 'ms-link', to: 'materials' %}">{% render 'ms-t', v: section.settings.link_label %}</a>
       {%- endif -%}
     </div>
     <div class="ms-pf__body">
@@ -19,21 +19,21 @@
           <li class="ms-pf__fibre" {{ block.shopify_attributes }}>
             <span class="ms-pf__icon">
               {%- if block.settings.icon != blank -%}
-                <img src="{{ block.settings.icon | image_url: width: 160 }}" alt="{{ block.settings.name | escape }}" width="80" height="80" loading="lazy">
+                <img src="{{ block.settings.icon | image_url: width: 160 }}" alt="{% capture ms_t_out %}{% render 'ms-t', v: block.settings.name %}{% endcapture %}{{ ms_t_out | escape }}" width="80" height="80" loading="lazy">
               {%- else -%}
                 <svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path d="M4 20 C4 11 11 4 20 4 C20 13 13 20 4 20 Z" fill="none" stroke="#7E623B" stroke-width="1.1"/><path d="M4 20 L16 8" fill="none" stroke="#7E623B" stroke-width="1.1"/></svg>
               {%- endif -%}
             </span>
-            <span class="ms-pf__name">{{ block.settings.name }}</span>
-            {%- if block.settings.note != blank -%}<span class="ms-pf__note">{{ block.settings.note }}</span>{%- endif -%}
+            <span class="ms-pf__name">{% render 'ms-t', v: block.settings.name %}</span>
+            {%- if block.settings.note != blank -%}<span class="ms-pf__note">{% render 'ms-t', v: block.settings.note %}</span>{%- endif -%}
           </li>
         {%- endfor -%}
       </ul>
       {%- endif -%}
       {%- if section.settings.specs != blank -%}
         <div class="ms-pf__specs">
-          <div class="ms-pf__eyebrow">{{ section.settings.specs_label }}</div>
-          <div class="ms-pf__spectext">{{ section.settings.specs }}</div>
+          <div class="ms-pf__eyebrow">{% render 'ms-t', v: section.settings.specs_label %}</div>
+          <div class="ms-pf__spectext">{% render 'ms-t', v: section.settings.specs %}</div>
         </div>
       {%- endif -%}
     </div>

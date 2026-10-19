@@ -6,32 +6,32 @@
 <section class="ms-fx" id="{{ s.anchor | default: section.id }}">
   <div class="ms-fx__in">
     <header class="ms-fx__head">
-      <div class="ms-fx__eyebrow">{{ s.eyebrow }}</div>
+      <div class="ms-fx__eyebrow">{% render 'ms-t', v: s.eyebrow %}</div>
       {%- if template.name == 'page' and s.use_page_title -%}
         <h1 class="ms-fx__title">{{ page.title }}</h1>
       {%- else -%}
-        <h1 class="ms-fx__title">{{ s.heading }}</h1>
+        <h1 class="ms-fx__title">{% render 'ms-t', v: s.heading %}</h1>
       {%- endif -%}
-      {%- if s.text != blank -%}<div class="ms-fx__text">{{ s.text }}</div>{%- endif -%}
+      {%- if s.text != blank -%}<div class="ms-fx__text">{% render 'ms-t', v: s.text %}</div>{%- endif -%}
     </header>
     <dl class="ms-fx__list">
       {%- for block in section.blocks -%}
         <div class="ms-fx__row" {{ block.shopify_attributes }}>
-          <dt>{{ block.settings.label }}</dt>
+          <dt>{% render 'ms-t', v: block.settings.label %}</dt>
           <dd>
-            {{ block.settings.value }}
+            {% render 'ms-t', v: block.settings.value %}
             {%- if block.settings.link_place != 'none' and block.settings.link_label != blank -%}
-              <a class="ms-fx__more" href="{% render 'ms-link', to: block.settings.link_place %}">{{ block.settings.link_label }}<span aria-hidden="true"> →</span></a>
+              <a class="ms-fx__more" href="{% render 'ms-link', to: block.settings.link_place %}">{% render 'ms-t', v: block.settings.link_label %}<span aria-hidden="true"> →</span></a>
             {%- endif -%}
           </dd>
         </div>
       {%- endfor -%}
       {%- if s.contact_label != blank -%}
         <div class="ms-fx__row">
-          <dt>{{ s.contact_label }}</dt>
+          <dt>{% render 'ms-t', v: s.contact_label %}</dt>
           <dd>
             <p>{%- if shop.email != blank -%}<a href="mailto:{{ shop.email }}">{{ shop.email }}</a>{%- endif -%}</p>
-            <a class="ms-fx__more" href="{% render 'ms-link', to: 'enquire' %}#enquire" data-ms-landing>{{ s.enquire_label }}<span aria-hidden="true"> →</span></a>
+            <a class="ms-fx__more" href="{% render 'ms-link', to: 'enquire' %}#enquire" data-ms-landing>{% render 'ms-t', v: s.enquire_label %}<span aria-hidden="true"> →</span></a>
           </dd>
         </div>
       {%- endif -%}

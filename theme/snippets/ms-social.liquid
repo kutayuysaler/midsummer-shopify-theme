@@ -6,7 +6,10 @@
 {%- endcomment -%}
 {%- liquid
   assign nets = 'instagram,pinterest,linkedin,whatsapp,telegram,vk,facebook,youtube,tiktok' | split: ','
-  assign names = 'Instagram,Pinterest,LinkedIn,WhatsApp,Telegram,VK,Facebook,YouTube,TikTok' | split: ','
+  capture names
+    render 'ms-t', v: 'Instagram,Pinterest,LinkedIn,WhatsApp,Telegram,VK,Facebook,YouTube,TikTok'
+  endcapture
+  assign names = names | split: ','
   assign ms_lang = request.locale.iso_code | slice: 0, 2
 -%}
 <ul class="ms-social{% if tone == 'light' %} is-light{% endif %}" role="list">

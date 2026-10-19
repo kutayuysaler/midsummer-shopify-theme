@@ -3,7 +3,9 @@
   assign cn = c.title
   assign cl = cn | downcase | strip
   if cl == 'icon'
-    assign cn = 'Icons'
+    capture cn
+      render 'ms-t', v: 'Icons'
+    endcapture
   endif
   echo cn
 -%}

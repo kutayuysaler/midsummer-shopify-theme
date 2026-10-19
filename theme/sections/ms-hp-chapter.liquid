@@ -34,30 +34,30 @@
   <div class="ms-ch__in">
     <div class="ms-ch__figure">
       <div class="ms-ch__media">
-        <img src="{% render 'ms-img', image: s.image, fallback: s.image_fallback, width: 2000 %}" {% render 'ms-srcset', image: s.image, fallback: s.image_fallback, width: 2000, sizes: '100vw' %} alt="{{ s.image.alt | default: s.heading | strip_html | escape }}" width="2000" height="{% if s.shape == 'landscape' %}1500{% else %}2500{% endif %}" loading="lazy">
+        <img src="{% render 'ms-img', image: s.image, fallback: s.image_fallback, width: 2000 %}" {% render 'ms-srcset', image: s.image, fallback: s.image_fallback, width: 2000, sizes: '100vw' %} alt="{% capture ms_d1 %}{% render 'ms-t', v: s.heading %}{% endcapture %}{{ s.image.alt | default: ms_d1 | strip_html | escape }}" width="2000" height="{% if s.shape == 'landscape' %}1500{% else %}2500{% endif %}" loading="lazy">
       </div>
       {%- if inset -%}
         {%- comment -%} a second, closer photograph: the hands at work, set over the corner of the first {%- endcomment -%}
         <div class="ms-ch__inset">
-          <img src="{% render 'ms-img', image: s.image_2, fallback: s.image_2_fallback, width: 900 %}" {% render 'ms-srcset', image: s.image_2, fallback: s.image_2_fallback, width: 900, sizes: '(max-width: 760px) 45vw, 24vw' %} alt="{{ s.image_2.alt | default: s.image_2_caption | default: s.heading | strip_html | escape }}" width="900" height="1125" loading="lazy">
-          {%- if s.image_2_caption != blank -%}<span class="ms-ch__cap">{{ s.image_2_caption }}</span>{%- endif -%}
+          <img src="{% render 'ms-img', image: s.image_2, fallback: s.image_2_fallback, width: 900 %}" {% render 'ms-srcset', image: s.image_2, fallback: s.image_2_fallback, width: 900, sizes: '(max-width: 760px) 45vw, 24vw' %} alt="{% capture ms_d2 %}{% render 'ms-t', v: s.image_2_caption %}{% endcapture %}{% capture ms_d3 %}{% render 'ms-t', v: s.heading %}{% endcapture %}{{ s.image_2.alt | default: ms_d2 | default: ms_d3 | strip_html | escape }}" width="900" height="1125" loading="lazy">
+          {%- if s.image_2_caption != blank -%}<span class="ms-ch__cap">{% render 'ms-t', v: s.image_2_caption %}</span>{%- endif -%}
         </div>
       {%- endif -%}
     </div>
     <div class="ms-ch__words">
-      <div class="ms-ch__mark">{%- if s.numeral != blank -%}<span class="ms-ch__num">{{ s.numeral }}</span>{%- endif -%}<span class="ms-ch__eyebrow">{{ s.eyebrow }}</span></div>
-      <h2 class="ms-ch__title">{{ s.heading }}</h2>
-      {%- if s.text != blank -%}<p class="ms-ch__text">{{ s.text }}</p>{%- endif -%}
+      <div class="ms-ch__mark">{%- if s.numeral != blank -%}<span class="ms-ch__num">{% render 'ms-t', v: s.numeral %}</span>{%- endif -%}<span class="ms-ch__eyebrow">{% render 'ms-t', v: s.eyebrow %}</span></div>
+      <h2 class="ms-ch__title">{% render 'ms-t', v: s.heading %}</h2>
+      {%- if s.text != blank -%}<p class="ms-ch__text">{% render 'ms-t', v: s.text %}</p>{%- endif -%}
       {%- if s.stat1_value != blank -%}
         <dl class="ms-ch__stats">
           {%- for i in (1..3) -%}
             {%- assign kv = 'stat' | append: i | append: '_value' -%}{%- assign kl = 'stat' | append: i | append: '_label' -%}
-            {%- if s[kv] != blank -%}<div><dt data-ms-count>{{ s[kv] }}</dt><dd>{{ s[kl] }}</dd></div>{%- endif -%}
+            {%- if s[kv] != blank -%}<div><dt data-ms-count>{% render 'ms-t', v: s[kv] %}</dt><dd>{% render 'ms-t', v: s[kl] %}</dd></div>{%- endif -%}
           {%- endfor -%}
         </dl>
       {%- endif -%}
       {%- if s.link_label != blank and href != blank -%}
-        <a class="ms-ch__link" href="{{ href }}"{% if s.link_place == 'enquire' %} data-ms-landing{% endif %}>{{ s.link_label }}<span aria-hidden="true">→</span></a>
+        <a class="ms-ch__link" href="{{ href }}"{% if s.link_place == 'enquire' %} data-ms-landing{% endif %}>{% render 'ms-t', v: s.link_label %}<span aria-hidden="true">→</span></a>
       {%- endif -%}
     </div>
   </div>

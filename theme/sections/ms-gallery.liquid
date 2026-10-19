@@ -3,17 +3,17 @@
   <div class="ms-gl__in">
     {%- if section.settings.heading != blank -%}
       <div class="ms-gl__head">
-        {%- if section.settings.eyebrow != blank -%}<div class="ms-gl__eyebrow">{{ section.settings.eyebrow }}</div>{%- endif -%}
-        <h2 class="ms-gl__heading">{{ section.settings.heading }}</h2>
+        {%- if section.settings.eyebrow != blank -%}<div class="ms-gl__eyebrow">{% render 'ms-t', v: section.settings.eyebrow %}</div>{%- endif -%}
+        <h2 class="ms-gl__heading">{% render 'ms-t', v: section.settings.heading %}</h2>
       </div>
     {%- endif -%}
   </div>
-  <div class="ms-gl__rail" data-ms="rail-x" tabindex="0" role="region" aria-label="{{ section.settings.heading | default: 'Photographs' | escape }}">
+  <div class="ms-gl__rail" data-ms="rail-x" tabindex="0" role="region" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: section.settings.heading %}{% endcapture %}{% capture ms_l44 %}{% render 'ms-t', v: 'Photographs' %}{% endcapture %}{{ ms_t_out | default: ms_l44 | escape }}">
     {%- for block in section.blocks -%}
       {%- capture src -%}{% render 'ms-img', image: block.settings.image, fallback: block.settings.image_fallback, width: 1600 %}{%- endcapture -%}
       <figure class="ms-gl__fig" {{ block.shopify_attributes }}>
-        {%- if src != blank -%}<img src="{{ src }}" alt="{{ block.settings.caption | escape }}" loading="{% if forloop.index > 2 %}lazy{% else %}eager{% endif %}" width="1600" height="1200">{%- endif -%}
-        {%- if block.settings.caption != blank -%}<figcaption>{{ block.settings.caption }}</figcaption>{%- endif -%}
+        {%- if src != blank -%}<img src="{{ src }}" alt="{% capture ms_t_out %}{% render 'ms-t', v: block.settings.caption %}{% endcapture %}{{ ms_t_out | escape }}" loading="{% if forloop.index > 2 %}lazy{% else %}eager{% endif %}" width="1600" height="1200">{%- endif -%}
+        {%- if block.settings.caption != blank -%}<figcaption>{% render 'ms-t', v: block.settings.caption %}</figcaption>{%- endif -%}
       </figure>
     {%- endfor -%}
   </div>

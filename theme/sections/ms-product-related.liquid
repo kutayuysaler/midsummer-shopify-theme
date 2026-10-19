@@ -18,11 +18,17 @@
   assign tname = tier.title
   case tier.handle
     when 'essentials'
-      assign tname = 'Essentials'
+      capture tname
+        render 'ms-t', v: 'Essentials'
+      endcapture
     when 'signature'
-      assign tname = 'Signature'
+      capture tname
+        render 'ms-t', v: 'Signature'
+      endcapture
     when 'icons', 'icon'
-      assign tname = 'Icons'
+      capture tname
+        render 'ms-t', v: 'Icons'
+      endcapture
   endcase
   capture mk0
     render 'ms-kind', p: product
@@ -33,10 +39,10 @@
 <section class="ms-rel">
   <div class="ms-rel__head">
     <div>
-      {%- if s.eyebrow != blank -%}<p class="ms-rel__eyebrow">{{ s.eyebrow }}</p>{%- endif -%}
+      {%- if s.eyebrow != blank -%}<p class="ms-rel__eyebrow">{% render 'ms-t', v: s.eyebrow %}</p>{%- endif -%}
       <h2 class="ms-rel__title">{{ tname }}</h2>
     </div>
-    {%- if s.link != blank -%}<a class="ms-rel__all" href="{{ tier.url }}">{{ s.link | replace: '[collection]', tname }}<span aria-hidden="true">→</span></a>{%- endif -%}
+    {%- if s.link != blank -%}<a class="ms-rel__all" href="{{ tier.url }}">{% capture ms_t_out %}{% render 'ms-t', v: s.link %}{% endcapture %}{{ ms_t_out | replace: '[collection]', tname }}<span aria-hidden="true">→</span></a>{%- endif -%}
   </div>
   <div class="ms-rel__grid">
     {%- assign picked = ',' -%}
@@ -62,17 +68,29 @@
           endif
           case what
             when 'system'
-              assign wl = s.what_system
+              capture wl
+                render 'ms-t', v: s.what_system
+              endcapture
             when 'mattress'
-              assign wl = s.what_mattress
+              capture wl
+                render 'ms-t', v: s.what_mattress
+              endcapture
             when 'topper'
-              assign wl = s.what_topper
+              capture wl
+                render 'ms-t', v: s.what_topper
+              endcapture
             when 'boxspring'
-              assign wl = s.what_boxspring
+              capture wl
+                render 'ms-t', v: s.what_boxspring
+              endcapture
             when 'headboard'
-              assign wl = s.what_headboard
+              capture wl
+                render 'ms-t', v: s.what_headboard
+              endcapture
             when 'outdoor'
-              assign wl = s.what_outdoor
+              capture wl
+                render 'ms-t', v: s.what_outdoor
+              endcapture
             else
               assign wl = ''
           endcase
@@ -99,7 +117,7 @@
           <span class="ms-rel__name">{{ p.title }}</span>
           {%- if sub != blank -%}<span class="ms-rel__sub">{{ sub }}</span>{%- endif -%}
           {%- if fibres.size > 0 and fparts[0] != blank -%}
-            <span class="ms-rel__marks" title="{{ fibres | join: ' · ' | escape }}">
+            {%- capture fts -%}{%- for f in fibres -%}{%- unless forloop.first %} · {% endunless -%}{% render 'ms-t', v: f %}{%- endfor -%}{%- endcapture -%}<span class="ms-rel__marks" title="{{ fts | strip | escape }}">
               {%- for f in fibres -%}{% render 'ms-fibre-mark', name: f, size: 20 %}{%- endfor -%}
             </span>
           {%- endif -%}

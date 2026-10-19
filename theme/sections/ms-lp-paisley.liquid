@@ -13,12 +13,12 @@
 <section class="ms-lpp">
   <div class="ms-lpp__in">
     <figure class="ms-lpp__room">
-      <img src="{% render 'ms-img', image: s.image, fallback: s.image_fallback, width: 1600 %}" {% render 'ms-srcset', image: s.image, fallback: s.image_fallback, width: 1600, sizes: '(max-width: 1080px) 90vw, 46vw' %} alt="{{ s.image.alt | default: s.image_alt | escape }}" width="1200" height="1500" loading="lazy">
+      <img src="{% render 'ms-img', image: s.image, fallback: s.image_fallback, width: 1600 %}" {% render 'ms-srcset', image: s.image, fallback: s.image_fallback, width: 1600, sizes: '(max-width: 1080px) 90vw, 46vw' %} alt="{% capture ms_d1 %}{% render 'ms-t', v: s.image_alt %}{% endcapture %}{{ s.image.alt | default: ms_d1 | escape }}" width="1200" height="1500" loading="lazy">
     </figure>
     <div class="ms-lpp__words">
-      {%- if s.eyebrow != blank -%}<div class="ms-lpp__eyebrow">{{ s.eyebrow }}</div>{%- endif -%}
-      <h2 class="ms-lpp__title">{{ s.heading }}</h2>
-      {%- if s.text != blank -%}<p class="ms-lpp__text">{{ s.text }}</p>{%- endif -%}
+      {%- if s.eyebrow != blank -%}<div class="ms-lpp__eyebrow">{% render 'ms-t', v: s.eyebrow %}</div>{%- endif -%}
+      <h2 class="ms-lpp__title">{% render 'ms-t', v: s.heading %}</h2>
+      {%- if s.text != blank -%}<p class="ms-lpp__text">{% render 'ms-t', v: s.text %}</p>{%- endif -%}
       <div class="ms-lpp__cloths">
         {%- for i in (1..2) -%}
           {%- liquid
@@ -30,25 +30,25 @@
           -%}
           {%- if s[kn] != blank -%}
             <div class="ms-lpp__cloth">
-              <span class="ms-lpp__sw" style="background-image: url('{% render 'ms-img', image: s[ki], fallback: s[kf], width: 700 %}');" role="img" aria-label="{{ s[kn] | escape }}"></span>
-              <span class="ms-lpp__cn">{{ s[kn] }}</span>
-              {%- if s[kr] != blank -%}<span class="ms-lpp__cr">{{ s[kr] }}</span>{%- endif -%}
-              {%- if s[kw] != blank -%}<span class="ms-lpp__cw">{{ s[kw] }}</span>{%- endif -%}
+              <span class="ms-lpp__sw" style="background-image: url('{% render 'ms-img', image: s[ki], fallback: s[kf], width: 700 %}');" role="img" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s[kn] %}{% endcapture %}{{ ms_t_out | escape }}"></span>
+              <span class="ms-lpp__cn">{% render 'ms-t', v: s[kn] %}</span>
+              {%- if s[kr] != blank -%}<span class="ms-lpp__cr">{% render 'ms-t', v: s[kr] %}</span>{%- endif -%}
+              {%- if s[kw] != blank -%}<span class="ms-lpp__cw">{% render 'ms-t', v: s[kw] %}</span>{%- endif -%}
             </div>
           {%- endif -%}
         {%- endfor -%}
       </div>
       {%- if s.detail_fallback != blank or s.detail != blank -%}
         <figure class="ms-lpp__detail">
-          <img src="{% render 'ms-img', image: s.detail, fallback: s.detail_fallback, width: 900 %}" {% render 'ms-srcset', image: s.detail, fallback: s.detail_fallback, width: 900, sizes: '(max-width: 1080px) 90vw, 46vw' %} alt="{{ s.detail_caption | escape }}" width="900" height="900" loading="lazy">
-          {%- if s.detail_caption != blank -%}<figcaption>{{ s.detail_caption }}</figcaption>{%- endif -%}
+          <img src="{% render 'ms-img', image: s.detail, fallback: s.detail_fallback, width: 900 %}" {% render 'ms-srcset', image: s.detail, fallback: s.detail_fallback, width: 900, sizes: '(max-width: 1080px) 90vw, 46vw' %} alt="{% capture ms_t_out %}{% render 'ms-t', v: s.detail_caption %}{% endcapture %}{{ ms_t_out | escape }}" width="900" height="900" loading="lazy">
+          {%- if s.detail_caption != blank -%}<figcaption>{% render 'ms-t', v: s.detail_caption %}</figcaption>{%- endif -%}
         </figure>
       {%- endif -%}
       {%- if s.link_label != blank -%}
         {%- if pp != blank and pp.url != blank -%}
-          <a class="ms-lpp__link" href="{{ pp.url }}">{{ s.link_label }}<span aria-hidden="true">→</span></a>
+          <a class="ms-lpp__link" href="{{ pp.url }}">{% render 'ms-t', v: s.link_label %}<span aria-hidden="true">→</span></a>
         {%- else -%}
-          <a class="ms-lpp__link" href="{% render 'ms-link', to: 'icons' %}">{{ s.link_label }}<span aria-hidden="true">→</span></a>
+          <a class="ms-lpp__link" href="{% render 'ms-link', to: 'icons' %}">{% render 'ms-t', v: s.link_label %}<span aria-hidden="true">→</span></a>
         {%- endif -%}
       {%- endif -%}
     </div>

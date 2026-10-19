@@ -2,28 +2,52 @@
 {%- liquid
   case k
     when 'story'
-      assign t = 'Our story'
-      assign l = 'A house of beds in Milan'
+      capture t
+        render 'ms-t', v: 'Our story'
+      endcapture
+      capture l
+        render 'ms-t', v: 'A house of beds in Milan'
+      endcapture
       assign i = 'ms-photo-loft.jpg'
     when 'handmade'
-      assign t = 'Handmade in Italy'
-      assign l = 'One bed at a time'
+      capture t
+        render 'ms-t', v: 'Handmade in Italy'
+      endcapture
+      capture l
+        render 'ms-t', v: 'One bed at a time'
+      endcapture
       assign i = 'ms-photo-artisan-portrait.jpg'
     when 'sleep-culture'
-      assign t = 'Sleep culture'
-      assign l = 'The art of sleeping well'
+      capture t
+        render 'ms-t', v: 'Sleep culture'
+      endcapture
+      capture l
+        render 'ms-t', v: 'The art of sleeping well'
+      endcapture
       assign i = 'ms-photo-window-chair.jpg'
     when 'materials'
-      assign t = 'Natural materials'
-      assign l = 'Wool, horsehair, silk, cashmere'
+      capture t
+        render 'ms-t', v: 'Natural materials'
+      endcapture
+      capture l
+        render 'ms-t', v: 'Wool, horsehair, silk, cashmere'
+      endcapture
       assign i = 'ms-photo-cashmere-throw.jpg'
     when 'loro'
-      assign t = 'Loro Piana Interiors'
-      assign l = 'The fabrics we upholster in'
+      capture t
+        render 'ms-t', v: 'Loro Piana Interiors'
+      endcapture
+      capture l
+        render 'ms-t', v: 'The fabrics we upholster in'
+      endcapture
       assign i = 'ms-photo-lp-paisley-side.jpg'
     else
-      assign t = 'Made to last · 15 + 15'
-      assign l = 'Regenerated at fifteen years'
+      capture t
+        render 'ms-t', v: 'Made to last · 15 + 15'
+      endcapture
+      capture l
+        render 'ms-t', v: 'Regenerated at fifteen years'
+      endcapture
       assign i = 'ms-photo-drapes-fireplace.jpg'
   endcase
   case f

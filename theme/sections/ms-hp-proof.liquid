@@ -19,13 +19,25 @@
       unless alogo contains '/'
         assign alogo = alogo | asset_url
       endunless
-      assign eby0 = s.award_by | escape
+      capture eby0
+        render 'ms-t', v: s.award_by
+      endcapture
+      assign eby0 = eby0 | escape
       echo '<div class="ms-pr__mark"><img src="' | append: alogo | append: '" alt="' | append: eby0 | append: '" width="200" height="56"></div>'
     endif
-    echo '<p class="ms-pr__line">' | append: s.award | append: '</p>'
-    echo '<figcaption class="ms-pr__cap"><span>' | append: s.award_by | append: '</span>'
+    capture ms_d1
+      render 'ms-t', v: s.award
+    endcapture
+    echo '<p class="ms-pr__line">' | append: ms_d1 | append: '</p>'
+    capture ms_d2
+      render 'ms-t', v: s.award_by
+    endcapture
+    echo '<figcaption class="ms-pr__cap"><span>' | append: ms_d2 | append: '</span>'
     if s.award_link != blank
-      echo '<a href="' | append: s.award_link | append: '" target="_blank" rel="noopener">' | append: s.award_link_label | append: ' <span aria-hidden="true">→</span></a>'
+      capture ms_d3
+        render 'ms-t', v: s.award_link_label
+      endcapture
+      echo '<a href="' | append: s.award_link | append: '" target="_blank" rel="noopener">' | append: ms_d3 | append: ' <span aria-hidden="true">→</span></a>'
     endif
     echo '</figcaption></figure>'
     endif
@@ -41,7 +53,9 @@
     endif
     assign line = ''
     assign href = block.settings.link
-    assign when = block.settings.when
+    capture when
+      render 'ms-t', v: block.settings.when
+    endcapture
     if handle != blank and blogs[handle].articles_count > 0
       assign art = blogs[handle].articles.first
       assign line = art.title | replace: 'Midsummer-Milano', 'Midsummer Milano' | escape
@@ -59,7 +73,9 @@
         endif
       endfor
     elsif block.settings.line != blank
-      assign line = block.settings.line
+      capture line
+        render 'ms-t', v: block.settings.line
+      endcapture
       if href contains '/blogs/'
         assign href = ''
       endif
@@ -76,14 +92,20 @@
     endif
     assign yk = when | default: '0000' | slice: 0, 4
     assign ik = 99 | minus: forloop.index | prepend: '0' | slice: -2, 2
-    assign rec = yk | append: '~' | append: ik | append: '¤' | append: line | append: '¤' | append: href | append: '¤' | append: when | append: '¤' | append: src | append: '¤' | append: block.settings.name | append: '¤' | append: block.shopify_attributes
+    capture ms_d4
+      render 'ms-t', v: block.settings.name
+    endcapture
+    assign rec = yk | append: '~' | append: ik | append: '¤' | append: line | append: '¤' | append: href | append: '¤' | append: when | append: '¤' | append: src | append: '¤' | append: ms_d4 | append: '¤' | append: block.shopify_attributes
     assign recs = recs | append: rec | append: '¦'
   endfor
   assign recs = recs | split: '¦' | sort | reverse
   assign max = s.max_logos | default: 8
   capture strip
     if s.show_award and s.award_logo != blank
-      assign eby = s.award_by | escape
+      capture eby
+        render 'ms-t', v: s.award_by
+      endcapture
+      assign eby = eby | escape
       echo '<li class="ms-pr__logo has-piece"><button type="button" data-ms-pr-to="0" aria-label="' | append: eby | append: '"><img src="' | append: alogo | append: '" alt="' | append: eby | append: '" width="150" height="40"></button></li>'
     endif
     for r in recs limit: max
@@ -111,7 +133,10 @@
         endif
         echo '</span>'
         if href != blank
-          echo '<a href="' | append: href | append: '">' | append: s.read_label | append: ' <span aria-hidden="true">→</span></a>'
+          capture ms_d5
+            render 'ms-t', v: s.read_label
+          endcapture
+          echo '<a href="' | append: href | append: '">' | append: ms_d5 | append: ' <span aria-hidden="true">→</span></a>'
         endif
         echo '</figcaption></figure>'
       endcapture
@@ -133,11 +158,11 @@
 <section class="ms-pr" data-ms-pr data-interval="{{ s.interval | times: 1000 }}">
   <div class="ms-pr__in">
     <div class="ms-pr__top">
-      <span class="ms-pr__eyebrow">{{ s.eyebrow }}</span>
+      <span class="ms-pr__eyebrow">{% render 'ms-t', v: s.eyebrow %}</span>
       <span class="ms-pr__count"><span data-ms-pr-n>01</span> / {% if n < 10 %}0{% endif %}{{ n }}</span>
     </div>
     <div class="ms-pr__stage" aria-live="polite">{{ items }}</div>
-    <div class="ms-pr__bar" role="tablist" aria-label="{{ s.eyebrow | escape }}">
+    <div class="ms-pr__bar" role="tablist" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.eyebrow %}{% endcapture %}{{ ms_t_out | escape }}">
       {%- for i in (1..n) -%}
         <button type="button" class="ms-pr__seg{% if forloop.first %} is-on{% endif %}" data-ms-pr-to="{{ forloop.index0 }}" aria-label="{{ forloop.index }}"><span></span></button>
       {%- endfor -%}
@@ -145,11 +170,11 @@
   </div>
   {%- if section.blocks.size > 0 -%}
     <div class="ms-pr__strip">
-      <div class="ms-pr__label">{{ s.press_label }}</div>
+      <div class="ms-pr__label">{% render 'ms-t', v: s.press_label %}</div>
       <div class="ms-pr__rail" data-ms-pr-rail>
         <ul class="ms-pr__run" role="list">{{ strip }}</ul>
       </div>
-      {%- if press_url != blank and s.all_label != blank -%}<a class="ms-pr__all" href="{{ press_url }}">{{ s.all_label }} <span aria-hidden="true">→</span></a>{%- endif -%}
+      {%- if press_url != blank and s.all_label != blank -%}<a class="ms-pr__all" href="{{ press_url }}">{% render 'ms-t', v: s.all_label %} <span aria-hidden="true">→</span></a>{%- endif -%}
     </div>
   {%- endif -%}
 </section>

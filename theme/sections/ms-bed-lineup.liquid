@@ -23,9 +23,9 @@
 {%- if n > 1 -%}
 <section class="ms-bl" aria-labelledby="bl-{{ section.id }}">
   <div class="ms-bl__head">
-    <div class="ms-bl__eyebrow">{{ s.eyebrow }}</div>
-    <h2 class="ms-bl__title" id="bl-{{ section.id }}">{{ s.heading | replace: '[n]', n }}</h2>
-    {%- if s.text != blank -%}<p class="ms-bl__text">{{ s.text }}</p>{%- endif -%}
+    <div class="ms-bl__eyebrow">{% render 'ms-t', v: s.eyebrow %}</div>
+    <h2 class="ms-bl__title" id="bl-{{ section.id }}">{% capture ms_t_out %}{% render 'ms-t', v: s.heading %}{% endcapture %}{{ ms_t_out | replace: '[n]', n }}</h2>
+    {%- if s.text != blank -%}<p class="ms-bl__text">{% render 'ms-t', v: s.text %}</p>{%- endif -%}
   </div>
   <ul class="ms-bl__row{% if n <= 10 %} is-one-row{% endif %}" role="list" style="--bl-n: {{ n }};">
     {%- for p in collection.products limit: 24 -%}
@@ -44,8 +44,8 @@
     {%- if s.cat_caption != blank -%}
       <li class="ms-bl__cat" aria-hidden="true">
         <span class="ms-bl__draw"><svg viewBox="0 96 120 296" class="ms-bl__catsvg"><g transform="translate(26 326)" fill="#4A443B"><path d="M8 46 C2 30 6 14 20 10 C22 4 24 0 27 2 C29 0 32 2 32 6 C38 8 40 14 38 20 C46 26 50 36 48 46 Z"/><path d="M48 44 C62 46 70 40 68 30 C67 26 63 26 64 31 C65 37 58 40 47 38 Z"/><circle cx="25" cy="13" r="1" fill="#F3EEE5"/><circle cx="32" cy="13" r="1" fill="#F3EEE5"/></g><path d="M10 372.5 H110" stroke="rgba(23,20,15,.25)" stroke-width=".8"/></svg></span>
-        <span class="ms-bl__name">{{ s.cat_name }}</span>
-        <span class="ms-bl__h">{{ s.cat_caption }}</span>
+        <span class="ms-bl__name">{% render 'ms-t', v: s.cat_name %}</span>
+        <span class="ms-bl__h">{% render 'ms-t', v: s.cat_caption %}</span>
       </li>
     {%- endif -%}
   </ul>

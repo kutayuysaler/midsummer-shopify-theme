@@ -74,7 +74,7 @@
           <span class="ms-pj__title">{{ a.title }}</span>
           {%- assign ex = a.excerpt | default: a.content | strip_html | strip | truncatewords: 26 -%}
           {%- if ex != blank -%}<span class="ms-pj__ex">{{ ex }}</span>{%- endif -%}
-          <span class="ms-pj__more">{{ s.read_label }}<svg viewBox="0 0 20 10" width="20" height="10" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><path d="M0 5h18M14 1l4 4-4 4"/></svg></span>
+          <span class="ms-pj__more">{% render 'ms-t', v: s.read_label %}<svg viewBox="0 0 20 10" width="20" height="10" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><path d="M0 5h18M14 1l4 4-4 4"/></svg></span>
         </span>
       </a>
     </article>
@@ -87,15 +87,15 @@
 -%}
 <section class="ms-pj" id="ms-pj-{{ section.id }}" aria-labelledby="ms-pj-h-{{ section.id }}">
   <header class="ms-pj__head">
-    <div class="ms-pj__eyebrow">{{ s.eyebrow | default: blog.title }}</div>
-    <h1 class="ms-pj__h" id="ms-pj-h-{{ section.id }}">{{ s.heading | default: blog.title }}</h1>
-    {%- if s.text != blank -%}<p class="ms-pj__text">{{ s.text }}</p>{%- endif -%}
+    <div class="ms-pj__eyebrow">{% capture ms_t_out %}{% render 'ms-t', v: s.eyebrow %}{% endcapture %}{{ ms_t_out | default: blog.title }}</div>
+    <h1 class="ms-pj__h" id="ms-pj-h-{{ section.id }}">{% capture ms_t_out %}{% render 'ms-t', v: s.heading %}{% endcapture %}{{ ms_t_out | default: blog.title }}</h1>
+    {%- if s.text != blank -%}<p class="ms-pj__text">{% render 'ms-t', v: s.text %}</p>{%- endif -%}
   </header>
   <div class="ms-pj__body{% if pin_list.size == 0 %} ms-pj__body--nomap{% endif %}">
     {%- if pin_list.size > 0 -%}
       <aside class="ms-pj__mapcol">
         <figure class="ms-pj__map">
-          <svg viewBox="0 0 400 470" role="img" aria-label="{{ s.map_label | escape }}">
+          <svg viewBox="0 0 400 470" role="img" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.map_label %}{% endcapture %}{{ ms_t_out | escape }}">
             {%- render 'ms-italy-map' -%}
             {%- comment -%} one pin per place, however many projects it holds {%- endcomment -%}
             {%- for nm in name_list -%}
@@ -121,20 +121,20 @@
             {%- endfor -%}
           </svg>
           <figcaption class="ms-pj__count">
-            <span><b>{{ blog.articles_count }}</b> {{ s.projects_label }}</span>
-            <span><b>{{ n_places }}</b> {{ s.places_label }}</span>
+            <span><b>{{ blog.articles_count }}</b> {% render 'ms-t', v: s.projects_label %}</span>
+            <span><b>{{ n_places }}</b> {% render 'ms-t', v: s.places_label %}</span>
           </figcaption>
-          {%- if s.footnote != blank -%}<p class="ms-pj__foot">{{ s.footnote }}</p>{%- endif -%}
+          {%- if s.footnote != blank -%}<p class="ms-pj__foot">{% render 'ms-t', v: s.footnote %}</p>{%- endif -%}
         </figure>
       </aside>
     {%- endif -%}
     <div class="ms-pj__cards">{{ cards }}</div>
   </div>
   {%- if paginate.pages > 1 -%}
-    <nav class="ms-pj__pages" aria-label="{{ s.pages_label | escape }}">
-      {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}" rel="prev">{{ s.prev_label }}</a>{%- endif -%}
+    <nav class="ms-pj__pages" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.pages_label %}{% endcapture %}{{ ms_t_out | escape }}">
+      {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}" rel="prev">{% render 'ms-t', v: s.prev_label %}</a>{%- endif -%}
       <span>{{ paginate.current_page }} / {{ paginate.pages }}</span>
-      {%- if paginate.next -%}<a href="{{ paginate.next.url }}" rel="next">{{ s.next_label }}</a>{%- endif -%}
+      {%- if paginate.next -%}<a href="{{ paginate.next.url }}" rel="next">{% render 'ms-t', v: s.next_label %}</a>{%- endif -%}
     </nav>
   {%- endif -%}
 </section>

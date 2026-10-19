@@ -8,16 +8,20 @@
   assign s = section.settings
   assign shelves = 'beds,room' | split: ','
 -%}
-<section class="ms-ci" aria-label="{{ s.heading | escape }}">
-  {%- if s.heading != blank -%}<h2 class="ms-ci__h">{{ s.heading }}</h2>{%- endif -%}
+<section class="ms-ci" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.heading %}{% endcapture %}{{ ms_t_out | escape }}">
+  {%- if s.heading != blank -%}<h2 class="ms-ci__h">{% render 'ms-t', v: s.heading %}</h2>{%- endif -%}
   {%- for shelf in shelves -%}
     {%- liquid
       if shelf == 'beds'
         assign keys = 'systems,headboards,mattresses,toppers,outdoor' | split: ','
-        assign label = s.beds_label
+        capture label
+          render 'ms-t', v: s.beds_label
+        endcapture
       else
         assign keys = 'bedding,throws,cushions,furniture,lamps,wallcoverings,treasures' | split: ','
-        assign label = s.room_label
+        capture label
+          render 'ms-t', v: s.room_label
+        endcapture
       endif
       assign cards = ''
     -%}
@@ -93,9 +97,9 @@
           -%}
           <a class="ms-ci__card" href="{{ c.url }}">
             <span class="ms-ci__img">{%- if pic != blank -%}<img src="{{ pic | image_url: width: 900 }}" {% render 'ms-srcset', image: pic, width: 900, sizes: '(max-width: 760px) 90vw, (max-width: 1080px) 29vw, 17vw' %} alt="{{ c.title | escape }}" width="900" height="675" loading="lazy">{%- elsif house != '' -%}<img src="{{ house | asset_url }}" {% render 'ms-srcset', fallback: house, width: 1600, sizes: '(max-width: 760px) 90vw, (max-width: 1080px) 29vw, 17vw' %} alt="{{ c.title | escape }}" width="900" height="675" loading="lazy">{%- endif -%}</span>
-            <span class="ms-ci__name">{{ s[kn] | default: c.title }}</span>
+            <span class="ms-ci__name">{% capture ms_t_out %}{% render 'ms-t', v: s[kn] %}{% endcapture %}{{ ms_t_out | default: c.title }}</span>
             <span class="ms-ci__count">{{ c.products_count }}</span>
-            {%- if s[kl] != blank -%}<span class="ms-ci__line">{{ s[kl] }}</span>{%- endif -%}
+            {%- if s[kl] != blank -%}<span class="ms-ci__line">{% render 'ms-t', v: s[kl] %}</span>{%- endif -%}
           </a>
         {%- endif -%}
       {%- endfor -%}

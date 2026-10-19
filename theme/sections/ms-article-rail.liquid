@@ -72,10 +72,10 @@
   <div class="ms-ar__in">
     <header class="ms-ar__head">
       <div>
-        {%- if section.settings.eyebrow != blank -%}<div class="ms-ar__eyebrow">{{ section.settings.eyebrow }}</div>{%- endif -%}
-        <h2 class="ms-ar__heading">{{ section.settings.heading }}</h2>
+        {%- if section.settings.eyebrow != blank -%}<div class="ms-ar__eyebrow">{% render 'ms-t', v: section.settings.eyebrow %}</div>{%- endif -%}
+        <h2 class="ms-ar__heading">{% render 'ms-t', v: section.settings.heading %}</h2>
       </div>
-      {%- if section.settings.link_label != blank -%}<a class="ms-ar__all" href="{{ b.url }}{% if want != blank %}/tagged/{{ want | handleize }}{% endif %}">{{ section.settings.link_label }}</a>{%- endif -%}
+      {%- if section.settings.link_label != blank -%}<a class="ms-ar__all" href="{{ b.url }}{% if want != blank %}/tagged/{{ want | handleize }}{% endif %}">{% render 'ms-t', v: section.settings.link_label %}</a>{%- endif -%}
     </header>
     <div class="ms-ar__rail{% if shown == 1 %} is-one{% endif %}" data-ms="rail">{{ cards }}</div>
   </div>

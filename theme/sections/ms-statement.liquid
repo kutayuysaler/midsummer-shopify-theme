@@ -23,7 +23,9 @@
       assign muted = '#6E675C'
       assign rule = '#DDD6C9'
   endcase
-  assign body = section.settings.text
+  capture body
+    render 'ms-t', v: section.settings.text
+  endcapture
   if section.settings.use_content
     if page.content != blank
       assign body = page.content
@@ -35,15 +37,15 @@
 <section class="ms-st" style="background: {{ bg }}; color: {{ fg }}; --muted: {{ muted }}; --body: {{ body_c }}; --rule: {{ rule }};">
   <div class="ms-st__in{% if section.settings.rule %} has-rule{% endif %}">
     <div class="ms-st__lead">
-      {%- if section.settings.eyebrow != blank -%}<div class="ms-st__eyebrow">{{ section.settings.eyebrow }}</div>{%- endif -%}
-      {%- if section.settings.heading != blank -%}<h2 class="ms-st__heading">{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.eyebrow != blank -%}<div class="ms-st__eyebrow">{% render 'ms-t', v: section.settings.eyebrow %}</div>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="ms-st__heading">{% render 'ms-t', v: section.settings.heading %}</h2>{%- endif -%}
     </div>
     <div class="ms-st__body">
       {%- if body != blank -%}<div class="ms-st__text">{{ body }}</div>{%- endif -%}
       {%- if section.settings.link_label != blank -%}
         <a data-ms="cta" class="ms-st__link"
           href="{% if section.settings.enquire %}{% render 'ms-link', to: 'contact' %}{% else %}{{ section.settings.link | default: '#' }}{% endif %}"
-          {% if section.settings.enquire %}data-ms-enquire{% endif %}>{{ section.settings.link_label }}</a>
+          {% if section.settings.enquire %}data-ms-enquire{% endif %}>{% render 'ms-t', v: section.settings.link_label %}</a>
       {%- endif -%}
     </div>
   </div>

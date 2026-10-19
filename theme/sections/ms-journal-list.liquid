@@ -71,10 +71,10 @@
 -%}
 <section class="ms-jl{% if subj != '' %} is-subject{% endif %}" data-ms-jl{% if subj != '' %} data-subject="{{ subj }}"{% endif %}>
   {%- if blog.articles_count == 0 -%}
-    <p class="ms-jl__empty">{{ section.settings.empty }}</p>
+    <p class="ms-jl__empty">{% render 'ms-t', v: section.settings.empty %}</p>
   {%- else -%}
-  <nav class="ms-jl__cats" aria-label="{{ section.settings.cats_label | escape }}" data-ms-jl-cats>
-    <a href="{{ blog.url }}" data-cat-link=""{% if subj == '' %} aria-current="true"{% endif %}>{{ section.settings.all_label }}</a>
+  <nav class="ms-jl__cats" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: section.settings.cats_label %}{% endcapture %}{{ ms_t_out | escape }}" data-ms-jl-cats>
+    <a href="{{ blog.url }}" data-cat-link=""{% if subj == '' %} aria-current="true"{% endif %}>{% render 'ms-t', v: section.settings.all_label %}</a>
     {%- for k in allcats -%}
       <a href="{{ blog.url }}?view={{ k }}" data-cat-link="{{ k }}"{% if subj == k %} aria-current="true"{% endif %}>{% render 'ms-note-cat', label: k %}</a>
     {%- endfor -%}
@@ -82,19 +82,19 @@
   {%- if subj != '' -%}
     <header class="ms-jl__subj">
       <h2 class="ms-jl__subjt">{% render 'ms-note-cat', label: subj %}</h2>
-      <p class="ms-jl__subjn">{{ total }} {{ section.settings.notes_label }}</p>
+      <p class="ms-jl__subjn">{{ total }} {% render 'ms-t', v: section.settings.notes_label %}</p>
     </header>
   {%- endif -%}
   <div class="ms-jl__bar">
-    <span class="ms-jl__total">{{ total }} {{ section.settings.notes_label }}</span>
-    <div class="ms-jl__views" role="group" aria-label="{{ section.settings.view_label | escape }}">
-      <button type="button" data-ms-jl-view="gallery" aria-pressed="true">{{ section.settings.gallery_label }}</button>
-      <button type="button" data-ms-jl-view="index" aria-pressed="false">{{ section.settings.index_label }}</button>
+    <span class="ms-jl__total">{{ total }} {% render 'ms-t', v: section.settings.notes_label %}</span>
+    <div class="ms-jl__views" role="group" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: section.settings.view_label %}{% endcapture %}{{ ms_t_out | escape }}">
+      <button type="button" data-ms-jl-view="gallery" aria-pressed="true">{% render 'ms-t', v: section.settings.gallery_label %}</button>
+      <button type="button" data-ms-jl-view="index" aria-pressed="false">{% render 'ms-t', v: section.settings.index_label %}</button>
     </div>
   </div>
 
   {%- if total == 0 -%}
-    <p class="ms-jl__none">{{ section.settings.empty }}</p>
+    <p class="ms-jl__none">{% render 'ms-t', v: section.settings.empty %}</p>
   {%- endif -%}
   <div class="ms-jl__gallery" data-ms-jl-pane="gallery">
     {%- if featured -%}
@@ -102,11 +102,11 @@
       <a class="ms-jl__lead" href="{{ article.url }}" data-cat="{{ cat }}">
         <span class="ms-jl__img">{%- if article.image -%}<img src="{{ article.image | image_url: width: 1800 }}" srcset="{{ article.image | image_url: width: 900 }} 900w, {{ article.image | image_url: width: 1800 }} 1800w" sizes="(max-width: 900px) 100vw, 58vw" alt="{{ article.image.alt | default: article.title | escape }}" width="1800" height="1200" fetchpriority="high">{%- endif -%}</span>
         <span class="ms-jl__leadtext">
-          <span class="ms-jl__no">No. {{ total }}</span>
+          <span class="ms-jl__no">{% render 'ms-t', v: 'No.' %} {{ total }}</span>
           <span class="ms-jl__meta">{{ catl | default: blog.title }} · {{ article.published_at | date: '%B %Y' }}</span>
           <span class="ms-jl__leadtitle">{{ article.title }}</span>
           <span class="ms-jl__excerpt">{{ article.excerpt_or_content | strip_html | truncatewords: 40 }}</span>
-          <span class="ms-jl__read">{{ section.settings.read }}</span>
+          <span class="ms-jl__read">{% render 'ms-t', v: section.settings.read %}</span>
         </span>
       </a>
     {%- endif -%}
@@ -123,7 +123,7 @@
         {%- capture catl -%}{% render 'ms-note-cat', label: cat %}{%- endcapture -%}
         <a class="ms-jl__card is-s{{ slot }}" href="{{ article.url }}" data-cat="{{ cat }}">
           <span class="ms-jl__img">{%- if article.image -%}<img src="{{ article.image | image_url: width: 1200 }}" srcset="{{ article.image | image_url: width: 600 }} 600w, {{ article.image | image_url: width: 1200 }} 1200w" sizes="(max-width: 760px) 100vw, 45vw" alt="{{ article.image.alt | default: article.title | escape }}" loading="lazy" width="1200" height="1200">{%- endif -%}</span>
-          <span class="ms-jl__row"><span class="ms-jl__no">No. {{ no }}</span><span class="ms-jl__meta">{{ catl | default: blog.title }}</span></span>
+          <span class="ms-jl__row"><span class="ms-jl__no">{% render 'ms-t', v: 'No.' %} {{ no }}</span><span class="ms-jl__meta">{{ catl | default: blog.title }}</span></span>
           <span class="ms-jl__title">{{ article.title }}</span>
           {%- if slot == 0 or slot == 6 -%}<span class="ms-jl__excerpt">{{ article.excerpt_or_content | strip_html | truncatewords: 26 }}</span>{%- endif -%}
         </a>
@@ -142,7 +142,7 @@
         {%- if subj != '' -%}{%- assign no = total | minus: seen | plus: 1 -%}{%- else -%}{%- assign no = total | minus: start | minus: forloop.index0 -%}{%- endif -%}
         {%- capture catl -%}{% render 'ms-note-cat', label: cat %}{%- endcapture -%}<li data-cat="{{ cat }}">
           <a class="ms-jl__line" href="{{ article.url }}"{% if article.image %} data-ms-jl-img="{{ article.image | image_url: width: 700 }}"{% endif %}>
-            <span class="ms-jl__no">No. {{ no }}</span>
+            <span class="ms-jl__no">{% render 'ms-t', v: 'No.' %} {{ no }}</span>
             {%- if article.image -%}<img class="ms-jl__thumb" src="{{ article.image | image_url: width: 200 }}" alt="{{ article.image.alt | default: article.title | escape }}" loading="lazy" width="100" height="125">{%- endif -%}
             <span class="ms-jl__ltitle">{{ article.title }}</span>
             <span class="ms-jl__ltag">{{ catl | default: blog.title }}</span>
@@ -175,10 +175,10 @@
         endunless
       endif
     -%}
-    <nav class="ms-jl__pages" aria-label="Pages">
-      {%- if paginate.previous -%}<a href="{{ prev_u }}">← {{ section.settings.newer }}</a>{%- else -%}<span></span>{%- endif -%}
+    <nav class="ms-jl__pages" aria-label="{% render 'ms-t', v: 'Pages' %}">
+      {%- if paginate.previous -%}<a href="{{ prev_u }}">← {% render 'ms-t', v: section.settings.newer %}</a>{%- else -%}<span></span>{%- endif -%}
       <span class="ms-jl__pnum">{{ paginate.current_page }} / {{ paginate.pages }}</span>
-      {%- if paginate.next -%}<a href="{{ next_u }}">{{ section.settings.older }} →</a>{%- else -%}<span></span>{%- endif -%}
+      {%- if paginate.next -%}<a href="{{ next_u }}">{% render 'ms-t', v: section.settings.older %} →</a>{%- else -%}<span></span>{%- endif -%}
     </nav>
   {%- endif -%}
   {%- endif -%}

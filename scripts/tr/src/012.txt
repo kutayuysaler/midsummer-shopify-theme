@@ -1,0 +1,755 @@
+@cd97602
+Nessun luogo corrisponde. Scrivici; l’atelier viene da te.
+Совпадений нет. Напишите нам — ателье приедет к вам.
+
+@984f440
+Per rappresentare Midsummer Milano nel tuo mercato, come showroom o agente, scrivici.
+Чтобы представлять Midsummer Milano на вашем рынке — как шоурум или агент, — напишите нам.
+
+@50a42d3
+Cerca una città, un paese o un nome
+Поиск по городу, стране или названию
+
+@670e248
+Mostra sulla mappa
+Показать на карте
+
+@1aede04
+=
+Шоурум
+
+@71bee43
+paesi
+странах
+
+@6ddd628
+luoghi in
+мест в
+
+@2e006b7
+Tel.
+Тел.
+
+@1c6a95e
+© contributori di OpenStreetMap
+© участники OpenStreetMap
+
+@a1fa277
+Tipo
+Тип
+
+@5948f33
+Regioni
+Регионы
+
+@c6e190b
+=
+Сайт
+
+@f5a7924
+Mondo
+Мир
+
+@19bea5b
+Sostenibilità
+Устойчивость
+
+@a72dcd0
+Lusso senza sprechi.
+Роскошь без отходов.
+
+@741a807
+Un letto che dura trent’anni non è una dichiarazione green, è aritmetica. Tutto ciò che segue descrive come sono fatti questi letti, non una policy.
+Кровать, которая служит тридцать лет, — это не экологический лозунг, а арифметика. Всё, что ниже, — описание того, как делаются эти кровати, а не корпоративная политика.
+
+@2e5f443
+Baby alpaca, pelo di cammello, lana Cheviot e Falkland, crine di cavallo, crine vegetale, yak, mohair, cashmere, seta, lino, cotone biologico, Ingeo e Orange Fiber. Fibre cresciute, non estruse, che si possono cardare, lavare e stendere di nuovo.
+Бэби-альпака, верблюжья шерсть, шерсть чевиот и фолклендская шерсть, конский волос, растительный волос, як, мохер, кашемир, шёлк, лён, органический хлопок, Ingeo и Orange Fiber. Волокна, которые выросли, а не были экструдированы, и которые можно прочесать, выстирать и уложить заново.
+
+@fcb9e6d
+Produzione artigianale
+Ручное производство
+
+@416a77b
+Ogni sistema è costruito a mano, dall’inizio alla fine, in Italia. Nessuna linea di produzione e nessun lotto minimo. Un letto si fa quando viene ordinato: per questo non c’è nulla da scontare e nulla da smaltire.
+Каждая система создаётся вручную, от начала до конца, в Италии. Никакого конвейера и никакой минимальной партии. Кровать делают, когда её заказали, поэтому нечего уценять и нечего распродавать.
+
+@4feeff0
+Riparabilità
+Ремонтопригодность
+
+@2453545
+Ogni parte è raggiungibile. Le fibre si possono aprire, ridistribuire e sostituire; il rivestimento si può togliere e rifare. Un sistema è un insieme di parti riparabili, non un blocco sigillato.
+К каждой части можно добраться. Волокна можно раскрыть, перераспределить и заменить; обивку — снять и сделать заново. Система — это набор обслуживаемых частей, а не запаянный блок.
+
+@cb31f19
+Al quindicesimo anno il materasso torna dagli artigiani che lo hanno realizzato, e il suo comfort, la sua integrità e la sua vita vengono restituiti per i quindici anni a venire. L’alternativa — la sostituzione — è proprio ciò che questo servizio esiste per evitare.
+На пятнадцатый год матрас возвращается к мастерам, которые его создали, и его комфорт, целостность и срок службы восстанавливаются на следующие пятнадцать лет. Альтернатива — замена — именно то, чего этот сервис призван избежать.
+
+@eea3367
+Ciò che non diciamo
+О чём мы не говорим
+
+@3fdb49e
+Nessuna compensazione, nessuna certificazione che non abbiamo meritato.
+Никаких компенсаций выбросов и никаких сертификатов, которых мы не заслужили.
+
+@b8b7b15
+Non compriamo crediti di carbonio e non stampiamo un marchio che non sappiamo spiegare. Ciò di cui possiamo rendere conto sono la fibra, le mani, la riparazione e i trent’anni. Il Top System ha vinto il Green Product Award 2025 a Berlino su queste basi — materiali di origine vegetale, Orange Fiber e una costruzione stagionale.
+Мы не покупаем углеродные кредиты и не печатаем значок, который не можем объяснить. Отчитаться мы можем за волокно, руки, ремонт и тридцать лет. Top System получила Green Product Award 2025 в Берлине именно на этой основе — растительные материалы, Orange Fiber и сезонная конструкция.
+
+@96857cc
+[product] è fatto a mano in Italia con fibre naturali: seta, lana Cheviot, cotone e Ingeo. È rivestito in lino e cotone, in quattro colori. È realizzato su ordinazione, a mano, uno alla volta.
+[product] создаётся вручную в Италии из натуральных волокон: шёлка, шерсти чевиот, хлопка и Ingeo. Обивка — лён и хлопок, в четырёх цветах. Изготавливается на заказ, вручную, по одному.
+
+@518b181
+Rivestito in lino e cotone, in quattro colori. Realizzato con il suo boxspring, sulla stessa misura.
+Обивка — лён и хлопок, в четырёх цветах. Изготавливается вместе со своим бокс-спрингом, в том же размере.
+
+@5a3208a
+[name] è un boxspring Midsummer, da solo. Il materasso e il topper che lo completano sono mostrati qui nel contorno.
+[name] — это бокс-спринг Midsummer сам по себе. Матрас и топпер, которые его дополняют, показаны здесь контуром.
+
+@bbebc7a
+Tre altezze, con un lato estivo e uno invernale. Fatto per poggiare sul materasso senza cambiarne la sensazione.
+Три высоты, с летней и зимней сторонами. Ложится на матрас, не меняя его ощущения.
+
+@cc95f1b
+Non incluso in [name]: vi poggia sopra un materasso Midsummer.
+Не входит в [name]: на него ложится матрас Midsummer.
+
+@720b2d5
+Fibre naturali, scelte con te. La sensazione si sceglie con te, dal morbido al rigido.
+Натуральные волокна, выбранные вместе с вами. Ощущение подбирается вместе с вами — от мягкого до жёсткого.
+
+@98fe659
+Un boxspring Midsummer: la base del letto, e la parte che la stanza vede.
+Бокс-спринг Midsummer: основание кровати и та её часть, которую видит комната.
+
+@04a2965
+Fatto a mano in Italia, sulla misura del materasso che sostiene. Rivestito in coordinato con il letto, in tessuto naturale o Loro Piana Interiors. Con una testiera disegnata con te, se lo desideri.
+Создаётся вручную в Италии по размеру матраса, который несёт. Обит в тон кровати — натуральной тканью или Loro Piana Interiors. С изголовьем, разработанным вместе с вами, если пожелаете.
+
+@ffb9bc5
+Un boxspring Midsummer sottile: la base del letto, e la parte che la stanza vede.
+Тонкий бокс-спринг Midsummer: основание кровати и та её часть, которую видит комната.
+
+@cc8e294
+Un boxspring con quattro cassetti in mogano sotto.
+Бокс-спринг с четырьмя ящиками из красного дерева внизу.
+
+@311c5a9
+Pura lana vergine sopra; la struttura in mogano. Fatto a mano in Italia, sulla misura del materasso che sostiene.
+Сверху — чистая натуральная шерсть; каркас — из красного дерева. Создаётся вручную в Италии по размеру матраса, который несёт.
+
+@247f660
+[product] è fatto a mano in Italia con fibre naturali: pelo di yak, lana Cheviot, lino e Ingeo. È rivestito in lino grezzo e cotone, bordato di arancione. È realizzato su ordinazione, a mano, uno alla volta.
+[product] создаётся вручную в Италии из натуральных волокон: шерсти яка, шерсти чевиот, льна и Ingeo. Обивка — небелёный лён и хлопок, с оранжевым кантом. Изготавливается на заказ, вручную, по одному.
+
+@d90f078
+Prende il nome dalla cittadina sul Lago di Como e dal suo clima umido: mantiene il corpo asciutto e la temperatura costante. Rivestito in lino non sbiancato rinforzato con cotone, bordato di arancione, con i fianchi cuciti a mano in filo cerato arancione.
+Назван в честь городка на озере Комо с его влажным климатом: сохраняет тело сухим, а температуру — ровной. Обит небелёным льном, укреплённым хлопком, с оранжевым кантом; боковины прошиты вручную оранжевой вощёной нитью.
+
+@0032717
+Fatto a mano in Italia, sulla misura del materasso. Vestito di tessuto naturale, con una testiera disegnata con te, se lo desideri.
+Создаётся вручную в Италии по размеру матраса. В натуральной ткани, с изголовьем, разработанным вместе с вами, если пожелаете.
+
+@5ea9ad7
+[product] è fatto a mano in Italia con fibre naturali: seta, crine di cavallo, lana Cheviot, lana Falkland, lino, cotone, Ingeo e Orange Fiber. È rivestito nel tessuto Loro Piana Interiors Wish, un bouclé di lana e cashmere. È realizzato su ordinazione, a mano, uno alla volta.
+[product] создаётся вручную в Италии из натуральных волокон: шёлка, конского волоса, шерсти чевиот, фолклендской шерсти, льна, хлопка, Ingeo и Orange Fiber. Обивка — ткань Loro Piana Interiors Wish, букле из шерсти и кашемира. Изготавливается на заказ, вручную, по одному.
+
+@736e50a
+Orange Fiber nasce dalla buccia delle arance siciliane: leggera, traspirante e naturalmente fresca. Bordato con un nastro in gros-grain.
+Orange Fiber делают из кожуры сицилийских апельсинов: это лёгкое, дышащее и естественно свежее волокно. Отделан репсовой лентой.
+
+@c413e94
+[product] è fatto a mano in Italia con fibre naturali: pelo di yak, lana, cotone e Ingeo. È rivestito in lino Loro Piana Interiors Connemara, con il lato invernale bordato in lana e cashmere Altai. È realizzato su ordinazione, a mano, uno alla volta.
+[product] создаётся вручную в Италии из натуральных волокон: шерсти яка, шерсти, хлопка и Ingeo. Обивка — лён Loro Piana Interiors Connemara, зимняя сторона отделана шерстью и кашемиром Altai. Изготавливается на заказ, вручную, по одному.
+
+@ec50e86
+Materasso e topper in un unico pezzo sottile. Rivestito in lino Loro Piana Interiors Connemara. Il lato invernale bordato in lana e cashmere Altai. Leggero, e facile da girare con le stagioni.
+Матрас и топпер — в одном тонком изделии. Обивка — лён Loro Piana Interiors Connemara. Зимняя сторона отделана шерстью и кашемиром Altai. Лёгкий, его легко переворачивать по сезону.
+
+@11eb596
+[product] è fatto a mano in Italia con fibre naturali: crine di cavallo, lino, lana Cheviot e seta. È rivestito nel tessuto Loro Piana Interiors Mystic River, oppure bicolore, in lino e cotone naturali con tessuto Connemara o Mystic River. È realizzato su ordinazione, a mano, uno alla volta.
+[product] создаётся вручную в Италии из натуральных волокон: конского волоса, льна, шерсти чевиот и шёлка. Обивка — ткань Loro Piana Interiors Mystic River или в два тона: натуральный лён и хлопок с тканью Connemara или Mystic River. Изготавливается на заказ, вручную, по одному.
+
+@3b7d29d
+Il nostro sistema più compatto: un’unica linea pulita dal pavimento al topper. La sensazione si sceglie con te, dal morbido al rigido.
+Наша самая компактная система: одна чистая линия от пола до топпера. Ощущение подбирается вместе с вами — от мягкого до жёсткого.
+
+@1a1e8a5
+Il nostro sistema più compatto: un’unica linea pulita dal pavimento al topper. La sensazione si sceglie con te, dal morbido al rigido. Rivestito nel tessuto Loro Piana Interiors Mystic River, in uno qualsiasi dei suoi dodici colori, oppure bicolore con lino e cotone naturali. Diviso in due su richiesta, per le misure più larghe.
+Наша самая компактная система: одна чистая линия от пола до топпера. Ощущение подбирается вместе с вами — от мягкого до жёсткого. Обивка — ткань Loro Piana Interiors Mystic River любого из двенадцати цветов или в два тона с натуральным льном и хлопком. Для широких размеров по запросу делится на две части.
+
+@7845dc2
+[product] è fatto a mano in Italia con fibre naturali: pelo di cammello, seta, lana Cheviot, crine di cavallo e lino. È rivestito nel tessuto Loro Piana Interiors Mystic River, oppure bicolore, in lino e cotone naturali con tessuto Connemara o Mystic River. È realizzato su ordinazione, a mano, uno alla volta.
+[product] создаётся вручную в Италии из натуральных волокон: верблюжьей шерсти, шёлка, шерсти чевиот, конского волоса и льна. Обивка — ткань Loro Piana Interiors Mystic River или в два тона: натуральный лён и хлопок с тканью Connemara или Mystic River. Изготавливается на заказ, вручную, по одному.
+
+@d3fd36d
+Tutto in tessuto Mystic River, oppure bicolore con lino e cotone naturali. Una testiera coordinata, su richiesta.
+Целиком в ткани Mystic River или в два тона с натуральным льном и хлопком. Изголовье в тон — по запросу.
+
+@d312472
+[product] è fatto a mano in Italia con fibre naturali: cashmere, pelo di cammello, crine di cavallo, lana Cheviot, lino e Ingeo. È rivestito in lino e cotone naturali, oppure nel tessuto Loro Piana Interiors Mystic River. È realizzato su ordinazione, a mano, uno alla volta.
+[product] создаётся вручную в Италии из натуральных волокон: кашемира, верблюжьей шерсти, конского волоса, шерсти чевиот, льна и Ingeo. Обивка — натуральный лён и хлопок или ткань Loro Piana Interiors Mystic River. Изготавливается на заказ, вручную, по одному.
+
+@d281f4a
+Capitonné in superficie, pensato per rendere il sonno più profondo. In lino e cotone naturali, o nel tessuto Loro Piana Interiors Mystic River, bordato di rosa Midsummer.
+Капитоне на поверхности — для более глубокого сна. В натуральном льне и хлопке или в ткани Loro Piana Interiors Mystic River, с розовым кантом Midsummer.
+
+@996a479
+[product] è fatto a mano in Italia con fibre naturali: lana, lino e Ingeo. Il rivestimento è in puro cotone. È realizzato su ordinazione, a mano, uno alla volta.
+[product] создаётся вручную в Италии из натуральных волокон: шерсти, льна и Ingeo. Чехол — из чистого хлопка. Изготавливается на заказ, вручную, по одному.
+
+@a65e3c4
+Nessuna schiuma sintetica e nulla di derivato dal petrolio: solo fibre naturali. Rivestito in puro cotone, naturale e traspirante. Morbido, medio o rigido.
+Никакой синтетической пены и ничего из нефтепродуктов: только натуральные волокна. Чехол из чистого хлопка, натурального и дышащего. Мягкий, средний или жёсткий.
+
+@df62a7b
+[product] è fatto a mano in Italia con fibre naturali: baby alpaca, cashmere, seta, lino, lana Cheviot e Ingeo. È bordato da un nastro color caramello o rosa. È realizzato su ordinazione, a mano, uno alla volta.
+[product] создаётся вручную в Италии из натуральных волокон: бэби-альпаки, кашемира, шёлка, льна, шерсти чевиот и Ingeo. Отделан лентой карамельного или розового цвета. Изготавливается на заказ, вручную, по одному.
+
+@32fba4d
+Il primo della serie Dream, fatto per seguire le curve naturali della colonna vertebrale. Bordato da un nastro color caramello o rosa.
+Первый в серии Dream, создан, чтобы следовать естественным изгибам позвоночника. Отделан лентой карамельного или розового цвета.
+
+@9b36c33
+[product] è fatto a mano in Italia con fibre naturali: pelo di yak, crine di cavallo, lana Cheviot, seta, lino e Orange Fiber. È rivestito in Loro Piana Interiors: tessuto Cardi sul lato invernale del topper, tessuto Wish sul boxspring, entrambi in lana e cashmere. È realizzato su ordinazione, a mano, uno alla volta.
+[product] создаётся вручную в Италии из натуральных волокон: шерсти яка, конского волоса, шерсти чевиот, шёлка, льна и Orange Fiber. Обивка — Loro Piana Interiors: ткань Cardi на зимней стороне топпера, ткань Wish на бокс-спринге, обе из шерсти и кашемира. Изготавливается на заказ, вручную, по одному.
+
+@c4197fc
+[product] è fatto a mano in Italia con fibre naturali: crine di cavallo, lana Cheviot, lino e seta. È rivestito in lino Loro Piana Interiors Connemara e Bangor. È realizzato su ordinazione, a mano, uno alla volta.
+[product] создаётся вручную в Италии из натуральных волокон: конского волоса, шерсти чевиот, льна и шёлка. Обивка — лён Loro Piana Interiors Connemara и Bangor. Изготавливается на заказ, вручную, по одному.
+
+@fa7f562
+Tondo, e interamente su misura, in qualsiasi diametro. Rivestito in lino Loro Piana Interiors Connemara.
+Круглая и полностью по индивидуальным размерам, любого диаметра. Обивка — лён Loro Piana Interiors Connemara.
+
+@30b325a
+[product] è fatto a mano in Italia con fibre naturali: crine vegetale, lino e Ingeo. Nessuna fibra animale: è rivestito in lino grezzo riciclato e cotone. È realizzato su ordinazione, a mano, uno alla volta.
+[product] создаётся вручную в Италии из натуральных волокон: растительного волоса, льна и Ingeo. Без волокон животного происхождения: обивка — небелёный переработанный лён и хлопок. Изготавливается на заказ, вручную, по одному.
+
+@07d1ddc
+Il crine vegetale dà struttura e lascia circolare liberamente l’aria; il lino lo mantiene fresco e leggero. Rivestito in lino grezzo riciclato e cotone.
+Растительный волос придаёт структуру и свободно пропускает воздух; лён сохраняет свежесть и лёгкость. Обивка — небелёный переработанный лён и хлопок.
+
+@55d103e
+[product] è fatto a mano in Italia con fibre naturali: alpaca, seta e lana Cheviot. Il rivestimento è in viscosa. È realizzato su ordinazione, a mano, uno alla volta.
+[product] создаётся вручную в Италии из натуральных волокон: альпаки, шёлка и шерсти чевиот. Чехол — из вискозы. Изготавливается на заказ, вручную, по одному.
+
+@dec9b8e
+Pensato per essere ipoallergenico. Rivestito in viscosa.
+Создан гипоаллергенным. Чехол — из вискозы.
+
+@a4033c5
+[product] è fatto a mano in Italia con fibre naturali: baby alpaca, lana Cheviot, seta e lino. È rivestito in Loro Piana Interiors: tessuto Shadan, un lino paisley, sul topper, e seta Katai sul boxspring. È realizzato su ordinazione, a mano, uno alla volta.
+[product] создаётся вручную в Италии из натуральных волокон: бэби-альпаки, шерсти чевиот, шёлка и льна. Обивка — Loro Piana Interiors: ткань Shadan, лён с узором пейсли, на топпере и шёлк Katai на бокс-спринге. Изготавливается на заказ, вручную, по одному.
+
+@ecdd43b
+[product] è fatto a mano in Italia con fibre naturali: baby alpaca, lana, cotone e Ingeo. Il rivestimento è in cotone. È realizzato su ordinazione, a mano, uno alla volta.
+[product] создаётся вручную в Италии из натуральных волокон: бэби-альпаки, шерсти, хлопка и Ingeo. Чехол — из хлопка. Изготавливается на заказ, вручную, по одному.
+
+@9b07986
+Comodo e accogliente nella sua semplicità. Rivestito in cotone, bordato con il nastro rosa Midsummer. La sensazione si sceglie con te, dal morbido al rigido.
+Удобный и уютный в своей простоте. Чехол из хлопка, отделан розовой лентой Midsummer. Ощущение подбирается вместе с вами — от мягкого до жёсткого.
+
+@67879ae
+[product] è fatto a mano in Italia con fibre naturali: crine di cavallo, seta, lana Falkland, lino, cotone e Ingeo. È rivestito nel tessuto Loro Piana Interiors Mystic River, un lino e cotone, e bordato di rosa Midsummer. È realizzato su ordinazione, a mano, uno alla volta.
+[product] создаётся вручную в Италии из натуральных волокон: конского волоса, шёлка, фолклендской шерсти, льна, хлопка и Ingeo. Обивка — ткань Loro Piana Interiors Mystic River из льна и хлопка, с розовым кантом Midsummer. Изготавливается на заказ, вручную, по одному.
+
+@0653739
+Inverno: cashmere, seta, mohair e lana Falkland. Estate: seta, lino, Ingeo e lana Falkland.
+Зима: кашемир, шёлк, мохер и фолклендская шерсть. Лето: шёлк, лён, Ingeo и фолклендская шерсть.
+
+@40e8ee1
+Rivestito nel tessuto Loro Piana Interiors Mystic River, bordato con il nastro rosa Midsummer. I fianchi cuciti a mano.
+Обивка — ткань Loro Piana Interiors Mystic River, отделка розовой лентой Midsummer. Боковины прошиты вручную.
+
+@0ae8d45
+[product] è fatto a mano in Italia con fibre naturali: cashmere, seta e lana Cheviot. È rivestito nel tessuto Loro Piana Interiors Mystic River, un lino e cotone, cassetti compresi. È realizzato su ordinazione, a mano, uno alla volta.
+[product] создаётся вручную в Италии из натуральных волокон: кашемира, шёлка и шерсти чевиот. Обивка — ткань Loro Piana Interiors Mystic River из льна и хлопка, включая ящики. Изготавливается на заказ, вручную, по одному.
+
+@54368dd
+[product] è fatto a mano in Italia con fibre naturali: cashmere, baby alpaca, mohair, pelo di yak, crine di cavallo, seta, lino e lana Cheviot. È rivestito in tre tessuti Loro Piana Interiors: lino Connemara, lino e cashmere Ely’s Harbour e lino Bangor. È realizzato su ordinazione, a mano, uno alla volta.
+[product] создаётся вручную в Италии из натуральных волокон: кашемира, бэби-альпаки, мохера, шерсти яка, конского волоса, шёлка, льна и шерсти чевиот. Обивка — три ткани Loro Piana Interiors: лён Connemara, лён с кашемиром Ely’s Harbour и лён Bangor. Изготавливается на заказ, вручную, по одному.
+
+@a67c47c
+Tessuto Ely’s Harbour sul lato invernale, lino Connemara sul lato estivo. La sensazione si sceglie con te, dal morbido al rigido.
+Ткань Ely’s Harbour на зимней стороне, лён Connemara на летней. Ощущение подбирается вместе с вами — от мягкого до жёсткого.
+
+@655d20c
+Alto
+Высокий
+
+@8cc872b
+9–10 cm, morbido
+9–10 см, мягкий
+
+@906e84a
+5 cm, morbido
+5 см, мягкий
+
+@6912482
+[product] è fatto a mano in Italia con fibre naturali: seta, lana, lino, Ingeo, crine di cavallo e vigogna. Può essere rivestito in lino e cotone Loro Piana Interiors, o in cashmere, in una gamma di colori. È realizzato su ordinazione, a mano, uno alla volta.
+[product] создаётся вручную в Италии из натуральных волокон: шёлка, шерсти, льна, Ingeo, конского волоса и викуньи. Его можно обить льном и хлопком Loro Piana Interiors или кашемиром — в гамме цветов. Изготавливается на заказ, вручную, по одному.
+
+@8ee079c
+Il corpo riposa sul materasso, accolto con delicatezza dalla morbidezza delle fibre sopra di esso. Caldo d’inverno, fresco e traspirante d’estate. Rivestito in lino e cotone Loro Piana Interiors, o in cashmere, in una gamma di colori.
+Тело отдыхает на матрасе, мягко поддерживаемое нежностью волокон над ним. Тёплый зимой, прохладный и дышащий летом. Обивка — лён и хлопок Loro Piana Interiors или кашемир, в гамме цветов.
+
+@e29d649
+=
+100 × 200 × 10 см
+
+@9b1c122
+=
+153 × 203 × 10 см
+
+@0f1986b
+=
+160 × 200 × 10 см
+
+@b8af8f1
+=
+180 × 200 × 10 см
+
+@2dedd70
+=
+193 × 203 × 10 см
+
+@3446fa8
+=
+200 × 200 × 10 см
+
+@64558cf
+[product] è fatto a mano in Italia con fibre naturali: cashmere, mohair, seta, lana Falkland, lino e Ingeo. È rivestito nel tessuto Loro Piana Interiors Mystic River, un lino e cotone. È realizzato su ordinazione, a mano, uno alla volta.
+[product] создаётся вручную в Италии из натуральных волокон: кашемира, мохера, шёлка, фолклендской шерсти, льна и Ingeo. Обивка — ткань Loro Piana Interiors Mystic River из льна и хлопка. Изготавливается на заказ, вручную, по одному.
+
+@216eca3
+Rivestito nel tessuto Loro Piana Interiors Mystic River. Morbido o medio, per poggiare sul materasso sottostante.
+Обивка — ткань Loro Piana Interiors Mystic River. Мягкий или средний — чтобы лечь на матрас под ним.
+
+@aedfcbf
+Sottile
+Тонкий
+
+@9eceb6a
+3 cm, da medio a rigido
+3 см, от среднего до жёсткого
+
+@f44740a
+[product] è fatto a mano in Italia con fibre naturali: seta, lana e Ingeo. È realizzato su ordinazione, a mano, uno alla volta.
+[product] создаётся вручную в Италии из натуральных волокон: шёлка, шерсти и Ingeo. Изготавливается на заказ, вручную, по одному.
+
+@2b43ded
+Un’accoglienza calda e una temperatura costante, in pochi centimetri di fibre preziose. Da medio a rigido.
+Тёплый приём и ровная температура — в нескольких сантиметрах драгоценных волокон. От среднего до жёсткого.
+
+@72e8d90
+[product] è fatto a mano in Italia con fibre naturali: crine vegetale, lino, cotone, Ingeo, cashmere, seta e lana Cheviot. È rivestito in lino grezzo e cotone. È realizzato su ordinazione, a mano, uno alla volta.
+[product] создаётся вручную в Италии из натуральных волокон: растительного волоса, льна, хлопка, Ingeo, кашемира, шёлка и шерсти чевиот. Обивка — небелёный лён и хлопок. Изготавливается на заказ, вручную, по одному.
+
+@45ee81e
+Estate: crine vegetale, lino, cotone e Ingeo, per restare asciutti nell’aria umida. Inverno: lana Cheviot, seta e cashmere. Rivestito in lino grezzo e cotone.
+Лето: растительный волос, лён, хлопок и Ingeo — чтобы оставаться сухим во влажном воздухе. Зима: шерсть чевиот, шёлк и кашемир. Обивка — небелёный лён и хлопок.
+
+@c105dd7
+[product] è fatto a mano in Italia con fibre naturali: vigogna, cashmere, lana Falkland, crine di cavallo, seta, lino e Ingeo. È rivestito in lino grezzo e cotone, o in un tessuto Loro Piana Interiors scelto con te. È realizzato su ordinazione, a mano, uno alla volta.
+[product] создаётся вручную в Италии из натуральных волокон: викуньи, кашемира, фолклендской шерсти, конского волоса, шёлка, льна и Ingeo. Обивка — небелёный лён и хлопок или ткань Loro Piana Interiors, выбранная вместе с вами. Изготавливается на заказ, вручную, по одному.
+
+@2c1c9b1
+La vigogna è più fine del cashmere più fine, e viene da un piccolo camelide selvatico delle Ande. Rivestito in lino grezzo e cotone, bordato da un nastro color vigogna e trapuntato a mano; oppure in un lino Loro Piana Interiors.
+Викунья тоньше самого тонкого кашемира; её шерсть дают небольшие дикие верблюдовые Анд. Обивка — небелёный лён и хлопок, кант — лента цвета викуньи, стёжка вручную; или лён Loro Piana Interiors.
+
+@4343b82
+[product] è fatto a mano in Italia con fibre naturali: pelo di cammello, seta, lana, cotone e Ingeo. È rivestito in lino e cotone. È realizzato su ordinazione, a mano, uno alla volta.
+[product] создаётся вручную в Италии из натуральных волокон: верблюжьей шерсти, шёлка, шерсти, хлопка и Ingeo. Обивка — лён и хлопок. Изготавливается на заказ, вручную, по одному.
+
+@ce5bf4c
+Una miscela originale di fibre preziose, e il materasso che ci viene chiesto di più. Rivestito in lino e cotone. La sensazione si sceglie con te, dal morbido al rigido.
+Оригинальное сочетание драгоценных волокон и матрас, который у нас просят чаще всего. Обивка — лён и хлопок. Ощущение подбирается вместе с вами — от мягкого до жёсткого.
+
+@fc8f5d5
+[product] è fatto a mano in Italia con fibre naturali: cashmere, seta, lana, cotone e Ingeo. È rivestito in lino e cotone. È realizzato su ordinazione, a mano, uno alla volta.
+[product] создаётся вручную в Италии из натуральных волокон: кашемира, шёлка, шерсти, хлопка и Ingeo. Обивка — лён и хлопок. Изготавливается на заказ, вручную, по одному.
+
+@eaed7f6
+Il Vivaldi, arricchito di prezioso cashmere. Rivestito in lino e cotone. La sensazione si sceglie con te, dal morbido al rigido.
+Vivaldi, обогащённый драгоценным кашемиром. Обивка — лён и хлопок. Ощущение подбирается вместе с вами — от мягкого до жёсткого.
+
+@be5d5d3
+e
+и
+
+@7eece51
+Confronta
+Сравнить
+
+@5174d13
+Griglia
+Сетка
+
+@2b8b011
+Testiera
+Изголовье
+
+@32e1087
+Non sai da dove cominciare?
+Не знаете, с чего начать?
+
+@5cc3c71
+Ogni sistema è realizzato su ordinazione. Le fibre sono il punto di partenza; il comfort si definisce con te, in atelier o in video.
+Каждая система создаётся на заказ. Всё начинается с волокон; комфорт подбирается вместе с вами — в ателье или по видеосвязи.
+
+@69ff3b6
+{fibres} {fanno/fa} circolare l’aria: per stanze calde e climi umidi.
+{fibres} {пропускают/пропускает} воздух: для тёплых комнат и влажного климата.
+
+@1518744
+{fibres} non {contengono/contiene} lanolina. Parlaci di eventuali allergie durante la consulenza, e la specifica verrà adattata.
+{fibres} не {содержат/содержит} ланолина. Расскажите нам о любой аллергии на консультации, и спецификация будет адаптирована.
+
+@96ae78f
+{fibres} {danno/dà} morbidezza alla superficie: per chi dorme sul fianco, e ha bisogno che fianchi e spalle affondino un poco.
+{fibres} {придают/придаёт} поверхности мягкость: для тех, кто спит на боку, — бёдрам и плечам нужно немного погружаться.
+
+@16cf7eb
+{fibres} {mantengono/mantiene} la forma del letto. Sulla schiena la curva lombare ha bisogno di sostegno; a pancia in giù, una superficie più piana e rigida mantiene il collo in posizione neutra.
+{fibres} {держат/держит} форму кровати. На спине поясничному изгибу нужна поддержка; на животе более ровная и жёсткая поверхность держит шею в нейтральном положении.
+
+@3f6766d
+Se soffri il caldo o il freddo: {fibres} {allontanano/allontana} calore e umidità, così il letto resta costante per tutta la notte.
+Если вам бывает жарко или холодно: {fibres} {отводят/отводит} тепло и влагу, и кровать остаётся ровной всю ночь.
+
+@498f79c
+Mostra
+Показать
+
+@78499cc
+Letti con testiera
+Кровати с изголовьем
+
+@3d58c74
+Un sistema di letto e sedute da esterno, senza schiume
+Уличная система для сна и отдыха, без пены
+
+@2ac9f43
+Ogni punto è una qualità delle fibre all’interno di quel sistema, come descritto in Materiali naturali. Misura, rigidità e tessuto si scelgono con te.
+Каждая точка — качество волокон внутри этой системы, как описано в разделе «Натуральные материалы». Размер, жёсткость и ткань выбираются вместе с вами.
+
+@cc06fac
+Topper, materasso e boxspring
+Топпер, матрас и бокс-спринг
+
+@93cba07
+Sì
+Да
+
+@16a84a6
+Il quadrato
+Квадрат
+
+@9b86de8
+Pranzo lungo
+Долгий обед
+
+@ae6fac0
+In coperta
+На палубе
+
+@16fe05c
+Siesta, separati
+Сиеста порознь
+
+@35c5e6b
+Tangram · esterno
+Tangram · для улицы
+
+@e397e64
+Di qualità marina, fatto per sole, sale e pioggia
+Морского качества, для солнца, соли и дождя
+
+@6e4dd7c
+Legno
+Дерево
+
+@1c7b718
+In tessuto da esterno Loro Piana Interiors, in un’ampia palette di colori
+В уличной ткани Loro Piana Interiors, в широкой палитре цветов
+
+@567aafa
+Cuscini
+Подушки
+
+@f66fcf5
+Crine di cavallo austriaco: lascia passare acqua e calore e si asciuga al sole. Nessuna schiuma, da nessuna parte
+Австрийский конский волос: пропускает воду и тепло и сохнет на солнце. Никакой пены — нигде
+
+@a104439
+Imbottitura
+Наполнение
+
+@d443b11
+Maniglie e polsini idrorepellenti, cuciti a mano da Michele Cesareo a Genova
+Водоотталкивающие ручки и манжеты, прошитые вручную Michele Cesareo в Генуе
+
+@bdf7ad2
+Pelle
+Кожа
+
+@ad16b3b
+Con Daniela Puppa
+Вместе с Daniela Puppa
+
+@49969b1
+100 × 100, 180 × 80 e 80 × 50 cm; altre misure su richiesta
+100 × 100, 180 × 80 и 80 × 50 см; другие размеры по запросу
+
+@a19cd84
+Basi
+Основания
+
+@ee6ea4a
+In principio era il quadrato.
+В начале был квадрат.
+
+@82218eb
+Rullo, con polsini in pelle
+Валик с кожаными манжетами
+
+@9bad44b
+Cuscino, sulla sua base
+Подушка на своём основании
+
+@033c455
+Una base da sola: un tavolino
+Одно основание — приставной столик
+
+@34067f0
+Un grande letto, 180 per 180.
+Одна большая кровать, 180 на 180.
+
+@cdda55c
+Un grande letto, 180 per 180.\nUn divano per il pranzo lungo, e un pouf per chi arriva tardi.\nUna chaise longue al sole, un tavolino per il bicchiere e una seduta per la conversazione.\nDue sieste, a debita distanza.\nUn daybed e un angolo, fianco a fianco.\nComposizione numero sei. O sessanta.\nLa disposizione del gatto.\nDopo che gli ospiti se ne sono andati.\nSiesta per uno, aperitivo per sei.\nMolte (molte molte, davvero) altre.
+Одна большая кровать, 180 на 180.\nДиван для долгого обеда и пуф для того, кто опоздал.\nШезлонг на солнце, столик для бокала и сиденье для беседы.\nДве сиесты на вежливом расстоянии.\nДейбед и угол, бок о бок.\nКомпозиция номер шесть. Или шестьдесят.\nРасстановка от кота.\nКогда гости разошлись.\nСиеста для одного, аперитив для шестерых.\nИ ещё много (очень-очень много) других.
+
+@8153d35
+Composizioni
+Композиции
+
+@b10bd9b
+Il Tangram
+Tangram
+
+@e8b4b40
+Mescola
+Перемешать
+
+@ee5a634
+Un quadrato, pensato come un unico grande letto, che si scompone in tante composizioni quanti sono gli ospiti e le occasioni: dal ponte di uno yacht a una villa sul mare, a una veranda in campagna. Scegline una, o lascia scegliere ai pezzi.
+Квадрат, задуманный как одна большая кровать, распадается на столько композиций, сколько гостей и поводов: от палубы яхты до виллы у моря и веранды за городом. Выберите одну — или позвольте выбрать деталям.
+
+@22dec2a
+=
+=
+
+@f8162c1
+Provane uno a Milano
+Прилягте на неё в Милане
+
+@48a3989
+Perché Midsummer
+Почему Midsummer
+
+@2b7ed98
+Ciò che un letto dovrebbe essere, e raramente è.
+Какой должна быть кровать — и какой она бывает редко.
+
+@18d769d
+La maggior parte dei letti di lusso si vende per il nome. I nostri si vendono per ciò che hanno dentro, per chi li fa, e per ciò che accade loro quindici anni dopo.
+Большинство роскошных кроватей продаются благодаря имени. Наши — благодаря тому, что внутри, тому, кто их делает, и тому, что происходит с ними через пятнадцать лет.
+
+@6c6217e
+Il solito letto di lusso
+Обычная роскошная кровать
+
+@b3d3ad4
+Un letto Midsummer
+Кровать Midsummer
+
+@17d5cd4
+Scopri Paisley
+Откройте Paisley
+
+@8ba745a
+Salone del Mobile 2026 · Via Andegari 4, Milano · 21–26 aprile
+Salone del Mobile 2026 · Via Andegari 4, Милан · 21–26 апреля
+
+@b79348e
+Quest’anno, la risposta è Paisley.
+В этом году ответ — Paisley.
+
+@d8f127f
+Ogni anno ci poniamo la stessa domanda: cosa possiamo fare meglio?
+Каждый год мы задаём себе один и тот же вопрос: что мы можем сделать лучше?
+
+@d0ed3c0
+=
+=
+
+@b8cd3ed
+Quest’anno, la risposta è Paisley: il tessuto Loro Piana Interiors Shadan in seta e lino, su baby alpaca, lana e lino. Caldo d’inverno, traspirante d’estate.
+В этом году ответ — Paisley: ткань Loro Piana Interiors Shadan из шёлка и льна поверх бэби-альпаки, шерсти и льна. Тёплый зимой, дышащий летом.
+
+@b53bbe3
+Presentato nell’atelier, Via Andegari 4, Milano, dal 21 al 26 aprile.
+Представлен в ателье, Via Andegari 4, Милан, с 21 по 26 апреля.
+
+@4a1602a
+Paisley, nel tessuto Loro Piana Interiors Shadan.
+Paisley в ткани Loro Piana Interiors Shadan.
+
+@20d3237
+Seta e lino, cuciti a mano.
+Шёлк и лён, сшитые вручную.
+
+@efce299
+Un tessuto straordinario, incontrato da una precisa visione progettuale.
+Необыкновенная ткань — и точное дизайнерское видение.
+
+@cef7ce9
+=
+Via Andegari 4, Милан.
+
+@282768c
+Il Salone 2025 nel Journal
+Salone 2025 в журнале
+
+@688643f
+Vieni a sdraiarti su Paisley nell’atelier, su appuntamento, dal lunedì al venerdì.
+Приходите прилечь на Paisley в ателье — по предварительной записи, с понедельника по пятницу.
+
+@ca7f93f
+Le sue fibre
+Его волокна
+
+@0480ae8
+Le fibre all’interno
+Волокна внутри
+
+@7417e00
+Facoltativo: un topper basso o medio, nello stesso colore e tessuto.
+По желанию: низкий или средний топпер того же цвета и из той же ткани.
+
+@2952e48
+Seta, lana e lino, con un lato estivo e uno invernale.
+Шёлк, шерсть и лён, с летней и зимней сторонами.
+
+@f7ea61a
+Seta e lana Cheviot per l’inverno; lana Cheviot, cotone e Ingeo per l’estate.
+Шёлк и шерсть чевиот для зимы; шерсть чевиот, хлопок и Ingeo для лета.
+
+@06f5cd9
+Rivestito in lino e cotone, in quattro colori.\nRealizzato con il suo boxspring, sulla stessa misura.
+Обивка — лён и хлопок, в четырёх цветах.\nИзготавливается вместе со своим бокс-спрингом, в том же размере.
+
+@fab05dd
+Un boxspring morbido, imbottito di feltro di lana.
+Мягкий бокс-спринг с наполнением из шерстяного войлока.
+
+@461778e
+Vestito dello stesso lino e cotone del materasso.
+В том же льне и хлопке, что и матрас.
+
+@76acd4a
+[name] è un materasso sul suo boxspring, nello stesso tessuto e colore, fatto a mano in Italia. Un topper basso o medio può completarlo, se lo desideri.
+[name] — это матрас на своём бокс-спринге, в той же ткани и цвете, созданный вручную в Италии. По желанию его можно дополнить низким или средним топпером.
+
+@6ce3bdc
+Domande
+Вопросы
+
+@8f4a333
+Prima di ordinare.
+Перед заказом.
+
+@e45b67d
+Tutte le domande
+Все вопросы
+
+@d46a140
+Di cosa è fatto [product]?
+Из чего сделан [product]?
+
+@a33d6d7
+Come si sceglie il comfort?
+Как выбирается комфорт?
+
+@925cc2c
+Posso provare [product] prima di ordinare?
+Можно ли опробовать [product] перед заказом?
+
+@ba6fbe0
+Quanto tempo serve per realizzarlo?
+Сколько времени занимает изготовление?
+
+@771d0f1
+Perché ogni sistema è realizzato su ordinazione, e il prezzo segue la specifica: dimensioni, altezza, fibre, tessuto e livello di comfort. Facciamo un preventivo dopo la consulenza.
+Потому что каждая система создаётся на заказ, а цена следует из спецификации: размеры, высота, волокна, ткань и уровень комфорта. Мы рассчитываем стоимость после консультации.
+
+@6f4752a
+Perché il prezzo è su richiesta?
+Почему цена по запросу?
+
+@b7b9077
+Lino grezzo e cotone, bordato di arancione
+Небелёный лён и хлопок, с оранжевым кантом
+
+@3acf8e5
+Non incluso in [name]: un topper Midsummer completa il letto.
+Не входит в [name]: кровать завершает топпер Midsummer.
+
+@4da65b7
+Tre altezze, con un lato estivo e uno invernale.\nFatto per poggiare sul materasso senza cambiarne la sensazione.
+Три высоты, с летней и зимней сторонами.\nЛожится на матрас, не меняя его ощущения.
+
+@cb8f851
+Yak e lana Cheviot per l’inverno; lana Cheviot, lino e Ingeo per l’estate.
+Як и шерсть чевиот для зимы; шерсть чевиот, лён и Ingeo для лета.
+
+@c900a67
+Prende il nome dalla cittadina sul Lago di Como e dal suo clima umido: mantiene il corpo asciutto e la temperatura costante.\nRivestito in lino non sbiancato rinforzato con cotone, bordato di arancione, con i fianchi cuciti a mano in filo cerato arancione.
+Назван в честь городка на озере Комо с его влажным климатом: сохраняет тело сухим, а температуру — ровной.\nОбит небелёным льном, укреплённым хлопком, с оранжевым кантом; боковины прошиты вручную оранжевой вощёной нитью.
+
+@9e275de
+Non incluso in [name]: poggia su un boxspring Midsummer.
+Не входит в [name]: он лежит на бокс-спринге Midsummer.
+
+@d8ff885
+Fatto a mano in Italia, sulla misura del materasso.\nVestito di tessuto naturale, con una testiera disegnata con te, se lo desideri.
+Создаётся вручную в Италии по размеру матраса.\nВ натуральной ткани, с изголовьем, разработанным вместе с вами, если пожелаете.
+
+@7f628ab
+[name] è il solo materasso, il cuore del letto. Un topper e un boxspring Midsummer lo completano, e sono mostrati qui nel contorno.
+[name] — это только матрас, сердце кровати. Топпер и бокс-спринг Midsummer дополняют его и показаны здесь контуром.
+
+@0f1679a
+Seta e lana Cheviot per l’inverno; lana Cheviot e Orange Fiber per l’estate.
+Шёлк и шерсть чевиот для зимы; шерсть чевиот и Orange Fiber для лета.
+
+@5774341
+Orange Fiber nasce dalla buccia delle arance siciliane: leggera, traspirante e naturalmente fresca.\nBordato con un nastro in gros-grain.
+Orange Fiber делают из кожуры сицилийских апельсинов: это лёгкое, дышащее и естественно свежее волокно.\nОтделан репсовой лентой.
+
+@6f7991a
+Seta, lana Cheviot e crine di cavallo per l’inverno; lino, Ingeo, cotone, lana Falkland e crine di cavallo per l’estate.
+Шёлк, шерсть чевиот и конский волос для зимы; лён, Ingeo, хлопок, фолклендская шерсть и конский волос для лета.
+
+@dc1ce2c
+La sensazione si sceglie con te, dal morbido al rigido.
+Ощущение подбирается вместе с вами — от мягкого до жёсткого.
+
+@dd0b95d
+Lana Cheviot e lino, rivestiti nel tessuto Loro Piana Interiors Wish.
+Шерсть чевиот и лён, обивка — ткань Loro Piana Interiors Wish.

@@ -26,10 +26,10 @@
   <div class="ms-cu__in">
     <div class="ms-cu__head">
       <div>
-        <div class="ms-cu__eyebrow">{{ s.eyebrow }}</div>
-        <h2 class="ms-cu__title">{{ s.heading }}</h2>
+        <div class="ms-cu__eyebrow">{% render 'ms-t', v: s.eyebrow %}</div>
+        <h2 class="ms-cu__title">{% render 'ms-t', v: s.heading %}</h2>
       </div>
-      {%- if s.text != blank -%}<p class="ms-cu__text">{{ s.text }}</p>{%- endif -%}
+      {%- if s.text != blank -%}<p class="ms-cu__text">{% render 'ms-t', v: s.text %}</p>{%- endif -%}
     </div>
     {%- capture cards -%}
       {%- if col != blank and col.products_count > 0 -%}
@@ -41,11 +41,11 @@
     {%- if cards != blank -%}
       <div class="ms-cu__grid">{{ cards }}</div>
     {%- else -%}
-      <p class="ms-cu__empty">{{ s.empty }}</p>
+      <p class="ms-cu__empty">{% render 'ms-t', v: s.empty %}</p>
     {%- endif -%}
     <div class="ms-cu__foot">
-      <a class="ms-cu__link" href="{% render 'ms-link', to: 'collections' %}">{{ s.compare_label }}<span aria-hidden="true">→</span></a>
-      <a class="ms-cu__btn" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=proposal' %}#enquire" data-ms-landing>{{ s.button }}</a>
+      <a class="ms-cu__link" href="{% render 'ms-link', to: 'collections' %}">{% render 'ms-t', v: s.compare_label %}<span aria-hidden="true">→</span></a>
+      <a class="ms-cu__btn" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=proposal' %}#enquire" data-ms-landing>{% render 'ms-t', v: s.button %}</a>
     </div>
   </div>
 </section>

@@ -39,7 +39,7 @@
 {%- endif -%}
 <div style="position: absolute; inset: 0px; background: linear-gradient(rgba(10, 8, 6, 0.3), rgba(10, 8, 6, 0.55));"></div>
 <div style="position: absolute; inset: 0px; display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(26px, 5vw, 88px); color: rgb(251, 249, 245);">
-<div style="font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.8;">{{ section.settings.eyebrow }}{% if numeral != blank %} {{ numeral }}{% endif %}</div>
+<div style="font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.8;">{% render 'ms-t', v: section.settings.eyebrow %}{% if numeral != blank %} {{ numeral }}{% endif %}</div>
 <h1 style="font-family: Newsreader, Georgia, serif; font-size: clamp(40px, 7vw, 96px); line-height: 1; letter-spacing: -0.035em; margin-top: 16px;">{% render 'ms-coll-name', c: collection %}</h1>
 </div>
 </section>

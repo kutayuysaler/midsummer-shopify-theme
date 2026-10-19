@@ -8,11 +8,11 @@
         <span style="flex: 1 1 0%; height: 1px; background: rgb(221, 214, 201);"></span>
         <span data-ms-quiz-step style="font-family: Newsreader, Georgia, serif; font-size: 15px; color: rgb(126, 98, 59);">1 / 5</span>
       </div>
-      <h2 data-ms-quiz-q aria-live="polite" style="font-family: Newsreader, Georgia, serif; font-size: clamp(30px, 4.2vw, 54px); line-height: 1.08; letter-spacing: -0.025em; margin-top: 34px;">How do you sleep?</h2>
+      <h2 data-ms-quiz-q aria-live="polite" style="font-family: Newsreader, Georgia, serif; font-size: clamp(30px, 4.2vw, 54px); line-height: 1.08; letter-spacing: -0.025em; margin-top: 34px;">{% render 'ms-t', v: 'How do you sleep?' %}</h2>
       <div data-ms-quiz-opts style="display: flex; flex-direction: column; margin-top: clamp(28px, 4vw, 48px);"></div>
       <div style="display: flex; gap: 26px; align-items: center; margin-top: 34px;">
-        <button type="button" data-ms-quiz-back style="background: none; border: 0px; padding: 15px 0px; cursor: pointer; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(74, 68, 59);">← Back</button>
-        <button type="button" data-ms-quiz-reset style="background: none; border: 0px; padding: 15px 0px; cursor: pointer; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92);">Start again</button>
+        <button type="button" data-ms-quiz-back style="background: none; border: 0px; padding: 15px 0px; cursor: pointer; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(74, 68, 59);">{% render 'ms-t', v: '← Back' %}</button>
+        <button type="button" data-ms-quiz-reset style="background: none; border: 0px; padding: 15px 0px; cursor: pointer; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92);">{% render 'ms-t', v: 'Start again' %}</button>
       </div>
     </div>
     <div data-ms-quiz-done hidden style="max-width: 580px; animation: msRise .5s ease both;">
@@ -21,23 +21,104 @@
       <p data-ms-r="tagline" style="font-family: Newsreader, Georgia, serif; font-size: clamp(18px, 2.1vw, 24px); line-height: 1.5; color: #6E675C; margin-top: 16px; font-style: italic;"></p>
       <p data-ms-r="why" style="font-size: 15px; line-height: 1.95; color: #4A443B; margin-top: 26px;"></p>
       <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 32px; border-top: 1px solid #DDD6C9; padding-top: 26px; font-size: 14px; line-height: 1.7; color: #4A443B;">
-        <div style="display: flex; gap: 18px;"><span style="width: 130px; flex: none; font-size: 11px; letter-spacing: .26em; text-transform: uppercase; color: #6E675C; padding-top: 3px;">Comfort</span><span data-ms-r="firm"></span></div>
-        <div style="display: flex; gap: 18px;"><span style="width: 130px; flex: none; font-size: 11px; letter-spacing: .26em; text-transform: uppercase; color: #6E675C; padding-top: 3px;">Size</span><span data-ms-r="size"></span></div>
-        <div style="display: flex; gap: 18px;"><span style="width: 130px; flex: none; font-size: 11px; letter-spacing: .26em; text-transform: uppercase; color: #6E675C; padding-top: 3px;">Fibres</span><span data-ms-r="fibre"></span></div>
+        <div style="display: flex; gap: 18px;"><span style="width: 130px; flex: none; font-size: 11px; letter-spacing: .26em; text-transform: uppercase; color: #6E675C; padding-top: 3px;">{% render 'ms-t', v: 'Comfort' %}</span><span data-ms-r="firm"></span></div>
+        <div style="display: flex; gap: 18px;"><span style="width: 130px; flex: none; font-size: 11px; letter-spacing: .26em; text-transform: uppercase; color: #6E675C; padding-top: 3px;">{% render 'ms-t', v: 'Size' %}</span><span data-ms-r="size"></span></div>
+        <div style="display: flex; gap: 18px;"><span style="width: 130px; flex: none; font-size: 11px; letter-spacing: .26em; text-transform: uppercase; color: #6E675C; padding-top: 3px;">{% render 'ms-t', v: 'Fibres' %}</span><span data-ms-r="fibre"></span></div>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 26px; align-items: center; margin-top: 36px;">
-        <a href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-cta="quiz-proposal" style="display: inline-block; background: #17140F; color: #FBF9F5; border: 0; padding: 20px 40px; font-size: 11px; letter-spacing: .28em; text-transform: uppercase; cursor: pointer;">Request a proposal</a>
-        <a data-ms="cta" data-ms-r="link" href="{{ routes.collections_url }}" style="font-size: 11px; letter-spacing: .26em; text-transform: uppercase; border-bottom: 1px solid #17140F; padding-bottom: 7px;">See the system</a>
-        <button type="button" data-ms-quiz-reset style="background: none; border: 0; cursor: pointer; font-size: 11px; letter-spacing: .26em; text-transform: uppercase; color: #6E675C;">Start again</button>
+        <a href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-cta="quiz-proposal" style="display: inline-block; background: #17140F; color: #FBF9F5; border: 0; padding: 20px 40px; font-size: 11px; letter-spacing: .28em; text-transform: uppercase; cursor: pointer;">{% render 'ms-t', v: 'Request a proposal' %}</a>
+        <a data-ms="cta" data-ms-r="link" href="{{ routes.collections_url }}" style="font-size: 11px; letter-spacing: .26em; text-transform: uppercase; border-bottom: 1px solid #17140F; padding-bottom: 7px;">{% render 'ms-t', v: 'See the system' %}</a>
+        <button type="button" data-ms-quiz-reset style="background: none; border: 0; cursor: pointer; font-size: 11px; letter-spacing: .26em; text-transform: uppercase; color: #6E675C;">{% render 'ms-t', v: 'Start again' %}</button>
       </div>
     </div>
   </div>
   <div style="position: relative; min-height: 360px; background: rgb(241, 236, 227); overflow: hidden;">
-    <img data-ms-quiz-img alt="A woman resting on a Midsummer mattress" loading="lazy" width="1400" height="1750" src="{{ 'ms-photo-my-dream-sleep.jpg' | asset_url }}" {% render 'ms-srcset', fallback: 'ms-photo-my-dream-sleep.jpg', width: 1798, sizes: '(max-width: 760px) 100vw, 50vw' %} style="position: absolute; inset: 0px; width: 100%; height: 100%; object-fit: cover;">
+    <img data-ms-quiz-img alt="{% render 'ms-t', v: 'A woman resting on a Midsummer mattress' %}" loading="lazy" width="1400" height="1750" src="{{ 'ms-photo-my-dream-sleep.jpg' | asset_url }}" {% render 'ms-srcset', fallback: 'ms-photo-my-dream-sleep.jpg', width: 1798, sizes: '(max-width: 760px) 100vw, 50vw' %} style="position: absolute; inset: 0px; width: 100%; height: 100%; object-fit: cover;">
   </div>
 </div>
 <script>
 (function () {
+  var TT = {
+  {%- capture ms_q -%}{% render 'ms-t', v: 'How do you sleep?' %}{%- endcapture -%}"How do you sleep?": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'On my side' %}{%- endcapture -%}"On my side": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Hips and shoulders need to sink a little.' %}{%- endcapture -%}"Hips and shoulders need to sink a little.": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'On my back' %}{%- endcapture -%}"On my back": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'The lumbar curve needs to stay supported.' %}{%- endcapture -%}"The lumbar curve needs to stay supported.": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'On my front' %}{%- endcapture -%}"On my front": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'A flatter, firmer surface keeps the neck neutral.' %}{%- endcapture -%}"A flatter, firmer surface keeps the neck neutral.": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'It changes' %}{%- endcapture -%}"It changes": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'A balanced surface that works in every position.' %}{%- endcapture -%}"A balanced surface that works in every position.": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'What should the bed feel like?' %}{%- endcapture -%}"What should the bed feel like?": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Enveloping' %}{%- endcapture -%}"Enveloping": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Softness first, with support underneath.' %}{%- endcapture -%}"Softness first, with support underneath.": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Balanced' %}{%- endcapture -%}"Balanced": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Neither soft nor firm — the most specified answer.' %}{%- endcapture -%}"Neither soft nor firm — the most specified answer.": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Structured' %}{%- endcapture -%}"Structured": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Firm, resilient, close to the traditional Italian build.' %}{%- endcapture -%}"Firm, resilient, close to the traditional Italian build.": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'How warm is the room at night?' %}{%- endcapture -%}"How warm is the room at night?": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Warm' %}{%- endcapture -%}"Warm": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Coastal, southern, or a room that holds heat.' %}{%- endcapture -%}"Coastal, southern, or a room that holds heat.": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Temperate' %}{%- endcapture -%}"Temperate": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Four real seasons.' %}{%- endcapture -%}"Four real seasons.": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Cold' %}{%- endcapture -%}"Cold": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Mountain, northern, or a house kept cool.' %}{%- endcapture -%}"Mountain, northern, or a house kept cool.": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'What size are you working with?' %}{%- endcapture -%}"What size are you working with?": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Double' %}{%- endcapture -%}"Double": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: '160 × 200 cm' %}{%- endcapture -%}"160 × 200 cm": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Queen or King' %}{%- endcapture -%}"Queen or King": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: '170–180 × 200 cm' %}{%- endcapture -%}"170–180 × 200 cm": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Made to measure' %}{%- endcapture -%}"Made to measure": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'The wall decides, not the catalogue.' %}{%- endcapture -%}"The wall decides, not the catalogue.": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'How far should the bespoke go?' %}{%- endcapture -%}"How far should the bespoke go?": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'The essentials, done properly' %}{%- endcapture -%}"The essentials, done properly": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Natural fibres and honest construction.' %}{%- endcapture -%}"Natural fibres and honest construction.": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Loro Piana Interiors' %}{%- endcapture -%}"Loro Piana Interiors": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Fabric chosen for the room, comfort chosen for you.' %}{%- endcapture -%}"Fabric chosen for the room, comfort chosen for you.": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Without limit' %}{%- endcapture -%}"Without limit": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Vicuña and cashmere. No detail overlooked.' %}{%- endcapture -%}"Vicuña and cashmere. No detail overlooked.": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Raffaello' %}{%- endcapture -%}"Raffaello": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Essentials' %}{%- endcapture -%}"Essentials": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Baby alpaca, sewn by hand.' %}{%- endcapture -%}"Baby alpaca, sewn by hand.": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Dreamy' %}{%- endcapture -%}"Dreamy": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Signature' %}{%- endcapture -%}"Signature": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Capitonné surface, enveloping comfort.' %}{%- endcapture -%}"Capitonné surface, enveloping comfort.": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Paisley' %}{%- endcapture -%}"Paisley": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Icons' %}{%- endcapture -%}"Icons": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Loro Piana Interiors Shadan, in silk and linen.' %}{%- endcapture -%}"Loro Piana Interiors Shadan, in silk and linen.": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Amalfi' %}{%- endcapture -%}"Amalfi": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Coloured linen, summer weight.' %}{%- endcapture -%}"Coloured linen, summer weight.": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Vivaldi' %}{%- endcapture -%}"Vivaldi": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'The balanced build, most specified of all.' %}{%- endcapture -%}"The balanced build, most specified of all.": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Bellini' %}{%- endcapture -%}"Bellini": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Slender boxspring, balcony proportions.' %}{%- endcapture -%}"Slender boxspring, balcony proportions.": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Capri' %}{%- endcapture -%}"Capri": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Boxspring and mattress, in one clean line.' %}{%- endcapture -%}"Boxspring and mattress, in one clean line.": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Brera' %}{%- endcapture -%}"Brera": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Structured support, Milanese proportion.' %}{%- endcapture -%}"Structured support, Milanese proportion.": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Top' %}{%- endcapture -%}"Top": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'The most complete system in the house.' %}{%- endcapture -%}"The most complete system in the house.": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'on your side' %}{%- endcapture -%}"on your side": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'on your back' %}{%- endcapture -%}"on your back": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'on your front' %}{%- endcapture -%}"on your front": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'in every position' %}{%- endcapture -%}"in every position": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'a double' %}{%- endcapture -%}"a double": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'a queen or king' %}{%- endcapture -%}"a queen or king": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'a made-to-measure size' %}{%- endcapture -%}"a made-to-measure size": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Soft' %}{%- endcapture -%}"Soft": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Firm' %}{%- endcapture -%}"Firm": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Medium' %}{%- endcapture -%}"Medium": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Linen, organic cotton and silk — breathable, for warm rooms' %}{%- endcapture -%}"Linen, organic cotton and silk — breathable, for warm rooms": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Baby alpaca, yak and Cheviot wool — warmth without weight' %}{%- endcapture -%}"Baby alpaca, yak and Cheviot wool — warmth without weight": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'Cheviot wool, horsehair and linen — warm in winter, fresh in summer' %}{%- endcapture -%}"Cheviot wool, horsehair and linen — warm in winter, fresh in summer": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'enveloping' %}{%- endcapture -%}"enveloping": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'balanced' %}{%- endcapture -%}"balanced": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'structured' %}{%- endcapture -%}"structured": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'You sleep {posture}, and you want a surface that feels {feel}. We would build the {name} from the {collection} collection at {firm} comfort, in {size}.' %}{%- endcapture -%}"You sleep {posture}, and you want a surface that feels {feel}. We would build the {name} from the {collection} collection at {firm} comfort, in {size}.": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'soft' %}{%- endcapture -%}"soft": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'firm' %}{%- endcapture -%}"firm": {{ ms_q | strip | json }},
+  {%- capture ms_q -%}{% render 'ms-t', v: 'medium' %}{%- endcapture -%}"medium": {{ ms_q | strip | json }}
+  };
+  var T = function (s) { return TT[s] || s; };
   var CDN = 'https://midsummer-milano.com/cdn/shop/';
   var QUESTIONS = [
     { q: 'How do you sleep?', img: {{ 'ms-photo-my-dream-sleep.jpg' | asset_url | json }},
@@ -72,7 +153,7 @@
     if (!done) {
       var q = QUESTIONS[qi];
       $('[data-ms-quiz-step]').textContent = (qi + 1) + ' / ' + QUESTIONS.length;
-      $('[data-ms-quiz-q]').textContent = q.q;
+      $('[data-ms-quiz-q]').textContent = T(q.q);
       var box = $('[data-ms-quiz-opts]');
       box.innerHTML = '';
       q.opts.forEach(function (o) {
@@ -80,8 +161,8 @@
         b.type = 'button';
         b.setAttribute('style', optStyle);
         b.innerHTML = '<span style="font-family: Newsreader, Georgia, serif; font-size: clamp(20px, 2.2vw, 26px);"></span><span style="display: block; font-size: 13.5px; line-height: 1.8; color: #6E675C; margin-top: 6px;"></span>';
-        b.children[0].textContent = o[0];
-        b.children[1].textContent = o[1];
+        b.children[0].textContent = T(o[0]);
+        b.children[1].textContent = T(o[1]);
         b.addEventListener('click', function () { answers = answers.slice(0, qi).concat([o[0]]); qi++; render(); });
         box.appendChild(b);
       });
@@ -95,14 +176,16 @@
     var fibre = climate === 'Warm' ? 'Linen, organic cotton and silk — breathable, for warm rooms'
       : climate === 'Cold' ? 'Baby alpaca, yak and Cheviot wool — warmth without weight'
       : 'Cheviot wool, horsehair and linen — warm in winter, fresh in summer';
-    var why = 'You sleep ' + (POSTURE[answers[0]] || 'in every position') + ', and you want a surface that feels ' + feel.toLowerCase() +
-      '. We would build the ' + r[0] + ' from the ' + r[1] + ' collection at ' + firm.toLowerCase() + ' comfort, in ' + (SIZE_PHRASE[answers[3]] || 'a double') + '.';
+    var FEEL = { 'Enveloping': 'enveloping', 'Balanced': 'balanced', 'Structured': 'structured' };
+    var why = T('You sleep {posture}, and you want a surface that feels {feel}. We would build the {name} from the {collection} collection at {firm} comfort, in {size}.')
+      .replace('{posture}', T(POSTURE[answers[0]] || 'in every position')).replace('{feel}', T(FEEL[feel] || 'balanced'))
+      .replace('{name}', r[0]).replace('{collection}', r[1]).replace('{firm}', T(firm.toLowerCase())).replace('{size}', T(SIZE_PHRASE[answers[3]] || 'a double'));
     $('[data-ms-r="name"]').textContent = r[0];
-    $('[data-ms-r="tagline"]').textContent = r[2];
+    $('[data-ms-r="tagline"]').textContent = T(r[2]);
     $('[data-ms-r="why"]').textContent = why;
-    $('[data-ms-r="firm"]').textContent = firm;
-    $('[data-ms-r="size"]').textContent = answers[3] === 'Made to measure' ? 'Made to measure' : (answers[3] || 'Double');
-    $('[data-ms-r="fibre"]').textContent = fibre;
+    $('[data-ms-r="firm"]').textContent = T(firm);
+    $('[data-ms-r="size"]').textContent = T(answers[3] === 'Made to measure' ? 'Made to measure' : (answers[3] || 'Double'));
+    $('[data-ms-r="fibre"]').textContent = T(fibre);
     $('[data-ms-r="link"]').href = URLS[r[0]] || ('/search?type=product&q=' + encodeURIComponent(r[0]));
     document.dispatchEvent(new CustomEvent('ms:quiz-complete', { detail: { product: r[0], profile: feel + ' / ' + climate } }));
   }

@@ -178,6 +178,7 @@
     'Trade enquiry': { note: 'For architects, interior designers and hospitality: drawings, samples and trade terms for your project.', five: 'Company*', six: 'Project*', sixHint: 'Residence, hotel, yacht…', notes: 'Tell us about the project*' },
     'Become a partner': { note: 'To represent Midsummer Milano in your market, as a showroom, an agent or a reseller.', five: 'Company*', six: 'Market*', sixHint: 'City and country', notes: 'Tell us about your showroom*' }
   };
+  var T = function (s) { var d = window.msT; return (d && d[s]) || s; };
   var SLUG = { appointment: 'Book appointment', proposal: 'Request a proposal', brochure: 'Request brochure', callback: 'Request callback', message: 'Leave a message', trade: 'Trade enquiry', partner: 'Become a partner' };
   function slugOf(t) { for (var k in SLUG) if (SLUG[k] === t) return k; return ''; }
   function setTab(form, t) {
@@ -197,11 +198,11 @@
       }
     });
     var set = function (sel, v) { form.querySelectorAll(sel).forEach(function (el) { el.textContent = v; }); };
-    set('[data-ms-copy="note"]', copy.note);
-    set('[data-ms-copy="five"]', copy.five);
-    set('[data-ms-copy="six"]', copy.six);
-    set('[data-ms-copy="notes"]', copy.notes);
-    form.querySelectorAll('[data-ms-copy="sixHint"]').forEach(function (el) { el.setAttribute('placeholder', copy.sixHint); });
+    set('[data-ms-copy="note"]', T(copy.note));
+    set('[data-ms-copy="five"]', T(copy.five));
+    set('[data-ms-copy="six"]', T(copy.six));
+    set('[data-ms-copy="notes"]', T(copy.notes));
+    form.querySelectorAll('[data-ms-copy="sixHint"]').forEach(function (el) { el.setAttribute('placeholder', T(copy.sixHint)); });
     var five = form.querySelector('[data-ms-field="five"]');
     if (five) { five.name = 'contact[' + copy.five.replace('*', '') + ']'; five.required = /\*$/.test(copy.five); five.type = /phone/i.test(copy.five) ? 'tel' : 'text'; }
     var six = form.querySelector('[data-ms-field="six"]');
@@ -210,7 +211,7 @@
     if (notes) { notes.name = 'contact[' + copy.notes.replace('*', '').replace(/\?$/, '') + ']'; notes.required = /\*$/.test(copy.notes); }
     var mode = form.querySelector('[data-ms-enq-mode-field]');
     if (mode) mode.value = t;
-    set('[data-ms-copy="title"]', copy.title || t);
+    set('[data-ms-copy="title"]', T(copy.title || t));
     // the sheet's link to the full page carries the chosen enquiry with it
     var full = form.closest('[data-ms-drawer]') && form.closest('[data-ms-drawer]').querySelector('a[data-ms="cta"]');
     if (full) { var fu = new URL(full.getAttribute('href'), location.href); fu.searchParams.set('enquiry', slugOf(t)); fu.hash = 'enquire'; full.setAttribute('href', fu.pathname + fu.search + fu.hash); }
@@ -231,8 +232,8 @@
     var want = src && src.getAttribute && SLUG[src.getAttribute('data-ms-enquiry')];
     if (!want && src && src.textContent) {
       var w = src.textContent.toLowerCase();
-      want = /proposal|quote|specif/.test(w) ? 'Request a proposal' : /brochure|catalogue/.test(w) ? 'Request brochure' : /call ?back/.test(w) ? 'Request callback'
-        : /partner|represent/.test(w) ? 'Become a partner' : /trade/.test(w) ? 'Trade enquiry' : null;
+      want = /proposal|quote|specif|propost|preventiv|предложен|смет/.test(w) ? 'Request a proposal' : /brochure|catalog|брошюр|каталог/.test(w) ? 'Request brochure' : /call ?back|richiam|перезвон|звонок/.test(w) ? 'Request callback'
+        : /partner|represent|rappresent|партн|представ/.test(w) ? 'Become a partner' : /trade|professionist|профессионал/.test(w) ? 'Trade enquiry' : null;
     }
     var f = drawer && drawer.querySelector('[data-ms-enq]');
     if (f) setTab(f, want || 'Book appointment');

@@ -29,56 +29,63 @@
   assign s = section.settings
   assign countries = ''
   for block in section.blocks
-    assign countries = countries | append: block.settings.country | append: '|'
+    capture ms_d1
+      render 'ms-t', v: block.settings.country
+    endcapture
+    assign countries = countries | append: ms_d1 | append: '|'
   endfor
   assign n_countries = countries | split: '|' | uniq | size
+  capture region_names
+    render 'ms-t', v: 'Europe,Middle East,Americas,Asia Pacific'
+  endcapture
+  assign region_names = region_names | split: ','
   assign regions = 'Europe,Middle East,Americas,Asia Pacific' | split: ','
 -%}
 <section class="ms-sl" data-ms-sl>
   <header class="ms-sl__intro">
     <div class="ms-sl__eyebrow">
       <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 4.5 A7.5 7.5 0 1 0 12 19.5 A7.5 7.5 0 1 0 12 4.5" fill="none" stroke="#7E623B" stroke-width="1.2"/><path d="M4.5 12 H19.5" fill="none" stroke="#7E623B" stroke-width="1.2"/><path d="M12 4.5 C8.5 8 8.5 16 12 19.5 C15.5 16 15.5 8 12 4.5" fill="none" stroke="#7E623B" stroke-width="1.2"/></svg>
-      <span>{{ s.eyebrow }}</span>
+      <span>{% render 'ms-t', v: s.eyebrow %}</span>
     </div>
-    <h1 class="ms-sl__title">{{ s.heading }}</h1>
+    <h1 class="ms-sl__title">{% render 'ms-t', v: s.heading %}</h1>
     <div class="ms-sl__introrow">
-      <p class="ms-sl__lede">{{ s.lede }}</p>
-      <p class="ms-sl__tally"><span>{{ section.blocks.size }}</span> {{ s.tally_places }} <span>{{ n_countries }}</span> {{ s.tally_countries }}</p>
+      <p class="ms-sl__lede">{% render 'ms-t', v: s.lede %}</p>
+      <p class="ms-sl__tally"><span>{{ section.blocks.size }}</span> {% render 'ms-t', v: s.tally_places %} <span>{{ n_countries }}</span> {% render 'ms-t', v: s.tally_countries %}</p>
     </div>
   </header>
 
   <div class="ms-sl__flag" id="atelier">
     <div class="ms-sl__flagin">
       <div>
-        <div class="ms-sl__label">{{ s.atelier_label }}</div>
-        <h2 class="ms-sl__flagtitle">{{ s.atelier_city }}</h2>
+        <div class="ms-sl__label">{% render 'ms-t', v: s.atelier_label %}</div>
+        <h2 class="ms-sl__flagtitle">{% render 'ms-t', v: s.atelier_city %}</h2>
       </div>
       <div class="ms-sl__flagcol">
-        <p class="ms-sl__addrbig">{{ s.atelier_address | newline_to_br }}</p>
+        <p class="ms-sl__addrbig">{% capture ms_t_out %}{% render 'ms-t', v: s.atelier_address %}{% endcapture %}{{ ms_t_out | newline_to_br }}</p>
         <div class="ms-sl__flaglinks">
-          <a class="ms-sl__ruled" href="{{ s.atelier_directions }}" target="_blank" rel="noopener">{{ s.directions_label }}</a>
-          <button type="button" class="ms-sl__ruled" data-ms-sl-atelier>{{ s.show_on_map }}</button>
+          <a class="ms-sl__ruled" href="{% render 'ms-t', v: s.atelier_directions %}" target="_blank" rel="noopener">{% render 'ms-t', v: s.directions_label %}</a>
+          <button type="button" class="ms-sl__ruled" data-ms-sl-atelier>{% render 'ms-t', v: s.show_on_map %}</button>
         </div>
       </div>
       <div class="ms-sl__flagcol">
-        <p class="ms-sl__meta">{{ s.atelier_hours | newline_to_br }}</p>
-        <a class="ms-sl__ruled" href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-enquiry="appointment">{{ s.book_label }}</a>
+        <p class="ms-sl__meta">{% capture ms_t_out %}{% render 'ms-t', v: s.atelier_hours %}{% endcapture %}{{ ms_t_out | newline_to_br }}</p>
+        <a class="ms-sl__ruled" href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-enquiry="appointment">{% render 'ms-t', v: s.book_label %}</a>
       </div>
     </div>
   </div>
 
   <div class="ms-sl__atlas" data-ms-sl-atlas>
-    <aside class="ms-sl__panel" aria-label="{{ s.list_label | escape }}">
+    <aside class="ms-sl__panel" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.list_label %}{% endcapture %}{{ ms_t_out | escape }}">
       <div class="ms-sl__tools">
         <label class="ms-sl__search">
           <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.1"/><path d="M11 11l3.5 3.5" stroke="currentColor" stroke-width="1.1"/></svg>
-          <input type="search" placeholder="{{ s.search_placeholder | escape }}" aria-label="{{ s.search_placeholder | escape }}" data-ms-sl-q autocomplete="off">
+          <input type="search" placeholder="{% capture ms_t_out %}{% render 'ms-t', v: s.search_placeholder %}{% endcapture %}{{ ms_t_out | escape }}" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.search_placeholder %}{% endcapture %}{{ ms_t_out | escape }}" data-ms-sl-q autocomplete="off">
         </label>
-        <div class="ms-sl__types" role="group" aria-label="{{ s.type_label | escape }}">
-          <button type="button" data-ms-sl-type="" aria-pressed="true">{{ s.all_label }} <span data-n></span></button>
-          <button type="button" data-ms-sl-type="showroom" aria-pressed="false"><i class="ms-sl__mark is-showroom"></i>{{ s.showrooms_label }} <span data-n></span></button>
-          <button type="button" data-ms-sl-type="boutique" aria-pressed="false"><i class="ms-sl__mark is-boutique"></i>{{ s.boutiques_label }} <span data-n></span></button>
-          <button type="button" data-ms-sl-type="agent" aria-pressed="false"><i class="ms-sl__mark is-agent"></i>{{ s.agents_label }} <span data-n></span></button>
+        <div class="ms-sl__types" role="group" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.type_label %}{% endcapture %}{{ ms_t_out | escape }}">
+          <button type="button" data-ms-sl-type="" aria-pressed="true">{% render 'ms-t', v: s.all_label %} <span data-n></span></button>
+          <button type="button" data-ms-sl-type="showroom" aria-pressed="false"><i class="ms-sl__mark is-showroom"></i>{% render 'ms-t', v: s.showrooms_label %} <span data-n></span></button>
+          <button type="button" data-ms-sl-type="boutique" aria-pressed="false"><i class="ms-sl__mark is-boutique"></i>{% render 'ms-t', v: s.boutiques_label %} <span data-n></span></button>
+          <button type="button" data-ms-sl-type="agent" aria-pressed="false"><i class="ms-sl__mark is-agent"></i>{% render 'ms-t', v: s.agents_label %} <span data-n></span></button>
         </div>
         <p class="ms-sl__count" data-ms-sl-count aria-live="polite"></p>
       </div>
@@ -89,54 +96,83 @@
           {%- for block in section.blocks -%}{%- if block.settings.region == region -%}{%- assign in_region = in_region | plus: 1 -%}{%- endif -%}{%- endfor -%}
           {%- if in_region > 0 -%}
           <div class="ms-sl__region" data-ms-sl-region="{{ region }}">
-            <h3 class="ms-sl__rhead">{{ region }}</h3>
+            <h3 class="ms-sl__rhead">{{ region_names[forloop.index0] | default: region }}</h3>
             {%- assign last_country = '' -%}
             {%- for block in section.blocks -%}
               {%- if block.settings.region != region -%}{%- continue -%}{%- endif -%}
               {%- assign b = block.settings -%}
               {%- if b.country != last_country -%}
-                <div class="ms-sl__country" data-ms-sl-country>{{ b.country }}</div>
-                {%- assign last_country = b.country -%}
+                <div class="ms-sl__country" data-ms-sl-country>{% render 'ms-t', v: b.country %}</div>
+                {%- capture last_country %}{% render 'ms-t', v: b.country %}{% endcapture -%}
               {%- endif -%}
               {%- liquid
                 case b.kind
                   when 'atelier'
-                    assign kind_label = s.atelier_kind
+                    capture kind_label
+                      render 'ms-t', v: s.atelier_kind
+                    endcapture
                   when 'boutique'
-                    assign kind_label = s.boutique_kind
+                    capture kind_label
+                      render 'ms-t', v: s.boutique_kind
+                    endcapture
                   when 'agent'
-                    assign kind_label = s.agent_kind
+                    capture kind_label
+                      render 'ms-t', v: s.agent_kind
+                    endcapture
                   else
-                    assign kind_label = s.showroom_kind
+                    capture kind_label
+                      render 'ms-t', v: s.showroom_kind
+                    endcapture
                 endcase
-                assign search = b.name | append: ' ' | append: b.city | append: ' ' | append: b.country | append: ' ' | append: b.address | downcase | escape
-                assign dir = b.name | append: ', ' | append: b.address | append: ', ' | append: b.country | url_encode
+                capture ms_d2
+                  render 'ms-t', v: b.city
+                endcapture
+                capture ms_d3
+                  render 'ms-t', v: b.country
+                endcapture
+                capture ms_d4
+                  render 'ms-t', v: b.address
+                endcapture
+                capture search
+                  render 'ms-t', v: b.name
+                endcapture
+                assign search = search | append: ' ' | append: ms_d2 | append: ' ' | append: ms_d3 | append: ' ' | append: ms_d4 | downcase | escape
+                capture ms_d5
+                  render 'ms-t', v: b.address
+                endcapture
+                capture ms_d6
+                  render 'ms-t', v: b.country
+                endcapture
+                capture dir
+                  render 'ms-t', v: b.name
+                endcapture
+                assign dir = dir | append: ', ' | append: ms_d5 | append: ', ' | append: ms_d6 | url_encode
               -%}
               <article class="ms-sl__item" data-ms-sl-item="{{ block.id }}" data-kind="{{ b.kind }}" data-search="{{ search }}" {{ block.shopify_attributes }}>
                 <button type="button" class="ms-sl__row" aria-expanded="false" aria-controls="ms-sl-{{ block.id }}">
                   <i class="ms-sl__mark is-{{ b.kind }}" aria-hidden="true"></i>
-                  <span class="ms-sl__name">{{ b.name }}</span>
+                  <span class="ms-sl__name">{% render 'ms-t', v: b.name %}</span>
                   <span class="ms-sl__kind">{{ kind_label }}</span>
-                  <span class="ms-sl__place">{{ b.city }}</span>
+                  <span class="ms-sl__place">{% render 'ms-t', v: b.city %}</span>
                   <svg class="ms-sl__chev" viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M3 6l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.1"/></svg>
                 </button>
                 <div class="ms-sl__more" id="ms-sl-{{ block.id }}" hidden>
-                  {%- if b.contact != blank -%}<p class="ms-sl__who">{{ b.contact }}</p>{%- endif -%}
-                  {%- if b.address != blank -%}<p class="ms-sl__addr">{{ b.address | newline_to_br }}</p>{%- endif -%}
-                  {%- if b.note != blank -%}<p class="ms-sl__note">{{ b.note }}</p>{%- endif -%}
+                  {%- if b.contact != blank -%}<p class="ms-sl__who">{% render 'ms-t', v: b.contact %}</p>{%- endif -%}
+                  {%- if b.address != blank -%}<p class="ms-sl__addr">{% capture ms_t_out %}{% render 'ms-t', v: b.address %}{% endcapture %}{{ ms_t_out | newline_to_br }}</p>{%- endif -%}
+                  {%- if b.note != blank -%}<p class="ms-sl__note">{% render 'ms-t', v: b.note %}</p>{%- endif -%}
                   <div class="ms-sl__reach">
-                    {%- if b.phone != blank -%}<a href="tel:{{ b.phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-' }}"><span>{{ s.tel_label }}</span>{{ b.phone }}</a>{%- endif -%}
-                    {%- if b.email != blank -%}<a href="mailto:{{ b.email }}"><span>{{ s.mail_label }}</span>{{ b.email }}</a>{%- endif -%}
-                    {%- if b.website != blank -%}<a href="{{ b.website }}" target="_blank" rel="noopener"><span>{{ s.web_label }}</span>{{ b.website | remove: 'https://' | remove: 'http://' | remove: 'www.' | remove_last: '/' }}</a>{%- endif -%}
+                    {%- if b.phone != blank -%}<a href="tel:{{ b.phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-' }}"><span>{% render 'ms-t', v: s.tel_label %}</span>{{ b.phone }}</a>{%- endif -%}
+                    {%- if b.email != blank -%}<a href="mailto:{{ b.email }}"><span>{% render 'ms-t', v: s.mail_label %}</span>{{ b.email }}</a>{%- endif -%}
+                    {%- if b.website != blank -%}<a href="{% render 'ms-t', v: b.website %}" target="_blank" rel="noopener"><span>{% render 'ms-t', v: s.web_label %}</span>{% capture ms_t_out %}{% render 'ms-t', v: b.website %}{% endcapture %}{{ ms_t_out | remove: 'https://' | remove: 'http://' | remove: 'www.' | remove_last: '/' }}</a>{%- endif -%}
                   </div>
                   <div class="ms-sl__acts">
-                    <a class="ms-sl__ruled" href="https://www.google.com/maps/dir/?api=1&destination={{ dir }}" target="_blank" rel="noopener">{{ s.directions_label }}</a>
+                    <a class="ms-sl__ruled" href="https://www.google.com/maps/dir/?api=1&destination={{ dir }}" target="_blank" rel="noopener">{% render 'ms-t', v: s.directions_label %}</a>
                     {%- if b.kind == 'atelier' -%}
-                      <a class="ms-sl__ruled" href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-enquiry="appointment">{{ s.book_label }}</a>
+                      <a class="ms-sl__ruled" href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-enquiry="appointment">{% render 'ms-t', v: s.book_label %}</a>
                     {%- else -%}
-                      <a class="ms-sl__ruled" href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-enquiry="message" data-ms-note="{{ s.intro_note | replace: '[name]', b.name | replace: '[city]', b.city | escape }}">{{ s.intro_label }}</a>
+                      <a class="ms-sl__ruled" href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-enquiry="message" data-ms-note="{% capture ms_t_out %}{% render 'ms-t', v: s.intro_note %}{% endcapture %}{{ ms_t_out | replace: '[name]', b.name | replace: '[city]', b.city | escape }}">{% render 'ms-t', v: s.intro_label %}</a>
                     {%- endif -%}
-                    <button type="button" class="ms-sl__ruled ms-sl__tomap" data-ms-sl-tomap>{{ s.show_on_map }}</button>
+                    <button type="button" class="ms-sl__ruled ms-sl__tomap" data-ms-sl-tomap>{% render 'ms-t', v: s.show_on_map %}</button>
                   </div>
                 </div>
               </article>
@@ -144,37 +180,37 @@
           </div>
           {%- endif -%}
         {%- endfor -%}
-        <p class="ms-sl__none" data-ms-sl-none hidden>{{ s.no_results }}</p>
+        <p class="ms-sl__none" data-ms-sl-none hidden>{% render 'ms-t', v: s.no_results %}</p>
       </div>
     </aside>
 
-    <div class="ms-sl__map" data-ms-sl-map role="region" aria-label="{{ s.map_label | escape }}">
+    <div class="ms-sl__map" data-ms-sl-map role="region" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.map_label %}{% endcapture %}{{ ms_t_out | escape }}">
       <div class="ms-sl__tiles" data-ms-sl-tiles aria-hidden="true"></div>
       <svg class="ms-sl__svg" data-ms-sl-svg aria-hidden="true"><g data-ms-sl-world><path class="ms-sl__grat" data-ms-sl-grat></path><path class="ms-sl__depth is-d3000" data-ms-sl-lay="d3000"></path><path class="ms-sl__depth is-d2000" data-ms-sl-lay="d2000"></path><path class="ms-sl__depth is-d1000" data-ms-sl-lay="d1000"></path><path class="ms-sl__depth is-d200" data-ms-sl-lay="d200"></path><path class="ms-sl__land" data-ms-sl-land></path><path class="ms-sl__home" data-ms-sl-home></path><path class="ms-sl__urban" data-ms-sl-lay="urban"></path><path class="ms-sl__states" data-ms-sl-lay="states"></path><path class="ms-sl__lakes" data-ms-sl-lakes></path><path class="ms-sl__rivers" data-ms-sl-rivers></path><path class="ms-sl__river2" data-ms-sl-lay="rivers2"></path><path class="ms-sl__river1" data-ms-sl-lay="rivers1"></path><path class="ms-sl__rail" data-ms-sl-lay="rail"></path><path class="ms-sl__minor" data-ms-sl-lay="minor"></path><path class="ms-sl__case" data-ms-sl-lay="major" data-ms-sl-case></path><path class="ms-sl__major" data-ms-sl-lay="major"></path><path class="ms-sl__borders" data-ms-sl-borders></path></g><g class="ms-sl__labels" data-ms-sl-labels></g></svg>
       <div class="ms-sl__pins" data-ms-sl-pins></div>
-      <div class="ms-sl__views" role="group" aria-label="{{ s.views_label | escape }}">
-        <button type="button" data-ms-sl-view="" aria-pressed="true">{{ s.world_label }}</button>
+      <div class="ms-sl__views" role="group" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.views_label %}{% endcapture %}{{ ms_t_out | escape }}">
+        <button type="button" data-ms-sl-view="" aria-pressed="true">{% render 'ms-t', v: s.world_label %}</button>
         {%- for region in regions -%}
           {%- assign in_region = 0 -%}
           {%- for block in section.blocks -%}{%- if block.settings.region == region -%}{%- assign in_region = in_region | plus: 1 -%}{%- endif -%}{%- endfor -%}
-          {%- if in_region > 0 -%}<button type="button" data-ms-sl-view="{{ region }}" aria-pressed="false">{{ region }}</button>{%- endif -%}
+          {%- if in_region > 0 -%}<button type="button" data-ms-sl-view="{{ region }}" aria-pressed="false">{{ region_names[forloop.index0] | default: region }}</button>{%- endif -%}
         {%- endfor -%}
       </div>
       <div class="ms-sl__zoom">
-        <button type="button" data-ms-sl-zoom="in" aria-label="Zoom in"><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="1.1"/></svg></button>
-        <button type="button" data-ms-sl-zoom="out" aria-label="Zoom out"><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M2 8h12" stroke="currentColor" stroke-width="1.1"/></svg></button>
-        <button type="button" data-ms-sl-zoom="fit" aria-label="Show every place"><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4" fill="none" stroke="currentColor" stroke-width="1.1"/></svg></button>
+        <button type="button" data-ms-sl-zoom="in" aria-label="{% render 'ms-t', v: 'Zoom in' %}"><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="1.1"/></svg></button>
+        <button type="button" data-ms-sl-zoom="out" aria-label="{% render 'ms-t', v: 'Zoom out' %}"><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M2 8h12" stroke="currentColor" stroke-width="1.1"/></svg></button>
+        <button type="button" data-ms-sl-zoom="fit" aria-label="{% render 'ms-t', v: 'Show every place' %}"><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4" fill="none" stroke="currentColor" stroke-width="1.1"/></svg></button>
       </div>
       <div class="ms-sl__legend" aria-hidden="true">
-        <span><i class="ms-sl__mark is-atelier"></i>{{ s.atelier_kind }}</span>
-        <span><i class="ms-sl__mark is-showroom"></i>{{ s.showroom_kind }}</span>
-        <span data-legend="boutique"><i class="ms-sl__mark is-boutique"></i>{{ s.boutique_kind }}</span>
-        <span data-legend="agent"><i class="ms-sl__mark is-agent"></i>{{ s.agent_kind }}</span>
+        <span><i class="ms-sl__mark is-atelier"></i>{% render 'ms-t', v: s.atelier_kind %}</span>
+        <span><i class="ms-sl__mark is-showroom"></i>{% render 'ms-t', v: s.showroom_kind %}</span>
+        <span data-legend="boutique"><i class="ms-sl__mark is-boutique"></i>{% render 'ms-t', v: s.boutique_kind %}</span>
+        <span data-legend="agent"><i class="ms-sl__mark is-agent"></i>{% render 'ms-t', v: s.agent_kind %}</span>
       </div>
       <div class="ms-sl__hint" data-ms-sl-hint aria-hidden="true"></div>
       {%- if s.street_map or s.tiles_url != blank -%}<span class="ms-sl__credit" data-ms-sl-credit>
-        {%- if s.street_map -%}<span data-ms-sl-credit-vec hidden><a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a> © <a href="https://www.openmaptiles.org/" target="_blank" rel="noopener">OpenMapTiles</a> Data from <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></span>{%- endif -%}
-        {%- if s.tiles_url != blank and s.tiles_credit != blank -%}<a data-ms-sl-credit-tiles hidden href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">{{ s.tiles_credit }}</a>{%- endif -%}
+        {%- if s.street_map -%}<span data-ms-sl-credit-vec hidden><a href="https://openfreemap.org" target="_blank" rel="noopener">{% render 'ms-t', v: 'OpenFreeMap' %}</a> © <a href="https://www.openmaptiles.org/" target="_blank" rel="noopener">{% render 'ms-t', v: 'OpenMapTiles' %}</a> {% render 'ms-t', v: 'Data from' %} <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">{% render 'ms-t', v: 'OpenStreetMap' %}</a></span>{%- endif -%}
+        {%- if s.tiles_url != blank and s.tiles_credit != blank -%}<a data-ms-sl-credit-tiles hidden href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">{% render 'ms-t', v: s.tiles_credit %}</a>{%- endif -%}
       </span>{%- endif -%}
       <div class="ms-sl__pop" data-ms-sl-pop hidden></div>
     </div>
@@ -183,22 +219,22 @@
   <div class="ms-sl__band">
     <div class="ms-sl__bandin">
       <div>
-        <div class="ms-sl__label">{{ s.band_label }}</div>
-        <h2 class="ms-sl__bandtitle">{{ s.band_heading }}</h2>
+        <div class="ms-sl__label">{% render 'ms-t', v: s.band_label %}</div>
+        <h2 class="ms-sl__bandtitle">{% render 'ms-t', v: s.band_heading %}</h2>
       </div>
       <div class="ms-sl__bandcol">
-        <p>{{ s.band_text }}</p>
-        <a class="ms-sl__ruled" href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-enquiry="appointment">{{ s.band_link }}</a>
+        <p>{% render 'ms-t', v: s.band_text %}</p>
+        <a class="ms-sl__ruled" href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-enquiry="appointment">{% render 'ms-t', v: s.band_link %}</a>
       </div>
     </div>
   </div>
-  <p class="ms-sl__partner">{{ s.partner_text }} <a href="{% render 'ms-link', to: 'enquire', q: 'enquiry=partner' %}#enquire">{{ s.partner_link }}</a></p>
+  <p class="ms-sl__partner">{% render 'ms-t', v: s.partner_text %} <a href="{% render 'ms-link', to: 'enquire', q: 'enquiry=partner' %}#enquire">{% render 'ms-t', v: s.partner_link %}</a></p>
 
   <script type="application/json" data-ms-sl-data>[
     {%- for block in section.blocks -%}
       {%- assign lat = block.settings.lat | replace: ',', '.' | strip -%}
       {%- assign lon = block.settings.lon | replace: ',', '.' | strip -%}
-      { "id": {{ block.id | json }}, "name": {{ block.settings.name | json }}, "city": {{ block.settings.city | json }}, "country": {{ block.settings.country | json }}, "region": {{ block.settings.region | json }}, "kind": {{ block.settings.kind | json }}, "lat": {{ lat | json }}, "lon": {{ lon | json }} }{% unless forloop.last %},{% endunless %}
+      { "id": {{ block.id | json }}, "name": {% capture ms_t_out %}{% render 'ms-t', v: block.settings.name %}{% endcapture %}{{ ms_t_out | json }}, "city": {% capture ms_t_out %}{% render 'ms-t', v: block.settings.city %}{% endcapture %}{{ ms_t_out | json }}, "country": {% capture ms_t_out %}{% render 'ms-t', v: block.settings.country %}{% endcapture %}{{ ms_t_out | json }}, "region": {{ block.settings.region | json }}, "kind": {{ block.settings.kind | json }}, "lat": {{ lat | json }}, "lon": {{ lon | json }} }{% unless forloop.last %},{% endunless %}
     {%- endfor -%}
   ]</script>
 </section>
@@ -427,8 +463,8 @@
     root.__msSl = true;
     var URLMID = {{ 'ms-world-mid.json' | asset_url | json }}, URL50 = {{ 'ms-world-detail.json' | asset_url | json }}, URLLAY = {{ 'ms-world-layers.json' | asset_url | json }};
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var KINDS = { atelier: {{ section.settings.atelier_kind | json }}, showroom: {{ section.settings.showroom_kind | json }}, boutique: {{ section.settings.boutique_kind | json }}, agent: {{ section.settings.agent_kind | json }} };
-    var T = { places: {{ section.settings.count_places | json }}, place: {{ section.settings.count_place | json }}, countries: {{ section.settings.count_countries | json }}, country: {{ section.settings.count_country | json }}, here: {{ section.settings.cluster_label | json }}, wheel: {{ section.settings.hint_wheel | json }}, touch: {{ section.settings.hint_touch | json }} };
+    var KINDS = { atelier: {% capture ms_t_out %}{% render 'ms-t', v: section.settings.atelier_kind %}{% endcapture %}{{ ms_t_out | json }}, showroom: {% capture ms_t_out %}{% render 'ms-t', v: section.settings.showroom_kind %}{% endcapture %}{{ ms_t_out | json }}, boutique: {% capture ms_t_out %}{% render 'ms-t', v: section.settings.boutique_kind %}{% endcapture %}{{ ms_t_out | json }}, agent: {% capture ms_t_out %}{% render 'ms-t', v: section.settings.agent_kind %}{% endcapture %}{{ ms_t_out | json }} };
+    var T = { places: {% capture ms_t_out %}{% render 'ms-t', v: section.settings.count_places %}{% endcapture %}{{ ms_t_out | json }}, place: {% capture ms_t_out %}{% render 'ms-t', v: section.settings.count_place %}{% endcapture %}{{ ms_t_out | json }}, countries: {% capture ms_t_out %}{% render 'ms-t', v: section.settings.count_countries %}{% endcapture %}{{ ms_t_out | json }}, country: {% capture ms_t_out %}{% render 'ms-t', v: section.settings.count_country %}{% endcapture %}{{ ms_t_out | json }}, here: {% capture ms_t_out %}{% render 'ms-t', v: section.settings.cluster_label %}{% endcapture %}{{ ms_t_out | json }}, wheel: {% capture ms_t_out %}{% render 'ms-t', v: section.settings.hint_wheel %}{% endcapture %}{{ ms_t_out | json }}, touch: {% capture ms_t_out %}{% render 'ms-t', v: section.settings.hint_touch %}{% endcapture %}{{ ms_t_out | json }} };
 
     var stores = JSON.parse(root.querySelector('[data-ms-sl-data]').textContent).map(function (p) {
       p.lat = parseFloat(String(p.lat).replace(',', '.')); p.lon = parseFloat(String(p.lon).replace(',', '.'));
@@ -1012,7 +1048,7 @@
     }
     function showPop(c) {
       var m = c._members;
-      pop.innerHTML = '<div class="ms-sl__label"><span>' + esc(m.length + ' ' + T.here) + '</span><button type="button" aria-label="Close" data-x><svg viewBox="0 0 16 16" width="11" height="11"><path d="M1 1 L15 15 M15 1 L1 15" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></button></div><ul></ul>';
+      pop.innerHTML = '<div class="ms-sl__label"><span>' + esc(m.length + ' ' + T.here) + '</span><button type="button" aria-label="{% render 'ms-t', v: 'Close' %}" data-x><svg viewBox="0 0 16 16" width="11" height="11"><path d="M1 1 L15 15 M15 1 L1 15" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></button></div><ul></ul>';
       var ul = pop.querySelector('ul');
       m.forEach(function (p) {
         var li = document.createElement('li');
@@ -1065,7 +1101,7 @@
 {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  "name": {{ section.settings.heading | strip_html | append: ' · Midsummer Milano' | json }},
+  "name": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.heading %}{% endcapture %}{{ ms_t_out | strip_html | append: ' · Midsummer Milano' | json }},
   "itemListElement": [
     {%- for block in section.blocks -%}
     {%- assign b = block.settings -%}
@@ -1074,13 +1110,13 @@
       "position": {{ forloop.index }},
       "item": {
         "@type": {% if b.kind == 'atelier' %}"FurnitureStore"{% else %}"LocalBusiness"{% endif %},
-        "name": {{ b.name | json }},
-        {%- if b.note != blank %}"description": {{ b.note | strip_html | json }},{% endif %}
-        "address": { "@type": "PostalAddress", "streetAddress": {{ b.address | default: '' | json }}, "addressLocality": {{ b.city | json }}, "addressCountry": {{ b.country | json }} },
+        "name": {% capture ms_t_out %}{% render 'ms-t', v: b.name %}{% endcapture %}{{ ms_t_out | json }},
+        {%- if b.note != blank %}"description": {% capture ms_t_out %}{% render 'ms-t', v: b.note %}{% endcapture %}{{ ms_t_out | strip_html | json }},{% endif %}
+        "address": { "@type": "PostalAddress", "streetAddress": {% capture ms_t_out %}{% render 'ms-t', v: b.address %}{% endcapture %}{{ ms_t_out | default: '' | json }}, "addressLocality": {% capture ms_t_out %}{% render 'ms-t', v: b.city %}{% endcapture %}{{ ms_t_out | json }}, "addressCountry": {% capture ms_t_out %}{% render 'ms-t', v: b.country %}{% endcapture %}{{ ms_t_out | json }} },
         {%- if b.lat != blank and b.lon != blank %}"geo": { "@type": "GeoCoordinates", "latitude": {{ b.lat | json }}, "longitude": {{ b.lon | json }} },{% endif %}
         {%- if b.phone != blank %}"telephone": {{ b.phone | json }},{% endif %}
         {%- if b.email != blank %}"email": {{ b.email | json }},{% endif %}
-        {%- if b.website != blank %}"url": {{ b.website | json }},{% endif %}
+        {%- if b.website != blank %}"url": {% capture ms_t_out %}{% render 'ms-t', v: b.website %}{% endcapture %}{{ ms_t_out | json }},{% endif %}
         "brand": { "@type": "Brand", "name": "Midsummer Milano" }
       }
     }{%- unless forloop.last -%},{%- endunless -%}

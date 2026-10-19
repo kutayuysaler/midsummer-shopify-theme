@@ -5,12 +5,12 @@
 {%- if section.blocks.size > 0 -%}
 <section class="ms-vo">
   <div class="ms-vo__in">
-    <div class="ms-vo__eyebrow">{{ section.settings.eyebrow }}</div>
+    <div class="ms-vo__eyebrow">{% render 'ms-t', v: section.settings.eyebrow %}</div>
     <div class="ms-vo__list">
       {%- for block in section.blocks -%}
         <figure class="ms-vo__item" {{ block.shopify_attributes }}>
-          <blockquote>“{{ block.settings.quote }}”</blockquote>
-          <figcaption><span>{{ block.settings.name }}</span>{%- if block.settings.place != blank -%}<em>{{ block.settings.place }}</em>{%- endif -%}</figcaption>
+          <blockquote>“{% render 'ms-t', v: block.settings.quote %}”</blockquote>
+          <figcaption><span>{% render 'ms-t', v: block.settings.name %}</span>{%- if block.settings.place != blank -%}<em>{% render 'ms-t', v: block.settings.place %}</em>{%- endif -%}</figcaption>
         </figure>
       {%- endfor -%}
     </div>

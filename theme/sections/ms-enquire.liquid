@@ -33,17 +33,17 @@
 <section class="ms-eq" data-ms-enq-page>
   <header class="ms-eq__head">
     <div class="ms-eq__headtext">
-      <div class="ms-eq__eyebrow">{{ s.eyebrow }}</div>
-      <h1 class="ms-eq__title">{{ s.heading }}</h1>
-      <p class="ms-eq__lede">{{ s.lede }}</p>
+      <div class="ms-eq__eyebrow">{% render 'ms-t', v: s.eyebrow %}</div>
+      <h1 class="ms-eq__title">{% render 'ms-t', v: s.heading %}</h1>
+      <p class="ms-eq__lede">{% render 'ms-t', v: s.lede %}</p>
       <dl class="ms-eq__facts">
-        <div><dt>{{ s.fact1_label }}</dt><dd>{{ s.fact1 }}</dd></div>
-        <div><dt>{{ s.fact2_label }}</dt><dd>{{ s.fact2 }}</dd></div>
-        <div><dt>{{ s.fact3_label }}</dt><dd>{{ s.fact3 }}</dd></div>
+        <div><dt>{% render 'ms-t', v: s.fact1_label %}</dt><dd>{% render 'ms-t', v: s.fact1 %}</dd></div>
+        <div><dt>{% render 'ms-t', v: s.fact2_label %}</dt><dd>{% render 'ms-t', v: s.fact2 %}</dd></div>
+        <div><dt>{% render 'ms-t', v: s.fact3_label %}</dt><dd>{% render 'ms-t', v: s.fact3 %}</dd></div>
       </dl>
     </div>
     <figure class="ms-eq__photo">
-      <img src="{{ photo }}" alt="{{ s.image.alt | default: s.heading | escape }}" width="1200" height="1500" fetchpriority="high">
+      <img src="{{ photo }}" alt="{% capture ms_d1 %}{% render 'ms-t', v: s.heading %}{% endcapture %}{{ s.image.alt | default: ms_d1 | escape }}" width="1200" height="1500" fetchpriority="high">
     </figure>
   </header>
 
@@ -54,16 +54,21 @@
     <input type="hidden" name="contact[Sent from]" value="Enquiry page">
 
     <div class="ms-eq__intents">
-      <div class="ms-eq__label">{{ s.intents_label }}</div>
-      <div class="ms-eq__list" role="group" aria-label="{{ s.intents_label | escape }}">
-        {%- assign rows = 'Book appointment|appointment,Request a proposal|proposal,Request brochure|brochure,Request callback|callback,Trade enquiry|trade,Become a partner|partner,Leave a message|message' | split: ',' -%}
+      <div class="ms-eq__label">{% render 'ms-t', v: s.intents_label %}</div>
+      <div class="ms-eq__list" role="group" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.intents_label %}{% endcapture %}{{ ms_t_out | escape }}">
+        {%- liquid
+  capture rows
+  render 'ms-t', v: 'Book appointment|appointment,Request a proposal|proposal,Request brochure|brochure,Request callback|callback,Trade enquiry|trade,Become a partner|partner,Leave a message|message'
+  endcapture
+  assign rows = rows | split: ','
+-%}
         {%- for row in rows -%}
           {%- assign parts = row | split: '|' -%}
           {%- assign dk = 'd_' | append: parts[1] -%}
           <button type="button" class="ms-eq__intent" data-ms-tab="{{ parts[0] }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">
             <span class="ms-eq__num">{{ forloop.index | prepend: '0' }}</span>
             <span class="ms-eq__ititle"><span data-ms-dot></span><span data-ms-tablabel>{{ parts[0] | replace: 'Book appointment', 'Book an appointment' | replace: 'Request callback', 'Request a callback' }}</span></span>
-            <span class="ms-eq__idesc">{{ s[dk] }}</span>
+            <span class="ms-eq__idesc">{% render 'ms-t', v: s[dk] %}</span>
           </button>
         {%- endfor -%}
       </div>
@@ -72,36 +77,36 @@
     <div class="ms-eq__panel">
       {%- if form.posted_successfully? -%}
         <div class="ms-eq__done" role="status">
-          <div class="ms-eq__label">{{ s.done_label }}</div>
-          <p>{{ s.done_text }}</p>
+          <div class="ms-eq__label">{% render 'ms-t', v: s.done_label %}</div>
+          <p>{% render 'ms-t', v: s.done_text %}</p>
         </div>
       {%- endif -%}
       {%- if form.errors -%}
         <div class="ms-eq__errors" role="alert">{{ form.errors | default_errors }}</div>
       {%- endif -%}
-      <div class="ms-eq__label">{{ s.form_label }}</div>
-      <h2 class="ms-eq__ptitle" data-ms-copy="title">Book appointment</h2>
-      <p class="ms-eq__note" data-ms-copy="note">{{ s.d_appointment }}</p>
+      <div class="ms-eq__label">{% render 'ms-t', v: s.form_label %}</div>
+      <h2 class="ms-eq__ptitle" data-ms-copy="title">{% render 'ms-t', v: 'Book appointment' %}</h2>
+      <p class="ms-eq__note" data-ms-copy="note">{% render 'ms-t', v: s.d_appointment %}</p>
 
       <div class="ms-eq__fields">
-        <label class="ms-eq__f"><span>{{ s.l_title }}</span>
+        <label class="ms-eq__f"><span>{% render 'ms-t', v: s.l_title %}</span>
           <select class="ms-field" name="contact[Title]" required>
-            <option value="">{{ s.l_select }}</option>
-            {%- assign titles = s.titles | split: ',' -%}
+            <option value="">{% render 'ms-t', v: s.l_select %}</option>
+            {%- capture titles %}{% render 'ms-t', v: s.titles %}{% endcapture -%}{%- assign titles = titles | split: ',' -%}
             {%- for t in titles -%}<option>{{ t | strip }}</option>{%- endfor -%}
           </select>
         </label>
-        <label class="ms-eq__f"><span>{{ s.l_first }}</span><input class="ms-field" type="text" name="contact[First name]" autocomplete="given-name" required></label>
-        <label class="ms-eq__f"><span>{{ s.l_last }}</span><input class="ms-field" type="text" name="contact[Last name]" autocomplete="family-name" required></label>
+        <label class="ms-eq__f"><span>{% render 'ms-t', v: s.l_first %}</span><input class="ms-field" type="text" name="contact[First name]" autocomplete="given-name" required></label>
+        <label class="ms-eq__f"><span>{% render 'ms-t', v: s.l_last %}</span><input class="ms-field" type="text" name="contact[Last name]" autocomplete="family-name" required></label>
         <label class="ms-eq__f"><span>{{ s.l_email }}</span><input class="ms-field" type="email" name="contact[email]" autocomplete="email" required></label>
-        <label class="ms-eq__f"><span data-ms-copy="five">Phone*</span><input class="ms-field" type="tel" name="contact[Phone]" data-ms-field="five" autocomplete="tel"></label>
-        <label class="ms-eq__f"><span data-ms-copy="six">Preferred date*</span><input class="ms-field" type="text" name="contact[Preferred date]" data-ms-field="six" data-ms-copy="sixHint" placeholder="Monday to Friday"></label>
-        <label class="ms-eq__f is-wide"><span data-ms-copy="notes">Notes</span><textarea class="ms-field" name="contact[Notes]" data-ms-field="notes" rows="3"></textarea></label>
+        <label class="ms-eq__f"><span data-ms-copy="five">{% render 'ms-t', v: 'Phone*' %}</span><input class="ms-field" type="tel" name="contact[Phone]" data-ms-field="five" autocomplete="tel"></label>
+        <label class="ms-eq__f"><span data-ms-copy="six">{% render 'ms-t', v: 'Preferred date*' %}</span><input class="ms-field" type="text" name="contact[Preferred date]" data-ms-field="six" data-ms-copy="sixHint" placeholder="{% render 'ms-t', v: 'Monday to Friday' %}"></label>
+        <label class="ms-eq__f is-wide"><span data-ms-copy="notes">{% render 'ms-t', v: 'Notes' %}</span><textarea class="ms-field" name="contact[Notes]" data-ms-field="notes" rows="3"></textarea></label>
       </div>
-      <label class="ms-eq__consent"><input class="ms-check" type="checkbox" name="contact[Consent]" value="yes" required><span>{{ s.consent }}</span></label>
+      <label class="ms-eq__consent"><input class="ms-check" type="checkbox" name="contact[Consent]" value="yes" required><span>{% render 'ms-t', v: s.consent %}</span></label>
       <div class="ms-eq__send">
-        <button type="submit" class="ms-eq__submit">{{ s.submit }}</button>
-        <span class="ms-eq__promise">{{ s.promise }}</span>
+        <button type="submit" class="ms-eq__submit">{% render 'ms-t', v: s.submit %}</button>
+        <span class="ms-eq__promise">{% render 'ms-t', v: s.promise %}</span>
       </div>
     </div>
   </div>
@@ -110,40 +115,40 @@
 
   <div class="ms-eq__next" id="next">
     <div class="ms-eq__nexthead">
-      <div class="ms-eq__label">{{ s.next_label }}</div>
-      <h2 class="ms-eq__h2">{{ s.next_heading }}</h2>
+      <div class="ms-eq__label">{% render 'ms-t', v: s.next_label %}</div>
+      <h2 class="ms-eq__h2">{% render 'ms-t', v: s.next_heading %}</h2>
     </div>
     <ol class="ms-eq__steps">
-      <li><span class="ms-eq__num">01</span><h3>{{ s.step1_title }}</h3><p>{{ s.step1 }}</p></li>
-      <li><span class="ms-eq__num">02</span><h3>{{ s.step2_title }}</h3><p>{{ s.step2 }}</p></li>
-      <li><span class="ms-eq__num">03</span><h3>{{ s.step3_title }}</h3><p>{{ s.step3 }}</p></li>
+      <li><span class="ms-eq__num">01</span><h3>{% render 'ms-t', v: s.step1_title %}</h3><p>{% render 'ms-t', v: s.step1 %}</p></li>
+      <li><span class="ms-eq__num">02</span><h3>{% render 'ms-t', v: s.step2_title %}</h3><p>{% render 'ms-t', v: s.step2 %}</p></li>
+      <li><span class="ms-eq__num">03</span><h3>{% render 'ms-t', v: s.step3_title %}</h3><p>{% render 'ms-t', v: s.step3 %}</p></li>
     </ol>
   </div>
 
   <div class="ms-eq__direct" id="direct">
     <div class="ms-eq__directin">
       <div>
-        <div class="ms-eq__label">{{ s.direct_label }}</div>
-        <h2 class="ms-eq__h2">{{ s.direct_heading }}</h2>
+        <div class="ms-eq__label">{% render 'ms-t', v: s.direct_label %}</div>
+        <h2 class="ms-eq__h2">{% render 'ms-t', v: s.direct_heading %}</h2>
       </div>
       <div class="ms-eq__lines">
         <div class="ms-eq__line">
-          <div class="ms-eq__label">{{ s.atelier_label }}</div>
-          <p class="ms-eq__serif">{{ s.address }}</p>
-          <p class="ms-eq__small">{{ s.hours }}</p>
-          {%- if s.directions_url != blank -%}<a class="ms-eq__ruled" href="{{ s.directions_url }}" target="_blank" rel="noopener">{{ s.directions_label }}</a>{%- endif -%}
+          <div class="ms-eq__label">{% render 'ms-t', v: s.atelier_label %}</div>
+          <p class="ms-eq__serif">{% render 'ms-t', v: s.address %}</p>
+          <p class="ms-eq__small">{% render 'ms-t', v: s.hours %}</p>
+          {%- if s.directions_url != blank -%}<a class="ms-eq__ruled" href="{{ s.directions_url }}" target="_blank" rel="noopener">{% render 'ms-t', v: s.directions_label %}</a>{%- endif -%}
         </div>
         <div class="ms-eq__line">
-          <div class="ms-eq__label">{{ s.write_label }}</div>
+          <div class="ms-eq__label">{% render 'ms-t', v: s.write_label %}</div>
           {%- if s.email != blank -%}<a class="ms-eq__serif ms-eq__mail" href="mailto:{{ s.email }}">{{ s.email }}</a>{%- endif -%}
           {%- if s.phone != blank -%}<a class="ms-eq__serif ms-eq__mail" href="tel:{{ s.phone | remove: ' ' }}">{{ s.phone }}</a>{%- endif -%}
-          {%- if s.whatsapp_url != blank -%}<a class="ms-eq__ruled" href="{{ s.whatsapp_url }}" target="_blank" rel="noopener">{{ s.whatsapp_label }}</a>{%- endif -%}
+          {%- if s.whatsapp_url != blank -%}<a class="ms-eq__ruled" href="{{ s.whatsapp_url }}" target="_blank" rel="noopener">{% render 'ms-t', v: s.whatsapp_label %}</a>{%- endif -%}
           <div class="ms-eq__social">{% render 'ms-social', tone: 'light' %}</div>
         </div>
         <div class="ms-eq__line">
-          <div class="ms-eq__label">{{ s.press_label }}</div>
-          <p class="ms-eq__small">{{ s.press_text }}</p>
-          <a class="ms-eq__ruled" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=message' %}#enquire" data-ms-landing>{{ s.press_link }}</a>
+          <div class="ms-eq__label">{% render 'ms-t', v: s.press_label %}</div>
+          <p class="ms-eq__small">{% render 'ms-t', v: s.press_text %}</p>
+          <a class="ms-eq__ruled" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=message' %}#enquire" data-ms-landing>{% render 'ms-t', v: s.press_link %}</a>
         </div>
       </div>
     </div>
@@ -151,13 +156,13 @@
 
   <div class="ms-eq__onward">
     <a class="ms-eq__card" href="{% render 'ms-link', to: 'agents' %}">
-      <span class="ms-eq__label">{{ s.on1_label }}</span>
-      <span class="ms-eq__cardtitle">{{ s.on1_title }}</span>
+      <span class="ms-eq__label">{% render 'ms-t', v: s.on1_label %}</span>
+      <span class="ms-eq__cardtitle">{% render 'ms-t', v: s.on1_title %}</span>
       <span class="ms-eq__arrow" aria-hidden="true">→</span>
     </a>
     <a class="ms-eq__card" href="{% render 'ms-link', to: 'quiz' %}">
-      <span class="ms-eq__label">{{ s.on2_label }}</span>
-      <span class="ms-eq__cardtitle">{{ s.on2_title }}</span>
+      <span class="ms-eq__label">{% render 'ms-t', v: s.on2_label %}</span>
+      <span class="ms-eq__cardtitle">{% render 'ms-t', v: s.on2_title %}</span>
       <span class="ms-eq__arrow" aria-hidden="true">→</span>
     </a>
   </div>

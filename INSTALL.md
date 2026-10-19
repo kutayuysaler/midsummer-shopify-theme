@@ -2445,3 +2445,102 @@ Also:
 - **Giotto Round sizes.** Checked against the 2026 catalogue: Ø 225 and Ø 245, as on the site. The store's *Giotto* product (with its headboard) gives 235 cm overall for a 225 cm mattress; that is a different product, and its description is unchanged.
 - **The six other cloths in the swatch folder** (Papeete, Dingle, Tiepolo, Alchemy, Sherpa, Palmier). They are not added. They appear in Loro Piana's trade list but in no Midsummer bed or catalogue page, and the Loro Piana Interiors page shows the cloths of our beds. If the atelier offers them on request, say so and they can be shown as such.
 - **Checks.** Build twice identical; Liquid strict 0 errors; Theme Check 0 errors; 238 interaction tests pass (new: the Ingeo plate shows the maize, named *Zea mays*).
+
+## 46. Round 24: the boss's requests, the photographs, and the site in Italian and Russian
+
+### The boss's requests
+
+- **The bed drawing (*Specification at a glance*).** In the elevation, the boxspring is now as wide as the mattress, in the rectangular, round and split views.
+- **No regeneration for hotels.** Nothing on the Hotels & Residences page offers the 15 + 15 service or promises a thirty-year life:
+  - the opening line and the introduction speak of installation by our own team;
+  - the *Thirty years, per room* band is gone;
+  - the regeneration card is now a Loro Piana Interiors card (*The full palette for every room, and your own cloth on request*);
+  - the question *What happens at fifteen years?* is now *How are the beds delivered and installed?*;
+  - the hotel answer on the Questions page no longer mentions the service;
+  - on the Professionals page, the 15 + 15 card says it is for private homes.
+- **The journal's photographs** (store content; see *In the admin* below for where each goes):
+  - *Mattress Maintenance: Comprehensive Guide* gets one of our beds (`store-images/journal-mattress-maintenance.jpg`: the ochre bed against the gold and blue wallpaper);
+  - the vegan mattress article gets the Monteverdi mattress (`store-images/journal-vegan-mattress-monteverdi.jpg`).
+- **"Not a boat."** The deck photograph is the Outdoor collection's own image in the store. It is replaced by the Tangram on a garden terrace (`store-images/outdoor-collection-tangram-terrace.jpg`).
+
+### Photographs
+
+- **Brera's main photograph.** The corrected photograph, with the panels behind the bed running straight down, is `store-images/brera-main-corrected.jpg`.
+- **The Thin Topper, toned down.** Its main photograph is softened slightly wherever it appears (gallery, collection cards, menus). The setting is *Theme settings → Midsummer · Photographs → Soften these products' main photographs* (handles, separated by commas; set to `topper-basso`), with *Softening* at 12%. Add another product's handle there if its photograph also looks too bright.
+- **Reminder: delete the Paisley render photo.** In *Products → Paisley → Media*, remove the computer-rendered image. It cannot be removed from the theme.
+
+### The site in Italian and Russian
+
+**The theme's own words (in the zip, nothing to import).**
+
+- **Coverage.** Every text the theme writes is translated: 1,916 texts, from the menus to the product pages, the quiz, the map and the structured data for search engines. They are in `locales/it.json` and `locales/ru.json`, under `ms_tx`.
+- **Names.** Product names and the names of the cloths, colours and collections (Essentials, Signature, Icons) stay as they are in every language.
+- **Editing.** *Apps → Translate & Adapt → Theme* (or *Online Store → Themes → Edit default theme content*) lists every text with its translation. A change made there is saved in the theme, so uploading a new zip later replaces it: send me the change instead and it will go into the build.
+- **Theme Check.** It now reports the new keys as missing from the 31 other languages that come with the base theme (French, German and so on). The store does not offer those languages, and Shopify shows English for them. Italian and Russian match English key for key.
+
+**The store's own words (a file to import).**
+
+`store-translations/Midsummer-Milano_translations_import.csv` holds 1,832 rows. Import it under *Settings → Languages → Import* (the same place the export came from), and choose to overwrite.
+
+- **Missing translations, now filled.** SEO titles and descriptions for products, collections and the shop. The 20 questions and answers of the FAQ. Size, fabric and colour names. Image descriptions. Press blog titles. The founder's ten-year letter.
+- **Product names.** Back to their own names. The old Russian translations had turned *Dreamy Springs* into «Мечтательные источники» and *Storage Boxspring* into «Ящик для хранения вещей».
+- **Brand and magazine names.** The old translations had translated *Midsummer* itself («Mezza estate», «Середина лета») and magazine titles (*Robb Report* became «Rapporto Robb», *Lust & Leben* «Похоть и жизнь», *Vanity Fair* «Ярмарка тщеславия»). About 120 titles and article texts are corrected.
+- **Article addresses.** 542 articles get an Italian or a transliterated Russian address, built from their titles (for example `/it/blogs/news/il-pisolino-ristoratore-cosa-e-e-cosa-non-e`). Articles whose title is a name keep their address.
+- **Wording kept to the house rules.** Where the English SEO descriptions describe springs or layers, the Italian and Russian leave that out. *Made to order in Milan* becomes *made to order, from the Milano atelier*, since the beds are made by artisans elsewhere in Italy.
+
+**Left as they are, on purpose.**
+
+- **Product, page, collection and blog addresses.** The theme recognises places by them. The store already has Italian and Russian addresses for some pages (about, agents, regeneration, the fibres…) and for *Beds with headboards* and *Bed systems*. The theme now recognises those too. Please don't translate more of them in Translate & Adapt without telling me.
+- **Long texts already translated but marked "outdated".** Shopify keeps showing them; they are only slightly older than the English.
+- **Not touched.** The shop policies, the old metafields from the previous platform, the apps' data, and the settings of the old theme.
+- **The Glossary page** (*Glossary: Materials, Construction and Sleep Terms*). It is not translated, because its English describes pocket springs, a micro-spring layer, polyurethane foam and the cover options. Please review it first.
+
+### The English the owner should correct
+
+These are store content, so I can't change them from the theme. The corrected English is given where it helps; the Italian and Russian in the import file already follow it.
+
+| Where | Says now | Suggested |
+|---|---|---|
+| Dreamy Springs, SEO description | four layers, pocket and micro springs | Dreamy Springs is a handmade Italian mattress in precious natural fibres, soft and responsive. Made to order, from the Milano atelier. |
+| My Dream, SEO description | four layers, pocket and micro springs; silk, wool and Ingeo | My Dream is our mattress designed to be hypoallergenic: alpaca, silk and Cheviot wool, covered in viscose. Handmade in Italy, to order. |
+| Roma, SEO description | four layers, pocket and micro springs | Roma is a handmade mattress upholstered in Loro Piana Interiors Mystic River fabric. Made to order, from the Milano atelier. |
+| Bellagio, SEO description | two-layer pocket spring mattress | Bellagio is a handmade mattress designed to keep the body dry and at the right temperature in every season. |
+| Vivaldi, SEO description | two-layer pocket spring mattress | Vivaldi is a handmade mattress: its winter side combines camel hair, silk and wool, softness and natural warmth. |
+| Monteverdi, SEO description | two layers of pocket springs | Monteverdi is our fully vegan handmade mattress, in vegetable horsehair and linen. Made to order, from the Milano atelier. |
+| Vicuña, SEO description | microsprings | A handmade mattress with rare vicuña, cashmere, wool and silk: size, firmness and Loro Piana Interiors fabric chosen with you. Made to order, from the Milano atelier. |
+| Icons collection, SEO description | up to five spring layers | The most important pieces we make. Vicuña and cashmere, fully upholstered in Loro Piana Interiors. Handmade in Italy. |
+| Essenziale, description | a single layer of pocket springs | Essenziale is our entry mattress, and it carries everything that defines Midsummer. Wool, linen and Ingeo, in a cover of pure cotton. Nothing superfluous. Everything it needs. Handmade in Italy, like every piece in the collection. |
+| Capri and Pure, SEO descriptions | a sprung base | the same sentence without it |
+| Many SEO descriptions | Made to order in Milan | Made to order, from the Milano atelier |
+| Medium & High Topper; Giotto Round | "in Loro Piana Vicuña"; "in Loro Piana Cheviot Wool" | silk, wool and linen, the high one also in vicuña; upholstered in Loro Piana Interiors Connemara linen |
+| Glossary page | pocket springs, micro-spring layer, polyurethane foam | review before it is translated |
+| *Ten years ago, Midsummer-Milano was born* | "two artisans … still the same two" | the founder's letter is translated as written; change it if that line should go |
+| Test product | published | unpublish or delete |
+
+### In the admin (store content)
+
+1. **Brera.** *Products → Brera → Media*: upload `store-images/brera-main-corrected.jpg` and drag it to the first position.
+2. **Mattress Maintenance: Comprehensive Guide.** *Content → Blog posts*, the article, *Image*: upload `store-images/journal-mattress-maintenance.jpg`.
+3. **The vegan mattress article** (*Discover the midsummer-milano vegan mattress: purely plant-based, handcrafted luxury*). *Image*: upload `store-images/journal-vegan-mattress-monteverdi.jpg`.
+4. **Outdoor.** *Products → Collections → Outdoor → Image*: upload `store-images/outdoor-collection-tangram-terrace.jpg`. If the deck photograph is also among the Tangram product's media, remove it there too.
+5. **Paisley.** Delete the render photograph (see above).
+6. **Translations.** Import `store-translations/Midsummer-Milano_translations_import.csv` (see above).
+7. **The English corrections** in the table above, when convenient.
+
+### Checks
+
+| Check | Result |
+|---|---|
+| Build twice | identical |
+| Liquid strict (two parsers) | 473 files, 0 errors |
+| Theme Check | 0 errors in the theme's code or in English, Italian and Russian; the same 68 warnings as before. The 31 unused languages lack the new keys, as explained above. |
+| Every page rendered in Italian and in Russian (78 templates) | no theme text left in English; what remains is store content (article titles and texts), which the import file covers |
+| Pages run in a browser, in Italian and Russian (desktop and phone) | the quiz, the map, the forms and the menus answer in the page's language |
+| Interaction tests | 245 pass. New: the hotels page without regeneration, installed by our own team; the elevation's boxspring as wide as the mattress (one base or two); a main photograph softened by its file, never one laid on white; the home page and a product page in Italian, names kept; the Russian map's regions in Russian, and choosing one still filters the places |
+
+### After installing, check
+
+1. **`/it` and `/ru`.** The home page, a product page (for example `/it/products/brera`), the quiz and the map of agents are all in the language. Product names stay as they are.
+2. **Hotels & Residences.** No mention of regeneration or of fifteen years.
+3. **A product with *Specification at a glance*.** In the elevation, the boxspring is as wide as the mattress.
+4. **The Thin Topper** in the Toppers collection. Its photograph sits with the others.

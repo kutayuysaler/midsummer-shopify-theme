@@ -3,7 +3,9 @@
   the home and collection openings of the preview.
 {%- endcomment -%}
 {%- liquid
-  assign heading = section.settings.heading
+  capture heading
+    render 'ms-t', v: section.settings.heading
+  endcapture
   if section.settings.use_page_title
     if page.title != blank
       assign heading = page.title
@@ -46,15 +48,15 @@
   <div class="ms-bn__veil" style="opacity: {{ section.settings.veil | divided_by: 100.0 }};"></div>
   <div class="ms-bn__copy">
     <div class="ms-bn__in">
-      {%- if section.settings.eyebrow != blank -%}<div class="ms-bn__eyebrow">{{ section.settings.eyebrow }}</div>{%- endif -%}
+      {%- if section.settings.eyebrow != blank -%}<div class="ms-bn__eyebrow">{% render 'ms-t', v: section.settings.eyebrow %}</div>{%- endif -%}
       {%- if heading != blank -%}{%- comment -%} the page heading, except on a product, whose name is its heading {%- endcomment -%}{%- if template.name == 'product' -%}<h2 class="ms-bn__title">{{ heading }}</h2>{%- else -%}<h1 class="ms-bn__title">{{ heading }}</h1>{%- endif -%}{%- endif -%}
-      {%- if section.settings.text != blank -%}<p class="ms-bn__text">{{ section.settings.text }}</p>{%- endif -%}
+      {%- if section.settings.text != blank -%}<p class="ms-bn__text">{% render 'ms-t', v: section.settings.text %}</p>{%- endif -%}
       {%- if section.settings.button != blank -%}
         <a class="ms-bn__button"
           href="{% if section.settings.enquire %}{% render 'ms-link', to: 'contact' %}{% else %}{{ href }}{% endif %}"
           {% if section.settings.enquire %}data-ms-enquire{% endif %}
           {% if section.settings.new_tab %}target="_blank" rel="noopener"{% endif %}>
-          {{ section.settings.button }}
+          {% render 'ms-t', v: section.settings.button %}
           <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.1"/></svg>
         </a>
       {%- endif -%}

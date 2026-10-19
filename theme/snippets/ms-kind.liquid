@@ -114,7 +114,7 @@
     assign kind = 'boxspring'
   else
     for c in p.collections
-      if c.handle == 'beds-with-headboards'
+      if c.handle == 'beds-with-headboards' or c.handle == 'letti-con-testiera' or c.handle == 'krovati-s-izgolovem'
         assign kind = 'headboard'
         break
       elsif c.handle contains 'outdoor'

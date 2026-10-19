@@ -4,14 +4,14 @@
   "15 + 15" can be set to stay still.
 {%- endcomment -%}
 {%- assign s = section.settings -%}
-<section class="ms-fig" aria-label="{{ s.heading | default: 'Figures' | escape }}">
-  {%- if s.heading != blank -%}<h2 class="ms-fig__h">{{ s.heading }}</h2>{%- endif -%}
+<section class="ms-fig" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.heading %}{% endcapture %}{% capture ms_l43 %}{% render 'ms-t', v: 'Figures' %}{% endcapture %}{{ ms_t_out | default: ms_l43 | escape }}">
+  {%- if s.heading != blank -%}<h2 class="ms-fig__h">{% render 'ms-t', v: s.heading %}</h2>{%- endif -%}
   <div class="ms-fig__grid">
     {%- for b in section.blocks -%}
       <div class="ms-fig__item" {{ b.shopify_attributes }}>
-        <div class="ms-fig__n"{% if b.settings.count %} data-ms-count{% endif %}>{{ b.settings.number }}</div>
-        <div class="ms-fig__l">{{ b.settings.label }}</div>
-        {%- if b.settings.line != blank -%}<div class="ms-fig__line">{{ b.settings.line }}</div>{%- endif -%}
+        <div class="ms-fig__n"{% if b.settings.count %} data-ms-count{% endif %}>{% render 'ms-t', v: b.settings.number %}</div>
+        <div class="ms-fig__l">{% render 'ms-t', v: b.settings.label %}</div>
+        {%- if b.settings.line != blank -%}<div class="ms-fig__line">{% render 'ms-t', v: b.settings.line %}</div>{%- endif -%}
       </div>
     {%- endfor -%}
   </div>

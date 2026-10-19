@@ -20,23 +20,23 @@
 <section class="ms-pd">
   <div class="ms-pd__in">
     <div class="ms-pd__text">
-      <div class="ms-pd__eye">{{ section.settings.t1 }}</div>
-      <h2 class="ms-pd__h">{{ section.settings.t2 }}</h2>
-      <p class="ms-pd__p">{{ section.settings.t3 }}</p>
+      <div class="ms-pd__eye">{% render 'ms-t', v: section.settings.t1 %}</div>
+      <h2 class="ms-pd__h">{% render 'ms-t', v: section.settings.t2 %}</h2>
+      <p class="ms-pd__p">{% render 'ms-t', v: section.settings.t3 %}</p>
       <ol class="ms-pd__steps" role="list">
         {%- for i in (1..3) -%}
           {%- assign kt = 'step' | append: i | append: '_title' -%}{%- assign kx = 'step' | append: i | append: '_text' -%}
-          {%- if section.settings[kt] != blank -%}<li><span class="ms-pd__n">0{{ i }}</span><span><b>{{ section.settings[kt] }}</b>{{ section.settings[kx] }}</span></li>{%- endif -%}
+          {%- if section.settings[kt] != blank -%}<li><span class="ms-pd__n">0{{ i }}</span><span><b>{% render 'ms-t', v: section.settings[kt] %}</b>{% render 'ms-t', v: section.settings[kx] %}</span></li>{%- endif -%}
         {%- endfor -%}
       </ol>
       <div class="ms-pd__ctas">
-        <a class="ms-pd__btn" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=trade' %}#enquire" data-ms-landing>{{ section.settings.t4 }}</a>
-        <a class="ms-pd__link" data-ms-enquire="" href="{% render 'ms-link', to: 'contact' %}">{{ section.settings.t5 }}</a>
+        <a class="ms-pd__btn" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=trade' %}#enquire" data-ms-landing>{% render 'ms-t', v: section.settings.t4 %}</a>
+        <a class="ms-pd__link" data-ms-enquire="" href="{% render 'ms-link', to: 'contact' %}">{% render 'ms-t', v: section.settings.t5 %}</a>
       </div>
     </div>
     <figure class="ms-pd__fig">
-      <img class="ms-pd__big" width="1500" height="2000" loading="lazy" alt="A Midsummer bed in a frescoed loft, beneath a spiral stair" src="{% if section.settings.img1 != blank %}{{ section.settings.img1 | image_url: width: 1600 }}{% else %}{{ 'ms-photo-loft.jpg' | asset_url }}{% endif %}" {% render 'ms-srcset', image: section.settings.img1, fallback: 'ms-photo-loft.jpg', width: 1500, sizes: '(max-width: 760px) 82vw, 39vw' %}>
-      <img class="ms-pd__inset" width="2000" height="1335" loading="lazy" alt="The Midsummer Milano label on a mattress border" src="{{ 'ms-photo-mattress-label.jpg' | asset_url }}" {% render 'ms-srcset', fallback: 'ms-photo-mattress-label.jpg', width: 2000, sizes: '(max-width: 760px) 47vw, 21vw' %}>
+      <img class="ms-pd__big" width="1500" height="2000" loading="lazy" alt="{% render 'ms-t', v: 'A Midsummer bed in a frescoed loft, beneath a spiral stair' %}" src="{% if section.settings.img1 != blank %}{{ section.settings.img1 | image_url: width: 1600 }}{% else %}{{ 'ms-photo-loft.jpg' | asset_url }}{% endif %}" {% render 'ms-srcset', image: section.settings.img1, fallback: 'ms-photo-loft.jpg', width: 1500, sizes: '(max-width: 760px) 82vw, 39vw' %}>
+      <img class="ms-pd__inset" width="2000" height="1335" loading="lazy" alt="{% render 'ms-t', v: 'The Midsummer Milano label on a mattress border' %}" src="{{ 'ms-photo-mattress-label.jpg' | asset_url }}" {% render 'ms-srcset', fallback: 'ms-photo-mattress-label.jpg', width: 2000, sizes: '(max-width: 760px) 47vw, 21vw' %}>
     </figure>
   </div>
 </section>

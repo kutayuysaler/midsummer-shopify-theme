@@ -16,13 +16,13 @@
 {%- if ms_show -%}
 <section class="ms-pg">
   <header class="ms-pg__head">
-    {%- if section.settings.eyebrow != blank -%}<div class="ms-pg__eyebrow">{{ section.settings.eyebrow }}</div>{%- endif -%}
+    {%- if section.settings.eyebrow != blank -%}<div class="ms-pg__eyebrow">{% render 'ms-t', v: section.settings.eyebrow %}</div>{%- endif -%}
     <h1 class="ms-pg__title">{{ page.title }}</h1>
   </header>
   <div class="ms-pg__body rte">{{ page.content }}</div>
   {%- if section.settings.show_cta -%}
   <div class="ms-pg__cta">
-    <a data-ms="cta" href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire>{{ section.settings.cta }}</a>
+    <a data-ms="cta" href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire>{% render 'ms-t', v: section.settings.cta %}</a>
   </div>
   {%- endif -%}
 </section>

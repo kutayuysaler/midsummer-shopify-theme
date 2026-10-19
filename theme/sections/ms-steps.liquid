@@ -5,21 +5,21 @@
 {%- assign s = section.settings -%}
 <section class="ms-st" id="ms-st-{{ section.id }}" aria-labelledby="ms-st-h-{{ section.id }}">
   <div class="ms-st__head">
-    {%- if s.eyebrow != blank -%}<div class="ms-st__eyebrow">{{ s.eyebrow }}</div>{%- endif -%}
-    <h2 class="ms-st__h" id="ms-st-h-{{ section.id }}">{{ s.heading }}</h2>
+    {%- if s.eyebrow != blank -%}<div class="ms-st__eyebrow">{% render 'ms-t', v: s.eyebrow %}</div>{%- endif -%}
+    <h2 class="ms-st__h" id="ms-st-h-{{ section.id }}">{% render 'ms-t', v: s.heading %}</h2>
   </div>
   <ol class="ms-st__list" role="list" style="--n: {{ section.blocks.size }}">
     {%- for b in section.blocks -%}
       <li class="ms-st__step" {{ b.shopify_attributes }} style="--i: {{ forloop.index0 }}">
         <span class="ms-st__dot" aria-hidden="true"></span>
         <span class="ms-st__no">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
-        <span class="ms-st__t">{{ b.settings.title }}</span>
-        {%- if b.settings.text != blank -%}<span class="ms-st__x">{{ b.settings.text }}</span>{%- endif -%}
+        <span class="ms-st__t">{% render 'ms-t', v: b.settings.title %}</span>
+        {%- if b.settings.text != blank -%}<span class="ms-st__x">{% render 'ms-t', v: b.settings.text %}</span>{%- endif -%}
       </li>
     {%- endfor -%}
   </ol>
   {%- if s.link_label != blank -%}
-    <a class="ms-st__cta" href="{% render 'ms-link', to: 'enquire' %}">{{ s.link_label }}<svg viewBox="0 0 20 10" width="20" height="10" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><path d="M0 5h18M14 1l4 4-4 4"/></svg></a>
+    <a class="ms-st__cta" href="{% render 'ms-link', to: 'enquire' %}">{% render 'ms-t', v: s.link_label %}<svg viewBox="0 0 20 10" width="20" height="10" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><path d="M0 5h18M14 1l4 4-4 4"/></svg></a>
   {%- endif -%}
 </section>
 <style>

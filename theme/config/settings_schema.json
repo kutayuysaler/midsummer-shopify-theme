@@ -2450,6 +2450,23 @@
         "step": 5,
         "unit": "%",
         "default": 40
+      },
+      {
+        "type": "text",
+        "id": "ms_photo_soften",
+        "label": "Soften these products' main photographs",
+        "info": "Product handles, separated by commas. For a main photograph that looks too bright beside the others.",
+        "default": "topper-basso"
+      },
+      {
+        "type": "range",
+        "id": "ms_photo_soften_strength",
+        "label": "Softening",
+        "min": 0,
+        "max": 30,
+        "step": 2,
+        "unit": "%",
+        "default": 12
       }
     ]
   },

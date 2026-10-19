@@ -14,7 +14,7 @@
       <p class="ms-mg__lede">{{ lede }}</p>
       {%- if cta1_url != blank or cta2_url != blank -%}
         <div class="ms-mg__ctas">
-          {%- if cta1_url != blank -%}<a class="ms-mg__cta ms-mg__cta--solid" href="{{ cta1_url }}"{% if cta1_landing %} data-ms-landing{% endif %}>{{ cta1_label }}</a>{%- endif -%}
+          {%- if cta1_url != blank -%}<a class="ms-mg__cta ms-mg__cta--solid" href="{{ cta1_url }}"{% if cta1_landing %} data-ms-landing{% endif %}>{% render 'ms-t', v: cta1_label %}</a>{%- endif -%}
           {%- if cta2_url != blank -%}<a class="ms-mg__cta" href="{{ cta2_url }}">{{ cta2_label }} <span aria-hidden="true">→</span></a>{%- endif -%}
         </div>
       {%- endif -%}

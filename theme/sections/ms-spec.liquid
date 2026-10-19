@@ -8,29 +8,29 @@
 <section class="ms-spx" id="ms-spx-{{ section.id }}" aria-labelledby="ms-spx-h-{{ section.id }}">
   <div class="ms-spx__wrap">
     <div class="ms-spx__copy">
-      {%- if s.eyebrow != blank -%}<div class="ms-spx__eyebrow">{{ s.eyebrow }}</div>{%- endif -%}
-      <h2 class="ms-spx__h" id="ms-spx-h-{{ section.id }}">{{ s.heading }}</h2>
-      {%- if s.text != blank -%}<p class="ms-spx__text">{{ s.text }}</p>{%- endif -%}
+      {%- if s.eyebrow != blank -%}<div class="ms-spx__eyebrow">{% render 'ms-t', v: s.eyebrow %}</div>{%- endif -%}
+      <h2 class="ms-spx__h" id="ms-spx-h-{{ section.id }}">{% render 'ms-t', v: s.heading %}</h2>
+      {%- if s.text != blank -%}<p class="ms-spx__text">{% render 'ms-t', v: s.text %}</p>{%- endif -%}
       <dl class="ms-spx__facts">
         {%- for i in (1..4) -%}
           {%- assign kt = 'fact' | append: i | append: '_t' -%}{%- assign kd = 'fact' | append: i | append: '_d' -%}
-          {%- if s[kt] != blank -%}<div><dt>{{ s[kt] }}</dt><dd>{{ s[kd] }}</dd></div>{%- endif -%}
+          {%- if s[kt] != blank -%}<div><dt>{% render 'ms-t', v: s[kt] %}</dt><dd>{% render 'ms-t', v: s[kd] %}</dd></div>{%- endif -%}
         {%- endfor -%}
       </dl>
     </div>
     <figure class="ms-spx__sheet">
-      <div class="ms-spx__tabs" role="tablist" aria-label="{{ s.heading | escape }}">
-        <button type="button" role="tab" class="is-on" aria-selected="true" data-ms-spx="rect">{{ s.tab_rect }}</button>
-        <button type="button" role="tab" aria-selected="false" data-ms-spx="round">{{ s.tab_round }}</button>
-        <button type="button" role="tab" aria-selected="false" data-ms-spx="split">{{ s.tab_split }}</button>
+      <div class="ms-spx__tabs" role="tablist" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.heading %}{% endcapture %}{{ ms_t_out | escape }}">
+        <button type="button" role="tab" class="is-on" aria-selected="true" data-ms-spx="rect">{% render 'ms-t', v: s.tab_rect %}</button>
+        <button type="button" role="tab" aria-selected="false" data-ms-spx="round">{% render 'ms-t', v: s.tab_round %}</button>
+        <button type="button" role="tab" aria-selected="false" data-ms-spx="split">{% render 'ms-t', v: s.tab_split %}</button>
       </div>
-      <svg class="ms-spx__svg" viewBox="0 0 600 400" role="img" aria-label="{{ s.drawing_label | escape }}">
+      <svg class="ms-spx__svg" viewBox="0 0 600 400" role="img" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.drawing_label %}{% endcapture %}{{ ms_t_out | escape }}">
         <defs>
           <marker id="spx-a-{{ section.id }}" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 5L9 5M5 1.5L5 8.5" stroke="#7E623B" stroke-width="1.2" fill="none" transform="rotate(45 5 5)"/></marker>
         </defs>
         <g class="ms-spx__grid" aria-hidden="true"><path d="M20 30H580M20 370H580M20 30V370M580 30V370"/></g>
-        <text class="ms-spx__cap" x="40" y="58">{{ s.plan_label }}</text>
-        <text class="ms-spx__cap" x="340" y="58">{{ s.elev_label }}</text>
+        <text class="ms-spx__cap" x="40" y="58">{% render 'ms-t', v: s.plan_label %}</text>
+        <text class="ms-spx__cap" x="340" y="58">{% render 'ms-t', v: s.elev_label %}</text>
         <path class="ms-spx__rule" d="M310 46V354"/>
 
         {%- comment -%} rectangular {%- endcomment -%}
@@ -40,17 +40,17 @@
           <rect class="ms-spx__soft" x="92" y="124" width="68" height="28" rx="8"/><rect class="ms-spx__soft" x="170" y="124" width="68" height="28" rx="8"/>
           <path class="ms-spx__dash" d="M80 172H250"/>
           <path class="ms-spx__dim" d="M80 84H250" marker-start="url(#spx-a-{{ section.id }})" marker-end="url(#spx-a-{{ section.id }})"/><path class="ms-spx__ext" d="M80 80V100M250 80V100"/>
-          <text class="ms-spx__t" x="165" y="76" text-anchor="middle">{{ s.dim_w }}</text>
+          <text class="ms-spx__t" x="165" y="76" text-anchor="middle">{% render 'ms-t', v: s.dim_w %}</text>
           <path class="ms-spx__dim" d="M272 110V320" marker-start="url(#spx-a-{{ section.id }})" marker-end="url(#spx-a-{{ section.id }})"/><path class="ms-spx__ext" d="M254 110H278M254 320H278"/>
-          <text class="ms-spx__t" x="286" y="219" transform="rotate(90 286 219)" text-anchor="middle">{{ s.dim_l }}</text>
+          <text class="ms-spx__t" x="286" y="219" transform="rotate(90 286 219)" text-anchor="middle">{% render 'ms-t', v: s.dim_l %}</text>
           {%- comment -%} elevation: topper, mattress, base, legs {%- endcomment -%}
           <rect class="ms-spx__ln" x="360" y="214" width="190" height="10" rx="3"/>
           <rect class="ms-spx__ln" x="360" y="226" width="190" height="40" rx="5"/>
-          <rect class="ms-spx__ln ms-spx__fill" x="364" y="268" width="182" height="40" rx="1"/>
+          <rect class="ms-spx__ln ms-spx__fill" x="360" y="268" width="190" height="40" rx="1"/>
           <path class="ms-spx__ln" d="M372 308v12M538 308v12"/>
           <path class="ms-spx__ground" d="M340 320H580"/>
           <path class="ms-spx__dim" d="M342 214V320" marker-start="url(#spx-a-{{ section.id }})" marker-end="url(#spx-a-{{ section.id }})"/><path class="ms-spx__ext" d="M336 214H358"/>
-          <text class="ms-spx__t" x="330" y="267" transform="rotate(-90 330 267)" text-anchor="middle">{{ s.dim_h }}</text>
+          <text class="ms-spx__t" x="330" y="267" transform="rotate(-90 330 267)" text-anchor="middle">{% render 'ms-t', v: s.dim_h %}</text>
         </g>
 
         {%- comment -%} round {%- endcomment -%}
@@ -59,16 +59,16 @@
           <circle class="ms-spx__dash" cx="165" cy="215" r="72"/>
           <path class="ms-spx__dim" d="M165 215L241 139" marker-end="url(#spx-a-{{ section.id }})"/>
           <circle cx="165" cy="215" r="2.4" fill="#7E623B"/>
-          <text class="ms-spx__t" x="214" y="170" transform="rotate(-45 214 170)" text-anchor="middle">{{ s.dim_r }}</text>
+          <text class="ms-spx__t" x="214" y="170" transform="rotate(-45 214 170)" text-anchor="middle">{% render 'ms-t', v: s.dim_r %}</text>
           <path class="ms-spx__dim" d="M57 92H273" marker-start="url(#spx-a-{{ section.id }})" marker-end="url(#spx-a-{{ section.id }})"/><path class="ms-spx__ext" d="M57 88V200M273 88V200"/>
-          <text class="ms-spx__t" x="165" y="84" text-anchor="middle">{{ s.dim_d }}</text>
+          <text class="ms-spx__t" x="165" y="84" text-anchor="middle">{% render 'ms-t', v: s.dim_d %}</text>
           <rect class="ms-spx__ln" x="355" y="216" width="200" height="10" rx="3"/>
           <rect class="ms-spx__ln" x="355" y="228" width="200" height="38" rx="5"/>
-          <rect class="ms-spx__ln ms-spx__fill" x="359" y="268" width="192" height="44" rx="1"/>
-          <path class="ms-spx__ln" d="M366 312h178" stroke-dasharray="2 3"/>
+          <rect class="ms-spx__ln ms-spx__fill" x="355" y="268" width="200" height="44" rx="1"/>
+          <path class="ms-spx__ln" d="M362 312h186" stroke-dasharray="2 3"/>
           <path class="ms-spx__ground" d="M340 320H580"/>
           <path class="ms-spx__dim" d="M342 216V320" marker-start="url(#spx-a-{{ section.id }})" marker-end="url(#spx-a-{{ section.id }})"/><path class="ms-spx__ext" d="M336 216H353"/>
-          <text class="ms-spx__t" x="330" y="268" transform="rotate(-90 330 268)" text-anchor="middle">{{ s.dim_h }}</text>
+          <text class="ms-spx__t" x="330" y="268" transform="rotate(-90 330 268)" text-anchor="middle">{% render 'ms-t', v: s.dim_h %}</text>
         </g>
 
         {%- comment -%} split in two {%- endcomment -%}
@@ -80,17 +80,17 @@
           <path class="ms-spx__dim" d="M70 84H165" marker-start="url(#spx-a-{{ section.id }})" marker-end="url(#spx-a-{{ section.id }})"/><path class="ms-spx__dim" d="M165 84H260" marker-start="url(#spx-a-{{ section.id }})" marker-end="url(#spx-a-{{ section.id }})"/>
           <path class="ms-spx__ext" d="M70 80V100M165 80V100M260 80V100"/>
           <text class="ms-spx__t" x="117" y="76" text-anchor="middle">½</text><text class="ms-spx__t" x="212" y="76" text-anchor="middle">½</text>
-          <text class="ms-spx__t ms-spx__note" x="165" y="345" text-anchor="middle">{{ s.split_note }}</text>
+          <text class="ms-spx__t ms-spx__note" x="165" y="345" text-anchor="middle">{% render 'ms-t', v: s.split_note %}</text>
           <rect class="ms-spx__ln" x="360" y="226" width="190" height="40" rx="5"/>
-          <rect class="ms-spx__ln ms-spx__fill" x="364" y="268" width="89" height="40" rx="1"/><rect class="ms-spx__ln ms-spx__fill" x="457" y="268" width="89" height="40" rx="1"/>
+          <rect class="ms-spx__ln ms-spx__fill" x="360" y="268" width="93" height="40" rx="1"/><rect class="ms-spx__ln ms-spx__fill" x="457" y="268" width="93" height="40" rx="1"/>
           <path class="ms-spx__ln" d="M372 308v12M445 308v12M465 308v12M538 308v12"/>
           <path class="ms-spx__ground" d="M340 320H580"/>
         </g>
       </svg>
       <figcaption class="ms-spx__fc">
-        <span data-ms-spx-cap="rect">{{ s.cap_rect }}</span>
-        <span data-ms-spx-cap="round" hidden>{{ s.cap_round }}</span>
-        <span data-ms-spx-cap="split" hidden>{{ s.cap_split }}</span>
+        <span data-ms-spx-cap="rect">{% render 'ms-t', v: s.cap_rect %}</span>
+        <span data-ms-spx-cap="round" hidden>{% render 'ms-t', v: s.cap_round %}</span>
+        <span data-ms-spx-cap="split" hidden>{% render 'ms-t', v: s.cap_split %}</span>
       </figcaption>
     </figure>
   </div>

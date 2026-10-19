@@ -1,0 +1,75 @@
+@302e6c5
+[name], parte per parte
+[name], деталь за деталью
+
+@9373a72
+[n] testiere, disegnate nella stessa scala.
+Изголовья ([n]), вычерченные в одном масштабе.
+
+@1b6038f
+Dentro [name]
+Внутри [name]
+
+@99f3c35
+Un lato estivo in lino e seta, un lato invernale in lana e cashmere: si gira quando gira l’anno, mai sostituito.\nDa un topper sottile su un letto esistente al topper completo di un sistema, e Roma, con la sua testiera.
+Летняя сторона из льна и шёлка, зимняя — из шерсти и кашемира: его переворачивают со сменой сезона и никогда не заменяют.\nОт тонкого топпера на уже имеющуюся кровать до полного топпера системы — и Roma со своим изголовьем.
+
+@406e4b5
+Costruito a mano, con fibre naturali scelte per te e posate a mano.\nTrapuntato e bordato a mano, dal primo gesto all’ultimo punto.\nLa sensazione si sceglie con te, dall’avvolgente al rigido, ed è realizzato sulla tua misura.\nAl quindicesimo anno torna dagli artigiani che lo hanno realizzato, per essere aperto, pulito e rinnovato per altri quindici.
+Создаётся вручную, из натуральных волокон, подобранных для вас и уложенных вручную.\nСтёжка и окантовка вручную — от первого движения до последнего стежка.\nОщущение подбирается вместе с вами — от обволакивающего до жёсткого, а размер — под вас.\nНа пятнадцатый год он возвращается к мастерам, которые его создали, чтобы его раскрыли, очистили и обновили ещё на пятнадцать лет.
+
+@3a721a5
+[fibre] al microscopio, disegnata in scala accanto a un capello umano.
+[fibre] под микроскопом, в масштабе рядом с человеческим волосом.
+
+@75ed88f
+[n] µm di diametro. La fascia chiara è un capello umano, circa 70 µm.
+[n] мкм в поперечнике. Светлая полоса — человеческий волос, около 70 мкм.
+
+@218c57a
+Tocca la lente per guardare più da vicino
+Коснитесь стекла, чтобы рассмотреть ближе
+
+@e4f418d
+Guarda più da vicino
+Рассмотреть ближе
+
+@7aef166
+=
+Via Andegari 4\n20121 Милан
+
+@57b3ce8
+Vorrei vedere i colori di Loro Piana Interiors [cloth].
+Я хотел(а) бы увидеть цвета Loro Piana Interiors [cloth].
+
+@ca20cc5
+Tutta la collezione [collection]
+Вся коллекция [collection]
+
+@4d51295
+In trent’anni si buttano [n] materassi industriali, contro nessuno dei nostri. Un’illustrazione della vita abituale di un materasso industriale, non una previsione.
+За тридцать лет выбрасывают промышленных матрасов: [n] — а наших ни одного. Иллюстрация обычной жизни промышленного матраса, а не прогноз.
+
+@9eebdda
+Via Andegari, 4\n20121 Milano\nItalia
+Via Andegari, 4\n20121 Милан\nИталия
+
+@8420166
+Solo su appuntamento.\nDal lunedì al venerdì, 09:00–12:00 e 13:00–18:00, ora di Milano.\nConfermiamo l’appuntamento via email.
+Только по предварительной записи.\nС понедельника по пятницу, 09:00–12:00 и 13:00–18:00 по миланскому времени.\nМы подтверждаем запись по электронной почте.
+
+@8cb797c
+Vi prego di presentarmi a [name], [city].
+Прошу познакомить меня с [name], [city].
+
+@e66b972
+Mostra altri [n]
+Показать ещё [n]
+
+@379752d
+Rivestito in Loro Piana Interiors, o in altri tessuti naturali, tra cui il lino colorato.\nTestiere disegnate con te, nell’altezza e nella linea della stanza.\nTre forme oltre la classica: con cassetti sotto, come in [[storage|Storage]]; sottile, su gambe in cuoio, come in [[brera|Brera]]; o tonda, come in [[giotto-round|Giotto Round]].
+Обивка — Loro Piana Interiors или другие натуральные ткани, в том числе цветной лён.\nИзголовья, разработанные вместе с вами, — по высоте и линии комнаты.\nТри формы помимо классической: с ящиками внизу, как в [[storage|Storage]]; тонкая, на кожаных ножках, как в [[brera|Brera]]; или круглая, как в [[giotto-round|Giotto Round]].
+
+@159dbc1
+fotografie
+фотографии

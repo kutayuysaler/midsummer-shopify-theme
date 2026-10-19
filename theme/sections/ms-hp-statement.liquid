@@ -3,11 +3,11 @@
 {%- endcomment -%}
 <section class="ms-hs">
   <div class="ms-hs__in">
-    <div class="ms-hs__eyebrow">{{ section.settings.eyebrow }}</div>
-    <p class="ms-hs__text">{{ section.settings.text }}</p>
-    {%- if section.settings.signature != blank -%}<div class="ms-hs__sig">{{ section.settings.signature }}</div>{%- endif -%}
+    <div class="ms-hs__eyebrow">{% render 'ms-t', v: section.settings.eyebrow %}</div>
+    <p class="ms-hs__text">{% render 'ms-t', v: section.settings.text %}</p>
+    {%- if section.settings.signature != blank -%}<div class="ms-hs__sig">{% render 'ms-t', v: section.settings.signature %}</div>{%- endif -%}
     {%- if section.settings.link_label != blank -%}
-      <a class="ms-hs__link" href="{% render 'ms-link', to: section.settings.link_place %}">{{ section.settings.link_label }}</a>
+      <a class="ms-hs__link" href="{% render 'ms-link', to: section.settings.link_place %}">{% render 'ms-t', v: section.settings.link_label %}</a>
     {%- endif -%}
   </div>
 </section>

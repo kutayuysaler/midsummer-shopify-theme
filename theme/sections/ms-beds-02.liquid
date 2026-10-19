@@ -1,26 +1,26 @@
 <section data-dc-tpl="671" style="padding: 0px clamp(18px, 5vw, 80px) clamp(60px, 9vw, 150px); display: flex; flex-direction: column; gap: clamp(48px, 7vw, 120px);">
 <a href="{% render 'ms-link', to: 'essentials' %}" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(24px, 5vw, 80px); align-items: center;">
-<img width="1200" height="1500" alt="Essentials" src="{% if section.settings.img1 != blank %}{{ section.settings.img1 | image_url: width: 2000 }}{% else %}{{ 'ms-graded-bougainvillea.jpg' | asset_url }}{% endif %}" {% render 'ms-srcset', image: section.settings.img1, fallback: 'ms-graded-bougainvillea.jpg', width: 1122, sizes: '(max-width: 760px) 90vw, 44vw' %} style="width: 100%; aspect-ratio: 4 / 5; object-fit: cover;"/>
+<img width="1200" height="1500" alt="{% render 'ms-t', v: 'Essentials' %}" src="{% if section.settings.img1 != blank %}{{ section.settings.img1 | image_url: width: 2000 }}{% else %}{{ 'ms-graded-bougainvillea.jpg' | asset_url }}{% endif %}" {% render 'ms-srcset', image: section.settings.img1, fallback: 'ms-graded-bougainvillea.jpg', width: 1122, sizes: '(max-width: 760px) 90vw, 44vw' %} style="width: 100%; aspect-ratio: 4 / 5; object-fit: cover;"/>
 <div>
-<div style="display: flex; align-items: baseline; gap: 16px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 15px; color: rgb(126, 98, 59);">{{ section.settings.t1 }}</span><h2 style="font-family: Newsreader, Georgia, serif; font-size: clamp(28px, 3.8vw, 52px); letter-spacing: -0.02em;">{{ section.settings.t2 }}</h2></div>
-<p style="font-size: 15px; line-height: 1.95; color: rgb(74, 68, 59); margin-top: 20px; max-width: 50ch;">{{ section.settings.t3 }}</p>
-<div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; margin-top: 26px; color: rgb(110, 103, 92);">{{ section.settings.t4 }}</div>
+<div style="display: flex; align-items: baseline; gap: 16px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 15px; color: rgb(126, 98, 59);">{% render 'ms-t', v: section.settings.t1 %}</span><h2 style="font-family: Newsreader, Georgia, serif; font-size: clamp(28px, 3.8vw, 52px); letter-spacing: -0.02em;">{% render 'ms-t', v: section.settings.t2 %}</h2></div>
+<p style="font-size: 15px; line-height: 1.95; color: rgb(74, 68, 59); margin-top: 20px; max-width: 50ch;">{% render 'ms-t', v: section.settings.t3 %}</p>
+<div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; margin-top: 26px; color: rgb(110, 103, 92);">{% render 'ms-t', v: section.settings.t4 %}</div>
 </div>
 </a>
 <a href="{% render 'ms-link', to: 'signature' %}" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(24px, 5vw, 80px); align-items: center;">
-<div style="order: 2;"><img width="1200" height="1500" alt="Signature" loading="lazy" src="{% if section.settings.img2 != blank %}{{ section.settings.img2 | image_url: width: 2000 }}{% else %}{{ 'ms-graded-ochre-room.jpg' | asset_url }}{% endif %}" {% render 'ms-srcset', image: section.settings.img2, fallback: 'ms-graded-ochre-room.jpg', width: 1122, sizes: '(max-width: 760px) 90vw, 44vw' %} style="width: 100%; aspect-ratio: 4 / 5; object-fit: cover;"/></div>
+<div style="order: 2;"><img width="1200" height="1500" alt="{% render 'ms-t', v: 'Signature' %}" loading="lazy" src="{% if section.settings.img2 != blank %}{{ section.settings.img2 | image_url: width: 2000 }}{% else %}{{ 'ms-graded-ochre-room.jpg' | asset_url }}{% endif %}" {% render 'ms-srcset', image: section.settings.img2, fallback: 'ms-graded-ochre-room.jpg', width: 1122, sizes: '(max-width: 760px) 90vw, 44vw' %} style="width: 100%; aspect-ratio: 4 / 5; object-fit: cover;"/></div>
 <div style="order: 1;">
-<div style="display: flex; align-items: baseline; gap: 16px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 15px; color: rgb(126, 98, 59);">{{ section.settings.t5 }}</span><h2 style="font-family: Newsreader, Georgia, serif; font-size: clamp(28px, 3.8vw, 52px); letter-spacing: -0.02em;">{{ section.settings.t6 }}</h2></div>
-<p style="font-size: 15px; line-height: 1.95; color: rgb(74, 68, 59); margin-top: 20px; max-width: 50ch;">{{ section.settings.t7 }}</p>
-<div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; margin-top: 26px; color: rgb(110, 103, 92);">{{ section.settings.t8 }}</div>
+<div style="display: flex; align-items: baseline; gap: 16px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 15px; color: rgb(126, 98, 59);">{% render 'ms-t', v: section.settings.t5 %}</span><h2 style="font-family: Newsreader, Georgia, serif; font-size: clamp(28px, 3.8vw, 52px); letter-spacing: -0.02em;">{% render 'ms-t', v: section.settings.t6 %}</h2></div>
+<p style="font-size: 15px; line-height: 1.95; color: rgb(74, 68, 59); margin-top: 20px; max-width: 50ch;">{% render 'ms-t', v: section.settings.t7 %}</p>
+<div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; margin-top: 26px; color: rgb(110, 103, 92);">{% render 'ms-t', v: section.settings.t8 %}</div>
 </div>
 </a>
 <a href="{% render 'ms-link', to: 'icons' %}" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(24px, 5vw, 80px); align-items: center;">
-<img width="1200" height="1500" alt="Icons" loading="lazy" src="{% if section.settings.img3 != blank %}{{ section.settings.img3 | image_url: width: 2000 }}{% else %}{{ 'ms-graded-arches.jpg' | asset_url }}{% endif %}" {% render 'ms-srcset', image: section.settings.img3, fallback: 'ms-graded-arches.jpg', width: 1122, sizes: '(max-width: 760px) 90vw, 44vw' %} style="width: 100%; aspect-ratio: 4 / 5; object-fit: cover;"/>
+<img width="1200" height="1500" alt="{% render 'ms-t', v: 'Icons' %}" loading="lazy" src="{% if section.settings.img3 != blank %}{{ section.settings.img3 | image_url: width: 2000 }}{% else %}{{ 'ms-graded-arches.jpg' | asset_url }}{% endif %}" {% render 'ms-srcset', image: section.settings.img3, fallback: 'ms-graded-arches.jpg', width: 1122, sizes: '(max-width: 760px) 90vw, 44vw' %} style="width: 100%; aspect-ratio: 4 / 5; object-fit: cover;"/>
 <div>
-<div style="display: flex; align-items: baseline; gap: 16px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 15px; color: rgb(126, 98, 59);">{{ section.settings.t9 }}</span><h2 style="font-family: Newsreader, Georgia, serif; font-size: clamp(28px, 3.8vw, 52px); letter-spacing: -0.02em;">{{ section.settings.t10 }}</h2></div>
-<p style="font-size: 15px; line-height: 1.95; color: rgb(74, 68, 59); margin-top: 20px; max-width: 50ch;">{{ section.settings.t11 }}</p>
-<div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; margin-top: 26px; color: rgb(110, 103, 92);">{{ section.settings.t12 }}</div>
+<div style="display: flex; align-items: baseline; gap: 16px;"><span style="font-family: Newsreader, Georgia, serif; font-size: 15px; color: rgb(126, 98, 59);">{% render 'ms-t', v: section.settings.t9 %}</span><h2 style="font-family: Newsreader, Georgia, serif; font-size: clamp(28px, 3.8vw, 52px); letter-spacing: -0.02em;">{% render 'ms-t', v: section.settings.t10 %}</h2></div>
+<p style="font-size: 15px; line-height: 1.95; color: rgb(74, 68, 59); margin-top: 20px; max-width: 50ch;">{% render 'ms-t', v: section.settings.t11 %}</p>
+<div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; margin-top: 26px; color: rgb(110, 103, 92);">{% render 'ms-t', v: section.settings.t12 %}</div>
 </div>
 </a>
 </section>

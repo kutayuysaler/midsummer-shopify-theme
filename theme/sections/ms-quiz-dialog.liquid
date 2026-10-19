@@ -4,11 +4,11 @@
 {%- endcomment -%}
 {%- capture ms_quiz_url -%}{% render 'ms-link', to: 'quiz' %}{%- endcapture -%}
 {%- if ms_quiz_url contains '#' or ms_quiz_url contains 'view=ms-quiz' -%}{%- unless template.suffix == 'ms-quiz' -%}
-<div class="ms-quizdlg" data-ms-quiz-dialog hidden role="dialog" aria-modal="true" aria-label="{{ section.settings.label | escape }}">
-  <button type="button" class="ms-quizdlg__close" data-ms-quiz-close aria-label="Close">
-    Close<svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M2 2l12 12M14 2 2 14" fill="none" stroke="currentColor" stroke-width="1.1"/></svg>
+<div class="ms-quizdlg" data-ms-quiz-dialog hidden role="dialog" aria-modal="true" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: section.settings.label %}{% endcapture %}{{ ms_t_out | escape }}">
+  <button type="button" class="ms-quizdlg__close" data-ms-quiz-close aria-label="{% render 'ms-t', v: 'Close' %}">
+    {% render 'ms-t', v: 'Close' %}<svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M2 2l12 12M14 2 2 14" fill="none" stroke="currentColor" stroke-width="1.1"/></svg>
   </button>
-  {%- render 'ms-quiz', label: section.settings.label, result_label: section.settings.result_label -%}
+  {% capture ms_d1 %}{% render 'ms-t', v: section.settings.label %}{% endcapture %}{% capture ms_d2 %}{% render 'ms-t', v: section.settings.result_label %}{% endcapture %}{%- render 'ms-quiz', label: ms_d1, result_label: ms_d2 -%}
 </div>
 <style>
   .ms-quizdlg { position: fixed; inset: 0; z-index: 94; background: #FBF9F5; overflow-y: auto; animation: msRise .35s ease both; }

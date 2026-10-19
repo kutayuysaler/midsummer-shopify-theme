@@ -27,10 +27,10 @@
   assign kinds = 'systems,headboards,mattresses,toppers,outdoor' | split: ','
   assign tiers = 'essentials,signature,icons' | split: ','
 -%}
-<nav class="ms-cn" aria-label="{{ s.label | escape }}">
+<nav class="ms-cn" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.label %}{% endcapture %}{{ ms_t_out | escape }}">
   <div class="ms-cn__in">
     <div class="ms-cn__row">
-      <span class="ms-cn__k">{{ s.kinds_label }}</span>
+      <span class="ms-cn__k">{% render 'ms-t', v: s.kinds_label %}</span>
       <ul class="ms-cn__list" role="list">
         {%- for k in kinds -%}
           {%- capture u -%}{% render 'ms-link', to: k, strict: true %}{%- endcapture -%}
@@ -43,18 +43,18 @@
           {%- endif -%}
           {%- assign kl = 'kind_' | append: k -%}
           {%- if u != blank and s[kl] != blank -%}
-            <li><a class="ms-cn__a{% if on %} is-on{% endif %}" href="{{ u }}"{% if on %} aria-current="page"{% endif %}>{{ s[kl] }}</a></li>
+            <li><a class="ms-cn__a{% if on %} is-on{% endif %}" href="{{ u }}"{% if on %} aria-current="page"{% endif %}>{% render 'ms-t', v: s[kl] %}</a></li>
           {%- endif -%}
         {%- endfor -%}
       </ul>
     </div>
     <div class="ms-cn__row ms-cn__row--tiers">
-      <span class="ms-cn__k">{{ s.tiers_label }}</span>
+      <span class="ms-cn__k">{% render 'ms-t', v: s.tiers_label %}</span>
       <ul class="ms-cn__list" role="list">
         {%- for k in tiers -%}
           {%- assign tl = 'tier_' | append: k -%}
           {%- assign on = false -%}{%- if cur == k -%}{%- assign on = true -%}{%- endif -%}
-          <li><a class="ms-cn__a{% if on %} is-on{% endif %}" href="{% render 'ms-link', to: k %}"{% if on %} aria-current="page"{% endif %}>{{ s[tl] }}<span class="ms-cn__n" aria-hidden="true">{% cycle 'I', 'II', 'III' %}</span></a></li>
+          <li><a class="ms-cn__a{% if on %} is-on{% endif %}" href="{% render 'ms-link', to: k %}"{% if on %} aria-current="page"{% endif %}>{% render 'ms-t', v: s[tl] %}<span class="ms-cn__n" aria-hidden="true">{% cycle 'I', 'II', 'III' %}</span></a></li>
         {%- endfor -%}
       </ul>
     </div>

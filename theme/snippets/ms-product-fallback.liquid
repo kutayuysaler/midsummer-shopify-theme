@@ -2,7 +2,7 @@
   Safety net: if a product's template comes through empty (for instance a template Shopify
   refused on upload), the layout draws the product here so the page is never blank.
 {%- endcomment -%}
-{%- if request.design_mode -%}<p style="max-width: 1400px; margin: 110px auto 0; padding: 14px 20px; background: #F4EFE5; font-size: 13px; color: #8B3A2B;">This product's template ({{ template.suffix | default: 'default' }}) came through empty, so a basic layout is shown. Shopify may have refused one of its sections on upload: check the upload warnings under Online Store → Themes.</p>{%- endif -%}
+{%- if request.design_mode -%}<p style="max-width: 1400px; margin: 110px auto 0; padding: 14px 20px; background: #F4EFE5; font-size: 13px; color: #8B3A2B;">{% render 'ms-t', v: "This product's template (" %}{{ template.suffix | default: 'default' }}{% render 'ms-t', v: ') came through empty, so a basic layout is shown. Shopify may have refused one of its sections on upload: check the upload warnings under Online Store → Themes.' %}</p>{%- endif -%}
 <section class="ms-pf" data-ms-product-fallback>
   <div class="ms-pf__media">
     {%- for media in product.media limit: 6 -%}
@@ -14,7 +14,7 @@
   <div class="ms-pf__info">
     <h1 class="ms-pf__title">{{ product.title }}</h1>
     {%- if product.description != blank -%}<div class="ms-pf__desc">{{ product.description }}</div>{%- endif -%}
-    <a class="ms-pf__cta" href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire>Request a proposal</a>
+    <a class="ms-pf__cta" href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire>{% render 'ms-t', v: 'Request a proposal' %}</a>
   </div>
 </section>
 <style>

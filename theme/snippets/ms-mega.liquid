@@ -86,8 +86,8 @@
 
 {%- capture foot -%}
   <div class="ms-mg__foot">
-    <div class="ms-mg__addr"><span>{{ ss.mg_address }}</span><span>{{ ss.mg_hours }}</span></div>
-    <a class="ms-mg__book" href="{{ u_appointment }}#enquire" data-ms-landing>{{ ss.mg_book }}</a>
+    <div class="ms-mg__addr"><span>{% render 'ms-t', v: ss.mg_address %}</span><span>{% render 'ms-t', v: ss.mg_hours %}</span></div>
+    <a class="ms-mg__book" href="{{ u_appointment }}#enquire" data-ms-landing>{% render 'ms-t', v: ss.mg_book %}</a>
     <div class="ms-mg__soc">{% render 'ms-social' %}</div>
   </div>
 {%- endcapture -%}
@@ -97,11 +97,21 @@
   <div class="ms-mg__in">
     <div class="ms-mg__intro">
       <div class="ms-mg__no">01</div>
-      <div class="ms-mg__title">{{ ss.t1 }}</div>
-      <p class="ms-mg__lede">{{ ss.mg_beds_lede }}</p>
+      <div class="ms-mg__title">{% render 'ms-t', v: ss.t1 %}</div>
+      <p class="ms-mg__lede">{% render 'ms-t', v: ss.mg_beds_lede %}</p>
       {%- assign groups = 'systems,headboards,mattresses,toppers,outdoor|bedding,throws,furniture' | split: '|' -%}
-      {%- assign group_names = 'By kind|For the bedroom' | split: '|' -%}
-      {%- assign all_names = 'systems:Bed systems,headboards:Beds with headboards,mattresses:Mattresses,toppers:Toppers,outdoor:Outdoor,bedding:Duvets and sheets,throws:Blankets and throws,furniture:Furniture' | split: ',' -%}
+      {%- liquid
+  capture group_names
+  render 'ms-t', v: 'By kind|For the bedroom'
+  endcapture
+  assign group_names = group_names | split: '|'
+-%}
+      {%- liquid
+  capture all_names
+  render 'ms-t', v: 'systems:Bed systems,headboards:Beds with headboards,mattresses:Mattresses,toppers:Toppers,outdoor:Outdoor,bedding:Duvets and sheets,throws:Blankets and throws,furniture:Furniture'
+  endcapture
+  assign all_names = all_names | split: ','
+-%}
       {%- for g in groups -%}
         {%- assign gl = '' -%}
         {%- assign keys = g | split: ',' -%}
@@ -113,11 +123,11 @@
         {%- endfor -%}
         {%- if gl != '' -%}<p class="ms-mg__grp">{{ group_names[forloop.index0] }}</p><ul class="ms-mg__minor" role="list">{{ gl }}</ul>{%- endif -%}
       {%- endfor -%}
-      <p class="ms-mg__grp">Choosing</p>
+      <p class="ms-mg__grp">{% render 'ms-t', v: 'Choosing' %}</p>
       <ul class="ms-mg__minor" role="list">
-        <li><a href="{{ u_compare }}">{{ ss.mg_compare }}</a></li>
-        <li><a href="{{ u_quiz }}" data-ms-quiz-link>{{ ss.mg_quiz }}</a></li>
-        <li><a href="{{ u_proposal }}#enquire" data-ms-landing>{{ ss.mg_proposal }}</a></li>
+        <li><a href="{{ u_compare }}">{% render 'ms-t', v: ss.mg_compare %}</a></li>
+        <li><a href="{{ u_quiz }}" data-ms-quiz-link>{% render 'ms-t', v: ss.mg_quiz %}</a></li>
+        <li><a href="{{ u_proposal }}#enquire" data-ms-landing>{% render 'ms-t', v: ss.mg_proposal %}</a></li>
       </ul>
     </div>
     <div class="ms-mg__cards">
@@ -128,22 +138,34 @@
               assign key = 'essentials'
               assign img = ss.mg_img_essentials
               assign fb = 'ms-graded-bougainvillea.jpg' | asset_url
-              assign name = 'Essentials'
-              assign note = ss.mg_essentials
+              capture name
+                render 'ms-t', v: 'Essentials'
+              endcapture
+              capture note
+                render 'ms-t', v: ss.mg_essentials
+              endcapture
               assign rn = 'I'
             when 2
               assign key = 'signature'
               assign img = ss.mg_img_signature
               assign fb = 'ms-graded-ochre-room.jpg' | asset_url
-              assign name = 'Signature'
-              assign note = ss.mg_signature
+              capture name
+                render 'ms-t', v: 'Signature'
+              endcapture
+              capture note
+                render 'ms-t', v: ss.mg_signature
+              endcapture
               assign rn = 'II'
             else
               assign key = 'icons'
               assign img = ss.mg_img_icons
               assign fb = 'ms-graded-arches.jpg' | asset_url
-              assign name = 'Icons'
-              assign note = ss.mg_icons
+              capture name
+                render 'ms-t', v: 'Icons'
+              endcapture
+              capture note
+                render 'ms-t', v: ss.mg_icons
+              endcapture
               assign rn = 'III'
           endcase
         -%}
@@ -160,35 +182,39 @@
 
 {%- comment -%} 02 · Heritage & craft {%- endcomment -%}
 {%- capture items -%}
-{{ u_story }}|{{ ss.mg_h1 }}|{{ ss.mg_h1_note }}|{{ 'ms-photo-loft.jpg' | asset_url }}|
-§{{ u_handmade }}|{{ ss.mg_h2 }}|{{ ss.mg_h2_note }}|{{ 'ms-photo-artisan-wool.jpg' | asset_url }}|
-§{{ u_culture }}|{{ ss.mg_h3 }}|{{ ss.mg_h3_note }}|{{ 'ms-photo-window-chair.jpg' | asset_url }}|
-§{{ u_materials }}|{{ ss.mg_h4 }}|{{ ss.mg_h4_note }}|{{ 'ms-photo-shepherd.jpg' | asset_url }}|
-§{{ u_loro }}|{{ ss.mg_h5 }}|{{ ss.mg_h5_note }}|{{ 'ms-photo-lp-paisley-front.jpg' | asset_url }}|
-§{{ u_regen }}|{{ ss.mg_h6 }}|{{ ss.mg_h6_note }}|{{ 'ms-photo-drapes-fireplace.jpg' | asset_url }}|
+{{ u_story }}|{% render 'ms-t', v: ss.mg_h1 %}|{% render 'ms-t', v: ss.mg_h1_note %}|{{ 'ms-photo-loft.jpg' | asset_url }}|
+§{{ u_handmade }}|{% render 'ms-t', v: ss.mg_h2 %}|{% render 'ms-t', v: ss.mg_h2_note %}|{{ 'ms-photo-artisan-wool.jpg' | asset_url }}|
+§{{ u_culture }}|{% render 'ms-t', v: ss.mg_h3 %}|{% render 'ms-t', v: ss.mg_h3_note %}|{{ 'ms-photo-window-chair.jpg' | asset_url }}|
+§{{ u_materials }}|{% render 'ms-t', v: ss.mg_h4 %}|{% render 'ms-t', v: ss.mg_h4_note %}|{{ 'ms-photo-shepherd.jpg' | asset_url }}|
+§{{ u_loro }}|{% render 'ms-t', v: ss.mg_h5 %}|{% render 'ms-t', v: ss.mg_h5_note %}|{{ 'ms-photo-lp-paisley-front.jpg' | asset_url }}|
+§{{ u_regen }}|{% render 'ms-t', v: ss.mg_h6 %}|{% render 'ms-t', v: ss.mg_h6_note %}|{{ 'ms-photo-drapes-fireplace.jpg' | asset_url }}|
 {%- endcapture -%}
-{%- render 'ms-mega-panel', key: 'heritage', no: '02', title: ss.t2, lede: ss.mg_heritage_lede, items: items, feature: ss.mg_img_heritage, foot: foot -%}
+{% capture ms_d1 %}{% render 'ms-t', v: ss.t2 %}{% endcapture %}{% capture ms_d2 %}{% render 'ms-t', v: ss.mg_heritage_lede %}{% endcapture %}{%- render 'ms-mega-panel', key: 'heritage', no: '02', title: ms_d1, lede: ms_d2, items: items, feature: ss.mg_img_heritage, foot: foot -%}
 
 {%- comment -%} 03 · Professionals {%- endcomment -%}
 {%- capture items -%}
-{{ u_pro }}|{{ ss.mg_p1 }}|{{ ss.mg_p1_note }}|{{ 'ms-photo-fresco-bed.jpg' | asset_url }}|
-§{{ u_hosp }}|{{ ss.mg_p2 }}|{{ ss.mg_p2_note }}|{{ 'ms-photo-glass-house.jpg' | asset_url }}|
-§{{ u_portfolio }}|{{ ss.mg_p3 }}|{{ ss.mg_p3_note }}|{{ 'ms-graded-arches.jpg' | asset_url }}|
-§{{ u_partner }}#enquire|{{ ss.mg_p4 }}|{{ ss.mg_p4_note }}|{{ 'ms-photo-atelier-pure.jpg' | asset_url }}|landing
-§{{ u_trade }}#enquire|{{ ss.mg_p5 }}|{{ ss.mg_p5_note }}|{{ cdn }}Vicuna-mattress.jpg?width=900|landing
+{{ u_pro }}|{% render 'ms-t', v: ss.mg_p1 %}|{% render 'ms-t', v: ss.mg_p1_note %}|{{ 'ms-photo-fresco-bed.jpg' | asset_url }}|
+§{{ u_hosp }}|{% render 'ms-t', v: ss.mg_p2 %}|{% render 'ms-t', v: ss.mg_p2_note %}|{{ 'ms-photo-glass-house.jpg' | asset_url }}|
+§{{ u_portfolio }}|{% render 'ms-t', v: ss.mg_p3 %}|{% render 'ms-t', v: ss.mg_p3_note %}|{{ 'ms-graded-arches.jpg' | asset_url }}|
+§{{ u_partner }}#enquire|{% render 'ms-t', v: ss.mg_p4 %}|{% render 'ms-t', v: ss.mg_p4_note %}|{{ 'ms-photo-atelier-pure.jpg' | asset_url }}{% render 'ms-t', v: '|landing §' %}{{ u_trade }}#enquire|{% render 'ms-t', v: ss.mg_p5 %}|{% render 'ms-t', v: ss.mg_p5_note %}|{{ cdn }}Vicuna-mattress.jpg?width=900|landing
 {%- endcapture -%}
 {%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
-{%- render 'ms-mega-panel', key: 'pro', no: '03', title: ss.t3, lede: ss.mg_pro_lede, items: items, feature: ss.mg_img_pro, foot: foot, cta1_url: u_trade_e, cta1_label: 'Open a project file', cta1_landing: true -%}
+{% capture ms_d3 %}{% render 'ms-t', v: ss.t3 %}{% endcapture %}{% capture ms_d4 %}{% render 'ms-t', v: ss.mg_pro_lede %}{% endcapture %}{%- liquid
+  capture ms_l182
+  render 'ms-t', v: 'Open a project file'
+  endcapture
+  render 'ms-mega-panel', key: 'pro', no: '03', title: ms_d3, lede: ms_d4, items: items, feature: ss.mg_img_pro, foot: foot, cta1_url: u_trade_e, cta1_label: ms_l182, cta1_landing: true
+-%}
 
 {%- comment -%} 04 · Journal: the newest notes, then the subjects {%- endcomment -%}
 <div data-ms-panel="journal" hidden class="ms-mg ms-mg--journal">
   <div class="ms-mg__in">
     <div class="ms-mg__intro">
       <div class="ms-mg__no">04</div>
-      <div class="ms-mg__title">{{ ss.t4 }}</div>
-      <p class="ms-mg__lede">{{ ss.mg_journal_lede }}</p>
+      <div class="ms-mg__title">{% render 'ms-t', v: ss.t4 %}</div>
+      <p class="ms-mg__lede">{% render 'ms-t', v: ss.mg_journal_lede %}</p>
       <ul class="ms-mg__minor" role="list">
-        <li><a href="{{ u_journal }}">{{ ss.mg_all_notes }}</a></li>
+        <li><a href="{{ u_journal }}">{% render 'ms-t', v: ss.mg_all_notes %}</a></li>
         {%- comment -%} the Journal's subjects, the same list and the same filing as the Journal page {%- endcomment -%}
         {%- if ms_blog -%}
           {%- liquid
@@ -208,8 +234,8 @@
             {%- if present contains k -%}<li><a href="{{ u_journal }}?view={{ k }}">{% render 'ms-note-cat', label: k %}</a></li>{%- endif -%}
           {%- endfor -%}
         {%- endif -%}
-        {%- if u_press != blank -%}<li><a href="{{ u_press }}">{{ ss.mg_press }}</a></li>{%- endif -%}
-        {%- if u_collab != blank -%}<li><a href="{{ u_collab }}">{{ ss.mg_collab }}</a></li>{%- endif -%}
+        {%- if u_press != blank -%}<li><a href="{{ u_press }}">{% render 'ms-t', v: ss.mg_press %}</a></li>{%- endif -%}
+        {%- if u_collab != blank -%}<li><a href="{{ u_collab }}">{% render 'ms-t', v: ss.mg_collab %}</a></li>{%- endif -%}
       </ul>
     </div>
     <div class="ms-mg__cards">
@@ -218,15 +244,15 @@
           <a class="ms-mg__card ms-mg__card--note" href="{{ a.url }}" style="--i: {{ forloop.index }};">
             <span class="ms-mg__cimg">{%- if a.image -%}<img src="{{ a.image | image_url: width: 900 }}" {% render 'ms-srcset', image: a.image, width: 900, sizes: '(max-width: 760px) 60vw, 24vw' %} alt="{{ a.title | escape }}" width="900" height="600" loading="lazy">{%- endif -%}</span>
             {%- capture ac -%}{% render 'ms-note-cat', a: a %}{%- endcapture -%}
-            <span class="ms-mg__ctag">{% if ac != '' %}{% render 'ms-note-cat', label: ac %}{% else %}{{ ss.mg_note_label }}{% endif %}</span>
+            <span class="ms-mg__ctag">{% if ac != '' %}{% render 'ms-note-cat', label: ac %}{% else %}{% render 'ms-t', v: ss.mg_note_label %}{% endif %}</span>
             <span class="ms-mg__cname">{{ a.title }}</span>
           </a>
         {%- endfor -%}
       {%- else -%}
         <a class="ms-mg__card ms-mg__card--note" href="{{ u_journal }}" style="--i: 1;">
-          <span class="ms-mg__cimg"><img src="{{ cdn }}Vicuna-mattress.jpg?width=900" alt="The Vicuña mattress" width="900" height="600" loading="lazy"></span>
-          <span class="ms-mg__ctag">{{ ss.mg_note_label }}</span>
-          <span class="ms-mg__cname">{{ ss.mg_all_notes }}</span>
+          <span class="ms-mg__cimg"><img src="{{ cdn }}Vicuna-mattress.jpg?width=900" alt="{% render 'ms-t', v: 'The Vicuña mattress' %}" width="900" height="600" loading="lazy"></span>
+          <span class="ms-mg__ctag">{% render 'ms-t', v: ss.mg_note_label %}</span>
+          <span class="ms-mg__cname">{% render 'ms-t', v: ss.mg_all_notes %}</span>
         </a>
       {%- endif -%}
     </div>
@@ -236,15 +262,14 @@
 
 {%- comment -%} 05 · Contact {%- endcomment -%}
 {%- capture items -%}
-{{ u_appointment }}#enquire|{{ ss.mg_c1 }}|{{ ss.mg_c1_note }}|{{ 'ms-photo-villa-doorway.jpg' | asset_url }}|landing
-§{{ u_agents }}|{{ ss.mg_c2 }}|{{ ss.mg_c2_note }}|{{ 'ms-graded-arches.jpg' | asset_url }}|
-§{{ u_atelier }}|{{ ss.mg_c5 }}|{{ ss.mg_c5_note }}|{{ 'ms-photo-atelier-orange-bed.jpg' | asset_url }}|
-§{{ u_enquire }}#direct|{{ ss.mg_c3 }}|{{ ss.mg_c3_note }}|{{ 'ms-photo-linen-sheets.jpg' | asset_url }}|landing
-{%- if settings.ms_social_whatsapp != blank -%}§{{ settings.ms_social_whatsapp }}|WhatsApp|{{ ss.mg_c4_note }}|{{ 'ms-photo-atelier-sun.jpg' | asset_url }}|external{%- endif -%}
-§{{ u_faq }}|{{ ss.mg_c6 }}|{{ ss.mg_c6_note }}|{{ 'ms-graded-dune.jpg' | asset_url }}|
+{{ u_appointment }}#enquire|{% render 'ms-t', v: ss.mg_c1 %}|{% render 'ms-t', v: ss.mg_c1_note %}|{{ 'ms-photo-villa-doorway.jpg' | asset_url }}{% render 'ms-t', v: '|landing §' %}{{ u_agents }}|{% render 'ms-t', v: ss.mg_c2 %}|{% render 'ms-t', v: ss.mg_c2_note %}|{{ 'ms-graded-arches.jpg' | asset_url }}|
+§{{ u_atelier }}|{% render 'ms-t', v: ss.mg_c5 %}|{% render 'ms-t', v: ss.mg_c5_note %}|{{ 'ms-photo-atelier-orange-bed.jpg' | asset_url }}|
+§{{ u_enquire }}#direct|{% render 'ms-t', v: ss.mg_c3 %}|{% render 'ms-t', v: ss.mg_c3_note %}|{{ 'ms-photo-linen-sheets.jpg' | asset_url }}|landing
+{%- if settings.ms_social_whatsapp != blank -%}§{{ settings.ms_social_whatsapp }}|WhatsApp|{% render 'ms-t', v: ss.mg_c4_note %}|{{ 'ms-photo-atelier-sun.jpg' | asset_url }}|external{%- endif -%}
+§{{ u_faq }}|{% render 'ms-t', v: ss.mg_c6 %}|{% render 'ms-t', v: ss.mg_c6_note %}|{{ 'ms-graded-dune.jpg' | asset_url }}|
 {%- endcapture -%}
 {%- capture u_enq_cta -%}{{ u_enquire }}#enquire{%- endcapture -%}
-{%- render 'ms-mega-panel', key: 'contact', no: '05', title: ss.t5, lede: ss.mg_contact_lede, items: items, foot: foot, cta1_url: u_enq_cta, cta1_label: ss.mg_contact_cta1, cta1_landing: true, cta2_url: u_agents, cta2_label: ss.mg_contact_cta2 -%}
+{% capture ms_d5 %}{% render 'ms-t', v: ss.t5 %}{% endcapture %}{% capture ms_d6 %}{% render 'ms-t', v: ss.mg_contact_lede %}{% endcapture %}{% capture ms_d7 %}{% render 'ms-t', v: ss.mg_contact_cta1 %}{% endcapture %}{% capture ms_d8 %}{% render 'ms-t', v: ss.mg_contact_cta2 %}{% endcapture %}{%- render 'ms-mega-panel', key: 'contact', no: '05', title: ms_d5, lede: ms_d6, items: items, foot: foot, cta1_url: u_enq_cta, cta1_label: ms_d7, cta1_landing: true, cta2_url: u_agents, cta2_label: ms_d8 -%}
 
 <style>
   /* the panels drop from the bar; the page behind dims */

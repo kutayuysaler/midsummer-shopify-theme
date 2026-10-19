@@ -25,17 +25,17 @@
       "type": "ms-link-cards",
       "settings": {
         "eyebrow": "For your programme",
-        "heading": "A bed your guests remember, for thirty years.",
+        "heading": "A bed your guests remember.",
         "text": "What a hotel or residence project draws on."
       },
       "blocks": {
         "card_01": {
           "type": "card",
           "settings": {
-            "place": "regen",
-            "title": "Regeneration in contract",
-            "text": "Fifteen years, then fifteen more, written into the agreement.",
-            "image_fallback": "ms-photo-drapes-fireplace.jpg"
+            "place": "loro",
+            "title": "Loro Piana Interiors",
+            "text": "The full palette for every room, and your own cloth on request.",
+            "image_fallback": "ms-photo-lp-paisley-side.jpg"
           }
         },
         "card_02": {
@@ -117,8 +117,8 @@
         "qa_04": {
           "type": "qa",
           "settings": {
-            "q": "What happens at fifteen years?",
-            "a": "<p>The 15 + 15 service can be written into the agreement: the beds return to the atelier to be opened, cleaned and rebuilt, rather than replaced.</p>"
+            "q": "How are the beds delivered and installed?",
+            "a": "<p>By our own team, in phases aligned to your floor handovers: each bed is brought into the room, assembled and dressed.</p>"
           }
         }
       },
@@ -135,14 +135,6 @@
         "eyebrow": "For every room",
         "heading": "Drawn to the plan of each room.",
         "text": "Each bed is made to order: for a suite, a villa or a cabin, width, length and height are set to the plan, and the cloth to the room."
-      }
-    },
-    "years": {
-      "type": "ms-regen-years",
-      "settings": {
-        "eyebrow": "Thirty years, per room",
-        "heading": "One bed per room, for thirty years.",
-        "text": "An industrial mattress is replaced every eight to ten years. A Midsummer mattress goes back to the artisans who made it at fifteen, and returns to the room for fifteen more."
       }
     },
     "sizes": {
@@ -293,7 +285,6 @@
     "spec",
     "sizes",
     "s03",
-    "years",
     "s04",
     "places",
     "projects",

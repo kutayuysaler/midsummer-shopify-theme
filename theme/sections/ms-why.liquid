@@ -6,30 +6,30 @@
 <section class="ms-why">
   <div class="ms-why__in">
     <header class="ms-why__head">
-      <div class="ms-why__eyebrow">{{ section.settings.eyebrow }}</div>
-      <h2 class="ms-why__title">{{ section.settings.heading }}</h2>
-      {%- if section.settings.intro != blank -%}<p class="ms-why__intro">{{ section.settings.intro }}</p>{%- endif -%}
+      <div class="ms-why__eyebrow">{% render 'ms-t', v: section.settings.eyebrow %}</div>
+      <h2 class="ms-why__title">{% render 'ms-t', v: section.settings.heading %}</h2>
+      {%- if section.settings.intro != blank -%}<p class="ms-why__intro">{% render 'ms-t', v: section.settings.intro %}</p>{%- endif -%}
     </header>
-    <div class="ms-why__table" role="table" aria-label="{{ section.settings.heading | escape }}">
+    <div class="ms-why__table" role="table" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: section.settings.heading %}{% endcapture %}{{ ms_t_out | escape }}">
       <div class="ms-why__row ms-why__row--head" role="row">
-        <span role="columnheader"><span class="ms-visually-hidden">{{ section.settings.us_label }} · {{ section.settings.them_label }}</span></span>
-        <span role="columnheader" class="ms-why__us">{{ section.settings.us_label }}</span>
-        <span role="columnheader" class="ms-why__them">{{ section.settings.them_label }}</span>
+        <span role="columnheader"><span class="ms-visually-hidden">{% render 'ms-t', v: section.settings.us_label %} · {% render 'ms-t', v: section.settings.them_label %}</span></span>
+        <span role="columnheader" class="ms-why__us">{% render 'ms-t', v: section.settings.us_label %}</span>
+        <span role="columnheader" class="ms-why__them">{% render 'ms-t', v: section.settings.them_label %}</span>
       </div>
       {%- for block in section.blocks -%}
         <div class="ms-why__row" role="row" {{ block.shopify_attributes }}>
-          <span role="rowheader" class="ms-why__label"><span class="ms-why__n">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>{{ block.settings.label }}</span>
-          <p role="cell" class="ms-why__ours">{{ block.settings.ours }}</p>
-          <p role="cell" class="ms-why__theirs"><span class="ms-why__mlabel">{{ section.settings.them_label }}</span>{{ block.settings.theirs }}</p>
+          <span role="rowheader" class="ms-why__label"><span class="ms-why__n">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>{% render 'ms-t', v: block.settings.label %}</span>
+          <p role="cell" class="ms-why__ours">{% render 'ms-t', v: block.settings.ours %}</p>
+          <p role="cell" class="ms-why__theirs"><span class="ms-why__mlabel">{% render 'ms-t', v: section.settings.them_label %}</span>{% render 'ms-t', v: block.settings.theirs %}</p>
         </div>
       {%- endfor -%}
     </div>
     <div class="ms-why__cta">
       {%- if section.settings.button != blank -%}
-        <a class="ms-why__primary" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=appointment' %}#enquire" data-ms-landing>{{ section.settings.button }}</a>
+        <a class="ms-why__primary" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=appointment' %}#enquire" data-ms-landing>{% render 'ms-t', v: section.settings.button %}</a>
       {%- endif -%}
       {%- if section.settings.link_label != blank -%}
-        <a class="ms-why__secondary" href="{% render 'ms-link', to: 'collections' %}">{{ section.settings.link_label }}</a>
+        <a class="ms-why__secondary" href="{% render 'ms-link', to: 'collections' %}">{% render 'ms-t', v: section.settings.link_label %}</a>
       {%- endif -%}
     </div>
   </div>

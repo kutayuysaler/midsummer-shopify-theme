@@ -46,21 +46,21 @@
 <section class="ms-tg" data-ms-tg aria-labelledby="tg-{{ section.id }}">
   <div class="ms-tg__in">
     <div class="ms-tg__left">
-      <div class="ms-tg__eyebrow">{{ s.eyebrow }}</div>
-      <h2 class="ms-tg__title" id="tg-{{ section.id }}">{{ s.heading }}</h2>
-      <p class="ms-tg__text">{{ s.text }}</p>
-      <div class="ms-tg__picks" role="group" aria-label="{{ s.picks_label | escape }}">
+      <div class="ms-tg__eyebrow">{% render 'ms-t', v: s.eyebrow %}</div>
+      <h2 class="ms-tg__title" id="tg-{{ section.id }}">{% render 'ms-t', v: s.heading %}</h2>
+      <p class="ms-tg__text">{% render 'ms-t', v: s.text %}</p>
+      <div class="ms-tg__picks" role="group" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.picks_label %}{% endcapture %}{{ ms_t_out | escape }}">
         {%- for i in (1..5) -%}
           {%- assign kn = 'c' | append: i -%}
-          {%- if s[kn] != blank -%}<button type="button" class="ms-tg__pk{% if i == 1 %} is-on{% endif %}" data-tg="{{ i }}" aria-pressed="{% if i == 1 %}true{% else %}false{% endif %}">{{ s[kn] }}</button>{%- endif -%}
+          {%- if s[kn] != blank -%}<button type="button" class="ms-tg__pk{% if i == 1 %} is-on{% endif %}" data-tg="{{ i }}" aria-pressed="{% if i == 1 %}true{% else %}false{% endif %}">{% render 'ms-t', v: s[kn] %}</button>{%- endif -%}
         {%- endfor -%}
-        <button type="button" class="ms-tg__pk ms-tg__shuffle" data-tg="0" aria-pressed="false">{{ s.shuffle }}</button>
+        <button type="button" class="ms-tg__pk ms-tg__shuffle" data-tg="0" aria-pressed="false">{% render 'ms-t', v: s.shuffle %}</button>
       </div>
-      <p class="ms-tg__note" data-tg-note aria-live="polite">{{ s.note1 }}</p>
-      <template data-tg-notes>{{ s.notes }}</template>
+      <p class="ms-tg__note" data-tg-note aria-live="polite">{% render 'ms-t', v: s.note1 %}</p>
+      <template data-tg-notes>{% render 'ms-t', v: s.notes %}</template>
     </div>
     <div class="ms-tg__stage">
-      <svg class="ms-tg__svg" viewBox="0 0 440 340" role="img" aria-label="{{ s.heading | escape }}">
+      <svg class="ms-tg__svg" viewBox="0 0 440 340" role="img" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.heading %}{% endcapture %}{{ ms_t_out | escape }}">
         <defs>
           <pattern id="tg-{{ section.id }}-tuft" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="#BDB6A0"/></pattern>
           <pattern id="tg-{{ section.id }}-slat" width="6" height="10" patternUnits="userSpaceOnUse"><rect width="4.2" height="10" fill="#C49668"/></pattern>
@@ -75,19 +75,19 @@
         <g class="ms-tg__pc" data-pc="t" data-w="80" data-h="50"><rect x="-40" y="-25" width="80" height="50" rx="2" class="ms-tg__wood"/><rect x="-36" y="-21" width="72" height="42" fill="url(#tg-{{ section.id }}-slat)"/><rect x="-40" y="-25" width="80" height="50" rx="2" fill="none" stroke="#8D6440" stroke-width="1.2"/></g>
       </svg>
       <ul class="ms-tg__key" role="list">
-        <li><i class="ms-tg__k ms-tg__k--cu"></i>{{ s.key_cushion }}</li>
-        <li><i class="ms-tg__k ms-tg__k--bo"></i>{{ s.key_bolster }}</li>
-        <li><i class="ms-tg__k ms-tg__k--wood"></i>{{ s.key_table }}</li>
+        <li><i class="ms-tg__k ms-tg__k--cu"></i>{% render 'ms-t', v: s.key_cushion %}</li>
+        <li><i class="ms-tg__k ms-tg__k--bo"></i>{% render 'ms-t', v: s.key_bolster %}</li>
+        <li><i class="ms-tg__k ms-tg__k--wood"></i>{% render 'ms-t', v: s.key_table %}</li>
       </ul>
     </div>
   </div>
   <dl class="ms-tg__facts">
     {%- for i in (1..6) -%}
       {%- assign kl = 'f' | append: i | append: '_label' -%}{%- assign kv = 'f' | append: i -%}
-      {%- if s[kl] != blank and s[kv] != blank -%}<div><dt>{{ s[kl] }}</dt><dd>{{ s[kv] }}</dd></div>{%- endif -%}
+      {%- if s[kl] != blank and s[kv] != blank -%}<div><dt>{% render 'ms-t', v: s[kl] %}</dt><dd>{% render 'ms-t', v: s[kv] %}</dd></div>{%- endif -%}
     {%- endfor -%}
   </dl>
-  {%- if tg != nil and s.product_link != blank -%}<div class="ms-tg__more"><a href="{{ tg.url }}">{{ s.product_link }} <span aria-hidden="true">→</span></a></div>{%- endif -%}
+  {%- if tg != nil and s.product_link != blank -%}<div class="ms-tg__more"><a href="{{ tg.url }}">{% render 'ms-t', v: s.product_link %} <span aria-hidden="true">→</span></a></div>{%- endif -%}
 </section>
 <style>
   .ms-tg { background: linear-gradient(175deg, #EDF0EC 0%, #E3E7E2 100%); padding: clamp(64px, 8vw, 128px) clamp(18px, 5vw, 80px); color: #17140F; }

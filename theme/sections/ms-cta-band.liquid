@@ -12,22 +12,22 @@
 <section class="ms-cb {{ cls }}">
   <div class="ms-cb__in">
     <div>
-      {%- if section.settings.eyebrow != blank -%}<div class="ms-cb__eyebrow">{{ section.settings.eyebrow }}</div>{%- endif -%}
-      <h2 class="ms-cb__heading">{{ section.settings.heading }}</h2>
+      {%- if section.settings.eyebrow != blank -%}<div class="ms-cb__eyebrow">{% render 'ms-t', v: section.settings.eyebrow %}</div>{%- endif -%}
+      <h2 class="ms-cb__heading">{% render 'ms-t', v: section.settings.heading %}</h2>
     </div>
     <div class="ms-cb__col">
-      {%- if section.settings.text != blank -%}<div class="ms-cb__text">{{ section.settings.text }}</div>{%- endif -%}
+      {%- if section.settings.text != blank -%}<div class="ms-cb__text">{% render 'ms-t', v: section.settings.text %}</div>{%- endif -%}
       <div class="ms-cb__actions">
         {%- if section.settings.button != blank -%}
           <a class="ms-cb__button"
             href="{% if section.settings.button_enquire %}{% render 'ms-link', to: 'contact' %}{% elsif section.settings.button_place != blank and section.settings.button_place != 'none' %}{% render 'ms-link', to: section.settings.button_place %}{% else %}{{ section.settings.button_link | default: '#' }}{% endif %}"
             {% if section.settings.button_enquire %}data-ms-enquire{% endif %}
-            {% if section.settings.new_tab %}target="_blank" rel="noopener"{% endif %}>{{ section.settings.button }}</a>
+            {% if section.settings.new_tab %}target="_blank" rel="noopener"{% endif %}>{% render 'ms-t', v: section.settings.button %}</a>
         {%- endif -%}
         {%- if section.settings.link_label != blank -%}
           <a class="ms-cb__link"
             href="{% if section.settings.link_enquire %}{% render 'ms-link', to: 'contact' %}{% elsif section.settings.link_place != 'none' %}{% render 'ms-link', to: section.settings.link_place %}{% else %}{{ section.settings.link | default: '#' }}{% endif %}"
-            {% if section.settings.link_enquire %}data-ms-enquire{% endif %}>{{ section.settings.link_label }}</a>
+            {% if section.settings.link_enquire %}data-ms-enquire{% endif %}>{% render 'ms-t', v: section.settings.link_label %}</a>
         {%- endif -%}
       </div>
     </div>

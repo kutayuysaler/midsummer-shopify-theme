@@ -29,11 +29,11 @@
 <section data-dc-tpl="764" data-ms-round="{{ ms_round }}" data-ms-size-names="{{ 'ms.product.size_single' | t | escape }}|{{ 'ms.product.size_small_double' | t | escape }}|{{ 'ms.product.size_double' | t | escape }}|{{ 'ms.product.size_queen' | t | escape }}|{{ 'ms.product.size_king' | t | escape }}|{{ 'ms.product.size_super_king' | t | escape }}|{{ 'ms.product.size_us_queen' | t | escape }}|{{ 'ms.product.size_us_king' | t | escape }}" data-ms-title="{{ product.title | escape }}" style="padding: clamp(40px, 5vw, 84px) clamp(18px, 5vw, 80px) clamp(56px, 6vw, 96px); max-width: 1560px; margin: 0px auto;">
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: clamp(32px, 5vw, 88px); align-items: start;">
 <div style="border-top: 1px solid rgb(23, 20, 15); padding-top: 22px;">
-<div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgb(126, 98, 59);">{{ section.settings.t1 }}</div>
-<h2 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">{{ section.settings.t2 }}</h2>
-<p style="font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 16px; max-width: 34ch;">{{ section.settings.t3 }}</p>
+<div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgb(126, 98, 59);">{% render 'ms-t', v: section.settings.t1 %}</div>
+<h2 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">{% render 'ms-t', v: section.settings.t2 %}</h2>
+<p style="font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 16px; max-width: 34ch;">{% render 'ms-t', v: section.settings.t3 %}</p>
 <div class="ms-szp">
-<span class="ms-szp__k">{{ section.settings.sizes_label }}</span>
+<span class="ms-szp__k">{% render 'ms-t', v: section.settings.sizes_label %}</span>
 <div data-ms="sizes" class="ms-szp__row">
 {%- if ms_round != '' -%}
   {%- assign ms_ds = ms_round | split: ',' -%}
@@ -45,26 +45,50 @@
     assign ms_sw = section.settings[kw] | plus: 0
     assign ms_sl = section.settings[kl] | plus: 0
     if ms_sl >= 202 and ms_sl <= 204 and ms_sw >= 150 and ms_sw <= 155
-      assign ms_sn = 'ms.product.size_us_queen' | t
+      capture ms_sn
+        render 'ms-t', v: 'ms.product.size_us_queen'
+      endcapture
+      assign ms_sn = ms_sn | t
     elsif ms_sl >= 202 and ms_sl <= 204 and ms_sw >= 190 and ms_sw <= 195
-      assign ms_sn = 'ms.product.size_us_king' | t
+      capture ms_sn
+        render 'ms-t', v: 'ms.product.size_us_king'
+      endcapture
+      assign ms_sn = ms_sn | t
     elsif ms_sw < 110
-      assign ms_sn = 'ms.product.size_single' | t
+      capture ms_sn
+        render 'ms-t', v: 'ms.product.size_single'
+      endcapture
+      assign ms_sn = ms_sn | t
     elsif ms_sw < 130
-      assign ms_sn = 'ms.product.size_small_double' | t
+      capture ms_sn
+        render 'ms-t', v: 'ms.product.size_small_double'
+      endcapture
+      assign ms_sn = ms_sn | t
     elsif ms_sw < 150
-      assign ms_sn = 'ms.product.size_double' | t
+      capture ms_sn
+        render 'ms-t', v: 'ms.product.size_double'
+      endcapture
+      assign ms_sn = ms_sn | t
     elsif ms_sw < 170
-      assign ms_sn = 'ms.product.size_queen' | t
+      capture ms_sn
+        render 'ms-t', v: 'ms.product.size_queen'
+      endcapture
+      assign ms_sn = ms_sn | t
     elsif ms_sw < 190
-      assign ms_sn = 'ms.product.size_king' | t
+      capture ms_sn
+        render 'ms-t', v: 'ms.product.size_king'
+      endcapture
+      assign ms_sn = ms_sn | t
     else
-      assign ms_sn = 'ms.product.size_super_king' | t
+      capture ms_sn
+        render 'ms-t', v: 'ms.product.size_super_king'
+      endcapture
+      assign ms_sn = ms_sn | t
     endif
   -%}<span class="ms-szp__n">{{ ms_sn }}</span><span class="ms-szp__d">{{ section.settings[kw] }} × {{ section.settings[kl] }}</span></button>{%- endif -%}
 {%- endfor -%}
 {%- endif -%}
-<button type="button" class="ms-szp__c ms-szp__own" data-ms-size-own aria-pressed="false" aria-controls="ms-szo-{{ section.id }}" aria-expanded="false">{{ section.settings.own_label }}</button>
+<button type="button" class="ms-szp__c ms-szp__own" data-ms-size-own aria-pressed="false" aria-controls="ms-szo-{{ section.id }}" aria-expanded="false">{% render 'ms-t', v: section.settings.own_label %}</button>
 </div>
 </div>
 <div class="ms-sz" data-ms-sz>
@@ -79,27 +103,27 @@
     </div>
 <div class="ms-szo" id="ms-szo-{{ section.id }}" data-ms-szo hidden>
   {%- if ms_round != '' -%}
-  <label class="ms-szo__f"><span>{{ section.settings.own_d }}</span><b><input type="number" inputmode="numeric" min="150" max="320" step="1" value="{{ ms_round | split: ',' | first }}" data-szo-w><i>cm</i></b></label>
+  <label class="ms-szo__f"><span>{% render 'ms-t', v: section.settings.own_d %}</span><b><input type="number" inputmode="numeric" min="150" max="320" step="1" value="{{ ms_round | split: ',' | first }}" data-szo-w><i>cm</i></b></label>
   {%- else -%}
-  <label class="ms-szo__f"><span>{{ section.settings.own_w }}</span><b><input type="number" inputmode="numeric" min="70" max="320" step="1" value="170" data-szo-w><i>cm</i></b></label>
-  <label class="ms-szo__f"><span>{{ section.settings.own_l }}</span><b><input type="number" inputmode="numeric" min="150" max="320" step="1" value="210" data-szo-l><i>cm</i></b></label>
+  <label class="ms-szo__f"><span>{% render 'ms-t', v: section.settings.own_w %}</span><b><input type="number" inputmode="numeric" min="70" max="320" step="1" value="170" data-szo-w><i>cm</i></b></label>
+  <label class="ms-szo__f"><span>{% render 'ms-t', v: section.settings.own_l %}</span><b><input type="number" inputmode="numeric" min="150" max="320" step="1" value="210" data-szo-l><i>cm</i></b></label>
   {%- endif -%}
-  <a class="ms-szo__cta" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=proposal' %}#enquire" data-ms-enquire data-ms-enquiry="proposal" data-szo-cta>{{ section.settings.own_cta }}<span aria-hidden="true"> →</span></a>
+  <a class="ms-szo__cta" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=proposal' %}#enquire" data-ms-enquire data-ms-enquiry="proposal" data-szo-cta>{% render 'ms-t', v: section.settings.own_cta %}<span aria-hidden="true"> →</span></a>
 </div>
 </div>
 <div style="border-top: 1px solid rgb(23, 20, 15); padding-top: 22px;">
-<div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgb(126, 98, 59);">{{ section.settings.t11 }}</div>
+<div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgb(126, 98, 59);">{% render 'ms-t', v: section.settings.t11 %}</div>
 {%- capture ms_cloth -%}{%- if template.name == 'product' -%}{%- capture mk -%}{% render 'ms-kind', p: product %}{%- endcapture -%}{%- assign mkp = mk | split: '|' -%}{% render 'ms-product-cloth', key: mkp[1], handle: '', part: 'reason' %}{%- endif -%}{%- endcapture -%}
 {%- if ms_cloth != blank -%}{{ ms_cloth }}{%- else -%}
-<h2 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">{{ section.settings.t12 }}</h2>
-<p style="font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 16px; max-width: 34ch;">{{ section.settings.t13 }}</p>
+<h2 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">{% render 'ms-t', v: section.settings.t12 %}</h2>
+<p style="font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 16px; max-width: 34ch;">{% render 'ms-t', v: section.settings.t13 %}</p>
 {%- endif -%}
 </div>
 <div style="border-top: 1px solid rgb(23, 20, 15); padding-top: 22px;">
-<div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgb(126, 98, 59);">{{ section.settings.t14 }}</div>
-<h2 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">{{ section.settings.t15 }}</h2>
-<p style="font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 16px; max-width: 34ch;">{{ section.settings.t16 }}</p>
-<a data-ms="cta" href="{% render 'ms-link', to: 'regen' %}" style="display: inline-block; margin-top: 24px; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; border-bottom: 1px solid rgb(23, 20, 15); padding-bottom: 7px;">{{ section.settings.t17 }}</a>
+<div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgb(126, 98, 59);">{% render 'ms-t', v: section.settings.t14 %}</div>
+<h2 style="font-family: Newsreader, Georgia, serif; font-size: clamp(21px, 2.3vw, 29px); line-height: 1.16; letter-spacing: -0.02em; font-weight: 200; margin-top: 14px; max-width: 20ch;">{% render 'ms-t', v: section.settings.t15 %}</h2>
+<p style="font-size: 14.5px; line-height: 1.9; color: rgb(74, 68, 59); margin-top: 16px; max-width: 34ch;">{% render 'ms-t', v: section.settings.t16 %}</p>
+<a data-ms="cta" href="{% render 'ms-link', to: 'regen' %}" style="display: inline-block; margin-top: 24px; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; border-bottom: 1px solid rgb(23, 20, 15); padding-bottom: 7px;">{% render 'ms-t', v: section.settings.t17 %}</a>
 </div>
 </div>
 </section>

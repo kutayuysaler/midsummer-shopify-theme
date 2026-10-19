@@ -11,6 +11,6 @@
   if lang != 'en' and value == default
     echo key | t
   else
-    echo value
+    render 'ms-t', v: value
   endif
 -%}

@@ -14,15 +14,15 @@
   <div class="ms-fw__in">
     <div class="ms-fw__head">
       <div>
-        <div class="ms-fw__eyebrow">{{ section.settings.eyebrow }}</div>
+        <div class="ms-fw__eyebrow">{% render 'ms-t', v: section.settings.eyebrow %}</div>
         {%- if ig != blank -%}
           <a class="ms-fw__handle" href="{{ ig }}" target="_blank" rel="noopener">{{ handle }}</a>
         {%- else -%}
-          <div class="ms-fw__handle">{{ section.settings.heading }}</div>
+          <div class="ms-fw__handle">{% render 'ms-t', v: section.settings.heading %}</div>
         {%- endif -%}
       </div>
       <div class="ms-fw__side">
-        <p class="ms-fw__text">{{ section.settings.text }}</p>
+        <p class="ms-fw__text">{% render 'ms-t', v: section.settings.text %}</p>
         <div class="ms-fw__icons">{% render 'ms-social' %}</div>
       </div>
     </div>

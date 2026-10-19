@@ -30,15 +30,15 @@
   endif
 -%}
 {%- if pn_show -%}
-<nav class="ms-pn" aria-label="{{ s.label | escape }}" data-ms-pn>
+<nav class="ms-pn" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.label %}{% endcapture %}{{ ms_t_out | escape }}" data-ms-pn>
   <div class="ms-pn__in">
-    <span class="ms-pn__lab">{{ s.label }}</span>
+    <span class="ms-pn__lab">{% render 'ms-t', v: s.label %}</span>
     <ul class="ms-pn__list" role="list">
-      <li><a href="{{ u_pro | strip }}"{% if pn_current == 'architects' %} aria-current="page"{% endif %}>{{ s.l_architects }}</a></li>
-      <li><a href="{{ u_hosp | strip }}"{% if pn_current == 'hospitality' %} aria-current="page"{% endif %}>{{ s.l_hospitality }}</a></li>
-      {%- if u_portfolio != blank -%}<li><a href="{{ u_portfolio | strip }}"{% if pn_current == 'portfolio' %} aria-current="page"{% endif %}>{{ s.l_portfolio }}</a></li>{%- endif -%}
+      <li><a href="{{ u_pro | strip }}"{% if pn_current == 'architects' %} aria-current="page"{% endif %}>{% render 'ms-t', v: s.l_architects %}</a></li>
+      <li><a href="{{ u_hosp | strip }}"{% if pn_current == 'hospitality' %} aria-current="page"{% endif %}>{% render 'ms-t', v: s.l_hospitality %}</a></li>
+      {%- if u_portfolio != blank -%}<li><a href="{{ u_portfolio | strip }}"{% if pn_current == 'portfolio' %} aria-current="page"{% endif %}>{% render 'ms-t', v: s.l_portfolio %}</a></li>{%- endif -%}
     </ul>
-    <a class="ms-pn__cta" href="{{ u_trade | strip }}#enquire" data-ms-landing>{{ s.l_trade }}<span aria-hidden="true">→</span></a>
+    <a class="ms-pn__cta" href="{{ u_trade | strip }}#enquire" data-ms-landing>{% render 'ms-t', v: s.l_trade %}<span aria-hidden="true">→</span></a>
   </div>
 </nav>
 <style>

@@ -6,16 +6,16 @@
 <section class="ms-pc" data-ms-pc>
   <div class="ms-pc__in">
     <header class="ms-pc__head">
-      {%- if section.settings.eyebrow != blank -%}<div class="ms-pc__eyebrow">{{ section.settings.eyebrow }}</div>{%- endif -%}
-      <h2 class="ms-pc__heading">{{ section.settings.heading }}</h2>
-      {%- if section.settings.text != blank -%}<div class="ms-pc__text">{{ section.settings.text }}</div>{%- endif -%}
+      {%- if section.settings.eyebrow != blank -%}<div class="ms-pc__eyebrow">{% render 'ms-t', v: section.settings.eyebrow %}</div>{%- endif -%}
+      <h2 class="ms-pc__heading">{% render 'ms-t', v: section.settings.heading %}</h2>
+      {%- if section.settings.text != blank -%}<div class="ms-pc__text">{% render 'ms-t', v: section.settings.text %}</div>{%- endif -%}
     </header>
     <div class="ms-pc__grid">
       <div class="ms-pc__stage" aria-hidden="true">
         <div class="ms-pc__frame">
           {%- for block in section.blocks -%}
             {%- capture src -%}{% render 'ms-img', image: block.settings.image, fallback: block.settings.image_fallback, width: 1400 %}{%- endcapture -%}
-            {%- if src != blank -%}<img src="{{ src }}" alt="{{ block.settings.title | escape }}" data-ms-pc-img="{{ forloop.index0 }}" class="{% if forloop.first %}is-on{% endif %}" loading="lazy" width="1200" height="1500">{%- endif -%}
+            {%- if src != blank -%}<img src="{{ src }}" alt="{% capture ms_t_out %}{% render 'ms-t', v: block.settings.title %}{% endcapture %}{{ ms_t_out | escape }}" data-ms-pc-img="{{ forloop.index0 }}" class="{% if forloop.first %}is-on{% endif %}" loading="lazy" width="1200" height="1500">{%- endif -%}
           {%- endfor -%}
           <span class="ms-pc__count"><span data-ms-pc-n>01</span> / {{ section.blocks.size | prepend: '0' | slice: -2, 2 }}</span>
         </div>
@@ -24,10 +24,10 @@
         {%- for block in section.blocks -%}
           {%- capture src -%}{% render 'ms-img', image: block.settings.image, fallback: block.settings.image_fallback, width: 1000 %}{%- endcapture -%}
           <li class="ms-pc__step{% if forloop.first %} is-on{% endif %}" data-ms-pc-step="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
-            {%- if src != blank -%}<img class="ms-pc__inline" src="{{ src }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="1000" height="1250">{%- endif -%}
+            {%- if src != blank -%}<img class="ms-pc__inline" src="{{ src }}" alt="{% capture ms_t_out %}{% render 'ms-t', v: block.settings.title %}{% endcapture %}{{ ms_t_out | escape }}" loading="lazy" width="1000" height="1250">{%- endif -%}
             <span class="ms-pc__num">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
-            <h3 class="ms-pc__title">{{ block.settings.title }}</h3>
-            <div class="ms-pc__body">{{ block.settings.text }}</div>
+            <h3 class="ms-pc__title">{% render 'ms-t', v: block.settings.title %}</h3>
+            <div class="ms-pc__body">{% render 'ms-t', v: block.settings.text %}</div>
           </li>
         {%- endfor -%}
       </ol>
