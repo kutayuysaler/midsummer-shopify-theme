@@ -2465,6 +2465,12 @@ Also:
 
 ### Photographs
 
+- **Inside the bed: your two photographs.** On the home page and on every product without photographs of its own, the three cards now show one set of corner views:
+  - **I · The topper.** The tufted topper with its orange piping, on its base (your second photograph);
+  - **II · The mattress.** The mattress you kept: the orange-piped corner with the brass vent, on its grey boxspring;
+  - **III · The boxspring.** The boxspring's corner in its woven cloth, the mattress edge above it (your first photograph).
+
+  Each is cropped to the cards' 4:5 frame, with the subject in the same place and the brightness matched to the mattress. The rendered topper and the dark boxspring are gone. If the cards still show other pictures after installing, open the home page in the theme editor, select *Inside the bed*, and clear its *Photograph* fields.
 - **Brera's main photograph.** The corrected photograph, with the panels behind the bed running straight down, is `store-images/brera-main-corrected.jpg`.
 - **The Thin Topper, toned down.** Its main photograph is softened slightly wherever it appears (gallery, collection cards, menus). The setting is *Theme settings → Midsummer · Photographs → Soften these products' main photographs* (handles, separated by commas; set to `topper-basso`), with *Softening* at 12%. Add another product's handle there if its photograph also looks too bright.
 - **Reminder: delete the Paisley render photo.** In *Products → Paisley → Media*, remove the computer-rendered image. It cannot be removed from the theme.
@@ -2475,6 +2481,7 @@ Also:
 
 - **Coverage.** Every text the theme writes is translated: 1,916 texts, from the menus to the product pages, the quiz, the map and the structured data for search engines. They are in `locales/it.json` and `locales/ru.json`, under `ms_tx`.
 - **Names.** Product names and the names of the cloths, colours and collections (Essentials, Signature, Icons) stay as they are in every language.
+- **Dates.** The journal, the press page and the notes under each article write the month in the page's language: *14 marzo 2026*, *14 марта 2026*, *март 2026* (Shopify itself only writes English month names).
 - **Editing.** *Apps → Translate & Adapt → Theme* (or *Online Store → Themes → Edit default theme content*) lists every text with its translation. A change made there is saved in the theme, so uploading a new zip later replaces it: send me the change instead and it will go into the build.
 - **Theme Check.** It now reports the new keys as missing from the 31 other languages that come with the base theme (French, German and so on). The store does not offer those languages, and Shopify shows English for them. Italian and Russian match English key for key.
 
@@ -2532,7 +2539,7 @@ These are store content, so I can't change them from the theme. The corrected En
 | Check | Result |
 |---|---|
 | Build twice | identical |
-| Liquid strict (two parsers) | 473 files, 0 errors |
+| Liquid strict (two parsers) | 474 files, 0 errors |
 | Theme Check | 0 errors in the theme's code or in English, Italian and Russian; the same 68 warnings as before. The 31 unused languages lack the new keys, as explained above. |
 | Every page rendered in Italian and in Russian (78 templates) | no theme text left in English; what remains is store content (article titles and texts), which the import file covers |
 | Pages run in a browser, in Italian and Russian (desktop and phone) | the quiz, the map, the forms and the menus answer in the page's language |
@@ -2540,7 +2547,8 @@ These are store content, so I can't change them from the theme. The corrected En
 
 ### After installing, check
 
-1. **`/it` and `/ru`.** The home page, a product page (for example `/it/products/brera`), the quiz and the map of agents are all in the language. Product names stay as they are.
+1. **`/it` and `/ru`.** The home page, a product page (for example `/it/products/brera`), the quiz and the map of agents are all in the language. Product names stay as they are. A journal note shows its date with the month in the language.
 2. **Hotels & Residences.** No mention of regeneration or of fifteen years.
 3. **A product with *Specification at a glance*.** In the elevation, the boxspring is as wide as the mattress.
 4. **The Thin Topper** in the Toppers collection. Its photograph sits with the others.
+5. **The home page, *Inside the bed*.** The tufted topper with orange piping, the orange-piped mattress, and the boxspring's woven corner.

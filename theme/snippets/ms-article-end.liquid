@@ -42,7 +42,7 @@
         <span class="ms-art-nav__txt">
           <span class="ms-art-nav__lab">{{ lab }}</span>
           <em>{{ n.title }}</em>
-          <span class="ms-art-nav__meta">{% if nkick != blank %}{{ nkick }} · {% endif %}{{ n.published_at | date: '%-d %B %Y' }}</span>
+          <span class="ms-art-nav__meta">{% if nkick != blank %}{{ nkick }} · {% endif %}{% render 'ms-date', d: n.published_at, day: true %}</span>
         </span>
       </a>
     {%- endif -%}

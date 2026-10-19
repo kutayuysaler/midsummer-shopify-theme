@@ -396,7 +396,7 @@ for f in targets:
 #    list keeps its separators in translation), echoed, given as a fallback (| default: '…') or
 #    handed to a snippet as a label. The data strings the code parses (fibre lists) are left alone.
 SQ = r"'([^'\n]*)'"
-NO_LIT = SKIP_FILES | {'ms-system-facts.liquid', 'ms-sys-data.liquid'}
+NO_LIT = SKIP_FILES | {'ms-system-facts.liquid', 'ms-sys-data.liquid', 'ms-date.liquid'}  # ms-date: month names, already in each language
 PARAM_SKIP = {'ms-t', 'ms-tr', 'ms-link', 'ms-img', 'ms-srcset', 'ms-fibre-mark', 'ms-fibre-slug', 'ms-icon', 'ms-photo-tone', 'ms-on-white'}
 n_code = [0]
 

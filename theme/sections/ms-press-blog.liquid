@@ -40,7 +40,7 @@
             <span class="ms-pb__noimg">{{ pub }}</span>
           {%- endif -%}
         </span>
-        <span class="ms-pb__meta">{{ article.published_at | date: '%B %Y' }}</span>
+        <span class="ms-pb__meta">{% render 'ms-date', d: article.published_at, cap: true %}</span>
         <span class="ms-pb__ptitle">{{ article.title }}</span>
         {%- if article.excerpt != blank -%}<span class="ms-pb__excerpt">{{ article.excerpt | strip_html | truncatewords: 26 }}</span>{%- endif -%}
         <span class="ms-pb__read">{% render 'ms-t', v: section.settings.read_label %}</span>

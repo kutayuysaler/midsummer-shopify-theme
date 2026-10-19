@@ -103,7 +103,7 @@
         <span class="ms-jl__img">{%- if article.image -%}<img src="{{ article.image | image_url: width: 1800 }}" srcset="{{ article.image | image_url: width: 900 }} 900w, {{ article.image | image_url: width: 1800 }} 1800w" sizes="(max-width: 900px) 100vw, 58vw" alt="{{ article.image.alt | default: article.title | escape }}" width="1800" height="1200" fetchpriority="high">{%- endif -%}</span>
         <span class="ms-jl__leadtext">
           <span class="ms-jl__no">{% render 'ms-t', v: 'No.' %} {{ total }}</span>
-          <span class="ms-jl__meta">{{ catl | default: blog.title }} · {{ article.published_at | date: '%B %Y' }}</span>
+          <span class="ms-jl__meta">{{ catl | default: blog.title }} · {% render 'ms-date', d: article.published_at %}</span>
           <span class="ms-jl__leadtitle">{{ article.title }}</span>
           <span class="ms-jl__excerpt">{{ article.excerpt_or_content | strip_html | truncatewords: 40 }}</span>
           <span class="ms-jl__read">{% render 'ms-t', v: section.settings.read %}</span>

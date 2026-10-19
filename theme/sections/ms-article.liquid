@@ -13,7 +13,7 @@
     <div class="ms-art-kicker"><svg aria-hidden="true" height="20" viewBox="0 0 24 24" width="20"><path d="M4 20 C4 11 11 4 20 4 C20 13 13 20 4 20 Z" fill="none" stroke="currentColor" stroke-width="1.1"></path><path d="M4 20 L14 10" fill="none" stroke="currentColor" stroke-width="1.1"></path></svg>{{ kicker }}</div>
     <h1 class="ms-art-title">{{ article.title }}</h1>
     {%- if dek != blank -%}<p class="ms-art-dek">{{ dek }}</p>{%- endif -%}
-    <div class="ms-art-meta"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%-d %B %Y' }}</time>{%- if ms_gap > 604800 %}<span>{% capture ms_t_out %}{% render 'ms-t', v: section.settings.updated %}{% endcapture %}{% capture ms_l1 %}{% render 'ms-t', v: 'Updated' %}{% endcapture %}{{ ms_t_out | default: ms_l1 }} <time datetime="{{ article.updated_at | date: '%Y-%m-%d' }}">{{ article.updated_at | date: '%-d %B %Y' }}</time></span>{%- endif %}<span>{{ minutes }} {% render 'ms-t', v: section.settings.minutes %}</span></div>
+    <div class="ms-art-meta"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{% render 'ms-date', d: article.published_at, day: true %}</time>{%- if ms_gap > 604800 %}<span>{% capture ms_t_out %}{% render 'ms-t', v: section.settings.updated %}{% endcapture %}{% capture ms_l1 %}{% render 'ms-t', v: 'Updated' %}{% endcapture %}{{ ms_t_out | default: ms_l1 }} <time datetime="{{ article.updated_at | date: '%Y-%m-%d' }}">{% render 'ms-date', d: article.updated_at, day: true %}</time></span>{%- endif %}<span>{{ minutes }} {% render 'ms-t', v: section.settings.minutes %}</span></div>
   </div>
   {%- if article.image -%}
   <figure class="ms-art-hero__img">
