@@ -159,49 +159,49 @@
         "p01": {
           "type": "photo",
           "settings": {
-            "image_fallback": "ms-photo-sleep-made-up.jpg",
-            "caption": "A bed made up in the blue-and-gold room.",
-            "ratio": "1.498"
+            "image_fallback": "ms-photo-sleep-glass.jpg",
+            "caption": "Morning by the glass, beside a lemon tree.",
+            "ratio": "1.399"
           }
         },
         "p02": {
           "type": "photo",
           "settings": {
-            "image_fallback": "ms-photo-sleep-turned-down.jpg",
-            "caption": "Turned down for the night.",
-            "ratio": "0.668"
+            "image_fallback": "ms-photo-sleep-tea.jpg",
+            "caption": "Tea and a book on the windowsill.",
+            "ratio": "0.750"
           }
         },
         "p03": {
           "type": "photo",
           "settings": {
-            "image_fallback": "ms-photo-sleep-pillows.jpg",
-            "caption": "Pillows against a padded headboard.",
-            "ratio": "0.668"
+            "image_fallback": "ms-photo-sleep-throws.jpg",
+            "caption": "Throws folded by the window.",
+            "ratio": "0.750"
           }
         },
         "p04": {
           "type": "photo",
           "settings": {
-            "image_fallback": "ms-photo-sleep-blanket.jpg",
-            "caption": "A grey blanket over white sheets.",
-            "ratio": "0.668"
+            "image_fallback": "ms-photo-sleep-late-light.jpg",
+            "caption": "Late light across the pillows.",
+            "ratio": "1.076"
           }
         },
         "p05": {
           "type": "photo",
           "settings": {
-            "image_fallback": "ms-photo-sleep-bedside.jpg",
-            "caption": "The bedside, in the parrot room.",
-            "ratio": "0.861"
+            "image_fallback": "ms-photo-sleep-tulips.jpg",
+            "caption": "Two low tables and a few tulips.",
+            "ratio": "0.750"
           }
         },
         "p06": {
           "type": "photo",
           "settings": {
-            "image_fallback": "ms-photo-sleep-armchair.jpg",
-            "caption": "A throw left on the armchair.",
-            "ratio": "0.668"
+            "image_fallback": "ms-photo-sleep-woven-throw.jpg",
+            "caption": "A woven throw at the foot of the bed.",
+            "ratio": "0.750"
           }
         }
       },

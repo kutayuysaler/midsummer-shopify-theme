@@ -2747,3 +2747,59 @@ Rectangular and round beds alike. Nothing about how the beds are built is shown.
    - upload the four `store-images/` photographs;
    - import the translations file;
    - optionally, a mohair goat photograph for Natural materials.
+
+## 49. Round 27: the award on Top as a quiet label, Sleep Culture's rooms from the palazzo shoot
+
+### Top: the Green Product Award
+
+The round, turning seal on *Inside Top* (§48) is gone. In its place is a quiet label above the drawing, in the house's own type:
+
+- the award's own mark, at the left;
+- *Green Product Award* in the serif;
+- *Berlin · 2025* in small capitals beneath it (*Berlino*, *Берлин*);
+- a thin frame and a small ↗.
+
+Nothing moves. The frame darkens and the arrow lifts a little on hover. The label leads to the award's page, as the seal did. It appears on the Top system only, never on Top Dream. On a phone it sits above the drawing.
+
+### Sleep Culture: *Rooms kept for rest*
+
+The six photographs now come from the house's palazzo shoot (the A8447 series in Drive and Dropbox). Each is a different room or moment, and none of them is shown anywhere else on the site:
+
+1. *Morning by the glass, beside a lemon tree.* The bed by the conservatory windows.
+2. *Tea and a book on the windowsill.*
+3. *Throws folded by the window.*
+4. *Late light across the pillows.* The embroidered headboard under the loft.
+5. *Two low tables and a few tulips.*
+6. *A woven throw at the foot of the bed.*
+
+They make two full rows. The Via Andegari pictures that were here (the blue-and-gold room, the parrot room, the armchair) now stay on the Milano atelier's page alone, and the six files that only this gallery used are out of the theme. Every photograph is at its own resolution or below, never enlarged; `scripts/gallery_photos_r27.py` prepares them.
+
+**The galleries' last row.** A last row nearly as long as a full one now fills the width, as Sleep Culture's second row does. A short one (the atelier's last two) still sits centred at the height of the others.
+
+### Natural materials: the mohair goat
+
+Still to come. The free photo libraries (Wikimedia Commons, Unsplash, Pexels and the like) are blocked by this workspace's network, so the photograph could not be fetched. Two public-domain Angora goats on Wikimedia Commons fit: [Angora goat arp.jpg](https://commons.wikimedia.org/wiki/File:Angora_goat_arp.jpg) and [Colored Angora Goat.jpg](https://commons.wikimedia.org/wiki/File:Colored_Angora_Goat.jpg). Once either reaches Drive, or the network allows `upload.wikimedia.org`, it replaces `ms-fibre-photo-mohair.jpg` and its small copy.
+
+### Translations
+
+The seven new texts are in Italian and Russian: the six captions and *Berlin · 2025*. The theme's texts match key for key in English, Italian and Russian.
+
+### Checks
+
+| Check | Result |
+|---|---|
+| Build twice | identical |
+| Liquid strict | 476 files, 0 errors |
+| Theme Check | 0 errors; the same 68 warnings as before |
+| Every template rendered and run in a browser (78 pages) | no script errors, no missing files, one H1 each; the same four templates the local renderer cannot draw, as before |
+| Phones at 320, 360, 390 and 430 px | nothing covered or cut; only the strips meant to scroll sideways |
+| Interaction tests | 260 pass. New: Sleep Culture's six palazzo photographs in two rows across the width; Top's label above the drawing, still and linked (not on Top Dream or Vivaldi), and no seal left |
+
+### After installing, check
+
+1. **Top.** The label above the drawing in *Inside Top*; it opens the award's page.
+2. **Sleep Culture.** *Rooms kept for rest*: the lemon tree first, two full rows.
+3. **Still to do in the admin, from §46 and §47:**
+   - delete the Paisley render photograph;
+   - upload the four `store-images/` photographs;
+   - import the translations file.

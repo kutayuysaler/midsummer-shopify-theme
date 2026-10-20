@@ -1,7 +1,7 @@
 {%- comment -%}
   Photographs, composed: each row fills the width, every photograph at its own proportion (nothing
-  cropped, nothing to scroll sideways), the rows of a like height; a short last row sits centred at
-  the same height. On a phone, two to a row, a landscape across the whole width. A photograph chosen
+  cropped, nothing to scroll sideways), the rows of a like height; a last row nearly as long as the
+  others fills the width too, a short one sits centred at the same height. On a phone, two to a row, a landscape across the whole width. A photograph chosen
   in the editor gives its own proportion; the theme's own carry theirs in "Proportion".
 {%- endcomment -%}
 {%- liquid
@@ -80,14 +80,18 @@
     assign rowbuf = rowbuf | append: one
   endfor
   if n > 0
+    # a last row nearly as long as a full one fills the width; a short one keeps the others' height
     assign den = acc
-    if nrows > 0
-      assign avg = sums | divided_by: nrows
-      if acc < avg
-        assign den = avg
+    assign nearly = target | times: 0.9
+    if acc < nearly
+      if nrows > 0
+        assign avg = sums | divided_by: nrows
+        if acc < avg
+          assign den = avg
+        endif
+      else
+        assign den = target
       endif
-    elsif acc < target
-      assign den = target
     endif
     assign den = den | round: 3
     assign rows = rows | append: '<div class="ms-gl__row" style="--n: ' | append: n | append: '; --den: ' | append: den | append: ';">' | append: rowbuf | append: '</div>'
