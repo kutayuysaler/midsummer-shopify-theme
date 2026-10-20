@@ -2646,3 +2646,104 @@ A tag always wins over the words.
    - delete the Paisley render photograph;
    - upload the four `store-images/` photographs;
    - import `store-translations/Midsummer-Milano_translations_import.csv`.
+
+## 48. Round 26: the editor's previews, collection photographs in their own colours, an endless press line, the galleries composed, the award on Top
+
+### What you saw in the editor
+
+- **The Tangram on every collection.** The Tangram section lives in the default collection template, but it shows only on the Outdoor collection and on the Tangram product. In the theme editor it used to show everywhere, so that it could be edited from any page: that is what you saw on Essentials and Icons. Now, elsewhere in the editor, a thin dashed note takes its place: *Tangram is shown only on the Outdoor collection and on the Tangram itself.* Visitors never see the note, and the store never showed the Tangram there.
+- ***Inside the bed* works the same way.** On a product it does not describe (a pillow, a throw), the editor shows a note instead of the section.
+
+### Collection photographs
+
+- **No more tint.** The photograph at the top of each collection had a dark veil over all of it, and the house tone on top of that: the "double filter" of last time. Now:
+  - the photograph is shown in its own colours;
+  - a soft shade sits only where the header and the title are;
+  - the products listed on a collection page are shown without the tone too.
+
+  There is nothing to upload.
+- **The Thin Topper** keeps its gentle softening on the collection pages.
+- **Icons opens on the Giotto Round in the abbey of San Galgano**, the Romanesque vaults around it. The bed sits at the left, so on Icons the title moves to the right, over the stone. The collection's own image in the admin (Bellagio, the small picture in the editor) is left as it is.
+
+### The press, endless
+
+- **One seamless line** of every publication's mark, with no arrows and no pages.
+- **It drifts very slowly**, and stops as soon as the cursor is over it.
+- **On a computer**, the cursor becomes a round dark disc that says *Drag*. Hold and move the line, and it glides on a little when let go. A trackpad's sideways swipe moves it too, and on a phone a swipe does.
+- **The pieces still work.** A mark with a piece still brings it forward when hovered or tapped. A drag never counts as a click.
+- **Accessibility.** The copies that make the line endless are hidden from screen readers. A mark reached with the keyboard comes into view, and the line waits.
+- **Turning off the drift.** *Home · Recognition* → *Let the line of marks drift slowly*. It also stays still for visitors who ask their device for less motion.
+
+### Photographs, composed
+
+- ***Rooms kept for rest* (Sleep Culture)** is now all from the house's own shoot at Via Andegari. The two older Tulip pictures are retired. The six photographs:
+  - the blue-and-gold room made up;
+  - turned down in the parrot room;
+  - pillows against the headboard;
+  - a grey blanket over white sheets;
+  - the bedside;
+  - a throw left on the armchair.
+- **No more sideways strip.** Both galleries, and *Inside Via Andegari* on the Milano atelier page, are composed rows instead of a strip to scroll:
+  - each row fills the page's width, every photograph at its own proportion, nothing cropped;
+  - a short last row keeps the height of the others and sits centred;
+  - on a phone, upright photographs go two by two and a landscape takes the whole width.
+- **In the editor**, each photograph is a block; one chosen from the store gives its own proportion.
+
+### Hotels & Residences: the strip under the header
+
+While scrolling, a thin strip of the page could show between the header and the Professionals bar. The bar measured the header once, when the page opened, and the header's real height can differ by a few pixels. Now the bar follows the header's bottom edge as it changes and sits a hair under it. While the bar is held under the header, a cream band behind it covers any gap.
+
+### Top: the Green Product Award
+
+On the Top product page, *Inside Top* now carries a round seal at the top of the drawing:
+
+- its ring reads *Green Product Award · Berlin · 2025* and turns slowly (still for visitors who ask for less motion);
+- the award's own mark is at its centre, with *2025*;
+- it leads to the award's page.
+
+It appears on the Top system only, never on Top Dream, and sits alongside the award card at the top of the page.
+
+### The drawings
+
+*Inside the bed* is refined:
+
+- a soft crown of light on the cushions' tops;
+- a fine shade along each part's lower edges, and a catch of light on the front corner;
+- a second, closer shadow where the bed meets the floor.
+
+Rectangular and round beds alike. Nothing about how the beds are built is shown.
+
+### Translations
+
+- **New texts.** The eight new texts are in Italian and Russian:
+  - the three new captions;
+  - the seal's ring;
+  - *Drag* (*Trascina*, *Листайте*);
+  - the editor's two notes and *Shown in the editor only*.
+- **The cursor.** The round cursor keeps its shape in every language: where the word is longer, its little arrows give way.
+- **Coverage.** The theme's 1,924 texts match key for key in English, Italian and Russian.
+
+### Checks
+
+| Check | Result |
+|---|---|
+| Build twice | identical |
+| Liquid strict | 476 files, 0 errors |
+| Theme Check | 0 errors; the same 68 warnings as before |
+| Every template rendered and run in a browser (78 pages) | no script errors, no missing files, one H1 each; the same four templates the local renderer cannot draw, as before |
+| Phones at 320, 360, 390 and 430 px | nothing covered or cut; the galleries no longer scroll sideways |
+| Interaction tests | 259 pass. New: the endless press line (copies hidden from screen readers, no arrows, drifting, still under the cursor, moved by hand, one line on a phone); the galleries in even rows with nothing to scroll and no Tulip pictures; the collection photographs untoned and unveiled; Icons in the abbey with its title to the right; Top's seal (not on Top Dream or Vivaldi); the Professionals bar meeting the header while scrolling |
+
+### After installing, check
+
+1. **The home page, *Recognition & press*.** The line drifts; over it the cursor turns into *Drag*; it can be pulled.
+2. **Icons.** The abbey of San Galgano, the title on the right. **Essentials and Signature** show their photographs without the dark veil.
+3. **Sleep Culture** and **the Milano atelier.** The photographs in composed rows.
+4. **Top.** The seal on *Inside Top*.
+5. **Hotels & Residences.** Scroll: no strip between the header and the Professionals bar.
+6. **In the theme editor**, the default collection previewing Essentials shows the dashed Tangram note, not the Tangram.
+7. **Still to do in the admin, from §46 and §47:**
+   - delete the Paisley render photograph;
+   - upload the four `store-images/` photographs;
+   - import the translations file;
+   - optionally, a mohair goat photograph for Natural materials.

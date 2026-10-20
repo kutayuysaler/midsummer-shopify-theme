@@ -1,0 +1,15 @@
+{%- comment -%}
+  Round 26: in the theme editor only. A section that shows on some pages alone (the Tangram on
+  the outdoor collection, Inside the bed on the products it describes) sits in a shared template;
+  elsewhere the editor shows this slim note in its place, so a preview never shows it where the
+  store does not. Visitors never see it.
+{%- endcomment -%}
+{%- if request.design_mode -%}
+<div class="ms-ednote" style="max-width: 1240px; margin: 20px auto; padding: 14px 22px; border: 1px dashed #CFC6B6; border-radius: 2px; background: #FBF9F5; color: #6E675C; font-size: 12.5px; line-height: 1.55; text-align: center;">
+  {%- case kind -%}
+    {%- when 'tangram' -%}{% render 'ms-t', v: 'Tangram is shown only on the Outdoor collection and on the Tangram itself. Preview one of them to see it and edit it here.' %}
+    {%- when 'craft' -%}{% render 'ms-t', v: 'Inside the bed is shown only on the bed systems, mattresses, toppers and boxsprings it describes. Preview one of them to see it and edit it here.' %}
+  {%- endcase -%}
+  <span style="display: block; margin-top: 6px; font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: #8A8276;">{% render 'ms-t', v: 'Shown in the editor only' %}</span>
+</div>
+{%- endif -%}

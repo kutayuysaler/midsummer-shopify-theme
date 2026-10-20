@@ -166,67 +166,75 @@
           "type": "photo",
           "settings": {
             "image_fallback": "ms-photo-atelier-leopard.jpg",
-            "caption": "The leopard room, a bed made up for the night."
+            "caption": "The leopard room, a bed made up for the night.",
+            "ratio": "0.668"
           }
         },
         "p02": {
           "type": "photo",
           "settings": {
             "image_fallback": "ms-photo-atelier-teal.jpg",
-            "caption": "Teal bedding, printed with flowers and birds."
+            "caption": "Teal bedding, printed with flowers and birds.",
+            "ratio": "0.668"
           }
         },
         "p03": {
           "type": "photo",
           "settings": {
             "image_fallback": "ms-photo-atelier-parrot-room.jpg",
-            "caption": "The parrot room."
+            "caption": "The parrot room.",
+            "ratio": "0.668"
           }
         },
         "p04": {
           "type": "photo",
           "settings": {
             "image_fallback": "ms-photo-atelier-blue-gold-made.jpg",
-            "caption": "The blue-and-gold room, the bed made up."
+            "caption": "The blue-and-gold room, the bed made up.",
+            "ratio": "1.498"
           }
         },
         "p05": {
           "type": "photo",
           "settings": {
             "image_fallback": "ms-photo-atelier-lacquer.jpg",
-            "caption": "Walnut and orange lacquer."
+            "caption": "Walnut and orange lacquer.",
+            "ratio": "0.668"
           }
         },
         "p06": {
           "type": "photo",
           "settings": {
             "image_fallback": "ms-photo-atelier-red-wall.jpg",
-            "caption": "A golden branch on a red wall."
+            "caption": "A golden branch on a red wall.",
+            "ratio": "0.668"
           }
         },
         "p07": {
           "type": "photo",
           "settings": {
             "image_fallback": "ms-photo-atelier-edge.jpg",
-            "caption": "The edge of a mattress, piped and stitched by hand."
+            "caption": "The edge of a mattress, piped and stitched by hand.",
+            "ratio": "1.498"
           }
         },
         "p08": {
           "type": "photo",
           "settings": {
             "image_fallback": "ms-photo-atelier-linen.jpg",
-            "caption": "Linen, folded and ready for the bed."
+            "caption": "Linen, folded and ready for the bed.",
+            "ratio": "0.668"
           }
         }
       },
       "block_order": [
+        "p04",
         "p01",
         "p02",
         "p03",
-        "p04",
         "p05",
-        "p06",
         "p07",
+        "p06",
         "p08"
       ]
     }

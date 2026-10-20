@@ -200,10 +200,10 @@
 {%- endcapture -%}
 {%- assign u_trade_e = u_trade | strip | append: '#enquire' -%}
 {% capture ms_d3 %}{% render 'ms-t', v: ss.t3 %}{% endcapture %}{% capture ms_d4 %}{% render 'ms-t', v: ss.mg_pro_lede %}{% endcapture %}{%- liquid
-  capture ms_l182
+  capture ms_l181
   render 'ms-t', v: 'Open a project file'
   endcapture
-  render 'ms-mega-panel', key: 'pro', no: '03', title: ms_d3, lede: ms_d4, items: items, feature: ss.mg_img_pro, foot: foot, cta1_url: u_trade_e, cta1_label: ms_l182, cta1_landing: true
+  render 'ms-mega-panel', key: 'pro', no: '03', title: ms_d3, lede: ms_d4, items: items, feature: ss.mg_img_pro, foot: foot, cta1_url: u_trade_e, cta1_label: ms_l181, cta1_landing: true
 -%}
 
 {%- comment -%} 04 · Journal: the newest notes, then the subjects {%- endcomment -%}

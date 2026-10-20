@@ -159,36 +159,49 @@
         "p01": {
           "type": "photo",
           "settings": {
-            "image_fallback": "ms-photo-sleep-tulip.jpg",
-            "caption": "Tulip, in blue velvet, made up for the night."
+            "image_fallback": "ms-photo-sleep-made-up.jpg",
+            "caption": "A bed made up in the blue-and-gold room.",
+            "ratio": "1.498"
           }
         },
         "p02": {
           "type": "photo",
           "settings": {
-            "image_fallback": "ms-photo-sleep-pillows.jpg",
-            "caption": "Pillows against a padded headboard."
+            "image_fallback": "ms-photo-sleep-turned-down.jpg",
+            "caption": "Turned down for the night.",
+            "ratio": "0.668"
           }
         },
         "p03": {
           "type": "photo",
           "settings": {
-            "image_fallback": "ms-photo-sleep-turned-down.jpg",
-            "caption": "Turned down for the night."
+            "image_fallback": "ms-photo-sleep-pillows.jpg",
+            "caption": "Pillows against a padded headboard.",
+            "ratio": "0.668"
           }
         },
         "p04": {
           "type": "photo",
           "settings": {
-            "image_fallback": "ms-photo-sleep-throw.jpg",
-            "caption": "A throw folded back at the foot of the bed."
+            "image_fallback": "ms-photo-sleep-blanket.jpg",
+            "caption": "A grey blanket over white sheets.",
+            "ratio": "0.668"
           }
         },
         "p05": {
           "type": "photo",
           "settings": {
-            "image_fallback": "ms-photo-sleep-made-up.jpg",
-            "caption": "A bed made up in the blue-and-gold room."
+            "image_fallback": "ms-photo-sleep-bedside.jpg",
+            "caption": "The bedside, in the parrot room.",
+            "ratio": "0.861"
+          }
+        },
+        "p06": {
+          "type": "photo",
+          "settings": {
+            "image_fallback": "ms-photo-sleep-armchair.jpg",
+            "caption": "A throw left on the armchair.",
+            "ratio": "0.668"
           }
         }
       },
@@ -197,7 +210,8 @@
         "p02",
         "p03",
         "p04",
-        "p05"
+        "p05",
+        "p06"
       ]
     }
   },

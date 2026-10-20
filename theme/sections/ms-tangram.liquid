@@ -38,9 +38,7 @@
       assign show = true
     endif
   endif
-  if request.design_mode
-    assign show = true
-  endif
+  # in the theme editor, elsewhere: a note in its place (snippets/ms-ednote), not the section itself
 -%}
 {%- if show -%}
 <section class="ms-tg" data-ms-tg aria-labelledby="tg-{{ section.id }}">
@@ -186,6 +184,8 @@
   document.addEventListener('shopify:section:load', function (e) { init(e.target.querySelector('[data-ms-tg]')); });
 })();
 </script>
+{%- else -%}
+{%- render 'ms-ednote', kind: 'tangram' -%}
 {%- endif -%}
 
 {% schema %}

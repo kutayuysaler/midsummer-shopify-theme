@@ -193,13 +193,9 @@
   {%- if section.blocks.size > 0 -%}
     <div class="ms-pr__strip">
       <div class="ms-pr__label">{% render 'ms-t', v: s.press_label %}</div>
-      <div class="ms-pr__rail" data-ms-pr-rail>
+      <div class="ms-pr__rail" data-ms-pr-rail data-drift="{% if s.drift == false %}0{% else %}1{% endif %}">
         <ul class="ms-pr__run" role="list" data-ms="pressrow">{{ strip }}</ul>
-      </div>
-      <div class="ms-pr__pager" data-ms-pr-pager hidden>
-        <button type="button" class="ms-pr__turn" data-ms-pr-turn="-1" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: 'Previous' %}{% endcapture %}{{ ms_t_out | escape }}"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10 3.5 5.5 8l4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.1"/></svg></button>
-        <span class="ms-pr__pages" data-ms-pr-pages role="group" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.press_label %}{% endcapture %}{{ ms_t_out | escape }}"></span>
-        <button type="button" class="ms-pr__turn" data-ms-pr-turn="1" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: 'Next' %}{% endcapture %}{{ ms_t_out | escape }}"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.1"/></svg></button>
+        <span class="ms-pr__cursor" aria-hidden="true"><span><svg viewBox="0 0 10 10"><path d="M6.5 2 3.5 5l3 3" fill="none" stroke="currentColor" stroke-width="1"/></svg>{% render 'ms-t', v: 'Drag' %}<svg viewBox="0 0 10 10"><path d="m3.5 2 3 3-3 3" fill="none" stroke="currentColor" stroke-width="1"/></svg></span></span>
       </div>
       {%- if press_url != blank and s.all_label != blank -%}<a class="ms-pr__all" href="{{ press_url }}">{% render 'ms-t', v: s.all_label %} <span aria-hidden="true">→</span></a>{%- endif -%}
     </div>
@@ -259,42 +255,31 @@
   .ms-pr__run { animation: none; flex: 1 1 auto; flex-wrap: wrap; justify-content: center; max-width: 1180px; }
   .ms-pr__logo > * { width: auto; height: 48px; padding: 0 clamp(12px, 1.6vw, 22px); }
   .ms-pr__run { flex-wrap: nowrap; overflow: hidden; }
-  /* Round 25: every publication's mark, one still line at a time, those with a piece first; the
-     arrows beneath turn to the next line, and nothing moves on its own */
-  .ms-pr__rail { margin-top: 16px; }
-  .ms-site .ms-pr .ms-pr__run { width: 100%; max-width: 1160px; margin: 0 auto; flex-wrap: nowrap; justify-content: center; overflow: hidden; transition: opacity .26s ease; }
-  .ms-pr__run.is-turning { opacity: 0; }
-  .ms-pr__run > li { display: flex; flex: 0 1 158px; min-width: 0; justify-content: center; }
-  .ms-pr__run > li:nth-child(n+9) { display: none; }
-  .ms-pr.is-paged .ms-pr__run > li { display: flex; }
-  .ms-pr.is-paged .ms-pr__run > li[hidden] { display: none; }
-  .ms-pr__logo > * { width: 100%; height: 64px; padding: 0 10px; }
-  .ms-site .ms-pr .ms-pr__logo img { height: 24px; width: auto; max-width: 100%; max-height: 34px; opacity: .58; }
+  /* Round 26: one endless line of every publication's mark, drifting slowly, held and moved by hand */
+  .ms-pr__rail { position: relative; display: block; margin: 14px 0 0; overflow: hidden; touch-action: pan-y; -webkit-mask-image: none; mask-image: none; user-select: none; -webkit-user-select: none; }
+  .ms-pr__rail::before, .ms-pr__rail::after { content: ''; position: absolute; top: 0; bottom: 0; z-index: 1; width: clamp(40px, 9vw, 160px); pointer-events: none; }
+  .ms-pr__rail::before { left: 0; background: linear-gradient(90deg, #FBF9F5, rgba(251, 249, 245, 0)); }
+  .ms-pr__rail::after { right: 0; background: linear-gradient(270deg, #FBF9F5, rgba(251, 249, 245, 0)); }
+  .ms-site .ms-pr .ms-pr__run { display: flex; flex-wrap: nowrap; justify-content: flex-start; width: max-content; max-width: none; margin: 0; overflow: visible; animation: none; will-change: transform; }
+  .ms-pr__run > li, .ms-pr__run > li:nth-child(n) { display: flex; flex: 0 0 auto; }
+  .ms-pr__logo > * { width: clamp(136px, 12vw, 176px); height: 76px; padding: 0 clamp(14px, 1.6vw, 26px); }
+  .ms-site .ms-pr .ms-pr__logo img { height: 24px; width: auto; max-width: 100%; max-height: 30px; opacity: .58; pointer-events: none; -webkit-user-drag: none; transition: opacity .35s ease; }
   .ms-site .ms-pr .ms-pr__logo > button:hover img, .ms-site .ms-pr .ms-pr__logo > button:focus-visible img, .ms-site .ms-pr .ms-pr__logo.is-on img { opacity: 1; }
-  .ms-pr__logo.is-plain > * { cursor: default; }
-  .ms-pr__pager { display: flex; align-items: center; justify-content: center; gap: 4px; margin-top: 6px; }
-  .ms-pr__pager[hidden] { display: none; }
-  .ms-pr__turn { width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; padding: 0; background: none; border: 0; border-radius: 50%; color: #8A8276; cursor: pointer; transition: color .3s ease, background-color .3s ease; }
-  .ms-pr__turn:hover, .ms-pr__turn:focus-visible { color: #17140F; background: #F1ECE2; }
-  .ms-pr__turn svg { width: 15px; height: 15px; }
-  .ms-pr__pages { display: flex; gap: 4px; margin: 0 6px; }
-  .ms-pr__pages button { width: 24px; height: 24px; padding: 0; background: none; border: 0; cursor: pointer; display: flex; align-items: center; }
-  .ms-pr__pages button span { display: block; width: 100%; height: 1px; background: #DDD6C9; transition: background-color .3s ease; }
-  .ms-pr__pages button:hover span { background: #A89F90; }
-  .ms-pr__pages button[aria-current="true"] span { background: #17140F; }
+  .ms-pr__logo.is-plain > * { cursor: inherit; }
+  .ms-pr__rail.is-dragging .ms-pr__logo > * { cursor: inherit; }
+  .ms-pr__cursor { position: absolute; left: 0; top: 0; z-index: 2; width: 0; height: 0; pointer-events: none; }
+  .ms-pr__cursor > span { position: absolute; left: -42px; top: -42px; width: 84px; height: 84px; border-radius: 50%; display: flex; align-items: center; justify-content: center; gap: 3px; background: rgba(23, 20, 15, .9); color: #FBF9F5; font-size: 9px; letter-spacing: .16em; text-transform: uppercase; opacity: 0; transform: scale(.4); transition: opacity .3s ease, transform .45s cubic-bezier(.2, .7, .2, 1); }
+  .ms-pr__cursor svg { width: 7px; height: 7px; flex: 0 0 auto; }
+  .ms-pr__cursor.is-tight svg { display: none; }
+  .ms-pr__rail.is-cursor .ms-pr__cursor > span { opacity: 1; transform: scale(1); }
+  .ms-pr__rail.is-cursor.is-dragging .ms-pr__cursor > span { transform: scale(.82); }
+  @media (hover: hover) and (pointer: fine) { .ms-pr__rail, .ms-pr__rail * { cursor: none !important; } }
+  @media (hover: none), (pointer: coarse) { .ms-pr__cursor { display: none; } }
   @media (max-width: 760px) {
-    .ms-site .ms-pr .ms-pr__run { flex-wrap: wrap; }
-    .ms-pr__run > li { flex: 0 0 33.333%; }
-    .ms-pr__run > li:nth-child(n+7) { display: none; }
-    .ms-pr__logo > * { height: 56px; padding: 0 6px; }
-    .ms-site .ms-pr .ms-pr__logo img { height: 20px; max-height: 28px; }
-    .ms-pr__pages button { width: 18px; }
+    .ms-pr__logo > * { width: 124px; height: 64px; padding: 0 12px; }
+    .ms-site .ms-pr .ms-pr__logo img { height: 20px; max-height: 26px; }
   }
-  @media (max-width: 520px) {
-    .ms-pr__run > li { flex-basis: 50%; }
-    .ms-pr__run > li:nth-child(n+5) { display: none; }
-  }
-  @media (prefers-reduced-motion: reduce) { .ms-pr__run { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .ms-pr__rail { overflow: hidden; } }
 </style>
 <script>
   (function () {
@@ -333,7 +318,7 @@
     });
     root.addEventListener('mouseover', function (e) {
       var b = e.target.closest('.ms-pr__logo [data-ms-pr-to]');
-      if (b && +b.getAttribute('data-ms-pr-to') !== at) show(+b.getAttribute('data-ms-pr-to'));
+      if (b && !root.classList.contains('is-pr-dragging') && +b.getAttribute('data-ms-pr-to') !== at) show(+b.getAttribute('data-ms-pr-to'));
     });
     var stage = root.querySelector('.ms-pr__in');
     function pause(v) { paused = v; root.classList.toggle('is-paused', v); if (!v) schedule(); else clearTimeout(timer); }
@@ -346,79 +331,118 @@
       new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) { if (!paused) show(at); } else clearTimeout(timer); }); }, { threshold: 0.3 }).observe(root);
     } else { schedule(); }
 
-    // Round 25: every publication's mark, one still line at a time; the arrows turn to the next line
-    var run = root.querySelector('.ms-pr__run'), pager = root.querySelector('[data-ms-pr-pager]');
-    if (!run) return;
-    var marks = [].slice.call(run.children), pages = [], page = 0, turning = null, x0 = null;
-    var wide = window.matchMedia('(min-width: 1101px)'), narrow = window.matchMedia('(max-width: 760px)'), small = window.matchMedia('(max-width: 520px)');
+    // Round 26: one endless line of every mark: it drifts slowly, stops under the cursor, and is moved by hand
+    var rail = root.querySelector('[data-ms-pr-rail]'), run = root.querySelector('.ms-pr__run'), cur = root.querySelector('.ms-pr__cursor');
+    if (!rail || !run) return;
+    var marks = [].slice.call(run.children), narrow = window.matchMedia('(max-width: 760px)'), fine = window.matchMedia('(hover: hover) and (pointer: fine)');
+    var setW = 0, x = 0, v = 0, drag = null, held = false, focus = false, moved = 0, rest = 0, t0 = 0, raf = 0, seen = true, quiet = 0;
+    var drift = rail.getAttribute('data-drift') !== '0' && !reduce;
     function weigh(img) {
       // one optical weight for marks of every shape: a long wordmark is drawn lower than a compact one
       var ar = img.naturalWidth / img.naturalHeight;
       if (!ar || !isFinite(ar)) return;
-      var k = narrow.matches ? .8 : 1, wmax = small.matches ? 128 : narrow.matches ? 110 : 136;
+      var k = narrow.matches ? .84 : 1, wmax = narrow.matches ? 100 : 136;
       var h = Math.max(12, Math.min(30, 24 * Math.pow(4 / ar, .42))) * k;
       if (h * ar > wmax) h = Math.max(9, wmax / ar);
       img.style.height = h.toFixed(1) + 'px'; img.style.width = 'auto'; img.style.maxHeight = 'none';
     }
     function weighAll() {
-      marks.forEach(function (m) {
-        var i = m.querySelector('img');
-        if (!i) return;
+      run.querySelectorAll('img').forEach(function (i) {
         if (i.complete && i.naturalWidth) weigh(i); else i.addEventListener('load', function () { weigh(i); }, { once: true });
       });
     }
-    function turn(i, now) {
-      if (!pages.length) return;
-      page = (i + pages.length) % pages.length;
-      function go() {
-        marks.forEach(function (m) { m.hidden = pages[page].indexOf(m) < 0; });
-        if (pager) pager.querySelectorAll('[data-ms-pr-page]').forEach(function (d, k) { d.setAttribute('aria-current', k === page ? 'true' : 'false'); });
-        run.classList.remove('is-turning');
-      }
-      clearTimeout(turning);
-      if (now || reduce) go(); else { run.classList.add('is-turning'); turning = setTimeout(go, 260); }
-    }
-    function cut() {
-      // lines of as even a length as the marks allow: 27 marks on a wide screen are 7, 7, 7 and 6
-      var max = wide.matches ? 8 : small.matches ? 4 : 6, n = marks.length, p = Math.max(1, Math.ceil(n / max)), q = Math.floor(n / p), r = n % p, k = 0, i;
-      pages = [];
-      for (i = 0; i < p; i++) { var c = q + (i < r ? 1 : 0); pages.push(marks.slice(k, k + c)); k += c; }
-      root.classList.toggle('is-paged', p > 1);
-      if (pager) {
-        pager.hidden = p < 2;
-        var dots = pager.querySelector('[data-ms-pr-pages]');
-        dots.innerHTML = '';
-        for (i = 0; i < p; i++) {
-          var d = document.createElement('button');
-          d.type = 'button'; d.setAttribute('data-ms-pr-page', i); d.setAttribute('aria-label', (i + 1) + ' / ' + p);
-          d.appendChild(document.createElement('span')); dots.appendChild(d);
-        }
-      }
-      turn(Math.min(page, p - 1), true);
+    function build() {
+      // as many copies of the line as fill the width twice over, so that it never shows an end
+      run.querySelectorAll('[data-ms-pr-copy]').forEach(function (c) { c.remove(); });
+      setW = marks.reduce(function (s, m) { return s + m.offsetWidth; }, 0);
+      if (!setW) return;
+      var copies = Math.max(1, Math.ceil(rail.clientWidth * 2 / setW));
+      for (var k = 0; k < copies; k++) marks.forEach(function (m) {
+        var c = m.cloneNode(true);
+        c.setAttribute('data-ms-pr-copy', ''); c.setAttribute('aria-hidden', 'true'); c.removeAttribute('data-shopify-editor-block');
+        c.querySelectorAll('button, a').forEach(function (b) { b.tabIndex = -1; });
+        c.querySelectorAll('img').forEach(function (i) { i.loading = 'eager'; });
+        run.appendChild(c);
+      });
       weighAll();
     }
-    if (pager) pager.addEventListener('click', function (e) {
-      var t = e.target.closest('[data-ms-pr-turn]'), d = e.target.closest('[data-ms-pr-page]');
-      if (t) turn(page + +t.getAttribute('data-ms-pr-turn'));
-      else if (d) turn(+d.getAttribute('data-ms-pr-page'));
-    });
-    run.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
-    run.addEventListener('touchend', function (e) {
-      if (x0 === null || pages.length < 2) return;
-      var dx = e.changedTouches[0].clientX - x0; x0 = null;
-      if (Math.abs(dx) > 40) turn(page + (dx < 0 ? 1 : -1));
-    }, { passive: true });
-    [wide, narrow, small].forEach(function (mq) { if (mq.addEventListener) mq.addEventListener('change', cut); else if (mq.addListener) mq.addListener(cut); });
-    // the marks of the other lines are fetched as the section nears, so that a turn shows them at once
-    if ('IntersectionObserver' in window) {
-      var near = new IntersectionObserver(function (es) {
-        if (!es[0].isIntersecting) return;
-        near.disconnect();
-        marks.forEach(function (m) { var i = m.querySelector('img'); if (i) i.loading = 'eager'; });
-      }, { rootMargin: '600px 0px' });
-      near.observe(root);
+    function paint() {
+      if (setW) x = ((x % setW) + setW) % setW;
+      run.style.transform = 'translate3d(' + (-x).toFixed(2) + 'px, 0, 0)';
     }
-    cut();
+    function tick(t) {
+      var dt = t0 ? Math.min(t - t0, 64) : 16; t0 = t;
+      if (!drag) {
+        if (Math.abs(v) > 0.01) { x += v * dt; v *= Math.pow(0.92, dt / 16); }
+        else if (drift && !held && !focus && t > rest) { v = 0; x += 0.024 * dt; }
+      }
+      // while it is moved or still gliding, the marks passing under the hand do not each bring their piece forward
+      if (drag || Math.abs(v) > 0.01) quiet = t + 320;
+      root.classList.toggle('is-pr-dragging', t < quiet);
+      paint();
+      raf = seen ? requestAnimationFrame(tick) : 0;
+    }
+    function go() { if (!raf) { t0 = 0; raf = requestAnimationFrame(tick); } }
+    rail.addEventListener('pointerdown', function (e) {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      drag = { x: e.clientX, y: e.clientY, lx: e.clientX, t: performance.now(), id: e.pointerId, lock: null };
+      moved = 0; v = 0; held = true;
+      root.classList.add('is-pr-dragging'); quiet = performance.now() + 320;
+    });
+    window.addEventListener('pointermove', function (e) {
+      if (cur && fine.matches && rail.classList.contains('is-cursor')) {
+        var r = rail.getBoundingClientRect();
+        cur.style.transform = 'translate3d(' + (e.clientX - r.left).toFixed(1) + 'px, ' + (e.clientY - r.top).toFixed(1) + 'px, 0)';
+      }
+      if (!drag || e.pointerId !== drag.id) return;
+      var dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+      if (drag.lock === null && (Math.abs(dx) > 6 || Math.abs(dy) > 6)) {
+        drag.lock = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
+        if (drag.lock === 'x') { try { rail.setPointerCapture(e.pointerId); } catch (err) {} rail.classList.add('is-dragging'); root.classList.add('is-pr-dragging'); quiet = performance.now() + 320; }
+      }
+      if (drag.lock === 'y') { drag = null; held = rail.classList.contains('is-cursor'); return; }
+      if (drag.lock !== 'x') return;
+      var now = performance.now(), step = e.clientX - drag.lx;
+      x -= step; v = Math.max(-1.4, Math.min(1.4, v * .7 - step / Math.max(now - drag.t, 8) * .3)); drag.t = now; drag.lx = e.clientX; moved = Math.max(moved, Math.abs(dx));
+      paint();
+    });
+    function end() {
+      if (!drag) return;
+      if (performance.now() - drag.t > 90) v = 0;
+      drag = null; rail.classList.remove('is-dragging');
+      held = rail.classList.contains('is-cursor'); rest = performance.now() + 1600;
+    }
+    window.addEventListener('pointerup', end); window.addEventListener('pointercancel', end);
+    // a drag is not a click
+    rail.addEventListener('click', function (e) { if (moved > 6) { e.preventDefault(); e.stopPropagation(); } moved = 0; }, true);
+    rail.addEventListener('wheel', function (e) {
+      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+      e.preventDefault(); x += e.deltaX; v = 0; rest = performance.now() + 1600; paint();
+    }, { passive: false });
+    if (cur) {
+      rail.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse' && fine.matches) { rail.classList.add('is-cursor'); held = true; var r = rail.getBoundingClientRect(); cur.style.transform = 'translate3d(' + (e.clientX - r.left).toFixed(1) + 'px, ' + (e.clientY - r.top).toFixed(1) + 'px, 0)'; } });
+      rail.addEventListener('pointerleave', function () { rail.classList.remove('is-cursor'); if (!drag) held = false; });
+    }
+    // a mark reached from the keyboard comes into view, and the line waits for it
+    rail.addEventListener('focusin', function (e) {
+      var li = e.target.closest('li'); if (!li) return;
+      try { if (!e.target.matches(':focus-visible')) return; } catch (err) {}
+      focus = true; v = 0; x = li.offsetLeft - (rail.clientWidth - li.offsetWidth) / 2; paint();
+    });
+    rail.addEventListener('focusout', function () { focus = false; rest = performance.now() + 1600; });
+    var rw = rail.clientWidth;
+    window.addEventListener('resize', function () { if (Math.abs(rail.clientWidth - rw) > 40) { rw = rail.clientWidth; build(); } });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { seen = es[0].isIntersecting; if (seen) go(); }, { rootMargin: '200px 0px' }).observe(rail);
+    }
+    // a longer word for "drag" (in another language) keeps the disc round: the little arrows give way
+    if (cur && cur.firstElementChild && document.createRange) {
+      var cs = cur.firstElementChild, rg = document.createRange(), m = getComputedStyle(cs).transform, sc = 1;
+      if (m && m.indexOf('matrix(') === 0) sc = parseFloat(m.slice(7)) || 1;
+      rg.selectNodeContents(cs);
+      if (rg.getBoundingClientRect().width / sc > cs.offsetWidth - 12) cur.classList.add('is-tight');
+    }
+    build(); paint(); go();
   })();
 </script>
 
@@ -436,6 +460,7 @@
     { "type": "text", "id": "read_label", "label": "Read link", "default": "Read the piece" },
     { "type": "range", "id": "interval", "label": "Seconds per piece", "min": 4, "max": 12, "step": 1, "default": 6 },
     { "type": "text", "id": "press_label", "label": "Strip label", "default": "As featured in" },
+    { "type": "checkbox", "id": "drift", "label": "Let the line of marks drift slowly", "info": "It stops under the cursor, and can always be moved by hand.", "default": true },
     { "type": "range", "id": "max_logos", "label": "Publications shown", "min": 4, "max": 30, "step": 1, "default": 8, "info": "Those with a piece to read, most recent first; every other publication's mark follows on the line." },
     { "type": "text", "id": "all_label", "label": "Link to the press page", "default": "All the press" }
   ],

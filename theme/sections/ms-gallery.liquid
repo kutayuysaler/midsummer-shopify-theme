@@ -1,5 +1,99 @@
-{%- comment -%} A run of photographs to scroll through sideways, each at its own proportion. {%- endcomment -%}
-<section class="ms-gl">
+{%- comment -%}
+  Photographs, composed: each row fills the width, every photograph at its own proportion (nothing
+  cropped, nothing to scroll sideways), the rows of a like height; a short last row sits centred at
+  the same height. On a phone, two to a row, a landscape across the whole width. A photograph chosen
+  in the editor gives its own proportion; the theme's own carry theirs in "Proportion".
+{%- endcomment -%}
+{%- liquid
+  # rows of about this many widths of their own height; a row breaks before a photograph that would
+  # make it much longer. Each row carries its count and total proportion (--n, --den): a full row
+  # fills the width, a short last one keeps the height of the others and sits centred.
+  assign target = 2.6
+  assign limit = target | times: 1.15
+  assign acc = 0.0
+  assign n = 0
+  assign sums = 0.0
+  assign nrows = 0
+  assign rowbuf = ''
+  assign rows = ''
+  # on a phone the upright photographs go two by two; an odd one out at the end sits centred
+  assign n_up = 0
+  for block in section.blocks
+    assign ar = block.settings.ratio | default: '1.5' | times: 1.0
+    if block.settings.image != blank
+      assign ar = block.settings.image.aspect_ratio | times: 1.0
+    endif
+    if ar <= 1.2
+      assign n_up = n_up | plus: 1
+    endif
+  endfor
+  assign odd_up = n_up | modulo: 2
+  assign i_up = 0
+  for block in section.blocks
+    assign ar = block.settings.ratio | default: '1.5' | times: 1.0
+    if block.settings.image != blank
+      assign ar = block.settings.image.aspect_ratio | times: 1.0
+    endif
+    if ar <= 0
+      assign ar = 1.5
+    endif
+    assign next = acc | plus: ar
+    if n > 0 and next > limit
+      assign den = acc | round: 3
+      assign rows = rows | append: '<div class="ms-gl__row" style="--n: ' | append: n | append: '; --den: ' | append: den | append: ';">' | append: rowbuf | append: '</div>'
+      assign sums = sums | plus: acc
+      assign nrows = nrows | plus: 1
+      assign acc = 0.0
+      assign n = 0
+      assign rowbuf = ''
+    endif
+    assign acc = acc | plus: ar
+    assign n = n | plus: 1
+    capture src
+      render 'ms-img', image: block.settings.image, fallback: block.settings.image_fallback, width: 1600
+    endcapture
+    capture cap
+      render 'ms-t', v: block.settings.caption
+    endcapture
+    assign wide = ''
+    if ar > 1.2
+      assign wide = ' is-wide'
+    else
+      assign i_up = i_up | plus: 1
+      if odd_up == 1 and i_up == n_up
+        assign wide = ' is-solo'
+      endif
+    endif
+    assign ars = ar | round: 3
+    capture one
+      echo '<figure class="ms-gl__fig' | append: wide | append: '" style="--ar: ' | append: ars | append: ';" ' | append: block.shopify_attributes | append: '>'
+      if src != blank
+        assign ecap = cap | strip | escape
+        assign ih = 1600 | divided_by: ar | round
+        echo '<img src="' | append: src | append: '" alt="' | append: ecap | append: '" loading="lazy" width="1600" height="' | append: ih | append: '">'
+      endif
+      if block.settings.caption != blank
+        echo '<figcaption>' | append: cap | append: '</figcaption>'
+      endif
+      echo '</figure>'
+    endcapture
+    assign rowbuf = rowbuf | append: one
+  endfor
+  if n > 0
+    assign den = acc
+    if nrows > 0
+      assign avg = sums | divided_by: nrows
+      if acc < avg
+        assign den = avg
+      endif
+    elsif acc < target
+      assign den = target
+    endif
+    assign den = den | round: 3
+    assign rows = rows | append: '<div class="ms-gl__row" style="--n: ' | append: n | append: '; --den: ' | append: den | append: ';">' | append: rowbuf | append: '</div>'
+  endif
+-%}
+<section class="ms-gl" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: section.settings.heading %}{% endcapture %}{% capture ms_l44 %}{% render 'ms-t', v: 'Photographs' %}{% endcapture %}{{ ms_t_out | default: ms_l44 | strip | escape }}">
   <div class="ms-gl__in">
     {%- if section.settings.heading != blank -%}
       <div class="ms-gl__head">
@@ -7,27 +101,29 @@
         <h2 class="ms-gl__heading">{% render 'ms-t', v: section.settings.heading %}</h2>
       </div>
     {%- endif -%}
-  </div>
-  <div class="ms-gl__rail" data-ms="rail-x" tabindex="0" role="region" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: section.settings.heading %}{% endcapture %}{% capture ms_l44 %}{% render 'ms-t', v: 'Photographs' %}{% endcapture %}{{ ms_t_out | default: ms_l44 | escape }}">
-    {%- for block in section.blocks -%}
-      {%- capture src -%}{% render 'ms-img', image: block.settings.image, fallback: block.settings.image_fallback, width: 1600 %}{%- endcapture -%}
-      <figure class="ms-gl__fig" {{ block.shopify_attributes }}>
-        {%- if src != blank -%}<img src="{{ src }}" alt="{% capture ms_t_out %}{% render 'ms-t', v: block.settings.caption %}{% endcapture %}{{ ms_t_out | escape }}" loading="{% if forloop.index > 2 %}lazy{% else %}eager{% endif %}" width="1600" height="1200">{%- endif -%}
-        {%- if block.settings.caption != blank -%}<figcaption>{% render 'ms-t', v: block.settings.caption %}</figcaption>{%- endif -%}
-      </figure>
-    {%- endfor -%}
+    <div class="ms-gl__rows">{{ rows }}</div>
   </div>
 </section>
 <style>
   .ms-gl { padding: clamp(40px, 6vw, 96px) 0 clamp(56px, 8vw, 120px); }
-  .ms-gl__in { max-width: 1560px; margin: 0 auto; padding: 0 clamp(18px, 5vw, 80px); }
-  .ms-gl__head { border-top: 1px solid #DDD6C9; padding-top: 26px; margin-bottom: clamp(28px, 4vw, 48px); }
+  .ms-gl__in { max-width: 1440px; margin: 0 auto; padding: 0 clamp(18px, 5vw, 80px); }
+  .ms-gl__head { border-top: 1px solid #DDD6C9; padding-top: 26px; margin-bottom: clamp(28px, 4vw, 52px); }
   .ms-gl__eyebrow { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: #6E675C; }
   .ms-gl__heading { font-family: Newsreader, Georgia, serif; font-size: clamp(26px, 3.2vw, 42px); letter-spacing: -.02em; font-weight: 200; margin-top: 12px; }
-  .ms-gl__rail { display: flex; gap: clamp(12px, 1.6vw, 24px); overflow-x: auto; scroll-snap-type: x mandatory; padding: 0 max(clamp(18px, 5vw, 80px), calc((100vw - 1560px) / 2 + clamp(18px, 5vw, 80px))); scroll-padding-inline: max(clamp(18px, 5vw, 80px), calc((100vw - 1560px) / 2 + clamp(18px, 5vw, 80px))); scrollbar-width: thin; scrollbar-color: #DDD6C9 transparent; }
-  .ms-gl__fig { margin: 0; flex: 0 0 auto; scroll-snap-align: start; display: flex; flex-direction: column; gap: 12px; }
-  .ms-gl__fig img { display: block; height: clamp(320px, 56vh, 620px); width: auto; max-width: 86vw; object-fit: cover; background: #F4EFE5; }
-  .ms-gl__fig figcaption { font-family: Newsreader, Georgia, serif; font-size: 15px; font-style: italic; color: #6E675C; }
+  .ms-gl__rows { display: flex; flex-direction: column; gap: clamp(28px, 3.4vw, 48px); }
+  .ms-gl__row { --gap: clamp(12px, 1.4vw, 22px); display: flex; justify-content: center; align-items: flex-start; gap: var(--gap); }
+  .ms-gl__fig { flex: 0 0 calc((100% - (var(--n) - 1) * var(--gap)) * var(--ar) / var(--den)); min-width: 0; margin: 0; }
+  .ms-gl__fig img { display: block; width: 100%; height: auto; aspect-ratio: var(--ar); object-fit: cover; background: #F1ECE2; }
+  .ms-gl__fig figcaption { margin-top: 12px; font-family: Newsreader, Georgia, serif; font-size: 15px; line-height: 1.45; font-style: italic; color: #6E675C; text-wrap: pretty; }
+  @media (max-width: 760px) {
+    .ms-gl__rows { display: grid; grid-template-columns: 1fr 1fr; grid-auto-flow: row dense; gap: 22px 12px; }
+    .ms-gl__row { display: contents; }
+    .ms-gl__fig.is-wide { grid-column: 1 / -1; }
+    .ms-gl__fig.is-solo { grid-column: 1 / -1; justify-self: center; width: calc(50% - 6px); }
+    .ms-gl__fig img { aspect-ratio: var(--ar); }
+    .ms-gl__fig:not(.is-wide) img { aspect-ratio: 2 / 3; }
+    .ms-gl__fig figcaption { font-size: 13.5px; margin-top: 8px; }
+  }
 </style>
 {% schema %}
 {
@@ -43,6 +139,7 @@
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Photograph" },
         { "type": "text", "id": "image_fallback", "label": "Photograph address" },
+        { "type": "text", "id": "ratio", "label": "Proportion (width ÷ height)", "info": "For the theme's own photograph; a photograph chosen above gives its own." },
         { "type": "text", "id": "caption", "label": "Caption" }
       ]
     }

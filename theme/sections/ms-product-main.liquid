@@ -195,76 +195,76 @@
 
   assign ss = section.settings
   capture t_price_label
-    capture ms_l61
+    capture ms_l60
       render 'ms-t', v: 'Price'
     endcapture
-    render 'ms-tr', value: ss.price_label, default: ms_l61, key: 'ms.product.price_label'
+    render 'ms-tr', value: ss.price_label, default: ms_l60, key: 'ms.product.price_label'
   endcapture
   capture t_price_text
-    capture ms_l62
+    capture ms_l61
       render 'ms-t', v: 'On request. The specification sets it.'
     endcapture
-    render 'ms-tr', value: ss.price_text, default: ms_l62, key: 'ms.product.price_text'
+    render 'ms-tr', value: ss.price_text, default: ms_l61, key: 'ms.product.price_text'
   endcapture
   capture t_bar
-    capture ms_l63
+    capture ms_l62
       render 'ms-t', v: 'Made to order · price on request'
     endcapture
-    render 'ms-tr', value: ss.bar_note, default: ms_l63, key: 'ms.product.bar_note'
+    render 'ms-tr', value: ss.bar_note, default: ms_l62, key: 'ms.product.bar_note'
   endcapture
   capture t_cta1
-    capture ms_l64
+    capture ms_l63
       render 'ms-t', v: 'Request a proposal'
     endcapture
-    render 'ms-tr', value: ss.cta_primary, default: ms_l64, key: 'ms.product.cta_primary'
+    render 'ms-tr', value: ss.cta_primary, default: ms_l63, key: 'ms.product.cta_primary'
   endcapture
   capture t_cta2
-    capture ms_l65
+    capture ms_l64
       render 'ms-t', v: 'Book a private appointment'
     endcapture
-    render 'ms-tr', value: ss.cta_secondary, default: ms_l65, key: 'ms.product.cta_secondary'
+    render 'ms-tr', value: ss.cta_secondary, default: ms_l64, key: 'ms.product.cta_secondary'
   endcapture
   capture t_f1l
-    capture ms_l66
+    capture ms_l65
       render 'ms-t', v: 'Made'
     endcapture
-    render 'ms-tr', value: ss.f1_label, default: ms_l66, key: 'ms.product.f1_label'
+    render 'ms-tr', value: ss.f1_label, default: ms_l65, key: 'ms.product.f1_label'
   endcapture
   capture t_f1v
-    capture ms_l67
+    capture ms_l66
       render 'ms-t', v: 'By hand in Italy, to order'
     endcapture
-    render 'ms-tr', value: ss.f1_value, default: ms_l67, key: 'ms.product.f1_value'
+    render 'ms-tr', value: ss.f1_value, default: ms_l66, key: 'ms.product.f1_value'
   endcapture
   capture t_f2l
-    capture ms_l68
+    capture ms_l67
       render 'ms-t', v: 'Dimensions'
     endcapture
-    render 'ms-tr', value: ss.f2_label, default: ms_l68, key: 'ms.product.f2_label'
+    render 'ms-tr', value: ss.f2_label, default: ms_l67, key: 'ms.product.f2_label'
   endcapture
   capture t_f2v
-    capture ms_l69
+    capture ms_l68
       render 'ms-t', v: 'Made to measure, round included'
     endcapture
-    render 'ms-tr', value: ss.f2_value, default: ms_l69, key: 'ms.product.f2_value'
+    render 'ms-tr', value: ss.f2_value, default: ms_l68, key: 'ms.product.f2_value'
   endcapture
   capture t_f3l
-    capture ms_l70
+    capture ms_l69
       render 'ms-t', v: 'Service'
     endcapture
-    render 'ms-tr', value: ss.f3_label, default: ms_l70, key: 'ms.product.f3_label'
+    render 'ms-tr', value: ss.f3_label, default: ms_l69, key: 'ms.product.f3_label'
   endcapture
   capture t_f3v
-    capture ms_l71
+    capture ms_l70
       render 'ms-t', v: 'Regenerated at fifteen years, for fifteen more'
     endcapture
-    render 'ms-tr', value: ss.f3_value, default: ms_l71, key: 'ms.product.f3_value'
+    render 'ms-tr', value: ss.f3_value, default: ms_l70, key: 'ms.product.f3_value'
   endcapture
   capture t_cover_l
-    capture ms_l72
+    capture ms_l71
       render 'ms-t', v: 'Upholstery'
     endcapture
-    render 'ms-tr', value: ss.cover_label, default: ms_l72, key: 'ms.product.cover_label'
+    render 'ms-tr', value: ss.cover_label, default: ms_l71, key: 'ms.product.cover_label'
   endcapture
   capture cover_value
     render 'ms-t', v: ss.cover_value
@@ -273,55 +273,55 @@
     capture cover_value
       render 'ms-sys-data', key: mkey, part: 'cover'
     endcapture
+    capture ms_l72
+      render 'ms-t', v: 'Natural cloths, chosen with you'
+    endcapture
+    assign cover_value = cover_value | strip | default: ms_l72
+  endif
+  capture t_cover_v
     capture ms_l73
       render 'ms-t', v: 'Natural cloths, chosen with you'
     endcapture
-    assign cover_value = cover_value | strip | default: ms_l73
-  endif
-  capture t_cover_v
-    capture ms_l74
-      render 'ms-t', v: 'Natural cloths, chosen with you'
-    endcapture
-    render 'ms-tr', value: cover_value, default: ms_l74, key: 'ms.product.cover_value'
+    render 'ms-tr', value: cover_value, default: ms_l73, key: 'ms.product.cover_value'
   endcapture
   capture t_comfort_l
-    capture ms_l75
+    capture ms_l74
       render 'ms-t', v: 'Comfort'
     endcapture
-    render 'ms-tr', value: ss.comfort_label, default: ms_l75, key: 'ms.product.comfort_label'
+    render 'ms-tr', value: ss.comfort_label, default: ms_l74, key: 'ms.product.comfort_label'
   endcapture
   assign comfort = product.metafields.custom.firmness.value
   if comfort == blank
     capture comfort
-      capture ms_l76
+      capture ms_l75
         render 'ms-t', v: 'Set with you, at the atelier or by video'
       endcapture
-      render 'ms-tr', value: ss.comfort_value, default: ms_l76, key: 'ms.product.comfort_value'
+      render 'ms-tr', value: ss.comfort_value, default: ms_l75, key: 'ms.product.comfort_value'
     endcapture
   endif
   capture t_height
-    capture ms_l77
+    capture ms_l76
       render 'ms-t', v: 'Height'
     endcapture
-    render 'ms-tr', value: ss.height_label, default: ms_l77, key: 'ms.product.height_label'
+    render 'ms-tr', value: ss.height_label, default: ms_l76, key: 'ms.product.height_label'
   endcapture
   capture t_lead
-    capture ms_l78
+    capture ms_l77
       render 'ms-t', v: 'Lead time'
     endcapture
-    render 'ms-tr', value: ss.lead_label, default: ms_l78, key: 'ms.product.lead_label'
+    render 'ms-tr', value: ss.lead_label, default: ms_l77, key: 'ms.product.lead_label'
   endcapture
   capture t_specs
-    capture ms_l79
+    capture ms_l78
       render 'ms-t', v: 'Specifications'
     endcapture
-    render 'ms-tr', value: ss.specs_label, default: ms_l79, key: 'ms.product.specs_label'
+    render 'ms-tr', value: ss.specs_label, default: ms_l78, key: 'ms.product.specs_label'
   endcapture
   capture t_desc
-    capture ms_l80
+    capture ms_l79
       render 'ms-t', v: 'About this system'
     endcapture
-    render 'ms-tr', value: ss.description_label, default: ms_l80, key: 'ms.product.description_label'
+    render 'ms-tr', value: ss.description_label, default: ms_l79, key: 'ms.product.description_label'
   endcapture
   # a bed with headboard, the Tangram and the rest speak of themselves, not of a sleep system
   case pkind
@@ -425,20 +425,20 @@
     assign comfort = ''
   endif
   capture t_fib
-    capture ms_l88
+    capture ms_l87
       render 'ms-t', v: 'Natural fibres'
     endcapture
-    render 'ms-tr', value: ss.fibres_label, default: ms_l88, key: 'ms.product.fibres_label'
+    render 'ms-tr', value: ss.fibres_label, default: ms_l87, key: 'ms.product.fibres_label'
   endcapture
   capture u_mat
     render 'ms-link', to: 'materials'
   endcapture
   assign u_mat = u_mat | strip
   capture t_fibl
-    capture ms_l89
+    capture ms_l88
       render 'ms-t', v: 'All the fibres'
     endcapture
-    render 'ms-tr', value: ss.fibres_link, default: ms_l89, key: 'ms.product.fibres_link'
+    render 'ms-tr', value: ss.fibres_link, default: ms_l88, key: 'ms.product.fibres_link'
   endcapture
   assign height = product.metafields.custom.height | metafield_text
   assign lead = product.metafields.custom.lead_time | metafield_text

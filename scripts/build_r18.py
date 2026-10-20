@@ -283,7 +283,8 @@ if '<article class="ms-lf__fab' in _s:
     assert '<article' not in _s and '</article>' not in _s, 'lp fabrics: article left'
     open(_p, 'w', encoding='utf-8').write(_s)
 # the gallery's sideways rail is a named region
-_patch('ms-gallery', [('<div class="ms-gl__rail" data-ms="rail-x" tabindex="0" aria-label=', '<div class="ms-gl__rail" data-ms="rail-x" tabindex="0" role="region" aria-label=', 1)])
+if 'ms-gl__rail' in open(THEME + '/sections/ms-gallery.liquid', encoding='utf-8').read():  # Round 26: the gallery composed, no rail
+    _patch('ms-gallery', [('<div class="ms-gl__rail" data-ms="rail-x" tabindex="0" aria-label=', '<div class="ms-gl__rail" data-ms="rail-x" tabindex="0" role="region" aria-label=', 1)])
 # each navigation named, so they can be told apart
 _patch('ms-header', [('<nav data-ms="nav" style=', '<nav data-ms="nav" aria-label="{{ \'ms.product.aria_primary_nav\' | t }}" style=', 1)])
 _patch('ms-systems', [('<nav class="ms-sy__pages">', '<nav class="ms-sy__pages" aria-label="{{ \'ms.product.aria_pages\' | t }}">', 1)])

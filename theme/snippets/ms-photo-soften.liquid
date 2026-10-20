@@ -37,6 +37,9 @@
     endfor
   -%}
   {%- if sel != '' -%}
-  <style>{{ sel }} body img.ms-photo-soften { filter: sepia({{ sep }}) saturate({{ sat }}) contrast({{ con }}) brightness({{ bri }}) !important; }</style>
+  {%- assign sel_c = sel | replace: 'body img[', '.ms-site .ms-sy img[' -%}
+  {%- assign bri_c = keep | round: 3 -%}
+  <style>{{ sel }} body img.ms-photo-soften { filter: sepia({{ sep }}) saturate({{ sat }}) contrast({{ con }}) brightness({{ bri }}) !important; }
+  {{ sel_c }} .ms-site .ms-sy img.ms-photo-soften { filter: saturate(0.96) brightness({{ bri_c }}) !important; }</style>
   {%- endif -%}
 {%- endif -%}

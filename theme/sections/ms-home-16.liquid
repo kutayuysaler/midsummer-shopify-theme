@@ -10,7 +10,7 @@
 <button style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase;; background: none; border: 0; padding: 0; cursor: pointer; color: inherit;" type="submit">{% render 'ms-t', v: section.settings.t3 %}</button>
 </div>
 <p style="font-size: 12px; line-height: 1.85; color: rgb(110, 103, 92); max-width: 46ch;">{% render 'ms-t', v: section.settings.t4 %}</p>
-{%- if form.posted_successfully? -%}<p role="status" style="font-family: Newsreader, Georgia, serif; font-size: 17px; font-style: italic;">{% render 'ms-t', v: 'Thank you. You will hear from the atelier.' %}</p>{%- elsif form.errors -%}<p role="alert" style="font-size: 12px; color: #8B3A2B;">{% capture ms_l50 %}{% render 'ms-t', v: 'Please check the address.' %}{% endcapture %}{{ form.errors.messages.email | default: ms_l50 }}</p>{%- endif -%}{%- endform -%}</div>
+{%- if form.posted_successfully? -%}<p role="status" style="font-family: Newsreader, Georgia, serif; font-size: 17px; font-style: italic;">{% render 'ms-t', v: 'Thank you. You will hear from the atelier.' %}</p>{%- elsif form.errors -%}<p role="alert" style="font-size: 12px; color: #8B3A2B;">{% capture ms_l49 %}{% render 'ms-t', v: 'Please check the address.' %}{% endcapture %}{{ form.errors.messages.email | default: ms_l49 }}</p>{%- endif -%}{%- endform -%}</div>
 </div>
 </section>
 {% schema %}

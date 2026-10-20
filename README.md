@@ -6,8 +6,8 @@ theme on the store's Atelier 4.1.5 export.
 - `midsummer-milano-atelier.zip`: upload this file as it is, under Online Store → Themes → Add theme → Upload zip file.
 - `theme/`: the same theme as source files.
 - `INSTALL.md`: page templates, and the store data the design reads.
-- `store-images/`: photographs to upload in the admin (product media, article and collection images); see INSTALL.md §46 (and §47 for what is still to do).
-- `store-translations/`: the store's own words in Italian and Russian, for *Settings → Languages → Import*; see INSTALL.md §46 (and §47 for what is still to do).
+- `store-images/`: photographs to upload in the admin (product media, article and collection images); see INSTALL.md §46 (and §47–§48 for what is still to do).
+- `store-translations/`: the store's own words in Italian and Russian, for *Settings → Languages → Import*; see INSTALL.md §46 (and §47–§48 for what is still to do).
 
 ## How it's built
 

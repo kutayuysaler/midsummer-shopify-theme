@@ -171,6 +171,8 @@ def light_defs(u):
         '<linearGradient id="cr-%s-sheen" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".3" stop-color="#fff" stop-opacity=".07"/><stop offset=".36" stop-color="#fff" stop-opacity=".02"/><stop offset=".66" stop-color="#fff" stop-opacity=".06"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>' % u,
         '<linearGradient id="cr-%s-lr" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2A1F19" stop-opacity=".2"/><stop offset=".3" stop-color="#2A1F19" stop-opacity="0"/><stop offset=".45" stop-color="#fff" stop-opacity=".1"/><stop offset=".66" stop-color="#2A1F19" stop-opacity="0"/><stop offset="1" stop-color="#2A1F19" stop-opacity=".24"/></linearGradient>' % u,
         '<radialGradient id="cr-%s-brass" cx=".38" cy=".35" r=".7"><stop offset="0" stop-color="#F4DDA4"/><stop offset=".55" stop-color="#B98A43"/><stop offset="1" stop-color="#6E4F25"/></radialGradient>' % u,
+        # Round 26: the crown of a cushion's top, the light gathered where it swells
+        '<radialGradient id="cr-%s-crown" cx=".36" cy=".46" r=".66"><stop offset="0" stop-color="#fff" stop-opacity=".24"/><stop offset=".6" stop-color="#fff" stop-opacity=".04"/><stop offset="1" stop-color="#2A1F19" stop-opacity=".07"/></radialGradient>' % u,
         '<radialGradient id="cr-%s-tuft" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".6" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#2A1F19" stop-opacity=".25"/></radialGradient>' % u,
     ])
 
@@ -262,6 +264,12 @@ def box(part, p, u, kind, gap=0.0, inner=False):
         g.append('<path class="ms-cr__face ms-cr__face--side" fill="url(#cr-{{U}}-%s-xs)" d="%s"/><path d="%s" fill="url(#cr-{{U}}-ls)" pointer-events="none"/>' % (part, side, side))
         g.append('<path class="ms-cr__face" fill="url(#cr-{{U}}-%s-xf)" d="%s"/><path d="%s" fill="url(#cr-{{U}}-lf)" pointer-events="none"/><path d="%s" fill="url(#cr-{{U}}-lf2)" pointer-events="none"/>' % (part, front, front, front))
         g.append('<path class="ms-cr__face ms-cr__face--top" fill="url(#cr-{{U}}-%s-xt)" d="%s"/><path d="%s" fill="url(#cr-{{U}}-lt)" pointer-events="none"/>' % (part, top, top))
+        if soft_edge:
+            g.append('<path d="%s" fill="url(#cr-{{U}}-crown)" pointer-events="none"/>' % top)
+        # Round 26: the lower edges drawn in a fine shade, the front corner caught by the light
+        g.append('<path d="M%s,%s L%s,%s L%s,%s" fill="none" stroke="#2A1F19" stroke-opacity=".2" stroke-width=".9" stroke-linecap="round" pointer-events="none"/>' % (
+            f(X0 + r * .8), f(y0 + h - .45), f(x1 - .5), f(y0 + h - .45), f(x1 + DX - .6), f(y0 + h + DY - .45)))
+        g.append('<path d="M%s,%s V%s" stroke="#fff" stroke-opacity=".24" stroke-width=".7" pointer-events="none"/>' % (f(x1 - .8), f(y0 + r + .5), f(y0 + h - r - .5)))
         if p.get('sheen'):
             # silk: a light that runs along it
             g.append('<path d="%s" fill="url(#cr-{{U}}-sheen)" pointer-events="none"/>' % front)
@@ -390,6 +398,8 @@ def cyl(part, p, u, kind, gap=0.0, inner=False):
         g.append('<path class="ms-cr__face" fill="url(#cr-{{U}}-%s-xf)" stroke="%s" d="%s"/><path d="%s" fill="url(#cr-{{U}}-lr)" pointer-events="none"/>' % (part, st, band, band))
         g.append('<ellipse class="ms-cr__face ms-cr__face--top" fill="url(#cr-{{U}}-%s-xt)" stroke="%s" cx="%s" cy="%s" rx="%s" ry="%s"/><ellipse fill="url(#cr-{{U}}-lt)" cx="%s" cy="%s" rx="%s" ry="%s" pointer-events="none"/>' % (
             part, st, f(CX), f(CY), f(RX), f(RY), f(CX), f(CY), f(RX), f(RY)))
+        if part != 'base':
+            g.append('<ellipse fill="url(#cr-{{U}}-crown)" cx="%s" cy="%s" rx="%s" ry="%s" pointer-events="none"/>' % (f(CX), f(CY), f(RX), f(RY)))
     front_arc = lambda y, k=1.0: 'M%s,%s A%s,%s 0 0 0 %s,%s' % (f(CX - RX * k), f(y), f(RX * k), f(RY * k), f(CX + RX * k), f(y))
     if not ghost:
         if part == 'topper':
@@ -407,6 +417,7 @@ def cyl(part, p, u, kind, gap=0.0, inner=False):
             for rr in range(rows):
                 yy = CY + 5 + (h - 10) * (rr + 1) / (rows + 1)
                 g.append('<path d="%s" fill="none" stroke="%s" stroke-width="1.1" stroke-linecap="round" stroke-dasharray=".1 4.2" stroke-opacity=".7"/>' % (front_arc(yy), shade(col, -.34)))
+        g.append('<path d="%s" fill="none" stroke="#2A1F19" stroke-opacity=".18" stroke-width=".9" pointer-events="none"/>' % front_arc(CY + h - .45))
         if part == 'base':
             # a recessed plinth, so the round base floats a little above the floor
             g.append('<path d="%s" fill="none" stroke="%s" stroke-width="5" stroke-opacity=".35"/>' % (front_arc(CY + h - 3, .985), shade(col, -.3)))
@@ -431,6 +442,7 @@ def drawing(key, kind='system'):
     round_ = cfg.get('shape') == 'round'
     defs = ['<filter id="cr-%s-blur" x="-20%%" y="-200%%" width="140%%" height="500%%"><feGaussianBlur stdDeviation="8"/></filter>' % u,
             '<filter id="cr-%s-soft" x="-20%%" y="-60%%" width="140%%" height="220%%"><feGaussianBlur stdDeviation="5"/></filter>' % u,
+            '<filter id="cr-%s-near" x="-10%%" y="-200%%" width="120%%" height="500%%"><feGaussianBlur stdDeviation="2.6"/></filter>' % u,
             '<linearGradient id="cr-%s-wood" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5E3E2A"/><stop offset=".45" stop-color="#8A5E3F"/><stop offset="1" stop-color="#4E3322"/></linearGradient>' % u,
             light_defs(u)]
     shown = PARTS.get(key, 'topper,mattress,base').split(',')
@@ -454,6 +466,8 @@ def drawing(key, kind='system'):
         gaps = {'topper': tops['mattress'] - (tops['topper'] + cfg['topper']['h']), 'mattress': tops['base'] - (tops['mattress'] + cfg['mattress']['h']), 'base': 0}
     body = []
     shadow = '<ellipse class="ms-cr__shadow" cx="%s" cy="398" rx="%s" ry="12" filter="url(#cr-%s-blur)"/>' % ('285' if round_ else '290', '236' if round_ else '262', u)
+    # Round 26: and a closer, darker one where the bed meets the floor
+    shadow += '<ellipse class="ms-cr__near" cx="%s" cy="%s" rx="%s" ry="4.5" fill="#46281A" fill-opacity=".2" filter="url(#cr-%s-near)"/>' % ('285' if round_ else '296', '392' if round_ else '395', '214' if round_ else '246', u)
     # closed, the bed is whole: the mattress lies on the base, the topper on the mattress
     close = {'base': 0, 'mattress': gaps['mattress'], 'topper': gaps['mattress'] + gaps['topper']}
     depth = {'base': 1, 'mattress': 2.2, 'topper': 3.6}

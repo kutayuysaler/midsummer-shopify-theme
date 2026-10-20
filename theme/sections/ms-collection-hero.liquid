@@ -16,18 +16,21 @@
   endcase
   assign tier_photo = ''
   assign tier_pos = 'center'
+  assign tier_side = 'left'
   case tier
     when 'essentials'
       assign tier_name = 'ms-photo-glass-house.jpg'
       assign tier_photo = tier_name | asset_url
       assign tier_pos = 'center 62%'
     when 'icons', 'icon'
-      assign tier_name = 'ms-graded-arches.jpg'
+      assign tier_name = 'ms-photo-icons-abbey.jpg'
       assign tier_photo = tier_name | asset_url
-      assign tier_pos = 'center 64%'
+      assign tier_pos = '24% 84%'
+      assign tier_side = 'right'
   endcase
 -%}
-<section style="position: relative; overflow: hidden; background: rgb(23, 20, 15);">
+<section class="ms-colhero" style="position: relative; overflow: hidden; background: rgb(23, 20, 15);">
+<style>.ms-site .ms-colhero img, body .ms-colhero img { filter: none !important; } .ms-colhero h1, .ms-colhero h1 ~ *, .ms-colhero [style*="letter-spacing: 0.3em"] { text-shadow: 0 1px 24px rgba(10, 8, 6, .5), 0 0 2px rgba(10, 8, 6, .3); } .ms-colhero [style*="letter-spacing: 0.3em"] { opacity: 1 !important; }</style>
 {%- if section.settings.image != blank -%}
 <img alt="{%- render 'ms-coll-name', c: collection -%}" width="2400" height="1100" src="{{ section.settings.image | image_url: width: 2400 }}" {% render 'ms-srcset', image: section.settings.image, width: 2400, sizes: '100vw' %} style="width: 100%; height: min(66vh, 640px); object-fit: cover; display: block;">
 {%- elsif tier_photo != blank -%}
@@ -37,8 +40,8 @@
 {%- else -%}
 <img alt="{%- render 'ms-coll-name', c: collection -%}" width="1400" height="640" src="{{ fallback }}" style="width: 100%; height: min(66vh, 640px); object-fit: cover; display: block;">
 {%- endif -%}
-<div style="position: absolute; inset: 0px; background: linear-gradient(rgba(10, 8, 6, 0.3), rgba(10, 8, 6, 0.55));"></div>
-<div style="position: absolute; inset: 0px; display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(26px, 5vw, 88px); color: rgb(251, 249, 245);">
+<div style="position: absolute; inset: 0px; background: radial-gradient(ellipse 52% 62% at {% if tier_side == 'right' %}100%{% else %}0%{% endif %} 100%, rgba(10, 8, 6, 0.42), rgba(10, 8, 6, 0) 72%), linear-gradient(180deg, rgba(10, 8, 6, 0.34) 0%, rgba(10, 8, 6, 0) 24%, rgba(10, 8, 6, 0) 50%, rgba(10, 8, 6, 0.36) 100%);"></div>
+<div style="position: absolute; inset: 0px; display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(26px, 5vw, 88px); color: rgb(251, 249, 245);{% if tier_side == 'right' %} align-items: flex-end; text-align: right;{% endif %}">
 <div style="font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.8;">{% render 'ms-t', v: section.settings.eyebrow %}{% if numeral != blank %} {{ numeral }}{% endif %}</div>
 <h1 style="font-family: Newsreader, Georgia, serif; font-size: clamp(40px, 7vw, 96px); line-height: 1; letter-spacing: -0.035em; margin-top: 16px;">{% render 'ms-coll-name', c: collection %}</h1>
 </div>
