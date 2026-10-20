@@ -10,7 +10,7 @@ tiles() lists the cloth tiles the drawings use: (asset name, kind, colour)."""
 import colorsys, math
 from lp_data import CRAFT_PARTS as PARTS, CRAFT_OPT as OPT
 
-PINK, ORANGE, CARAMEL, RED = '#E3A79C', '#D2643C', '#A87648', '#7B2631'
+PINK, ORANGE, CARAMEL, RED, RUST = '#E3A79C', '#D2643C', '#A87648', '#7B2631', '#B4593C'
 IVORY, LINEN, RAW = '#F2EEE6', '#E3DACB', '#DCD1BF'
 
 
@@ -66,7 +66,12 @@ SYS = {
     'giotto': dict(shape='round', topper=P('#F1ECE3', 16, ribbon='#B98A47'), mattress=P('#EEE8DE', 40, rows=2), base=P('#B98A47', 52, legs='none')),
     'vicuna': dict(topper=P(IVORY, 18), mattress=P('#F6F3EE', 66, ribbon='#B4875B', rows=4, vents=3), base=P('#A87A50', 50)),
     'flora': dict(topper=P('#DED5C6', 24, 'damask', ribbon='#9A6E4C'), mattress=P('#F0EBE3', 58, ribbon='#9A6E4C', rows=2, handles=True, vents=3), base=P('#D6CDBF', 48, 'boucle')),
-    'top-2': dict(topper=P('#F4F0E9', 26, ribbon='#C55A48'), mattress=P('#F1ECE4', 58, band='#C55A48', rows=3, handles=True, vents=3), base=P('#B54A3F', 50, legs='fabric')),
+    # Top, as its photographs show it (Round 29): a cream topper and mattress, each piped in rust and with a
+    # rust border round its top; the mattress's border quilted in squares, two handles on its long side,
+    # each between two brass vents; the boxspring a rust frame on four upholstered blocks at its corners,
+    # each on a thin walnut plate
+    'top-2': dict(topper=P('#F3EEE6', 20, ribbon=RUST, border=RUST), mattress=P('#ECE5DA', 58, ribbon=RUST, border=RUST, rows=3, grid=True, handles='pair', vents=4),
+                  base=P('#B0573A', 36, legs='block', leg_h=24.0, drop=-24.0)),
     'storage': dict(topper=P('#D3C9BC', 20, 'mystic', ribbon=PINK), mattress=P('#EEE9E1', 54, 'mystic', rows=3, handles=True, vents=3), base=P('#BCAF9C', 56, 'mystic', legs='none', drawers=2)),
     # Paisley, as its photograph shows it: Shadan on the topper, piped in Katai; the border piped
     # likewise; the low boxspring all in Katai silk, down to the floor
@@ -175,6 +180,8 @@ def light_defs(u):
         '<radialGradient id="cr-%s-brass" cx=".38" cy=".35" r=".7"><stop offset="0" stop-color="#F4DDA4"/><stop offset=".55" stop-color="#B98A43"/><stop offset="1" stop-color="#6E4F25"/></radialGradient>' % u,
         # Round 26: the crown of a cushion's top, the light gathered where it swells
         '<radialGradient id="cr-%s-crown" cx=".36" cy=".46" r=".66"><stop offset="0" stop-color="#fff" stop-opacity=".24"/><stop offset=".6" stop-color="#fff" stop-opacity=".04"/><stop offset="1" stop-color="#2A1F19" stop-opacity=".07"/></radialGradient>' % u,
+        # Round 29: a quilted square's swell, lit at its top and in shade at its lower seam
+        '<linearGradient id="cr-%s-puff" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/><stop offset=".8" stop-color="#2A1F19" stop-opacity="0"/><stop offset="1" stop-color="#2A1F19" stop-opacity=".07"/></linearGradient>' % u,
         '<radialGradient id="cr-%s-tuft" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".6" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#2A1F19" stop-opacity=".25"/></radialGradient>' % u,
     ])
 
@@ -248,6 +255,22 @@ def box(part, p, u, kind, gap=0.0, inner=False):
         elif legs == 'leather':
             for lx, ly in ((X0 + 18, y0 + h), (x1 - 28, y0 + h), (x1 + DX - 24, y0 + h + DY)):
                 g.append('<path d="M%s,%s h9 l-1.4,19 h-6.2 Z" fill="#8E6141"/><path d="M%s,%s h7.6" stroke="#C99B6D" stroke-width="1"/><path d="M%s,%s v18" stroke="#2A1F19" stroke-opacity=".2" stroke-width="1.4"/>' % (f(lx - 4.5), f(ly), f(lx - 3.8), f(ly + 6), f(lx + 3.4), f(ly)))
+        elif legs == 'block':
+            # four upholstered blocks flush with the frame's corners, each on a thin walnut plate; the two at
+            # the back on the left hidden by the frame. The far one first, so the near ones are drawn over it
+            lh, lw, ld = p.get('leg_h', 24.0), 40.0, .11
+            ex, ey = DX * ld, DY * ld
+            for xl, t in ((x1 - lw, 1 - ld), (X0, 0.0), (x1 - lw, 0.0)):
+                bx, by = xl + DX * t, y0 + h + DY * t
+                sd = 'M%s,%s l%s,%s v%s l%s,%s Z' % (f(bx + lw), f(by), f(ex), f(ey), f(lh), f(-ex), f(-ey))
+                g.append('<path d="%s" fill="url(#cr-{{U}}-%s-xs)"/><path d="%s" fill="url(#cr-{{U}}-ls)"/>' % (sd, part, sd))
+                g.append('<rect x="%s" y="%s" width="%s" height="%s" fill="url(#cr-{{U}}-%s-xf)"/><rect x="%s" y="%s" width="%s" height="%s" fill="url(#cr-{{U}}-lf2)"/>' % (
+                    f(bx), f(by), f(lw), f(lh), part, f(bx), f(by), f(lw), f(lh)))
+                # in the frame's shadow at the top, the walnut at the foot
+                g.append('<rect x="%s" y="%s" width="%s" height="5" fill="#2A1F19" fill-opacity=".16"/>' % (f(bx), f(by), f(lw)))
+                g.append('<path d="M%s,%s h%s l%s,%s v2.6 l%s,%s h%s Z" fill="url(#cr-{{U}}-wood)"/>' % (
+                    f(bx), f(by + lh - 2.6), f(lw), f(ex), f(ey), f(-ex), f(-ey), f(-lw)))
+                g.append('<path d="M%s,%s V%s" stroke="#fff" stroke-opacity=".18" stroke-width=".7"/>' % (f(bx + lw - .6), f(by + 5), f(by + lh - 3)))
         elif legs == 'fabric':
             for lx in (X0 + 10, x1 - 36):
                 g.append('<rect x="%s" y="%s" width="26" height="13" fill="url(#cr-{{U}}-%s-xf)"/><rect x="%s" y="%s" width="26" height="13" fill="#2A1F19" fill-opacity=".12"/>' % (f(lx), f(y0 + h - 1), part, f(lx), f(y0 + h - 1)))
@@ -278,6 +301,15 @@ def box(part, p, u, kind, gap=0.0, inner=False):
         if p.get('sheen'):
             # silk: a light that runs along it
             g.append('<path d="%s" fill="url(#cr-{{U}}-sheen)" pointer-events="none"/>' % front)
+    if p.get('border') and not ghost:
+        # a band of another cloth round the top, inset from its piped edge (Top)
+        def tp(uu, vv):
+            return '%s,%s' % (f(X0 + uu * W + vv * DX), f(y0 + vv * DY))
+        bu, bv = .03, .06
+        outer = 'M%s L%s L%s L%s Z' % (tp(.008, 0), tp(1, 0), tp(1, 1), tp(.012, 1))
+        inner = 'M%s L%s L%s L%s Z' % (tp(bu, bv), tp(bu, 1 - bv), tp(1 - bu, 1 - bv), tp(1 - bu, bv))
+        g.append('<path d="%s %s" fill-rule="evenodd" fill="%s"/><path d="%s %s" fill-rule="evenodd" fill="url(#cr-{{U}}-lt)"/>' % (outer, inner, mix(soft(p['border'], .04), col, .14), outer, inner))
+        g.append('<path d="%s" fill="none" stroke="#2A1F19" stroke-opacity=".16" stroke-width=".7"/>' % inner)
     if part != 'topper' and not ghost:
         sx, sy = X0 + 26, y0 - 4
         g.append('<path class="ms-cr__cast" d="M%s,%s L%s,%s L%s,%s L%s,%s Z" filter="url(#cr-{{U}}-soft)"/>' % (
@@ -310,7 +342,7 @@ def box(part, p, u, kind, gap=0.0, inner=False):
                 g.append('<ellipse class="ms-cr__tuft" style="fill: %s" cx="%s" cy="%s" rx="1.7" ry="1"/><ellipse cx="%s" cy="%s" rx="1.7" ry="1" fill="url(#cr-{{U}}-tuft)"/>' % (shade(col, -.04), f(x), f(y), f(x), f(y)))
         if part == 'mattress':
             # the border: stitched by hand in columns, and in rows across them
-            n = 34
+            n = 30 if p.get('grid') else 34
             cols = []
             for i in range(1, n):
                 xx = X0 + W * i / n
@@ -332,19 +364,38 @@ def box(part, p, u, kind, gap=0.0, inner=False):
                 yb, bt = y0 + h * .36, 8
                 mid = (yb + bt + y0 + h) / 2
                 ys = [(y0 + yb) / 2] + [yb + bt + (y0 + h - yb - bt) * k / rows for k in range(1, rows)]
+            if p.get('grid'):
+                # quilted in squares (Top): the seams across, as soft as the columns, the light on each square
+                seams = ' '.join('M%s,%s L%s,%s L%s,%s' % (f(X0 + 3), f(y0 + h * k / (rows + 1)), f(x1), f(y0 + h * k / (rows + 1)), f(x1 + DX), f(y0 + h * k / (rows + 1) + DY)) for k in range(1, rows + 1))
+                g.append('<path d="%s" stroke="%s" stroke-opacity=".13" stroke-width="1" fill="none"/><path d="%s" stroke="#fff" stroke-opacity=".34" stroke-width=".7" fill="none" transform="translate(0 1.1)"/>' % (seams, fold, seams))
+                # each row of squares swells a little: lit at its top, in shade at its seam
+                rh = h / (rows + 1)
+                for k in range(rows + 1):
+                    ya = y0 + rh * k
+                    g.append('<rect x="%s" y="%s" width="%s" height="%s" fill="url(#cr-{{U}}-puff)" pointer-events="none"/>' % (f(X0 + 1), f(ya), f(W - 1), f(rh)))
+                ys = []
             for yy in ys:
                 g.append('<path d="M%s,%s L%s,%s L%s,%s" fill="none" stroke="%s" stroke-width="1.15" stroke-linecap="round" stroke-dasharray=".1 4.4" stroke-opacity=".7"/>' % (f(X0 + 6), f(yy), f(x1 - 3), f(yy), f(x1 + DX - 5), f(yy + DY), rc))
             # brass vents, and the house's label
-            nvn = p.get('vents', 0)
+            nvn = 0 if p.get('handles') == 'pair' else p.get('vents', 0)
             for i in range(nvn):
                 vx = X0 + W * (i + .62) / (nvn + .4)
                 vy = mid
                 g.append('<circle cx="%s" cy="%s" r="2.5" fill="url(#cr-{{U}}-brass)"/><circle cx="%s" cy="%s" r=".9" fill="#4A3418" fill-opacity=".6"/>' % (f(vx), f(vy), f(vx), f(vy)))
             lx, ly = x1 - 78, mid - 7
-            if ly + 14 <= y0 + h - 2:
+            if p.get('handles') == 'pair':
+                # two handles on the long side, each between two brass vents (Top)
+                for hu in (.27, .71):
+                    hx = X0 + W * hu
+                    g.append('<path d="M%s,%s h26" stroke="#2A1F19" stroke-opacity=".12" stroke-width="1.4"/>' % (f(hx - 13), f(mid + 5.4)))
+                    g.append('<rect x="%s" y="%s" width="30" height="9" rx="1.3" fill="%s" stroke="%s" stroke-width=".7"/><path d="M%s,%s v6.4 M%s,%s v6.4" stroke="%s" stroke-width=".55" stroke-dasharray="1 1.2"/>' % (
+                        f(hx - 15), f(mid - 4.5), shade(col, -.02), shade(col, -.3), f(hx - 11.5), f(mid - 3.2), f(hx + 11.5), f(mid - 3.2), shade(col, -.34)))
+                    for vx in (hx - 31, hx + 31):
+                        g.append('<circle cx="%s" cy="%s" r="2.5" fill="url(#cr-{{U}}-brass)"/><circle cx="%s" cy="%s" r=".9" fill="#4A3418" fill-opacity=".6"/>' % (f(vx), f(mid), f(vx), f(mid)))
+            elif ly + 14 <= y0 + h - 2:
                 g.append('<rect x="%s" y="%s" width="34" height="14" rx="1" fill="%s" stroke="%s" stroke-width=".6"/><path d="M%s,%s h20" stroke="%s" stroke-width=".8"/><path d="M%s,%s h12" stroke="%s" stroke-width=".5"/>' % (
                 f(lx), f(ly), shade(col, .04), shade(col, -.24), f(lx + 7), f(ly + 6), shade(col, -.42), f(lx + 11), f(ly + 9.5), shade(col, -.3)))
-            if p.get('handles'):
+            if p.get('handles') is True:
                 # a fabric handle on the side, and one on the front
                 hx, hy = x1 + DX * .5, mid + DY * .5
                 ux, uy = UX * 22, UY * 22
@@ -367,7 +418,7 @@ def box(part, p, u, kind, gap=0.0, inner=False):
                 dx0 = X0 + 12 + i * (wdr + 6)
                 g.append('<rect x="%s" y="%s" width="%s" height="%s" rx="1.5" fill="#fff" fill-opacity=".08" stroke="%s" stroke-width=".9"/>' % (f(dx0), f(y0 + 12), f(wdr), f(h - 20), shade(col, -.28)))
                 g.append('<path d="M%s,%s h22" stroke="%s" stroke-width="2" stroke-linecap="round"/>' % (f(dx0 + wdr / 2 - 11), f(y0 + 12 + (h - 20) / 2), shade(col, -.4)))
-        if part == 'base':
+        if part == 'base' and p.get('legs') != 'block':
             # the welt where the upholstery turns over the top
             g.append('<path d="M%s,%s L%s,%s L%s,%s" fill="none" stroke="#2A1F19" stroke-opacity=".22" stroke-width="1"/><path d="M%s,%s L%s,%s L%s,%s" fill="none" stroke="#fff" stroke-opacity=".22" stroke-width=".8"/>' % (
                 f(X0 + 2), f(y0 + 9), f(x1 - 1), f(y0 + 9), f(x1 + DX - 2), f(y0 + 9 + DY), f(X0 + 2), f(y0 + 10.2), f(x1 - 1), f(y0 + 10.2), f(x1 + DX - 2), f(y0 + 10.2 + DY)))
@@ -490,7 +541,7 @@ def drawing(key, kind='system'):
         cy = {'topper': 82.0, 'mattress': 176.0, 'base': 296.0}
         gaps = {'topper': cy['mattress'] - (cy['topper'] + cfg['topper']['h']), 'mattress': cy['base'] - (cy['mattress'] + cfg['mattress']['h']), 'base': 0}
     else:
-        tops = {'topper': TOPS['topper'], 'mattress': TOPS['mattress'], 'base': 380.0 - cfg['base']['h']}
+        tops = {'topper': TOPS['topper'], 'mattress': TOPS['mattress'], 'base': 380.0 - cfg['base']['h'] + cfg['base'].get('drop', 0.0)}
         gaps = {'topper': tops['mattress'] - (tops['topper'] + cfg['topper']['h']), 'mattress': tops['base'] - (tops['mattress'] + cfg['mattress']['h']), 'base': 0}
     body = []
     shadow = '<ellipse class="ms-cr__shadow" cx="%s" cy="398" rx="%s" ry="12" filter="url(#cr-%s-blur)"/>' % ('285' if round_ else '290', '236' if round_ else '262', u)

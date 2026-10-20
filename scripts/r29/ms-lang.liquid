@@ -1,0 +1,44 @@
+{%- comment -%}
+  Round 29: the store's languages, quietly. In the header, the code of the one in use (EN), which
+  opens the others; in the phone menu and the footer, the three side by side. Each language is named
+  in its own words. Shopify's own form: a choice keeps the visitor on the same page, in the other
+  language. Shown only when the store has more than one language published.
+  Usage: {% render 'ms-lang', place: 'head' %} · 'menu' · 'foot'
+{%- endcomment -%}
+{%- if localization.available_languages.size > 1 -%}
+{%- capture ms_lang_lbl -%}{% render 'ms-t', v: 'Language' %}{%- endcapture -%}
+{%- assign ms_lang_lbl = ms_lang_lbl | strip -%}
+{%- assign ms_lang_now = localization.language.iso_code -%}
+{%- capture ms_lang_opts -%}
+  {%- for l in localization.available_languages -%}
+    {%- unless forloop.first -%}{%- if place != 'head' -%}<span class="ms-lang__sep" aria-hidden="true">·</span>{%- endif -%}{%- endunless -%}
+    <button type="submit" name="language_code" value="{{ l.iso_code }}" lang="{{ l.iso_code }}"{% if l.iso_code == ms_lang_now %} aria-current="true"{% endif %}>{{ l.endonym_name | capitalize }}</button>
+  {%- endfor -%}
+{%- endcapture -%}
+{%- case place -%}
+  {%- when 'head' -%}
+    <details class="ms-lang ms-lang--head" data-ms-lang>
+      <summary aria-label="{{ ms_lang_lbl | escape }}: {{ localization.language.endonym_name | capitalize | escape }}"><span>{{ ms_lang_now | upcase }}</span><svg viewBox="0 0 10 6" width="8" height="5" aria-hidden="true" focusable="false"><path d="m1 1 4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.1"/></svg></summary>
+      <div class="ms-lang__list">
+        {%- form 'localization', id: 'ms-lang-head' -%}<div role="group" aria-label="{{ ms_lang_lbl | escape }}">{{ ms_lang_opts }}</div>{%- endform -%}
+      </div>
+    </details>
+    <script>
+      (function () {
+        var d = document.querySelector('[data-ms-lang]');
+        if (!d || d.dataset.ready) return;
+        d.dataset.ready = '1';
+        document.addEventListener('click', function (e) { if (d.open && !d.contains(e.target)) d.open = false; });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && d.open) { d.open = false; d.querySelector('summary').focus(); } });
+      })();
+    </script>
+  {%- when 'menu' -%}
+    <div class="ms-lang ms-lang--row ms-lang--menu">
+      {%- form 'localization', id: 'ms-lang-menu' -%}<div role="group" aria-label="{{ ms_lang_lbl | escape }}">{{ ms_lang_opts }}</div>{%- endform -%}
+    </div>
+  {%- else -%}
+    <div class="ms-lang ms-lang--row ms-lang--foot">
+      {%- form 'localization', id: 'ms-lang-foot' -%}<div role="group" aria-label="{{ ms_lang_lbl | escape }}">{{ ms_lang_opts }}</div>{%- endform -%}
+    </div>
+{%- endcase -%}
+{%- endif -%}

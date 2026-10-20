@@ -53,7 +53,10 @@ assert 'ms-pr__cursor' not in _u and 'is-cursor' not in _u and 'cur.' not in _u 
 if _u != _t:
     open(_PRP28, 'w', encoding='utf-8').write(_u)
     _r28_n += 1
-_r28_sub(THEME + '/assets/ms-press-vanity-fair.svg', [('<rect width="328" height="72" fill="white"/>', '')])
+# (Round 29) that rect was the mark's own clip, not a box behind it: taken away, it left the clip empty and
+# the mark blank, an empty place in the press line. The clip itself goes instead; it only bounded the
+# drawing to its own box
+_r28_sub(THEME + '/assets/ms-press-vanity-fair.svg', [('<g clip-path="url(#clip0)">', '<g>')])
 
 # ── the corner: an enquiry instead of WhatsApp (WhatsApp stays among the socials). It opens the
 #    enquiry sheet; on, and named, from Theme settings → Midsummer · Social
@@ -256,7 +259,10 @@ _r28_sub(THEME + '/sections/ms-bed-lineup.liquid', [
 # ── Icons opens on two of the house's campaign photographs side by side, Top in the gallery of the Paris
 #    Opera and Flora at a palace's ironwork windows (scripts/icons_photo_r28.py); on a phone, Top alone,
 #    upright. The title back at the left. The abbey photograph leaves the theme.
-_r28_sub(THEME + '/sections/ms-collection-hero.liquid', [
+# (Round 29 opens Icons on one photograph, and leaves these two steps behind it)
+_ICONS29 = 'ms-photo-icons-opera.jpg' in open(THEME + '/sections/ms-collection-hero.liquid', encoding='utf-8').read()
+if not _ICONS29:
+  _r28_sub(THEME + '/sections/ms-collection-hero.liquid', [
     ("  assign tier_side = 'left'\n  case tier\n", "  assign tier_side = 'left'\n  assign tier_m = ''\n  case tier\n"),
     ("""    when 'icons', 'icon'
       assign tier_name = 'ms-photo-icons-abbey.jpg'
@@ -273,7 +279,8 @@ _r28_sub(THEME + '/sections/ms-collection-hero.liquid', [
      """<picture style="display: block;">{%- if tier_m != '' -%}<source media="(max-width: 760px)" {% render 'ms-srcset', fallback: tier_m, width: 1000, sizes: '100vw' %}>{%- endif -%}<img alt="{%- render 'ms-coll-name', c: collection -%}" width="1920" height="1280" src="{{ tier_photo }}" {% render 'ms-srcset', fallback: tier_name, width: 2400, sizes: '(max-width: 760px) 150vh, 100vw' %} style="width: 100%; height: min(66vh, 640px); object-fit: cover; object-position: {{ tier_pos }}; display: block;" fetchpriority="high"></picture>"""),
 ])
 # the two beds stand low in their photographs: Icons' name at the top, over the ceilings, not over a bed
-_r28_sub(THEME + '/sections/ms-collection-hero.liquid', [
+if not _ICONS29:
+  _r28_sub(THEME + '/sections/ms-collection-hero.liquid', [
     ("  assign tier_m = ''\n  case tier\n", "  assign tier_m = ''\n  assign tier_v = ''\n  case tier\n"),
     ("      assign tier_m = 'ms-photo-icons-pair-m.jpg'\n", "      assign tier_m = 'ms-photo-icons-pair-m.jpg'\n      assign tier_v = 'top'\n"),
     ("radial-gradient(ellipse 52% 62% at {% if tier_side == 'right' %}100%{% else %}0%{% endif %} 100%, rgba(10, 8, 6, 0.42), rgba(10, 8, 6, 0) 72%), linear-gradient(180deg, rgba(10, 8, 6, 0.34) 0%, rgba(10, 8, 6, 0) 24%,",

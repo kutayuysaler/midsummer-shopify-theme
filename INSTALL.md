@@ -2906,3 +2906,137 @@ The menu looks the same. What changed is how it behaves:
    - delete the Paisley render photograph;
    - upload the four `store-images/` photographs;
    - import the translations file.
+
+## 51. Round 29: a calmer phone menu, languages, one way to enquire, the atelier's photographs, Top, product photographs, and fixes from a phone
+
+### The phone menu, redone
+
+**What was wrong on the live store:**
+
+- **A grey box behind the logo.** Round 28 marked the page in use with a light bronze wash. On the home page, the page in use is the logo's own link, so the wash sat behind the logo. The page in use is now marked by its colour, bronze, and the logo is never marked.
+- **A late picture beside *Find your Midsummer*.** The menu's photographs were only fetched once the menu was open, and at a size meant for a much larger frame, so the first one showed empty for a moment. They are now fetched as a finger comes down on the menu button, at the small size they are shown.
+- **Too much at once.** Large numbered titles with rules between them, a beige card, small links in widely spaced capitals, and a block fixed to the foot. That block held the appointment button, a line and four circles, took a fifth of the screen and sat under Safari's bar.
+
+**What it is now:**
+
+- **The five chapters** in the serif, at a reading size, without numbers or rules. A small arrow shows where a further level follows.
+- ***Find your Midsummer*** on one slim line, with its small photograph beside it.
+- **The small links** in one column, in ordinary case.
+- **Then the appointment, the languages and the socials.** The appointment is an outlined button and the socials are plain marks. They follow the list, on the first level only. Nothing is fixed at the foot, and the end of the menu scrolls clear of the browser's bar.
+- **A hairline** under the menu's head, only once the list has scrolled under it.
+- **The deeper levels** lose their numbers and keep their links. *Contact* no longer shows the appointment twice.
+- **VK** (Russian site only) is drawn like the other marks: its letters in a rounded square, not a solid block.
+
+Everything Round 28 added to how the menu behaves stays. Focus goes into it and back, the page behind it can't be reached, back and a swipe go up a level, and links are fetched ahead.
+
+### Fixes found on a phone
+
+- **The kinds of enquiry could not be chosen in Italian or Russian.** On the enquiry page, a tap on *Richiedi una proposta* (or any other kind) did nothing. Each kind carried its translated name as its key, and the form only knows the English ones. The keys now stay English and only the names shown are translated. A tap also brings the chosen kind fully into view in its strip. In English it always worked, which is why it went unseen.
+- **An empty place in the press line.** It was *Vanity Fair*. Round 28 took away what looked like a white box in its file, but that shape was the mark's own clipping frame, so the whole mark disappeared. The clip is gone instead, and the mark is drawn again.
+- ***Find your Midsummer* on a phone.**
+  - Each question's photograph is now a band at the top, under the close button, with the counter and the question below it. Before, the photographs came after the answers, under Safari's bar, and *Close* sat on the counter.
+  - An answer brings the next question into view.
+  - On every screen, the photograph now changes with each question and fades in. Before, the first photograph stayed for all five: the browser kept it in place whatever the script asked.
+- **A collection's name under the site header (Icons, on a phone).** Icons now sets its name at the foot of its opening on every screen, as Essentials and Signature do, so the header never runs over it.
+- **The product page's *Back* row** is shorter on a phone: about 50 pixels from the header to the photographs, not 75.
+
+### Languages, quietly
+
+The site was already in English, Italian and Russian, but there was no way to switch between them. There now is, in three places:
+
+- **In the header:** the code of the language in use (*EN*), beside *Showrooms*. It opens a short list: *English*, *Italiano*, *Русский*. A click anywhere else, or Escape, closes it.
+- **In the phone menu:** the three languages side by side on the first level, under the appointment button.
+- **In the footer's last line:** the three again, between the company line and the legal links. The word *English* that sat at the end of the legal links was only ever a label; it is gone.
+
+Each language is named in its own words, and the one in use is marked. The switcher uses Shopify's own language form, so a choice keeps the visitor on the same page in the other language. It shows only when the store has more than one language published (*Settings → Languages*). The one new word, *Language* (*Lingua*, *Язык*), is translated.
+
+### One way to enquire
+
+The header had *Enquiries* and *Book an appointment* side by side, and the *Enquire* button sat in the corner as well: three ways to the same place.
+
+- **Wide screens.** The header keeps one: *Book an appointment*, which opens the enquiry sheet. The *Enquiries* link is gone. Naming it again in the editor (*Header → Header link: enquiry page*) brings it back.
+- **Phones.** The header has no buttons there, so the small *Enquire* button in the corner stays, on phones only. Its setting is now *Theme settings → Midsummer · Social → Show the enquiry button on phones*.
+- **Still reachable.** The enquiry page itself can still be reached from the *Contact* menu and from the sheet.
+
+### Icons, on one photograph
+
+The two photographs side by side are gone. Icons opens on one: **Top, in the gallery of the Paris Opera**, at the right. The collection's name sits beside it on the dark ground, at its foot, where Essentials and Signature have theirs. The header's words keep clear over the chandeliers.
+
+On a phone the photograph stands upright, with the name at its foot as well. `scripts/icons_photo_r29.py` prepares both, each at its own resolution or below.
+
+### The enquiry sheet, opening and closing
+
+On a phone, the sheet used to appear all at once when the *Enquire* button was tapped, and vanish the same way. Its motion had been switched off on phones, and the drag on its grip with it.
+
+- **Opening.** The sheet now rises from the foot of the screen and slows as it arrives, in about half a second. The page behind dims with it, and the words follow a moment later.
+- **Closing.** The close button, Escape or a tap on the dimmed page send it back down the way it came, with the page brightening behind it. On wide screens it slides back out to the right, the way it came in.
+- **By hand.** The grip at its top follows a finger. A short drag settles back; a longer one, or a quick flick down, closes it.
+- **Reduced motion.** Where the phone asks for less motion, it opens and closes at once, as before.
+
+### The Milano atelier, Via Andegari
+
+- **No more blue-and-gold room.** The page's opening, the three steps of *Slow, by method* and the second photograph of the pair came from the room with the blue-and-gold walls. They now come from the house's own shoot at Via Andegari:
+  - **Opening:** the parrot room, framed on the bed.
+  - **Steps:** the screen, the leopard room from the side and a wool edge.
+  - **Pair:** the leopard room from above (*The leopard room, Via Andegari.*).
+- **The rooms.** The first and sixth photographs of *The rooms* are replaced: *The teal room, the bed made up.* and *A wool blanket at the foot of the bed.* The order of the others is kept. `scripts/atelier_photos_r29.py` prepares them.
+- **The two old files** are no longer in the theme.
+- **Who receives visitors.** The answer to *Do I need an appointment?* no longer speaks of the artisans: *…so that each visit has the rooms, and our attention, to itself.* Visitors at Via Andegari are received by the house, not by the artisans.
+- **Translated.** The new captions and the answer are in Italian and Russian.
+
+The blue-and-gold photograph is still used in two places outside the atelier page: one chapter of the home page, and the default image shown when the site is shared (in a link preview or a search result). Ask if those should change as well.
+
+### Top
+
+- **The award label is out of *Inside Top*.** Opened, the topper rose into the label at the section's corner. Under the drawing, it crowded the caption. *Inside Top* now shows the bed alone. The Green Product Award stays where it already was: under the product's name at the top of the page, and on *About*.
+- **The drawing, redrawn from Top's photographs.** Before, the boxspring was drawn as a solid red block on small feet, and the mattress had a red band across its middle. Now:
+  - **The boxspring** is a rust frame on four upholstered blocks, flush with its corners, each on a thin walnut plate.
+  - **The mattress** is cream, piped in rust at the top and the foot, its border quilted in squares, with two handles on its long side, each between two brass vents.
+  - **The topper** is cream and piped in rust.
+  - **The tops** of both have a rust border round the edge, as in the photographs.
+
+### Product photographs, whole and sharp
+
+**Why they looked cut and soft.** The photographs on a product page were cut to fill a tall 4:5 frame, and on a laptop the frame was shortened again to fit under the screen. So:
+
+- a wide studio photograph lost both ends of the bed;
+- a photograph of a room lost its floor, with the bed at the foot;
+- whatever was left was enlarged past the photograph's resolution, so it looked out of focus.
+
+**Now:**
+
+- **The frame follows the photographs.** It takes the first photograph's own proportions (between 3:4 upright and 3:2 wide). It is sized so it fits under the screen, and sits centred with its thumbnails.
+- **Nothing is cut away.** A photograph of other proportions is shown whole, on the page's paper. On a phone, one that is nearly the frame's shape fills it.
+- **White studio grounds blend into the paper,** as Round 22 meant them to. The photograph's frame had no colour of its own behind it, so the effect never showed.
+- **Sharper on large screens.** Photographs are now fetched up to 2800 px wide for large, dense screens.
+
+**In the admin, for the best result:**
+
+1. **Upload each photograph at full size,** at least 2400 px on its long side. A small file cannot be made sharp.
+2. **Put the photograph that best shows the whole bed first.** The frame takes its proportions.
+3. **For a room photograph, set its focal point on the bed** (*Products → the product → the photograph → Edit → Focal point*). The page already uses it wherever a photograph has to be cropped.
+
+### Checks
+
+| Check | Result |
+|---|---|
+| Build twice | identical |
+| Liquid strict | 477 files, 0 errors |
+| Theme Check | no new errors (only the locale files' matching notices, as before); the same 68 warnings |
+| Every template rendered and run in a browser (78 pages) | no script errors, no missing files, one H1 each; the same four templates the local renderer cannot draw, as before |
+| Phones at 320, 360, 390 and 430 px | nothing covered or cut; the same as Round 28 |
+| Interaction tests | 308 pass, 0 fail. New: the languages in the header, the phone menu and the footer; one way to enquire on each screen; the enquiry sheet rising, falling and following the grip; the phone menu redone (nothing fixed at its foot, its photographs fetched as it opens); the kinds of enquiry chosen by tapping in Italian; every press mark drawn; each question of *Find your Midsummer* with its own photograph; the shorter *Back* row; Icons' name at the foot of its opening; *Inside Top* without the award label; product photographs whole in a frame of the first one's proportions, on a wide screen and a phone |
+
+### After installing, check
+
+1. **On a phone, on the home page:** open the menu. There is no box behind the logo, and the photograph sits beside *Find your Midsummer*. Scroll to the end: the appointment, the languages and the socials sit above Safari's bar.
+2. **The header:** *Showrooms · EN · Book an appointment*. *EN* opens the three languages. Choosing *Italiano* reloads the same page in Italian, and the header then says *IT*.
+3. **On a phone:** the corner *Enquire* button after a little scrolling. In the menu, under the appointment button, the three languages.
+4. **Icons:** one photograph beside its name.
+5. **On a phone:** tap *Enquire*; the sheet rises. Drag its grip down a little and let go: it settles back. Flick it down: it closes.
+6. **In Italian, on the enquiry page:** tap *Richiedi una proposta*. The form changes to the proposal. On the home page, *As featured in* has no empty place.
+7. **On a phone:** open *Find your Midsummer*. Each question has its own photograph at the top.
+8. **The Milano atelier page:** no blue-and-gold room. *The rooms* begins with the teal room. The visiting answer ends *…and our attention, to itself.*
+9. **Top's page:** *Inside Top* shows the bed alone, with no award label in the section. The award stays under the name at the top. The drawing shows the rust frame on four blocks and the quilted cream mattress.
+10. **Product pages:** Vivaldi Plus shows its room photograph whole, the bed and the floor in view, and sharp. A wide studio photograph shows the whole bed on the paper, with no white sheet around it.
+11. **Still to do,** from §50: the three admin tasks, the mohair photograph and the larger 15 + 15 photograph.

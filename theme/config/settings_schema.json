@@ -2417,8 +2417,8 @@
       {
         "type": "checkbox",
         "id": "ms_enquiry_bubble",
-        "label": "Show the enquiry button in the corner",
-        "info": "A small button that opens the enquiry form, once the visitor has scrolled a little.",
+        "label": "Show the enquiry button on phones",
+        "info": "A small button in the corner of a phone that opens the enquiry form, once the visitor has scrolled.",
         "default": true
       },
       {

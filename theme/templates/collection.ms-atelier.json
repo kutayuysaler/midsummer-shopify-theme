@@ -7,7 +7,8 @@
     "s01": {
       "type": "ms-banner",
       "settings": {
-        "image_fallback": "ms-photo-atelier-sun.jpg",
+        "image_fallback": "ms-photo-atelier-parrot-front.jpg",
+        "focus": "bottom",
         "eyebrow": "Via Andegari 4, Milano",
         "use_page_title": false,
         "heading": "The Milano atelier",
@@ -35,7 +36,7 @@
         "step_01": {
           "type": "step",
           "settings": {
-            "image_fallback": "ms-photo-atelier-blue-gold.jpg",
+            "image_fallback": "ms-photo-atelier-screen.jpg",
             "title": "Book",
             "text": "<p>Choose a morning or an afternoon, at the atelier or by video. A person replies within one working day.</p>"
           }
@@ -43,7 +44,7 @@
         "step_02": {
           "type": "step",
           "settings": {
-            "image_fallback": "ms-photo-atelier-pure.jpg",
+            "image_fallback": "ms-photo-atelier-leopard-side.jpg",
             "title": "Lie down",
             "text": "<p>Essentials, Signature and Icons, made up as they would be at home. Take your time on each.</p>"
           }
@@ -59,7 +60,7 @@
         "step_04": {
           "type": "step",
           "settings": {
-            "image_fallback": "ms-photo-atelier-orange-bed.jpg",
+            "image_fallback": "ms-photo-atelier-wool-edge.jpg",
             "title": "Specify",
             "text": "<p>Size, firmness, fibres and cloth, written down with you. The proposal follows, drawn for your room.</p>"
           }
@@ -79,8 +80,8 @@
         "heading": "Every bed made up, as it would be at home.",
         "fallback_1": "ms-photo-atelier-parrots.jpg",
         "caption_1": "The parrot room, with a Signature system.",
-        "fallback_2": "ms-photo-atelier-orange-bed.jpg",
-        "caption_2": "The blue-and-gold room, Via Andegari."
+        "fallback_2": "ms-photo-atelier-leopard-above.jpg",
+        "caption_2": "The leopard room, Via Andegari."
       }
     },
     "s05": {
@@ -96,7 +97,7 @@
           "type": "qa",
           "settings": {
             "q": "Do I need an appointment?",
-            "a": "<p>Yes. The atelier receives by appointment, Monday to Friday, 09:00–12:00 and 13:00–18:00, so that each visit has the rooms and the artisans’ attention to itself.</p>"
+            "a": "<p>Yes. The atelier receives by appointment, Monday to Friday, 09:00–12:00 and 13:00–18:00, so that each visit has the rooms, and our attention, to itself.</p>"
           }
         },
         "qa_02": {
@@ -189,9 +190,9 @@
         "p04": {
           "type": "photo",
           "settings": {
-            "image_fallback": "ms-photo-atelier-blue-gold-made.jpg",
-            "caption": "The blue-and-gold room, the bed made up.",
-            "ratio": "1.498"
+            "image_fallback": "ms-photo-atelier-teal-room.jpg",
+            "caption": "The teal room, the bed made up.",
+            "ratio": "0.668"
           }
         },
         "p05": {
@@ -213,9 +214,9 @@
         "p07": {
           "type": "photo",
           "settings": {
-            "image_fallback": "ms-photo-atelier-edge.jpg",
-            "caption": "The edge of a mattress, piped and stitched by hand.",
-            "ratio": "1.498"
+            "image_fallback": "ms-photo-atelier-blanket.jpg",
+            "caption": "A wool blanket at the foot of the bed.",
+            "ratio": "0.668"
           }
         },
         "p08": {

@@ -1,0 +1,101 @@
+
+/* Round 29: the languages, quietly: a code in the header that opens the others, a row in the phone
+   menu and in the footer; each language in its own words, the one in use in ink */
+.ms-lang form { margin: 0; }
+.ms-lang button { font: inherit; letter-spacing: inherit; text-transform: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+.ms-lang--head { position: relative; flex: 0 0 auto; }
+.ms-lang--head summary { list-style: none; display: inline-flex; align-items: center; gap: 7px; min-height: 42px; font-size: 10.5px; letter-spacing: .19em; text-transform: uppercase; cursor: pointer; user-select: none; }
+.ms-lang--head summary::-webkit-details-marker { display: none; }
+.ms-lang--head summary svg { opacity: .6; transition: transform .35s cubic-bezier(.2, .7, .2, 1); }
+.ms-lang--head[open] summary svg { transform: rotate(180deg); }
+.ms-lang--head summary:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
+.ms-lang__list { position: absolute; top: calc(100% + 4px); right: -16px; z-index: 70; min-width: 176px; padding: 6px 0; background: #FBF9F5; color: #17140F; border: 1px solid rgba(23, 20, 15, .1); box-shadow: 0 22px 44px -26px rgba(23, 20, 15, .45); animation: msLangIn .28s cubic-bezier(.2, .7, .2, 1); }
+.ms-lang__list [role="group"] { display: flex; flex-direction: column; }
+.ms-lang__list button { display: flex; align-items: center; justify-content: space-between; gap: 18px; width: 100%; min-height: 44px; padding: 0 20px; font-size: 10.5px; letter-spacing: .19em; text-transform: uppercase; color: #6E675C; text-align: left; transition: color .25s, background-color .25s; }
+.ms-lang__list button:hover, .ms-lang__list button:focus-visible { color: #17140F; background: rgba(126, 98, 59, .07); outline: none; }
+.ms-lang__list button[aria-current="true"] { color: #17140F; }
+.ms-lang__list button[aria-current="true"]::after { content: ''; flex: 0 0 auto; width: 5px; height: 5px; border-radius: 50%; background: #7E623B; }
+@keyframes msLangIn { from { opacity: 0; transform: translateY(-4px); } }
+.ms-lang--row [role="group"] { display: flex; flex-wrap: wrap; align-items: center; }
+.ms-lang__sep { margin: 0 10px; color: #B5AC9F; }
+.ms-lang--row button { color: #6E675C; transition: color .25s; }
+.ms-lang--row button:hover, .ms-lang--row button:focus-visible { color: #17140F; }
+.ms-lang--row button[aria-current="true"] { color: #17140F; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; }
+.ms-lang--menu { margin-top: 24px; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; }
+.ms-lang--menu button { min-height: 44px; }
+.ms-lang--foot { font-size: 11px; letter-spacing: .04em; }
+/* the Cyrillic falls back to the system's sans: a lighter weight keeps it level with the others */
+.ms-lang button:lang(ru) { font-weight: 300; }
+/* the footer's last line: the company, the languages and the legal links on one level */
+.ms-site [data-ms-footer] div:has(> [data-ms="footlegal"]) { align-items: center; }
+@media (prefers-reduced-motion: reduce) { .ms-lang__list { animation: none; } .ms-lang--head summary svg { transition: none; } }
+
+/* Round 29: the enquiry sheet, unhurried. The room behind dims, the sheet rises from the foot of a phone
+   (from the right on a wider screen) and its words follow it in; closing, it goes back the way it came,
+   from wherever a finger left it (assets/ms-site.js) */
+@keyframes msSheetUp { from { transform: translate3d(0, 100%, 0); } }
+@keyframes msVeilIn { from { opacity: 0; } }
+[data-ms-drawer] > [data-ms-drawer-close] { animation: msVeilIn .42s ease-out backwards; }
+[data-ms-drawer] [data-ms="sheet"] > :not([data-ms="grip"]) { animation: msRise .5s .14s cubic-bezier(.32, .72, 0, 1) backwards; }
+@media (max-width: 760px) { [data-ms-drawer] > [data-ms-drawer-close] { background: rgba(10, 8, 6, .5) !important; } }
+@media (prefers-reduced-motion: reduce) { [data-ms-drawer] > [data-ms-drawer-close], [data-ms-drawer] [data-ms="sheet"] > * { animation: none !important; } }
+
+/* Round 29: the phone menu, calmer. The five chapters in the serif at a reading size, no numbers and no
+   rules; the five questions a slim line; the small links in one column, in their own case; the
+   appointment, the languages and the socials follow the list (first level only), nothing is fixed at
+   the foot, and the end clears the browser's own bar. The page in use is marked in bronze, never washed */
+[data-ms-menu] > div:first-child { min-height: 60px !important; padding-left: max(24px, env(safe-area-inset-left)) !important; padding-right: max(24px, env(safe-area-inset-right)) !important; border-bottom-color: transparent !important; transition: border-color .25s ease; }
+[data-ms-menu].is-scrolled > div:first-child { border-bottom-color: #E5DED2 !important; }
+[data-ms-menu] > div[data-ms="mbody"] { padding: 4px max(24px, env(safe-area-inset-right)) calc(96px + env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left)) !important; }
+[data-ms-menu] a[aria-current="page"] { background: none; }
+[data-ms-menu] a[aria-current="page"]:not([data-ms-mroot-only]) { color: #7E623B !important; }
+[data-ms-mroot] nav { padding-top: 8px; }
+[data-ms-mroot] nav > * { grid-template-columns: minmax(0, 1fr) 14px !important; min-height: 56px !important; border-bottom: 0 !important; }
+[data-ms-mroot] nav > * > span:first-child { display: none; }
+[data-ms-mroot] nav > * > span:nth-child(2) { font-size: 27px !important; line-height: 1.15 !important; letter-spacing: -.012em !important; font-weight: 300 !important; }
+[data-ms-mroot] nav > * > svg { width: 12px; height: 12px; color: #A39A8C; }
+[data-ms-mroot] nav > :active > span:nth-child(2) { color: #7E623B; }
+[data-ms-mroot] > [data-ms-quiz-link] { grid-template-columns: 52px minmax(0, 1fr) !important; gap: 16px !important; margin-top: 24px !important; padding: 16px 0 !important; background: none !important; border-top: 1px solid #E5DED2; border-bottom: 1px solid #E5DED2; }
+[data-ms-mroot] > [data-ms-quiz-link] img { width: 52px !important; background: #F1ECE3; }
+[data-ms-mroot] > [data-ms-quiz-link] > span { gap: 3px !important; }
+[data-ms-mroot] > [data-ms-quiz-link] > span > :first-child { font-size: 10px !important; letter-spacing: .22em !important; }
+[data-ms-mroot] > [data-ms-quiz-link] > span > :nth-child(2) { font-size: 19px !important; }
+[data-ms-mroot] > [data-ms-quiz-link] > span > :nth-child(3) { font-size: 12.5px !important; color: #6E675C !important; }
+[data-ms-mroot] > div:not([class]) { grid-template-columns: minmax(0, 1fr) !important; margin-top: 14px !important; }
+[data-ms-mroot] > div:not([class]) > a { min-height: 44px !important; border-bottom: 0 !important; font-size: 15px !important; letter-spacing: .005em !important; text-transform: none !important; color: #4A443B !important; }
+[data-ms-mroot] > div:not([class]) > a[aria-current="page"] { color: #7E623B !important; }
+[data-ms-menu] .ms-mcta { margin-top: 28px; }
+[data-ms-menu] .ms-mcta > a { min-height: 50px !important; background: none !important; color: #17140F !important; border: 1px solid #17140F; font-size: 10.5px !important; letter-spacing: .22em !important; transition: background-color .25s, color .25s; }
+[data-ms-menu] .ms-mcta > a:active { background: #17140F !important; color: #FBF9F5 !important; }
+[data-ms-menu] .ms-mcta > div { text-align: left !important; margin-top: 10px !important; }
+[data-ms-menu] .ms-lang--menu { margin-top: 18px; }
+[data-ms-menu] .ms-msoc { margin: 4px 0 0 -13px; }
+.ms-site [data-ms-menu] .ms-msoc .ms-social { gap: 0 !important; }
+.ms-site [data-ms-menu] .ms-msoc .ms-social a { width: 44px !important; height: 44px !important; border: 0 !important; background: none !important; color: #4A443B !important; }
+[data-ms-msub] > div:first-child > div:first-child { display: none; }
+[data-ms-msub] > div:first-child > div:nth-child(2) { margin-top: 0 !important; font-size: 32px !important; font-weight: 300 !important; letter-spacing: -.018em !important; }
+
+/* Round 29: Find your Midsummer on a phone. Each question's photograph is a band at the top, under the
+   close button, and the counter, the question and the answers follow it; before, the photograph came
+   after the answers, under the browser's bar, and the close button sat on the counter. Everywhere,
+   the photograph changes with the question and fades in (snippets/ms-quiz.liquid) */
+[data-ms-quiz-img] { transition: opacity .45s ease; }
+@media (max-width: 760px) {
+  .ms-quiz[data-ms-quiz] { display: flex !important; flex-direction: column-reverse; min-height: 0 !important; }
+  .ms-quiz[data-ms-quiz] > div:last-child { flex: none; min-height: 0 !important; height: 260px; height: min(34svh, 300px); }
+  .ms-quiz[data-ms-quiz] > div:first-child { justify-content: flex-start !important; padding: 26px 22px 48px !important; }
+  .ms-quiz [data-ms-quiz-q] { margin-top: 20px !important; }
+  .ms-quiz [data-ms-quiz-opts] { margin-top: 22px !important; }
+  .ms-quiz [data-ms-quiz-opts] > button { padding: 17px 0 !important; }
+  .ms-quiz [data-ms-quiz-opts] > button > span:last-child { line-height: 1.6 !important; margin-top: 4px !important; }
+  .ms-quiz [data-ms-quiz-run] > div:last-child { margin-top: 18px !important; }
+  .ms-quizdlg .ms-quiz[data-ms-quiz] { min-height: 0 !important; }
+}
+
+/* Round 29: on a phone, the product page's Back row is shorter; the kinds of enquiry are chosen by their
+   English keys (build_r23.py) and the chosen one is brought into view (assets/ms-site.js) */
+@media (max-width: 760px) {
+  .ms-pm { padding-top: 6px !important; }
+  .ms-pm .ms-pm__nav { margin-bottom: 4px !important; }
+  .ms-pm .ms-pm__back { min-height: 40px !important; }
+}

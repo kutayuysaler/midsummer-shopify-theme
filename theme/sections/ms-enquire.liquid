@@ -57,17 +57,19 @@
       <div class="ms-eq__label">{% render 'ms-t', v: s.intents_label %}</div>
       <div class="ms-eq__list" role="group" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.intents_label %}{% endcapture %}{{ ms_t_out | escape }}">
         {%- liquid
-  capture rows
+  capture row_names
   render 'ms-t', v: 'Book appointment|appointment,Request a proposal|proposal,Request brochure|brochure,Request callback|callback,Trade enquiry|trade,Become a partner|partner,Leave a message|message'
   endcapture
-  assign rows = rows | split: ','
+  assign row_names = row_names | split: ','
+  assign rows = 'Book appointment|appointment,Request a proposal|proposal,Request brochure|brochure,Request callback|callback,Trade enquiry|trade,Become a partner|partner,Leave a message|message' | split: ','
 -%}
         {%- for row in rows -%}
           {%- assign parts = row | split: '|' -%}
           {%- assign dk = 'd_' | append: parts[1] -%}
+          {%- assign shown = row_names[forloop.index0] | default: row | split: '|' -%}
           <button type="button" class="ms-eq__intent" data-ms-tab="{{ parts[0] }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">
             <span class="ms-eq__num">{{ forloop.index | prepend: '0' }}</span>
-            <span class="ms-eq__ititle"><span data-ms-dot></span><span data-ms-tablabel>{{ parts[0] | replace: 'Book appointment', 'Book an appointment' | replace: 'Request callback', 'Request a callback' }}</span></span>
+            <span class="ms-eq__ititle"><span data-ms-dot></span><span data-ms-tablabel>{{ shown[0] | replace: 'Book appointment', 'Book an appointment' | replace: 'Request callback', 'Request a callback' }}</span></span>
             <span class="ms-eq__idesc">{% render 'ms-t', v: s[dk] %}</span>
           </button>
         {%- endfor -%}

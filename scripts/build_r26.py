@@ -93,8 +93,9 @@ _r26_sub(THEME + '/snippets/ms-photo-soften.liquid', [
 #    the right, over the stone. The collection's own image in the admin (Bellagio) is left as it is.
 for _f in sorted(glob.glob(SP + '/vendor/r26/*.jpg')):
     _r26_copy(_f, THEME + '/assets/' + os.path.basename(_f))
-# (Round 28 opens Icons on two photographs instead, and leaves this step behind it)
-if 'ms-photo-icons-pair.jpg' not in open(THEME + '/sections/ms-collection-hero.liquid', encoding='utf-8').read():
+# (Rounds 28 and 29 open Icons on other photographs, and leave this step behind them)
+_h26 = open(THEME + '/sections/ms-collection-hero.liquid', encoding='utf-8').read()
+if 'ms-photo-icons-pair.jpg' not in _h26 and 'ms-photo-icons-opera.jpg' not in _h26:
   _r26_sub(THEME + '/sections/ms-collection-hero.liquid', [
     ("  assign tier_pos = 'center'\n", "  assign tier_pos = 'center'\n  assign tier_side = 'left'\n"),
     ("""    when 'icons', 'icon'

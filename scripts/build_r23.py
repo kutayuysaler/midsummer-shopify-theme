@@ -702,6 +702,21 @@ _sub1(_sl, [
     ('aria-pressed="false">{{ region }}</button>', 'aria-pressed="false">{{ region_names[forloop.index0] | default: region }}</button>'),
 ])
 
+# ── 2i. (Round 29) the enquiry page's kinds of enquiry: the same, as the English names are the keys the
+#    form's script knows. Translated, a kind could not be chosen at all in Italian or Russian
+_ROWS = ('Book appointment|appointment,Request a proposal|proposal,Request brochure|brochure,Request callback|callback,'
+         'Trade enquiry|trade,Become a partner|partner,Leave a message|message')
+_eq = os.path.join(THEME, 'sections', 'ms-enquire.liquid')
+_sub1(_eq, [
+    ("  capture rows\n  render 'ms-t', v: '%s'\n  endcapture\n  assign rows = rows | split: ','\n" % _ROWS,
+     "  capture row_names\n  render 'ms-t', v: '%s'\n  endcapture\n  assign row_names = row_names | split: ','\n"
+     "  assign rows = '%s' | split: ','\n" % (_ROWS, _ROWS)),
+    ("          {%- assign dk = 'd_' | append: parts[1] -%}\n",
+     "          {%- assign dk = 'd_' | append: parts[1] -%}\n          {%- assign shown = row_names[forloop.index0] | default: row | split: '|' -%}\n"),
+    ("<span data-ms-tablabel>{{ parts[0] | replace: 'Book appointment', 'Book an appointment' | replace: 'Request callback', 'Request a callback' }}</span>",
+     "<span data-ms-tablabel>{{ shown[0] | replace: 'Book appointment', 'Book an appointment' | replace: 'Request callback', 'Request a callback' }}</span>"),
+])
+
 # ── 3. the translations, into the locale files
 def jsonc_load(p):
     s = read(p)

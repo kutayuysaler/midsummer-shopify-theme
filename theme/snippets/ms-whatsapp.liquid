@@ -1,6 +1,6 @@
 {%- comment -%}
-  Round 28: an enquiry, always to hand. A small dark pill in the corner, once the visitor has
-  scrolled a little: it opens the enquiry sheet, as every "Request a proposal" does. Not on the
+  Round 28: an enquiry, always to hand on a phone. A small dark pill in the corner, once the visitor
+  has scrolled a little: it opens the enquiry sheet, as every "Request a proposal" does. Not on the
   enquiry page itself, nor while the menu or the sheet is open. Theme settings → Midsummer ·
   Social turns it on or off and names it.
 {%- endcomment -%}
@@ -28,6 +28,8 @@
   @media (max-width: 760px) { .ms-site .ms-wa { height: 44px; padding: 0 18px 0 15px; } }
   @media (prefers-reduced-motion: reduce) { .ms-site .ms-wa, .ms-wa svg { transition: none; } }
   @media print { .ms-wa-wrap { display: none; } }
+  /* Round 29: on a wider screen the header's appointment button is always there; the corner is for phones */
+  @media (min-width: 761px) { .ms-wa-wrap { display: none !important; } }
 </style>
 <script>
   (function () {

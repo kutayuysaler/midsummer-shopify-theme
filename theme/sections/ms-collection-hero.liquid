@@ -19,32 +19,36 @@
   assign tier_side = 'left'
   assign tier_m = ''
   assign tier_v = ''
+  assign tier_plate = false
+  assign tier_sizes = '(max-width: 760px) 150vh, 100vw'
   case tier
     when 'essentials'
       assign tier_name = 'ms-photo-glass-house.jpg'
       assign tier_photo = tier_name | asset_url
       assign tier_pos = 'center 62%'
     when 'icons', 'icon'
-      assign tier_name = 'ms-photo-icons-pair.jpg'
+      assign tier_name = 'ms-photo-icons-opera.jpg'
       assign tier_photo = tier_name | asset_url
-      assign tier_pos = 'center'
-      assign tier_m = 'ms-photo-icons-pair-m.jpg'
-      assign tier_v = 'top'
+      assign tier_pos = 'center 80%'
+      assign tier_m = 'ms-photo-icons-opera-m.jpg'
+      assign tier_v = ''
+      assign tier_plate = true
+      assign tier_sizes = '(max-width: 760px) 100vw, 46vw'
   endcase
 -%}
-<section class="ms-colhero" style="position: relative; overflow: hidden; background: rgb(23, 20, 15);">
-<style>.ms-site .ms-colhero img, body .ms-colhero img { filter: none !important; } .ms-colhero h1, .ms-colhero h1 ~ *, .ms-colhero [style*="letter-spacing: 0.3em"] { text-shadow: 0 1px 24px rgba(10, 8, 6, .5), 0 0 2px rgba(10, 8, 6, .3); } .ms-colhero [style*="letter-spacing: 0.3em"] { opacity: 1 !important; }</style>
+<section class="ms-colhero{% if tier_plate %} ms-colhero--plate{% endif %}" style="position: relative; overflow: hidden; background: rgb(23, 20, 15);">
+<style>.ms-site .ms-colhero img, body .ms-colhero img { filter: none !important; } .ms-colhero h1, .ms-colhero h1 ~ *, .ms-colhero [style*="letter-spacing: 0.3em"] { text-shadow: 0 1px 24px rgba(10, 8, 6, .5), 0 0 2px rgba(10, 8, 6, .3); } .ms-colhero [style*="letter-spacing: 0.3em"] { opacity: 1 !important; } @media (min-width: 761px) { .ms-colhero--plate picture img { width: 46% !important; margin-left: auto; } .ms-colhero--plate .ms-colhero__veil { left: auto !important; width: 46%; background: linear-gradient(180deg, rgba(10, 8, 6, .64), rgba(10, 8, 6, .2) 20%, rgba(10, 8, 6, 0) 34%) !important; } .ms-colhero--plate .ms-colhero__copy { right: 46% !important; justify-content: flex-end !important; } }</style>
 {%- if section.settings.image != blank -%}
 <img alt="{%- render 'ms-coll-name', c: collection -%}" width="2400" height="1100" src="{{ section.settings.image | image_url: width: 2400 }}" {% render 'ms-srcset', image: section.settings.image, width: 2400, sizes: '(max-width: 760px) 150vh, 100vw' %} style="width: 100%; height: min(66vh, 640px); object-fit: cover; display: block;">
 {%- elsif tier_photo != blank -%}
-<picture style="display: block;">{%- if tier_m != '' -%}<source media="(max-width: 760px)" {% render 'ms-srcset', fallback: tier_m, width: 1000, sizes: '100vw' %}>{%- endif -%}<img alt="{%- render 'ms-coll-name', c: collection -%}" width="1920" height="1280" src="{{ tier_photo }}" {% render 'ms-srcset', fallback: tier_name, width: 2400, sizes: '(max-width: 760px) 150vh, 100vw' %} style="width: 100%; height: min(66vh, 640px); object-fit: cover; object-position: {{ tier_pos }}; display: block;" fetchpriority="high"></picture>
+<picture style="display: block;">{%- if tier_m != '' -%}<source media="(max-width: 760px)" {% render 'ms-srcset', fallback: tier_m, width: 1000, sizes: '100vw' %}>{%- endif -%}<img alt="{%- render 'ms-coll-name', c: collection -%}" width="1920" height="1280" src="{{ tier_photo }}" {% render 'ms-srcset', fallback: tier_name, width: 2400, sizes: tier_sizes %} style="width: 100%; height: min(66vh, 640px); object-fit: cover; object-position: {{ tier_pos }}; display: block;" fetchpriority="high"></picture>
 {%- elsif collection.image != blank -%}
 <img alt="{%- render 'ms-coll-name', c: collection -%}" width="2400" height="1100" src="{{ collection.image | image_url: width: 2400 }}" {% render 'ms-srcset', image: collection.image, width: 2400, sizes: '(max-width: 760px) 150vh, 100vw' %} style="width: 100%; height: min(66vh, 640px); object-fit: cover; display: block;">
 {%- else -%}
 <img alt="{%- render 'ms-coll-name', c: collection -%}" width="1400" height="640" src="{{ fallback }}" style="width: 100%; height: min(66vh, 640px); object-fit: cover; display: block;">
 {%- endif -%}
-<div style="position: absolute; inset: 0px; background: radial-gradient(ellipse 52% 62% at {% if tier_side == 'right' %}100%{% else %}0%{% endif %} {% if tier_v == 'top' %}0%{% else %}100%{% endif %}, rgba(10, 8, 6, 0.42), rgba(10, 8, 6, 0) 72%), linear-gradient(180deg, rgba(10, 8, 6, {% if tier_v == 'top' %}0.46{% else %}0.34{% endif %}) 0%, rgba(10, 8, 6, 0) {% if tier_v == 'top' %}40%{% else %}24%{% endif %}, rgba(10, 8, 6, 0) 50%, rgba(10, 8, 6, 0.36) 100%);"></div>
-<div style="position: absolute; inset: 0px; display: flex; flex-direction: column; justify-content: {% if tier_v == 'top' %}flex-start{% else %}flex-end{% endif %}; padding: clamp(26px, 5vw, 88px); color: rgb(251, 249, 245);{% if tier_side == 'right' %} align-items: flex-end; text-align: right;{% endif %}">
+<div class="ms-colhero__veil" style="position: absolute; inset: 0px; background: radial-gradient(ellipse 52% 62% at {% if tier_side == 'right' %}100%{% else %}0%{% endif %} {% if tier_v == 'top' %}0%{% else %}100%{% endif %}, rgba(10, 8, 6, 0.42), rgba(10, 8, 6, 0) 72%), linear-gradient(180deg, rgba(10, 8, 6, {% if tier_v == 'top' %}0.46{% else %}0.34{% endif %}) 0%, rgba(10, 8, 6, 0) {% if tier_v == 'top' %}40%{% else %}24%{% endif %}, rgba(10, 8, 6, 0) 50%, rgba(10, 8, 6, 0.36) 100%);"></div>
+<div class="ms-colhero__copy" style="position: absolute; inset: 0px; display: flex; flex-direction: column; justify-content: {% if tier_v == 'top' %}flex-start{% else %}flex-end{% endif %}; padding: clamp(26px, 5vw, 88px); color: rgb(251, 249, 245);{% if tier_side == 'right' %} align-items: flex-end; text-align: right;{% endif %}">
 <div style="font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.8;">{% render 'ms-t', v: section.settings.eyebrow %}{% if numeral != blank %} {{ numeral }}{% endif %}</div>
 <h1 style="font-family: Newsreader, Georgia, serif; font-size: clamp(40px, 7vw, 96px); line-height: 1; letter-spacing: -0.035em; margin-top: 16px;">{% render 'ms-coll-name', c: collection %}</h1>
 </div>

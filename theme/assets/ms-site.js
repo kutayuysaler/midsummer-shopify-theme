@@ -98,8 +98,10 @@
   var drawer = document.querySelector('[data-ms-drawer]');
   var onContact = /\/pages\/contact\/?$/.test(location.pathname) || !!document.querySelector('[data-ms-enq-page]');
   var lastFocus = null;
+  var closing = null;
   function openDrawer(source) {
     if (!drawer) return false;
+    if (closing) { closing.forEach(function (a) { try { a.cancel(); } catch (err) {} }); closing = null; }
     closeMega();
     closeMenu();
     lastFocus = document.activeElement;
@@ -113,10 +115,28 @@
     return true;
   }
   function closeDrawer() {
-    if (!drawer || drawer.hidden) return;
-    drawer.hidden = true;
-    body.classList.remove('ms-lock');
-    if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+    if (!drawer || drawer.hidden || closing) return;
+    var sheet = drawer.querySelector('[data-ms="sheet"]'), veil = drawer.querySelector('[data-ms-drawer] > [data-ms-drawer-close]');
+    closing = [];
+    function done() {
+      if (!closing) return;
+      closing.forEach(function (a) { try { a.cancel(); } catch (err) {} });
+      closing = null;
+      drawer.hidden = true;
+      if (sheet) { sheet.style.transform = ''; sheet.style.transition = ''; }
+      if (veil) veil.style.opacity = '';
+      body.classList.remove('ms-lock');
+      if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+    }
+    // Round 29: the sheet goes back the way it came, from wherever a finger left it, the room brightening
+    if (reduce || !sheet || !sheet.animate) { done(); return; }
+    var phone = window.matchMedia('(max-width: 760px)').matches, from = getComputedStyle(sheet).transform;
+    var a = sheet.animate([{ transform: from && from !== 'none' ? from : 'translate3d(0, 0, 0)' }, { transform: phone ? 'translate3d(0, 100%, 0)' : 'translate3d(100%, 0, 0)' }],
+      { duration: phone ? 340 : 400, easing: 'cubic-bezier(.32, 0, .67, 0)', fill: 'forwards' });
+    closing.push(a);
+    if (veil) closing.push(veil.animate([{ opacity: getComputedStyle(veil).opacity }, { opacity: 0 }], { duration: phone ? 340 : 400, easing: 'ease-in', fill: 'forwards' }));
+    a.onfinish = done;
+    setTimeout(done, 700);
   }
   window.msEnquiry = { open: openDrawer, close: closeDrawer };
   document.addEventListener('click', function (e) {
@@ -136,14 +156,16 @@
     var grip = e.target.closest('[data-ms="grip"]');
     if (!grip) return;
     var sheet = grip.closest('[data-ms="sheet"]');
-    var y0 = e.clientY;
-    function move(ev) { var dy = Math.max(0, ev.clientY - y0); sheet.style.transform = 'translateY(' + dy + 'px)'; sheet.style.transition = 'none'; }
+    var y0 = e.clientY, t0 = Date.now(), veil = sheet.parentNode.querySelector(':scope > [data-ms-drawer-close]');
+    function move(ev) { var dy = Math.max(0, ev.clientY - y0); sheet.style.transform = 'translateY(' + dy + 'px)'; sheet.style.transition = 'none'; if (veil) veil.style.opacity = String(Math.max(.25, 1 - dy / 520)); }
     function up(ev) {
       window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up);
       var dy = Math.max(0, ev.clientY - y0);
-      if (dy > 110) { closeDrawer(); return; }
-      sheet.style.transition = 'transform .28s cubic-bezier(.22,1,.36,1)';
+      // far enough, or a quick flick: it goes; otherwise it settles back
+      if (dy > 110 || (dy > 36 && Date.now() - t0 < 260)) { closeDrawer(); return; }
+      sheet.style.transition = 'transform .32s cubic-bezier(.22,1,.36,1)';
       sheet.style.transform = 'translateY(0)';
+      if (veil) veil.style.opacity = '';
     }
     window.addEventListener('pointermove', move); window.addEventListener('pointerup', up);
   });
@@ -181,12 +203,21 @@
   var T = function (s) { var d = window.msT; return (d && d[s]) || s; };
   var SLUG = { appointment: 'Book appointment', proposal: 'Request a proposal', brochure: 'Request brochure', callback: 'Request callback', message: 'Leave a message', trade: 'Trade enquiry', partner: 'Become a partner' };
   function slugOf(t) { for (var k in SLUG) if (SLUG[k] === t) return k; return ''; }
+  // Round 29: on a phone the kinds of enquiry are a strip that scrolls sideways; the chosen one comes fully into it
+  function keepInView(b) {
+    var l = b.parentNode;
+    if (!l || l.scrollWidth <= l.clientWidth + 1) return;
+    var lr = l.getBoundingClientRect(), br = b.getBoundingClientRect();
+    if (br.left >= lr.left + 4 && br.right <= lr.right - 4) return;
+    l.scrollBy({ left: br.left - lr.left - (lr.width - br.width) / 2, behavior: reduce ? 'auto' : 'smooth' });
+  }
   function setTab(form, t) {
     var copy = TABS[t];
     if (!copy) return;
     form.querySelectorAll('[data-ms-tab]').forEach(function (b) {
       var on = b.getAttribute('data-ms-tab') === t;
       b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      if (on) keepInView(b);
       var dot = b.querySelector('[data-ms-dot]');
       if (dot) { dot.style.background = on ? '#7E623B' : 'transparent'; dot.style.boxShadow = 'inset 0 0 0 1px ' + (on ? '#7E623B' : '#DDD6C9'); }
       var lab = b.querySelector('[data-ms-tablabel]');
@@ -552,4 +583,19 @@
       if (b) b.click();
     }
   }, { passive: true });
+})();
+/* Round 29: the phone menu's few photographs are fetched as it opens, already as a finger comes down on
+   the menu button (left to load lazily, the five questions' photograph came late), and a hairline marks
+   its head once the list has moved under it. Round 28's block above stays as it was */
+(function () {
+  'use strict';
+  var menu = document.querySelector('[data-ms-menu]');
+  if (!menu || !window.MutationObserver) return;
+  var mb = menu.querySelector('[data-ms="mbody"]');
+  function eager() { menu.querySelectorAll('img[loading="lazy"]').forEach(function (i) { i.loading = 'eager'; }); }
+  // a head start: as a finger comes down on the menu button
+  document.addEventListener('pointerdown', function (e) { if (e.target.closest && e.target.closest('[data-ms-menu-open]')) eager(); }, { passive: true });
+  new MutationObserver(function () { if (!menu.hidden) { eager(); menu.classList.toggle('is-scrolled', !!mb && mb.scrollTop > 2); } })
+    .observe(menu, { attributes: true, attributeFilter: ['hidden'] });
+  if (mb) mb.addEventListener('scroll', function () { menu.classList.toggle('is-scrolled', mb.scrollTop > 2); }, { passive: true });
 })();
