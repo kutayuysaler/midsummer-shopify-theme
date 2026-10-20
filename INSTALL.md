@@ -2883,8 +2883,6 @@ The menu looks the same. What changed is how it behaves:
 5. **15 + 15 on wide screens.** The drapes-and-fireplace photograph is 1867 pixels wide. The original export (AMB 02, DSC9597) is 25 MB, over the 10 MB a file can be fetched at here. A JPEG of about 3000 pixels, under 10 MB, placed in Drive, would replace it.
 6. **Optional:** full-size originals of the palazzo shoot (the A8447 series, 765 pixels wide in Drive) and of the horse over Bellini (2004 pixels). These would make the Sleep Culture gallery and its phone opening fully sharp on the sharpest screens.
 
-**Later, only when you say:** the bed customizer (a plan first, nothing built).
-
 ### Checks
 
 | Check | Result |
