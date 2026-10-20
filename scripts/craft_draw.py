@@ -60,7 +60,9 @@ SYS = {
     'roma': dict(topper=P('#F3F0EA', 18, 'mystic', ribbon=PINK), mattress=P('#F3F0EA', 62, 'mystic', ribbon=PINK, rows=3, handles=True, vents=3), base=P('#A09B97', 48, 'mystic')),
     'dreamy-springs': dict(topper=P(IVORY, 18), mattress=P('#EFEBE4', 66, ribbon=PINK, rows=4, handles=True, vents=3), base=P('#BCAF9C', 48)),
     'my-dream': dict(topper=P(IVORY, 18, 'silk'), mattress=P('#F5F2EC', 56, 'silk', ribbon=PINK, rows=3, vents=2), base=P(LINEN, 46)),
-    'bellini': dict(topper=P('#ECE6DB', 22, ribbon='#CDBFA9'), mattress=P('#F1ECE4', 58, rows=3, handles=True, vents=3), base=P('#DCD3C5', 48, 'boucle')),
+    # Bellini's boxspring is its flared plinth (Round 28): low, wider and deeper than the mattress all round,
+    # its edges drawn in, on wooden legs, in Loro Piana Interiors bouclé the colour of its photograph
+    'bellini': dict(topper=P('#ECE6DB', 22, ribbon='#CDBFA9'), mattress=P('#F1ECE4', 58, rows=3, handles=True, vents=3), base=P('#CDB38E', 30, 'boucle', plinth=(16.0, 14.0), flare=7.0)),
     'giotto': dict(shape='round', topper=P('#F1ECE3', 16, ribbon='#B98A47'), mattress=P('#EEE8DE', 40, rows=2), base=P('#B98A47', 52, legs='none')),
     'vicuna': dict(topper=P(IVORY, 18), mattress=P('#F6F3EE', 66, ribbon='#B4875B', rows=4, vents=3), base=P('#A87A50', 50)),
     'flora': dict(topper=P('#DED5C6', 24, 'damask', ribbon='#9A6E4C'), mattress=P('#F0EBE3', 58, ribbon='#9A6E4C', rows=2, handles=True, vents=3), base=P('#D6CDBF', 48, 'boucle')),
@@ -221,8 +223,11 @@ def box(part, p, u, kind, gap=0.0, inner=False):
     y0 = p.get('y0', TOPS[part])
     h = p['h']
     if part == 'base':
-        y0 = 380.0 - h
+        y0 = 380.0 - h + p.get('drop', 0.0)
     x1 = X0 + W
+    # a flared base: its lower edges drawn in on every side (Round 28)
+    fl = p.get('flare', 0.0) if part == 'base' else 0.0
+    fx, fy = fl * UX, fl * UY
     col = soft(p['col'])
     ink = shade(col, -.3)
     g = []
@@ -237,7 +242,7 @@ def box(part, p, u, kind, gap=0.0, inner=False):
     if part == 'base' and not ghost:
         legs = p.get('legs', 'wood')
         if legs == 'wood':
-            for lx, ly in ((X0 + 18, y0 + h), (x1 - 26, y0 + h), (x1 + DX - 22, y0 + h + DY)):
+            for lx, ly in ((X0 + 18 + fl + fx, y0 + h + fy), (x1 - 26 - fl + fx, y0 + h + fy), (x1 + DX - 22 - fl - fx, y0 + h + DY - fy)):
                 g.append('<path d="M%s,%s h11 l-1.8,11 c-.3,2.2 -1.1,3.3 -2.4,3.7 h-2.6 c-1.3,-.4 -2.1,-1.5 -2.4,-3.7 Z" fill="url(#cr-{{U}}-wood)"/>'
                          '<path d="M%s,%s v12" stroke="#FFF1DC" stroke-opacity=".35" stroke-width=".8"/>' % (f(lx - 5.5), f(ly), f(lx - 1.8), f(ly + 1)))
         elif legs == 'leather':
@@ -248,13 +253,13 @@ def box(part, p, u, kind, gap=0.0, inner=False):
                 g.append('<rect x="%s" y="%s" width="26" height="13" fill="url(#cr-{{U}}-%s-xf)"/><rect x="%s" y="%s" width="26" height="13" fill="#2A1F19" fill-opacity=".12"/>' % (f(lx), f(y0 + h - 1), part, f(lx), f(y0 + h - 1)))
             g.append('<path d="M%s,%s l14,-8 v13 l-14,8 Z" fill="%s"/>' % (f(x1 + DX - 30), f(y0 + h + DY - 1), shade(col, -.15)))
     # the three faces; a cushion's front bows a little at the top and bottom
-    side = 'M%s,%s L%s,%s L%s,%s L%s,%s Z' % (f(x1), f(y0), f(x1 + DX), f(y0 + DY), f(x1 + DX), f(y0 + DY + h), f(x1), f(y0 + h))
+    side = 'M%s,%s L%s,%s L%s,%s L%s,%s Z' % (f(x1), f(y0), f(x1 + DX), f(y0 + DY), f(x1 + DX - fl - fx), f(y0 + DY + h - fy), f(x1 - fl + fx), f(y0 + h + fy))
     if soft_edge:
         front = ('M%s,%s Q%s,%s %s,%s L%s,%s Q%s,%s %s,%s L%s,%s Q%s,%s %s,%s L%s,%s Q%s,%s %s,%s Z' % (
             f(X0), f(y0 + r), f(X0), f(y0), f(X0 + r), f(y0), f(x1 - r * .4), f(y0), f(x1), f(y0), f(x1), f(y0 + r * .6),
             f(x1), f(y0 + h - r * .6), f(x1), f(y0 + h), f(x1 - r * .4), f(y0 + h), f(X0 + r), f(y0 + h), f(X0), f(y0 + h), f(X0), f(y0 + h - r)))
     else:
-        front = 'M%s,%s L%s,%s L%s,%s Q%s,%s %s,%s Z' % (f(X0), f(y0), f(x1), f(y0), f(x1), f(y0 + h), f((X0 + x1) / 2), f(y0 + h + 1.5), f(X0), f(y0 + h))
+        front = 'M%s,%s L%s,%s L%s,%s Q%s,%s %s,%s Z' % (f(X0), f(y0), f(x1), f(y0), f(x1 - fl + fx), f(y0 + h + fy), f((X0 + x1) / 2 + fx), f(y0 + h + fy + 1.5), f(X0 + fl + fx), f(y0 + h + fy))
     top = 'M%s,%s L%s,%s L%s,%s L%s,%s Z' % (f(X0 + r * .6), f(y0), f(x1), f(y0), f(x1 + DX), f(y0 + DY), f(X0 + DX + r * .4), f(y0 + DY))
     if ghost:
         g.append('<path class="ms-cr__face ms-cr__face--side" fill="url(#cr-{{U}}-%s-s)" d="%s"/>' % (part, side))
@@ -268,7 +273,7 @@ def box(part, p, u, kind, gap=0.0, inner=False):
             g.append('<path d="%s" fill="url(#cr-{{U}}-crown)" pointer-events="none"/>' % top)
         # Round 26: the lower edges drawn in a fine shade, the front corner caught by the light
         g.append('<path d="M%s,%s L%s,%s L%s,%s" fill="none" stroke="#2A1F19" stroke-opacity=".2" stroke-width=".9" stroke-linecap="round" pointer-events="none"/>' % (
-            f(X0 + r * .8), f(y0 + h - .45), f(x1 - .5), f(y0 + h - .45), f(x1 + DX - .6), f(y0 + h + DY - .45)))
+            f(X0 + r * .8 + fl + fx), f(y0 + h + fy - .45), f(x1 - .5 - fl + fx), f(y0 + h + fy - .45), f(x1 + DX - .6 - fl - fx), f(y0 + h + DY - fy - .45)))
         g.append('<path d="M%s,%s V%s" stroke="#fff" stroke-opacity=".24" stroke-width=".7" pointer-events="none"/>' % (f(x1 - .8), f(y0 + r + .5), f(y0 + h - r - .5)))
         if p.get('sheen'):
             # silk: a light that runs along it
@@ -320,26 +325,33 @@ def box(part, p, u, kind, gap=0.0, inner=False):
             g.append('<path d="%s" stroke="%s" stroke-opacity=".12" stroke-width=".8" fill="none"/>' % (' '.join(scol), fold))
             rows = p.get('rows', 2)
             rc = p.get('rowcol') or shade(col, -.36)
-            for rr in range(rows):
-                yy = y0 + 7 + (h - 14) * (rr + 1) / (rows + 1)
+            # a coloured band on the border (Top, Brera): the vents, the label and the handles sit below it,
+            # one row of stitching above it and the others below (Round 28)
+            mid, ys = y0 + h * .5, [y0 + 7 + (h - 14) * (rr + 1) / (rows + 1) for rr in range(rows)]
+            if p.get('band'):
+                yb, bt = y0 + h * .36, 8
+                mid = (yb + bt + y0 + h) / 2
+                ys = [(y0 + yb) / 2] + [yb + bt + (y0 + h - yb - bt) * k / rows for k in range(1, rows)]
+            for yy in ys:
                 g.append('<path d="M%s,%s L%s,%s L%s,%s" fill="none" stroke="%s" stroke-width="1.15" stroke-linecap="round" stroke-dasharray=".1 4.4" stroke-opacity=".7"/>' % (f(X0 + 6), f(yy), f(x1 - 3), f(yy), f(x1 + DX - 5), f(yy + DY), rc))
             # brass vents, and the house's label
             nvn = p.get('vents', 0)
             for i in range(nvn):
                 vx = X0 + W * (i + .62) / (nvn + .4)
-                vy = y0 + h * .5
+                vy = mid
                 g.append('<circle cx="%s" cy="%s" r="2.5" fill="url(#cr-{{U}}-brass)"/><circle cx="%s" cy="%s" r=".9" fill="#4A3418" fill-opacity=".6"/>' % (f(vx), f(vy), f(vx), f(vy)))
-            lx, ly = x1 - 78, y0 + h * .5 - 7
-            g.append('<rect x="%s" y="%s" width="34" height="14" rx="1" fill="%s" stroke="%s" stroke-width=".6"/><path d="M%s,%s h20" stroke="%s" stroke-width=".8"/><path d="M%s,%s h12" stroke="%s" stroke-width=".5"/>' % (
+            lx, ly = x1 - 78, mid - 7
+            if ly + 14 <= y0 + h - 2:
+                g.append('<rect x="%s" y="%s" width="34" height="14" rx="1" fill="%s" stroke="%s" stroke-width=".6"/><path d="M%s,%s h20" stroke="%s" stroke-width=".8"/><path d="M%s,%s h12" stroke="%s" stroke-width=".5"/>' % (
                 f(lx), f(ly), shade(col, .04), shade(col, -.24), f(lx + 7), f(ly + 6), shade(col, -.42), f(lx + 11), f(ly + 9.5), shade(col, -.3)))
             if p.get('handles'):
                 # a fabric handle on the side, and one on the front
-                hx, hy = x1 + DX * .5, y0 + DY * .5 + h * .5
+                hx, hy = x1 + DX * .5, mid + DY * .5
                 ux, uy = UX * 22, UY * 22
                 g.append('<path d="M%s,%s l%s,%s v7 l%s,%s Z" fill="%s" stroke="%s" stroke-width=".7"/>' % (f(hx - ux / 2), f(hy - 3.5 - uy / 2), f(ux), f(uy), f(-ux), f(-uy), shade(col, -.04), shade(col, -.3)))
                 fx = X0 + W * .3
                 g.append('<rect x="%s" y="%s" width="26" height="8" rx="1.2" fill="%s" stroke="%s" stroke-width=".7"/><path d="M%s,%s h22" stroke="%s" stroke-width=".5" stroke-dasharray="1 1.4"/>' % (
-                    f(fx), f(y0 + h * .5 - 4), shade(col, -.03), shade(col, -.3), f(fx + 2), f(y0 + h * .5), shade(col, -.32)))
+                    f(fx), f(mid - 4), shade(col, -.03), shade(col, -.3), f(fx + 2), f(mid), shade(col, -.32)))
         if part == 'topper':
             # a pillowed top: the cushion swells a little between its piped edges
             g.append('<path d="M%s,%s L%s,%s" stroke="#fff" stroke-opacity=".14" stroke-width="3" stroke-linecap="round"/>' % (f(X0 + 14), f(y0 + h * .4), f(x1 - 14), f(y0 + h * .4)))
@@ -365,7 +377,7 @@ def box(part, p, u, kind, gap=0.0, inner=False):
             for yy in ((y0, y0 + h) if part != 'base' else (y0,)):
                 g.append(piping([(X0 + r * .7, yy), (x1, yy), (x1 + DX, yy + DY)], rib))
             if part != 'base':
-                g.append(piping([(x1 + DX, y0 + DY), (X0 + DX + r * .4, y0 + DY)], rib, 1.8))
+                g.append(piping([(x1 + DX, y0 + DY), (X0 + DX + r * .4, y0 + DY), (X0 + r * .7, y0)], rib, 1.8))
         # the exploded view's guides: from this part's lower corners down to the next
         if gap > 6:
             gl = []
@@ -375,7 +387,7 @@ def box(part, p, u, kind, gap=0.0, inner=False):
     if inner:
         return ''.join(g)
     ly = y0 + DY + (p.get('ly') if p.get('ly') is not None else h * .5)
-    g.append(label(part, x1 + DX + 6, ly, ghost, p.get('num'), '[to]' if opt else '[t0]'))
+    g.append(label(part, p.get('lx', x1 + DX + 6), ly, ghost, p.get('num'), '[to]' if opt else '[t0]'))
     g.append('</g>')
     return ''.join(g)
 
@@ -433,6 +445,22 @@ def cyl(part, p, u, kind, gap=0.0, inner=False):
     g.append(label(part, CX + RX + 8, CY + (p.get('ly') if p.get('ly') is not None else h * .5), ghost, num=p.get('num')))
     g.append('</g>')
     return ''.join(g)
+
+
+def plinth(p, u, kind, gap):
+    """a boxspring that is a plinth (Bellini): wider than the mattress by out on either side and deeper by
+    deep at the front and the back, so drawn with its own footprint; its label kept in the column"""
+    global X0, W, DX, DY
+    out, deep = p['plinth']
+    keep = (X0, W, DX, DY)
+    # its label in the column, set low enough to clear the plinth's back corner
+    q = dict(p, lx=X0 + W + DX + 6, drop=deep * -UY, ly=p['h'] + 16)
+    try:
+        X0, W = X0 - out - deep * UX, W + 2 * out
+        DX, DY = (L + 2 * deep) * UX, (L + 2 * deep) * UY
+        return box('base', q, u, kind, gap)
+    finally:
+        X0, W, DX, DY = keep
 
 
 def drawing(key, kind='system'):
@@ -515,7 +543,10 @@ def drawing(key, kind='system'):
         for part in ('base', 'mattress', 'topper'):
             if part not in shown:
                 continue
-            s = draw(part, cfg[part], u, kind, gaps[part])
+            if part == 'base' and cfg[part].get('plinth') and not round_:
+                s = plinth(cfg[part], u, kind, gaps[part])
+            else:
+                s = draw(part, cfg[part], u, kind, gaps[part])
             s = s.replace('<g class="ms-cr__slab', '<g style="--cr-c: %spx; --cr-delay: %ss" class="ms-cr__slab' % (f(close[part]), delay[part]), 1)
             body.append('<g class="ms-cr__depth" style="--d: %s">%s</g>' % (depth[part], s))
     return ('<svg class="ms-cr__svg" viewBox="0 0 700 440" role="group" aria-label="[aria]"><defs>%s</defs>%s%s</svg>' % (''.join(defs), shadow, ''.join(body)))

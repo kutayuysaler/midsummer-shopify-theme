@@ -140,7 +140,8 @@
         "heading": "Fifteen years. Then fifteen more.",
         "text": "At fifteen years your mattress comes back to the artisans who made it. They open it, wash and re-card the fibres, renew what the years have worn and close it again, for fifteen more.",
         "link_label": "The 15 + 15 service",
-        "link_place": "regen"
+        "link_place": "regen",
+        "image_fallback_mobile": "ms-photo-drapes-fireplace-m.jpg"
       }
     },
     "proof": {

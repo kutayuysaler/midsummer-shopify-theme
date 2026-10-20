@@ -251,8 +251,9 @@ def _patch(name, pairs, folder='sections'):
     if s != s0:
         open(p, 'w', encoding='utf-8').write(s)
 
-# the WhatsApp button inside a landmark, like everything else on the page
-_patch('ms-whatsapp', [('<a class="ms-wa" ', '<aside class="ms-wa-wrap" aria-label="WhatsApp"><a class="ms-wa" ', 1),
+# the WhatsApp button inside a landmark, like everything else on the page (until Round 28 makes the corner an enquiry)
+if 'Round 28: an enquiry' not in open(THEME + '/snippets/ms-whatsapp.liquid', encoding='utf-8').read():
+  _patch('ms-whatsapp', [('<a class="ms-wa" ', '<aside class="ms-wa-wrap" aria-label="WhatsApp"><a class="ms-wa" ', 1),
                        ('  <span class="ms-wa__label">{{ settings.ms_whatsapp_label }}</span>\n</a>\n', '  <span class="ms-wa__label">{{ settings.ms_whatsapp_label }}</span>\n</a></aside>\n', 1)], 'snippets')
 # product pages: the headings in order (title, then sections)
 _p = THEME + '/sections/ms-product-reasons.liquid'

@@ -195,7 +195,6 @@
       <div class="ms-pr__label">{% render 'ms-t', v: s.press_label %}</div>
       <div class="ms-pr__rail" data-ms-pr-rail data-drift="{% if s.drift == false %}0{% else %}1{% endif %}">
         <ul class="ms-pr__run" role="list" data-ms="pressrow">{{ strip }}</ul>
-        <span class="ms-pr__cursor" aria-hidden="true"><span><svg viewBox="0 0 10 10"><path d="M6.5 2 3.5 5l3 3" fill="none" stroke="currentColor" stroke-width="1"/></svg>{% render 'ms-t', v: 'Drag' %}<svg viewBox="0 0 10 10"><path d="m3.5 2 3 3-3 3" fill="none" stroke="currentColor" stroke-width="1"/></svg></span></span>
       </div>
       {%- if press_url != blank and s.all_label != blank -%}<a class="ms-pr__all" href="{{ press_url }}">{% render 'ms-t', v: s.all_label %} <span aria-hidden="true">→</span></a>{%- endif -%}
     </div>
@@ -267,14 +266,9 @@
   .ms-site .ms-pr .ms-pr__logo > button:hover img, .ms-site .ms-pr .ms-pr__logo > button:focus-visible img, .ms-site .ms-pr .ms-pr__logo.is-on img { opacity: 1; }
   .ms-pr__logo.is-plain > * { cursor: inherit; }
   .ms-pr__rail.is-dragging .ms-pr__logo > * { cursor: inherit; }
-  .ms-pr__cursor { position: absolute; left: 0; top: 0; z-index: 2; width: 0; height: 0; pointer-events: none; }
-  .ms-pr__cursor > span { position: absolute; left: -42px; top: -42px; width: 84px; height: 84px; border-radius: 50%; display: flex; align-items: center; justify-content: center; gap: 3px; background: rgba(23, 20, 15, .9); color: #FBF9F5; font-size: 9px; letter-spacing: .16em; text-transform: uppercase; opacity: 0; transform: scale(.4); transition: opacity .3s ease, transform .45s cubic-bezier(.2, .7, .2, 1); }
-  .ms-pr__cursor svg { width: 7px; height: 7px; flex: 0 0 auto; }
-  .ms-pr__cursor.is-tight svg { display: none; }
-  .ms-pr__rail.is-cursor .ms-pr__cursor > span { opacity: 1; transform: scale(1); }
-  .ms-pr__rail.is-cursor.is-dragging .ms-pr__cursor > span { transform: scale(.82); }
-  @media (hover: hover) and (pointer: fine) { .ms-pr__rail, .ms-pr__rail * { cursor: none !important; } }
-  @media (hover: none), (pointer: coarse) { .ms-pr__cursor { display: none; } }
+  /* Round 28: the system's own hand over the line, held while it is moved */
+  .ms-pr__rail { cursor: grab; }
+  .ms-pr__rail.is-dragging, .ms-pr__rail.is-dragging * { cursor: grabbing !important; }
   @media (max-width: 760px) {
     .ms-pr__logo > * { width: 124px; height: 64px; padding: 0 12px; }
     .ms-site .ms-pr .ms-pr__logo img { height: 20px; max-height: 26px; }
@@ -332,7 +326,7 @@
     } else { schedule(); }
 
     // Round 26: one endless line of every mark: it drifts slowly, stops under the cursor, and is moved by hand
-    var rail = root.querySelector('[data-ms-pr-rail]'), run = root.querySelector('.ms-pr__run'), cur = root.querySelector('.ms-pr__cursor');
+    var rail = root.querySelector('[data-ms-pr-rail]'), run = root.querySelector('.ms-pr__run');
     if (!rail || !run) return;
     var marks = [].slice.call(run.children), narrow = window.matchMedia('(max-width: 760px)'), fine = window.matchMedia('(hover: hover) and (pointer: fine)');
     var setW = 0, x = 0, v = 0, drag = null, held = false, focus = false, moved = 0, rest = 0, t0 = 0, raf = 0, seen = true, quiet = 0;
@@ -390,17 +384,13 @@
       root.classList.add('is-pr-dragging'); quiet = performance.now() + 320;
     });
     window.addEventListener('pointermove', function (e) {
-      if (cur && fine.matches && rail.classList.contains('is-cursor')) {
-        var r = rail.getBoundingClientRect();
-        cur.style.transform = 'translate3d(' + (e.clientX - r.left).toFixed(1) + 'px, ' + (e.clientY - r.top).toFixed(1) + 'px, 0)';
-      }
       if (!drag || e.pointerId !== drag.id) return;
       var dx = e.clientX - drag.x, dy = e.clientY - drag.y;
       if (drag.lock === null && (Math.abs(dx) > 6 || Math.abs(dy) > 6)) {
         drag.lock = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
         if (drag.lock === 'x') { try { rail.setPointerCapture(e.pointerId); } catch (err) {} rail.classList.add('is-dragging'); root.classList.add('is-pr-dragging'); quiet = performance.now() + 320; }
       }
-      if (drag.lock === 'y') { drag = null; held = rail.classList.contains('is-cursor'); return; }
+      if (drag.lock === 'y') { drag = null; held = rail.classList.contains('is-hover'); return; }
       if (drag.lock !== 'x') return;
       var now = performance.now(), step = e.clientX - drag.lx;
       x -= step; v = Math.max(-1.4, Math.min(1.4, v * .7 - step / Math.max(now - drag.t, 8) * .3)); drag.t = now; drag.lx = e.clientX; moved = Math.max(moved, Math.abs(dx));
@@ -410,7 +400,7 @@
       if (!drag) return;
       if (performance.now() - drag.t > 90) v = 0;
       drag = null; rail.classList.remove('is-dragging');
-      held = rail.classList.contains('is-cursor'); rest = performance.now() + 1600;
+      held = rail.classList.contains('is-hover'); rest = performance.now() + 1600;
     }
     window.addEventListener('pointerup', end); window.addEventListener('pointercancel', end);
     // a drag is not a click
@@ -419,10 +409,9 @@
       if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
       e.preventDefault(); x += e.deltaX; v = 0; rest = performance.now() + 1600; paint();
     }, { passive: false });
-    if (cur) {
-      rail.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse' && fine.matches) { rail.classList.add('is-cursor'); held = true; var r = rail.getBoundingClientRect(); cur.style.transform = 'translate3d(' + (e.clientX - r.left).toFixed(1) + 'px, ' + (e.clientY - r.top).toFixed(1) + 'px, 0)'; } });
-      rail.addEventListener('pointerleave', function () { rail.classList.remove('is-cursor'); if (!drag) held = false; });
-    }
+    // under the mouse the line waits; a finger moves it
+    rail.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') { rail.classList.add('is-hover'); held = true; } });
+    rail.addEventListener('pointerleave', function () { rail.classList.remove('is-hover'); if (!drag) held = false; });
     // a mark reached from the keyboard comes into view, and the line waits for it
     rail.addEventListener('focusin', function (e) {
       var li = e.target.closest('li'); if (!li) return;
@@ -434,13 +423,6 @@
     window.addEventListener('resize', function () { if (Math.abs(rail.clientWidth - rw) > 40) { rw = rail.clientWidth; build(); } });
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (es) { seen = es[0].isIntersecting; if (seen) go(); }, { rootMargin: '200px 0px' }).observe(rail);
-    }
-    // a longer word for "drag" (in another language) keeps the disc round: the little arrows give way
-    if (cur && cur.firstElementChild && document.createRange) {
-      var cs = cur.firstElementChild, rg = document.createRange(), m = getComputedStyle(cs).transform, sc = 1;
-      if (m && m.indexOf('matrix(') === 0) sc = parseFloat(m.slice(7)) || 1;
-      rg.selectNodeContents(cs);
-      if (rg.getBoundingClientRect().width / sc > cs.offsetWidth - 12) cur.classList.add('is-tight');
     }
     build(); paint(); go();
   })();

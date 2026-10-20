@@ -94,11 +94,17 @@
   .ms-lps__cn { font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: clamp(22px, 2.4vw, 34px); line-height: 1.1; letter-spacing: -0.015em; }
   .ms-lps__note { font-size: 13px; line-height: 1.6; color: rgba(251, 249, 245, .8); max-width: 44ch; opacity: 0; transform: translateY(8px); transition: opacity .6s .25s, transform .6s .25s; }
   .ms-lps__face.is-on .ms-lps__note { opacity: 1; transform: none; }
+  /* Round 28: on a phone, one frame; the season chosen just above it, or with a swipe */
   @media (max-width: 760px) {
     .ms-lps__head { grid-template-columns: minmax(0, 1fr); gap: 18px; }
-    .ms-lps__faces { flex-direction: column; height: auto; }
-    .ms-lps__face { flex: none; height: 230px; transition: height .8s cubic-bezier(.22, 1, .36, 1); }
-    .ms-lps__face.is-on { height: 340px; }
+    .ms-lps__switch { display: flex; width: 100%; margin-top: 30px; padding: 0; border: 0; border-bottom: 1px solid rgba(23, 20, 15, .16); border-radius: 0; }
+    .ms-lps__sb { flex: 1 1 0; justify-content: center; position: relative; padding: 14px 6px; border-radius: 0; }
+    .ms-lps__sb.is-on { background: none; color: #17140F; }
+    .ms-lps__sb::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: #17140F; transform: scaleX(0); transition: transform .5s cubic-bezier(.22, 1, .36, 1); }
+    .ms-lps__sb.is-on::after { transform: none; }
+    .ms-lps__faces { display: grid; height: auto; margin-top: 16px; aspect-ratio: 4 / 5; touch-action: pan-y; }
+    .ms-lps__face { grid-area: 1 / 1; flex: none; opacity: 0; visibility: hidden; transition: opacity .7s, visibility 0s .7s; }
+    .ms-lps__face.is-on { z-index: 1; opacity: 1; visibility: visible; transition: opacity .7s; }
     .ms-lps__note { opacity: 1; transform: none; }
   }
   @media (prefers-reduced-motion: reduce) { .ms-lps__face, .ms-lps__cloth img, .ms-lps__note { transition: none; } }
@@ -114,6 +120,14 @@
         root.querySelector('.ms-lps__faces').setAttribute('data-on', k);
       }
       root.querySelectorAll('[data-lps]').forEach(function (b) { b.addEventListener('click', function () { show(b.getAttribute('data-lps')); }); });
+      // a swipe across the frame turns to the other season
+      var fc = root.querySelector('.ms-lps__faces'), sx = null, sy = 0;
+      fc.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+      fc.addEventListener('touchend', function (e) {
+        var t = e.changedTouches[0], dx = sx === null ? 0 : t.clientX - sx;
+        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(t.clientY - sy)) show(dx < 0 ? 'summer' : 'winter');
+        sx = null;
+      }, { passive: true });
     });
   })();
 </script>

@@ -35,15 +35,45 @@
     assign has_video = true
   endif
 -%}
+{%- comment -%} Round 28: on a phone, the upright photograph when there is one {%- endcomment -%}
+{%- liquid
+  assign ph_set = ''
+  if section.settings.image_mobile != blank or section.settings.image_fallback_mobile != blank
+    capture ph_set
+      render 'ms-srcset', image: section.settings.image_mobile, fallback: section.settings.image_fallback_mobile, width: 1200, sizes: '100vw'
+    endcapture
+    assign ph_set = ph_set | strip
+    if ph_set == ''
+      capture ph_set
+        echo 'srcset="'
+        render 'ms-img', image: section.settings.image_mobile, fallback: section.settings.image_fallback_mobile, width: 1200
+        echo '"'
+      endcapture
+    endif
+  endif
+-%}
+{%- liquid
+  case section.settings.height
+    when 'full'
+      assign bn_sizes = '(max-width: 760px) 180vh, 100vw'
+    when 'tall'
+      assign bn_sizes = '(max-width: 760px) 150vh, 100vw'
+    else
+      assign bn_sizes = '(max-width: 760px) 120vh, 100vw'
+  endcase
+-%}
 <section class="ms-bn ms-bn--{{ section.settings.align }}" style="{{ h }}">
   {%- if has_video -%}
     <video class="ms-bn__media" autoplay muted loop playsinline preload="metadata"
       poster="{% render 'ms-img', image: section.settings.image, fallback: section.settings.image_fallback, width: 2400 %}"
       src="{% if section.settings.video != blank %}{{ section.settings.video.sources | where: 'format', 'mp4' | map: 'url' | first }}{% else %}{{ section.settings.video_url }}{% endif %}"></video>
   {%- else -%}
-    <img class="ms-bn__media" src="{% render 'ms-img', image: section.settings.image, fallback: section.settings.image_fallback, width: 2400 %}" {% render 'ms-srcset', image: section.settings.image, fallback: section.settings.image_fallback, width: 2400, sizes: '100vw' %}
-      alt="{{ section.settings.image.alt | default: heading | escape }}" width="2400" height="1350" fetchpriority="high"
-      style="object-position: {{ section.settings.focus }};">
+    <picture>
+      {%- if ph_set != '' -%}<source media="(max-width: 760px)" {{ ph_set }}>{%- endif -%}
+      <img class="ms-bn__media" src="{% render 'ms-img', image: section.settings.image, fallback: section.settings.image_fallback, width: 2400 %}" {% render 'ms-srcset', image: section.settings.image, fallback: section.settings.image_fallback, width: 2400, sizes: bn_sizes %}
+        alt="{{ section.settings.image.alt | default: heading | escape }}" width="2400" height="1350" fetchpriority="high"
+        style="object-position: {{ section.settings.focus }};">
+    </picture>
   {%- endif -%}
   <div class="ms-bn__veil" style="opacity: {{ section.settings.veil | divided_by: 100.0 }};"></div>
   <div class="ms-bn__copy">
@@ -78,6 +108,7 @@
 <style>
   .ms-bn { position: relative; overflow: hidden; background: #17140F; color: #FBF9F5; }
   .ms-bn__media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .ms-bn picture { display: contents; }
   .ms-bn__veil { position: absolute; inset: 0; background: linear-gradient(rgba(10, 8, 6, .28) 0%, rgba(10, 8, 6, .04) 34%, rgba(10, 8, 6, .5) 68%, rgba(10, 8, 6, .72) 100%); }
   .ms-bn__copy { position: absolute; inset: 0; display: flex; align-items: flex-end; padding: calc(78px + clamp(26px, 4.5vw, 72px)) clamp(26px, 4.5vw, 72px) clamp(30px, 5vw, 88px); }
   .ms-bn__in { width: 100%; max-width: 1560px; margin: 0 auto; }
@@ -95,6 +126,8 @@
   "settings": [
     { "type": "image_picker", "id": "image", "label": "Photograph" },
     { "type": "text", "id": "image_fallback", "label": "Photograph address", "info": "Used when no photograph is picked: a full address, or a file in the theme's assets." },
+    { "type": "image_picker", "id": "image_mobile", "label": "Photograph on a phone (optional)", "info": "An upright photograph for phones; without one, phones crop the photograph above." },
+    { "type": "text", "id": "image_fallback_mobile", "label": "Phone photograph address (optional)", "info": "Used when no phone photograph is picked." },
     { "type": "video", "id": "video", "label": "Film (optional)" },
     { "type": "text", "id": "video_url", "label": "Film address (optional)" },
     { "type": "select", "id": "focus", "label": "Photograph focus", "default": "center", "options": [ { "value": "center", "label": "Centre" }, { "value": "top", "label": "Top" }, { "value": "bottom", "label": "Bottom" }, { "value": "left", "label": "Left" }, { "value": "right", "label": "Right" } ] },

@@ -30,11 +30,28 @@
     endif
   endif
 -%}
+{%- comment -%} Round 28: on a phone, the upright photograph when there is one {%- endcomment -%}
+{%- liquid
+  assign ph_set = ''
+  if s.image_mobile != blank or s.image_fallback_mobile != blank
+    capture ph_set
+      render 'ms-srcset', image: s.image_mobile, fallback: s.image_fallback_mobile, width: 1200, sizes: '100vw'
+    endcapture
+    assign ph_set = ph_set | strip
+    if ph_set == ''
+      capture ph_set
+        echo 'srcset="'
+        render 'ms-img', image: s.image_mobile, fallback: s.image_fallback_mobile, width: 1200
+        echo '"'
+      endcapture
+    endif
+  endif
+-%}
 <section class="ms-ch ms-ch--{{ s.layout }} ms-ch--{{ s.tone }}{% if s.side == 'right' %} ms-ch--flip{% endif %}{% if s.shape == 'landscape' %} ms-ch--wide{% endif %}{% if inset %} ms-ch--inset{% endif %}" style="--bg: {{ bg }};">
   <div class="ms-ch__in">
     <div class="ms-ch__figure">
       <div class="ms-ch__media">
-        <img src="{% render 'ms-img', image: s.image, fallback: s.image_fallback, width: 2000 %}" {% render 'ms-srcset', image: s.image, fallback: s.image_fallback, width: 2000, sizes: '100vw' %} alt="{% capture ms_d1 %}{% render 'ms-t', v: s.heading %}{% endcapture %}{{ s.image.alt | default: ms_d1 | strip_html | escape }}" width="2000" height="{% if s.shape == 'landscape' %}1500{% else %}2500{% endif %}" loading="lazy">
+        <picture>{%- if ph_set != '' -%}<source media="(max-width: 760px)" {{ ph_set }}>{%- endif -%}<img src="{% render 'ms-img', image: s.image, fallback: s.image_fallback, width: 2000 %}" {% if s.layout == 'full' %}{% render 'ms-srcset', image: s.image, fallback: s.image_fallback, width: 2400, sizes: '(max-width: 760px) 180vh, 100vw' %}{% else %}{% render 'ms-srcset', image: s.image, fallback: s.image_fallback, width: 2000, sizes: '100vw' %}{% endif %} alt="{% capture ms_d1 %}{% render 'ms-t', v: s.heading %}{% endcapture %}{{ s.image.alt | default: ms_d1 | strip_html | escape }}" width="2000" height="{% if s.shape == 'landscape' %}1500{% else %}2500{% endif %}" loading="lazy"></picture>
       </div>
       {%- if inset -%}
         {%- comment -%} a second, closer photograph: the hands at work, set over the corner of the first {%- endcomment -%}
@@ -77,6 +94,7 @@
   .ms-ch__cap { display: block; margin-top: 12px; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 14px; line-height: 1.45; color: #6E675C; }
   .ms-ch--dark .ms-ch__cap { color: rgba(251, 249, 245, .6); }
   .ms-ch__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .ms-ch__media picture { display: contents; }
   .ms-ch__words { max-width: 460px; }
   .ms-ch__mark { display: flex; align-items: baseline; gap: 18px; }
   .ms-ch__num { font-family: Newsreader, Georgia, serif; font-weight: 200; font-size: 15px; color: #7E623B; }
@@ -128,6 +146,8 @@
     { "type": "select", "id": "tone", "label": "Ground", "default": "light", "options": [{"value":"light","label":"Ivory"},{"value":"sand","label":"Sand"},{"value":"dark","label":"Ink"}] },
     { "type": "image_picker", "id": "image", "label": "Photograph" },
     { "type": "text", "id": "image_fallback", "label": "Photograph address", "info": "Used when no photograph is picked." },
+    { "type": "image_picker", "id": "image_mobile", "label": "Photograph on a phone (optional)", "info": "An upright photograph for phones; without one, phones crop the photograph above." },
+    { "type": "text", "id": "image_fallback_mobile", "label": "Phone photograph address (optional)", "info": "Used when no phone photograph is picked." },
     { "type": "select", "id": "shape", "label": "Photograph shape", "default": "portrait", "options": [{"value":"portrait","label":"Upright"},{"value":"landscape","label":"Wide"}] },
     { "type": "image_picker", "id": "image_2", "label": "Second photograph", "info": "A closer detail, set over the corner of the first." },
     { "type": "text", "id": "image_2_fallback", "label": "Second photograph address" },

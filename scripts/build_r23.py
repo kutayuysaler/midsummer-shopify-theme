@@ -323,6 +323,8 @@ def wordy(s):
         return False  # a position (object-position: center 62%)
     if re.fullmatch(r'(rgba?|hsla?)\([\d.,%\s]+\)', t):
         return False  # a colour written as rgba(251, 249, 245, .78)
+    if re.search(r'\((?:max|min)-width:\s*\d+px\)|\b\d+v[wh]\b', t):
+        return False  # an image's sizes, or a media query (Round 28): not words
     if re.search(r'[{}<>=\\]|^/|https?:|\.(liquid|js|css|json|jpe?g|png|svg|webp|mp4)\b|^#[0-9a-f]{3,6}$|^[a-z0-9_,|:~-]+$', t):
         return False  # an address, a class, a key, a colour: not words
     if re.search(r'(^|[;\s])[a-z-]+\s*:\s*[^;]+;', t) and not re.search(r'[A-Z]', t) or re.search(r'#[0-9A-Fa-f]{6}\b', t):

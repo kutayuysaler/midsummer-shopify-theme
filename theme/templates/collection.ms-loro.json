@@ -13,7 +13,8 @@
         "heading": "Loro Piana Interiors",
         "height": "tall",
         "text": "The cloths our systems are made in, colour by colour.",
-        "focus": "center"
+        "focus": "center",
+        "image_fallback_mobile": "ms-photo-lp-paisley-room-m.jpg"
       }
     },
     "s02": {

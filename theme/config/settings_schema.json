@@ -2416,15 +2416,16 @@
       },
       {
         "type": "checkbox",
-        "id": "ms_whatsapp_button",
-        "label": "Show the WhatsApp button in the corner",
+        "id": "ms_enquiry_bubble",
+        "label": "Show the enquiry button in the corner",
+        "info": "A small button that opens the enquiry form, once the visitor has scrolled a little.",
         "default": true
       },
       {
         "type": "text",
-        "id": "ms_whatsapp_label",
-        "label": "WhatsApp button label",
-        "default": "Chat with the atelier"
+        "id": "ms_enquiry_bubble_label",
+        "label": "Enquiry button label",
+        "default": "Enquire"
       }
     ]
   },

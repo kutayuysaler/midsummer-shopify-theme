@@ -155,8 +155,8 @@
     "ms_social_whatsapp": "https://wa.me/message/CAC4ZAEYHOTHN1",
     "ms_social_telegram": "https://t.me/midsummermilano",
     "ms_social_vk": "https://vk.com/midsummermilano",
-    "ms_whatsapp_button": true,
-    "ms_whatsapp_label": "Chat with the atelier",
+    "ms_enquiry_bubble": true,
+    "ms_enquiry_bubble_label": "Enquire",
     "blocks": {
       "3787308784794087151": {
         "type": "shopify://apps/tipo-appointment/blocks/app-embed/efe4d483-fa62-4509-a0a7-3f363fbc9920",

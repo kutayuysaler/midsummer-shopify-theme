@@ -193,3 +193,14 @@ body[data-template="index"] :is([id$="__visit"], [id$="-visit"]) .ms-ch { paddin
 
 /* the drawn fibre marks never lose a stroke at their edges */
 .ms-site svg.ms-fm { overflow: visible; flex: 0 0 auto; max-width: none; }
+
+/* Round 28: the phone menu, refined: clear of the notch and the home bar, its scroll its own, the
+   page you are on marked; the page behind still while a sheet or the menu is open */
+[data-ms-menu] { overscroll-behavior: contain; }
+[data-ms-menu]:focus { outline: none; }
+[data-ms-menu] [data-ms="mbody"] { overscroll-behavior: contain; }
+[data-ms-menu] > div:first-child { padding-top: max(10px, env(safe-area-inset-top)) !important; padding-left: max(18px, env(safe-area-inset-left)) !important; padding-right: max(18px, env(safe-area-inset-right)) !important; }
+[data-ms-menu] > div:last-child { padding-bottom: max(16px, env(safe-area-inset-bottom)) !important; padding-left: max(18px, env(safe-area-inset-left)) !important; padding-right: max(18px, env(safe-area-inset-right)) !important; }
+[data-ms-menu] a[aria-current="page"] { background: linear-gradient(90deg, rgba(126, 98, 59, .1), rgba(126, 98, 59, 0) 78%); }
+[data-ms-menu] [data-ms-msub-open].is-here > span:nth-child(2)::after { content: ''; display: inline-block; width: 6px; height: 6px; margin-left: 12px; border-radius: 50%; background: #7E623B; vertical-align: .3em; }
+html:has(> body.ms-lock) { overflow: hidden; }

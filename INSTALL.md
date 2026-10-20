@@ -2803,3 +2803,108 @@ The seven new texts are in Italian and Russian: the six captions and *Berlin · 
    - delete the Paisley render photograph;
    - upload the four `store-images/` photographs;
    - import the translations file.
+
+## 50. Round 28: phones made sharp, a new Icons opening, the enquiry button, a refined phone menu
+
+### Phones: every opening sharp and well framed
+
+The cause first. On a phone, the openings of the home page, Loro Piana Interiors and Sleep Culture fill a tall, narrow frame. A wide photograph has to be cropped to fit it, and the phone shows it at one and a half to two screen heights wide. Phones still fetched the copy made for a 390-pixel screen and stretched it by two and a half to three and a half times. That is what looked blurred.
+
+- **The right width.** Openings now ask for their photograph at the width a phone actually shows it. This covers the *Banner* and *Home · Chapter* sections and the collection openings.
+- **An upright photograph for phones.** The *Banner* and *Home · Chapter* sections have a new setting, *Photograph on a phone*. When it is set, phones show that photograph instead of cropping the wide one. Three are already set:
+  - **Home, 15 + 15:** the same room with the drapes, photographed upright (AMB 02 FRONTE, DSC9600).
+  - **Loro Piana Interiors**, both the page and the collection view: Paisley in its room, at the full height of the photograph the wide opening is cut from.
+  - **Sleep Culture:** the horse over Bellini, taken from the full-size original and kept in the graded tones.
+- **Sharpness.** On a phone these now show at their own resolution or very close to it. The horse is the one exception, enlarged one and a half times on the sharpest screens, against nearly three before.
+- **The script.** `scripts/phone_photos_r28.py` prepares the three photographs.
+
+The wide 15 + 15 photograph on large screens is unchanged. The only larger copy in Drive is a 25 MB export, too big to fetch here. See *Still to do* below.
+
+### Icons: a new opening
+
+The Giotto Round in the abbey is gone. Icons now opens on two of the house's campaign photographs, side by side:
+
+- **Top**, in the gallery of the Paris Opera;
+- **Flora**, at a palace's ironwork windows.
+
+Each half shows at its own resolution. On a phone, Top appears alone, upright. The collection's name now sits at the top, over the ceilings, because both beds stand low in their photographs. The collection's own image in the admin (Bellagio) is untouched. `scripts/icons_photo_r28.py` prepares the photographs, and the abbey photograph is out of the theme.
+
+### Top: the award and the drawing
+
+- **The award.** The *Green Product Award* label now sits at the top-right corner of *Inside Top*, level with the section's label and clear of the drawing. On a phone it sits above the drawing, at the right.
+- **The drawing.** The coral band on the mattress used to run across the handles, the brass vents and the house label. They now sit below the band, with one row of stitching above it. Brera's navy band gets the same treatment. The topper's piping now runs all the way round its top.
+
+### Bellini: the flared boxspring
+
+Bellini's boxspring is drawn as it is made. It is a low plinth, wider and deeper than the mattress all round, with its edges drawn in towards wooden legs. It is dressed in bouclé, in the colour of its photograph. The bouclé is redrawn from the house's own bouclé (`scripts/tile_r28.py`), because the swatch photograph it used to come from now shows the pinked chips.
+
+### Loro Piana Interiors
+
+- **Altai.** All sixteen colours are drawn again as the cloth they are: a milled wool and cashmere with a soft, felted face of fine fibres. The three mélange colours (1 Biancore, 2 Natural Brown, 7 Light Marengo) show fibres lighter and darker than the ground. The colours are still the ones measured on the Loro Piana Interiors card. Only the surface is new. The old surface came from the card's own large swatch, a phone photograph that held more noise than weave, and that noise is what made the swatches look clouded. `scripts/altai_r28.py` draws them.
+- **Dressed for both seasons, on a phone.** There is now one frame, with the season chosen just above it: *Winter face · Summer face*, underlined. A swipe across the frame changes it too, and the two cloths cross-fade. Before, there were two stacked pictures and a switch that only changed their heights.
+
+### Beds with headboards, side by side, on a phone
+
+The beds now stand in one row to swipe along, still drawn to one scale. The next bed shows at the edge of the screen. Before, they were two columns, seven rows deep.
+
+### The corner: an enquiry button instead of WhatsApp
+
+- **What it does.** The round WhatsApp button in the corner is now a small *Enquire* button. It opens the enquiry sheet and appears once the visitor has scrolled a little. WhatsApp itself stays among the socials, in the menu and the footer.
+- **Where it hides.** It does not show on the enquiry and contact pages, or on a product page while the bar at the foot (*Request a proposal*) is showing.
+- **Settings.** Under *Theme settings → Midsummer · Social* there are two: *Show the enquiry button in the corner*, and *Enquiry button label* (*Enquire*, translated).
+
+### The press line
+
+The dark *Drag* disc that followed the cursor is gone. The line now shows the system's own hand: open over the line, closed while it is being moved. Nothing is drawn under the cursor, and on a phone there is no cursor at all. Vanity Fair's mark no longer has a white box behind it.
+
+### The phone menu, refined
+
+The menu looks the same. What changed is how it behaves:
+
+- **Focus.** Focus goes into the menu when it opens and returns to the menu button when it closes.
+- **The page behind.** While the menu is open, the page behind it can't be reached by tapping, by the keyboard or by a screen reader.
+- **Back.** The phone's back gesture, or the browser's back button, goes up a level and then closes the menu. It no longer leaves the page. A link to another page takes the menu's step out of the history first, so back from the next page returns here in one step.
+- **Swipe.** A swipe to the right does the same as back: up a level, then closed. The panel follows the finger a little.
+- **You are here.** The page you are on is marked in the menu, and its chapter (*Our Beds*, *Heritage & Craft*…) carries a small bronze dot.
+- **Faster pages.** Pages in the menu start loading as a finger comes down on them, in browsers that support it (speculation rules).
+- **The screen's edges.** The menu keeps clear of the notch and the home bar. Its scroll is its own: it no longer drags the page behind it on iPhones.
+
+### Still to do before launch
+
+**In the admin** (§46–§49):
+
+1. Delete the Paisley render photograph from the product.
+2. Upload the four photographs in `store-images/`.
+3. Import the translations file in `store-translations/` (*Settings → Languages → Import*).
+
+**Photographs that need a file from the house:**
+
+4. **Mohair, on *Natural materials*.** The goat photograph is still the old one. Either of the two public-domain Angora goats named in §49 can replace it. It needs one of two things: the file placed in Drive, or `upload.wikimedia.org` allowed in this workspace's network settings.
+5. **15 + 15 on wide screens.** The drapes-and-fireplace photograph is 1867 pixels wide. The original export (AMB 02, DSC9597) is 25 MB, over the 10 MB a file can be fetched at here. A JPEG of about 3000 pixels, under 10 MB, placed in Drive, would replace it.
+6. **Optional:** full-size originals of the palazzo shoot (the A8447 series, 765 pixels wide in Drive) and of the horse over Bellini (2004 pixels). These would make the Sleep Culture gallery and its phone opening fully sharp on the sharpest screens.
+
+**Later, only when you say:** the bed customizer (a plan first, nothing built).
+
+### Checks
+
+| Check | Result |
+|---|---|
+| Build twice | identical |
+| Liquid strict | 476 files, 0 errors |
+| Theme Check | 0 errors; the same 68 warnings as before |
+| Every template rendered and run in a browser (78 pages) | no script errors, no missing files, one H1 each; the same four templates the local renderer cannot draw, as before |
+| Phones at 320, 360, 390 and 430 px | nothing covered or cut; only the strips meant to scroll sideways |
+| Interaction tests | 277 pass. New: the phone menu (focus in and back, the page behind inert, back and a swipe going up a level then closing it, clear of the home bar); *Dressed for both seasons* in one frame on a phone, by tab and by swipe; the beds with headboards in one row on a phone; the upright phone photographs of 15 + 15, Loro Piana Interiors, Sleep Culture and Icons, and the wide ones kept on wide screens; Icons' two photographs with its name above the beds; Bellini's plinth wider than its mattress. Updated: Top's label at the section's corner, clear of the drawing; a phone fetches a wide opening at the width it shows it, never the largest |
+
+### After installing, check
+
+1. **On a phone:** the openings of the home page (chapter 05, 15 + 15), Loro Piana Interiors and Sleep Culture are sharp and upright. Icons shows Top in the Opera.
+2. **On a wide screen:** Icons opens on the two photographs, its name at the top.
+3. **Top:** the award label at the top right; Bellini's plinth.
+4. **Loro Piana Interiors:** Altai's colours. On a phone, *Dressed for both seasons* in one frame.
+5. **On a phone:** open the menu, go into *Our Beds*, use the phone's back gesture twice. It goes back to the menu, then closes it, and you stay on the page.
+6. **The corner:** the *Enquire* button opens the enquiry sheet.
+7. **Still to do in the admin, from §46 and §47:**
+   - delete the Paisley render photograph;
+   - upload the four `store-images/` photographs;
+   - import the translations file.

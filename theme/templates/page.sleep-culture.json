@@ -12,7 +12,8 @@
         "use_page_title": false,
         "heading": "Sleep Culture",
         "height": "tall",
-        "text": "Rest, designed with the same rigour as the room around it."
+        "text": "Rest, designed with the same rigour as the room around it.",
+        "image_fallback_mobile": "ms-graded-horse-m.jpg"
       }
     },
     "s02": {
