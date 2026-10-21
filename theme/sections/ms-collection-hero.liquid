@@ -19,7 +19,6 @@
   assign tier_side = 'left'
   assign tier_m = ''
   assign tier_v = ''
-  assign tier_plate = false
   assign tier_sizes = '(max-width: 760px) 150vh, 100vw'
   case tier
     when 'essentials'
@@ -29,15 +28,14 @@
     when 'icons', 'icon'
       assign tier_name = 'ms-photo-icons-opera.jpg'
       assign tier_photo = tier_name | asset_url
-      assign tier_pos = 'center 80%'
+      assign tier_pos = 'center 96%'
       assign tier_m = 'ms-photo-icons-opera-m.jpg'
       assign tier_v = ''
-      assign tier_plate = true
-      assign tier_sizes = '(max-width: 760px) 100vw, 46vw'
+      assign tier_sizes = '100vw'
   endcase
 -%}
-<section class="ms-colhero{% if tier_plate %} ms-colhero--plate{% endif %}" style="position: relative; overflow: hidden; background: rgb(23, 20, 15);">
-<style>.ms-site .ms-colhero img, body .ms-colhero img { filter: none !important; } .ms-colhero h1, .ms-colhero h1 ~ *, .ms-colhero [style*="letter-spacing: 0.3em"] { text-shadow: 0 1px 24px rgba(10, 8, 6, .5), 0 0 2px rgba(10, 8, 6, .3); } .ms-colhero [style*="letter-spacing: 0.3em"] { opacity: 1 !important; } @media (min-width: 761px) { .ms-colhero--plate picture img { width: 46% !important; margin-left: auto; } .ms-colhero--plate .ms-colhero__veil { left: auto !important; width: 46%; background: linear-gradient(180deg, rgba(10, 8, 6, .64), rgba(10, 8, 6, .2) 20%, rgba(10, 8, 6, 0) 34%) !important; } .ms-colhero--plate .ms-colhero__copy { right: 46% !important; justify-content: flex-end !important; } }</style>
+<section class="ms-colhero ms-colhero--{{ tier }}" style="position: relative; overflow: hidden; background: rgb(23, 20, 15);">
+<style>.ms-site .ms-colhero img, body .ms-colhero img { filter: none !important; } .ms-colhero h1, .ms-colhero h1 ~ *, .ms-colhero [style*="letter-spacing: 0.3em"] { text-shadow: 0 1px 24px rgba(10, 8, 6, .5), 0 0 2px rgba(10, 8, 6, .3); } .ms-colhero [style*="letter-spacing: 0.3em"] { opacity: 1 !important; } .ms-colhero--icons .ms-colhero__veil, .ms-colhero--icon .ms-colhero__veil { background: linear-gradient(180deg, rgba(10, 8, 6, .62), rgba(10, 8, 6, .24) 16%, rgba(10, 8, 6, 0) 32%), radial-gradient(ellipse 56% 64% at 0% 100%, rgba(10, 8, 6, .5), rgba(10, 8, 6, 0) 72%) !important; }</style>
 {%- if section.settings.image != blank -%}
 <img alt="{%- render 'ms-coll-name', c: collection -%}" width="2400" height="1100" src="{{ section.settings.image | image_url: width: 2400 }}" {% render 'ms-srcset', image: section.settings.image, width: 2400, sizes: '(max-width: 760px) 150vh, 100vw' %} style="width: 100%; height: min(66vh, 640px); object-fit: cover; display: block;">
 {%- elsif tier_photo != blank -%}

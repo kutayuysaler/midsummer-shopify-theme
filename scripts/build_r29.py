@@ -57,42 +57,58 @@ for _f, _n in (('sections/ms-header.liquid', 2), ('sections/ms-footer.liquid', 1
     assert open(THEME + '/' + _f, encoding='utf-8').read().count("{% render 'ms-lang'") == _n, _f
 assert 'section.settings.t29 }}' not in open(THEME + '/sections/ms-footer.liquid', encoding='utf-8').read(), 'footer English'
 
-# ── Icons on one photograph: Top in the gallery of the Paris Opera at the right, the collection's name
-#    beside it on the dark ground, at its foot like the other collections' (scripts/icons_photo_r29.py).
-#    On a phone, the photograph upright, the name at its foot as on Essentials and Signature (it was at the
-#    top, over the ceiling, until the house asked for it at the foot). The two side by side are gone.
+# ── Icons on one photograph across the full width, as Essentials and Signature open: Top in the gallery
+#    of the Paris Opera, from its 4480 px original (scripts/icons_photo_r29.py), the collection's name at
+#    its foot. On a phone, the photograph upright. The two side by side are gone. (A first draft set a
+#    small copy of the photograph at the right beside a dark ground: half the opening stood empty, and
+#    the header's words sat over the photograph.)
 _HERO = THEME + '/sections/ms-collection-hero.liquid'
+for _f in ('ms-photo-icons-opera.jpg', 'ms-photo-icons-opera-m.jpg'):
+    _d = THEME + '/assets/' + _f
+    if not os.path.exists(_d) or open(SP + '/vendor/r29/' + _f, 'rb').read() != open(_d, 'rb').read():
+        shutil.copy(SP + '/vendor/r29/' + _f, _d)
+        _r29_n += 1
+_ICONS_AT = """      assign tier_name = 'ms-photo-icons-opera.jpg'
+      assign tier_photo = tier_name | asset_url
+      assign tier_pos = 'center 96%'
+      assign tier_m = 'ms-photo-icons-opera-m.jpg'
+      assign tier_v = ''
+      assign tier_sizes = '100vw'
+"""
 _h = open(_HERO, encoding='utf-8').read()
 _h2 = _h.replace("      assign tier_m = 'ms-photo-icons-opera-m.jpg'\n      assign tier_v = 'top'\n", "      assign tier_m = 'ms-photo-icons-opera-m.jpg'\n      assign tier_v = ''\n")
-if _h2 != _h:
-    open(_HERO, 'w', encoding='utf-8').write(_h2)
-    _r29_n += 1
-_r29_sub(_HERO, [
-    ("  assign tier_v = ''\n  case tier\n", "  assign tier_v = ''\n  assign tier_plate = false\n  assign tier_sizes = '(max-width: 760px) 150vh, 100vw'\n  case tier\n"),
-    ("""      assign tier_name = 'ms-photo-icons-pair.jpg'
-      assign tier_photo = tier_name | asset_url
-      assign tier_pos = 'center'
-      assign tier_m = 'ms-photo-icons-pair-m.jpg'
-      assign tier_v = 'top'
-""", """      assign tier_name = 'ms-photo-icons-opera.jpg'
+_h2 = _h2.replace("""      assign tier_name = 'ms-photo-icons-opera.jpg'
       assign tier_photo = tier_name | asset_url
       assign tier_pos = 'center 80%'
       assign tier_m = 'ms-photo-icons-opera-m.jpg'
       assign tier_v = ''
       assign tier_plate = true
       assign tier_sizes = '(max-width: 760px) 100vw, 46vw'
-"""),
-    ('<section class="ms-colhero" style="position: relative;', '<section class="ms-colhero{% if tier_plate %} ms-colhero--plate{% endif %}" style="position: relative;'),
+""", _ICONS_AT)
+_h2 = _h2.replace(_ICONS_AT.replace("'center 96%'", "'center 74%'"), _ICONS_AT)
+_h2 = _h2.replace("  assign tier_plate = false\n", '').replace('{% if tier_plate %} ms-colhero--plate{% endif %}', '')
+_h2 = re.sub(r' @media \(min-width: 761px\) \{ \.ms-colhero--plate .*?\} \}(?=</style>)', '', _h2)
+if _h2 != _h:
+    open(_HERO, 'w', encoding='utf-8').write(_h2)
+    _r29_n += 1
+_r29_sub(_HERO, [
+    ("  assign tier_v = ''\n  case tier\n", "  assign tier_v = ''\n  assign tier_sizes = '(max-width: 760px) 150vh, 100vw'\n  case tier\n"),
+    ("""      assign tier_name = 'ms-photo-icons-pair.jpg'
+      assign tier_photo = tier_name | asset_url
+      assign tier_pos = 'center'
+      assign tier_m = 'ms-photo-icons-pair-m.jpg'
+      assign tier_v = 'top'
+""", _ICONS_AT),
     ("{% render 'ms-srcset', fallback: tier_name, width: 2400, sizes: '(max-width: 760px) 150vh, 100vw' %}", "{% render 'ms-srcset', fallback: tier_name, width: 2400, sizes: tier_sizes %}"),
     ('<div style="position: absolute; inset: 0px; background: radial-gradient(', '<div class="ms-colhero__veil" style="position: absolute; inset: 0px; background: radial-gradient('),
     ('<div style="position: absolute; inset: 0px; display: flex; flex-direction: column; justify-content:', '<div class="ms-colhero__copy" style="position: absolute; inset: 0px; display: flex; flex-direction: column; justify-content:'),
-    (""".ms-colhero [style*="letter-spacing: 0.3em"] { opacity: 1 !important; }</style>""",
-     """.ms-colhero [style*="letter-spacing: 0.3em"] { opacity: 1 !important; } @media (min-width: 761px) { .ms-colhero--plate picture img { width: 46% !important; margin-left: auto; } .ms-colhero--plate .ms-colhero__veil { left: auto !important; width: 46%; background: linear-gradient(180deg, rgba(10, 8, 6, .4), rgba(10, 8, 6, 0) 28%) !important; } .ms-colhero--plate .ms-colhero__copy { right: 46% !important; justify-content: flex-end !important; } }</style>"""),
-    # the header's words stay clear over the chandeliers
-    ("background: linear-gradient(180deg, rgba(10, 8, 6, .4), rgba(10, 8, 6, 0) 28%) !important;", "background: linear-gradient(180deg, rgba(10, 8, 6, .64), rgba(10, 8, 6, .2) 20%, rgba(10, 8, 6, 0) 34%) !important;"),
+    # the whole bed in view on the widest screens, and the header's words clear over the pale stone
+    ('<section class="ms-colhero" style=', '<section class="ms-colhero ms-colhero--{{ tier }}" style='),
+    ('.ms-colhero [style*="letter-spacing: 0.3em"] { opacity: 1 !important; }</style>',
+     '.ms-colhero [style*="letter-spacing: 0.3em"] { opacity: 1 !important; } .ms-colhero--icons .ms-colhero__veil, .ms-colhero--icon .ms-colhero__veil { background: linear-gradient(180deg, rgba(10, 8, 6, .62), rgba(10, 8, 6, .24) 16%, rgba(10, 8, 6, 0) 32%), radial-gradient(ellipse 56% 64% at 0% 100%, rgba(10, 8, 6, .5), rgba(10, 8, 6, 0) 72%) !important; }</style>'),
 ])
 _u = open(_HERO, encoding='utf-8').read()
-assert 'icons-pair' not in _u and _u.count('ms-colhero--plate') >= 4, 'icons plate'
+assert 'icons-pair' not in _u and 'plate' not in _u and _u.count(_ICONS_AT) == 1, 'icons across the full width'
 for _f in ('ms-photo-icons-pair.jpg', 'ms-photo-icons-pair-m.jpg'):
     if os.path.exists(THEME + '/assets/' + _f):
         os.remove(THEME + '/assets/' + _f)
@@ -358,11 +374,23 @@ assert 'ms-cr__award' not in _c and 'cr_award' not in _c, 'no award in Inside To
 # ── the product's photographs whole and sharp: every one was cut to a tall 4:5 frame (and shorter still
 #    under the screen's height), so a wide studio photograph lost its ends and a room's photograph its
 #    floor, and both were enlarged past their resolution. The frame now takes the first photograph's own
-#    proportions (between 3:4 and 3:2), sized to the screen; a photograph of other proportions is shown
-#    whole within it. Fetched up to 2800 px wide for large, dense screens
+#    proportions (between 3:5 and 9:5), so the first photograph fills it exactly, sized to the screen. A
+#    photograph of other proportions is shown whole within it. The frame's ground is the page's own
+#    colour, so nothing frames such a photograph: no band of a darker paper beside it (a first draft left
+#    one), and the white of a studio photograph is laid into the page (ms-on-white). Fetched up to 2800 px
+#    wide for large, dense screens
 _PM = THEME + '/sections/ms-product-main.liquid'
+_CLAMP0 = '      if ms_ar < 0.75\n        assign ms_ar = 0.75\n      elsif ms_ar > 1.5\n        assign ms_ar = 1.5\n'
+_CLAMP = '      if ms_ar < 0.6\n        assign ms_ar = 0.6\n      elsif ms_ar > 1.8\n        assign ms_ar = 1.8\n'
+# (earlier drafts of this step: a narrower range, a room's photograph shown whole with paper beside it)
+_t = open(_PM, encoding='utf-8').read()
+_c = (_t.replace(_CLAMP0, _CLAMP).replace('{% if m_off > 0.15 %} is-far{% endif %}', '')
+      .replace('    .ms-pm__slide.is-fit:not(.is-far) img { object-fit: cover; }\n', '')
+      .replace('  .ms-pm__slide.is-fit img.ms-on-white { object-fit: contain; }', '  .ms-pm__slide.is-fit img { object-fit: contain; }'))
+if _c != _t:
+    open(_PM, 'w', encoding='utf-8').write(_c)
+    _r29_n += 1
 _r29_sub(_PM, [
-    # (a first draft of this step set the proportions on the photograph's column, not beside its thumbnails)
     ('      {%- liquid\n        assign ms_ar = images.first.preview_image.aspect_ratio | default: images.first.aspect_ratio | default: 0.8\n'
      '        if ms_ar < 0.75\n          assign ms_ar = 0.75\n        elsif ms_ar > 1.5\n          assign ms_ar = 1.5\n        endif\n      -%}\n'
      '      <div class="ms-pm__main" style="--ms-ar: {{ ms_ar }}">\n', '      <div class="ms-pm__main">\n'),
@@ -371,10 +399,7 @@ _r29_sub(_PM, [
     ('    <div class="ms-pm__gallery{% if n_images < 2 %} is-single{% endif %}" data-ms-pm-gallery aria-roledescription',
      '    {%- liquid\n'
      '      assign ms_ar = images.first.preview_image.aspect_ratio | default: images.first.aspect_ratio | default: 0.8\n'
-     '      if ms_ar < 0.75\n'
-     '        assign ms_ar = 0.75\n'
-     '      elsif ms_ar > 1.5\n'
-     '        assign ms_ar = 1.5\n'
+     + _CLAMP +
      '      endif\n'
      '    -%}\n'
      '    <div class="ms-pm__gallery{% if n_images < 2 %} is-single{% endif %}" data-ms-pm-gallery style="--ms-ar: {{ ms_ar }}" aria-roledescription'),
@@ -393,16 +418,18 @@ _r29_sub(_PM, [
     ('  .ms-pm__track { position: relative; width: 100%; aspect-ratio: 4 / 5; max-height: min(calc(100vh - 190px), 980px); outline: none; }',
      '  .ms-pm__track { position: relative; width: 100%; aspect-ratio: var(--ms-ar, 4 / 5); outline: none; }\n'
      '  .ms-pm__slide.is-fit img { object-fit: contain; }'),
+    ('  .ms-pm__stage { position: relative; background: #F1ECE3; overflow: hidden; }', '  .ms-pm__stage { position: relative; background: #FBF9F5; overflow: hidden; }'),
     ('    .ms-pm__slide { position: relative; inset: auto; flex: 0 0 100%; opacity: 1; scroll-snap-align: start; scroll-snap-stop: always; aspect-ratio: 4 / 5; max-height: 78vh; }',
      '    .ms-pm__slide { position: relative; inset: auto; flex: 0 0 100%; opacity: 1; scroll-snap-align: start; scroll-snap-stop: always; aspect-ratio: var(--ms-ar, 4 / 5); max-height: 78vh; }'),
-    # on a phone a photograph nearly of the frame's proportions fills it; one far from them is shown whole
-    ('{% if m_off > 0.06 %} is-fit{% endif %}" data-ms-pm-slide', '{% if m_off > 0.06 %} is-fit{% endif %}{% if m_off > 0.15 %} is-far{% endif %}" data-ms-pm-slide'),
-    ('    .ms-pm__slide { position: relative; inset: auto; flex: 0 0 100%; opacity: 1; scroll-snap-align: start; scroll-snap-stop: always; aspect-ratio: var(--ms-ar, 4 / 5); max-height: 78vh; }\n',
-     '    .ms-pm__slide { position: relative; inset: auto; flex: 0 0 100%; opacity: 1; scroll-snap-align: start; scroll-snap-stop: always; aspect-ratio: var(--ms-ar, 4 / 5); max-height: 78vh; }\n'
-     '    .ms-pm__slide.is-fit:not(.is-far) img { object-fit: cover; }\n'),
 ])
-_r29_sub(THEME + '/snippets/ms-on-white.liquid', [('  .ms-pm__slide { background: inherit; }', '  .ms-pm__slide { background: #F1ECE3; }')])
+_ONW = THEME + '/snippets/ms-on-white.liquid'
+_t = open(_ONW, encoding='utf-8').read()
+if '  .ms-pm__slide { background: #F1ECE3; }' in _t:
+    open(_ONW, 'w', encoding='utf-8').write(_t.replace('  .ms-pm__slide { background: #F1ECE3; }', '  .ms-pm__slide { background: #FBF9F5; }'))
+    _r29_n += 1
+_r29_sub(_ONW, [('  .ms-pm__slide { background: inherit; }', '  .ms-pm__slide { background: #FBF9F5; }')])
 _c = open(_PM, encoding='utf-8').read()
-assert _c.count('--ms-ar: {{ ms_ar }}') == 1 and _c.count('assign ms_ar = 0.75') == 1 and _c.count(' is-fit{% endif %}{% if m_off > 0.15 %} is-far{% endif %}') == 1 and _c.count('.is-fit:not(.is-far)') == 1 and '2800w' in _c, 'product photographs whole'
+assert (_c.count('--ms-ar: {{ ms_ar }}') == 1 and _c.count('assign ms_ar = 0.6') == 1 and _c.count(' is-fit{% endif %}" data-ms-pm-slide') == 1
+        and 'is-far' not in _c and _c.count('.ms-pm__slide.is-fit img { object-fit: contain; }') == 1 and 'background: #F1ECE3; overflow' not in _c and '2800w' in _c), 'product photographs whole'
 
 print('round 29: %d files changed' % _r29_n)

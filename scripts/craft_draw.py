@@ -49,7 +49,11 @@ SYS = {
     'essenziale': dict(topper=P(IVORY, 18), mattress=P(IVORY, 50, ribbon=PINK, rows=2, vents=2), base=P(LINEN, 44)),
     'raffaello': dict(topper=P(IVORY, 18), mattress=P(IVORY, 62, ribbon=PINK, rows=2, handles=True, vents=3), base=P(LINEN, 48)),
     'amalfi': dict(topper=P('#C9D3D6', 20, ribbon='#7E98A3'), mattress=P('#BCC9CD', 56, rows=2, handles=True, vents=2), base=P('#8FA6AF', 48)),
-    'capri': dict(topper=P('#D3C9BC', 22, 'mystic', ribbon=PINK), mattress=P('#EEE9E1', 58, 'mystic', rows=3, handles=True, vents=3), base=P('#B8A18F', 48, 'mystic')),
+    # Capri, as its photographs show it (Round 29): a deep, button-tufted topper piped in a light cord, on
+    # one plain upholstered block (the mattress and the boxspring in one, nothing stitched or fitted on
+    # its face), all in the same Mystic River, standing on small wooden feet set in from its corners
+    'capri': dict(one_block=True, topper=P('#C46A42', 32, 'mystic', ribbon='#EADCC6', tufts='deep'), mattress=P('#C46A42', 26, 'mystic'),
+                  base=P('#C46A42', 40, 'mystic', legs='feet', plain=True, soft=True, seams=True)),
     'bellagio': dict(topper=P(RAW, 18), mattress=P(RAW, 60, ribbon=ORANGE, rows=2, rowcol=ORANGE, vents=2), base=P(LINEN, 48)),
     'vivaldi-2': dict(topper=P(IVORY, 18), mattress=P(LINEN, 62, ribbon=PINK, rows=3, handles=True, vents=3), base=P('#D5C9B5', 48)),
     'vivaldi-plus': dict(topper=P(IVORY, 18), mattress=P(LINEN, 66, ribbon=PINK, rows=3, handles=True, vents=3), base=P('#CBBDA7', 48)),
@@ -182,6 +186,9 @@ def light_defs(u):
         '<radialGradient id="cr-%s-crown" cx=".36" cy=".46" r=".66"><stop offset="0" stop-color="#fff" stop-opacity=".24"/><stop offset=".6" stop-color="#fff" stop-opacity=".04"/><stop offset="1" stop-color="#2A1F19" stop-opacity=".07"/></radialGradient>' % u,
         # Round 29: a quilted square's swell, lit at its top and in shade at its lower seam
         '<linearGradient id="cr-%s-puff" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/><stop offset=".8" stop-color="#2A1F19" stop-opacity="0"/><stop offset="1" stop-color="#2A1F19" stop-opacity=".07"/></linearGradient>' % u,
+        # Round 29: a deep button's hollow, and the cloth swelling between the buttons (Capri)
+        '<radialGradient id="cr-%s-hollow"><stop offset="0" stop-color="#2A1F19" stop-opacity=".34"/><stop offset=".45" stop-color="#2A1F19" stop-opacity=".12"/><stop offset="1" stop-color="#2A1F19" stop-opacity="0"/></radialGradient>' % u,
+        '<radialGradient id="cr-%s-swell"><stop offset="0" stop-color="#fff" stop-opacity=".2"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>' % u,
         '<radialGradient id="cr-%s-tuft" cx=".4" cy=".35" r=".75"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".6" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#2A1F19" stop-opacity=".25"/></radialGradient>' % u,
     ])
 
@@ -243,7 +250,7 @@ def box(part, p, u, kind, gap=0.0, inner=False):
     cls = 'ms-cr__slab' + (' is-ghost' if ghost else '') + (' is-opt' if opt else '')
     if not inner:
         g.append('<g class="%s" data-part="%s" tabindex="0" role="button" aria-label="%s" aria-controls="cr-{{U}}-%s" aria-expanded="false">' % (cls, part, LABEL[part], part))
-    soft_edge = part != 'base'     # a topper and a mattress are cushions, their edges rounded
+    soft_edge = part != 'base' or p.get('soft')     # a topper and a mattress are cushions, their edges rounded (and Capri's padded block)
     r = min(5.0, h * .22) if soft_edge else 1.2
     # legs first, so the base stands on them
     if part == 'base' and not ghost:
@@ -255,6 +262,19 @@ def box(part, p, u, kind, gap=0.0, inner=False):
         elif legs == 'leather':
             for lx, ly in ((X0 + 18, y0 + h), (x1 - 28, y0 + h), (x1 + DX - 24, y0 + h + DY)):
                 g.append('<path d="M%s,%s h9 l-1.4,19 h-6.2 Z" fill="#8E6141"/><path d="M%s,%s h7.6" stroke="#C99B6D" stroke-width="1"/><path d="M%s,%s v18" stroke="#2A1F19" stroke-opacity=".2" stroke-width="1.4"/>' % (f(lx - 4.5), f(ly), f(lx - 3.8), f(ly + 6), f(lx + 3.4), f(ly)))
+        elif legs == 'feet':
+            # small oak blocks set in from the corners, the block resting just off the floor on them (Capri):
+            # each its front, its side in shade, the block's shadow across its top and its own on the floor;
+            # the two at the back are hidden by the block, as in its photographs
+            fw, fh, t, din = 18.0, 16.0, .06, 12.0
+            ex, ey = DX * .07, DY * .07
+            for xl in (X0 + din, x1 - din - fw):
+                bx, by = xl + DX * t, y0 + h + DY * t
+                g.append('<ellipse cx="%s" cy="%s" rx="%s" ry="2.4" fill="#2A1F19" fill-opacity=".3" filter="url(#cr-{{U}}-near)"/>' % (f(bx + fw / 2 + ex / 2), f(by + fh + ey / 2 + .5), f(fw * .8)))
+                g.append('<path d="M%s,%s l%s,%s v%s l%s,%s Z" fill="#5E4D3D"/>' % (f(bx + fw), f(by), f(ex), f(ey), f(fh), f(-ex), f(-ey)))
+                g.append('<rect x="%s" y="%s" width="%s" height="%s" fill="url(#cr-{{U}}-oak)"/>' % (f(bx), f(by), f(fw), f(fh)))
+                g.append('<rect x="%s" y="%s" width="%s" height="%s" fill="#2A1F19" fill-opacity=".22"/><path d="M%s,%s V%s" stroke="#fff" stroke-opacity=".28" stroke-width=".6"/><path d="M%s,%s h%s" stroke="#2A1F19" stroke-opacity=".35" stroke-width=".7"/>' % (
+                    f(bx), f(by), f(fw), f(fh * .55), f(bx + fw - .4), f(by + fh * .55), f(by + fh - .4), f(bx), f(by + fh - .3), f(fw)))
         elif legs == 'block':
             # four upholstered blocks flush with the frame's corners, each on a thin walnut plate; the two at
             # the back on the left hidden by the frame. The far one first, so the near ones are drawn over it
@@ -323,14 +343,38 @@ def box(part, p, u, kind, gap=0.0, inner=False):
         g.append('<path d="M%s,%s L%s,%s" fill="none" stroke="#2A1F19" stroke-opacity=".14" stroke-width="1.2"/>' % (f(x1), f(y0 + 1), f(x1), f(y0 + h - 1)))
         if part in ('mattress', 'topper'):
             # tufts: the cloth drawn down to each, softly, in a grid that follows the top
-            nu, nv = (6, 3) if part == 'mattress' else (7, 3)
+            nu, nv = (6, 3) if part == 'mattress' else ((9, 4) if p.get('tufts') == 'deep' else (7, 3))
             pts = {}
             for j in range(nv):
                 for i in range(nu):
                     uu = (i + .5 + (.5 if j % 2 else 0)) / (nu + .5)
                     vv = (j + .7) / (nv + .4)
                     pts[(i, j)] = at(uu, vv)
-            dep = .09 if part == 'mattress' else .06
+            dep = .09 if part == 'mattress' else (.16 if p.get('tufts') == 'deep' else .06)
+            if p.get('tufts') == 'deep':
+                # a flat rim round the top, stitched where the tufted field begins
+                def tq(uu, vv):
+                    return '%s,%s' % (f(X0 + uu * W + vv * DX), f(y0 + vv * DY))
+                rim = 'M%s L%s L%s L%s Z' % (tq(.035, .085), tq(.965, .085), tq(.965, .915), tq(.035, .915))
+                g.append('<path d="%s" fill="none" stroke="%s" stroke-opacity=".26" stroke-width=".8" stroke-dasharray="1.6 1.6"/><path d="%s" fill="none" stroke="#fff" stroke-opacity=".2" stroke-width=".6" transform="translate(0 .9)"/>' % (rim, fold, rim))
+                # capitonné: the cloth drawn in from each tuft toward its neighbours in the next row, a soft
+                # fold that fades before it reaches them
+                ln = []
+                for (i, j), (x, y) in pts.items():
+                    # a row sits half a step to the right of the one before it
+                    for di in ((-1, 0) if j % 2 == 0 else (0, 1)):
+                        q = pts.get((i + di, j + 1))
+                        if q:
+                            for (ax, ay), (bx, by) in (((x, y), q), (q, (x, y))):
+                                ln.append('M%s,%s L%s,%s' % (f(ax), f(ay), f(ax + (bx - ax) * .34), f(ay + (by - ay) * .34)))
+                # the cloth swells between the buttons of a row and the row behind it
+                for (i, j), (x, y) in pts.items():
+                    q = pts.get((i + 1, j))
+                    if q:
+                        g.append('<ellipse cx="%s" cy="%s" rx="14" ry="5.5" fill="url(#cr-{{U}}-swell)"/>' % (f((x + q[0]) / 2), f((y + q[1]) / 2 - 1)))
+                g.append('<path d="%s" stroke="%s" stroke-opacity=".2" stroke-width=".9" stroke-linecap="round" fill="none"/><path d="%s" stroke="#fff" stroke-opacity=".18" stroke-width=".7" stroke-linecap="round" fill="none" transform="translate(0 1)"/>' % (' '.join(ln), fold, ' '.join(ln)))
+                for (x, y) in pts.values():
+                    g.append('<ellipse cx="%s" cy="%s" rx="9" ry="3.8" fill="url(#cr-{{U}}-hollow)"/>' % (f(x + .4), f(y + .4)))
             for (x, y) in pts.values():
                 # a dimple where the tuft draws the cloth down, a few soft folds, the tuft itself
                 g.append('<ellipse cx="%s" cy="%s" rx="5.5" ry="2.4" fill="%s" fill-opacity="%s"/>' % (f(x + .5), f(y + .5), fold, f(dep)))
@@ -403,7 +447,13 @@ def box(part, p, u, kind, gap=0.0, inner=False):
                 fx = X0 + W * .3
                 g.append('<rect x="%s" y="%s" width="26" height="8" rx="1.2" fill="%s" stroke="%s" stroke-width=".7"/><path d="M%s,%s h22" stroke="%s" stroke-width=".5" stroke-dasharray="1 1.4"/>' % (
                     f(fx), f(mid - 4), shade(col, -.03), shade(col, -.3), f(fx + 2), f(mid), shade(col, -.32)))
-        if part == 'topper':
+        if part == 'topper' and p.get('tufts') == 'deep':
+            # a deep cushion's side swells between its piped edges, lit along its crown, in shade below
+            g.append('<path d="M%s,%s L%s,%s L%s,%s" stroke="#fff" stroke-opacity=".1" stroke-width="%s" stroke-linecap="round" fill="none" filter="url(#cr-{{U}}-near)"/>' % (
+                f(X0 + 10), f(y0 + h * .38), f(x1 - 4), f(y0 + h * .38), f(x1 + DX - 6), f(y0 + h * .38 + DY), f(h * .3)))
+            g.append('<path d="M%s,%s L%s,%s L%s,%s" stroke="#2A1F19" stroke-opacity=".1" stroke-width="%s" stroke-linecap="round" fill="none"/>' % (
+                f(X0 + 10), f(y0 + h * .8), f(x1 - 4), f(y0 + h * .8), f(x1 + DX - 6), f(y0 + h * .8 + DY), f(h * .14)))
+        elif part == 'topper':
             # a pillowed top: the cushion swells a little between its piped edges
             g.append('<path d="M%s,%s L%s,%s" stroke="#fff" stroke-opacity=".14" stroke-width="3" stroke-linecap="round"/>' % (f(X0 + 14), f(y0 + h * .4), f(x1 - 14), f(y0 + h * .4)))
         if p.get('band'):
@@ -418,7 +468,13 @@ def box(part, p, u, kind, gap=0.0, inner=False):
                 dx0 = X0 + 12 + i * (wdr + 6)
                 g.append('<rect x="%s" y="%s" width="%s" height="%s" rx="1.5" fill="#fff" fill-opacity=".08" stroke="%s" stroke-width=".9"/>' % (f(dx0), f(y0 + 12), f(wdr), f(h - 20), shade(col, -.28)))
                 g.append('<path d="M%s,%s h22" stroke="%s" stroke-width="2" stroke-linecap="round"/>' % (f(dx0 + wdr / 2 - 11), f(y0 + 12 + (h - 20) / 2), shade(col, -.4)))
-        if part == 'base' and p.get('legs') != 'block':
+        if p.get('seams'):
+            # an upholstered block: the cloth joined down the middle of its front and of its side (Capri)
+            mx = X0 + W / 2
+            sx2, sy2 = x1 + DX / 2, y0 + DY / 2
+            g.append('<path d="M%s,%s V%s M%s,%s V%s" stroke="#2A1F19" stroke-opacity=".16" stroke-width=".9" fill="none"/><path d="M%s,%s V%s M%s,%s V%s" stroke="#fff" stroke-opacity=".16" stroke-width=".7" fill="none"/>' % (
+                f(mx), f(y0 + 4), f(y0 + h - 2), f(sx2), f(sy2 + 4), f(sy2 + h - 2), f(mx + 1.1), f(y0 + 4), f(y0 + h - 2), f(sx2 + 1.1), f(sy2 + 4), f(sy2 + h - 2)))
+        if part == 'base' and p.get('legs') != 'block' and not p.get('plain'):
             # the welt where the upholstery turns over the top
             g.append('<path d="M%s,%s L%s,%s L%s,%s" fill="none" stroke="#2A1F19" stroke-opacity=".22" stroke-width="1"/><path d="M%s,%s L%s,%s L%s,%s" fill="none" stroke="#fff" stroke-opacity=".22" stroke-width=".8"/>' % (
                 f(X0 + 2), f(y0 + 9), f(x1 - 1), f(y0 + 9), f(x1 + DX - 2), f(y0 + 9 + DY), f(X0 + 2), f(y0 + 10.2), f(x1 - 1), f(y0 + 10.2), f(x1 + DX - 2), f(y0 + 10.2 + DY)))
@@ -523,6 +579,8 @@ def drawing(key, kind='system'):
             '<filter id="cr-%s-soft" x="-20%%" y="-60%%" width="140%%" height="220%%"><feGaussianBlur stdDeviation="5"/></filter>' % u,
             '<filter id="cr-%s-near" x="-10%%" y="-200%%" width="120%%" height="500%%"><feGaussianBlur stdDeviation="2.6"/></filter>' % u,
             '<linearGradient id="cr-%s-wood" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5E3E2A"/><stop offset=".45" stop-color="#8A5E3F"/><stop offset="1" stop-color="#4E3322"/></linearGradient>' % u,
+            # Round 29: a pale, greyed oak (Capri's feet)
+            '<linearGradient id="cr-%s-oak" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#857260"/><stop offset=".55" stop-color="#9A866F"/><stop offset="1" stop-color="#7A6754"/></linearGradient>' % u,
             light_defs(u)]
     shown = PARTS.get(key, 'topper,mattress,base').split(',')
     for o in OPT.get(key, '').split(','):
@@ -531,7 +589,7 @@ def drawing(key, kind='system'):
     for part in ('topper', 'mattress', 'base'):
         defs.append(grads(part, soft(cfg[part]['col']), u, round_))
         ghost = (kind != 'system' and part != kind) or cfg[part].get('opt')
-        inside = part == 'mattress' and shown == ['topper', 'base']     # drawn within the boxspring
+        inside = part == 'mattress' and shown == ['topper', 'base'] and not cfg.get('one_block')     # drawn within the boxspring
         if (part in shown or inside) and not ghost:
             defs.append(cloth(part, cfg[part], u))
     # the round bed's cloth follows its curve only roughly: its patterns are drawn flat
@@ -574,11 +632,15 @@ def drawing(key, kind='system'):
             mp_inner = dict(mp, y0=top)
             bp_full = dict(bp, h=tot, num='II', ly=tot * .5)
             whole = draw('base', bp_full, u, kind, 0)
-            inside = draw('mattress', mp_inner, u, kind, 0, inner=True)
-            # the one seam where the mattress's face meets the boxspring's
-            jy = top + mp['h']
-            inside += '<path d="M%s,%s L%s,%s L%s,%s" fill="none" stroke="%s" stroke-width="1.3" stroke-opacity=".8"/>' % (
-                f(X0), f(jy), f(X0 + W), f(jy), f(X0 + W + DX), f(jy + DY), shade(soft(bp['col']), -.28))
+            if cfg.get('one_block'):
+                # one plain block (Capri): nothing of a mattress drawn on its face
+                inside = ''
+            else:
+                inside = draw('mattress', mp_inner, u, kind, 0, inner=True)
+                # the one seam where the mattress's face meets the boxspring's
+                jy = top + mp['h']
+                inside += '<path d="M%s,%s L%s,%s L%s,%s" fill="none" stroke="%s" stroke-width="1.3" stroke-opacity=".8"/>' % (
+                    f(X0), f(jy), f(X0 + W), f(jy), f(X0 + W + DX), f(jy + DY), shade(soft(bp['col']), -.28))
             cfg['topper']['y0'] = top - 70.0 - cfg['topper']['h']
             gtop = 70.0
         i = whole.index('<g class="ms-cr__lbl"')

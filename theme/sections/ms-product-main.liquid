@@ -455,10 +455,10 @@
   <div class="ms-pm__grid">
     {%- liquid
       assign ms_ar = images.first.preview_image.aspect_ratio | default: images.first.aspect_ratio | default: 0.8
-      if ms_ar < 0.75
-        assign ms_ar = 0.75
-      elsif ms_ar > 1.5
-        assign ms_ar = 1.5
+      if ms_ar < 0.6
+        assign ms_ar = 0.6
+      elsif ms_ar > 1.8
+        assign ms_ar = 1.8
       endif
     -%}
     <div class="ms-pm__gallery{% if n_images < 2 %} is-single{% endif %}" data-ms-pm-gallery style="--ms-ar: {{ ms_ar }}" aria-roledescription="carousel" aria-label="{{ product.title | escape }}: {% render 'ms-t', v: 'photographs' %}">
@@ -477,7 +477,7 @@
             {%- for media in images -%}
               {%- assign m_ar = media.preview_image.aspect_ratio | default: media.aspect_ratio | default: ms_ar -%}
               {%- assign m_off = m_ar | divided_by: ms_ar | minus: 1 | abs -%}
-              <div class="ms-pm__slide{% if forloop.first %} is-on{% endif %}{% if m_off > 0.06 %} is-fit{% endif %}{% if m_off > 0.15 %} is-far{% endif %}" data-ms-pm-slide="{{ forloop.index0 }}">
+              <div class="ms-pm__slide{% if forloop.first %} is-on{% endif %}{% if m_off > 0.06 %} is-fit{% endif %}" data-ms-pm-slide="{{ forloop.index0 }}">
                 <img
                   src="{{ media | image_url: width: 1600 }}"
                   srcset="{{ media | image_url: width: 800 }} 800w, {{ media | image_url: width: 1200 }} 1200w, {{ media | image_url: width: 1600 }} 1600w, {{ media | image_url: width: 2200 }} 2200w, {{ media | image_url: width: 2800 }} 2800w"
@@ -843,7 +843,7 @@
   .ms-pm__thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
   .ms-pm__thumb:hover { opacity: .8; }
   .ms-pm__thumb.is-on { opacity: 1; outline-color: #17140F; }
-  .ms-pm__stage { position: relative; background: #F1ECE3; overflow: hidden; }
+  .ms-pm__stage { position: relative; background: #FBF9F5; overflow: hidden; }
   .ms-pm__track { position: relative; width: 100%; aspect-ratio: var(--ms-ar, 4 / 5); outline: none; }
   .ms-pm__slide.is-fit img { object-fit: contain; }
   .ms-pm__slide { position: absolute; inset: 0; opacity: 0; transition: opacity .9s cubic-bezier(.4,0,.2,1); }
@@ -941,7 +941,6 @@
     .ms-pm__track { display: flex; aspect-ratio: auto; max-height: none; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
     .ms-pm__track::-webkit-scrollbar { display: none; }
     .ms-pm__slide { position: relative; inset: auto; flex: 0 0 100%; opacity: 1; scroll-snap-align: start; scroll-snap-stop: always; aspect-ratio: var(--ms-ar, 4 / 5); max-height: 78vh; }
-    .ms-pm__slide.is-fit:not(.is-far) img { object-fit: cover; }
     .ms-pm__slide img { transform: none; }
     .ms-pm__bar { padding-inline: clamp(18px, 5vw, 80px); margin-top: 12px; }
     .ms-pm__sticky { position: static; }

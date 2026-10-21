@@ -3040,3 +3040,57 @@ The blue-and-gold photograph is still used in two places outside the atelier pag
 9. **Top's page:** *Inside Top* shows the bed alone, with no award label in the section. The award stays under the name at the top. The drawing shows the rust frame on four blocks and the quilted cream mattress.
 10. **Product pages:** Vivaldi Plus shows its room photograph whole, the bed and the floor in view, and sharp. A wide studio photograph shows the whole bed on the paper, with no white sheet around it.
 11. **Still to do,** from §50: the three admin tasks, the mohair photograph and the larger 15 + 15 photograph.
+
+## 52. Round 30: Icons across the full width, product photographs with no border, Capri redrawn
+
+This round replaces two things from §51: the Icons opening and the frame of the product photographs.
+
+### Icons, across the full width
+
+On the live store, Icons opened on a small copy of the photograph at the right. Half the screen was an empty dark block, and the header's words sat over the photograph.
+
+- **One photograph across the full width,** as Essentials and Signature open: Top in the gallery of the Paris Opera, its name at the foot.
+- **Sharp on any screen.** The photograph now comes from its 4480 px original, so it fills even the widest screen. The copy used before was 1408 px wide, too small for the width.
+- **The whole bed in view** on the widest screens, its feet included.
+- **The header's words stay clear** over the stone, with a deeper shade under them on this opening.
+- **Phones:** the upright photograph is redone from the same original, sharper than before.
+- **Tools:** `scripts/icons_photo_r29.py` prepares both photographs.
+
+### Product photographs: no border, ever
+
+Storage's photograph had a beige band on each side. The frame was cut to a narrower range of proportions than the photograph's, so the photograph was shown whole inside a frame of another shape, on a beige darker than the page. Now:
+
+- **The frame takes the first photograph's proportions,** over a wider range (3:5 upright to 9:5 wide). The first photograph always fills it exactly.
+- **The frame's ground is the page's own colour.** A photograph of other proportions is still shown whole, never cut, but nothing frames it: it simply sits on the page.
+- **White studio grounds** blend into the same colour.
+
+Checked across the theme: no other place shows a photograph inside a band. Logos, icons and the full-screen viewer size themselves to the picture.
+
+### Capri, redrawn
+
+The drawing showed Capri as a separate stitched mattress, with handles, vents and a label, on a two-tone boxspring with tapered legs, under a thin topper. From Capri's photographs it is now:
+
+- **The topper:** deep and full, piped in a light cord. Its buttoned field sits inside a flat stitched rim, the cloth swelling between the buttons.
+- **Mattress and boxspring in one:** a single padded, upholstered block in the same Mystic River. Its corners are softly rounded and its cloth is joined down the middle of the front and the side. Nothing else is stitched or fitted on its face.
+- **The feet:** small blocks of pale oak, set in from the corners. Each shows its front and its side, in the block's shadow, with its own shadow on the floor. The two at the back are hidden by the block, as in the photographs.
+
+### Noted for later
+
+Low-resolution pictures in a few places, such as the painting in the journal article *Penelope's bedroom*, will be found, upscaled and replaced in a later round, when you ask for it.
+
+### Checks
+
+| Check | Result |
+|---|---|
+| Build twice | identical |
+| Liquid strict | 477 files, 0 errors |
+| Theme Check | no new errors (only the locale files' matching notices, as before); the same 68 warnings |
+| Every template rendered and run in a browser (78 pages) | no script errors, no missing files, one H1 each; the same four templates the local renderer cannot draw, as before |
+| Phones at 320, 360, 390 and 430 px | nothing covered or cut; the same as before |
+| Interaction tests | 308 pass, 0 fail. Updated: Icons across the full width, its name at the foot and no empty ground; product photographs whole in a frame of the first one's proportions, on the page's own ground, on a wide screen and a phone |
+
+### After installing, check
+
+1. **Icons on a wide screen:** one photograph across the width, the whole bed in view, *Icons* at the foot on the left. The header reads clearly over it.
+2. **Storage (and any product):** the photograph fills its frame, with no band beside it. On a product with photographs of several shapes, each is shown whole on the page.
+3. **Capri:** *Inside Capri* shows a deep buttoned topper on one plain block, in one cloth.
