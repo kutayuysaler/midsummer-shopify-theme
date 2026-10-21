@@ -1893,3 +1893,5 @@ exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'build_r27.py
 exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'build_r28.py'), encoding='utf-8').read())
 # Round 29: the languages, quietly, in the header, the phone menu and the footer
 exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'build_r29.py'), encoding='utf-8').read())
+# Round 30: the site's designer and developer, in its metadata
+exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'build_r30.py'), encoding='utf-8').read())
