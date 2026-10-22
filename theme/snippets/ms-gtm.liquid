@@ -1,0 +1,29 @@
+{%- comment -%}
+  Google Tag Manager, where Google asks for it: part 'head' right after <head>, part 'body' right after <body>.
+  Google's own snippet; only the container comes from Theme settings → Midsummer · Cookies and search.
+  An empty field loads nothing (for when an app adds the same container), and the theme editor never loads it,
+  so editing the theme is not counted as visits.
+{%- endcomment -%}
+{%- liquid
+  assign ms_gtm = settings.ms_gtm_id | strip | upcase
+  assign ms_gtm_head = ms_gtm | slice: 0, 4
+  if ms_gtm_head != 'GTM-' or request.design_mode
+    assign ms_gtm = ''
+  endif
+-%}
+{%- if ms_gtm != blank -%}
+  {%- if part == 'head' %}
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer',{{ ms_gtm | json }});</script>
+    <!-- End Google Tag Manager -->
+  {%- else %}
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ ms_gtm | url_encode }}"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+  {%- endif -%}
+{%- endif -%}

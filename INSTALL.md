@@ -3094,3 +3094,83 @@ Low-resolution pictures in a few places, such as the painting in the journal art
 1. **Icons on a wide screen:** one photograph across the width, the whole bed in view, *Icons* at the foot on the left. The header reads clearly over it.
 2. **Storage (and any product):** the photograph fills its frame, with no band beside it. On a product with photographs of several shapes, each is shown whole on the page.
 3. **Capri:** *Inside Capri* shows a deep buttoned topper on one plain block, in one cloth.
+
+## 53. Round 31: Google Tag Manager (GTM-T2NKS496)
+
+The agency's Google Tag Manager container now loads on every page of the theme, exactly where Google asks for it:
+
+- **The loader** (`<!-- Google Tag Manager -->`) is the first thing inside `<head>`.
+- **The noscript frame** is the first thing inside `<body>`.
+
+It is in all three layouts, plus the one page that has no layout:
+
+| Where | Pages |
+|---|---|
+| `layout/ms.liquid` | almost every page (88 of the 91 templates) |
+| `layout/theme.liquid` | the cart and the appointment product template |
+| `layout/password.liquid` | the password page, while the store is closed |
+| `templates/gift_card.liquid` | the gift card page, which brings its own `<head>` |
+
+The code is Google's own snippet, unchanged except that the container ID comes from a setting. It lives in `snippets/ms-gtm.liquid`, and the build step is `bin/build_r31.py`.
+
+### The setting
+
+*Theme settings → Midsummer · Cookies and search → Google Tag Manager container*, already filled in with **GTM-T2NKS496**.
+
+- **Empty the field** to stop the theme loading GTM, for example if an app starts adding the same container. That way it never loads twice.
+- **Anything that isn't a GTM ID** (for example a `G-…` GA4 ID) is ignored.
+- **The theme editor never loads it,** so editing the theme isn't counted as visits.
+
+### Not loaded twice
+
+Nothing else in the theme loads Google tags. The build checks that `googletagmanager.com` appears only in this snippet. Outside the theme, check these in the admin, because a second copy there would count every visit twice:
+
+1. **Settings → Customer events:** no custom pixel that loads GTM-T2NKS496.
+2. **Online Store → Themes → Customize → App embeds:** no app embed that adds GTM.
+3. **Sales channels → Google & YouTube:** if it is connected to the same GA4 property that the GTM container also sends to, that property gets counted twice. Keep one of the two.
+
+Shopify's checkout pages don't use the theme's layouts, so the theme can't put GTM there. Purchases are tracked through *Customer events*, if they are needed at all.
+
+### What GTM receives from the theme
+
+The *Conversion tracking* section (`ms-tracking`, in the two main layouts) already pushes these events into `dataLayer`. GTM picks them up as Custom Event triggers:
+
+| Event | When |
+|---|---|
+| `ms_enquiry_open` | the enquiry sheet opens |
+| `ms_enquiry_submit` | an enquiry form is sent: the sheet, the contact page or any `/contact` form |
+| `ms_cta_click` | an enquiry, appointment, agents or other call to action is clicked |
+| `ms_quiz_complete` | *Find your Midsummer* gives its answer |
+| `ms_ai_referral` | the visit started from an AI assistant's answer (ChatGPT, Perplexity, Gemini, Claude…) |
+| `ms_track_ready` | every page, once the tracking is ready |
+
+They carry these parameters:
+
+- `audience_segment`: private, architect-designer, hospitality, dealer or press
+- `enquiry_type`
+- `enquiry_mode`
+- `cta_label`
+- `ai_source`
+- `page_template`
+- `page_path`
+
+Triggers built for the old theme, such as form selectors or a thank-you page address, may not match the new pages. The conversions are best set on `ms_enquiry_submit`.
+
+### Consent
+
+The container now loads before the iubenda banner's app embed. Tags in the container must wait for consent. In GTM, set the consent defaults on *Consent Initialization*, for example with iubenda's GTM template and Google Consent Mode, so that analytics and ads tags only fire once the visitor has agreed.
+
+### Checks
+
+| Check | Result |
+|---|---|
+| Build twice | identical |
+| Rendered pages | the loader right after `<head>` and the noscript frame right after `<body>`, once each, with GTM-T2NKS496 |
+| The snippet on its own | loads once for each part when the ID is set (also with stray spaces or lowercase). Nothing when the field is empty, holds something that isn't a GTM ID, or the page is open in the theme editor |
+| Interaction tests | new: on five pages, GTM loads once, right after `<head>` and `<body>`, and shares `dataLayer` with the theme's own events |
+
+### After installing, check
+
+1. **View the page source** of the home page and a product. *Google Tag Manager* is the first thing after `<head>`, and *Google Tag Manager (noscript)* is the first thing after `<body>`, each once.
+2. **Run GTM's Preview (Tag Assistant)** on the live store. The container connects, and `ms_track_ready` appears on each page. Open the enquiry sheet and send a test enquiry: `ms_enquiry_open` and `ms_enquiry_submit` appear.
+3. **Check GA4's Realtime report:** visits arrive, once each.

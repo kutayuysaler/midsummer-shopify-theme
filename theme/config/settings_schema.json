@@ -2480,6 +2480,13 @@
       },
       {
         "type": "text",
+        "id": "ms_gtm_id",
+        "label": "Google Tag Manager container",
+        "default": "GTM-T2NKS496",
+        "info": "Loads on every page, first in the page's head and body, as Google asks. Leave empty if an app adds the same container, so it never loads twice. See INSTALL.md, section 53."
+      },
+      {
+        "type": "text",
         "id": "ms_verify_google",
         "label": "Google Search Console code",
         "info": "The content of Google's verification meta tag, or the whole tag."
