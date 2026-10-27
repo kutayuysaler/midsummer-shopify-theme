@@ -115,7 +115,7 @@
           "type": "qa",
           "settings": {
             "q": "Can I try [product] before ordering?",
-            "a": "<p>Yes. Come and lie down at the atelier, Via Andegari 4, Milano, Monday to Friday, 09:00–12:00 and 13:00–18:00. We can also meet by video. Appointments are confirmed by email within one working day.</p>"
+            "a": "<p>Yes. [product] is on display at our atelier in Milano, Via Andegari 4: come and lie down on it, by appointment, Monday to Friday, 09:00–12:00 and 13:00–18:00. We can also meet by video. Appointments are confirmed by email within one working day.</p>"
           }
         },
         "qa_05": {

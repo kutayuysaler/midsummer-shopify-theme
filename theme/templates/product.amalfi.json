@@ -92,14 +92,14 @@
           "type": "qa",
           "settings": {
             "q": "How is the comfort chosen?",
-            "a": "<p>It depends on how you sleep. On your side, hips and shoulders need to sink a little; on your back, the lumbar curve needs support; on your front, a flatter, firmer surface keeps the neck neutral. The five questions of Find your Midsummer suggest a system, and at the atelier you choose by lying down.</p>"
+            "a": "<p>It depends on how you sleep. On your side, hips and shoulders need to sink a little; on your back, the lumbar curve needs support; on your front, a flatter, firmer surface keeps the neck neutral. The five questions of Find your Midsummer suggest a system, and the comfort is then set with you, at the atelier or by video.</p>"
           }
         },
         "qa_04": {
           "type": "qa",
           "settings": {
             "q": "Can I try [product] before ordering?",
-            "a": "<p>Yes. Come and lie down at the atelier, Via Andegari 4, Milano, Monday to Friday, 09:00–12:00 and 13:00–18:00. We can also meet by video. Appointments are confirmed by email within one working day.</p>"
+            "a": "<p>[product] is not on display at our atelier in Milano. Write to us and we will direct you to the nearest of our resellers who may have it on display. We can also take you through it by video.</p>"
           }
         },
         "qa_05": {

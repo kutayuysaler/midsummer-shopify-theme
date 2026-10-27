@@ -3181,3 +3181,37 @@ The container now loads before the iubenda banner's app embed. Tags in the conta
 1. **View the page source** of the home page and a product. *Google Tag Manager* is the first thing after `<head>`, and *Google Tag Manager (noscript)* is the first thing after `<body>`, each once.
 2. **Run GTM's Preview (Tag Assistant)** on the live store. The container connects, and `ms_track_ready` appears on each page. Open the enquiry sheet and send a test enquiry: `ms_enquiry_open` and `ms_enquiry_submit` appear.
 3. **Check GA4's Realtime report:** visits arrive, once each.
+
+## 54. Round 33: trying a system before ordering
+
+Only five systems are on display at the atelier in Milano: **Flora, Bellini, Paisley, Brera and Top**. Every product page used to answer *Can I try … before ordering?* with "Yes, come and lie down at the atelier". Now each product page answers for itself.
+
+| Product pages | Answer to *Can I try … before ordering?* |
+|---|---|
+| Flora, Bellini, Paisley, Brera, Top | Yes. [Name] is on display at our atelier in Milano, Via Andegari 4: come and lie down on it, by appointment, Monday to Friday, 09:00–12:00 and 13:00–18:00. We can also meet by video. Appointments are confirmed by email within one working day. |
+| Every other product | [Name] is not on display at our atelier in Milano. Write to us and we will direct you to the nearest of our resellers who may have it on display. We can also take you through it by video. |
+
+Also changed:
+
+- **Comfort, on every other product page.** *How is the comfort chosen?* no longer ends with "at the atelier you choose by lying down". It now reads "the comfort is then set with you, at the atelier or by video". The five on display keep the original sentence.
+- **The Questions page.** *Can I try a bed before ordering?* now names the five systems on display and, for the others, the resellers and video. Its *How is the comfort chosen?* uses the same neutral ending.
+- **Italian and Russian.** Every new sentence is translated, with the product names kept as they are. The structured data that search engines and AI assistants read (FAQPage) carries the same answers, in each language.
+
+This is decided by each product's template: `flora`, `bellini`, `paisley`, `brera` and `top-2` give the on-display answer, every other product template the other one (`bin/build_r33.py`).
+
+- **If another system goes on display,** add its template to the list in `bin/build_r33.py` and rebuild.
+- **A single product page can also be changed by hand:** edit the answer in *Customize → the product template → Questions*.
+
+### Checks
+
+| Check | Result |
+|---|---|
+| Build twice | identical |
+| Translations | every new sentence in Italian and Russian; no text missing in either language |
+| Interaction tests | new: Top and Paisley say they can be tried at the atelier; Capri and Storage say they are not on display and name the resellers, with no "choose by lying down"; Brera in Italian; the Questions page names the five |
+
+### After installing, check
+
+1. **Top or Brera:** *Questions → Can I try … before ordering?* says it is on display at the atelier.
+2. **Capri or Vicuña:** the same question says it is not on display and offers a reseller or a video call.
+3. **The same two pages in Italian (`/it/…`):** the answers are in Italian.
