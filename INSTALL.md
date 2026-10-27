@@ -3160,6 +3160,13 @@ Triggers built for the old theme, such as form selectors or a thank-you page add
 
 The container now loads before the iubenda banner's app embed. Tags in the container must wait for consent. In GTM, set the consent defaults on *Consent Initialization*, for example with iubenda's GTM template and Google Consent Mode, so that analytics and ads tags only fire once the visitor has agreed.
 
+### Round 32: `theme.liquid` as installed on the live store
+
+`layout/theme.liquid` is kept exactly as Kutay installed it on the live store. Google's snippet is pasted by hand right after `<head>`, and its noscript frame right after `<body>`, each just before the theme's own `ms-gtm` line. The build reproduces this file as it is (`bin/build_r32.py`).
+
+- **Keep the setting filled** (*Theme settings → Midsummer · Cookies and search → Google Tag Manager container*). The main layout, `layout/ms.liquid`, which serves 88 of the 91 templates, gets GTM only through that setting.
+- **The pages on `theme.liquid`** (the cart and the appointment product template) carry both the hand-pasted snippet and the theme's snippet. If GA4 ever shows doubled page views on those two pages only, delete one of the two blocks in `theme.liquid`.
+
 ### Checks
 
 | Check | Result |
