@@ -23,7 +23,7 @@
 {%- capture cards -%}
   {%- for a in blog.articles -%}
     {%- liquid
-      assign hay = a.title | append: ' ' | append: a.handle | downcase | replace: '-', ' ' | replace: ',', ' ' | replace: '.', ' ' | replace: '’', ' ' | replace: "'", ' ' | replace: ':', ' ' | prepend: ' ' | append: ' '
+      assign hay = a.title | append: ' ' | append: a.handle | downcase | replace: '-', ' ' | replace: ',', ' ' | replace: '.', ' ' | replace: '’', ' ' | replace: "'", ' ' | replace: ':', ' ' | replace: '«', ' ' | replace: '»', ' ' | replace: '"', ' ' | replace: '(', ' ' | replace: ')', ' ' | replace: '—', ' ' | replace: '–', ' ' | prepend: ' ' | append: ' '
       for t in a.tags
         assign tl = t | downcase
         if tl contains 'place:'

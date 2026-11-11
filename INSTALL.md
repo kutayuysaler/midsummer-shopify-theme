@@ -3215,3 +3215,39 @@ This is decided by each product's template: `flora`, `bellini`, `paisley`, `brer
 1. **Top or Brera:** *Questions → Can I try … before ordering?* says it is on display at the atelier.
 2. **Capri or Vicuña:** the same question says it is not on display and offers a reseller or a video call.
 3. **The same two pages in Italian (`/it/…`):** the answers are in Italian.
+
+## 55. Round 34: the Milano atelier in Italian, day names, and the projects map in Russian
+
+### Why the Italian atelier page showed odd Italian and empty photographs
+
+The Italian on the live atelier page is not the theme's own. The theme says *Prenota* for the first step; the live page says *Libro* (a book). *Quattro passaggi, al tuo ritmo*, *Ogni letto rifatto, come a casa* and *Ho bisogno di un appuntamento?* are also not the theme's wording. They are machine translations saved in **Translate & Adapt**, and a translation saved there replaces the page's own setting. The theme then has nothing of its own to translate, so it shows that text as it is.
+
+The photographs went the same way. Each photograph on the page is set by a file name (*Photograph address*), and to Translate & Adapt that name is just another text. The Italian page therefore asks for file names that are not in the theme:
+
+- the parrot room, in *Every bed made up*;
+- the teal room and the wool blanket, in *The rooms*.
+
+In English the same photographs show. The files are in the theme.
+
+**To fix it, in the admin:**
+
+1. Open *Apps → Translate & Adapt*. Choose **Italian**, then *Online Store → Theme → Templates*.
+2. Open the Milano atelier template (*page.atelier*; *collection.ms-atelier* if listed).
+3. Empty every translated field and save. Start with the three *Photograph address* fields. An empty field means "use the theme's own": the theme's Italian, and the right photographs.
+4. Do the same in **Russian**.
+5. Don't run *Auto translate* on the theme again. The theme already carries its Italian and Russian, and a machine translation only replaces them.
+
+### Also changed
+
+- **Day names.** The atelier's week, beside *Vieni a sdraiarti*, listed *Monday … Sunday* in English on the Italian and Russian pages. It now shows *Lunedì … Domenica* and *Понедельник … Воскресенье*. In Russian the names' column is a little wider, so *Понедельник* fits on a phone.
+- **Labels that were still in English in Italian and Russian:**
+  - *Newer* (in the Journal's page links);
+  - the newsletter's *Thank you. The next letter will find you.*;
+  - the enquiry's *Received* and its titles (*Mr, Mrs, Ms, Dr, Arch.*);
+  - the lines shown when a blog, a publication or a collection is empty.
+- **The projects map, in Russian.** The Portfolio in Russian had lost its map of Italy. This was a mistake, not a choice. The map places a project by finding a place name in its title, and it knew those names only in Latin letters. The Russian titles are in Cyrillic and decline the names (*в Милане*, *Лукки*, *в Брианце*, *на озере Комо*), so no project found its place and the map stayed hidden. The map now knows each place in Russian, in its usual forms. The seven projects find Lake Como, Milan (three, on one pin), Lucca, Brianza and Meina, as they do in English and Italian. Quotation marks and dashes in a title no longer hide a name either.
+
+### After installing, check
+
+1. **The Milano atelier, in Italian**, once the translations above are emptied: the steps read *Prenota, Sdraiati, Tocca, Specifica*; the days read *Lunedì … Domenica*; the parrot room, the teal room and the blanket show.
+2. **The Portfolio, in Russian:** the map of Italy is there, with its pins, beside the postcards.

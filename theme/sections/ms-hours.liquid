@@ -64,6 +64,7 @@
   .ms-site a.ms-hr__map { display: inline-flex; align-items: center; gap: 10px; font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: #17140F; border-bottom: 1px solid #17140F; padding-bottom: 4px; }
   .ms-hr__week { margin: 0; }
   .ms-hr__axis, .ms-hr__day { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 18px; align-items: center; }
+  .ms-hr:lang(ru) .ms-hr__axis, .ms-hr:lang(ru) .ms-hr__day { grid-template-columns: 128px minmax(0, 1fr); }
   .ms-hr__axis > div { position: relative; height: 18px; }
   .ms-hr__axis i { position: absolute; transform: translateX(-50%); font-style: normal; font-size: 10.5px; letter-spacing: .1em; color: #756b5c; font-variant-numeric: tabular-nums; }
   .ms-hr__day { padding: 13px 0; border-bottom: 1px solid #ECE6DB; }
@@ -81,6 +82,7 @@
   @media (max-width: 899px) {
     .ms-hr__wrap { grid-template-columns: minmax(0, 1fr); }
     .ms-hr__axis, .ms-hr__day { grid-template-columns: 74px minmax(0, 1fr); gap: 12px; }
+    .ms-hr:lang(ru) .ms-hr__axis, .ms-hr:lang(ru) .ms-hr__day { grid-template-columns: 112px minmax(0, 1fr); }
     .ms-hr__dn { font-size: 16px; }
     .ms-hr__axis i[data-h="13"], .ms-hr__axis i[data-h="19"] { display: none; }
   }
