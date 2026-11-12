@@ -3394,10 +3394,10 @@ The old site's agents and resellers came from two places: the store locator code
 
 ### The 2026 film
 
-The home page now chooses *Midsummer Milano - Website video 2026.mp4* from Files, so Shopify's web copies are used (§56). The film is 36 MB as uploaded.
+The home page plays the 2026 film from its address (`…/videos/c/o/v/427128e9….mp4`), after the page has loaded, with the poster first (§56).
 
-- **Fallback.** Its address (`…/videos/c/o/v/427128e9….mp4`) is kept as the fallback.
-- **If the name in *Content → Files* is different,** the editor shows no film chosen under *Film (from Files)*. The fallback then plays after the page has loaded. Choose the film there and send me its name.
+- **No film pre-chosen in the theme.** A first version of this round also chose the film from Files by name (*Midsummer Milano - Website video 2026.mp4*). When the name in Files is not exactly that, Shopify refuses the whole home page template on upload, and the store opens on *404 · /404*. That choice is removed, so the home page cannot be refused for it.
+- **To use Shopify's lighter web copies** (the film is 36 MB as uploaded): in *Customize → Home → first section → Film (from Files)*, pick the film. Send me its name exactly as *Content → Files* shows it, and I'll write it into the theme so a new upload keeps it.
 
 ### Checks
 
@@ -3415,4 +3415,4 @@ The home page now chooses *Midsummer Milano - Website video 2026.mp4* from Files
 
 1. **The Milano atelier in Italian:** *Prenota, Sdraiati, Tocca, Specifica*, *Quattro passi, con i tuoi tempi.*, the three photographs. This holds even with Translate & Adapt's old translations still saved.
 2. **Agents & Resellers:** Kompitsis in Greece, with its pin in Voula, south of Athens.
-3. **The home page:** in *Customize*, the first section shows the 2026 film chosen under *Film (from Files)*.
+3. **The home page** opens on the film, not on a 404 page.
