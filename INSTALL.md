@@ -48,9 +48,9 @@ then **Preview**.
 - **Agents & Resellers** keeps its template (`page.agents-resellers`, with
   `page.agents-and-resellers` as a copy), and the default page template shows it too, so
   the map appears whichever template the page has. The map's code and world outline are
-  written into the page itself, so it never waits on another file. It shows 18 places: the 16 from the old
-  theme's store locator (13 in its own code and 5 as blocks), and since Round 36 Cripe and Kompitsis in
-  Athens (§57):
+  written into the page itself, so it never waits on another file. It shows 17 places: the 16 from the old
+  theme's store locator (13 in its own code and 5 as blocks), and since Round 36 Kompitsis in Athens
+  (§57):
   - **The atelier:** Midsummer Milano, Milan.
   - **Showrooms:** bredaquaranta, Bergomi Milano, Bergomi Monza, Villa Arredamenti
     (Colnago), Vago Arredamenti (Barlassina), WWTS London, HH Solutions (Warsaw), WWTS
@@ -58,7 +58,7 @@ then **Preview**.
   - **Boutiques:** Berenice in Cannigione and Porto Cervo, and Passerini Design in Palm
     Beach.
   - **Agents:** COSE & COSE (San Marino) and In Made (Hong Kong).
-  - **Greece (Round 36):** Cripe (Chalandri, Athens) and Kompitsis Design Culture (Voula, Athens).
+  - **Greece (Round 36):** Kompitsis Design Culture (Voula, Athens).
   - **Corrections:** Cannigione now sits in Cannigione (its old marker was about 6 km
     east, near Porto Cervo), and Palm Beach's street reads N County Rd.
   - **Editing:** each place is a block, with its address, telephone, email, website and
@@ -3371,19 +3371,18 @@ Now every text that a template holds (headings, paragraphs, questions and answer
 
 ### Athens on the map
 
-The old site's agents and resellers came from two places: the store locator code in the theme, and the *GA Store Locator Map* app. The app keeps its own list on its own servers, which this theme cannot read, so its places were never carried over (§55). The two you named are now on the map, in all four templates that carry it:
+The old site's agents and resellers came from two places: the store locator code in the theme, and the *GA Store Locator Map* app. The app keeps its own list on its own servers, which this theme cannot read, so its places were never carried over (§55). Kompitsis is now on the map, in all four templates that carry it (Cripe, on request, is not):
 
-| | Cripe | Kompitsis Design Culture |
-|---|---|---|
-| Kind | Showroom | Showroom |
-| Address | Leoforos Kifisias 194, 15231 Chalandri, Athens | Nafsikas 24, 16673 Voula, Athens |
-| Telephone | +30 210 6775 780 | +30 695 663 3535 |
-| Email | athens.sales@cripe.gr | — |
-| Website | cripe.gr | kompitsis.com |
-| Source | Cripe's own site (showroom page) and our invoices (December 2023) | Time & Style's list of stockists and our invoices and delivery notes (July–September 2026) |
+| | Kompitsis Design Culture |
+|---|---|
+| Kind | Showroom |
+| Address | Nafsikas 24, 16673 Voula, Athens |
+| Telephone | +30 695 663 3535 |
+| Website | kompitsis.com |
+| Source | Time & Style's list of stockists, and our invoices and delivery notes (July–September 2026) |
 
-- **Map positions are approximate.** No map service could be reached from here, so each pin sits on its street within a few hundred metres.
-  - Open each in the editor, check the pin, and send me any correction.
+- **The map position is approximate.** No map service could be reached from here, so the pin sits in Voula within a few hundred metres.
+  - Open it in the editor, check the pin, and send me any correction.
   - Edits there show in English at once; in Italian and Russian they show once the correction is in the build.
 - **Greece** now appears in the country lists:
   - the Questions page, *Where can I see Midsummer beds outside Milan?*;
@@ -3415,5 +3414,5 @@ The home page now chooses *Midsummer Milano - Website video 2026.mp4* from Files
 ### After installing, check
 
 1. **The Milano atelier in Italian:** *Prenota, Sdraiati, Tocca, Specifica*, *Quattro passi, con i tuoi tempi.*, the three photographs. This holds even with Translate & Adapt's old translations still saved.
-2. **Agents & Resellers:** Cripe and Kompitsis in Greece, with their pins near Athens.
+2. **Agents & Resellers:** Kompitsis in Greece, with its pin in Voula, south of Athens.
 3. **The home page:** in *Customize*, the first section shows the 2026 film chosen under *Film (from Files)*.
