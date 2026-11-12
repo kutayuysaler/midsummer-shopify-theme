@@ -8,33 +8,33 @@
   <div class="ms-sz__in">
     <div class="ms-sz__head">
       <div>
-        {%- if s.eyebrow != blank -%}<div class="ms-sz__eyebrow">{% render 'ms-t', v: s.eyebrow %}</div>{%- endif -%}
-        <h2 class="ms-sz__h" id="ms-sz-h-{{ section.id }}">{% render 'ms-t', v: s.heading %}</h2>
+        {%- if s.eyebrow != blank -%}<div class="ms-sz__eyebrow">{% render 'ms-t', v: s.eyebrow, en: 'eyebrow', sid: section.id %}</div>{%- endif -%}
+        <h2 class="ms-sz__h" id="ms-sz-h-{{ section.id }}">{% render 'ms-t', v: s.heading, en: 'heading', sid: section.id %}</h2>
       </div>
-      {%- if s.text != blank -%}<p class="ms-sz__text">{% render 'ms-t', v: s.text %}</p>{%- endif -%}
+      {%- if s.text != blank -%}<p class="ms-sz__text">{% render 'ms-t', v: s.text, en: 'text', sid: section.id %}</p>{%- endif -%}
     </div>
     <div class="ms-sz__scroll">
       <table class="ms-sz__t">
         <thead>
-          <tr><th scope="col">{% render 'ms-t', v: s.col_system %}</th><th scope="col">{% render 'ms-t', v: s.col_collection %}</th><th scope="col">{{ s.col_height }}</th><th scope="col">{% render 'ms-t', v: s.col_sizes %}</th><th scope="col">{% render 'ms-t', v: s.col_cloth %}</th></tr>
+          <tr><th scope="col">{% render 'ms-t', v: s.col_system, en: 'col_system', sid: section.id %}</th><th scope="col">{% render 'ms-t', v: s.col_collection, en: 'col_collection', sid: section.id %}</th><th scope="col">{% render 'ms-t', v: s.col_height, en: 'col_height', sid: section.id %}</th><th scope="col">{% render 'ms-t', v: s.col_sizes, en: 'col_sizes', sid: section.id %}</th><th scope="col">{% render 'ms-t', v: s.col_cloth, en: 'col_cloth', sid: section.id %}</th></tr>
         </thead>
         <tbody>
           {%- for block in section.blocks -%}
             {%- assign b = block.settings -%}
             {%- capture g_handle -%}{% render 'ms-en', v: b.handle, id: 'handle', bid: block.id, sid: section.id %}{%- endcapture -%}{%- assign bp = all_products[g_handle] -%}
             <tr {{ block.shopify_attributes }}>
-              <th scope="row">{%- if bp.url != blank -%}<a href="{{ bp.url }}">{% render 'ms-t', v: b.name %}</a>{%- else -%}{% render 'ms-t', v: b.name %}{%- endif -%}</th>
-              <td data-l="{% capture ms_t_out %}{% render 'ms-t', v: s.col_collection %}{% endcapture %}{{ ms_t_out | escape }}">{% render 'ms-t', v: b.collection %}</td>
-              <td data-l="{{ s.col_height | escape }}">{{ b.height }}</td>
-              <td data-l="{% capture ms_t_out %}{% render 'ms-t', v: s.col_sizes %}{% endcapture %}{{ ms_t_out | escape }}">{% render 'ms-t', v: b.sizes %}</td>
-              <td data-l="{% capture ms_t_out %}{% render 'ms-t', v: s.col_cloth %}{% endcapture %}{{ ms_t_out | escape }}">{% render 'ms-t', v: b.cloth %}</td>
+              <th scope="row">{%- if bp.url != blank -%}<a href="{{ bp.url }}">{% render 'ms-t', v: b.name, en: 'name', bid: block.id, sid: section.id %}</a>{%- else -%}{% render 'ms-t', v: b.name, en: 'name', bid: block.id, sid: section.id %}{%- endif -%}</th>
+              <td data-l="{% capture ms_t_out %}{% render 'ms-t', v: s.col_collection, en: 'col_collection', sid: section.id %}{% endcapture %}{{ ms_t_out | escape }}">{% render 'ms-t', v: b.collection, en: 'collection', bid: block.id, sid: section.id %}</td>
+              <td data-l="{% capture ms_t_out %}{% render 'ms-t', v: s.col_height, en: 'col_height', sid: section.id %}{% endcapture %}{{ ms_t_out | escape }}">{% render 'ms-t', v: b.height, en: 'height', bid: block.id, sid: section.id %}</td>
+              <td data-l="{% capture ms_t_out %}{% render 'ms-t', v: s.col_sizes, en: 'col_sizes', sid: section.id %}{% endcapture %}{{ ms_t_out | escape }}">{% render 'ms-t', v: b.sizes, en: 'sizes', bid: block.id, sid: section.id %}</td>
+              <td data-l="{% capture ms_t_out %}{% render 'ms-t', v: s.col_cloth, en: 'col_cloth', sid: section.id %}{% endcapture %}{{ ms_t_out | escape }}">{% render 'ms-t', v: b.cloth, en: 'cloth', bid: block.id, sid: section.id %}</td>
             </tr>
           {%- endfor -%}
         </tbody>
       </table>
     </div>
-    {%- if s.note != blank -%}<p class="ms-sz__note">{% render 'ms-t', v: s.note %}</p>{%- endif -%}
-    {%- if s.link_label != blank -%}<a class="ms-sz__link" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=project' %}#enquire" data-ms-enquire>{% render 'ms-t', v: s.link_label %} <span aria-hidden="true">→</span></a>{%- endif -%}
+    {%- if s.note != blank -%}<p class="ms-sz__note">{% render 'ms-t', v: s.note, en: 'note', sid: section.id %}</p>{%- endif -%}
+    {%- if s.link_label != blank -%}<a class="ms-sz__link" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=project' %}#enquire" data-ms-enquire>{% render 'ms-t', v: s.link_label, en: 'link_label', sid: section.id %} <span aria-hidden="true">→</span></a>{%- endif -%}
   </div>
 </section>
 <style>

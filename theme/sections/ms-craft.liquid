@@ -80,14 +80,14 @@
   endcapture
   assign tx_all = tx_all | split: '|'
   capture eyebrow
-    render 'ms-t', v: s.eyebrow
+    render 'ms-t', v: s.eyebrow, en: 'eyebrow', sid: section.id
   endcapture
   assign pname = ''
   if template.name == 'product' and product != blank
     assign pname = product.title
     if s.eyebrow_product != blank
       capture eyebrow
-        render 'ms-t', v: s.eyebrow_product
+        render 'ms-t', v: s.eyebrow_product, en: 'eyebrow_product', sid: section.id
       endcapture
       assign eyebrow = eyebrow | replace: '[name]', product.title
     endif
@@ -137,34 +137,34 @@
     assign sd = true
   endif
   capture cr_heading
-    render 'ms-t', v: s.heading
+    render 'ms-t', v: s.heading, en: 'heading', sid: section.id
   endcapture
   case cr_kind
     when 'mattress'
       capture ms_d1
-        render 'ms-t', v: s.heading
+        render 'ms-t', v: s.heading, en: 'heading', sid: section.id
       endcapture
       assign cr_heading = tx_heading_mattress | default: ms_d1
     when 'topper'
       capture ms_d2
-        render 'ms-t', v: s.heading
+        render 'ms-t', v: s.heading, en: 'heading', sid: section.id
       endcapture
       assign cr_heading = tx_heading_topper | default: ms_d2
     when 'base'
       capture ms_d3
-        render 'ms-t', v: s.heading
+        render 'ms-t', v: s.heading, en: 'heading', sid: section.id
       endcapture
       assign cr_heading = tx_heading_base | default: ms_d3
   endcase
   capture cr_text
-    render 'ms-t', v: s.text
+    render 'ms-t', v: s.text, en: 'text', sid: section.id
   endcapture
   if sd
     capture cr_text
       render 'ms-sys-data', key: ms_key, part: 'text'
     endcapture
     capture ms_d4
-      render 'ms-t', v: s.text
+      render 'ms-t', v: s.text, en: 'text', sid: section.id
     endcapture
     assign cr_text = cr_text | strip | default: ms_d4
   endif
@@ -200,20 +200,20 @@
   assign nums = 'I,II,III' | split: ','
   assign n_last = parts.size | minus: 1
   capture t2
-    render 'ms-t', v: s.part2_title
+    render 'ms-t', v: s.part2_title, en: 'part2_title', sid: section.id
   endcapture
   capture t3
-    render 'ms-t', v: s.part3_title
+    render 'ms-t', v: s.part3_title, en: 'part3_title', sid: section.id
   endcapture
   if parts.size == 2
     if cr_parts contains 'topper'
       capture ms_d5
-        render 'ms-t', v: s.part3_title
+        render 'ms-t', v: s.part3_title, en: 'part3_title', sid: section.id
       endcapture
       assign t3 = tx_one_base_title | default: ms_d5
     else
       capture ms_d6
-        render 'ms-t', v: s.part2_title
+        render 'ms-t', v: s.part2_title, en: 'part2_title', sid: section.id
       endcapture
       assign t2 = tx_one_mattress_title | default: ms_d6
     endif
@@ -259,7 +259,7 @@
           <h2 class="ms-cr__title">{{ cr_heading }}</h2>
           {%- if cr_text != blank -%}<p class="ms-cr__text">{% if pname != '' %}{{ cr_text | replace: '[name]', pname }}{% else %}{{ cr_text }}{% endif %}</p>{%- endif -%}
           <div class="ms-cr__pick">
-            {%- if s.hint != blank -%}<p class="ms-cr__hint">{% render 'ms-t', v: s.hint %}</p>{%- endif -%}
+            {%- if s.hint != blank -%}<p class="ms-cr__hint">{% render 'ms-t', v: s.hint, en: 'hint', sid: section.id %}</p>{%- endif -%}
             <div class="ms-cr__picks" role="group" aria-label="{{ cr_heading | escape }}">
               {%- for p in parts -%}
                 {%- liquid
@@ -275,7 +275,7 @@
                   case p
                     when 'topper'
                       capture c_title
-                        render 'ms-t', v: s.part1_title
+                        render 'ms-t', v: s.part1_title, en: 'part1_title', sid: section.id
                       endcapture
                     when 'mattress'
                       assign c_title = t2
@@ -290,10 +290,10 @@
               <p class="ms-cr__legend"><span class="ms-cr__lg"><i class="ms-cr__lg-in" aria-hidden="true"></i>{{ tx_legend_in | replace: '[name]', pname }}</span><span class="ms-cr__lg"><i class="ms-cr__lg-out" aria-hidden="true"></i>{{ tx_legend_out }}</span></p>
             {%- endif -%}
           </div>
-          {%- if s.note != blank -%}<p class="ms-cr__note">{% render 'ms-t', v: s.note %}</p>{%- endif -%}
+          {%- if s.note != blank -%}<p class="ms-cr__note">{% render 'ms-t', v: s.note, en: 'note', sid: section.id %}</p>{%- endif -%}
           <div class="ms-cr__links">
-            {%- if s.button != blank -%}<a class="ms-cr__btn" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=appointment' %}#enquire" data-ms-enquire>{% render 'ms-t', v: s.button %}</a>{%- endif -%}
-            {%- if s.link_label != blank -%}<a class="ms-cr__link" href="{% render 'ms-link', to: s.link_place %}">{% render 'ms-t', v: s.link_label %}<span aria-hidden="true">→</span></a>{%- endif -%}
+            {%- if s.button != blank -%}<a class="ms-cr__btn" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=appointment' %}#enquire" data-ms-enquire>{% render 'ms-t', v: s.button, en: 'button', sid: section.id %}</a>{%- endif -%}
+            {%- if s.link_label != blank -%}<a class="ms-cr__link" href="{% render 'ms-link', to: s.link_place %}">{% render 'ms-t', v: s.link_label, en: 'link_label', sid: section.id %}<span aria-hidden="true">→</span></a>{%- endif -%}
           </div>
         </div>
 
@@ -314,13 +314,13 @@
             assign ai = i | minus: 1
             assign infos = 'materials,regen,loro' | split: ','
             capture c_lead
-              render 'ms-t', v: s[kl]
+              render 'ms-t', v: s[kl], en: kl, sid: section.id
             endcapture
             capture c_points
-              render 'ms-t', v: s[kp]
+              render 'ms-t', v: s[kp], en: kp, sid: section.id
             endcapture
             capture c_fibres
-              render 'ms-t', v: s[kf]
+              render 'ms-t', v: s[kf], en: kf, sid: section.id
             endcapture
             assign sk = 'p' | append: i
             capture c_winter
@@ -363,7 +363,7 @@
             case p
               when 'topper'
                 capture c_title
-                  render 'ms-t', v: s.part1_title
+                  render 'ms-t', v: s.part1_title, en: 'part1_title', sid: section.id
                 endcapture
               when 'mattress'
                 assign c_title = t2
@@ -373,7 +373,7 @@
             assign mt = mates[forloop.index0] | split: '^'
           -%}
           <div class="ms-cr__panel{% unless mine %} is-absent{% endunless %}" id="cr-{{ section.id }}-{{ p }}" data-cr-panel="{{ p }}" role="region" aria-label="{{ c_title | escape }}" hidden>
-            <button type="button" class="ms-cr__back" data-cr-close><span aria-hidden="true">←</span> {% render 'ms-t', v: s.back_label %}</button>
+            <button type="button" class="ms-cr__back" data-cr-close><span aria-hidden="true">←</span> {% render 'ms-t', v: s.back_label, en: 'back_label', sid: section.id %}</button>
             <div class="ms-cr__pnum">{{ nums[forloop.index0] }} <span>/ {{ nums[n_last] }}</span></div>
             {%- if cr_kind != 'system' -%}
               {%- if mine -%}<p class="ms-cr__badge"><i aria-hidden="true"></i>{{ tx_own_label | replace: '[name]', pname }}</p>{%- elsif isopt -%}<p class="ms-cr__badge is-out"><i aria-hidden="true"></i>{{ opt_with }}</p>{%- else -%}<p class="ms-cr__badge is-out"><i aria-hidden="true"></i>{{ absent_with }}</p>{%- endif -%}
@@ -394,7 +394,7 @@
               </ul>
             {%- endif -%}
             {%- if c_winter != blank and c_summer != blank -%}
-              <div class="ms-cr__fl">{% render 'ms-t', v: s.fibres_label %}</div>
+              <div class="ms-cr__fl">{% render 'ms-t', v: s.fibres_label, en: 'fibres_label', sid: section.id %}</div>
               <div class="ms-cr__faces">
                 {%- for side in (1..2) -%}
                   {%- if side == 1 -%}{%- assign fl = c_winter | split: ',' -%}{%- assign fh = tx_winter_label -%}{%- else -%}{%- assign fl = c_summer | split: ',' -%}{%- assign fh = tx_summer_label -%}{%- endif -%}
@@ -407,7 +407,7 @@
                 {%- endfor -%}
               </div>
             {%- elsif c_fibres != blank -%}
-              <div class="ms-cr__fl">{% render 'ms-t', v: s.fibres_label %}</div>
+              <div class="ms-cr__fl">{% render 'ms-t', v: s.fibres_label, en: 'fibres_label', sid: section.id %}</div>
               <ul class="ms-cr__fibres" role="list">
                 {%- for f in fibres -%}{%- assign fn = f | strip -%}{%- if lp_free and fn contains 'Loro Piana' -%}{%- assign fn = '' -%}{%- endif -%}{%- if fn != '' -%}<li><span class="ms-cr__fi">{% render 'ms-fibre-mark', name: fn, size: 28 %}</span>{{ fn }}</li>{%- endif -%}{%- endfor -%}
               </ul>
@@ -436,15 +436,15 @@
                   assign hash = '#' | append: lp_anchor
                 endif
               -%}
-              {%- if s[kll] != blank and show_link -%}<a class="ms-cr__link" href="{% render 'ms-link', to: info %}{{ hash }}">{% render 'ms-t', v: s[kll] %}<span aria-hidden="true">→</span></a>{%- endif -%}
-              {%- unless forloop.last -%}<button type="button" class="ms-cr__next" data-cr-open="{{ parts[forloop.index] }}">{% render 'ms-t', v: s.next_label %} <span aria-hidden="true">↓</span></button>{%- endunless -%}
+              {%- if s[kll] != blank and show_link -%}<a class="ms-cr__link" href="{% render 'ms-link', to: info %}{{ hash }}">{% render 'ms-t', v: s[kll], en: kll, sid: section.id %}<span aria-hidden="true">→</span></a>{%- endif -%}
+              {%- unless forloop.last -%}<button type="button" class="ms-cr__next" data-cr-open="{{ parts[forloop.index] }}">{% render 'ms-t', v: s.next_label, en: 'next_label', sid: section.id %} <span aria-hidden="true">↓</span></button>{%- endunless -%}
             </div>
           </div>
         {%- endfor -%}
       </div>
 
       <figure class="ms-cr__draw">
-        {% capture ms_d8 %}{% render 'ms-t', v: s.part1_title %}{% endcapture %}{% render 'ms-craft-svg', key: ms_key, u: section.id, aria: cr_heading, t0: tx_absent_label, to: tx_opt_label, t1: ms_d8, t2: t2, t3: t3 %}
+        {% capture ms_d8 %}{% render 'ms-t', v: s.part1_title, en: 'part1_title', sid: section.id %}{% endcapture %}{% render 'ms-craft-svg', key: ms_key, u: section.id, aria: cr_heading, t0: tx_absent_label, to: tx_opt_label, t1: ms_d8, t2: t2, t3: t3 %}
         {%- if pname != '' -%}
           {%- liquid
             case cr_kind
@@ -483,7 +483,7 @@
           assign ki = 'part' | append: i | append: '_image'
           assign ai = i | minus: 1
           capture c_text
-            render 'ms-t', v: s[kx]
+            render 'ms-t', v: s[kx], en: kx, sid: section.id
           endcapture
           if sd
             assign sk = 'p' | append: i
@@ -491,7 +491,7 @@
               render 'ms-sys-data', key: ms_key, part: sk, f: 'lead'
             endcapture
             capture ms_d7
-              render 'ms-t', v: s[kx]
+              render 'ms-t', v: s[kx], en: kx, sid: section.id
             endcapture
             assign c_text = c_text | strip | default: ms_d7
           endif
@@ -508,7 +508,7 @@
           case p
             when 'topper'
               capture c_title
-                render 'ms-t', v: s.part1_title
+                render 'ms-t', v: s.part1_title, en: 'part1_title', sid: section.id
               endcapture
             when 'mattress'
               assign c_title = t2
@@ -533,7 +533,7 @@
           <span class="ms-cr__ptitle">{{ c_title }}</span>
           <span class="ms-cr__ptext">{% if lp_free %}{{ c_text | replace: ' in Loro Piana Interiors', '' }}{% else %}{{ c_text }}{% endif %}</span>
           {%- if mine or mt[0] == blank -%}
-          <span class="ms-cr__more">{% render 'ms-t', v: s.open_label %} <span aria-hidden="true">↑</span></span>
+          <span class="ms-cr__more">{% render 'ms-t', v: s.open_label, en: 'open_label', sid: section.id %} <span aria-hidden="true">↑</span></span>
         </button>
           {%- else -%}
           <span class="ms-cr__more">{{ tx_all[ai] }} <span aria-hidden="true">→</span></span>
@@ -546,7 +546,7 @@
     <ul class="ms-cr__marks">
       {%- for i in (1..3) -%}
         {%- assign km = 'mark' | append: i -%}
-        {%- if s[km] != blank -%}<li><span class="ms-cr__mk" aria-hidden="true"></span>{% render 'ms-t', v: s[km] %}</li>{%- endif -%}
+        {%- if s[km] != blank -%}<li><span class="ms-cr__mk" aria-hidden="true"></span>{% render 'ms-t', v: s[km], en: km, sid: section.id %}</li>{%- endif -%}
       {%- endfor -%}
     </ul>
     {%- endif -%}

@@ -7,9 +7,9 @@
 <section class="ms-gd{% if s.tone == 'sand' %} ms-gd--sand{% endif %}" id="{{ g_anchor }}">
   <div class="ms-gd__in">
     <div class="ms-gd__head">
-      <div class="ms-gd__eyebrow">{% render 'ms-t', v: s.eyebrow %}</div>
-      <h2 class="ms-gd__title">{% render 'ms-t', v: s.heading %}</h2>
-      {%- if s.text != blank -%}<p class="ms-gd__text">{% render 'ms-t', v: s.text %}</p>{%- endif -%}
+      <div class="ms-gd__eyebrow">{% render 'ms-t', v: s.eyebrow, en: 'eyebrow', sid: section.id %}</div>
+      <h2 class="ms-gd__title">{% render 'ms-t', v: s.heading, en: 'heading', sid: section.id %}</h2>
+      {%- if s.text != blank -%}<p class="ms-gd__text">{% render 'ms-t', v: s.text, en: 'text', sid: section.id %}</p>{%- endif -%}
     </div>
     <ol class="ms-gd__list" role="list">
       {%- for block in section.blocks -%}
@@ -61,18 +61,18 @@
                 <path class="ms-gd__fold" d="M-2,{{ fy | plus: 4 }} Q-2,{{ fy | minus: 2 }} 8,{{ fy | minus: 2 }} L{{ wm }},{{ fy | minus: 2 }} Q{{ w1 }},{{ fy | minus: 2 }} {{ w1 }},{{ fy | plus: 4 }} L{{ w1 }},{{ fy | plus: 8 }} C{{ w7 }},{{ fy | plus: 14 }} {{ w3 }},{{ fy | plus: 4 }} -2,{{ fy | plus: 10 }} Z"/>
               </svg>
             </span>
-            <span class="ms-gd__name">{% render 'ms-t', v: b.title %}</span>
+            <span class="ms-gd__name">{% render 'ms-t', v: b.title, en: 'title', bid: block.id, sid: section.id %}</span>
             <span class="ms-gd__dims">{% render 'ms-t', v: b.w, en: 'w', bid: block.id, sid: section.id %} × {% render 'ms-t', v: b.l, en: 'l', bid: block.id, sid: section.id %} cm</span>
             <span class="ms-gd__in2">{{ wi }} × {{ li }} in</span>
           {%- else -%}
             <span class="ms-gd__num">{{ forloop.index | prepend: '0' }}</span>
-            <span class="ms-gd__name">{% render 'ms-t', v: b.title %}</span>
-            <span class="ms-gd__body">{% render 'ms-t', v: b.text %}</span>
+            <span class="ms-gd__name">{% render 'ms-t', v: b.title, en: 'title', bid: block.id, sid: section.id %}</span>
+            <span class="ms-gd__body">{% render 'ms-t', v: b.text, en: 'text', bid: block.id, sid: section.id %}</span>
           {%- endif -%}
         </li>
       {%- endfor -%}
     </ol>
-    {%- if s.note != blank -%}<p class="ms-gd__note">{% render 'ms-t', v: s.note %}</p>{%- endif -%}
+    {%- if s.note != blank -%}<p class="ms-gd__note">{% render 'ms-t', v: s.note, en: 'note', sid: section.id %}</p>{%- endif -%}
   </div>
 </section>
 <style>

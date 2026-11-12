@@ -6,30 +6,30 @@
 <section class="ms-why">
   <div class="ms-why__in">
     <header class="ms-why__head">
-      <div class="ms-why__eyebrow">{% render 'ms-t', v: section.settings.eyebrow %}</div>
-      <h2 class="ms-why__title">{% render 'ms-t', v: section.settings.heading %}</h2>
-      {%- if section.settings.intro != blank -%}<p class="ms-why__intro">{% render 'ms-t', v: section.settings.intro %}</p>{%- endif -%}
+      <div class="ms-why__eyebrow">{% render 'ms-t', v: section.settings.eyebrow, en: 'eyebrow', sid: section.id %}</div>
+      <h2 class="ms-why__title">{% render 'ms-t', v: section.settings.heading, en: 'heading', sid: section.id %}</h2>
+      {%- if section.settings.intro != blank -%}<p class="ms-why__intro">{% render 'ms-t', v: section.settings.intro, en: 'intro', sid: section.id %}</p>{%- endif -%}
     </header>
-    <div class="ms-why__table" role="table" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: section.settings.heading %}{% endcapture %}{{ ms_t_out | escape }}">
+    <div class="ms-why__table" role="table" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: section.settings.heading, en: 'heading', sid: section.id %}{% endcapture %}{{ ms_t_out | escape }}">
       <div class="ms-why__row ms-why__row--head" role="row">
-        <span role="columnheader"><span class="ms-visually-hidden">{% render 'ms-t', v: section.settings.us_label %} · {% render 'ms-t', v: section.settings.them_label %}</span></span>
-        <span role="columnheader" class="ms-why__us">{% render 'ms-t', v: section.settings.us_label %}</span>
-        <span role="columnheader" class="ms-why__them">{% render 'ms-t', v: section.settings.them_label %}</span>
+        <span role="columnheader"><span class="ms-visually-hidden">{% render 'ms-t', v: section.settings.us_label, en: 'us_label', sid: section.id %} · {% render 'ms-t', v: section.settings.them_label, en: 'them_label', sid: section.id %}</span></span>
+        <span role="columnheader" class="ms-why__us">{% render 'ms-t', v: section.settings.us_label, en: 'us_label', sid: section.id %}</span>
+        <span role="columnheader" class="ms-why__them">{% render 'ms-t', v: section.settings.them_label, en: 'them_label', sid: section.id %}</span>
       </div>
       {%- for block in section.blocks -%}
         <div class="ms-why__row" role="row" {{ block.shopify_attributes }}>
-          <span role="rowheader" class="ms-why__label"><span class="ms-why__n">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>{% render 'ms-t', v: block.settings.label %}</span>
-          <p role="cell" class="ms-why__ours">{% render 'ms-t', v: block.settings.ours %}</p>
-          <p role="cell" class="ms-why__theirs"><span class="ms-why__mlabel">{% render 'ms-t', v: section.settings.them_label %}</span>{% render 'ms-t', v: block.settings.theirs %}</p>
+          <span role="rowheader" class="ms-why__label"><span class="ms-why__n">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>{% render 'ms-t', v: block.settings.label, en: 'label', bid: block.id, sid: section.id %}</span>
+          <p role="cell" class="ms-why__ours">{% render 'ms-t', v: block.settings.ours, en: 'ours', bid: block.id, sid: section.id %}</p>
+          <p role="cell" class="ms-why__theirs"><span class="ms-why__mlabel">{% render 'ms-t', v: section.settings.them_label, en: 'them_label', sid: section.id %}</span>{% render 'ms-t', v: block.settings.theirs, en: 'theirs', bid: block.id, sid: section.id %}</p>
         </div>
       {%- endfor -%}
     </div>
     <div class="ms-why__cta">
       {%- if section.settings.button != blank -%}
-        <a class="ms-why__primary" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=appointment' %}#enquire" data-ms-landing>{% render 'ms-t', v: section.settings.button %}</a>
+        <a class="ms-why__primary" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=appointment' %}#enquire" data-ms-landing>{% render 'ms-t', v: section.settings.button, en: 'button', sid: section.id %}</a>
       {%- endif -%}
       {%- if section.settings.link_label != blank -%}
-        <a class="ms-why__secondary" href="{% render 'ms-link', to: 'collections' %}">{% render 'ms-t', v: section.settings.link_label %}</a>
+        <a class="ms-why__secondary" href="{% render 'ms-link', to: 'collections' %}">{% render 'ms-t', v: section.settings.link_label, en: 'link_label', sid: section.id %}</a>
       {%- endif -%}
     </div>
   </div>

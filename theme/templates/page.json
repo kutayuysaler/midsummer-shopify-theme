@@ -322,6 +322,37 @@
             "lon": "12.487031"
           }
         },
+        "place_17": {
+          "type": "place",
+          "settings": {
+            "name": "Cripe",
+            "kind": "showroom",
+            "city": "Chalandri, Athens",
+            "country": "Greece",
+            "region": "Europe",
+            "address": "Leoforos Kifisias 194\n15231 Chalandri",
+            "phone": "+30 210 6775 780",
+            "email": "athens.sales@cripe.gr",
+            "website": "https://cripe.gr",
+            "lat": "38.0160",
+            "lon": "23.7860"
+          }
+        },
+        "place_18": {
+          "type": "place",
+          "settings": {
+            "name": "Kompitsis Design Culture",
+            "kind": "showroom",
+            "city": "Voula, Athens",
+            "country": "Greece",
+            "region": "Europe",
+            "address": "Nafsikas 24\n16673 Voula",
+            "phone": "+30 695 663 3535",
+            "website": "https://kompitsis.com",
+            "lat": "37.8450",
+            "lon": "23.7760"
+          }
+        },
         "place_10": {
           "type": "place",
           "settings": {
@@ -442,6 +473,8 @@
         "place_07",
         "place_08",
         "place_09",
+        "place_17",
+        "place_18",
         "place_10",
         "place_11",
         "place_12",

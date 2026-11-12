@@ -13,14 +13,14 @@
 -%}
 <section class="ms-ly" id="ms-ly-{{ section.id }}" aria-labelledby="ms-ly-h-{{ section.id }}">
   <div class="ms-ly__head">
-    {%- if s.eyebrow != blank -%}<div class="ms-ly__eyebrow">{% render 'ms-t', v: s.eyebrow %}</div>{%- endif -%}
-    <h2 class="ms-ly__h" id="ms-ly-h-{{ section.id }}">{% render 'ms-t', v: s.heading %}</h2>
-    {%- if s.text != blank -%}<p class="ms-ly__text">{% render 'ms-t', v: s.text %}</p>{%- endif -%}
+    {%- if s.eyebrow != blank -%}<div class="ms-ly__eyebrow">{% render 'ms-t', v: s.eyebrow, en: 'eyebrow', sid: section.id %}</div>{%- endif -%}
+    <h2 class="ms-ly__h" id="ms-ly-h-{{ section.id }}">{% render 'ms-t', v: s.heading, en: 'heading', sid: section.id %}</h2>
+    {%- if s.text != blank -%}<p class="ms-ly__text">{% render 'ms-t', v: s.text, en: 'text', sid: section.id %}</p>{%- endif -%}
   </div>
 
   <figure class="ms-ly__chart" aria-describedby="ms-ly-d-{{ section.id }}">
     <div class="ms-ly__row ms-ly__row--axis" aria-hidden="true">
-      <div class="ms-ly__lab">{% render 'ms-t', v: s.years_label %}</div>
+      <div class="ms-ly__lab">{% render 'ms-t', v: s.years_label, en: 'years_label', sid: section.id %}</div>
       <div class="ms-ly__ticks">
         {%- for y in (0..6) -%}
           {%- assign yr = y | times: 5 -%}
@@ -31,7 +31,7 @@
     </div>
 
     <div class="ms-ly__row ms-ly__row--them">
-      <div class="ms-ly__lab">{% render 'ms-t', v: s.label_industrial %}</div>
+      <div class="ms-ly__lab">{% render 'ms-t', v: s.label_industrial, en: 'label_industrial', sid: section.id %}</div>
       <div class="ms-ly__track" aria-hidden="true">
         {%- for i in (1..n_ind) -%}
           {%- assign a = i | minus: 1 | times: every -%}
@@ -40,20 +40,20 @@
           <span class="ms-ly__seg" style="left: {{ a | times: 100.0 | divided_by: total }}%; width: {{ w | times: 100.0 | divided_by: total }}%; --d: {{ i | times: 140 }}ms"></span>
         {%- endfor -%}
       </div>
-      <div class="ms-ly__n"><b>{{ n_ind }}</b> {% render 'ms-t', v: s.mattresses_label %}</div>
+      <div class="ms-ly__n"><b>{{ n_ind }}</b> {% render 'ms-t', v: s.mattresses_label, en: 'mattresses_label', sid: section.id %}</div>
     </div>
 
     <div class="ms-ly__row ms-ly__row--ours">
-      <div class="ms-ly__lab">{% render 'ms-t', v: s.label_ours %}</div>
+      <div class="ms-ly__lab">{% render 'ms-t', v: s.label_ours, en: 'label_ours', sid: section.id %}</div>
       <div class="ms-ly__track" aria-hidden="true">
         <span class="ms-ly__bar"></span>
-        <span class="ms-ly__mark" style="left: 50%"><i></i><span>{% render 'ms-t', v: s.regen_label %}</span></span>
+        <span class="ms-ly__mark" style="left: 50%"><i></i><span>{% render 'ms-t', v: s.regen_label, en: 'regen_label', sid: section.id %}</span></span>
       </div>
-      <div class="ms-ly__n"><b>1</b> {% render 'ms-t', v: s.mattress_label %}</div>
+      <div class="ms-ly__n"><b>1</b> {% render 'ms-t', v: s.mattress_label, en: 'mattress_label', sid: section.id %}</div>
     </div>
 
     <figcaption class="ms-ly__note" id="ms-ly-d-{{ section.id }}">
-      {% capture ms_t_out %}{% render 'ms-t', v: s.footnote %}{% endcapture %}{{ ms_t_out | replace: '[n]', n_gone }}
+      {% capture ms_t_out %}{% render 'ms-t', v: s.footnote, en: 'footnote', sid: section.id %}{% endcapture %}{{ ms_t_out | replace: '[n]', n_gone }}
     </figcaption>
   </figure>
 </section>

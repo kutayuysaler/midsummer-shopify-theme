@@ -19,14 +19,14 @@
   <div class="ms-lf__in">
     <header class="ms-lf__head">
       <div>
-        {%- if s.eyebrow != blank -%}<div class="ms-lf__eyebrow">{% render 'ms-t', v: s.eyebrow %}</div>{%- endif -%}
-        <h2 class="ms-lf__heading">{% render 'ms-t', v: s.heading %}</h2>
+        {%- if s.eyebrow != blank -%}<div class="ms-lf__eyebrow">{% render 'ms-t', v: s.eyebrow, en: 'eyebrow', sid: section.id %}</div>{%- endif -%}
+        <h2 class="ms-lf__heading">{% render 'ms-t', v: s.heading, en: 'heading', sid: section.id %}</h2>
       </div>
-      {%- if s.text != blank -%}<div class="ms-lf__text">{% render 'ms-t', v: s.text %}</div>{%- endif -%}
+      {%- if s.text != blank -%}<div class="ms-lf__text">{% render 'ms-t', v: s.text, en: 'text', sid: section.id %}</div>{%- endif -%}
     </header>
 
     {%- if n_fab > 1 -%}
-      <div class="ms-lf__tabs" role="tablist" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.nav_label %}{% endcapture %}{{ ms_t_out | escape }}">
+      <div class="ms-lf__tabs" role="tablist" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.nav_label, en: 'nav_label', sid: section.id %}{% endcapture %}{{ ms_t_out | escape }}">
         {%- assign tab_n = 0 -%}
         {%- for b in section.blocks -%}
           {%- if b.type == 'fabric' -%}
@@ -81,7 +81,7 @@
           assign big_color = fs.color
           assign big_img = ''
           capture cap
-            render 'ms-t', v: s.no_palette_caption
+            render 'ms-t', v: s.no_palette_caption, en: 'no_palette_caption', sid: section.id
           endcapture
           if no_colours
             if fs.image != blank
@@ -94,7 +94,7 @@
             endif
             if big_img != '' and fs.image_caption != blank
               capture cap
-                render 'ms-t', v: fs.image_caption
+                render 'ms-t', v: fs.image_caption, en: 'image_caption', bid: b.id, sid: section.id
               endcapture
             endif
           else
@@ -112,18 +112,18 @@
             endif
           endif
           capture note
-            render 'ms-t', v: s.ask_note
+            render 'ms-t', v: s.ask_note, en: 'ask_note', sid: section.id
           endcapture
           assign note = note | replace: '[cloth]', cloth | replace: '[colour]', cap
           if no_colours
             capture note
-              render 'ms-t', v: s.ask_cloth_note
+              render 'ms-t', v: s.ask_cloth_note, en: 'ask_cloth_note', sid: section.id
             endcapture
             assign note = note | replace: '[cloth]', cloth
           endif
           capture none_html
             capture ms_d3
-              render 'ms-t', v: s.no_palette
+              render 'ms-t', v: s.no_palette, en: 'no_palette', sid: section.id
             endcapture
             echo '<p class="ms-lf__none">' | append: ms_d3 | append: '</p>'
           endcapture
@@ -135,7 +135,7 @@
             <figcaption class="ms-lf__cap">
               <span class="ms-lf__capn" data-lf-cname>{{ cap }}</span>
               {%- if s.ask_label != blank -%}
-                <a class="ms-lf__ask" href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-cta="lp-colour" data-lf-ask data-ms-note="{{ note | escape }}">{% if no_colours %}{% render 'ms-t', v: s.ask_cloth_label %}{% else %}{% render 'ms-t', v: s.ask_label %}{% endif %}</a>
+                <a class="ms-lf__ask" href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-cta="lp-colour" data-lf-ask data-ms-note="{{ note | escape }}">{% if no_colours %}{% render 'ms-t', v: s.ask_cloth_label, en: 'ask_cloth_label', sid: section.id %}{% else %}{% render 'ms-t', v: s.ask_label, en: 'ask_label', sid: section.id %}{% endif %}</a>
               {%- endif -%}
             </figcaption>
           </figure>
@@ -143,12 +143,12 @@
             <div class="ms-lf__num">{{ fab_n | prepend: '0' | slice: -2, 2 }}</div>
             <h3 class="ms-lf__name">{{ cloth }}</h3>
             <dl class="ms-lf__facts">
-              {%- if fs.code != blank -%}<div><dt>{{ s.code_label }}</dt><dd>{{ fs.code }}</dd></div>{%- endif -%}
-              {%- if fs.composition != blank -%}<div><dt>{% render 'ms-t', v: s.comp_label %}</dt><dd>{% render 'ms-t', v: fs.composition %}</dd></div>{%- endif -%}
-              {%- if fs.systems != blank -%}<div><dt>{% render 'ms-t', v: s.systems_label %}</dt><dd>{% render 'ms-t', v: fs.systems %}</dd></div>{%- endif -%}
+              {%- if fs.code != blank -%}<div><dt>{% render 'ms-t', v: s.code_label, en: 'code_label', sid: section.id %}</dt><dd>{% render 'ms-t', v: fs.code, en: 'code', bid: b.id, sid: section.id %}</dd></div>{%- endif -%}
+              {%- if fs.composition != blank -%}<div><dt>{% render 'ms-t', v: s.comp_label, en: 'comp_label', sid: section.id %}</dt><dd>{% render 'ms-t', v: fs.composition, en: 'composition', bid: b.id, sid: section.id %}</dd></div>{%- endif -%}
+              {%- if fs.systems != blank -%}<div><dt>{% render 'ms-t', v: s.systems_label, en: 'systems_label', sid: section.id %}</dt><dd>{% render 'ms-t', v: fs.systems, en: 'systems', bid: b.id, sid: section.id %}</dd></div>{%- endif -%}
             </dl>
-            {%- if fs.text != blank -%}<p class="ms-lf__desc">{% render 'ms-t', v: fs.text %}</p>{%- endif -%}
-            <ul class="ms-lf__grid" role="list" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.palette_label %}{% endcapture %}{{ ms_t_out | escape }}: {{ cloth | escape }}">
+            {%- if fs.text != blank -%}<p class="ms-lf__desc">{% render 'ms-t', v: fs.text, en: 'text', bid: b.id, sid: section.id %}</p>{%- endif -%}
+            <ul class="ms-lf__grid" role="list" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.palette_label, en: 'palette_label', sid: section.id %}{% endcapture %}{{ ms_t_out | escape }}: {{ cloth | escape }}">
       {%- elsif b.type == 'colour' and open -%}
         {%- liquid
           assign cs = b.settings
@@ -187,7 +187,7 @@
     {%- endfor -%}
     {%- if open -%}</ul>{% if no_colours %}{{ none_html }}{% endif %}</div></div>{%- endif -%}
 
-    {%- if s.footnote != blank -%}<p class="ms-lf__foot">{% render 'ms-t', v: s.footnote %}</p>{%- endif -%}
+    {%- if s.footnote != blank -%}<p class="ms-lf__foot">{% render 'ms-t', v: s.footnote, en: 'footnote', sid: section.id %}</p>{%- endif -%}
   </div>
 </section>
 <style>
@@ -263,7 +263,7 @@
     if (!root || !root.matches('[data-ms-lf]')) root = document.querySelector('[data-ms-lf]:not([data-lf-ready])');
     if (!root) return;
     root.setAttribute('data-lf-ready', '');
-    var tpl = {% capture ms_t_out %}{% render 'ms-t', v: section.settings.ask_note %}{% endcapture %}{{ ms_t_out | json }}, nextTpl = {% capture ms_t_out %}{% render 'ms-t', v: section.settings.next_label %}{% endcapture %}{{ ms_t_out | json }};
+    var tpl = {% capture ms_t_out %}{% render 'ms-t', v: section.settings.ask_note, en: 'ask_note', sid: section.id %}{% endcapture %}{{ ms_t_out | json }}, nextTpl = {% capture ms_t_out %}{% render 'ms-t', v: section.settings.next_label, en: 'next_label', sid: section.id %}{% endcapture %}{{ ms_t_out | json }};
     var tabs = [].slice.call(root.querySelectorAll('.ms-lf__tab')), fabs = [].slice.call(root.querySelectorAll('[data-lf]'));
     /* one cloth at a time: the row above chooses it, a link to #its-name opens it */
     function open(id, focus) {

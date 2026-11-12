@@ -143,7 +143,7 @@
         assign kind = product.type
       when 'custom'
         capture kind
-          render 'ms-t', v: section.settings.kind_custom
+          render 'ms-t', v: section.settings.kind_custom, en: 'kind_custom', sid: section.id
         endcapture
       else
         assign kind = ''
@@ -175,7 +175,7 @@
     for block in section.blocks
       if block.settings.name != blank
         capture ms_d1
-          render 'ms-t', v: block.settings.name
+          render 'ms-t', v: block.settings.name, en: 'name', bid: block.id, sid: section.id
         endcapture
         assign fibre_names = fibre_names | append: ms_d1 | append: '|'
       endif
@@ -184,7 +184,7 @@
   assign fibre_list = fibre_names | split: '|'
   assign fibre_note_list = fibre_notes | split: '|'
   capture specs
-    render 'ms-t', v: section.settings.specs
+    render 'ms-t', v: section.settings.specs, en: 'specs', sid: section.id
   endcapture
   if sd
     capture specs
@@ -198,76 +198,76 @@
     capture ms_l60
       render 'ms-t', v: 'Price'
     endcapture
-    render 'ms-tr', value: ss.price_label, default: ms_l60, key: 'ms.product.price_label'
+    render 'ms-tr', value: ss.price_label, default: ms_l60, key: 'ms.product.price_label', en: 'price_label', sid: section.id
   endcapture
   capture t_price_text
     capture ms_l61
       render 'ms-t', v: 'On request. The specification sets it.'
     endcapture
-    render 'ms-tr', value: ss.price_text, default: ms_l61, key: 'ms.product.price_text'
+    render 'ms-tr', value: ss.price_text, default: ms_l61, key: 'ms.product.price_text', en: 'price_text', sid: section.id
   endcapture
   capture t_bar
     capture ms_l62
       render 'ms-t', v: 'Made to order · price on request'
     endcapture
-    render 'ms-tr', value: ss.bar_note, default: ms_l62, key: 'ms.product.bar_note'
+    render 'ms-tr', value: ss.bar_note, default: ms_l62, key: 'ms.product.bar_note', en: 'bar_note', sid: section.id
   endcapture
   capture t_cta1
     capture ms_l63
       render 'ms-t', v: 'Request a proposal'
     endcapture
-    render 'ms-tr', value: ss.cta_primary, default: ms_l63, key: 'ms.product.cta_primary'
+    render 'ms-tr', value: ss.cta_primary, default: ms_l63, key: 'ms.product.cta_primary', en: 'cta_primary', sid: section.id
   endcapture
   capture t_cta2
     capture ms_l64
       render 'ms-t', v: 'Book a private appointment'
     endcapture
-    render 'ms-tr', value: ss.cta_secondary, default: ms_l64, key: 'ms.product.cta_secondary'
+    render 'ms-tr', value: ss.cta_secondary, default: ms_l64, key: 'ms.product.cta_secondary', en: 'cta_secondary', sid: section.id
   endcapture
   capture t_f1l
     capture ms_l65
       render 'ms-t', v: 'Made'
     endcapture
-    render 'ms-tr', value: ss.f1_label, default: ms_l65, key: 'ms.product.f1_label'
+    render 'ms-tr', value: ss.f1_label, default: ms_l65, key: 'ms.product.f1_label', en: 'f1_label', sid: section.id
   endcapture
   capture t_f1v
     capture ms_l66
       render 'ms-t', v: 'By hand in Italy, to order'
     endcapture
-    render 'ms-tr', value: ss.f1_value, default: ms_l66, key: 'ms.product.f1_value'
+    render 'ms-tr', value: ss.f1_value, default: ms_l66, key: 'ms.product.f1_value', en: 'f1_value', sid: section.id
   endcapture
   capture t_f2l
     capture ms_l67
       render 'ms-t', v: 'Dimensions'
     endcapture
-    render 'ms-tr', value: ss.f2_label, default: ms_l67, key: 'ms.product.f2_label'
+    render 'ms-tr', value: ss.f2_label, default: ms_l67, key: 'ms.product.f2_label', en: 'f2_label', sid: section.id
   endcapture
   capture t_f2v
     capture ms_l68
       render 'ms-t', v: 'Made to measure, round included'
     endcapture
-    render 'ms-tr', value: ss.f2_value, default: ms_l68, key: 'ms.product.f2_value'
+    render 'ms-tr', value: ss.f2_value, default: ms_l68, key: 'ms.product.f2_value', en: 'f2_value', sid: section.id
   endcapture
   capture t_f3l
     capture ms_l69
       render 'ms-t', v: 'Service'
     endcapture
-    render 'ms-tr', value: ss.f3_label, default: ms_l69, key: 'ms.product.f3_label'
+    render 'ms-tr', value: ss.f3_label, default: ms_l69, key: 'ms.product.f3_label', en: 'f3_label', sid: section.id
   endcapture
   capture t_f3v
     capture ms_l70
       render 'ms-t', v: 'Regenerated at fifteen years, for fifteen more'
     endcapture
-    render 'ms-tr', value: ss.f3_value, default: ms_l70, key: 'ms.product.f3_value'
+    render 'ms-tr', value: ss.f3_value, default: ms_l70, key: 'ms.product.f3_value', en: 'f3_value', sid: section.id
   endcapture
   capture t_cover_l
     capture ms_l71
       render 'ms-t', v: 'Upholstery'
     endcapture
-    render 'ms-tr', value: ss.cover_label, default: ms_l71, key: 'ms.product.cover_label'
+    render 'ms-tr', value: ss.cover_label, default: ms_l71, key: 'ms.product.cover_label', en: 'cover_label', sid: section.id
   endcapture
   capture cover_value
-    render 'ms-t', v: ss.cover_value
+    render 'ms-t', v: ss.cover_value, en: 'cover_value', sid: section.id
   endcapture
   if sd and cover_value != blank
     capture cover_value
@@ -288,7 +288,7 @@
     capture ms_l74
       render 'ms-t', v: 'Comfort'
     endcapture
-    render 'ms-tr', value: ss.comfort_label, default: ms_l74, key: 'ms.product.comfort_label'
+    render 'ms-tr', value: ss.comfort_label, default: ms_l74, key: 'ms.product.comfort_label', en: 'comfort_label', sid: section.id
   endcapture
   assign comfort = product.metafields.custom.firmness.value
   if comfort == blank
@@ -296,32 +296,32 @@
       capture ms_l75
         render 'ms-t', v: 'Set with you, at the atelier or by video'
       endcapture
-      render 'ms-tr', value: ss.comfort_value, default: ms_l75, key: 'ms.product.comfort_value'
+      render 'ms-tr', value: ss.comfort_value, default: ms_l75, key: 'ms.product.comfort_value', en: 'comfort_value', sid: section.id
     endcapture
   endif
   capture t_height
     capture ms_l76
       render 'ms-t', v: 'Height'
     endcapture
-    render 'ms-tr', value: ss.height_label, default: ms_l76, key: 'ms.product.height_label'
+    render 'ms-tr', value: ss.height_label, default: ms_l76, key: 'ms.product.height_label', en: 'height_label', sid: section.id
   endcapture
   capture t_lead
     capture ms_l77
       render 'ms-t', v: 'Lead time'
     endcapture
-    render 'ms-tr', value: ss.lead_label, default: ms_l77, key: 'ms.product.lead_label'
+    render 'ms-tr', value: ss.lead_label, default: ms_l77, key: 'ms.product.lead_label', en: 'lead_label', sid: section.id
   endcapture
   capture t_specs
     capture ms_l78
       render 'ms-t', v: 'Specifications'
     endcapture
-    render 'ms-tr', value: ss.specs_label, default: ms_l78, key: 'ms.product.specs_label'
+    render 'ms-tr', value: ss.specs_label, default: ms_l78, key: 'ms.product.specs_label', en: 'specs_label', sid: section.id
   endcapture
   capture t_desc
     capture ms_l79
       render 'ms-t', v: 'About this system'
     endcapture
-    render 'ms-tr', value: ss.description_label, default: ms_l79, key: 'ms.product.description_label'
+    render 'ms-tr', value: ss.description_label, default: ms_l79, key: 'ms.product.description_label', en: 'description_label', sid: section.id
   endcapture
   # a bed with headboard, the Tangram and the rest speak of themselves, not of a sleep system
   case pkind
@@ -428,7 +428,7 @@
     capture ms_l87
       render 'ms-t', v: 'Natural fibres'
     endcapture
-    render 'ms-tr', value: ss.fibres_label, default: ms_l87, key: 'ms.product.fibres_label'
+    render 'ms-tr', value: ss.fibres_label, default: ms_l87, key: 'ms.product.fibres_label', en: 'fibres_label', sid: section.id
   endcapture
   capture u_mat
     render 'ms-link', to: 'materials'
@@ -438,7 +438,7 @@
     capture ms_l88
       render 'ms-t', v: 'All the fibres'
     endcapture
-    render 'ms-tr', value: ss.fibres_link, default: ms_l88, key: 'ms.product.fibres_link'
+    render 'ms-tr', value: ss.fibres_link, default: ms_l88, key: 'ms.product.fibres_link', en: 'fibres_link', sid: section.id
   endcapture
   assign height = product.metafields.custom.height | metafield_text
   assign lead = product.metafields.custom.lead_time | metafield_text
@@ -498,7 +498,7 @@
             <button type="button" class="ms-pm__half is-next" data-ms-pm-go="1" aria-label="{% render 'ms-t', v: 'Next photograph' %}"></button>
           {%- endif -%}
           {%- if n_images > 0 -%}
-            <button type="button" class="ms-pm__zoom" data-ms-pm-open aria-label="{% capture ms_t_out %}{% render 'ms-t', v: section.settings.enlarge_label %}{% endcapture %}{{ ms_t_out | escape }}"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4" fill="none" stroke="currentColor" stroke-width="1.1"/></svg></button>
+            <button type="button" class="ms-pm__zoom" data-ms-pm-open aria-label="{% capture ms_t_out %}{% render 'ms-t', v: section.settings.enlarge_label, en: 'enlarge_label', sid: section.id %}{% endcapture %}{{ ms_t_out | escape }}"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4" fill="none" stroke="currentColor" stroke-width="1.1"/></svg></button>
           {%- endif -%}
         </div>
         {%- if n_images > 1 -%}
@@ -507,7 +507,7 @@
             <div class="ms-pm__segs">
               {%- for media in images -%}<button type="button" class="ms-pm__seg{% if forloop.first %} is-on{% endif %}" data-ms-pm-to="{{ forloop.index0 }}" aria-label="Photograph {{ forloop.index }}"></button>{%- endfor -%}
             </div>
-            <button type="button" class="ms-pm__enl" data-ms-pm-open>{% render 'ms-t', v: section.settings.enlarge_label %}</button>
+            <button type="button" class="ms-pm__enl" data-ms-pm-open>{% render 'ms-t', v: section.settings.enlarge_label, en: 'enlarge_label', sid: section.id %}</button>
           </div>
         {%- endif -%}
       </div>
@@ -516,11 +516,11 @@
     <div class="ms-pm__info">
       <div class="ms-pm__sticky">
         <div class="ms-pm__eyebrow">
-          {%- if tier -%}<a href="{{ tier.url }}">{{ tier.title }}</a> · {{ numeral }}{%- else -%}{% capture ms_d3 %}{% render 'ms-t', v: section.settings.eyebrow %}{% endcapture %}{{ product.type | default: ms_d3 }}{%- endif -%}
+          {%- if tier -%}<a href="{{ tier.url }}">{{ tier.title }}</a> · {{ numeral }}{%- else -%}{% capture ms_d3 %}{% render 'ms-t', v: section.settings.eyebrow, en: 'eyebrow', sid: section.id %}{% endcapture %}{{ product.type | default: ms_d3 }}{%- endif -%}
         </div>
         {%- liquid
           capture ms_d2
-            render 'ms-t', v: section.settings.eyebrow
+            render 'ms-t', v: section.settings.eyebrow, en: 'eyebrow', sid: section.id
           endcapture
           assign eb_text = product.type | default: ms_d2 | strip | downcase
           assign k_text = kind | strip | downcase
@@ -533,7 +533,7 @@
         {%- comment -%} a recognition the piece has received: the Top system, the Green Product Award 2025 {%- endcomment -%}
         {%- liquid
           capture ms_award
-            render 'ms-t', v: section.settings.award
+            render 'ms-t', v: section.settings.award, en: 'award', sid: section.id
           endcapture
           assign ms_award = ms_award | default: product.metafields.custom.award.value
           if ms_award == blank
@@ -630,11 +630,12 @@
               {%- for block in section.blocks -%}
                 <li class="ms-pm__fibre" {{ block.shopify_attributes }}>
                   <span class="ms-pm__ficon">
-                    {%- render 'ms-fibre-mark', name: block.settings.name, size: 40 -%}
+                    {%- capture g_fn -%}{% render 'ms-en', v: block.settings.name, id: 'name', bid: block.id, sid: section.id %}{%- endcapture %}
+                    {%- render 'ms-fibre-mark', name: g_fn, size: 40 -%}
                   </span>
-                  {%- capture fsl -%}{% render 'ms-fibre-slug', name: block.settings.name %}{%- endcapture -%}{%- assign fsl = fsl | strip -%}
-                  {%- if fsl != blank -%}<a class="ms-pm__fname" href="{{ u_mat }}#fibre-{{ fsl }}">{% render 'ms-t', v: block.settings.name %}</a>{%- else -%}<span class="ms-pm__fname">{% render 'ms-t', v: block.settings.name %}</span>{%- endif -%}
-                  {%- if block.settings.note != blank -%}<span class="ms-pm__fnote">{% render 'ms-t', v: block.settings.note %}</span>{%- endif -%}
+                  {%- capture fsl -%}{% render 'ms-fibre-slug', name: g_fn %}{%- endcapture -%}{%- assign fsl = fsl | strip -%}
+                  {%- if fsl != blank -%}<a class="ms-pm__fname" href="{{ u_mat }}#fibre-{{ fsl }}">{% render 'ms-t', v: block.settings.name, en: 'name', bid: block.id, sid: section.id %}</a>{%- else -%}<span class="ms-pm__fname">{% render 'ms-t', v: block.settings.name, en: 'name', bid: block.id, sid: section.id %}</span>{%- endif -%}
+                  {%- if block.settings.note != blank -%}<span class="ms-pm__fnote">{% render 'ms-t', v: block.settings.note, en: 'note', bid: block.id, sid: section.id %}</span>{%- endif -%}
                 </li>
               {%- endfor -%}
             </ul>

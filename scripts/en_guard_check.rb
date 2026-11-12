@@ -1,10 +1,11 @@
-# Render every JSON template's sections in a locale, optionally with the protected (non-language)
-# settings scrambled the way a machine translation would; compare the outputs to prove the guard.
-# usage: ruby scripts/en_guard_check.rb theme it 1 /tmp/out scripts/en_guard_protect.json
-# usage: ruby r35.rb THEME LOCALE POISON(0|1) OUTDIR PROTECT.json
+# Render every JSON template and section group in a locale, with the settings scrambled the way a
+# machine translation would (1 = the protected ones, 2 = every text), to prove scripts/en_guard.py.
+# usage: ruby scripts/en_guard_check.rb theme it 2 /tmp/out scripts/en_guard_protect.json  (compare with POISON 0)
 require 'liquid'; require 'json'; require 'digest'; require 'fileutils'
 THEME, LOC, POISON, OUTDIR, PROT = ARGV
-POISON_ON = POISON == '1'
+POISON_ON = POISON == '1' || POISON == '2'
+POISON_ALL = POISON == '2'
+TEXTY = %w[text textarea richtext inline_richtext html]
 strip = ->(s) { s.sub(%r{\A\s*/\*.*?\*/}m, '') }
 LOCF = LOC == 'en' ? 'en.default.json' : "#{LOC}.json"
 LOCD = JSON.parse(strip.(File.read(File.join(THEME, 'locales', LOCF))))
@@ -74,15 +75,19 @@ defaults = lambda do |settings, values|
   out.merge!(values || {}); out.each { |k, v| out[k] = nil if v == '' }; out
 end
 poison = ->(v) { v.is_a?(String) && !v.empty? ? "trad-#{v.reverse}-ita" : v }
-prot = ->(type, btype, id) { PROTECT.any? { |p| p[0] == type && p[1] == btype && p[2] == id } }
+prot = ->(type, btype, id) { PROTECT.any? { |p| p[0] == type && p[1].to_s == btype.to_s && p[2] == id } }
+stype_of = ->(defs, id) { ((defs || []).find { |x| x['id'] == id } || {})['type'] }
 parsed = {}
 FileUtils.mkdir_p(OUTDIR)
 nerr = 0
-Dir[File.join(THEME, 'templates', '*.json')].sort.each do |f|
-  name = File.basename(f, '.json')
+GROUPS = Dir[File.join(THEME, 'sections', '*.json')].sort
+(Dir[File.join(THEME, 'templates', '*.json')].sort + GROUPS).each do |f|
+  is_group = GROUPS.include?(f)
+  name = (is_group ? 'group-' : '') + File.basename(f, '.json')
   tpl = JSON.parse(strip.(File.read(f))) rescue next
+  tpl['order'] ||= (tpl['sections'] || {}).keys
   next unless tpl['sections']
-  base, suffix = name.split('.', 2)
+  base, suffix = (is_group ? 'index' : name).split('.', 2)
   ctx = base_ctx.merge('template' => { 'name' => base, 'suffix' => suffix, 'directory' => nil })
   html = +''
   tpl['order'].each do |key|
@@ -91,13 +96,13 @@ Dir[File.join(THEME, 'templates', '*.json')].sort.each do |f|
     sch = schema_of.(type); local = (sch['blocks'] || []).map { |b| [b['type'], b] }.to_h
     bord = data['block_order'] || (data['blocks'] || {}).keys
     ss = (data['settings'] || {}).dup
-    ss.each_key { |k| ss[k] = poison.(ss[k]) if POISON_ON && prot.(type, nil, k) }
+    ss.each_key { |k| ss[k] = poison.(ss[k]) if POISON_ON && (prot.(type, nil, k) || (POISON_ALL && TEXTY.include?(stype_of.(sch['settings'], k)))) }
     blocks = bord.map do |bid|
       b = data['blocks'][bid]; bs = (b['settings'] || {}).dup
-      bs.each_key { |k| bs[k] = poison.(bs[k]) if POISON_ON && prot.(type, b['type'], k) }
+      bs.each_key { |k| bs[k] = poison.(bs[k]) if POISON_ON && (prot.(type, b['type'], k) || (POISON_ALL && TEXTY.include?(stype_of.((local[b['type']] || {})['settings'], k)))) }
       { 'id' => bid, 'type' => b['type'], 'settings' => defaults.((local[b['type']] || {})['settings'], bs), 'shopify_attributes' => '' }
     end
-    sec = { 'id' => "template--1__#{key}", 'settings' => defaults.(sch['settings'], ss), 'blocks' => blocks }
+    sec = { 'id' => (is_group ? "sections--1__#{key}" : "template--1__#{key}"), 'settings' => defaults.(sch['settings'], ss), 'blocks' => blocks }
     t = (parsed[type] ||= Liquid::Template.parse(File.read(File.join(THEME, 'sections', type + '.liquid')).gsub(/\{%-?\s*render\s+block\s*-?%\}/, ''), error_mode: :strict, line_numbers: true))
     lc = Liquid::Context.build(environments: [{ 'section' => sec }], static_environments: [ctx], registers: { file_system: fs }, rethrow_errors: false)
     out = t.render(lc)

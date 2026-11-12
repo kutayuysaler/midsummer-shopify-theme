@@ -47,7 +47,7 @@
 {%- endif -%}
 <div class="ms-colhero__veil" style="position: absolute; inset: 0px; background: radial-gradient(ellipse 52% 62% at {% if tier_side == 'right' %}100%{% else %}0%{% endif %} {% if tier_v == 'top' %}0%{% else %}100%{% endif %}, rgba(10, 8, 6, 0.42), rgba(10, 8, 6, 0) 72%), linear-gradient(180deg, rgba(10, 8, 6, {% if tier_v == 'top' %}0.46{% else %}0.34{% endif %}) 0%, rgba(10, 8, 6, 0) {% if tier_v == 'top' %}40%{% else %}24%{% endif %}, rgba(10, 8, 6, 0) 50%, rgba(10, 8, 6, 0.36) 100%);"></div>
 <div class="ms-colhero__copy" style="position: absolute; inset: 0px; display: flex; flex-direction: column; justify-content: {% if tier_v == 'top' %}flex-start{% else %}flex-end{% endif %}; padding: clamp(26px, 5vw, 88px); color: rgb(251, 249, 245);{% if tier_side == 'right' %} align-items: flex-end; text-align: right;{% endif %}">
-<div style="font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.8;">{% render 'ms-t', v: section.settings.eyebrow %}{% if numeral != blank %} {{ numeral }}{% endif %}</div>
+<div style="font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.8;">{% render 'ms-t', v: section.settings.eyebrow, en: 'eyebrow', sid: section.id %}{% if numeral != blank %} {{ numeral }}{% endif %}</div>
 <h1 style="font-family: Newsreader, Georgia, serif; font-size: clamp(40px, 7vw, 96px); line-height: 1; letter-spacing: -0.035em; margin-top: 16px;">{% render 'ms-coll-name', c: collection %}</h1>
 </div>
 </section>

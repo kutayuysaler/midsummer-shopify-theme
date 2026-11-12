@@ -30,7 +30,7 @@
   assign countries = ''
   for block in section.blocks
     capture ms_d1
-      render 'ms-t', v: block.settings.country
+      render 'ms-t', v: block.settings.country, en: 'country', bid: block.id, sid: section.id
     endcapture
     assign countries = countries | append: ms_d1 | append: '|'
   endfor
@@ -45,47 +45,47 @@
   <header class="ms-sl__intro">
     <div class="ms-sl__eyebrow">
       <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 4.5 A7.5 7.5 0 1 0 12 19.5 A7.5 7.5 0 1 0 12 4.5" fill="none" stroke="#7E623B" stroke-width="1.2"/><path d="M4.5 12 H19.5" fill="none" stroke="#7E623B" stroke-width="1.2"/><path d="M12 4.5 C8.5 8 8.5 16 12 19.5 C15.5 16 15.5 8 12 4.5" fill="none" stroke="#7E623B" stroke-width="1.2"/></svg>
-      <span>{% render 'ms-t', v: s.eyebrow %}</span>
+      <span>{% render 'ms-t', v: s.eyebrow, en: 'eyebrow', sid: section.id %}</span>
     </div>
-    <h1 class="ms-sl__title">{% render 'ms-t', v: s.heading %}</h1>
+    <h1 class="ms-sl__title">{% render 'ms-t', v: s.heading, en: 'heading', sid: section.id %}</h1>
     <div class="ms-sl__introrow">
-      <p class="ms-sl__lede">{% render 'ms-t', v: s.lede %}</p>
-      <p class="ms-sl__tally"><span>{{ section.blocks.size }}</span> {% render 'ms-t', v: s.tally_places %} <span>{{ n_countries }}</span> {% render 'ms-t', v: s.tally_countries %}</p>
+      <p class="ms-sl__lede">{% render 'ms-t', v: s.lede, en: 'lede', sid: section.id %}</p>
+      <p class="ms-sl__tally"><span>{{ section.blocks.size }}</span> {% render 'ms-t', v: s.tally_places, en: 'tally_places', sid: section.id %} <span>{{ n_countries }}</span> {% render 'ms-t', v: s.tally_countries, en: 'tally_countries', sid: section.id %}</p>
     </div>
   </header>
 
   <div class="ms-sl__flag" id="atelier">
     <div class="ms-sl__flagin">
       <div>
-        <div class="ms-sl__label">{% render 'ms-t', v: s.atelier_label %}</div>
-        <h2 class="ms-sl__flagtitle">{% render 'ms-t', v: s.atelier_city %}</h2>
+        <div class="ms-sl__label">{% render 'ms-t', v: s.atelier_label, en: 'atelier_label', sid: section.id %}</div>
+        <h2 class="ms-sl__flagtitle">{% render 'ms-t', v: s.atelier_city, en: 'atelier_city', sid: section.id %}</h2>
       </div>
       <div class="ms-sl__flagcol">
-        <p class="ms-sl__addrbig">{% capture ms_t_out %}{% render 'ms-t', v: s.atelier_address %}{% endcapture %}{{ ms_t_out | newline_to_br }}</p>
+        <p class="ms-sl__addrbig">{% capture ms_t_out %}{% render 'ms-t', v: s.atelier_address, en: 'atelier_address', sid: section.id %}{% endcapture %}{{ ms_t_out | newline_to_br }}</p>
         <div class="ms-sl__flaglinks">
-          <a class="ms-sl__ruled" href="{% render 'ms-t', v: s.atelier_directions %}" target="_blank" rel="noopener">{% render 'ms-t', v: s.directions_label %}</a>
-          <button type="button" class="ms-sl__ruled" data-ms-sl-atelier>{% render 'ms-t', v: s.show_on_map %}</button>
+          <a class="ms-sl__ruled" href="{% render 'ms-t', v: s.atelier_directions, en: 'atelier_directions', sid: section.id %}" target="_blank" rel="noopener">{% render 'ms-t', v: s.directions_label, en: 'directions_label', sid: section.id %}</a>
+          <button type="button" class="ms-sl__ruled" data-ms-sl-atelier>{% render 'ms-t', v: s.show_on_map, en: 'show_on_map', sid: section.id %}</button>
         </div>
       </div>
       <div class="ms-sl__flagcol">
-        <p class="ms-sl__meta">{% capture ms_t_out %}{% render 'ms-t', v: s.atelier_hours %}{% endcapture %}{{ ms_t_out | newline_to_br }}</p>
-        <a class="ms-sl__ruled" href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-enquiry="appointment">{% render 'ms-t', v: s.book_label %}</a>
+        <p class="ms-sl__meta">{% capture ms_t_out %}{% render 'ms-t', v: s.atelier_hours, en: 'atelier_hours', sid: section.id %}{% endcapture %}{{ ms_t_out | newline_to_br }}</p>
+        <a class="ms-sl__ruled" href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-enquiry="appointment">{% render 'ms-t', v: s.book_label, en: 'book_label', sid: section.id %}</a>
       </div>
     </div>
   </div>
 
   <div class="ms-sl__atlas" data-ms-sl-atlas>
-    <aside class="ms-sl__panel" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.list_label %}{% endcapture %}{{ ms_t_out | escape }}">
+    <aside class="ms-sl__panel" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.list_label, en: 'list_label', sid: section.id %}{% endcapture %}{{ ms_t_out | escape }}">
       <div class="ms-sl__tools">
         <label class="ms-sl__search">
           <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.1"/><path d="M11 11l3.5 3.5" stroke="currentColor" stroke-width="1.1"/></svg>
-          <input type="search" placeholder="{% capture ms_t_out %}{% render 'ms-t', v: s.search_placeholder %}{% endcapture %}{{ ms_t_out | escape }}" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.search_placeholder %}{% endcapture %}{{ ms_t_out | escape }}" data-ms-sl-q autocomplete="off">
+          <input type="search" placeholder="{% capture ms_t_out %}{% render 'ms-t', v: s.search_placeholder, en: 'search_placeholder', sid: section.id %}{% endcapture %}{{ ms_t_out | escape }}" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.search_placeholder, en: 'search_placeholder', sid: section.id %}{% endcapture %}{{ ms_t_out | escape }}" data-ms-sl-q autocomplete="off">
         </label>
-        <div class="ms-sl__types" role="group" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.type_label %}{% endcapture %}{{ ms_t_out | escape }}">
-          <button type="button" data-ms-sl-type="" aria-pressed="true">{% render 'ms-t', v: s.all_label %} <span data-n></span></button>
-          <button type="button" data-ms-sl-type="showroom" aria-pressed="false"><i class="ms-sl__mark is-showroom"></i>{% render 'ms-t', v: s.showrooms_label %} <span data-n></span></button>
-          <button type="button" data-ms-sl-type="boutique" aria-pressed="false"><i class="ms-sl__mark is-boutique"></i>{% render 'ms-t', v: s.boutiques_label %} <span data-n></span></button>
-          <button type="button" data-ms-sl-type="agent" aria-pressed="false"><i class="ms-sl__mark is-agent"></i>{% render 'ms-t', v: s.agents_label %} <span data-n></span></button>
+        <div class="ms-sl__types" role="group" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.type_label, en: 'type_label', sid: section.id %}{% endcapture %}{{ ms_t_out | escape }}">
+          <button type="button" data-ms-sl-type="" aria-pressed="true">{% render 'ms-t', v: s.all_label, en: 'all_label', sid: section.id %} <span data-n></span></button>
+          <button type="button" data-ms-sl-type="showroom" aria-pressed="false"><i class="ms-sl__mark is-showroom"></i>{% render 'ms-t', v: s.showrooms_label, en: 'showrooms_label', sid: section.id %} <span data-n></span></button>
+          <button type="button" data-ms-sl-type="boutique" aria-pressed="false"><i class="ms-sl__mark is-boutique"></i>{% render 'ms-t', v: s.boutiques_label, en: 'boutiques_label', sid: section.id %} <span data-n></span></button>
+          <button type="button" data-ms-sl-type="agent" aria-pressed="false"><i class="ms-sl__mark is-agent"></i>{% render 'ms-t', v: s.agents_label, en: 'agents_label', sid: section.id %} <span data-n></span></button>
         </div>
         <p class="ms-sl__count" data-ms-sl-count aria-live="polite"></p>
       </div>
@@ -103,46 +103,46 @@
               {%- assign b = block.settings -%}
               {%- capture g_name -%}{% render 'ms-en', v: b.name, id: 'name', bid: block.id, sid: section.id %}{%- endcapture -%}{%- capture g_web -%}{% render 'ms-en', v: b.website, id: 'website', bid: block.id, sid: section.id %}{%- endcapture -%}{%- capture g_phone -%}{% render 'ms-en', v: b.phone, id: 'phone', bid: block.id, sid: section.id %}{%- endcapture -%}{%- capture g_email -%}{% render 'ms-en', v: b.email, id: 'email', bid: block.id, sid: section.id %}{%- endcapture -%}{%- capture g_lat -%}{% render 'ms-en', v: b.lat, id: 'lat', bid: block.id, sid: section.id %}{%- endcapture -%}{%- capture g_lon -%}{% render 'ms-en', v: b.lon, id: 'lon', bid: block.id, sid: section.id %}{%- endcapture -%}
               {%- if b.country != last_country -%}
-                <div class="ms-sl__country" data-ms-sl-country>{% render 'ms-t', v: b.country %}</div>
-                {%- capture last_country %}{% render 'ms-t', v: b.country %}{% endcapture -%}
+                <div class="ms-sl__country" data-ms-sl-country>{% render 'ms-t', v: b.country, en: 'country', bid: block.id, sid: section.id %}</div>
+                {%- capture last_country %}{% render 'ms-t', v: b.country, en: 'country', bid: block.id, sid: section.id %}{% endcapture -%}
               {%- endif -%}
               {%- liquid
                 case b.kind
                   when 'atelier'
                     capture kind_label
-                      render 'ms-t', v: s.atelier_kind
+                      render 'ms-t', v: s.atelier_kind, en: 'atelier_kind', sid: section.id
                     endcapture
                   when 'boutique'
                     capture kind_label
-                      render 'ms-t', v: s.boutique_kind
+                      render 'ms-t', v: s.boutique_kind, en: 'boutique_kind', sid: section.id
                     endcapture
                   when 'agent'
                     capture kind_label
-                      render 'ms-t', v: s.agent_kind
+                      render 'ms-t', v: s.agent_kind, en: 'agent_kind', sid: section.id
                     endcapture
                   else
                     capture kind_label
-                      render 'ms-t', v: s.showroom_kind
+                      render 'ms-t', v: s.showroom_kind, en: 'showroom_kind', sid: section.id
                     endcapture
                 endcase
                 capture ms_d2
-                  render 'ms-t', v: b.city
+                  render 'ms-t', v: b.city, en: 'city', bid: block.id, sid: section.id
                 endcapture
                 capture ms_d3
-                  render 'ms-t', v: b.country
+                  render 'ms-t', v: b.country, en: 'country', bid: block.id, sid: section.id
                 endcapture
                 capture ms_d4
-                  render 'ms-t', v: b.address
+                  render 'ms-t', v: b.address, en: 'address', bid: block.id, sid: section.id
                 endcapture
                 capture search
                   render 'ms-t', v: g_name
                 endcapture
                 assign search = search | append: ' ' | append: ms_d2 | append: ' ' | append: ms_d3 | append: ' ' | append: ms_d4 | downcase | escape
                 capture ms_d5
-                  render 'ms-t', v: b.address
+                  render 'ms-t', v: b.address, en: 'address', bid: block.id, sid: section.id
                 endcapture
                 capture ms_d6
-                  render 'ms-t', v: b.country
+                  render 'ms-t', v: b.country, en: 'country', bid: block.id, sid: section.id
                 endcapture
                 capture dir
                   render 'ms-t', v: g_name
@@ -154,26 +154,27 @@
                   <i class="ms-sl__mark is-{{ b.kind }}" aria-hidden="true"></i>
                   <span class="ms-sl__name">{% render 'ms-t', v: g_name %}</span>
                   <span class="ms-sl__kind">{{ kind_label }}</span>
-                  <span class="ms-sl__place">{% render 'ms-t', v: b.city %}</span>
+                  <span class="ms-sl__place">{% render 'ms-t', v: b.city, en: 'city', bid: block.id, sid: section.id %}</span>
                   <svg class="ms-sl__chev" viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M3 6l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.1"/></svg>
                 </button>
                 <div class="ms-sl__more" id="ms-sl-{{ block.id }}" hidden>
-                  {%- if b.contact != blank -%}<p class="ms-sl__who">{% render 'ms-t', v: b.contact %}</p>{%- endif -%}
-                  {%- if b.address != blank -%}<p class="ms-sl__addr">{% capture ms_t_out %}{% render 'ms-t', v: b.address %}{% endcapture %}{{ ms_t_out | newline_to_br }}</p>{%- endif -%}
-                  {%- if b.note != blank -%}<p class="ms-sl__note">{% render 'ms-t', v: b.note %}</p>{%- endif -%}
+                  {%- if b.contact != blank -%}<p class="ms-sl__who">{% render 'ms-t', v: b.contact, en: 'contact', bid: block.id, sid: section.id %}</p>{%- endif -%}
+                  {%- if b.address != blank -%}<p class="ms-sl__addr">{% capture ms_t_out %}{% render 'ms-t', v: b.address, en: 'address', bid: block.id, sid: section.id %}{% endcapture %}{{ ms_t_out | newline_to_br }}</p>{%- endif -%}
+                  {%- if b.note != blank -%}<p class="ms-sl__note">{% render 'ms-t', v: b.note, en: 'note', bid: block.id, sid: section.id %}</p>{%- endif -%}
                   <div class="ms-sl__reach">
-                    {%- if g_phone != blank -%}<a href="tel:{{ g_phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-' }}"><span>{% render 'ms-t', v: s.tel_label %}</span>{{ g_phone }}</a>{%- endif -%}
-                    {%- if g_email != blank -%}<a href="mailto:{{ g_email }}"><span>{% render 'ms-t', v: s.mail_label %}</span>{{ g_email }}</a>{%- endif -%}
-                    {%- if g_web != blank -%}<a href="{% render 'ms-t', v: g_web %}" target="_blank" rel="noopener"><span>{% render 'ms-t', v: s.web_label %}</span>{% capture ms_t_out %}{% render 'ms-t', v: g_web %}{% endcapture %}{{ ms_t_out | remove: 'https://' | remove: 'http://' | remove: 'www.' | remove_last: '/' }}</a>{%- endif -%}
+                    {%- if g_phone != blank -%}<a href="tel:{{ g_phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-' }}"><span>{% render 'ms-t', v: s.tel_label, en: 'tel_label', sid: section.id %}</span>{{ g_phone }}</a>{%- endif -%}
+                    {%- if g_email != blank -%}<a href="mailto:{{ g_email }}"><span>{% render 'ms-t', v: s.mail_label, en: 'mail_label', sid: section.id %}</span>{{ g_email }}</a>{%- endif -%}
+                    {%- if g_web != blank -%}<a href="{% render 'ms-t', v: g_web %}" target="_blank" rel="noopener"><span>{% render 'ms-t', v: s.web_label, en: 'web_label', sid: section.id %}</span>{% capture ms_t_out %}{% render 'ms-t', v: g_web %}{% endcapture %}{{ ms_t_out | remove: 'https://' | remove: 'http://' | remove: 'www.' | remove_last: '/' }}</a>{%- endif -%}
                   </div>
                   <div class="ms-sl__acts">
-                    <a class="ms-sl__ruled" href="https://www.google.com/maps/dir/?api=1&destination={{ dir }}" target="_blank" rel="noopener">{% render 'ms-t', v: s.directions_label %}</a>
+                    <a class="ms-sl__ruled" href="https://www.google.com/maps/dir/?api=1&destination={{ dir }}" target="_blank" rel="noopener">{% render 'ms-t', v: s.directions_label, en: 'directions_label', sid: section.id %}</a>
                     {%- if b.kind == 'atelier' -%}
-                      <a class="ms-sl__ruled" href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-enquiry="appointment">{% render 'ms-t', v: s.book_label %}</a>
+                      <a class="ms-sl__ruled" href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-enquiry="appointment">{% render 'ms-t', v: s.book_label, en: 'book_label', sid: section.id %}</a>
                     {%- else -%}
-                      <a class="ms-sl__ruled" href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-enquiry="message" data-ms-note="{% capture ms_t_out %}{% render 'ms-t', v: s.intro_note %}{% endcapture %}{{ ms_t_out | replace: '[name]', g_name | replace: '[city]', b.city | escape }}">{% render 'ms-t', v: s.intro_label %}</a>
+                      {%- capture g_city -%}{% render 'ms-t', v: b.city, en: 'city', bid: block.id, sid: section.id %}{%- endcapture -%}
+                      <a class="ms-sl__ruled" href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-enquiry="message" data-ms-note="{% capture ms_t_out %}{% render 'ms-t', v: s.intro_note, en: 'intro_note', sid: section.id %}{% endcapture %}{{ ms_t_out | replace: '[name]', g_name | replace: '[city]', g_city | escape }}">{% render 'ms-t', v: s.intro_label, en: 'intro_label', sid: section.id %}</a>
                     {%- endif -%}
-                    <button type="button" class="ms-sl__ruled ms-sl__tomap" data-ms-sl-tomap>{% render 'ms-t', v: s.show_on_map %}</button>
+                    <button type="button" class="ms-sl__ruled ms-sl__tomap" data-ms-sl-tomap>{% render 'ms-t', v: s.show_on_map, en: 'show_on_map', sid: section.id %}</button>
                   </div>
                 </div>
               </article>
@@ -181,16 +182,16 @@
           </div>
           {%- endif -%}
         {%- endfor -%}
-        <p class="ms-sl__none" data-ms-sl-none hidden>{% render 'ms-t', v: s.no_results %}</p>
+        <p class="ms-sl__none" data-ms-sl-none hidden>{% render 'ms-t', v: s.no_results, en: 'no_results', sid: section.id %}</p>
       </div>
     </aside>
 
-    <div class="ms-sl__map" data-ms-sl-map role="region" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.map_label %}{% endcapture %}{{ ms_t_out | escape }}">
+    <div class="ms-sl__map" data-ms-sl-map role="region" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.map_label, en: 'map_label', sid: section.id %}{% endcapture %}{{ ms_t_out | escape }}">
       <div class="ms-sl__tiles" data-ms-sl-tiles aria-hidden="true"></div>
       <svg class="ms-sl__svg" data-ms-sl-svg aria-hidden="true"><g data-ms-sl-world><path class="ms-sl__grat" data-ms-sl-grat></path><path class="ms-sl__depth is-d3000" data-ms-sl-lay="d3000"></path><path class="ms-sl__depth is-d2000" data-ms-sl-lay="d2000"></path><path class="ms-sl__depth is-d1000" data-ms-sl-lay="d1000"></path><path class="ms-sl__depth is-d200" data-ms-sl-lay="d200"></path><path class="ms-sl__land" data-ms-sl-land></path><path class="ms-sl__home" data-ms-sl-home></path><path class="ms-sl__urban" data-ms-sl-lay="urban"></path><path class="ms-sl__states" data-ms-sl-lay="states"></path><path class="ms-sl__lakes" data-ms-sl-lakes></path><path class="ms-sl__rivers" data-ms-sl-rivers></path><path class="ms-sl__river2" data-ms-sl-lay="rivers2"></path><path class="ms-sl__river1" data-ms-sl-lay="rivers1"></path><path class="ms-sl__rail" data-ms-sl-lay="rail"></path><path class="ms-sl__minor" data-ms-sl-lay="minor"></path><path class="ms-sl__case" data-ms-sl-lay="major" data-ms-sl-case></path><path class="ms-sl__major" data-ms-sl-lay="major"></path><path class="ms-sl__borders" data-ms-sl-borders></path></g><g class="ms-sl__labels" data-ms-sl-labels></g></svg>
       <div class="ms-sl__pins" data-ms-sl-pins></div>
-      <div class="ms-sl__views" role="group" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.views_label %}{% endcapture %}{{ ms_t_out | escape }}">
-        <button type="button" data-ms-sl-view="" aria-pressed="true">{% render 'ms-t', v: s.world_label %}</button>
+      <div class="ms-sl__views" role="group" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.views_label, en: 'views_label', sid: section.id %}{% endcapture %}{{ ms_t_out | escape }}">
+        <button type="button" data-ms-sl-view="" aria-pressed="true">{% render 'ms-t', v: s.world_label, en: 'world_label', sid: section.id %}</button>
         {%- for region in regions -%}
           {%- assign in_region = 0 -%}
           {%- for block in section.blocks -%}{%- if block.settings.region == region -%}{%- assign in_region = in_region | plus: 1 -%}{%- endif -%}{%- endfor -%}
@@ -203,15 +204,15 @@
         <button type="button" data-ms-sl-zoom="fit" aria-label="{% render 'ms-t', v: 'Show every place' %}"><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4" fill="none" stroke="currentColor" stroke-width="1.1"/></svg></button>
       </div>
       <div class="ms-sl__legend" aria-hidden="true">
-        <span><i class="ms-sl__mark is-atelier"></i>{% render 'ms-t', v: s.atelier_kind %}</span>
-        <span><i class="ms-sl__mark is-showroom"></i>{% render 'ms-t', v: s.showroom_kind %}</span>
-        <span data-legend="boutique"><i class="ms-sl__mark is-boutique"></i>{% render 'ms-t', v: s.boutique_kind %}</span>
-        <span data-legend="agent"><i class="ms-sl__mark is-agent"></i>{% render 'ms-t', v: s.agent_kind %}</span>
+        <span><i class="ms-sl__mark is-atelier"></i>{% render 'ms-t', v: s.atelier_kind, en: 'atelier_kind', sid: section.id %}</span>
+        <span><i class="ms-sl__mark is-showroom"></i>{% render 'ms-t', v: s.showroom_kind, en: 'showroom_kind', sid: section.id %}</span>
+        <span data-legend="boutique"><i class="ms-sl__mark is-boutique"></i>{% render 'ms-t', v: s.boutique_kind, en: 'boutique_kind', sid: section.id %}</span>
+        <span data-legend="agent"><i class="ms-sl__mark is-agent"></i>{% render 'ms-t', v: s.agent_kind, en: 'agent_kind', sid: section.id %}</span>
       </div>
       <div class="ms-sl__hint" data-ms-sl-hint aria-hidden="true"></div>
       {%- if s.street_map or s.tiles_url != blank -%}<span class="ms-sl__credit" data-ms-sl-credit>
         {%- if s.street_map -%}<span data-ms-sl-credit-vec hidden><a href="https://openfreemap.org" target="_blank" rel="noopener">{% render 'ms-t', v: 'OpenFreeMap' %}</a> © <a href="https://www.openmaptiles.org/" target="_blank" rel="noopener">{% render 'ms-t', v: 'OpenMapTiles' %}</a> {% render 'ms-t', v: 'Data from' %} <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">{% render 'ms-t', v: 'OpenStreetMap' %}</a></span>{%- endif -%}
-        {%- if s.tiles_url != blank and s.tiles_credit != blank -%}<a data-ms-sl-credit-tiles hidden href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">{% render 'ms-t', v: s.tiles_credit %}</a>{%- endif -%}
+        {%- if s.tiles_url != blank and s.tiles_credit != blank -%}<a data-ms-sl-credit-tiles hidden href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">{% render 'ms-t', v: s.tiles_credit, en: 'tiles_credit', sid: section.id %}</a>{%- endif -%}
       </span>{%- endif -%}
       <div class="ms-sl__pop" data-ms-sl-pop hidden></div>
     </div>
@@ -220,23 +221,23 @@
   <div class="ms-sl__band">
     <div class="ms-sl__bandin">
       <div>
-        <div class="ms-sl__label">{% render 'ms-t', v: s.band_label %}</div>
-        <h2 class="ms-sl__bandtitle">{% render 'ms-t', v: s.band_heading %}</h2>
+        <div class="ms-sl__label">{% render 'ms-t', v: s.band_label, en: 'band_label', sid: section.id %}</div>
+        <h2 class="ms-sl__bandtitle">{% render 'ms-t', v: s.band_heading, en: 'band_heading', sid: section.id %}</h2>
       </div>
       <div class="ms-sl__bandcol">
-        <p>{% render 'ms-t', v: s.band_text %}</p>
-        <a class="ms-sl__ruled" href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-enquiry="appointment">{% render 'ms-t', v: s.band_link %}</a>
+        <p>{% render 'ms-t', v: s.band_text, en: 'band_text', sid: section.id %}</p>
+        <a class="ms-sl__ruled" href="{% render 'ms-link', to: 'contact' %}" data-ms-enquire data-ms-enquiry="appointment">{% render 'ms-t', v: s.band_link, en: 'band_link', sid: section.id %}</a>
       </div>
     </div>
   </div>
-  <p class="ms-sl__partner">{% render 'ms-t', v: s.partner_text %} <a href="{% render 'ms-link', to: 'enquire', q: 'enquiry=partner' %}#enquire">{% render 'ms-t', v: s.partner_link %}</a></p>
+  <p class="ms-sl__partner">{% render 'ms-t', v: s.partner_text, en: 'partner_text', sid: section.id %} <a href="{% render 'ms-link', to: 'enquire', q: 'enquiry=partner' %}#enquire">{% render 'ms-t', v: s.partner_link, en: 'partner_link', sid: section.id %}</a></p>
 
   <script type="application/json" data-ms-sl-data>[
     {%- for block in section.blocks -%}
 {%- capture g_lat -%}{% render 'ms-en', v: block.settings.lat, id: 'lat', bid: block.id, sid: section.id %}{%- endcapture -%}{%- capture g_lon -%}{% render 'ms-en', v: block.settings.lon, id: 'lon', bid: block.id, sid: section.id %}{%- endcapture -%}{%- capture g_name -%}{% render 'ms-en', v: block.settings.name, id: 'name', bid: block.id, sid: section.id %}{%- endcapture -%}
       {%- assign lat = g_lat | replace: ',', '.' | strip -%}
       {%- assign lon = g_lon | replace: ',', '.' | strip -%}
-      { "id": {{ block.id | json }}, "name": {% capture ms_t_out %}{% render 'ms-t', v: g_name %}{% endcapture %}{{ ms_t_out | json }}, "city": {% capture ms_t_out %}{% render 'ms-t', v: block.settings.city %}{% endcapture %}{{ ms_t_out | json }}, "country": {% capture ms_t_out %}{% render 'ms-t', v: block.settings.country %}{% endcapture %}{{ ms_t_out | json }}, "region": {{ block.settings.region | json }}, "kind": {{ block.settings.kind | json }}, "lat": {{ lat | json }}, "lon": {{ lon | json }} }{% unless forloop.last %},{% endunless %}
+      { "id": {{ block.id | json }}, "name": {% capture ms_t_out %}{% render 'ms-t', v: g_name %}{% endcapture %}{{ ms_t_out | json }}, "city": {% capture ms_t_out %}{% render 'ms-t', v: block.settings.city, en: 'city', bid: block.id, sid: section.id %}{% endcapture %}{{ ms_t_out | json }}, "country": {% capture ms_t_out %}{% render 'ms-t', v: block.settings.country, en: 'country', bid: block.id, sid: section.id %}{% endcapture %}{{ ms_t_out | json }}, "region": {{ block.settings.region | json }}, "kind": {{ block.settings.kind | json }}, "lat": {{ lat | json }}, "lon": {{ lon | json }} }{% unless forloop.last %},{% endunless %}
     {%- endfor -%}
   ]</script>
 </section>
@@ -465,8 +466,8 @@
     root.__msSl = true;
     var URLMID = {{ 'ms-world-mid.json' | asset_url | json }}, URL50 = {{ 'ms-world-detail.json' | asset_url | json }}, URLLAY = {{ 'ms-world-layers.json' | asset_url | json }};
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var KINDS = { atelier: {% capture ms_t_out %}{% render 'ms-t', v: section.settings.atelier_kind %}{% endcapture %}{{ ms_t_out | json }}, showroom: {% capture ms_t_out %}{% render 'ms-t', v: section.settings.showroom_kind %}{% endcapture %}{{ ms_t_out | json }}, boutique: {% capture ms_t_out %}{% render 'ms-t', v: section.settings.boutique_kind %}{% endcapture %}{{ ms_t_out | json }}, agent: {% capture ms_t_out %}{% render 'ms-t', v: section.settings.agent_kind %}{% endcapture %}{{ ms_t_out | json }} };
-    var T = { places: {% capture ms_t_out %}{% render 'ms-t', v: section.settings.count_places %}{% endcapture %}{{ ms_t_out | json }}, place: {% capture ms_t_out %}{% render 'ms-t', v: section.settings.count_place %}{% endcapture %}{{ ms_t_out | json }}, countries: {% capture ms_t_out %}{% render 'ms-t', v: section.settings.count_countries %}{% endcapture %}{{ ms_t_out | json }}, country: {% capture ms_t_out %}{% render 'ms-t', v: section.settings.count_country %}{% endcapture %}{{ ms_t_out | json }}, here: {% capture ms_t_out %}{% render 'ms-t', v: section.settings.cluster_label %}{% endcapture %}{{ ms_t_out | json }}, wheel: {% capture ms_t_out %}{% render 'ms-t', v: section.settings.hint_wheel %}{% endcapture %}{{ ms_t_out | json }}, touch: {% capture ms_t_out %}{% render 'ms-t', v: section.settings.hint_touch %}{% endcapture %}{{ ms_t_out | json }} };
+    var KINDS = { atelier: {% capture ms_t_out %}{% render 'ms-t', v: section.settings.atelier_kind, en: 'atelier_kind', sid: section.id %}{% endcapture %}{{ ms_t_out | json }}, showroom: {% capture ms_t_out %}{% render 'ms-t', v: section.settings.showroom_kind, en: 'showroom_kind', sid: section.id %}{% endcapture %}{{ ms_t_out | json }}, boutique: {% capture ms_t_out %}{% render 'ms-t', v: section.settings.boutique_kind, en: 'boutique_kind', sid: section.id %}{% endcapture %}{{ ms_t_out | json }}, agent: {% capture ms_t_out %}{% render 'ms-t', v: section.settings.agent_kind, en: 'agent_kind', sid: section.id %}{% endcapture %}{{ ms_t_out | json }} };
+    var T = { places: {% capture ms_t_out %}{% render 'ms-t', v: section.settings.count_places, en: 'count_places', sid: section.id %}{% endcapture %}{{ ms_t_out | json }}, place: {% capture ms_t_out %}{% render 'ms-t', v: section.settings.count_place, en: 'count_place', sid: section.id %}{% endcapture %}{{ ms_t_out | json }}, countries: {% capture ms_t_out %}{% render 'ms-t', v: section.settings.count_countries, en: 'count_countries', sid: section.id %}{% endcapture %}{{ ms_t_out | json }}, country: {% capture ms_t_out %}{% render 'ms-t', v: section.settings.count_country, en: 'count_country', sid: section.id %}{% endcapture %}{{ ms_t_out | json }}, here: {% capture ms_t_out %}{% render 'ms-t', v: section.settings.cluster_label, en: 'cluster_label', sid: section.id %}{% endcapture %}{{ ms_t_out | json }}, wheel: {% capture ms_t_out %}{% render 'ms-t', v: section.settings.hint_wheel, en: 'hint_wheel', sid: section.id %}{% endcapture %}{{ ms_t_out | json }}, touch: {% capture ms_t_out %}{% render 'ms-t', v: section.settings.hint_touch, en: 'hint_touch', sid: section.id %}{% endcapture %}{{ ms_t_out | json }} };
 
     var stores = JSON.parse(root.querySelector('[data-ms-sl-data]').textContent).map(function (p) {
       p.lat = parseFloat(String(p.lat).replace(',', '.')); p.lon = parseFloat(String(p.lon).replace(',', '.'));
@@ -1103,7 +1104,7 @@
 {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  "name": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.heading %}{% endcapture %}{{ ms_t_out | strip_html | append: ' · Midsummer Milano' | json }},
+  "name": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.heading, en: 'heading', sid: section.id %}{% endcapture %}{{ ms_t_out | strip_html | append: ' · Midsummer Milano' | json }},
   "itemListElement": [
     {%- for block in section.blocks -%}
     {%- assign b = block.settings -%}{%- capture g_name -%}{% render 'ms-en', v: b.name, id: 'name', bid: block.id, sid: section.id %}{%- endcapture -%}{%- capture g_web -%}{% render 'ms-en', v: b.website, id: 'website', bid: block.id, sid: section.id %}{%- endcapture -%}{%- capture g_phone -%}{% render 'ms-en', v: b.phone, id: 'phone', bid: block.id, sid: section.id %}{%- endcapture -%}{%- capture g_email -%}{% render 'ms-en', v: b.email, id: 'email', bid: block.id, sid: section.id %}{%- endcapture -%}{%- capture g_lat -%}{% render 'ms-en', v: b.lat, id: 'lat', bid: block.id, sid: section.id %}{%- endcapture -%}{%- capture g_lon -%}{% render 'ms-en', v: b.lon, id: 'lon', bid: block.id, sid: section.id %}{%- endcapture -%}
@@ -1113,8 +1114,8 @@
       "item": {
         "@type": {% if b.kind == 'atelier' %}"FurnitureStore"{% else %}"LocalBusiness"{% endif %},
         "name": {% capture ms_t_out %}{% render 'ms-t', v: g_name %}{% endcapture %}{{ ms_t_out | json }},
-        {%- if b.note != blank %}"description": {% capture ms_t_out %}{% render 'ms-t', v: b.note %}{% endcapture %}{{ ms_t_out | strip_html | json }},{% endif %}
-        "address": { "@type": "PostalAddress", "streetAddress": {% capture ms_t_out %}{% render 'ms-t', v: b.address %}{% endcapture %}{{ ms_t_out | default: '' | json }}, "addressLocality": {% capture ms_t_out %}{% render 'ms-t', v: b.city %}{% endcapture %}{{ ms_t_out | json }}, "addressCountry": {% capture ms_t_out %}{% render 'ms-t', v: b.country %}{% endcapture %}{{ ms_t_out | json }} },
+        {%- if b.note != blank %}"description": {% capture ms_t_out %}{% render 'ms-t', v: b.note, en: 'note', bid: block.id, sid: section.id %}{% endcapture %}{{ ms_t_out | strip_html | json }},{% endif %}
+        "address": { "@type": "PostalAddress", "streetAddress": {% capture ms_t_out %}{% render 'ms-t', v: b.address, en: 'address', bid: block.id, sid: section.id %}{% endcapture %}{{ ms_t_out | default: '' | json }}, "addressLocality": {% capture ms_t_out %}{% render 'ms-t', v: b.city, en: 'city', bid: block.id, sid: section.id %}{% endcapture %}{{ ms_t_out | json }}, "addressCountry": {% capture ms_t_out %}{% render 'ms-t', v: b.country, en: 'country', bid: block.id, sid: section.id %}{% endcapture %}{{ ms_t_out | json }} },
         {%- if g_lat != blank and g_lon != blank %}"geo": { "@type": "GeoCoordinates", "latitude": {{ g_lat | json }}, "longitude": {{ g_lon | json }} },{% endif %}
         {%- if g_phone != blank %}"telephone": {{ g_phone | json }},{% endif %}
         {%- if g_email != blank %}"email": {{ g_email | json }},{% endif %}

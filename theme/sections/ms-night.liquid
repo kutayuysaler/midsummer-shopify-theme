@@ -10,35 +10,35 @@
   <div class="ms-nt__in">
     <div class="ms-nt__head">
       <div>
-        {%- if s.eyebrow != blank -%}<div class="ms-nt__eyebrow">{% render 'ms-t', v: s.eyebrow %}</div>{%- endif -%}
-        <h2 class="ms-nt__title">{% render 'ms-t', v: s.heading %}</h2>
+        {%- if s.eyebrow != blank -%}<div class="ms-nt__eyebrow">{% render 'ms-t', v: s.eyebrow, en: 'eyebrow', sid: section.id %}</div>{%- endif -%}
+        <h2 class="ms-nt__title">{% render 'ms-t', v: s.heading, en: 'heading', sid: section.id %}</h2>
       </div>
-      {%- if s.text != blank -%}<p class="ms-nt__text">{% render 'ms-t', v: s.text %}</p>{%- endif -%}
+      {%- if s.text != blank -%}<p class="ms-nt__text">{% render 'ms-t', v: s.text, en: 'text', sid: section.id %}</p>{%- endif -%}
     </div>
     {%- if nb > 0 -%}
       <div class="ms-nt__sky" aria-hidden="true">
         <svg class="ms-nt__arc" viewBox="0 0 1000 200" preserveAspectRatio="none"><path d="M10 196 Q500 -60 990 196" fill="none" stroke="currentColor" stroke-width="1" vector-effect="non-scaling-stroke" stroke-dasharray="1 7" stroke-linecap="round"/></svg>
         <span class="ms-nt__moon" data-ms-nt-moon></span>
       </div>
-      <div class="ms-nt__line" role="tablist" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.heading %}{% endcapture %}{{ ms_t_out | escape }}">
+      <div class="ms-nt__line" role="tablist" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.heading, en: 'heading', sid: section.id %}{% endcapture %}{{ ms_t_out | escape }}">
         {%- for block in section.blocks -%}
           <button type="button" role="tab" class="ms-nt__hour{% if forloop.first %} is-on{% endif %}" id="nt-{{ section.id }}-{{ forloop.index }}" aria-controls="ntp-{{ section.id }}-{{ forloop.index }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" tabindex="{% if forloop.first %}0{% else %}-1{% endif %}" data-i="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
             <span class="ms-nt__time">{% render 'ms-t', v: block.settings.time, en: 'time', bid: block.id, sid: section.id %}</span>
-            <span class="ms-nt__name">{% render 'ms-t', v: block.settings.name %}</span>
+            <span class="ms-nt__name">{% render 'ms-t', v: block.settings.name, en: 'name', bid: block.id, sid: section.id %}</span>
           </button>
         {%- endfor -%}
       </div>
       <div class="ms-nt__panels">
         {%- for block in section.blocks -%}
           <div class="ms-nt__panel{% if forloop.first %} is-on{% endif %}" role="tabpanel" id="ntp-{{ section.id }}-{{ forloop.index }}" aria-labelledby="nt-{{ section.id }}-{{ forloop.index }}"{% unless forloop.first %} hidden{% endunless %}>
-            <div class="ms-nt__ph"><span>{% render 'ms-t', v: block.settings.time, en: 'time', bid: block.id, sid: section.id %}</span>{% render 'ms-t', v: block.settings.name %}</div>
-            <p>{% render 'ms-t', v: block.settings.text %}</p>
+            <div class="ms-nt__ph"><span>{% render 'ms-t', v: block.settings.time, en: 'time', bid: block.id, sid: section.id %}</span>{% render 'ms-t', v: block.settings.name, en: 'name', bid: block.id, sid: section.id %}</div>
+            <p>{% render 'ms-t', v: block.settings.text, en: 'text', bid: block.id, sid: section.id %}</p>
           </div>
         {%- endfor -%}
       </div>
     {%- endif -%}
     {%- if s.link_label != blank -%}
-      <a class="ms-nt__more" href="{% render 'ms-link', to: 'materials' %}">{% render 'ms-t', v: s.link_label %} <span aria-hidden="true">→</span></a>
+      <a class="ms-nt__more" href="{% render 'ms-link', to: 'materials' %}">{% render 'ms-t', v: s.link_label, en: 'link_label', sid: section.id %} <span aria-hidden="true">→</span></a>
     {%- endif -%}
   </div>
 </section>

@@ -6,7 +6,7 @@
 
 {%- liquid
   capture shop_name
-    render 'ms-t', v: section.settings.legal_name
+    render 'ms-t', v: section.settings.legal_name, en: 'legal_name', sid: section.id
   endcapture
   assign shop_name = shop_name | default: shop.name
   assign logo = section.settings.logo
@@ -19,7 +19,7 @@
       "@type": ["Organization", "FurnitureStore"],
       "@id": "{{ shop.url }}/#organization",
       "name": {{ shop_name | json }},
-      "alternateName": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.alternate_name %}{% endcapture %}{{ ms_t_out | json }},
+      "alternateName": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.alternate_name, en: 'alternate_name', sid: section.id %}{% endcapture %}{{ ms_t_out | json }},
       "url": "{{ shop.url }}",
       {%- if logo != blank %}
       "logo": {
@@ -34,17 +34,17 @@
       "image": "https:{{ 'ms-photo-atelier-blue-gold.jpg' | asset_url }}",
       "foundingLocation": { "@type": "Place", "name": "Milan, Italy" },
       {%- if section.settings.founding_date != blank %}
-      "foundingDate": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.founding_date %}{% endcapture %}{{ ms_t_out | json }},
+      "foundingDate": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.founding_date, en: 'founding_date', sid: section.id %}{% endcapture %}{{ ms_t_out | json }},
       {%- endif %}
       {%- if section.settings.award != blank %}
-      "award": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.award %}{% endcapture %}{{ ms_t_out | json }},
+      "award": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.award, en: 'award', sid: section.id %}{% endcapture %}{{ ms_t_out | json }},
       {%- endif %}
       {%- if section.settings.vat_id != blank %}
       "vatID": {{ section.settings.vat_id | json }},
       {%- endif %}
-      "hasMap": "https://www.google.com/maps/search/?api=1&query={% capture ms_d1 %}{% render 'ms-t', v: section.settings.city %}{% endcapture %}{% capture ms_t_out %}{% render 'ms-t', v: section.settings.street %}{% endcapture %}{{ ms_t_out | append: ', ' | append: section.settings.postal_code | append: ' ' | append: ms_d1 | url_encode }}",
+      "hasMap": "https://www.google.com/maps/search/?api=1&query={% capture ms_d1 %}{% render 'ms-t', v: section.settings.city, en: 'city', sid: section.id %}{% endcapture %}{% capture ms_t_out %}{% render 'ms-t', v: section.settings.street, en: 'street', sid: section.id %}{% endcapture %}{{ ms_t_out | append: ', ' | append: section.settings.postal_code | append: ' ' | append: ms_d1 | url_encode }}",
       {%- if section.settings.founder != blank %}
-      "founder": { "@type": "Person", "name": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.founder %}{% endcapture %}{{ ms_t_out | json }}, "jobTitle": "Founder" },
+      "founder": { "@type": "Person", "name": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.founder, en: 'founder', sid: section.id %}{% endcapture %}{{ ms_t_out | json }}, "jobTitle": "Founder" },
       {%- endif %}
       "contactPoint": {
         "@type": "ContactPoint",
@@ -53,60 +53,60 @@
         {%- if section.settings.telephone != blank %}"telephone": {{ section.settings.telephone | json }},{%- endif %}
         "availableLanguage": ["Italian", "English", "Russian"]
       },
-      "description": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.description %}{% endcapture %}{{ ms_t_out | json }},
-      "slogan": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.slogan %}{% endcapture %}{{ ms_t_out | json }},
+      "description": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.description, en: 'description', sid: section.id %}{% endcapture %}{{ ms_t_out | json }},
+      "slogan": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.slogan, en: 'slogan', sid: section.id %}{% endcapture %}{{ ms_t_out | json }},
       "email": {{ section.settings.email | json }},
       {%- if section.settings.telephone != blank %}
       "telephone": {{ section.settings.telephone | json }},
       {%- endif %}
-      "priceRange": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.price_range %}{% endcapture %}{{ ms_t_out | json }},
-      "currenciesAccepted": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.currencies %}{% endcapture %}{{ ms_t_out | json }},
-      "areaServed": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.area_served %}{% endcapture %}{{ ms_t_out | json }},
+      "priceRange": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.price_range, en: 'price_range', sid: section.id %}{% endcapture %}{{ ms_t_out | json }},
+      "currenciesAccepted": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.currencies, en: 'currencies', sid: section.id %}{% endcapture %}{{ ms_t_out | json }},
+      "areaServed": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.area_served, en: 'area_served', sid: section.id %}{% endcapture %}{{ ms_t_out | json }},
       "knowsAbout": [
-        {%- capture topics %}{% render 'ms-t', v: section.settings.knows_about %}{% endcapture -%}{%- assign topics = topics | split: ',' -%}
+        {%- capture topics %}{% render 'ms-t', v: section.settings.knows_about, en: 'knows_about', sid: section.id %}{% endcapture -%}{%- assign topics = topics | split: ',' -%}
         {%- for topic in topics -%}
           {{ topic | strip | json }}{%- unless forloop.last -%},{%- endunless -%}
         {%- endfor -%}
       ],
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.street %}{% endcapture %}{{ ms_t_out | json }},
-        "addressLocality": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.city %}{% endcapture %}{{ ms_t_out | json }},
+        "streetAddress": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.street, en: 'street', sid: section.id %}{% endcapture %}{{ ms_t_out | json }},
+        "addressLocality": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.city, en: 'city', sid: section.id %}{% endcapture %}{{ ms_t_out | json }},
         "postalCode": {{ section.settings.postal_code | json }},
         "addressCountry": {{ section.settings.country_code | json }}
       },
       {%- if section.settings.latitude != blank and section.settings.longitude != blank %}
       "geo": {
         "@type": "GeoCoordinates",
-        "latitude": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.latitude %}{% endcapture %}{{ ms_t_out | json }},
-        "longitude": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.longitude %}{% endcapture %}{{ ms_t_out | json }}
+        "latitude": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.latitude, en: 'latitude', sid: section.id %}{% endcapture %}{{ ms_t_out | json }},
+        "longitude": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.longitude, en: 'longitude', sid: section.id %}{% endcapture %}{{ ms_t_out | json }}
       },
       {%- endif %}
       "openingHoursSpecification": [
         {
           "@type": "OpeningHoursSpecification",
           "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-          "opens": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.opens_morning %}{% endcapture %}{{ ms_t_out | json }},
-          "closes": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.closes_morning %}{% endcapture %}{{ ms_t_out | json }}
+          "opens": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.opens_morning, en: 'opens_morning', sid: section.id %}{% endcapture %}{{ ms_t_out | json }},
+          "closes": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.closes_morning, en: 'closes_morning', sid: section.id %}{% endcapture %}{{ ms_t_out | json }}
         },
         {
           "@type": "OpeningHoursSpecification",
           "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-          "opens": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.opens_afternoon %}{% endcapture %}{{ ms_t_out | json }},
-          "closes": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.closes_afternoon %}{% endcapture %}{{ ms_t_out | json }}
+          "opens": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.opens_afternoon, en: 'opens_afternoon', sid: section.id %}{% endcapture %}{{ ms_t_out | json }},
+          "closes": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.closes_afternoon, en: 'closes_afternoon', sid: section.id %}{% endcapture %}{{ ms_t_out | json }}
         }
       ],
       "makesOffer": {
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
-          "name": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.service_name %}{% endcapture %}{{ ms_t_out | json }},
-          "description": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.service_description %}{% endcapture %}{{ ms_t_out | json }}
+          "name": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.service_name, en: 'service_name', sid: section.id %}{% endcapture %}{{ ms_t_out | json }},
+          "description": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.service_description, en: 'service_description', sid: section.id %}{% endcapture %}{{ ms_t_out | json }}
         }
       },
       {%- liquid
         capture profiles
-          render 'ms-t', v: section.settings.same_as
+          render 'ms-t', v: section.settings.same_as, en: 'same_as', sid: section.id
         endcapture
         assign profiles = profiles | append: ',' | append: settings.ms_social_instagram | append: ',' | append: settings.ms_social_facebook | append: ',' | append: settings.ms_social_pinterest | append: ',' | append: settings.ms_social_linkedin | append: ',' | append: settings.ms_social_youtube | append: ',' | append: settings.ms_social_tiktok | append: ',' | append: settings.ms_social_telegram | append: ',' | append: settings.ms_social_vk
         assign profiles = profiles | split: ',' | compact | uniq
@@ -168,7 +168,7 @@
           {
             "@type": "ListItem",
             "position": 1,
-            "name": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.home_label %}{% endcapture %}{{ ms_t_out | json }},
+            "name": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.home_label, en: 'home_label', sid: section.id %}{% endcapture %}{{ ms_t_out | json }},
             "item": "{{ shop.url }}"
           },
           {%- if crumbs == 'product' -%}
@@ -254,17 +254,17 @@
       {%- if product.metafields.custom.materials != blank -%}
       "material": {{ product.metafields.custom.materials | metafield_text | strip_html | truncate: 200 | json }},
       {%- endif -%}
-      "countryOfOrigin": { "@type": "Country", "name": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.country_of_origin %}{% endcapture %}{{ ms_t_out | json }} },
+      "countryOfOrigin": { "@type": "Country", "name": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.country_of_origin, en: 'country_of_origin', sid: section.id %}{% endcapture %}{{ ms_t_out | json }} },
       "additionalProperty": [
         {
           "@type": "PropertyValue",
-          "name": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.made_label %}{% endcapture %}{{ ms_t_out | json }},
-          "value": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.made_value %}{% endcapture %}{{ ms_t_out | json }}
+          "name": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.made_label, en: 'made_label', sid: section.id %}{% endcapture %}{{ ms_t_out | json }},
+          "value": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.made_value, en: 'made_value', sid: section.id %}{% endcapture %}{{ ms_t_out | json }}
         },
         {
           "@type": "PropertyValue",
-          "name": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.customisation_label %}{% endcapture %}{{ ms_t_out | json }},
-          "value": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.customisation_value %}{% endcapture %}{{ ms_t_out | json }}
+          "name": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.customisation_label, en: 'customisation_label', sid: section.id %}{% endcapture %}{{ ms_t_out | json }},
+          "value": {% capture ms_t_out %}{% render 'ms-t', v: section.settings.customisation_value, en: 'customisation_value', sid: section.id %}{% endcapture %}{{ ms_t_out | json }}
         }
       ]
       {%- if settings.ms_show_prices and section.settings.price_on_request == false and product.price > 0 -%},

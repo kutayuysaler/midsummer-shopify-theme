@@ -59,7 +59,7 @@
       render 'ms-img', image: block.settings.image, fallback: block.settings.image_fallback, en: 'image_fallback', bid: block.id, sid: section.id, width: 1600
     endcapture
     capture cap
-      render 'ms-t', v: block.settings.caption
+      render 'ms-t', v: block.settings.caption, en: 'caption', bid: block.id, sid: section.id
     endcapture
     assign wide = ''
     if ar > 1.2
@@ -103,12 +103,12 @@
     assign rows = rows | append: '<div class="ms-gl__row" style="--n: ' | append: n | append: '; --den: ' | append: den | append: ';">' | append: rowbuf | append: '</div>'
   endif
 -%}
-<section class="ms-gl" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: section.settings.heading %}{% endcapture %}{% capture ms_l44 %}{% render 'ms-t', v: 'Photographs' %}{% endcapture %}{{ ms_t_out | default: ms_l44 | strip | escape }}">
+<section class="ms-gl" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: section.settings.heading, en: 'heading', sid: section.id %}{% endcapture %}{% capture ms_l44 %}{% render 'ms-t', v: 'Photographs' %}{% endcapture %}{{ ms_t_out | default: ms_l44 | strip | escape }}">
   <div class="ms-gl__in">
     {%- if section.settings.heading != blank -%}
       <div class="ms-gl__head">
-        {%- if section.settings.eyebrow != blank -%}<div class="ms-gl__eyebrow">{% render 'ms-t', v: section.settings.eyebrow %}</div>{%- endif -%}
-        <h2 class="ms-gl__heading">{% render 'ms-t', v: section.settings.heading %}</h2>
+        {%- if section.settings.eyebrow != blank -%}<div class="ms-gl__eyebrow">{% render 'ms-t', v: section.settings.eyebrow, en: 'eyebrow', sid: section.id %}</div>{%- endif -%}
+        <h2 class="ms-gl__heading">{% render 'ms-t', v: section.settings.heading, en: 'heading', sid: section.id %}</h2>
       </div>
     {%- endif -%}
     <div class="ms-gl__rows">{{ rows }}</div>

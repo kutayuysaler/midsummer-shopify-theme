@@ -39,10 +39,10 @@
 <section class="ms-rel">
   <div class="ms-rel__head">
     <div>
-      {%- if s.eyebrow != blank -%}<p class="ms-rel__eyebrow">{% render 'ms-t', v: s.eyebrow %}</p>{%- endif -%}
+      {%- if s.eyebrow != blank -%}<p class="ms-rel__eyebrow">{% render 'ms-t', v: s.eyebrow, en: 'eyebrow', sid: section.id %}</p>{%- endif -%}
       <h2 class="ms-rel__title">{{ tname }}</h2>
     </div>
-    {%- if s.link != blank -%}<a class="ms-rel__all" href="{{ tier.url }}">{% capture ms_t_out %}{% render 'ms-t', v: s.link %}{% endcapture %}{{ ms_t_out | replace: '[collection]', tname }}<span aria-hidden="true">→</span></a>{%- endif -%}
+    {%- if s.link != blank -%}<a class="ms-rel__all" href="{{ tier.url }}">{% capture ms_t_out %}{% render 'ms-t', v: s.link, en: 'link', sid: section.id %}{% endcapture %}{{ ms_t_out | replace: '[collection]', tname }}<span aria-hidden="true">→</span></a>{%- endif -%}
   </div>
   <div class="ms-rel__grid">
     {%- assign picked = ',' -%}
@@ -69,27 +69,27 @@
           case what
             when 'system'
               capture wl
-                render 'ms-t', v: s.what_system
+                render 'ms-t', v: s.what_system, en: 'what_system', sid: section.id
               endcapture
             when 'mattress'
               capture wl
-                render 'ms-t', v: s.what_mattress
+                render 'ms-t', v: s.what_mattress, en: 'what_mattress', sid: section.id
               endcapture
             when 'topper'
               capture wl
-                render 'ms-t', v: s.what_topper
+                render 'ms-t', v: s.what_topper, en: 'what_topper', sid: section.id
               endcapture
             when 'boxspring'
               capture wl
-                render 'ms-t', v: s.what_boxspring
+                render 'ms-t', v: s.what_boxspring, en: 'what_boxspring', sid: section.id
               endcapture
             when 'headboard'
               capture wl
-                render 'ms-t', v: s.what_headboard
+                render 'ms-t', v: s.what_headboard, en: 'what_headboard', sid: section.id
               endcapture
             when 'outdoor'
               capture wl
-                render 'ms-t', v: s.what_outdoor
+                render 'ms-t', v: s.what_outdoor, en: 'what_outdoor', sid: section.id
               endcapture
             else
               assign wl = ''

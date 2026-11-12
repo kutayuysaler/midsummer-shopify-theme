@@ -48,8 +48,9 @@ then **Preview**.
 - **Agents & Resellers** keeps its template (`page.agents-resellers`, with
   `page.agents-and-resellers` as a copy), and the default page template shows it too, so
   the map appears whichever template the page has. The map's code and world outline are
-  written into the page itself, so it never waits on another file. It shows all 16 places from your current store
-  locator; the old section held 13 of them in its own code and the other 5 as blocks:
+  written into the page itself, so it never waits on another file. It shows 18 places: the 16 from the old
+  theme's store locator (13 in its own code and 5 as blocks), and since Round 36 Cripe and Kompitsis in
+  Athens (§57):
   - **The atelier:** Midsummer Milano, Milan.
   - **Showrooms:** bredaquaranta, Bergomi Milano, Bergomi Monza, Villa Arredamenti
     (Colnago), Vago Arredamenti (Barlassina), WWTS London, HH Solutions (Warsaw), WWTS
@@ -57,6 +58,7 @@ then **Preview**.
   - **Boutiques:** Berenice in Cannigione and Porto Cervo, and Passerini Design in Palm
     Beach.
   - **Agents:** COSE & COSE (San Marino) and In Made (Hong Kong).
+  - **Greece (Round 36):** Cripe (Chalandri, Athens) and Kompitsis Design Culture (Voula, Athens).
   - **Corrections:** Cannigione now sits in Cannigione (its old marker was about 6 km
     east, near Porto Cervo), and Palm Beach's street reads N County Rd.
   - **Editing:** each place is a block, with its address, telephone, email, website and
@@ -3329,3 +3331,89 @@ The film used to play from its original upload (`…/videos/c/o/v/6402710d….mo
 1. **The Press page in Italian:** title *Stampa*, every mark shown, no errors. Each mark opens its publication.
 2. **A wrong address** (for example `/blogs/xyz`): the 404 page shows `/blogs/xyz` beside *404*.
 3. **The home page on a phone:** the poster shows at once and the film follows.
+
+## 57. Round 36: every word in Italian and Russian is the theme's own, Athens on the map, the 2026 film
+
+### Wording: the theme's translations always win
+
+Until now a translation saved in Translate & Adapt replaced the theme's own wording in Italian and Russian:
+
+- *Libro* for *Prenota*;
+- *Quattro passaggi, al tuo ritmo*;
+- *Premere* for *Stampa*.
+
+Now every text that a template holds (headings, paragraphs, questions and answers, labels, buttons, captions) shows the theme's own translation, whatever Translate & Adapt holds for it.
+
+- **How.** Every text a template holds is recorded in the theme by its place (the page, the section, the block and the setting), with the English it was built with (`snippets/ms-tx-map.liquid`).
+  - When a page meets a text it does not recognise, Translate & Adapt has replaced it. The theme then shows its own translation of the English that belongs there.
+  - Names, addresses, figures and codes that stay as they are (a stockist's address, a Loro Piana reference, a height) are recorded as translations of themselves, so a machine translation cannot replace them either.
+- **Cost.** A page whose texts are the theme's own never reads the record, so normal visits are as fast as before.
+- **English is never changed.**
+- **Translate & Adapt.** There is no need to empty its theme translations (§55) any more; they no longer show. It is still better not to run *Auto translate* on the theme.
+- **Not covered.** Translate & Adapt still controls the store's own content, which it should:
+  - product titles and descriptions;
+  - blog articles;
+  - pages written in the admin;
+  - menus;
+  - collection titles.
+- **Editing.** A text changed in the editor shows in English at once. In Italian and Russian, the page keeps the translation of the text it was built with until the change is in the build. Send it to me, as with any other change.
+- **Translations that were missing.** These were printed in English on Italian and Russian pages:
+  - *Overall height* (sizes table), now *Altezza totale* / *Общая высота*;
+  - *Article* (Loro Piana references), now *Articolo* / *Артикул*.
+
+  Also, the stockists' *Please introduce me to …* note now names the city in the visitor's language, and the fibre drawings' descriptions name the fibre in Italian or Russian.
+- **Values the theme reads, not shows.** A few more are now protected:
+  - the fibre names that choose a product's fibre icons and links;
+  - the fibre atlas's marks;
+  - the home page's enquiry link;
+  - the Loro Piana codes.
+- **Rebuilding.** `scripts/en_guard.py` writes both records (`ms-en-map` for values, `ms-tx-map` for texts) and refuses to finish if a template holds an unprotected file, address, number or key.
+
+### Athens on the map
+
+The old site's agents and resellers came from two places: the store locator code in the theme, and the *GA Store Locator Map* app. The app keeps its own list on its own servers, which this theme cannot read, so its places were never carried over (§55). The two you named are now on the map, in all four templates that carry it:
+
+| | Cripe | Kompitsis Design Culture |
+|---|---|---|
+| Kind | Showroom | Showroom |
+| Address | Leoforos Kifisias 194, 15231 Chalandri, Athens | Nafsikas 24, 16673 Voula, Athens |
+| Telephone | +30 210 6775 780 | +30 695 663 3535 |
+| Email | athens.sales@cripe.gr | — |
+| Website | cripe.gr | kompitsis.com |
+| Source | Cripe's own site (showroom page) and our invoices (December 2023) | Time & Style's list of stockists and our invoices and delivery notes (July–September 2026) |
+
+- **Map positions are approximate.** No map service could be reached from here, so each pin sits on its street within a few hundred metres.
+  - Open each in the editor, check the pin, and send me any correction.
+  - Edits there show in English at once; in Italian and Russian they show once the correction is in the build.
+- **Greece** now appears in the country lists:
+  - the Questions page, *Where can I see Midsummer beds outside Milan?*;
+  - the Facts page, *Where to see the beds*;
+  - the summary for AI assistants.
+
+  Italian and Russian included.
+- **Any other places** that were in the app: send the app's export (*Apps → GA Store Locator Map → locations → Export*) and I'll add them all.
+
+### The 2026 film
+
+The home page now chooses *Midsummer Milano - Website video 2026.mp4* from Files, so Shopify's web copies are used (§56). The film is 36 MB as uploaded.
+
+- **Fallback.** Its address (`…/videos/c/o/v/427128e9….mp4`) is kept as the fallback.
+- **If the name in *Content → Files* is different,** the editor shows no film chosen under *Film (from Files)*. The fallback then plays after the page has loaded. Choose the film there and send me its name.
+
+### Checks
+
+| Check | Result |
+|---|---|
+| Every template rendered in English, before and after | identical |
+| Every template rendered in Italian, before and after | identical, except the translations that were missing (above) and the new places |
+| Italian with every text a template holds scrambled, as a machine translation would | 70 pages changed before; none now |
+| Russian, the same | none |
+| Header and footer | hold no settings of their own, so nothing for Translate & Adapt to replace |
+| Liquid errors | none |
+| Italian render time | as before for normal pages; about a third more only where Translate & Adapt has replaced texts |
+
+### After installing, check
+
+1. **The Milano atelier in Italian:** *Prenota, Sdraiati, Tocca, Specifica*, *Quattro passi, con i tuoi tempi.*, the three photographs. This holds even with Translate & Adapt's old translations still saved.
+2. **Agents & Resellers:** Cripe and Kompitsis in Greece, with their pins near Athens.
+3. **The home page:** in *Customize*, the first section shows the 2026 film chosen under *Film (from Files)*.

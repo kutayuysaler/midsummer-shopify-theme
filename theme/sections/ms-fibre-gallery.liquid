@@ -8,16 +8,16 @@
 <section class="ms-fg" id="ms-fg-{{ section.id }}" aria-labelledby="ms-fg-h-{{ section.id }}">
   <div class="ms-fg__wrap">
     <div class="ms-fg__side">
-      {%- if s.eyebrow != blank -%}<div class="ms-fg__eyebrow">{% render 'ms-t', v: s.eyebrow %}</div>{%- endif -%}
-      <h2 class="ms-fg__h" id="ms-fg-h-{{ section.id }}">{% render 'ms-t', v: s.heading %}</h2>
-      {%- if s.text != blank -%}<p class="ms-fg__text">{% render 'ms-t', v: s.text %}</p>{%- endif -%}
+      {%- if s.eyebrow != blank -%}<div class="ms-fg__eyebrow">{% render 'ms-t', v: s.eyebrow, en: 'eyebrow', sid: section.id %}</div>{%- endif -%}
+      <h2 class="ms-fg__h" id="ms-fg-h-{{ section.id }}">{% render 'ms-t', v: s.heading, en: 'heading', sid: section.id %}</h2>
+      {%- if s.text != blank -%}<p class="ms-fg__text">{% render 'ms-t', v: s.text, en: 'text', sid: section.id %}</p>{%- endif -%}
       <ol class="ms-fg__index" role="list">
         {%- for b in section.blocks -%}
           <li {{ b.shopify_attributes }}>
             <button type="button" class="ms-fg__pick{% if forloop.first %} is-on{% endif %}" data-ms-fg-to="{{ forloop.index0 }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">
               <span class="ms-fg__no">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
-              <span class="ms-fg__nm">{% render 'ms-t', v: b.settings.name %}</span>
-              {%- if b.settings.latin != blank -%}<span class="ms-fg__la">{% render 'ms-t', v: b.settings.latin %}</span>{%- endif -%}
+              <span class="ms-fg__nm">{% render 'ms-t', v: b.settings.name, en: 'name', bid: b.id, sid: section.id %}</span>
+              {%- if b.settings.latin != blank -%}<span class="ms-fg__la">{% render 'ms-t', v: b.settings.latin, en: 'latin', bid: b.id, sid: section.id %}</span>{%- endif -%}
             </button>
           </li>
         {%- endfor -%}
@@ -41,13 +41,13 @@
           -%}
           <figure class="ms-fg__slide{% if forloop.first %} is-on{% endif %}" data-ms-fg-slide="{{ forloop.index0 }}"{% unless forloop.first %} aria-hidden="true"{% endunless %}>
             {%- if src != blank -%}
-              <img src="{{ src_sm }}"{% if bs.image != blank %} style="filter: grayscale(1) sepia(.42) contrast(1.05) brightness(1.03) !important;"{% endif %} srcset="{{ src_sm }} 720w, {{ src }} 1400w" sizes="(min-width: 900px) 52vw, 100vw" alt="{% capture ms_d1 %}{% render 'ms-t', v: bs.name %}{% endcapture %}{% capture ms_t_out %}{% render 'ms-t', v: bs.alt %}{% endcapture %}{{ ms_t_out | default: ms_d1 | escape }}" width="1400" height="1400" loading="{% if forloop.first %}lazy{% else %}lazy{% endif %}" decoding="async">
+              <img src="{{ src_sm }}"{% if bs.image != blank %} style="filter: grayscale(1) sepia(.42) contrast(1.05) brightness(1.03) !important;"{% endif %} srcset="{{ src_sm }} 720w, {{ src }} 1400w" sizes="(min-width: 900px) 52vw, 100vw" alt="{% capture ms_d1 %}{% render 'ms-t', v: bs.name, en: 'name', bid: b.id, sid: section.id %}{% endcapture %}{% capture ms_t_out %}{% render 'ms-t', v: bs.alt, en: 'alt', bid: b.id, sid: section.id %}{% endcapture %}{{ ms_t_out | default: ms_d1 | escape }}" width="1400" height="1400" loading="{% if forloop.first %}lazy{% else %}lazy{% endif %}" decoding="async">
             {%- endif -%}
             <figcaption class="ms-fg__cap">
-              <span class="ms-fg__capno">{% render 'ms-t', v: s.plate_label %} {{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
-              <span class="ms-fg__capnm">{% render 'ms-t', v: bs.name %}{%- if bs.latin != blank -%} <i>{% render 'ms-t', v: bs.latin %}</i>{%- endif -%}</span>
-              {%- if bs.line != blank -%}<span class="ms-fg__capln">{% render 'ms-t', v: bs.line %}</span>{%- endif -%}
-              {%- if bs.origin != blank -%}<span class="ms-fg__capor">{% render 'ms-t', v: bs.origin %}</span>{%- endif -%}
+              <span class="ms-fg__capno">{% render 'ms-t', v: s.plate_label, en: 'plate_label', sid: section.id %} {{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+              <span class="ms-fg__capnm">{% render 'ms-t', v: bs.name, en: 'name', bid: b.id, sid: section.id %}{%- if bs.latin != blank -%} <i>{% render 'ms-t', v: bs.latin, en: 'latin', bid: b.id, sid: section.id %}</i>{%- endif -%}</span>
+              {%- if bs.line != blank -%}<span class="ms-fg__capln">{% render 'ms-t', v: bs.line, en: 'line', bid: b.id, sid: section.id %}</span>{%- endif -%}
+              {%- if bs.origin != blank -%}<span class="ms-fg__capor">{% render 'ms-t', v: bs.origin, en: 'origin', bid: b.id, sid: section.id %}</span>{%- endif -%}
             </figcaption>
           </figure>
         {%- endfor -%}

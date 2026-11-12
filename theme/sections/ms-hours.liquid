@@ -6,20 +6,20 @@
 {%- liquid
   assign s = section.settings
   capture days
-    render 'ms-t', v: s.days
+    render 'ms-t', v: s.days, en: 'days', sid: section.id
   endcapture
   assign days = days | split: ','
 -%}
-<section class="ms-hr" id="ms-hr-{{ section.id }}" aria-labelledby="ms-hr-h-{{ section.id }}" data-am="{{ s.am_open }}-{{ s.am_close }}" data-pm="{{ s.pm_open }}-{{ s.pm_close }}" data-days="{% render 'ms-t', v: s.open_days %}">
+<section class="ms-hr" id="ms-hr-{{ section.id }}" aria-labelledby="ms-hr-h-{{ section.id }}" data-am="{{ s.am_open }}-{{ s.am_close }}" data-pm="{{ s.pm_open }}-{{ s.pm_close }}" data-days="{% render 'ms-t', v: s.open_days, en: 'open_days', sid: section.id %}">
   <div class="ms-hr__wrap">
     <div class="ms-hr__plate">
-      {%- if s.eyebrow != blank -%}<div class="ms-hr__eyebrow">{% render 'ms-t', v: s.eyebrow %}</div>{%- endif -%}
-      <h2 class="ms-hr__h" id="ms-hr-h-{{ section.id }}">{% render 'ms-t', v: s.heading %}</h2>
-      <address class="ms-hr__addr">{% capture ms_t_out %}{% render 'ms-t', v: s.address %}{% endcapture %}{{ ms_t_out | newline_to_br }}</address>
-      <p class="ms-hr__now" data-ms-hr-now aria-live="polite">{% render 'ms-t', v: s.appointment_note %}</p>
+      {%- if s.eyebrow != blank -%}<div class="ms-hr__eyebrow">{% render 'ms-t', v: s.eyebrow, en: 'eyebrow', sid: section.id %}</div>{%- endif -%}
+      <h2 class="ms-hr__h" id="ms-hr-h-{{ section.id }}">{% render 'ms-t', v: s.heading, en: 'heading', sid: section.id %}</h2>
+      <address class="ms-hr__addr">{% capture ms_t_out %}{% render 'ms-t', v: s.address, en: 'address', sid: section.id %}{% endcapture %}{{ ms_t_out | newline_to_br }}</address>
+      <p class="ms-hr__now" data-ms-hr-now aria-live="polite">{% render 'ms-t', v: s.appointment_note, en: 'appointment_note', sid: section.id %}</p>
       <div class="ms-hr__links">
-        <a class="ms-hr__btn" href="{% render 'ms-link', to: 'enquire' %}">{% render 'ms-t', v: s.book_label %}</a>
-        {%- if s.map_url != blank -%}<a class="ms-hr__map" href="{{ s.map_url }}" target="_blank" rel="noopener">{% render 'ms-t', v: s.map_label %}<svg viewBox="0 0 20 10" width="20" height="10" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><path d="M0 5h18M14 1l4 4-4 4"/></svg></a>{%- endif -%}
+        <a class="ms-hr__btn" href="{% render 'ms-link', to: 'enquire' %}">{% render 'ms-t', v: s.book_label, en: 'book_label', sid: section.id %}</a>
+        {%- if s.map_url != blank -%}<a class="ms-hr__map" href="{{ s.map_url }}" target="_blank" rel="noopener">{% render 'ms-t', v: s.map_label, en: 'map_label', sid: section.id %}<svg viewBox="0 0 20 10" width="20" height="10" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><path d="M0 5h18M14 1l4 4-4 4"/></svg></a>{%- endif -%}
       </div>
     </div>
     <figure class="ms-hr__week">
@@ -37,13 +37,13 @@
               <span class="ms-hr__bar" style="left: {{ a0 }}%; width: {{ a1 }}%"></span>
               <span class="ms-hr__bar" style="left: {{ p0 }}%; width: {{ p1 }}%"></span>
             {%- else -%}
-              <span class="ms-hr__off">{% render 'ms-t', v: s.closed_label %}</span>
+              <span class="ms-hr__off">{% render 'ms-t', v: s.closed_label, en: 'closed_label', sid: section.id %}</span>
             {%- endif -%}
             <span class="ms-hr__nowline" hidden></span>
           </div>
         </div>
       {%- endfor -%}
-      <figcaption class="ms-hr__fc">{% render 'ms-t', v: s.footnote %}</figcaption>
+      <figcaption class="ms-hr__fc">{% render 'ms-t', v: s.footnote, en: 'footnote', sid: section.id %}</figcaption>
     </figure>
   </div>
 </section>
@@ -109,7 +109,7 @@
     }
     var now = root.querySelector('[data-ms-hr-now]');
     var hhmm = get('hour') + ':' + get('minute');
-    now.innerHTML = '<i class="' + (open ? 'is-open' : '') + '"></i><span><b>' + (open ? {% capture ms_t_out %}{% render 'ms-t', v: s.open_label %}{% endcapture %}{{ ms_t_out | json }} : {% capture ms_t_out %}{% render 'ms-t', v: s.closed_now_label %}{% endcapture %}{{ ms_t_out | json }}) + '</b> · ' + {% capture ms_t_out %}{% render 'ms-t', v: s.milan_label %}{% endcapture %}{{ ms_t_out | json }} + ' ' + hhmm + '. ' + {% capture ms_t_out %}{% render 'ms-t', v: s.appointment_note %}{% endcapture %}{{ ms_t_out | json }} + '</span>';
+    now.innerHTML = '<i class="' + (open ? 'is-open' : '') + '"></i><span><b>' + (open ? {% capture ms_t_out %}{% render 'ms-t', v: s.open_label, en: 'open_label', sid: section.id %}{% endcapture %}{{ ms_t_out | json }} : {% capture ms_t_out %}{% render 'ms-t', v: s.closed_now_label, en: 'closed_now_label', sid: section.id %}{% endcapture %}{{ ms_t_out | json }}) + '</b> · ' + {% capture ms_t_out %}{% render 'ms-t', v: s.milan_label, en: 'milan_label', sid: section.id %}{% endcapture %}{{ ms_t_out | json }} + ' ' + hhmm + '. ' + {% capture ms_t_out %}{% render 'ms-t', v: s.appointment_note, en: 'appointment_note', sid: section.id %}{% endcapture %}{{ ms_t_out | json }} + '</span>';
   })();
 </script>
 

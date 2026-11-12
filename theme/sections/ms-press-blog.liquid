@@ -38,12 +38,12 @@
 -%}
 <section class="ms-pb">
   <header class="ms-pb__head">
-    <div class="ms-pb__eyebrow">{% render 'ms-t', v: section.settings.eyebrow %}</div>
+    <div class="ms-pb__eyebrow">{% render 'ms-t', v: section.settings.eyebrow, en: 'eyebrow', sid: section.id %}</div>
     {%- if here and here_logo != blank -%}
       <img class="ms-pb__logo" src="{{ here_logo | asset_url }}" alt="{{ pub | escape }}" width="320" height="80">
     {%- endif -%}
     <h1 class="ms-pb__title">{{ pub }}</h1>
-    {%- if bn > 0 -%}<p class="ms-pb__count">{{ bn }} {% if bn == 1 %}{% render 'ms-t', v: section.settings.one_piece %}{% else %}{% render 'ms-t', v: section.settings.pieces %}{% endif %}</p>{%- endif -%}
+    {%- if bn > 0 -%}<p class="ms-pb__count">{{ bn }} {% if bn == 1 %}{% render 'ms-t', v: section.settings.one_piece, en: 'one_piece', sid: section.id %}{% else %}{% render 'ms-t', v: section.settings.pieces, en: 'pieces', sid: section.id %}{% endif %}</p>{%- endif -%}
   </header>
 
   {%- unless is_index and bn == 0 -%}
@@ -61,17 +61,17 @@
         <span class="ms-pb__meta">{% render 'ms-date', d: article.published_at, cap: true %}</span>
         <span class="ms-pb__ptitle">{{ article.title }}</span>
         {%- if article.excerpt != blank -%}<span class="ms-pb__excerpt">{{ article.excerpt | strip_html | truncatewords: 26 }}</span>{%- endif -%}
-        <span class="ms-pb__read">{% render 'ms-t', v: section.settings.read_label %}</span>
+        <span class="ms-pb__read">{% render 'ms-t', v: section.settings.read_label, en: 'read_label', sid: section.id %}</span>
       </a>
     {%- else -%}
-      <p class="ms-pb__empty">{% render 'ms-t', v: section.settings.empty %}</p>
+      <p class="ms-pb__empty">{% render 'ms-t', v: section.settings.empty, en: 'empty', sid: section.id %}</p>
     {%- endfor -%}
   </div>
   {%- if paginate.pages > 1 -%}
     <nav class="ms-pb__pages" aria-label="{% render 'ms-t', v: 'Pages' %}">
-      {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">{% render 'ms-t', v: section.settings.prev_label %}</a>{%- endif -%}
+      {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">{% render 'ms-t', v: section.settings.prev_label, en: 'prev_label', sid: section.id %}</a>{%- endif -%}
       <span>{{ paginate.current_page }} / {{ paginate.pages }}</span>
-      {%- if paginate.next -%}<a href="{{ paginate.next.url }}">{% render 'ms-t', v: section.settings.next_label %}</a>{%- endif -%}
+      {%- if paginate.next -%}<a href="{{ paginate.next.url }}">{% render 'ms-t', v: section.settings.next_label, en: 'next_label', sid: section.id %}</a>{%- endif -%}
     </nav>
   {%- endif -%}
   {%- endpaginate -%}
@@ -79,7 +79,7 @@
 
   {%- if section.blocks.size > 1 -%}
   <div class="ms-pb__others{% if is_index and bn == 0 %} is-index{% endif %}">
-    {%- unless is_index and bn == 0 -%}<div class="ms-pb__label">{% render 'ms-t', v: section.settings.others_label %}</div>{%- endunless -%}
+    {%- unless is_index and bn == 0 -%}<div class="ms-pb__label">{% render 'ms-t', v: section.settings.others_label, en: 'others_label', sid: section.id %}</div>{%- endunless -%}
     <ul class="ms-pb__logos" role="list">
       {%- for block in section.blocks -%}
         {%- capture g_link -%}{% render 'ms-en', v: block.settings.link, id: 'link', bid: block.id, sid: section.id %}{%- endcapture -%}

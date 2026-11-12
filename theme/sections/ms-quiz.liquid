@@ -23,7 +23,7 @@
     assign qtag = 'p'
   endif
 -%}
-{% capture ms_d1 %}{% render 'ms-t', v: section.settings.label %}{% endcapture %}{% capture ms_d2 %}{% render 'ms-t', v: section.settings.result_label %}{% endcapture %}{%- render 'ms-quiz', tag: qtag, label: ms_d1, result_label: ms_d2 -%}
+{% capture ms_d1 %}{% render 'ms-t', v: section.settings.label, en: 'label', sid: section.id %}{% endcapture %}{% capture ms_d2 %}{% render 'ms-t', v: section.settings.result_label, en: 'result_label', sid: section.id %}{% endcapture %}{%- render 'ms-quiz', tag: qtag, label: ms_d1, result_label: ms_d2 -%}
 {%- endif -%}
 {% schema %}
 {

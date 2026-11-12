@@ -20,18 +20,18 @@
 <section class="ms-pd">
   <div class="ms-pd__in">
     <div class="ms-pd__text">
-      <div class="ms-pd__eye">{% render 'ms-t', v: section.settings.t1 %}</div>
-      <h2 class="ms-pd__h">{% render 'ms-t', v: section.settings.t2 %}</h2>
-      <p class="ms-pd__p">{% render 'ms-t', v: section.settings.t3 %}</p>
+      <div class="ms-pd__eye">{% render 'ms-t', v: section.settings.t1, en: 't1', sid: section.id %}</div>
+      <h2 class="ms-pd__h">{% render 'ms-t', v: section.settings.t2, en: 't2', sid: section.id %}</h2>
+      <p class="ms-pd__p">{% render 'ms-t', v: section.settings.t3, en: 't3', sid: section.id %}</p>
       <ol class="ms-pd__steps" role="list">
         {%- for i in (1..3) -%}
           {%- assign kt = 'step' | append: i | append: '_title' -%}{%- assign kx = 'step' | append: i | append: '_text' -%}
-          {%- if section.settings[kt] != blank -%}<li><span class="ms-pd__n">0{{ i }}</span><span><b>{% render 'ms-t', v: section.settings[kt] %}</b>{% render 'ms-t', v: section.settings[kx] %}</span></li>{%- endif -%}
+          {%- if section.settings[kt] != blank -%}<li><span class="ms-pd__n">0{{ i }}</span><span><b>{% render 'ms-t', v: section.settings[kt], en: kt, sid: section.id %}</b>{% render 'ms-t', v: section.settings[kx], en: kx, sid: section.id %}</span></li>{%- endif -%}
         {%- endfor -%}
       </ol>
       <div class="ms-pd__ctas">
-        <a class="ms-pd__btn" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=trade' %}#enquire" data-ms-landing>{% render 'ms-t', v: section.settings.t4 %}</a>
-        <a class="ms-pd__link" data-ms-enquire="" href="{% render 'ms-link', to: 'contact' %}">{% render 'ms-t', v: section.settings.t5 %}</a>
+        <a class="ms-pd__btn" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=trade' %}#enquire" data-ms-landing>{% render 'ms-t', v: section.settings.t4, en: 't4', sid: section.id %}</a>
+        <a class="ms-pd__link" data-ms-enquire="" href="{% render 'ms-link', to: 'contact' %}">{% render 'ms-t', v: section.settings.t5, en: 't5', sid: section.id %}</a>
       </div>
     </div>
     <figure class="ms-pd__fig">

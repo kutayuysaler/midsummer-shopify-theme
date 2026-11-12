@@ -6,22 +6,22 @@
 <section class="ms-lt">
   <div class="ms-lt__in">
     <div>
-      <div class="ms-lt__eyebrow">{% render 'ms-t', v: s.eyebrow %}</div>
-      <h2 class="ms-lt__title">{% render 'ms-t', v: s.heading %}</h2>
-      {%- if s.text != blank -%}<p class="ms-lt__text">{% render 'ms-t', v: s.text %}</p>{%- endif -%}
+      <div class="ms-lt__eyebrow">{% render 'ms-t', v: s.eyebrow, en: 'eyebrow', sid: section.id %}</div>
+      <h2 class="ms-lt__title">{% render 'ms-t', v: s.heading, en: 'heading', sid: section.id %}</h2>
+      {%- if s.text != blank -%}<p class="ms-lt__text">{% render 'ms-t', v: s.text, en: 'text', sid: section.id %}</p>{%- endif -%}
     </div>
     {%- form 'customer', id: 'ms-letters', class: 'ms-lt__form' -%}
       <input type="hidden" name="contact[tags]" value="newsletter">
       {%- if form.posted_successfully? -%}
-        <p class="ms-lt__ok" role="status">{% render 'ms-t', v: s.thanks %}</p>
+        <p class="ms-lt__ok" role="status">{% render 'ms-t', v: s.thanks, en: 'thanks', sid: section.id %}</p>
       {%- else -%}
         <div class="ms-lt__field">
-          <label class="ms-visually-hidden" for="ms-letters-email">{% render 'ms-t', v: s.placeholder %}</label>
-          <input id="ms-letters-email" type="email" name="contact[email]" required autocomplete="email" placeholder="{% capture ms_t_out %}{% render 'ms-t', v: s.placeholder %}{% endcapture %}{{ ms_t_out | escape }}">
-          <button type="submit">{% render 'ms-t', v: s.button %}</button>
+          <label class="ms-visually-hidden" for="ms-letters-email">{% render 'ms-t', v: s.placeholder, en: 'placeholder', sid: section.id %}</label>
+          <input id="ms-letters-email" type="email" name="contact[email]" required autocomplete="email" placeholder="{% capture ms_t_out %}{% render 'ms-t', v: s.placeholder, en: 'placeholder', sid: section.id %}{% endcapture %}{{ ms_t_out | escape }}">
+          <button type="submit">{% render 'ms-t', v: s.button, en: 'button', sid: section.id %}</button>
         </div>
         {%- if form.errors -%}<p class="ms-lt__err" role="alert">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>{%- endif -%}
-        <p class="ms-lt__fine">{% render 'ms-t', v: s.fine %} <a href="{% render 'ms-link', to: 'privacy' %}">{% render 'ms-t', v: s.privacy %}</a></p>
+        <p class="ms-lt__fine">{% render 'ms-t', v: s.fine, en: 'fine', sid: section.id %} <a href="{% render 'ms-link', to: 'privacy' %}">{% render 'ms-t', v: s.privacy, en: 'privacy', sid: section.id %}</a></p>
       {%- endif -%}
     {%- endform -%}
   </div>

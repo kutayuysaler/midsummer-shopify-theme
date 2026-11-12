@@ -26,12 +26,12 @@
       assign count = collection.products_count
   endcase
   capture ms_count_label
-    render 'ms-t', v: section.settings.t1
+    render 'ms-t', v: section.settings.t1, en: 't1', sid: section.id
   endcapture
   case collection.handle
     when 'essentials', 'signature', 'icons', 'icon', 'designer-beds', 'letti-di-design', 'dizajnerskie-krovati'
       capture ms_count_label
-        render 'ms-t', v: section.settings.t1
+        render 'ms-t', v: section.settings.t1, en: 't1', sid: section.id
       endcapture
     when 'beds-with-headboards', 'letti-con-testiera', 'krovati-s-izgolovem'
       capture ms_count_label
@@ -66,8 +66,8 @@
 {%- if desc != blank -%}<p style="font-family: Newsreader, Georgia, serif; font-size: clamp(19px, 2.3vw, 27px); line-height: 1.55; font-style: italic; color: rgb(74, 68, 59);">{{ desc }}</p>{%- endif -%}
 <div style="display: flex; flex-wrap: wrap; gap: clamp(24px, 4vw, 56px); align-content: flex-start; padding-top: 6px;">
 <div><div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92);">{{ ms_count_label }}</div><div style="font-family: Newsreader, Georgia, serif; font-size: 26px; margin-top: 8px;">{{ count }}</div></div>
-<div><div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92);">{% render 'ms-t', v: section.settings.t2 %}</div><div style="font-family: Newsreader, Georgia, serif; font-size: 26px; margin-top: 8px;">{% render 'ms-t', v: section.settings.t3 %}</div></div>
-<div><div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92);">{% render 'ms-t', v: section.settings.t4 %}</div><div style="font-family: Newsreader, Georgia, serif; font-size: 26px; margin-top: 8px;">{% render 'ms-t', v: section.settings.t5 %}</div></div>
+<div><div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92);">{% render 'ms-t', v: section.settings.t2, en: 't2', sid: section.id %}</div><div style="font-family: Newsreader, Georgia, serif; font-size: 26px; margin-top: 8px;">{% render 'ms-t', v: section.settings.t3, en: 't3', sid: section.id %}</div></div>
+<div><div style="font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(110, 103, 92);">{% render 'ms-t', v: section.settings.t4, en: 't4', sid: section.id %}</div><div style="font-family: Newsreader, Georgia, serif; font-size: 26px; margin-top: 8px;">{% render 'ms-t', v: section.settings.t5, en: 't5', sid: section.id %}</div></div>
 </div>
 </div>
 </section>

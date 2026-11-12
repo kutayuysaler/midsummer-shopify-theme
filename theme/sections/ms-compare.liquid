@@ -18,14 +18,14 @@
 <section class="ms-cmp">
   <div class="ms-cmp__in">
     <header class="ms-cmp__head">
-      <div class="ms-cmp__eyebrow">{% render 'ms-t', v: s.eyebrow %}</div>
-      {%- if s.h1 -%}<h1 class="ms-cmp__title">{% render 'ms-t', v: s.heading %}</h1>{%- else -%}<h2 class="ms-cmp__title">{% render 'ms-t', v: s.heading %}</h2>{%- endif -%}
-      {%- if s.text != blank -%}<p class="ms-cmp__text">{% render 'ms-t', v: s.text %}</p>{%- endif -%}
+      <div class="ms-cmp__eyebrow">{% render 'ms-t', v: s.eyebrow, en: 'eyebrow', sid: section.id %}</div>
+      {%- if s.h1 -%}<h1 class="ms-cmp__title">{% render 'ms-t', v: s.heading, en: 'heading', sid: section.id %}</h1>{%- else -%}<h2 class="ms-cmp__title">{% render 'ms-t', v: s.heading, en: 'heading', sid: section.id %}</h2>{%- endif -%}
+      {%- if s.text != blank -%}<p class="ms-cmp__text">{% render 'ms-t', v: s.text, en: 'text', sid: section.id %}</p>{%- endif -%}
     </header>
 
-    <div class="ms-cmp__table" role="table" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.heading %}{% endcapture %}{{ ms_t_out | strip_html | escape }}">
+    <div class="ms-cmp__table" role="table" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.heading, en: 'heading', sid: section.id %}{% endcapture %}{{ ms_t_out | strip_html | escape }}">
       <div class="ms-cmp__row ms-cmp__row--cols" role="row">
-        <div class="ms-cmp__label" role="columnheader"><span class="ms-visually-hidden">{% render 'ms-t', v: s.eyebrow %}</span></div>
+        <div class="ms-cmp__label" role="columnheader"><span class="ms-visually-hidden">{% render 'ms-t', v: s.eyebrow, en: 'eyebrow', sid: section.id %}</span></div>
         {%- for i in (1..3) -%}
           {%- liquid
             assign kn = 'col' | append: i | append: '_name'
@@ -45,45 +45,45 @@
             endcase
           -%}
           <div class="ms-cmp__colh" role="columnheader"><a class="ms-cmp__col" href="{{ u }}">
-            <span class="ms-cmp__img"><img src="{% render 'ms-img', image: s[ki], fallback: s[kf], width: 900 %}" {% render 'ms-srcset', image: s[ki], fallback: s[kf], width: 900, sizes: '(max-width: 760px) 30vw, 23vw' %} alt="{% capture ms_t_out %}{% render 'ms-t', v: s[kn] %}{% endcapture %}{{ ms_t_out | escape }}" width="900" height="1125" loading="lazy"></span>
+            <span class="ms-cmp__img"><img src="{% render 'ms-img', image: s[ki], fallback: s[kf], width: 900 %}" {% render 'ms-srcset', image: s[ki], fallback: s[kf], width: 900, sizes: '(max-width: 760px) 30vw, 23vw' %} alt="{% capture ms_t_out %}{% render 'ms-t', v: s[kn], en: kn, sid: section.id %}{% endcapture %}{{ ms_t_out | escape }}" width="900" height="1125" loading="lazy"></span>
             <span class="ms-cmp__num">{{ num }}</span>
-            <span class="ms-cmp__name">{% render 'ms-t', v: s[kn] %}</span>
-            <span class="ms-cmp__line">{% render 'ms-t', v: s[kl] %}</span>
+            <span class="ms-cmp__name">{% render 'ms-t', v: s[kn], en: kn, sid: section.id %}</span>
+            <span class="ms-cmp__line">{% render 'ms-t', v: s[kl], en: kl, sid: section.id %}</span>
           </a></div>
         {%- endfor -%}
       </div>
-      <div class="ms-cmp__stick" aria-hidden="true"><span>{% render 'ms-t', v: s.col1_name %}</span><span>{% render 'ms-t', v: s.col2_name %}</span><span>{% render 'ms-t', v: s.col3_name %}</span></div>
+      <div class="ms-cmp__stick" aria-hidden="true"><span>{% render 'ms-t', v: s.col1_name, en: 'col1_name', sid: section.id %}</span><span>{% render 'ms-t', v: s.col2_name, en: 'col2_name', sid: section.id %}</span><span>{% render 'ms-t', v: s.col3_name, en: 'col3_name', sid: section.id %}</span></div>
       {%- for block in section.blocks -%}
         {%- assign b = block.settings -%}
         <div class="ms-cmp__row{% if b.shared %} is-shared{% endif %}" role="row" {{ block.shopify_attributes }}>
-          <div class="ms-cmp__label" role="rowheader">{% render 'ms-t', v: b.label %}</div>
+          <div class="ms-cmp__label" role="rowheader">{% render 'ms-t', v: b.label, en: 'label', bid: block.id, sid: section.id %}</div>
           {%- for i in (1..3) -%}
             {%- assign kv = 'v' | append: i -%}{%- assign kn = 'col' | append: i | append: '_name' -%}
             {%- capture v %}{% render 'ms-t', v: b[kv], en: kv, bid: block.id, sid: section.id %}{% endcapture -%}{%- assign v = v | strip -%}
             {%- assign vl = v | downcase -%}
             <div class="ms-cmp__cell" role="cell" data-col="{{ i }}">
-              <span class="ms-cmp__mlabel" aria-hidden="true">{% render 'ms-t', v: s[kn] %}</span>
+              <span class="ms-cmp__mlabel" aria-hidden="true">{% render 'ms-t', v: s[kn], en: kn, sid: section.id %}</span>
               {%- if vl == 'yes' -%}<span class="ms-cmp__yes" role="img" aria-label="{% render 'ms-t', v: 'Yes' %}"></span>{%- elsif v == '-' or v == '' -%}<span class="ms-cmp__no" role="img" aria-label="{% render 'ms-t', v: 'No' %}">—</span>{%- else -%}{{ v }}{%- endif -%}
             </div>
           {%- endfor -%}
         </div>
       {%- endfor -%}
       <div class="ms-cmp__row ms-cmp__row--go" role="row">
-        <div class="ms-cmp__label" role="rowheader"><span class="ms-visually-hidden">{% capture ms_d1 %}{% render 'ms-t', v: s.eyebrow %}{% endcapture %}{{ s.view_label | default: ms_d1 }}</span></div>
-        <div role="cell"><a class="ms-cmp__go" href="{{ u1 }}">{% render 'ms-t', v: s.go_label %} {% render 'ms-t', v: s.col1_name %}<span aria-hidden="true">→</span></a></div>
-        <div role="cell"><a class="ms-cmp__go" href="{{ u2 }}">{% render 'ms-t', v: s.go_label %} {% render 'ms-t', v: s.col2_name %}<span aria-hidden="true">→</span></a></div>
-        <div role="cell"><a class="ms-cmp__go" href="{{ u3 }}">{% render 'ms-t', v: s.go_label %} {% render 'ms-t', v: s.col3_name %}<span aria-hidden="true">→</span></a></div>
+        <div class="ms-cmp__label" role="rowheader"><span class="ms-visually-hidden">{% capture ms_d1 %}{% render 'ms-t', v: s.eyebrow, en: 'eyebrow', sid: section.id %}{% endcapture %}{{ s.view_label | default: ms_d1 }}</span></div>
+        <div role="cell"><a class="ms-cmp__go" href="{{ u1 }}">{% render 'ms-t', v: s.go_label, en: 'go_label', sid: section.id %} {% render 'ms-t', v: s.col1_name, en: 'col1_name', sid: section.id %}<span aria-hidden="true">→</span></a></div>
+        <div role="cell"><a class="ms-cmp__go" href="{{ u2 }}">{% render 'ms-t', v: s.go_label, en: 'go_label', sid: section.id %} {% render 'ms-t', v: s.col2_name, en: 'col2_name', sid: section.id %}<span aria-hidden="true">→</span></a></div>
+        <div role="cell"><a class="ms-cmp__go" href="{{ u3 }}">{% render 'ms-t', v: s.go_label, en: 'go_label', sid: section.id %} {% render 'ms-t', v: s.col3_name, en: 'col3_name', sid: section.id %}<span aria-hidden="true">→</span></a></div>
       </div>
     </div>
 
     <div class="ms-cmp__help">
       <div>
-        <div class="ms-cmp__eyebrow">{% render 'ms-t', v: s.help_eyebrow %}</div>
-        <p class="ms-cmp__htitle">{% render 'ms-t', v: s.help_heading %}</p>
+        <div class="ms-cmp__eyebrow">{% render 'ms-t', v: s.help_eyebrow, en: 'help_eyebrow', sid: section.id %}</div>
+        <p class="ms-cmp__htitle">{% render 'ms-t', v: s.help_heading, en: 'help_heading', sid: section.id %}</p>
       </div>
       <div class="ms-cmp__hlinks">
-        <a class="ms-cmp__btn" href="{% render 'ms-link', to: 'quiz' %}">{% render 'ms-t', v: s.quiz_label %}</a>
-        <a class="ms-cmp__link" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=appointment' %}#enquire" data-ms-landing>{% render 'ms-t', v: s.book_label %}</a>
+        <a class="ms-cmp__btn" href="{% render 'ms-link', to: 'quiz' %}">{% render 'ms-t', v: s.quiz_label, en: 'quiz_label', sid: section.id %}</a>
+        <a class="ms-cmp__link" href="{% render 'ms-link', to: 'enquire', q: 'enquiry=appointment' %}#enquire" data-ms-landing>{% render 'ms-t', v: s.book_label, en: 'book_label', sid: section.id %}</a>
       </div>
     </div>
 
@@ -104,14 +104,14 @@
         render 'ms-link', to: 'bedding', strict: true
       endcapture
     -%}
-    <nav class="ms-cmp__more" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.more_label %}{% endcapture %}{{ ms_t_out | escape }}">
-      <span>{% render 'ms-t', v: s.more_label %}</span>
+    <nav class="ms-cmp__more" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s.more_label, en: 'more_label', sid: section.id %}{% endcapture %}{{ ms_t_out | escape }}">
+      <span>{% render 'ms-t', v: s.more_label, en: 'more_label', sid: section.id %}</span>
       {%- if ux1 != blank -%}<a href="{{ ux1 }}">{% render 'ms-t', v: 'Mattresses' %}</a>{%- endif -%}
       {%- if ux2 != blank -%}<a href="{{ ux2 }}">{% render 'ms-t', v: 'Toppers' %}</a>{%- endif -%}
       {%- if ux3 != blank -%}<a href="{{ ux3 }}">{% render 'ms-t', v: 'Bases' %}</a>{%- endif -%}
       {%- if ux4 != blank -%}<a href="{{ ux4 }}">{% render 'ms-t', v: 'Beds with headboards' %}</a>{%- endif -%}
       {%- if ux5 != blank -%}<a href="{{ ux5 }}">{% render 'ms-t', v: 'Bedding' %}</a>{%- endif -%}
-      <a href="{{ routes.collections_url }}">{% render 'ms-t', v: s.everything_label %}</a>
+      <a href="{{ routes.collections_url }}">{% render 'ms-t', v: s.everything_label, en: 'everything_label', sid: section.id %}</a>
     </nav>
   </div>
 </section>
