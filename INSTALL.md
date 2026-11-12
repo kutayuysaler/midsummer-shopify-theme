@@ -3425,7 +3425,7 @@ Since September the home page opened on a still from the old film (`Untitled_Pro
 
 - **No still now.** The still is gone; the hero stays dark until the 2026 film starts.
 - **To show a still while it loads,** choose one from the new film under *Customize → Home → first section → Poster frame*.
-- **The film address** is the one you gave: `…/videos/c/o/v/427128e938a4412eb22d25537316a01e.mp4`. Nothing in the theme points to the old film any more.
+- **The film address** is the one you gave: `…/videos/c/o/v/427128e938a4412eb22d25537316a01e.mp4`. Nothing in the theme points to the old film any more. (That address was the wrong film; corrected in §59.)
 
 ### Atelier 4.5.0
 
@@ -3462,3 +3462,51 @@ The theme was built on Atelier 4.1.5. It now runs on 4.5.0, the version your sto
 1. **The home page:** dark for a moment, then the 2026 film; never the old one.
 2. **The cart:** add an item, open the cart, go to checkout, come back with the browser's back button. The cart is as you left it.
 3. **The appointment product page and the password page** look as before.
+
+## 59. Round 38: the right home film, its thumbnail, and why it was smaller before
+
+### The address
+
+The address set in Rounds 36 and 37 (`…/videos/c/o/v/427128e9….mp4`) was a different film. The home page now uses **`…/videos/c/o/v/430183abbe91494d9da5e69fc7ad5c51.mp4`**, which is *Website Intro with Logo* in Files (208 MB). It is set in both the home template and the section's default, so it plays in every language.
+
+Outside English, the theme keeps the address it was built with, so that a translation cannot change it (§56). An address typed into *Film address* in the editor therefore only shows in English. A film chosen under *Film (from Files)* shows in every language.
+
+### Why the film was smaller before
+
+- **A `/videos/c/o/v/…` address is the original upload:** the full 208 MB file, played as it is.
+- **Choosing a film under a video setting** makes Shopify serve its own web copies, made from that upload: an adaptive stream, and MP4s up to 1080 lines.
+- **The old home page most likely chose the film under a video setting,** so it played a web copy. That copy is only a fraction of the original's size, which is why it started quickly.
+- **Typing the address in the editor** plays the 208 MB original. That is why Files says the film is "Not referenced in your store": a typed address does not count as a use.
+
+### What to do, in Customize (one minute)
+
+1. **Choose the film.**
+   - Open *Home*, then the first section (*Home 01*), then **Film (from Files)**.
+   - Choose *Website Intro with Logo*, then save.
+   - The theme then plays Shopify's copies: the adaptive stream on Safari and iPhone, 720 lines on phones, 1080 on computers.
+   - The *Film address* stays only as the fallback. Files will then show the film as used.
+2. **The thumbnail.**
+   - Shopify's cover image for this film is dark, most likely because the film opens on black.
+   - Choose a still under **Poster frame** in the same section: pause the film on the frame you want, take a screenshot, and upload it.
+   - Left empty, Poster frame falls back to the film's cover image in Files.
+3. **In the editor only,** a note over the film says when nothing is chosen under *Film (from Files)*.
+
+This works in the theme that is live now as well. In a theme uploaded from the new zip, choose the film once more.
+
+### A lighter original (optional)
+
+You don't need this once the film is chosen from Files, because visitors then get Shopify's copies. If you want a lighter original anyway, export it with these settings:
+- 1920 × 1080, H.264, about 6–8 Mbit/s;
+- no sound track;
+- "web optimised" or "fast start".
+
+Then upload it to Files and choose it under *Film (from Files)*.
+
+### Checks
+
+| Check | Result |
+|---|---|
+| Home film with a film chosen from Files | stream, 720-line and 1080-line copies used; poster from *Poster frame*, else the film's cover image |
+| Home film with only the address | `430183abbe….mp4` in English, and in Italian with the address scrambled |
+| Every template rendered in English, before and after | only the home film's address differs; Liquid errors as before |
+

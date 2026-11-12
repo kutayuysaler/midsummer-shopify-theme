@@ -2,9 +2,10 @@
 {%- comment -%}
   The film. Chosen under Film (from Files), Shopify's own web copies are used: the adaptive stream
   where the browser plays it (Safari, iPhone), else an MP4 of at most 720 lines on a phone and
-  1080 on a computer. The film address (the original upload) is only the fallback. Nothing is
-  downloaded until the page itself is up; the poster shows meanwhile. On a data-saving or very
-  slow connection the poster stays.
+  1080 on a computer. The film address (the original upload, at full size) is only the fallback.
+  Nothing is downloaded until the page itself is up; the poster shows meanwhile: the Poster frame
+  if one is chosen, else the film's cover image in Files. On a data-saving or very slow connection
+  the poster stays.
 {%- endcomment -%}
 {%- liquid
   assign film = section.settings.video
@@ -41,8 +42,15 @@
   if f_sm == ''
     assign f_sm = f_lg
   endif
+  assign f_poster = section.settings.poster
+  if f_poster == blank and film != blank
+    assign f_poster = film.preview_image
+  endif
 -%}
-<video class="ms-hero__film" autoplay="" loop="" muted="" playsinline="" {% if section.settings.poster != blank %}poster="{{ section.settings.poster | image_url: width: 1600 }}"{% endif %} preload="none" data-hls="{{ f_hls }}" data-sm="{{ f_sm }}" data-lg="{{ f_lg }}" style="position: absolute; inset: 0px; width: 100%; height: 100%; object-fit: cover;">
+{%- if request.design_mode and film == blank -%}
+<p class="ms-hero__note" style="position: absolute; z-index: 3; top: 96px; left: 16px; right: 16px; max-width: 560px; margin: 0 auto; padding: 12px 16px; background: rgba(251, 249, 245, .95); color: rgb(23, 20, 15); border: 1px dashed #B23A2E; font: 13px/1.5 system-ui, sans-serif;">Seen only in the editor: no film is chosen under <strong>Film (from Files)</strong>, so the page plays the film address, which is the original upload at full size and slow to start. Choose the film there and Shopify's smaller web copies play instead, in every language.</p>
+{%- endif -%}
+<video class="ms-hero__film" autoplay="" loop="" muted="" playsinline="" {% if f_poster != blank %}poster="{{ f_poster | image_url: width: 1600 }}"{% endif %} preload="none" data-hls="{{ f_hls }}" data-sm="{{ f_sm }}" data-lg="{{ f_lg }}" style="position: absolute; inset: 0px; width: 100%; height: 100%; object-fit: cover;">
 </video>
 <div class="ms-hero__shade" style="position: absolute; inset: 0px; background: linear-gradient(rgba(10, 8, 6, 0.28) 0%, rgba(10, 8, 6, 0.04) 40%, rgba(10, 8, 6, 0.5) 100%);"></div>
 <div class="ms-hero__words" style="position: absolute; inset: 0px; display: flex; flex-direction: column; justify-content: space-between; gap: clamp(28px, 5vh, 48px); padding: calc(78px + clamp(26px, 4.5vw, 72px)) clamp(26px, 4.5vw, 72px) clamp(26px, 4.5vw, 72px); color: rgb(251, 249, 245);">
@@ -125,18 +133,20 @@
     {
       "type": "video",
       "id": "video",
-      "label": "Film (from Files)"
+      "label": "Film (from Files)",
+      "info": "Choose the film here: Shopify then plays its smaller web copies, not the original upload."
     },
     {
       "type": "text",
       "id": "video_url",
       "label": "Film address",
-      "default": "https://cdn.shopify.com/videos/c/o/v/427128e938a4412eb22d25537316a01e.mp4"
+      "default": "https://cdn.shopify.com/videos/c/o/v/430183abbe91494d9da5e69fc7ad5c51.mp4"
     },
     {
       "type": "image_picker",
       "id": "poster",
-      "label": "Poster frame"
+      "label": "Poster frame",
+      "info": "Shown until the film plays. Left empty, the film's cover image in Files is used."
     },
     {
       "type": "text",
