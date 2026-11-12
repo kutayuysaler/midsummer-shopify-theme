@@ -53,6 +53,7 @@
         {%- endfor -%}
       </div>
       <div class="ms-cmp__stick" aria-hidden="true"><span>{% render 'ms-t', v: s.col1_name, en: 'col1_name', sid: section.id %}</span><span>{% render 'ms-t', v: s.col2_name, en: 'col2_name', sid: section.id %}</span><span>{% render 'ms-t', v: s.col3_name, en: 'col3_name', sid: section.id %}</span></div>
+      {%- capture cmp_yes -%}{% render 'ms-t', v: 'yes' %}{%- endcapture -%}{%- assign cmp_yes = cmp_yes | strip | downcase -%}
       {%- for block in section.blocks -%}
         {%- assign b = block.settings -%}
         <div class="ms-cmp__row{% if b.shared %} is-shared{% endif %}" role="row" {{ block.shopify_attributes }}>
@@ -60,7 +61,8 @@
           {%- for i in (1..3) -%}
             {%- assign kv = 'v' | append: i -%}{%- assign kn = 'col' | append: i | append: '_name' -%}
             {%- capture v %}{% render 'ms-t', v: b[kv], en: kv, bid: block.id, sid: section.id %}{% endcapture -%}{%- assign v = v | strip -%}
-            {%- assign vl = v | downcase -%}
+            {%- assign vl = v | downcase -%}{%- assign vr = b[kv] | strip | downcase -%}
+            {%- if vr == 'yes' or vl == cmp_yes -%}{%- assign vl = 'yes' -%}{%- endif -%}
             <div class="ms-cmp__cell" role="cell" data-col="{{ i }}">
               <span class="ms-cmp__mlabel" aria-hidden="true">{% render 'ms-t', v: s[kn], en: kn, sid: section.id %}</span>
               {%- if vl == 'yes' -%}<span class="ms-cmp__yes" role="img" aria-label="{% render 'ms-t', v: 'Yes' %}"></span>{%- elsif v == '-' or v == '' -%}<span class="ms-cmp__no" role="img" aria-label="{% render 'ms-t', v: 'No' %}">—</span>{%- else -%}{{ v }}{%- endif -%}

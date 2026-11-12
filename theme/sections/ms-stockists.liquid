@@ -102,9 +102,10 @@
               {%- if block.settings.region != region -%}{%- continue -%}{%- endif -%}
               {%- assign b = block.settings -%}
               {%- capture g_name -%}{% render 'ms-en', v: b.name, id: 'name', bid: block.id, sid: section.id %}{%- endcapture -%}{%- capture g_web -%}{% render 'ms-en', v: b.website, id: 'website', bid: block.id, sid: section.id %}{%- endcapture -%}{%- capture g_phone -%}{% render 'ms-en', v: b.phone, id: 'phone', bid: block.id, sid: section.id %}{%- endcapture -%}{%- capture g_email -%}{% render 'ms-en', v: b.email, id: 'email', bid: block.id, sid: section.id %}{%- endcapture -%}{%- capture g_lat -%}{% render 'ms-en', v: b.lat, id: 'lat', bid: block.id, sid: section.id %}{%- endcapture -%}{%- capture g_lon -%}{% render 'ms-en', v: b.lon, id: 'lon', bid: block.id, sid: section.id %}{%- endcapture -%}
-              {%- if b.country != last_country -%}
-                <div class="ms-sl__country" data-ms-sl-country>{% render 'ms-t', v: b.country, en: 'country', bid: block.id, sid: section.id %}</div>
-                {%- capture last_country %}{% render 'ms-t', v: b.country, en: 'country', bid: block.id, sid: section.id %}{% endcapture -%}
+              {%- capture g_country -%}{% render 'ms-t', v: b.country, en: 'country', bid: block.id, sid: section.id %}{%- endcapture -%}
+              {%- if g_country != last_country -%}
+                <div class="ms-sl__country" data-ms-sl-country>{{ g_country }}</div>
+                {%- assign last_country = g_country -%}
               {%- endif -%}
               {%- liquid
                 case b.kind

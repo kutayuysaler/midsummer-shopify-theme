@@ -3510,3 +3510,24 @@ Then upload it to Files and choose it under *Film (from Files)*.
 | Home film with only the address | `430183abbe….mp4` in English, and in Italian with the address scrambled |
 | Every template rendered in English, before and after | only the home film's address differs; Liquid errors as before |
 
+## 60. Round 39: three things that only went wrong in Italian and Russian
+
+Every page was rendered in English, Italian and Russian, and the pages were compared element by element. Three differences were mistakes:
+
+| Where | What visitors saw in Italian and Russian | Now |
+|---|---|---|
+| **Store locator** (agents and resellers) | *Italia* above every Italian place, instead of once per country | one heading per country, as in English |
+| **Compare page** | the word *sì* / *да* instead of the gold dot | the gold dot in every language |
+| **Product pages of beds without Loro Piana fabric** | the boxspring's first line (*upholstered in other natural fabrics, coloured linen among them*) was missing; in Russian, the boxspring's text still named Loro Piana Interiors | the line is there, and Loro Piana is not named, as in English |
+
+The other difference is intended: the Russian site also links Telegram and VK.
+
+### Checks
+
+| Check | Result |
+|---|---|
+| English pages, before and after | identical |
+| Italian and Russian against English, element by element | the same, apart from the Russian Telegram and VK links |
+| Italian and Russian with every Translate & Adapt text scrambled | identical to the clean pages |
+| Store locator counts | 17 places: the atelier, 11 showrooms, 3 boutiques and 2 agents. The atelier is counted under *Showroom*, which gives 12 + 3 + 2. |
+

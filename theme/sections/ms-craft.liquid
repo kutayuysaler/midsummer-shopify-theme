@@ -182,6 +182,24 @@
       assign lp_free = true
     endif
   endif
+  # the same words in the theme's Italian and Russian (the boxspring's line and its text)
+  case request.locale.iso_code
+    when 'it'
+      assign lp_pt_find = 'Loro Piana Interiors, o in '
+      assign lp_pt_repl = ''
+      assign lp_tx_find = ' in Loro Piana Interiors'
+      assign lp_tx_repl = ''
+    when 'ru'
+      assign lp_pt_find = 'Loro Piana Interiors или другие натуральные ткани'
+      assign lp_pt_repl = 'натуральные ткани'
+      assign lp_tx_find = 'тканями Loro Piana Interiors или другими натуральными тканями'
+      assign lp_tx_repl = 'натуральными тканями'
+    else
+      assign lp_pt_find = 'Loro Piana Interiors, or in '
+      assign lp_pt_repl = ''
+      assign lp_tx_find = ' in Loro Piana Interiors'
+      assign lp_tx_repl = ''
+  endcase
   # the parts a system is made of (snippets/ms-sys-data 'parts'): most have three; Capri and Giotto
   # Round are a topper and one piece that is mattress and boxspring; Brera one slim piece that is
   # mattress and topper, on its boxspring. 'opt': a part it takes only if you wish (Storage, Amalfi)
@@ -384,7 +402,7 @@
               <ul class="ms-cr__pts" role="list">
                 {%- for pt in points -%}
                   {%- assign t = pt | strip -%}
-                  {%- if lp_free -%}{%- assign t = t | replace: 'Loro Piana Interiors, or in ', '' -%}{%- if t contains 'Loro Piana' -%}{%- assign t = '' -%}{%- endif -%}{%- endif -%}
+                  {%- if lp_free -%}{%- assign t = t | replace: lp_pt_find, lp_pt_repl | replace: 'Loro Piana Interiors, or in ', '' -%}{%- if t contains 'Loro Piana' -%}{%- assign t = '' -%}{%- endif -%}{%- endif -%}
                   {%- if t contains '[[' -%}
                     {%- assign segs = t | split: '[[' -%}
                     {%- capture t -%}{{ segs[0] }}{%- for sg in segs offset: 1 -%}{%- assign sp = sg | split: ']]' -%}{%- assign hl = sp[0] | split: '|' -%}{%- assign lpp = all_products[hl[0]] -%}{%- if lpp.url != blank -%}<a href="{{ lpp.url }}">{{ hl[1] }}</a>{%- else -%}{{ hl[1] }}{%- endif -%}{{ sp[1] }}{%- endfor -%}{%- endcapture -%}
@@ -531,7 +549,7 @@
           <span class="ms-cr__img">{%- if s[ki] != blank -%}<img src="{{ s[ki] | image_url: width: 1000 }}" srcset="{{ s[ki] | image_url: width: 600 }} 600w, {{ s[ki] | image_url: width: 1000 }} 1000w" sizes="(max-width: 760px) 90vw, 30vw" alt="{{ s[ki].alt | default: c_title | escape }}" width="1000" height="1250" loading="lazy">{%- elsif mine == false and mt[2] != blank -%}<img src="{{ mt[2] }}" alt="{{ c_title | escape }}" width="900" height="1125" loading="lazy">{%- else -%}<img src="{{ cphoto | asset_url }}" {% render 'ms-srcset', fallback: cphoto, width: 1600, sizes: '(max-width: 1080px) 70vw, 29vw' %} alt="{{ c_title | escape }}{% if pname != '' and mine %}, {{ pname | escape }}{% endif %}" width="720" height="900" loading="lazy">{%- endif -%}{%- unless mine -%}<span class="ms-cr__out">{% if isopt %}{{ tx_opt_label }}{% else %}{{ tx_absent_label }}{% endif %}</span>{%- endunless -%}</span>
           <span class="ms-cr__cnum">{{ nums[forloop.index0] }}</span>
           <span class="ms-cr__ptitle">{{ c_title }}</span>
-          <span class="ms-cr__ptext">{% if lp_free %}{{ c_text | replace: ' in Loro Piana Interiors', '' }}{% else %}{{ c_text }}{% endif %}</span>
+          <span class="ms-cr__ptext">{% if lp_free %}{{ c_text | replace: lp_tx_find, lp_tx_repl | replace: ' in Loro Piana Interiors', '' }}{% else %}{{ c_text }}{% endif %}</span>
           {%- if mine or mt[0] == blank -%}
           <span class="ms-cr__more">{% render 'ms-t', v: s.open_label, en: 'open_label', sid: section.id %} <span aria-hidden="true">↑</span></span>
         </button>
