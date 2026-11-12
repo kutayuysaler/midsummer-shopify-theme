@@ -9,7 +9,7 @@
   <div class="ms-fig__grid">
     {%- for b in section.blocks -%}
       <div class="ms-fig__item" {{ b.shopify_attributes }}>
-        <div class="ms-fig__n"{% if b.settings.count %} data-ms-count{% endif %}>{% render 'ms-t', v: b.settings.number %}</div>
+        <div class="ms-fig__n"{% if b.settings.count %} data-ms-count{% endif %}>{% render 'ms-t', v: b.settings.number, en: 'number', bid: b.id, sid: section.id %}</div>
         <div class="ms-fig__l">{% render 'ms-t', v: b.settings.label %}</div>
         {%- if b.settings.line != blank -%}<div class="ms-fig__line">{% render 'ms-t', v: b.settings.line %}</div>{%- endif -%}
       </div>

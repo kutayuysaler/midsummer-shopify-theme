@@ -105,7 +105,8 @@
           {%- assign grp = g -%}
           <p class="ms-fa__g">{{ glabel }}</p>
         {%- endif -%}
-        <h3 class="ms-fa__h" data-q="{{ bs.qualities | escape }}">
+        {%- capture g_q -%}{% render 'ms-en', v: bs.qualities, id: 'qualities', bid: b.id, sid: section.id %}{%- endcapture -%}
+        <h3 class="ms-fa__h" data-q="{{ g_q | escape }}">
           <button type="button" class="ms-fa__row{% if forloop.first %} is-on{% endif %}" id="{{ id }}-tab" data-fa-open="{{ id }}" aria-controls="{{ id }}" aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}">
             <span class="ms-fa__n" aria-hidden="true">{{ num }}</span>
             <span class="ms-fa__mk" aria-hidden="true">{% render 'ms-fibre-mark', name: bs.mark, size: 26 %}</span>
@@ -116,7 +117,7 @@
         <div class="ms-fa__p{% if forloop.first %} is-on{% endif %}" id="{{ id }}" role="region" aria-labelledby="{{ id }}-tab" {{ b.shopify_attributes }}{% unless forloop.first %} hidden{% endunless %}>
           {%- liquid
             capture pts
-              render 'ms-t', v: bs.points
+              render 'ms-t', v: bs.points, en: 'points', bid: b.id, sid: section.id
             endcapture
             assign pts = pts | default: '' | split: ';'
             assign view = 'glass'
@@ -139,10 +140,19 @@
             endif
             # under the glass: how fine, beside the human hair drawn behind it (the number once: not where a figure gives it)
             capture um
-              render 'ms-t', v: bs.microns
+              render 'ms-t', v: bs.microns, en: 'microns', bid: b.id, sid: section.id
             endcapture
             assign um = um | default: '' | strip
-            if bs.f1 contains 'µm' or bs.f2 contains 'µm' or bs.f3 contains 'µm'
+            capture g_f1
+              render 'ms-en', v: bs.f1, id: 'f1', bid: b.id, sid: section.id
+            endcapture
+            capture g_f2
+              render 'ms-en', v: bs.f2, id: 'f2', bid: b.id, sid: section.id
+            endcapture
+            capture g_f3
+              render 'ms-en', v: bs.f3, id: 'f3', bid: b.id, sid: section.id
+            endcapture
+            if g_f1 contains 'µm' or g_f2 contains 'µm' or g_f3 contains 'µm'
               assign um = ''
             endif
             if um != '' and s.fine_line != blank
@@ -207,14 +217,14 @@
               <dl class="ms-fa__figs">
                 {%- for i in (1..3) -%}
                   {%- assign fk = 'f' | append: i -%}{%- assign fc = 'f' | append: i | append: '_cap' -%}
-                  {%- if bs[fk] != blank -%}<div><dt>{{ bs[fk] }}</dt><dd>{% render 'ms-t', v: bs[fc] %}</dd></div>{%- endif -%}
+                  {%- capture g_f -%}{% render 'ms-en', v: bs[fk], id: fk, bid: b.id, sid: section.id %}{%- endcapture -%}{%- if g_f != blank -%}<div><dt>{{ g_f }}</dt><dd>{% render 'ms-t', v: bs[fc] %}</dd></div>{%- endif -%}
                 {%- endfor -%}
               </dl>
             {%- endif -%}
             {%- if bs.species != blank or bs.origin != blank -%}
               <dl class="ms-fa__meta">
                 {%- if bs.origin != blank -%}<div><dt>{% render 'ms-t', v: s.origin_label %}</dt><dd>{% render 'ms-t', v: bs.origin %}</dd></div>{%- endif -%}
-                {%- if bs.species != blank -%}<div><dt>{% render 'ms-t', v: s.species_label %}</dt><dd>{% render 'ms-t', v: bs.species %}</dd></div>{%- endif -%}
+                {%- if bs.species != blank -%}<div><dt>{% render 'ms-t', v: s.species_label %}</dt><dd>{% render 'ms-t', v: bs.species, en: 'species', bid: b.id, sid: section.id %}</dd></div>{%- endif -%}
               </dl>
             {%- endif -%}
             {%- liquid

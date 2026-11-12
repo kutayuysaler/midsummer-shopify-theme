@@ -3,8 +3,14 @@
   else a photograph from the theme's assets, resized by Shopify's CDN. A full address, or a drawing,
   has no other widths, and then nothing is written.
   Usage: <img src="..." {% render 'ms-srcset', image: section.settings.image, fallback: section.settings.fallback, width: 2000, sizes: '100vw' %}>
+  With en:, bid: and sid:, the fallback is read through ms-en (see ms-img).
 {%- endcomment -%}
 {%- liquid
+  if en != blank and fallback != blank and request.locale.primary == false
+    capture fallback
+      render 'ms-en', v: fallback, id: en, bid: bid, sid: sid, file: true
+    endcapture
+  endif
   assign w = width | default: 1800 | plus: 0
   assign steps = '360,540,720,960,1200,1600,2000,2400' | split: ','
   assign out = ''

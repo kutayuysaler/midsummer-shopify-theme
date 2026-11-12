@@ -1,5 +1,5 @@
 <section data-dc-tpl="1212" style="padding: clamp(90px, 16vw, 220px) clamp(18px, 5vw, 80px); display: flex; flex-direction: column; align-items: center; text-align: center; gap: 18px;">
-<div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgb(126, 98, 59);">{% render 'ms-t', v: section.settings.t1 %}</div>
+<div style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: rgb(126, 98, 59);">{% render 'ms-t', v: section.settings.t1 %}{%- if request.path != blank -%}<span style="text-transform: none; letter-spacing: 0.04em; color: rgb(110, 103, 92);"> · {{ request.path | escape }}</span>{%- endif -%}</div>
 <h1 style="font-family: Newsreader, Georgia, serif; font-size: clamp(30px, 4.6vw, 58px); line-height: 1.04; letter-spacing: -0.025em;">{% render 'ms-t', v: section.settings.t2 %}</h1>
 <p style="font-size: 15px; line-height: 1.95; color: rgb(74, 68, 59); max-width: 46ch;">{% render 'ms-t', v: section.settings.t3 %}</p>
 <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-top: 14px;">

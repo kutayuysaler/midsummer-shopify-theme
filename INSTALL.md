@@ -3251,3 +3251,81 @@ In English the same photographs show. The files are in the theme.
 
 1. **The Milano atelier, in Italian**, once the translations above are emptied: the steps read *Prenota, Sdraiati, Tocca, Specifica*; the days read *Lunedì … Domenica*; the parrot room, the teal room and the blanket show.
 2. **The Portfolio, in Russian:** the map of Italy is there, with its pins, beside the postcards.
+
+## 56. Round 35: Italian pages that cannot break, the press pages, the 404 page, the homepage film
+
+### Why the Italian press page showed errors and broken logos
+
+The Press page was right in English and Russian. In Italian it showed eight times *Liquid error (sections/ms-press-blog line 68): comparison of String with 0 failed*, two broken logos, *Il Simbolo* instead of *The Symbol*, and the title *Premere* ("to press", the verb). Clicking some logos led to a page that did not exist (*This page is no longer here.*).
+
+It is the same cause as the atelier page in §55. Translate & Adapt had saved Italian machine translations for this page's settings, and they went beyond words:
+
+- **A publication's address** (`/blogs/press-interior-design`) came back as the address of a blog that does not exist. The theme asked that blog for its number of pieces, Shopify answered with an empty text, and the comparison with 0 failed. The logo after each error linked to the missing blog, hence the 404.
+- **A logo's file name** came back translated, so the picture was missing.
+- **A publication's name** came back translated (*Il Simbolo*).
+- **The blog's title**, *Press*, came back as the verb.
+
+### What the theme does now, everywhere
+
+The theme no longer trusts a translation for anything that is not language. Such values are:
+
+- photograph and logo files;
+- blog, product and collection addresses and handles;
+- map positions, telephone numbers, emails and websites;
+- section anchors;
+- the comparison table's *yes* and *–*;
+- figures, times and measures;
+- the names that are never translated: publications, stockists, Loro Piana cloths and colours, Latin species.
+
+How it works:
+
+- **In Italian and Russian, the built value is used.** Every one of these values is written into the theme as it was built: 1,247 values in 59 templates (`snippets/ms-en-map.liquid`). The theme uses them in Italian and Russian, whatever Translate & Adapt holds.
+- **Files chosen later are kept.** If a photograph is changed later in the editor to another file of the theme, that file is kept.
+- **English is untouched.** It shows exactly what the editor holds.
+- **Rebuilding the list.** `scripts/en_guard.py` rebuilds it. It also refuses to finish if a template holds a file, an address, a number or a key that is not protected, so a new one cannot slip through.
+- **Article counts are read as numbers** (press, Journal, menus, article rails). A publication, menu entry or article rail whose blog does not exist is now simply left out, never shown as an error or as a link to nothing.
+
+Editing note: a change in the editor to one of these values (a stockist's position, a photograph's file outside the theme, a publication's address) shows in English at once, but in Italian and Russian only once it is in the build. Send it to me, as with any other change made in the editor.
+
+### The press pages
+
+- **The Press page itself** (the blog with no publication of its own) is now the index of the publications. Its title is the theme's own word (*Press*, *Stampa*, *Пресса*). It no longer says *The pieces from this publication will appear here.*, and the marks follow the title directly.
+- **Each publication's page** keeps its mark, name and pieces. The marks beneath link to the blogs' own addresses, in the visitor's language.
+- **In the editor**, a publication whose blog cannot be found shows a red note, *no blog at /blogs/…*, so a wrong address is easy to spot. Visitors never see it.
+
+### The 404 page
+
+The address that was asked for is now shown beside *404* (for example *404 · /blogs/press-interior-design*). A screenshot of a missing page then says which page it was.
+
+### The homepage film
+
+The film used to play from its original upload (`…/videos/c/o/v/6402710d….mov`), the full-size master, to every visitor, phones included. Now:
+
+- **The film comes from Shopify's own web copies when it is chosen under *Film (from Files)*:**
+  - the adaptive stream where the browser plays it (Safari, iPhone);
+  - otherwise an MP4 of at most 720 lines on a phone and 1080 on a computer.
+  - If a browser offers the stream but cannot play it, the film switches to the MP4 by itself.
+- **Download order.** Nothing is downloaded until the page itself has loaded; the poster shows meanwhile.
+- **Slow connections.** With data saving on, or on a very slow connection, the poster stays.
+- **Connection.** The home page opens the connection to Shopify's video server early.
+
+**To make the film fast, choose it once:**
+
+1. Open *Customize → Home → the first section → Film (from Files)* and pick the film.
+2. Uploading a new theme zip resets this choice, so send me the film's name as *Content → Files* shows it. I'll write it into the theme. Until then the original upload is still the fallback.
+
+### Checks
+
+| Check | Result |
+|---|---|
+| Every template rendered in English, before and after | identical, except the Press index and the homepage film, as intended |
+| Every template rendered in Italian, before and after | identical, except the same two |
+| Italian with every protected value scrambled, as a machine translation would | 57 pages changed before; none now |
+| Liquid errors | none, in English or Italian |
+| Homepage film in a browser | phone 720 lines, computer 1080; a failing stream falls back to the MP4; the film starts after the page |
+
+### After installing, check
+
+1. **The Press page in Italian:** title *Stampa*, every mark shown, no errors. Each mark opens its publication.
+2. **A wrong address** (for example `/blogs/xyz`): the 404 page shows `/blogs/xyz` beside *404*.
+3. **The home page on a phone:** the poster shows at once and the film follows.

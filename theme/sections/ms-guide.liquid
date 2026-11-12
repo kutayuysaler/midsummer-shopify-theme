@@ -3,7 +3,8 @@
   sizes, each point can carry a width and length in cm, drawn to scale and given in inches.
 {%- endcomment -%}
 {%- assign s = section.settings -%}
-<section class="ms-gd{% if s.tone == 'sand' %} ms-gd--sand{% endif %}" id="{{ s.anchor }}">
+{%- capture g_anchor -%}{% render 'ms-en', v: s.anchor, id: 'anchor', sid: section.id %}{%- endcapture -%}
+<section class="ms-gd{% if s.tone == 'sand' %} ms-gd--sand{% endif %}" id="{{ g_anchor }}">
   <div class="ms-gd__in">
     <div class="ms-gd__head">
       <div class="ms-gd__eyebrow">{% render 'ms-t', v: s.eyebrow %}</div>
@@ -17,11 +18,11 @@
           {%- if b.w != blank and b.l != blank -%}
             {%- liquid
               capture w
-                render 'ms-t', v: b.w
+                render 'ms-t', v: b.w, en: 'w', bid: block.id, sid: section.id
               endcapture
               assign w = w | times: 1.0
               capture l
-                render 'ms-t', v: b.l
+                render 'ms-t', v: b.l, en: 'l', bid: block.id, sid: section.id
               endcapture
               assign l = l | times: 1.0
               assign wi = w | divided_by: 2.54 | round
@@ -61,7 +62,7 @@
               </svg>
             </span>
             <span class="ms-gd__name">{% render 'ms-t', v: b.title %}</span>
-            <span class="ms-gd__dims">{% render 'ms-t', v: b.w %} × {% render 'ms-t', v: b.l %} cm</span>
+            <span class="ms-gd__dims">{% render 'ms-t', v: b.w, en: 'w', bid: block.id, sid: section.id %} × {% render 'ms-t', v: b.l, en: 'l', bid: block.id, sid: section.id %} cm</span>
             <span class="ms-gd__in2">{{ wi }} × {{ li }} in</span>
           {%- else -%}
             <span class="ms-gd__num">{{ forloop.index | prepend: '0' }}</span>

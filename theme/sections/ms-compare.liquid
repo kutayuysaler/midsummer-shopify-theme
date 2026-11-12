@@ -59,7 +59,7 @@
           <div class="ms-cmp__label" role="rowheader">{% render 'ms-t', v: b.label %}</div>
           {%- for i in (1..3) -%}
             {%- assign kv = 'v' | append: i -%}{%- assign kn = 'col' | append: i | append: '_name' -%}
-            {%- capture v %}{% render 'ms-t', v: b[kv] %}{% endcapture -%}{%- assign v = v | strip -%}
+            {%- capture v %}{% render 'ms-t', v: b[kv], en: kv, bid: block.id, sid: section.id %}{% endcapture -%}{%- assign v = v | strip -%}
             {%- assign vl = v | downcase -%}
             <div class="ms-cmp__cell" role="cell" data-col="{{ i }}">
               <span class="ms-cmp__mlabel" aria-hidden="true">{% render 'ms-t', v: s[kn] %}</span>

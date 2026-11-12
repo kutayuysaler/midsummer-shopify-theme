@@ -77,7 +77,8 @@
   assign ms_blog = nil
   assign ms_blogs = 'news,journal' | split: ','
   for h in ms_blogs
-    if blogs[h].articles_count > 0
+    assign mc = blogs[h].articles_count | plus: 0
+    if mc > 0
       assign ms_blog = blogs[h]
       break
     endif

@@ -1,5 +1,46 @@
 <section class="ms-hero" data-dc-tpl="196" style="position: relative; height: 100vh; height: 100svh; min-height: 560px; overflow: hidden; background: rgb(23, 20, 15);">
-<video class="ms-hero__film" autoplay="" loop="" muted="" playsinline="" poster="{% if section.settings.poster != blank %}{{ section.settings.poster | image_url: width: 1600 }}{% else %}https://midsummer-milano.com/cdn/shop/files/Untitled_Project_5_b49a7740-07fa-45f1-8b4f-464d951b0772.jpg?v=1683816726&amp;width=1600{% endif %}" preload="metadata" src="{% if section.settings.video != blank %}{{ section.settings.video.sources | where: 'format', 'mp4' | map: 'url' | first | default: section.settings.video_url }}{% else %}{{ section.settings.video_url }}{% endif %}" style="position: absolute; inset: 0px; width: 100%; height: 100%; object-fit: cover;">
+{%- comment -%}
+  The film. Chosen under Film (from Files), Shopify's own web copies are used: the adaptive stream
+  where the browser plays it (Safari, iPhone), else an MP4 of at most 720 lines on a phone and
+  1080 on a computer. The film address (the original upload) is only the fallback. Nothing is
+  downloaded until the page itself is up; the poster shows meanwhile. On a data-saving or very
+  slow connection the poster stays.
+{%- endcomment -%}
+{%- liquid
+  assign film = section.settings.video
+  assign f_hls = ''
+  assign f_sm = ''
+  assign f_lg = ''
+  assign h_sm = 0
+  assign h_lg = 0
+  if film != blank
+    for fsrc in film.sources
+      if fsrc.format == 'm3u8'
+        assign f_hls = fsrc.url
+      elsif fsrc.format == 'mp4'
+        assign fh = fsrc.height | plus: 0
+        if fh <= 720 and fh > h_sm
+          assign f_sm = fsrc.url
+          assign h_sm = fh
+        endif
+        if fh <= 1080 and fh > h_lg
+          assign f_lg = fsrc.url
+          assign h_lg = fh
+        endif
+      endif
+    endfor
+  endif
+  if f_lg == ''
+    assign f_lg = f_sm
+  endif
+  if f_lg == ''
+    assign f_lg = section.settings.video_url
+  endif
+  if f_sm == ''
+    assign f_sm = f_lg
+  endif
+-%}
+<video class="ms-hero__film" autoplay="" loop="" muted="" playsinline="" poster="{% if section.settings.poster != blank %}{{ section.settings.poster | image_url: width: 1600 }}{% else %}https://midsummer-milano.com/cdn/shop/files/Untitled_Project_5_b49a7740-07fa-45f1-8b4f-464d951b0772.jpg?v=1683816726&amp;width=1600{% endif %}" preload="none" data-hls="{{ f_hls }}" data-sm="{{ f_sm }}" data-lg="{{ f_lg }}" style="position: absolute; inset: 0px; width: 100%; height: 100%; object-fit: cover;">
 </video>
 <div class="ms-hero__shade" style="position: absolute; inset: 0px; background: linear-gradient(rgba(10, 8, 6, 0.28) 0%, rgba(10, 8, 6, 0.04) 40%, rgba(10, 8, 6, 0.5) 100%);"></div>
 <div class="ms-hero__words" style="position: absolute; inset: 0px; display: flex; flex-direction: column; justify-content: space-between; gap: clamp(28px, 5vh, 48px); padding: calc(78px + clamp(26px, 4.5vw, 72px)) clamp(26px, 4.5vw, 72px) clamp(26px, 4.5vw, 72px); color: rgb(251, 249, 245);">
@@ -50,7 +91,29 @@
     var f = v && v.querySelector('.ms-hero__film');
     if (!f) return;
     function ar() { if (f.videoWidth && f.videoHeight) v.style.setProperty('--ms-film-ar', f.videoWidth + ' / ' + f.videoHeight); }
-    if (f.readyState >= 1) ar(); else f.addEventListener('loadedmetadata', ar);
+    f.addEventListener('loadedmetadata', ar);
+    var c = navigator.connection || {};
+    if (c.saveData || /(^|-)2g$/.test(c.effectiveType || '')) return;
+    function start() {
+      if (f.getAttribute('data-go')) return;
+      f.setAttribute('data-go', '1');
+      var hls = f.getAttribute('data-hls');
+      var url = hls && f.canPlayType('application/vnd.apple.mpegurl') ? hls : (window.innerWidth > 1024 ? f.getAttribute('data-lg') : f.getAttribute('data-sm'));
+      if (!url) return;
+      if (url === hls) {
+        // a browser that offers the stream but cannot play it falls back to the MP4
+        f.addEventListener('error', function () {
+          var mp4 = window.innerWidth > 1024 ? f.getAttribute('data-lg') : f.getAttribute('data-sm');
+          if (mp4 && f.getAttribute('src') !== mp4) { f.src = mp4; var q = f.play(); if (q && q.catch) q.catch(function () {}); }
+        }, { once: true });
+      }
+      f.src = url;
+      f.preload = 'auto';
+      var p = f.play();
+      if (p && p.catch) p.catch(function () {});
+    }
+    function soon() { if ('requestIdleCallback' in window) requestIdleCallback(start, { timeout: 1200 }); else setTimeout(start, 300); }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', soon); else soon();
   })();
 </script>
 {% schema %}

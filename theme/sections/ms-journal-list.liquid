@@ -55,7 +55,7 @@
       endif
     endfor
   endif
-  assign total = blog.articles_count
+  assign total = blog.articles_count | plus: 0
   if subj != ''
     assign total = n_in
   endif
@@ -70,7 +70,8 @@
   endif
 -%}
 <section class="ms-jl{% if subj != '' %} is-subject{% endif %}" data-ms-jl{% if subj != '' %} data-subject="{{ subj }}"{% endif %}>
-  {%- if blog.articles_count == 0 -%}
+  {%- assign jl_count = blog.articles_count | plus: 0 -%}
+  {%- if jl_count == 0 -%}
     <p class="ms-jl__empty">{% render 'ms-t', v: section.settings.empty %}</p>
   {%- else -%}
   <nav class="ms-jl__cats" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: section.settings.cats_label %}{% endcapture %}{{ ms_t_out | escape }}" data-ms-jl-cats>
@@ -184,7 +185,8 @@
   {%- endif -%}
 </section>
 {%- endpaginate -%}
-{%- if blog.articles_count > 0 -%}
+{%- assign jl_count = blog.articles_count | plus: 0 -%}
+{%- if jl_count > 0 -%}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",

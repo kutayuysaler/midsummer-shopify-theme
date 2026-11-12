@@ -1,0 +1,44 @@
+{%- comment -%}
+  A setting that is not language, as the theme was built: a photograph's file, an address, a map
+  position, a handle, a name that is never translated. Translate & Adapt can hold a translation of
+  such a setting too, and a machine translation turns it into a file or an address that does not
+  exist. Outside the shop's main language the theme therefore uses the value it was built with
+  (snippets/ms-en-map.liquid, written by scripts/en_guard.py). With file: true, a file of the
+  theme's own chosen later in the editor is kept. A setting the build does not know is shown as it is.
+  Usage: {% render 'ms-en', v: block.settings.image_fallback, id: 'image_fallback', bid: block.id, sid: section.id %}
+{%- endcomment -%}
+{%- liquid
+  assign ms_out = v
+  unless request.locale.primary or sid == blank or id == blank
+    assign ms_sk = sid | split: '__' | last
+    if sid contains 'template--'
+      assign ms_tk = template.name
+      if template.suffix != blank
+        assign ms_tk = ms_tk | append: '.' | append: template.suffix
+      endif
+    else
+      assign ms_tk = 'group'
+    endif
+    assign ms_bk = bid | default: '-'
+    capture ms_map
+      render 'ms-en-map', tk: ms_tk
+    endcapture
+    assign ms_needle = '¦' | append: ms_sk | append: '/' | append: ms_bk | append: '/' | append: id | append: '='
+    if ms_map contains ms_needle
+      assign ms_en = ms_map | split: ms_needle | last | split: '¦' | first
+      if ms_en != v
+        assign ms_out = ms_en
+        if file and v != blank
+          capture ms_files
+            render 'ms-en-map', tk: 'assets'
+          endcapture
+          assign ms_have = '¦' | append: v | append: '¦'
+          if ms_files contains ms_have
+            assign ms_out = v
+          endif
+        endif
+      endif
+    endif
+  endunless
+  echo ms_out
+-%}

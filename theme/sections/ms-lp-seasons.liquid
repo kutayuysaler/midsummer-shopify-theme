@@ -28,7 +28,7 @@
             assign key = 'winter'
             assign img = s.winter_image
             capture fb
-              render 'ms-t', v: s.winter_fallback
+              render 'ms-t', v: s.winter_fallback, en: 'winter_fallback', sid: section.id
             endcapture
             capture lab
               render 'ms-t', v: s.winter_label
@@ -43,7 +43,7 @@
             assign key = 'summer'
             assign img = s.summer_image
             capture fb
-              render 'ms-t', v: s.summer_fallback
+              render 'ms-t', v: s.summer_fallback, en: 'summer_fallback', sid: section.id
             endcapture
             capture lab
               render 'ms-t', v: s.summer_label

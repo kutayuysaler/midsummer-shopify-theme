@@ -41,11 +41,14 @@
                 assign nc = nc | plus: 1
               endfor
               capture ms_d1
-                render 'ms-t', v: b.settings.name
+                render 'ms-t', v: b.settings.name, en: 'name', bid: b.id, sid: section.id
               endcapture
-              assign anchor = b.settings.anchor | default: ms_d1 | handleize
+              capture g_anchor
+                render 'ms-en', v: b.settings.anchor, id: 'anchor', bid: b.id, sid: section.id
+              endcapture
+              assign anchor = g_anchor | default: ms_d1 | handleize
             -%}
-            <a class="ms-lf__tab{% if tab_n == 1 %} is-on{% endif %}" role="tab" id="lf-tab-{{ anchor }}" href="#{{ anchor }}" aria-controls="{{ anchor }}" aria-selected="{% if tab_n == 1 %}true{% else %}false{% endif %}">{% render 'ms-t', v: b.settings.name %}{% if nc > 0 %}<sup>{{ nc }}</sup>{% endif %}</a>
+            <a class="ms-lf__tab{% if tab_n == 1 %} is-on{% endif %}" role="tab" id="lf-tab-{{ anchor }}" href="#{{ anchor }}" aria-controls="{{ anchor }}" aria-selected="{% if tab_n == 1 %}true{% else %}false{% endif %}">{% render 'ms-t', v: b.settings.name, en: 'name', bid: b.id, sid: section.id %}{% if nc > 0 %}<sup>{{ nc }}</sup>{% endif %}</a>
           {%- endif -%}
         {%- endfor -%}
       </div>
@@ -61,12 +64,15 @@
           assign fab_n = fab_n | plus: 1
           assign fs = b.settings
           capture cloth
-            render 'ms-t', v: fs.name
+            render 'ms-t', v: fs.name, en: 'name', bid: b.id, sid: section.id
           endcapture
           capture ms_d2
-            render 'ms-t', v: fs.name
+            render 'ms-t', v: fs.name, en: 'name', bid: b.id, sid: section.id
           endcapture
-          assign anchor = fs.anchor | default: ms_d2 | handleize
+          capture g_anchor
+            render 'ms-en', v: fs.anchor, id: 'anchor', bid: b.id, sid: section.id
+          endcapture
+          assign anchor = g_anchor | default: ms_d2 | handleize
           assign first = section.blocks[forloop.index]
           assign no_colours = true
           if first and first.type == 'colour'
@@ -82,7 +88,7 @@
               assign big_img = fs.image | image_url: width: 900
             elsif fs.image_fallback != blank
               capture big_img
-                render 'ms-t', v: fs.image_fallback
+                render 'ms-t', v: fs.image_fallback, en: 'image_fallback', bid: b.id, sid: section.id
               endcapture
               assign big_img = big_img | asset_url
             endif
@@ -94,13 +100,13 @@
           else
             assign big_color = first.settings.color
             capture cap
-              render 'ms-t', v: first.settings.name
+              render 'ms-t', v: first.settings.name, en: 'name', bid: first.id, sid: section.id
             endcapture
             if first.settings.image != blank
               assign big_img = first.settings.image | image_url: width: 900
             elsif first.settings.large_fallback != blank
               capture big_img
-                render 'ms-t', v: first.settings.large_fallback
+                render 'ms-t', v: first.settings.large_fallback, en: 'large_fallback', bid: first.id, sid: section.id
               endcapture
               assign big_img = big_img | asset_url
             endif
@@ -152,12 +158,12 @@
             assign img_l = cs.image | image_url: width: 900
           elsif cs.image_fallback != blank
             capture thumb
-              render 'ms-t', v: cs.image_fallback
+              render 'ms-t', v: cs.image_fallback, en: 'image_fallback', bid: b.id, sid: section.id
             endcapture
             assign thumb = thumb | asset_url
             if cs.large_fallback != blank
               capture img_l
-                render 'ms-t', v: cs.large_fallback
+                render 'ms-t', v: cs.large_fallback, en: 'large_fallback', bid: b.id, sid: section.id
               endcapture
               assign img_l = img_l | asset_url
             endif
@@ -172,9 +178,9 @@
         -%}
               <li {{ b.shopify_attributes }}>
                 <button type="button" class="ms-lf__chip{% if is_first %} is-sel{% endif %}" aria-pressed="{{ is_first }}"
-                  data-name="{% capture ms_t_out %}{% render 'ms-t', v: cs.name %}{% endcapture %}{{ ms_t_out | escape }}" data-color="{{ cs.color }}" data-img="{{ img_l }}">
+                  data-name="{% capture ms_t_out %}{% render 'ms-t', v: cs.name, en: 'name', bid: b.id, sid: section.id %}{% endcapture %}{{ ms_t_out | escape }}" data-color="{{ cs.color }}" data-img="{{ img_l }}">
                   <span class="ms-lf__sw" style="background-color: {{ cs.color }};{% if thumb != '' %} background-image: url({{ thumb }});{% endif %}"></span>
-                  <span class="ms-lf__cn">{% render 'ms-t', v: cs.name %}</span>
+                  <span class="ms-lf__cn">{% render 'ms-t', v: cs.name, en: 'name', bid: b.id, sid: section.id %}</span>
                 </button>
               </li>
       {%- endif -%}

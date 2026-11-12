@@ -14,8 +14,11 @@
   capture items
     if s.show_award
     echo '<figure class="ms-pr__item is-on" data-ms-pr-item="0" aria-hidden="false">'
-    if s.award_logo != blank
-      assign alogo = s.award_logo
+    capture g_award
+      render 'ms-en', v: s.award_logo, id: 'award_logo', file: true, sid: section.id
+    endcapture
+    if g_award != blank
+      assign alogo = g_award
       unless alogo contains '/'
         assign alogo = alogo | asset_url
       endunless
@@ -55,10 +58,12 @@
     assign line = ''
     assign href = block.settings.link
     capture when
-      render 'ms-t', v: block.settings.when
+      render 'ms-t', v: block.settings.when, en: 'when', bid: block.id, sid: section.id
     endcapture
-    if handle != blank and blogs[handle].articles_count > 0
-      assign art = blogs[handle].articles.first
+    assign pb = blogs[handle]
+    assign pn = pb.articles_count | plus: 0
+    if handle != blank and pb.handle == handle and pn > 0
+      assign art = pb.articles.first
       assign line = art.title | replace: 'Midsummer-Milano', 'Midsummer Milano' | escape
       assign href = art.url
       # the year of the piece: the one its title names (a piece filed later keeps its own year),
@@ -84,7 +89,10 @@
     if block.settings.logo != blank
       assign src = block.settings.logo | image_url: width: 300
     elsif block.settings.logo_file != blank
-      assign src = block.settings.logo_file | asset_url
+      capture g_logo
+        render 'ms-en', v: block.settings.logo_file, id: 'logo_file', file: true, bid: block.id, sid: section.id
+      endcapture
+      assign src = g_logo | asset_url
     else
       assign src = ''
     endif
@@ -92,7 +100,7 @@
       # nothing to read: the mark is still shown, among the others on the line
       if src != blank
         capture ms_d4
-          render 'ms-t', v: block.settings.name
+          render 'ms-t', v: block.settings.name, en: 'name', bid: block.id, sid: section.id
         endcapture
         assign rest = rest | append: src | append: '¤' | append: ms_d4 | append: '¦'
       endif
@@ -101,7 +109,7 @@
     assign yk = when | default: '0000' | slice: 0, 4
     assign ik = 99 | minus: forloop.index | prepend: '0' | slice: -2, 2
     capture ms_d5
-      render 'ms-t', v: block.settings.name
+      render 'ms-t', v: block.settings.name, en: 'name', bid: block.id, sid: section.id
     endcapture
     assign rec = yk | append: '~' | append: ik | append: '¤' | append: line | append: '¤' | append: href | append: '¤' | append: when | append: '¤' | append: src | append: '¤' | append: ms_d5 | append: '¤' | append: block.shopify_attributes
     assign recs = recs | append: rec | append: '¦'
@@ -109,7 +117,7 @@
   assign recs = recs | split: '¦' | sort | reverse
   assign max = s.max_logos | default: 8
   capture strip
-    if s.show_award and s.award_logo != blank
+    if s.show_award and g_award != blank
       capture eby
         render 'ms-t', v: s.award_by
       endcapture

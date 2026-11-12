@@ -2,33 +2,51 @@
   A press page: each publication is its own blog (press-elle-decor, press-vanity-fair …)
   using the template blog.press. The publication's mark and name head the page, its
   clippings follow, and every other publication sits beneath, so a reader can move from
-  one magazine to the next.
+  one magazine to the next. The blog with no publication of its own (press) is the index:
+  its title is the theme's own word for Press, and it shows the publications only.
+  Each publication's address, mark and name are read through ms-en, so a translation saved in
+  Translate & Adapt cannot turn them into a blog or a file that does not exist.
 {%- endcomment -%}
 {%- liquid
   assign here = nil
   for block in section.blocks
-    assign h = block.settings.link | split: '/' | last
+    capture g_link
+      render 'ms-en', v: block.settings.link, id: 'link', bid: block.id, sid: section.id
+    endcapture
+    assign h = g_link | split: '/' | last
     if h == blog.handle
       assign here = block
     endif
   endfor
+  assign bn = blog.articles_count | plus: 0
+  assign is_index = false
   assign pub = blog.title | remove: 'Press - ' | remove: 'Press – ' | remove: 'Press — ' | remove: 'Press: ' | remove: 'Press ' | strip
+  assign here_logo = ''
   if here
     capture pub
-      render 'ms-t', v: here.settings.name
+      render 'ms-t', v: here.settings.name, en: 'name', bid: here.id, sid: section.id
+    endcapture
+    capture here_logo
+      render 'ms-en', v: here.settings.logo_file, id: 'logo_file', file: true, bid: here.id, sid: section.id
+    endcapture
+  elsif blog.handle == 'press' or blog.handle == 'stampa'
+    assign is_index = true
+    capture pub
+      render 'ms-t', v: 'Press'
     endcapture
   endif
 -%}
 <section class="ms-pb">
   <header class="ms-pb__head">
     <div class="ms-pb__eyebrow">{% render 'ms-t', v: section.settings.eyebrow %}</div>
-    {%- if here and here.settings.logo_file != blank -%}
-      <img class="ms-pb__logo" src="{{ here.settings.logo_file | asset_url }}" alt="{{ pub | escape }}" width="320" height="80">
+    {%- if here and here_logo != blank -%}
+      <img class="ms-pb__logo" src="{{ here_logo | asset_url }}" alt="{{ pub | escape }}" width="320" height="80">
     {%- endif -%}
     <h1 class="ms-pb__title">{{ pub }}</h1>
-    {%- if blog.articles_count > 0 -%}<p class="ms-pb__count">{{ blog.articles_count }} {% if blog.articles_count == 1 %}{% render 'ms-t', v: section.settings.one_piece %}{% else %}{% render 'ms-t', v: section.settings.pieces %}{% endif %}</p>{%- endif -%}
+    {%- if bn > 0 -%}<p class="ms-pb__count">{{ bn }} {% if bn == 1 %}{% render 'ms-t', v: section.settings.one_piece %}{% else %}{% render 'ms-t', v: section.settings.pieces %}{% endif %}</p>{%- endif -%}
   </header>
 
+  {%- unless is_index and bn == 0 -%}
   {%- paginate blog.articles by 12 -%}
   <div class="ms-pb__grid">
     {%- for article in blog.articles -%}
@@ -57,20 +75,35 @@
     </nav>
   {%- endif -%}
   {%- endpaginate -%}
+  {%- endunless -%}
 
   {%- if section.blocks.size > 1 -%}
-  <div class="ms-pb__others">
-    <div class="ms-pb__label">{% render 'ms-t', v: section.settings.others_label %}</div>
+  <div class="ms-pb__others{% if is_index and bn == 0 %} is-index{% endif %}">
+    {%- unless is_index and bn == 0 -%}<div class="ms-pb__label">{% render 'ms-t', v: section.settings.others_label %}</div>{%- endunless -%}
     <ul class="ms-pb__logos" role="list">
       {%- for block in section.blocks -%}
-        {%- assign h = block.settings.link | split: '/' | last -%}
-        {%- comment -%} only publications with a piece to read: a mark never leads to an empty page {%- endcomment -%}
-        {%- unless blogs[h].articles_count > 0 or h == blog.handle -%}{%- continue -%}{%- endunless -%}
+        {%- capture g_link -%}{% render 'ms-en', v: block.settings.link, id: 'link', bid: block.id, sid: section.id %}{%- endcapture -%}
+        {%- assign h = g_link | split: '/' | last -%}
+        {%- comment -%}
+          only publications whose press blog exists in the store and has a piece to read: a mark
+          never leads to an empty or missing page. The count is read as a number, and the link is
+          the blog's own address, in the visitor's language.
+        {%- endcomment -%}
+        {%- assign pb = blogs[h] -%}
+        {%- assign pn = pb.articles_count | plus: 0 -%}
+        {%- if h == blank or pb.handle != h -%}
+          {%- assign pn = 0 -%}
+          {%- if request.design_mode -%}<li class="ms-pb__missing">{{ block.settings.name | escape }}: no blog at {{ g_link | escape }}</li>{%- endif -%}
+        {%- endif -%}
+        {%- unless pn > 0 or h == blog.handle -%}{%- continue -%}{%- endunless -%}
+        {%- if pn > 0 -%}{%- assign phref = pb.url -%}{%- else -%}{%- assign phref = blog.url -%}{%- endif -%}
+        {%- capture g_name -%}{% render 'ms-t', v: block.settings.name, en: 'name', bid: block.id, sid: section.id %}{%- endcapture -%}
+        {%- capture g_logo -%}{% render 'ms-en', v: block.settings.logo_file, id: 'logo_file', file: true, bid: block.id, sid: section.id %}{%- endcapture -%}
         <li {{ block.shopify_attributes }}>
-          <a href="{{ block.settings.link }}"{% if h == blog.handle %} aria-current="page"{% endif %} title="{% capture ms_t_out %}{% render 'ms-t', v: block.settings.name %}{% endcapture %}{{ ms_t_out | escape }}">
-            {%- if block.settings.logo_file != blank -%}
-              <img src="{{ block.settings.logo_file | asset_url }}" alt="{% capture ms_t_out %}{% render 'ms-t', v: block.settings.name %}{% endcapture %}{{ ms_t_out | escape }}" loading="lazy" width="160" height="40">
-            {%- else -%}{% render 'ms-t', v: block.settings.name %}{%- endif -%}
+          <a href="{{ phref }}"{% if h == blog.handle %} aria-current="page"{% endif %} title="{{ g_name | escape }}">
+            {%- if g_logo != blank -%}
+              <img src="{{ g_logo | asset_url }}" alt="{{ g_name | escape }}" loading="lazy" width="160" height="40">
+            {%- else -%}{{ g_name }}{%- endif -%}
           </a>
         </li>
       {%- endfor -%}
@@ -99,11 +132,14 @@
   .ms-pb__empty { font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 19px; color: #6E675C; grid-column: 1 / -1; text-align: center; padding: 30px 0; }
   .ms-pb__pages { display: flex; justify-content: center; gap: 28px; padding: 48px var(--gut) 0; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: #6E675C; }
   .ms-site .ms-pb__pages a { color: #17140F; border-bottom: 1px solid currentColor; }
+  .ms-pb__others.is-index { margin-top: 0; border-top: 1px solid #DDD6C9; }
+  .ms-pb__others.is-index .ms-pb__logos { margin-top: 0; }
   .ms-pb__others { max-width: 1560px; margin: clamp(64px, 8vw, 128px) auto 0; padding: clamp(40px, 5vw, 72px) var(--gut) clamp(64px, 8vw, 120px); border-top: 1px solid #DDD6C9; text-align: center; }
   .ms-pb__label { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: #6E675C; }
   .ms-pb__logos { list-style: none; margin: 32px 0 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 26px 44px; }
   .ms-site .ms-pb__logos a { display: flex; align-items: center; height: 40px; font-family: Newsreader, Georgia, serif; font-size: 16px; color: #6E675C; }
   .ms-site .ms-pb__logos img { height: 24px; width: auto; max-width: 150px; filter: grayscale(100%) opacity(.5) brightness(.8) !important; transition: filter .3s ease; }
+  .ms-pb__missing { font-size: 11px; color: #B23A2E; border: 1px dashed #B23A2E; padding: 6px 10px; }
   .ms-site .ms-pb__logos a:hover img, .ms-site .ms-pb__logos a[aria-current] img { filter: grayscale(100%) brightness(.15) !important; }
 </style>
 {% schema %}

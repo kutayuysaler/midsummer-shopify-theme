@@ -19,7 +19,10 @@
   # on a phone the upright photographs go two by two; an odd one out at the end sits centred
   assign n_up = 0
   for block in section.blocks
-    assign ar = block.settings.ratio | default: '1.5' | times: 1.0
+    capture g_ratio
+      render 'ms-en', v: block.settings.ratio, id: 'ratio', bid: block.id, sid: section.id
+    endcapture
+    assign ar = g_ratio | default: '1.5' | times: 1.0
     if block.settings.image != blank
       assign ar = block.settings.image.aspect_ratio | times: 1.0
     endif
@@ -30,7 +33,10 @@
   assign odd_up = n_up | modulo: 2
   assign i_up = 0
   for block in section.blocks
-    assign ar = block.settings.ratio | default: '1.5' | times: 1.0
+    capture g_ratio
+      render 'ms-en', v: block.settings.ratio, id: 'ratio', bid: block.id, sid: section.id
+    endcapture
+    assign ar = g_ratio | default: '1.5' | times: 1.0
     if block.settings.image != blank
       assign ar = block.settings.image.aspect_ratio | times: 1.0
     endif
@@ -50,7 +56,7 @@
     assign acc = acc | plus: ar
     assign n = n | plus: 1
     capture src
-      render 'ms-img', image: block.settings.image, fallback: block.settings.image_fallback, width: 1600
+      render 'ms-img', image: block.settings.image, fallback: block.settings.image_fallback, en: 'image_fallback', bid: block.id, sid: section.id, width: 1600
     endcapture
     capture cap
       render 'ms-t', v: block.settings.caption

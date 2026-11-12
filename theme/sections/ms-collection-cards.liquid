@@ -11,16 +11,19 @@
     <div class="ms-cc__grid" data-ms="rail">
       {%- for block in section.blocks -%}
         {%- liquid
+          capture g_handle
+            render 'ms-en', v: block.settings.handle, id: 'handle', bid: block.id, sid: section.id
+          endcapture
           assign c = block.settings.collection
-          if c == blank and block.settings.handle != blank
-            assign c = collections[block.settings.handle]
+          if c == blank and g_handle != blank
+            assign c = collections[g_handle]
           endif
           assign url = c.url
           if url == blank
             assign tiers = 'essentials,signature,icons' | split: ','
-            if tiers contains block.settings.handle
+            if tiers contains g_handle
               capture url
-                render 'ms-link', to: block.settings.handle
+                render 'ms-link', to: g_handle
               endcapture
             else
               capture url
@@ -38,7 +41,7 @@
             {%- if block.settings.image != blank -%}
               <img src="{{ block.settings.image | image_url: width: 1200 }}" {% render 'ms-srcset', image: block.settings.image, width: 1200, sizes: '(max-width: 760px) 72vw, 29vw' %} alt="{{ title | escape }}" loading="lazy" width="1200" height="1500">
             {%- elsif block.settings.image_fallback != blank -%}
-              <img src="{% render 'ms-img', fallback: block.settings.image_fallback %}" {% render 'ms-srcset', fallback: block.settings.image_fallback, width: 1800, sizes: '(max-width: 760px) 72vw, 29vw' %} alt="{{ title | escape }}" loading="lazy" width="1200" height="1500">
+              <img src="{% render 'ms-img', fallback: block.settings.image_fallback, en: 'image_fallback', bid: block.id, sid: section.id %}" {% render 'ms-srcset', fallback: block.settings.image_fallback, en: 'image_fallback', bid: block.id, sid: section.id, width: 1800, sizes: '(max-width: 760px) 72vw, 29vw' %} alt="{{ title | escape }}" loading="lazy" width="1200" height="1500">
             {%- elsif c.image != blank -%}
               <img src="{{ c.image | image_url: width: 1200 }}" {% render 'ms-srcset', image: c.image, width: 1200, sizes: '(max-width: 760px) 72vw, 29vw' %} alt="{{ title | escape }}" loading="lazy" width="1200" height="1500">
             {%- endif -%}

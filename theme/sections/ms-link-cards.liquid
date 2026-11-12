@@ -14,7 +14,7 @@
       {%- for block in section.blocks -%}
         {%- assign b = block.settings -%}
         <a class="ms-lc__card" href="{% render 'ms-link', to: b.place %}{% if b.place == 'enquire' %}#enquire{% endif %}"{% if b.place == 'enquire' %} data-ms-landing{% endif %} {{ block.shopify_attributes }}>
-          <span class="ms-lc__img"><img src="{% render 'ms-img', image: b.image, fallback: b.image_fallback, width: 900 %}" {% render 'ms-srcset', image: b.image, fallback: b.image_fallback, width: 900, sizes: '(max-width: 760px) 44vw, 21vw' %} alt="{% capture ms_t_out %}{% render 'ms-t', v: b.title %}{% endcapture %}{{ ms_t_out | escape }}" width="900" height="1125" loading="lazy"></span>
+          <span class="ms-lc__img"><img src="{% render 'ms-img', image: b.image, fallback: b.image_fallback, en: 'image_fallback', bid: block.id, sid: section.id, width: 900 %}" {% render 'ms-srcset', image: b.image, fallback: b.image_fallback, en: 'image_fallback', bid: block.id, sid: section.id, width: 900, sizes: '(max-width: 760px) 44vw, 21vw' %} alt="{% capture ms_t_out %}{% render 'ms-t', v: b.title %}{% endcapture %}{{ ms_t_out | escape }}" width="900" height="1125" loading="lazy"></span>
           <span class="ms-lc__name">{% render 'ms-t', v: b.title %}</span>
           <span class="ms-lc__line">{% render 'ms-t', v: b.text %}</span>
           <span class="ms-lc__go" aria-hidden="true">→</span>

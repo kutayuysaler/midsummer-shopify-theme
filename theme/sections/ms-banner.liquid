@@ -24,8 +24,11 @@
       assign h = 'height: min(66vh, 640px); min-height: 440px;'
   endcase
   assign href = section.settings.link | default: '#'
-  if section.settings.product_handle != blank
-    assign ph = section.settings.product_handle | strip
+  capture g_ph
+    render 'ms-en', v: section.settings.product_handle, id: 'product_handle', sid: section.id
+  endcapture
+  if g_ph != blank
+    assign ph = g_ph | strip
     if all_products[ph].url != blank
       assign href = all_products[ph].url
     endif
@@ -40,13 +43,13 @@
   assign ph_set = ''
   if section.settings.image_mobile != blank or section.settings.image_fallback_mobile != blank
     capture ph_set
-      render 'ms-srcset', image: section.settings.image_mobile, fallback: section.settings.image_fallback_mobile, width: 1200, sizes: '100vw'
+      render 'ms-srcset', image: section.settings.image_mobile, fallback: section.settings.image_fallback_mobile, en: 'image_fallback_mobile', sid: section.id, width: 1200, sizes: '100vw'
     endcapture
     assign ph_set = ph_set | strip
     if ph_set == ''
       capture ph_set
         echo 'srcset="'
-        render 'ms-img', image: section.settings.image_mobile, fallback: section.settings.image_fallback_mobile, width: 1200
+        render 'ms-img', image: section.settings.image_mobile, fallback: section.settings.image_fallback_mobile, en: 'image_fallback_mobile', sid: section.id, width: 1200
         echo '"'
       endcapture
     endif
@@ -65,12 +68,12 @@
 <section class="ms-bn ms-bn--{{ section.settings.align }}" style="{{ h }}">
   {%- if has_video -%}
     <video class="ms-bn__media" autoplay muted loop playsinline preload="metadata"
-      poster="{% render 'ms-img', image: section.settings.image, fallback: section.settings.image_fallback, width: 2400 %}"
+      poster="{% render 'ms-img', image: section.settings.image, fallback: section.settings.image_fallback, en: 'image_fallback', sid: section.id, width: 2400 %}"
       src="{% if section.settings.video != blank %}{{ section.settings.video.sources | where: 'format', 'mp4' | map: 'url' | first }}{% else %}{{ section.settings.video_url }}{% endif %}"></video>
   {%- else -%}
     <picture>
       {%- if ph_set != '' -%}<source media="(max-width: 760px)" {{ ph_set }}>{%- endif -%}
-      <img class="ms-bn__media" src="{% render 'ms-img', image: section.settings.image, fallback: section.settings.image_fallback, width: 2400 %}" {% render 'ms-srcset', image: section.settings.image, fallback: section.settings.image_fallback, width: 2400, sizes: bn_sizes %}
+      <img class="ms-bn__media" src="{% render 'ms-img', image: section.settings.image, fallback: section.settings.image_fallback, en: 'image_fallback', sid: section.id, width: 2400 %}" {% render 'ms-srcset', image: section.settings.image, fallback: section.settings.image_fallback, en: 'image_fallback', sid: section.id, width: 2400, sizes: bn_sizes %}
         alt="{{ section.settings.image.alt | default: heading | escape }}" width="2400" height="1350" fetchpriority="high"
         style="object-position: {{ section.settings.focus }};">
     </picture>

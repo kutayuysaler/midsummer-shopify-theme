@@ -6,14 +6,17 @@
 {%- liquid
   assign s = section.settings
   assign pp = nil
-  if s.product_handle != blank
-    assign pp = all_products[s.product_handle]
+  capture g_ph
+    render 'ms-en', v: s.product_handle, id: 'product_handle', sid: section.id
+  endcapture
+  if g_ph != blank
+    assign pp = all_products[g_ph]
   endif
 -%}
 <section class="ms-lpp">
   <div class="ms-lpp__in">
     <figure class="ms-lpp__room">
-      <img src="{% render 'ms-img', image: s.image, fallback: s.image_fallback, width: 1600 %}" {% render 'ms-srcset', image: s.image, fallback: s.image_fallback, width: 1600, sizes: '(max-width: 1080px) 90vw, 46vw' %} alt="{% capture ms_d1 %}{% render 'ms-t', v: s.image_alt %}{% endcapture %}{{ s.image.alt | default: ms_d1 | escape }}" width="1200" height="1500" loading="lazy">
+      <img src="{% render 'ms-img', image: s.image, fallback: s.image_fallback, en: 'image_fallback', sid: section.id, width: 1600 %}" {% render 'ms-srcset', image: s.image, fallback: s.image_fallback, en: 'image_fallback', sid: section.id, width: 1600, sizes: '(max-width: 1080px) 90vw, 46vw' %} alt="{% capture ms_d1 %}{% render 'ms-t', v: s.image_alt %}{% endcapture %}{{ s.image.alt | default: ms_d1 | escape }}" width="1200" height="1500" loading="lazy">
     </figure>
     <div class="ms-lpp__words">
       {%- if s.eyebrow != blank -%}<div class="ms-lpp__eyebrow">{% render 'ms-t', v: s.eyebrow %}</div>{%- endif -%}
@@ -30,7 +33,7 @@
           -%}
           {%- if s[kn] != blank -%}
             <div class="ms-lpp__cloth">
-              <span class="ms-lpp__sw" style="background-image: url('{% render 'ms-img', image: s[ki], fallback: s[kf], width: 700 %}');" role="img" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s[kn] %}{% endcapture %}{{ ms_t_out | escape }}"></span>
+              <span class="ms-lpp__sw" style="background-image: url('{% render 'ms-img', image: s[ki], fallback: s[kf], en: kf, sid: section.id, width: 700 %}');" role="img" aria-label="{% capture ms_t_out %}{% render 'ms-t', v: s[kn] %}{% endcapture %}{{ ms_t_out | escape }}"></span>
               <span class="ms-lpp__cn">{% render 'ms-t', v: s[kn] %}</span>
               {%- if s[kr] != blank -%}<span class="ms-lpp__cr">{% render 'ms-t', v: s[kr] %}</span>{%- endif -%}
               {%- if s[kw] != blank -%}<span class="ms-lpp__cw">{% render 'ms-t', v: s[kw] %}</span>{%- endif -%}
@@ -40,7 +43,7 @@
       </div>
       {%- if s.detail_fallback != blank or s.detail != blank -%}
         <figure class="ms-lpp__detail">
-          <img src="{% render 'ms-img', image: s.detail, fallback: s.detail_fallback, width: 900 %}" {% render 'ms-srcset', image: s.detail, fallback: s.detail_fallback, width: 900, sizes: '(max-width: 1080px) 90vw, 46vw' %} alt="{% capture ms_t_out %}{% render 'ms-t', v: s.detail_caption %}{% endcapture %}{{ ms_t_out | escape }}" width="900" height="900" loading="lazy">
+          <img src="{% render 'ms-img', image: s.detail, fallback: s.detail_fallback, en: 'detail_fallback', sid: section.id, width: 900 %}" {% render 'ms-srcset', image: s.detail, fallback: s.detail_fallback, en: 'detail_fallback', sid: section.id, width: 900, sizes: '(max-width: 1080px) 90vw, 46vw' %} alt="{% capture ms_t_out %}{% render 'ms-t', v: s.detail_caption %}{% endcapture %}{{ ms_t_out | escape }}" width="900" height="900" loading="lazy">
           {%- if s.detail_caption != blank -%}<figcaption>{% render 'ms-t', v: s.detail_caption %}</figcaption>{%- endif -%}
         </figure>
       {%- endif -%}

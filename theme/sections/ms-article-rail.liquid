@@ -6,8 +6,11 @@
 {%- liquid
   assign b = section.settings.blog
   assign only = false
-  if section.settings.blog_handle != blank
-    assign b = blogs[section.settings.blog_handle]
+  capture g_bh
+    render 'ms-en', v: section.settings.blog_handle, id: 'blog_handle', sid: section.id
+  endcapture
+  if g_bh != blank
+    assign b = blogs[g_bh]
     assign only = true
   endif
   assign current_url = ''
@@ -18,18 +21,24 @@
     endif
   endif
   if b == blank and only == false
-    if blogs.news.articles_count > 0
+    assign c_news = blogs.news.articles_count | plus: 0
+    assign c_journal = blogs.journal.articles_count | plus: 0
+    if c_news > 0
       assign b = blogs.news
-    elsif blogs.journal.articles_count > 0
+    elsif c_journal > 0
       assign b = blogs.journal
     endif
   endif
-  assign want = section.settings.tag | downcase | strip
+  capture g_tag
+    render 'ms-en', v: section.settings.tag, id: 'tag', sid: section.id
+  endcapture
+  assign want = g_tag | downcase | strip
   assign shown = 0
   assign max = section.settings.limit
   assign skip = ''
   assign need = max | plus: 3
-  if current_url != '' and b != blank and b.articles_count >= need
+  assign b_count = b.articles_count | plus: 0
+  if current_url != '' and b != blank and b_count >= need
     assign prev_url = ''
     assign take_next = false
     for n in b.articles limit: 50
@@ -47,7 +56,8 @@
     endfor
   endif
 -%}
-{%- if b != blank and b.articles_count > 0 -%}
+{%- assign b_count = b.articles_count | plus: 0 -%}
+{%- if b != blank and b_count > 0 -%}
 {%- capture cards -%}
   {%- for article in b.articles limit: 50 -%}
     {%- if shown >= max -%}{%- break -%}{%- endif -%}

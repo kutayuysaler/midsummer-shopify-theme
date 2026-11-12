@@ -2,9 +2,16 @@
   The address of a picture: the one chosen in the editor, else the fallback, which is
   either a full address or the name of a file in the theme's assets.
   Usage: src="{% render 'ms-img', image: section.settings.image, fallback: section.settings.fallback, width: 2000 %}"
+  With en: (the fallback's setting id), bid: block.id and sid: section.id, the fallback is read
+  through ms-en, so a translated file name cannot break the picture in Italian or Russian.
 {%- endcomment -%}
 {%- liquid
   assign w = width | default: 1800
+  if en != blank and fallback != blank and request.locale.primary == false
+    capture fallback
+      render 'ms-en', v: fallback, id: en, bid: bid, sid: sid, file: true
+    endcapture
+  endif
   if image != blank
     echo image | image_url: width: w
   elsif fallback contains '/'

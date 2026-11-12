@@ -21,7 +21,7 @@
         <tbody>
           {%- for block in section.blocks -%}
             {%- assign b = block.settings -%}
-            {%- assign bp = all_products[b.handle] -%}
+            {%- capture g_handle -%}{% render 'ms-en', v: b.handle, id: 'handle', bid: block.id, sid: section.id %}{%- endcapture -%}{%- assign bp = all_products[g_handle] -%}
             <tr {{ block.shopify_attributes }}>
               <th scope="row">{%- if bp.url != blank -%}<a href="{{ bp.url }}">{% render 'ms-t', v: b.name %}</a>{%- else -%}{% render 'ms-t', v: b.name %}{%- endif -%}</th>
               <td data-l="{% capture ms_t_out %}{% render 'ms-t', v: s.col_collection %}{% endcapture %}{{ ms_t_out | escape }}">{% render 'ms-t', v: b.collection %}</td>

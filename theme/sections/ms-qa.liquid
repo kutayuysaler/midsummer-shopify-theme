@@ -42,7 +42,8 @@
     assign shown = shown | plus: 1
   endfor
 -%}
-<section class="ms-qa{% if s.tone == 'sand' %} ms-qa--sand{% endif %}" id="{{ s.anchor | default: section.id }}">
+{%- capture g_anchor -%}{% render 'ms-en', v: s.anchor, id: 'anchor', sid: section.id %}{%- endcapture -%}
+<section class="ms-qa{% if s.tone == 'sand' %} ms-qa--sand{% endif %}" id="{{ g_anchor | default: section.id }}">
   <div class="ms-qa__in">
     <div class="ms-qa__head">
       <div class="ms-qa__eyebrow">{% render 'ms-t', v: s.eyebrow %}</div>
