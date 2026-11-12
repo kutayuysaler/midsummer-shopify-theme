@@ -323,7 +323,6 @@
     "icon_background": "Ikonbaggrund",
     "icons": "Ikoner",
     "image_border_radius": "Hjørneradius for billede",
-    "installments": "Rater",
     "integrated_button": "Integreret knap",
     "language_selector": "Sprogvælger",
     "large": "Stor",
@@ -574,7 +573,10 @@
     "input_style": "Inputstil",
     "selected_button_style": "Valgt knapstil",
     "open_by_default": "Åben som standard",
-    "title_preset": "Forudindstilling for titel"
+    "title_preset": "Forudindstilling for titel",
+    "customer_account_menu": "Kundekontomenu",
+    "shop_pay_payment_options": "Vis betalingsmuligheder for Shop Pay",
+    "show_physical_stores": "Vis fysiske butikker"
   },
   "options": {
     "apple": "Apple",
@@ -850,7 +852,13 @@
     "below_media": "Under mediet",
     "full_frame": "Fuld ramme",
     "icons": "Ikoner",
-    "input_field": "Indtastningsfelt"
+    "input_field": "Indtastningsfelt",
+    "direction_bottom_start": "Nederst til venstre",
+    "direction_center": "Midt",
+    "direction_end": "Højre",
+    "direction_start": "Venstre",
+    "direction_top_end": "Øverst til højre",
+    "direction_top_start": "Øverst til venstre"
   },
   "content": {
     "advanced": "Avanceret",
@@ -1102,7 +1110,9 @@
     "page_text_color_default_info": "Standard for temaafsnit",
     "actions_display_style": "Ikoner bruges altid på mobil",
     "edit_input_field_in_theme_settings": "Rediger indtastningsfelt i [temaindstillinger](/editor?context=theme&category=input%20fields)",
-    "edit_variants_in_theme_settings": "Rediger styling af varianter i [temaindstillinger](/editor?context=theme&category=variant%20pickers)"
+    "edit_variants_in_theme_settings": "Rediger styling af varianter i [temaindstillinger](/editor?context=theme&category=variant%20pickers)",
+    "shop_pay_payment_options": "Viser badges for Shop Pay Afbetaling og HSA/FSA, når de er tilgængelige.",
+    "show_physical_stores_help": "Vis også lokationer, der er markeret som en fysisk storefront, og som har produktet på lager, selvom de ikke tilbyder afhentning."
   },
   "categories": {
     "basic": "Grundlæggende",

@@ -1,10 +1,8 @@
 
 
-{%- comment -%}
-  Midsummer Milano: Product structured data is emitted once, by sections/ms-seo.liquid
-  (header group). Shopify's native output would publish admin prices on a
-  price-on-request site and duplicate the Product graph.
-{%- endcomment -%}
+<script type="application/ld+json">
+  {{ closest.product | structured_data }}
+</script>
 
 {% capture media_gallery %}
   {%- content_for 'block',
@@ -189,7 +187,7 @@
   .sticky-add-to-cart__bar {
     position: fixed;
     bottom: max(20px, var(--safe-area-inset-bottom));
-    left: 50%;
+    left: 50%; /* stylelint-disable-line csstools/use-logical -- centring pair with a physical translateX(-50%) */
     opacity: 0;
     transform: translateX(-50%) translateY(calc(100% + 40px));
     z-index: calc(var(--layer-sticky) - 1); /* Below sticky header */
@@ -245,7 +243,7 @@
   }
 
   .sticky-add-to-cart__info[data-has-image='false'] {
-    padding-left: var(--padding-lg);
+    padding-inline-start: var(--padding-lg);
   }
 
   .sticky-add-to-cart__image {
@@ -315,7 +313,7 @@
     }
 
     .sticky-add-to-cart__info[data-has-image='false'] {
-      padding-left: 0;
+      padding-inline-start: 0;
     }
 
     .sticky-add-to-cart__title {
@@ -416,11 +414,11 @@
       "options": [
         {
           "value": "left",
-          "label": "t:options.left"
+          "label": "t:options.direction_start"
         },
         {
           "value": "right",
-          "label": "t:options.right"
+          "label": "t:options.direction_end"
         }
       ],
       "default": "left"

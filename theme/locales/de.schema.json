@@ -324,7 +324,6 @@
     "icon_background": "Symbolhintergrund",
     "icons": "Symbole",
     "image_border_radius": "Bildeckenradius",
-    "installments": "Raten",
     "integrated_button": "Integrierte Schaltfläche",
     "language_selector": "Sprachauswahl",
     "large": "Groß",
@@ -574,7 +573,10 @@
     "input_style": "Eingabestil",
     "selected_button_style": "Ausgewählter Button-Stil",
     "open_by_default": "Standardmäßig geöffnet",
-    "title_preset": "Titelvoreinstellung"
+    "title_preset": "Titelvoreinstellung",
+    "customer_account_menu": "Kundenkontomenü",
+    "shop_pay_payment_options": "Shop Pay-Zahlungsoptionen anzeigen",
+    "show_physical_stores": "Physische Geschäfte anzeigen"
   },
   "options": {
     "apple": "Apfel",
@@ -850,7 +852,13 @@
     "below_media": "Unter den Medien",
     "full_frame": "Vollbild",
     "icons": "Symbole",
-    "input_field": "Eingabefeld"
+    "input_field": "Eingabefeld",
+    "direction_bottom_start": "Unten links",
+    "direction_center": "Mitte",
+    "direction_end": "Rechts",
+    "direction_start": "Links",
+    "direction_top_end": "Oben rechts",
+    "direction_top_start": "Oben links"
   },
   "content": {
     "background_video": "Hintergrundvideo",
@@ -1102,7 +1110,9 @@
     "page_text_color_default_info": "Standard für Theme-Abschnitte",
     "actions_display_style": "Auf Mobilgeräten werden immer Symbole verwendet",
     "edit_input_field_in_theme_settings": "Eingabefeld in den [Theme-Einstellungen](/editor?context=theme&category=input%20fields) bearbeiten",
-    "edit_variants_in_theme_settings": "Bearbeite das Varianten-Styling in den [Theme-Einstellungen](/editor?context=theme&category=variant%20pickers)"
+    "edit_variants_in_theme_settings": "Bearbeite das Varianten-Styling in den [Theme-Einstellungen](/editor?context=theme&category=variant%20pickers)",
+    "shop_pay_payment_options": "Zeigt Badges für Shop Pay-Ratenzahlung und HSA/FSA an, wenn verfügbar.",
+    "show_physical_stores_help": "Auch Standorte auflisten, die als physische Storefront markiert sind und das Produkt auf Lager haben, selbst wenn sie keine Abholung anbieten."
   },
   "categories": {
     "product_list": "Vorgestellte Kollektion",

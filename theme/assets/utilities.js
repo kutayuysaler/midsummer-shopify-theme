@@ -194,29 +194,42 @@ export function fetchConfig(type = 'json', config = {}) {
  * Creates a debounced function that delays calling the provided function (fn)
  * until after wait milliseconds have elapsed since the last time
  * the debounced function was invoked. The returned function has a .cancel()
- * method to cancel any pending calls.
+ * method to cancel any pending call, and a .flush() method to run it now.
  *
  * @template {(...args: any[]) => any} T
  * @param {T} fn The function to debounce
  * @param {number} wait The time (in milliseconds) to wait before calling fn
- * @returns {T & { cancel(): void }} A debounced version of fn with a .cancel() method
+ * @returns {T & { cancel(): void, flush(): void }} A debounced version of fn with .cancel() and .flush() methods
  */
 export function debounce(fn, wait) {
   /** @type {number | undefined} */
   let timeout;
+  /** @type {{ receiver: any, args: any[] } | null} */
+  let pending = null;
 
   /** @param {...any} args */
   function debounced(...args) {
     clearTimeout(timeout);
-    timeout = setTimeout(() => fn.apply(this, args), wait);
+    pending = { receiver: this, args };
+    timeout = setTimeout(() => debounced.flush(), wait);
   }
 
   // Add the .cancel method:
   debounced.cancel = () => {
     clearTimeout(timeout);
+    pending = null;
   };
 
-  return /** @type {T & { cancel(): void }} */ (debounced);
+  // Run the pending call now, if there is one.
+  debounced.flush = () => {
+    clearTimeout(timeout);
+    if (!pending) return;
+    const { receiver, args } = pending;
+    pending = null;
+    fn.apply(receiver, args);
+  };
+
+  return /** @type {T & { cancel(): void, flush(): void }} */ (/** @type {unknown} */ (debounced));
 }
 
 /**
@@ -441,6 +454,25 @@ export function isDesktopBreakpoint() {
  */
 export function isTouchDevice() {
   return 'ontouchstart' in window && navigator.maxTouchPoints > 0;
+}
+
+/**
+ * Checks whether an element resolves to right-to-left text direction.
+ * @param {Element} [element] - The element to check. Defaults to the document root.
+ * @returns {boolean} True if the element's computed direction is RTL.
+ */
+export function isRTL(element = document.documentElement) {
+  return getComputedStyle(element).direction === 'rtl';
+}
+
+/**
+ * Resolves the reading-direction multiplier for an element, used to convert
+ * physical horizontal input (arrow keys, pointer deltas) into logical movement.
+ * @param {Element} element - The element whose computed direction to read.
+ * @returns {1 | -1} `-1` when the element renders right-to-left, `1` otherwise.
+ */
+export function getDirectionMultiplier(element) {
+  return getComputedStyle(element).direction === 'rtl' ? -1 : 1;
 }
 
 /**

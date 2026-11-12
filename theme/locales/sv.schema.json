@@ -332,7 +332,6 @@
     "icon_background": "Ikonbakgrund",
     "icons": "Ikoner",
     "image_border_radius": "Bildens hörnradie",
-    "installments": "Avbetalningar",
     "integrated_button": "Integrerad knapp",
     "language_selector": "Språkväljare",
     "large": "Stor",
@@ -574,7 +573,10 @@
     "input_style": "Inmatningsstil",
     "selected_button_style": "Vald knappstil",
     "open_by_default": "Öppen som standard",
-    "title_preset": "Förinställning för rubrik"
+    "title_preset": "Förinställning för rubrik",
+    "customer_account_menu": "Kundkontomeny",
+    "shop_pay_payment_options": "Visa betalningsalternativ för Shop Pay",
+    "show_physical_stores": "Visa fysiska butiker"
   },
   "options": {
     "apple": "Apple",
@@ -850,7 +852,13 @@
     "below_media": "Under media",
     "full_frame": "Helskärm",
     "icons": "Ikoner",
-    "input_field": "Inmatningsfält"
+    "input_field": "Inmatningsfält",
+    "direction_bottom_start": "Nere till vänster",
+    "direction_center": "Mitten",
+    "direction_end": "Höger",
+    "direction_start": "Vänster",
+    "direction_top_end": "Uppe till höger",
+    "direction_top_start": "Uppe till vänster"
   },
   "content": {
     "advanced": "Avancerat",
@@ -1102,7 +1110,9 @@
     "page_text_color_default_info": "Standard för temasektioner",
     "actions_display_style": "Ikoner används alltid på mobilen",
     "edit_input_field_in_theme_settings": "Redigera inmatningsfält i [temainställningar](/editor?context=theme&category=input%20fields)",
-    "edit_variants_in_theme_settings": "Redigera variantstil i [temainställningar](/editor?context=theme&category=variant%20pickers)"
+    "edit_variants_in_theme_settings": "Redigera variantstil i [temainställningar](/editor?context=theme&category=variant%20pickers)",
+    "shop_pay_payment_options": "Visar märken för avbetalning med Shop Pay och HSA/FSA när det är tillgängligt.",
+    "show_physical_stores_help": "Lista även platser markerade som fysisk butik som har produkten i lager, även om de inte erbjuder hämtning."
   },
   "categories": {
     "basic": "Grundläggande",

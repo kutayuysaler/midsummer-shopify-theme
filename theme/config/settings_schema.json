@@ -2,7 +2,7 @@
   {
     "name": "theme_info",
     "theme_name": "Atelier",
-    "theme_version": "4.1.5",
+    "theme_version": "4.5.0",
     "theme_author": "Kutay Uysaler",
     "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
     "theme_support_url": "https://support.shopify.com/"
@@ -145,10 +145,6 @@
             "label": "14px"
           },
           {
-            "value": "15",
-            "label": "15px"
-          },
-          {
             "value": "16",
             "label": "16px"
           },
@@ -209,10 +205,6 @@
             "label": "10px"
           },
           {
-            "value": "11",
-            "label": "11px"
-          },
-          {
             "value": "12",
             "label": "12px"
           },
@@ -233,20 +225,12 @@
             "label": "20px"
           },
           {
-            "value": "22",
-            "label": "22px"
-          },
-          {
             "value": "24",
             "label": "24px"
           },
           {
             "value": "32",
             "label": "32px"
-          },
-          {
-            "value": "38",
-            "label": "38px"
           },
           {
             "value": "40",
@@ -267,10 +251,6 @@
           {
             "value": "88",
             "label": "88px"
-          },
-          {
-            "value": "96",
-            "label": "96px"
           },
           {
             "value": "120",
@@ -373,10 +353,6 @@
             "label": "10px"
           },
           {
-            "value": "11",
-            "label": "11px"
-          },
-          {
             "value": "12",
             "label": "12px"
           },
@@ -397,20 +373,12 @@
             "label": "20px"
           },
           {
-            "value": "22",
-            "label": "22px"
-          },
-          {
             "value": "24",
             "label": "24px"
           },
           {
             "value": "32",
             "label": "32px"
-          },
-          {
-            "value": "38",
-            "label": "38px"
           },
           {
             "value": "40",
@@ -431,10 +399,6 @@
           {
             "value": "88",
             "label": "88px"
-          },
-          {
-            "value": "96",
-            "label": "96px"
           },
           {
             "value": "120",
@@ -545,10 +509,6 @@
             "label": "10px"
           },
           {
-            "value": "11",
-            "label": "11px"
-          },
-          {
             "value": "12",
             "label": "12px"
           },
@@ -569,20 +529,12 @@
             "label": "20px"
           },
           {
-            "value": "22",
-            "label": "22px"
-          },
-          {
             "value": "24",
             "label": "24px"
           },
           {
             "value": "32",
             "label": "32px"
-          },
-          {
-            "value": "38",
-            "label": "38px"
           },
           {
             "value": "40",
@@ -603,10 +555,6 @@
           {
             "value": "88",
             "label": "88px"
-          },
-          {
-            "value": "96",
-            "label": "96px"
           },
           {
             "value": "120",
@@ -717,10 +665,6 @@
             "label": "10px"
           },
           {
-            "value": "11",
-            "label": "11px"
-          },
-          {
             "value": "12",
             "label": "12px"
           },
@@ -741,20 +685,12 @@
             "label": "20px"
           },
           {
-            "value": "22",
-            "label": "22px"
-          },
-          {
             "value": "24",
             "label": "24px"
           },
           {
             "value": "32",
             "label": "32px"
-          },
-          {
-            "value": "38",
-            "label": "38px"
           },
           {
             "value": "40",
@@ -775,10 +711,6 @@
           {
             "value": "88",
             "label": "88px"
-          },
-          {
-            "value": "96",
-            "label": "96px"
           },
           {
             "value": "120",
@@ -889,10 +821,6 @@
             "label": "10px"
           },
           {
-            "value": "11",
-            "label": "11px"
-          },
-          {
             "value": "12",
             "label": "12px"
           },
@@ -913,20 +841,12 @@
             "label": "20px"
           },
           {
-            "value": "22",
-            "label": "22px"
-          },
-          {
             "value": "24",
             "label": "24px"
           },
           {
             "value": "32",
             "label": "32px"
-          },
-          {
-            "value": "38",
-            "label": "38px"
           },
           {
             "value": "40",
@@ -947,10 +867,6 @@
           {
             "value": "88",
             "label": "88px"
-          },
-          {
-            "value": "96",
-            "label": "96px"
           },
           {
             "value": "120",
@@ -1061,10 +977,6 @@
             "label": "10px"
           },
           {
-            "value": "11",
-            "label": "11px"
-          },
-          {
             "value": "12",
             "label": "12px"
           },
@@ -1085,20 +997,12 @@
             "label": "20px"
           },
           {
-            "value": "22",
-            "label": "22px"
-          },
-          {
             "value": "24",
             "label": "24px"
           },
           {
             "value": "32",
             "label": "32px"
-          },
-          {
-            "value": "38",
-            "label": "38px"
           },
           {
             "value": "40",
@@ -1119,10 +1023,6 @@
           {
             "value": "88",
             "label": "88px"
-          },
-          {
-            "value": "96",
-            "label": "96px"
           },
           {
             "value": "120",
@@ -1285,15 +1185,15 @@
         "options": [
           {
             "value": "bottom-left",
-            "label": "t:options.bottom_left"
+            "label": "t:options.direction_bottom_start"
           },
           {
             "value": "top-left",
-            "label": "t:options.top_left"
+            "label": "t:options.direction_top_start"
           },
           {
             "value": "top-right",
-            "label": "t:options.top_right"
+            "label": "t:options.direction_top_end"
           }
         ],
         "default": "top-left",
@@ -1651,7 +1551,8 @@
       {
         "type": "checkbox",
         "id": "show_installments",
-        "label": "t:settings.installments",
+        "label": "t:settings.shop_pay_payment_options",
+        "info": "t:info.shop_pay_payment_options",
         "default": true
       },
       {

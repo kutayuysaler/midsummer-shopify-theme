@@ -232,7 +232,9 @@
     "video_autoplay": "סרטונים יושתקו כברירת מחדל",
     "video_external": "השתמש בכתובת URL של YouTube או Vimeo",
     "pills_usage": "משמש למסננים שהוחלו, קודי הנחה והצעות חיפוש",
-    "media_type_info": "התכונות מאוכלסות מקישורי התפריט שלך"
+    "media_type_info": "התכונות מאוכלסות מקישורי התפריט שלך",
+    "shop_pay_payment_options": "מציג תגים של תשלומי Shop Pay ו-HSA/FSA כשהם זמינים.",
+    "show_physical_stores_help": "הצג גם מיקומים המסומנים כחזית חנות פיזית שהמוצר זמין בהם במלאי, גם כאשר הם לא מציעים איסוף."
   },
   "names": {
     "column": "עמודה",
@@ -670,7 +672,13 @@
     "wide": "רחב",
     "youtube": "YouTube",
     "with_hints": "עם רמזים",
-    "below_media": "מתחת למדיה"
+    "below_media": "מתחת למדיה",
+    "direction_bottom_start": "למטה, התחלה",
+    "direction_center": "מרכז",
+    "direction_end": "סוף",
+    "direction_start": "התחלה",
+    "direction_top_end": "למעלה, סוף",
+    "direction_top_start": "למעלה, התחלה"
   },
   "settings": {
     "accordion": "אקורדיון",
@@ -835,7 +843,6 @@
     "inventory_threshold": "סף למלאי נמוך",
     "inverse": "הפוך",
     "inverse_logo": "לוגו הפוך",
-    "installments": "תשלומים",
     "integrated_button": "לחצן משולב",
     "items_to_show": "פריטים להצגה",
     "label": "תווית",
@@ -1085,7 +1092,10 @@
     "top_row_background": "רקע לשורה העליונה",
     "top_row_text": "טקסט לשורה העליונה",
     "bottom_row_background": "רקע לשורה התחתונה",
-    "bottom_row_text": "טקסט לשורה התחתונה"
+    "bottom_row_text": "טקסט לשורה התחתונה",
+    "customer_account_menu": "תפריט חשבון לקוח",
+    "shop_pay_payment_options": "הצגת אפשרויות תשלום של Shop Pay",
+    "show_physical_stores": "הצגת חנויות פיזיות"
   },
   "text_defaults": {
     "accordion_heading": "כותרת אקורדיון",

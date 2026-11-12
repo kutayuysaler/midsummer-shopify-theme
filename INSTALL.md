@@ -3416,3 +3416,49 @@ The home page plays the 2026 film from its address (`…/videos/c/o/v/427128e9�
 1. **The Milano atelier in Italian:** *Prenota, Sdraiati, Tocca, Specifica*, *Quattro passi, con i tuoi tempi.*, the three photographs. This holds even with Translate & Adapt's old translations still saved.
 2. **Agents & Resellers:** Kompitsis in Greece, with its pin in Voula, south of Athens.
 3. **The home page** opens on the film, not on a 404 page.
+
+## 58. Round 37: the home page shows only the 2026 film, and Atelier 4.5.0 underneath
+
+### The film
+
+Since September the home page opened on a still from the old film (`Untitled_Project_5….jpg`, 2023) while the film loaded. With the 2026 film (36 MB), that old still stayed on screen long enough to look like the wrong video.
+
+- **No still now.** The still is gone; the hero stays dark until the 2026 film starts.
+- **To show a still while it loads,** choose one from the new film under *Customize → Home → first section → Poster frame*.
+- **The film address** is the one you gave: `…/videos/c/o/v/427128e938a4412eb22d25537316a01e.mp4`. Nothing in the theme points to the old film any more.
+
+### Atelier 4.5.0
+
+The theme was built on Atelier 4.1.5. It now runs on 4.5.0, the version your store's own copy of Atelier was updated to (export of 12 November 2026).
+
+- **What it changes for visitors:**
+  - **cart drawer:** it reopens correctly after the back button, keeps the checkout button in view, and closes before Shop Pay's instalments window opens;
+  - **Shop Pay:** a payment-options setting under *Theme settings → Cart*;
+  - **phones:** no more header jump while a drawer is open;
+  - **search:** it copes with languages Shopify cannot suggest in;
+  - **quick add:** improvements;
+  - **support for right-to-left languages and 13 more interface languages** (none used here).
+- **Where it applies:** only the pages still drawn by Atelier: the cart, the appointment product, the password page, and the search box and quick add. The 88 pages designed for Midsummer use the theme's own layout and sections, and are unchanged.
+- **How it was done:**
+  - **Taken as they are:** the 181 Atelier files the theme never changed, and the 28 new ones.
+  - **Merged by hand:** the 34 language files (Atelier's new texts, with all of the theme's Italian and Russian kept), and the theme settings (Atelier's 4.5 settings, then the Midsummer groups).
+  - **Kept as they were:**
+    - `layout/theme.liquid`, exactly as you recorded it, Google Tag Manager included;
+    - the password layout, the SEO meta tags, and the header and footer.
+  - **Fonts:** Atelier 4.5 loads the fonts from its stylesheet setup, so `snippets/fonts.liquid` (still called by theme.liquid) is now empty, to avoid loading the fonts twice.
+
+### Checks
+
+| Check | Result |
+|---|---|
+| Every template rendered in English and Italian, before and after | only the cart, the appointment product, the password page and the home page differ, as intended |
+| Templates against the 4.5 sections | all settings valid. The cart's *View all* keeps its link style, as in Atelier's own 4.5 cart. |
+| Updated scripts | all 28 parse |
+| Italian with every text scrambled | unchanged: none of the pages shows Translate & Adapt's wording |
+| Liquid errors | none |
+
+### After installing, check
+
+1. **The home page:** dark for a moment, then the 2026 film; never the old one.
+2. **The cart:** add an item, open the cart, go to checkout, come back with the browser's back button. The cart is as you left it.
+3. **The appointment product page and the password page** look as before.
