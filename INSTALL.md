@@ -2489,7 +2489,7 @@ Also:
 
 **The store's own words (a file to import).**
 
-`store-translations/Midsummer-Milano_translations_import.csv` holds 1,832 rows. Import it under *Settings → Languages → Import* (the same place the export came from), and choose to overwrite.
+`store-translations/Midsummer-Milano_translations_import.csv` holds 1,828 rows (1,832 until §61 took out Avada's two sitemap pages). Import it under *Settings → Languages → Import* (the same place the export came from), and choose to overwrite.
 
 - **Missing translations, now filled.** SEO titles and descriptions for products, collections and the shop. The 20 questions and answers of the FAQ. Size, fabric and colour names. Image descriptions. Press blog titles. The founder's ten-year letter.
 - **Product names.** Back to their own names. The old Russian translations had turned *Dreamy Springs* into «Мечтательные источники» and *Storage Boxspring* into «Ящик для хранения вещей».
@@ -3530,4 +3530,15 @@ The other difference is intended: the Russian site also links Telegram and VK.
 | Italian and Russian against English, element by element | the same, apart from the Russian Telegram and VK links |
 | Italian and Russian with every Translate & Adapt text scrambled | identical to the clean pages |
 | Store locator counts | 17 places: the atelier, 11 showrooms, 3 boutiques and 2 agents. The atelier is counted under *Showroom*, which gives 12 + 3 + 2. |
+
+## 61. Avada's last traces
+
+**The theme:** nothing of Avada is left in it: no app embed, no snippet, no setting (since §41).
+
+**The store translations file:** it held Italian and Russian versions of two pages that Avada SEO wrote itself, its HTML sitemaps (one of blog posts, one of products, both listing old addresses). They are taken out. The script that builds the file now leaves out anything an app wrote.
+
+**To finish in the admin:**
+1. **Online Store → Pages:** delete Avada's two sitemap pages. They are the pages whose content is just long lists of links under *Blog Posts* and *Products*. Nothing in the theme links to them. Shopify keeps its own sitemap at `/sitemap.xml`.
+2. **Online Store → Navigation:** if a menu still has a *Sitemap* link, remove it.
+3. **Settings → Apps and sales channels:** if *Avada SEO Suite* is still installed, uninstall it, after moving any verification codes (§41).
 

@@ -270,6 +270,8 @@ with open(OUT, 'w', encoding='utf-8', newline='') as f:
     w = csv.DictWriter(f, fieldnames=COLS)
     w.writeheader()
     for k, (o, why) in out.items():
+        if 'avada-' in (o['Default content'] + o['Translated content']).lower():
+            continue  # pages an app wrote (Avada's HTML sitemaps): not the store's own words
         w.writerow(o)
 c = collections.Counter((k[0], k[2], why) for k, (o, why) in out.items())
 for k, v in sorted(c.items()):
